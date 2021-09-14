@@ -31,7 +31,8 @@ class DatabaseSource(BaseDatabaseSource, LegendBaseSource):
                     result.legend_text,
                     result.type_code,
                     result.type_code_list,
-                    result.theme
+                    result.theme,
+                    result.sub_theme
                 ))
         finally:
             session.close()

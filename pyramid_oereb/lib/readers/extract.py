@@ -35,7 +35,7 @@ class ExtractReader(object):
                 instances which the achieved extract should be about.
             plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority responsible
                 for the PLR cadastre.
-            certification (dict of unicode or None): A mutlilingual dictionary of certification information.
+            certification (dict of unicode or None): A multilingual dictionary of certification information.
             certification_at_web (dict of unicode or None): Multilingual list of certification uri.
         """
         self.extract = None
@@ -89,7 +89,7 @@ class ExtractReader(object):
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate for which the report should be generated
-            municipality (pyramid_oereb.lib.records.municipiality.MunicipalityRecord): The municipality
+            municipality (pyramid_oereb.lib.records.municipality.MunicipalityRecord): The municipality
                 record.
 
         Returns:
@@ -108,19 +108,12 @@ class ExtractReader(object):
 
         if municipality.published:
 
-            for position, plr_source in enumerate(self._plr_sources_, start=1):
+            for plr_source in self._plr_sources_:
                 if not params.skip_topic(plr_source.info.get('code')):
-                    plr_source.read(params, real_estate, bbox, position)
+                    plr_source.read(params, real_estate, bbox)
                     for ds in plr_source.datasource:
                         if not params.skip_topic(ds.theme.code):
                             datasource.append(ds)
-
-                    # Sort PLR records according to their law status
-                    start_time = timer()
-                    log.debug("sort plrs by law status start")
-                    plr_source.records.sort(key=self._sort_plr_law_status)
-                    end_time = timer()
-                    log.debug(f"DONE with sort plrs by law status, time spent: {end_time-start_time} seconds")
 
                     real_estate.public_law_restrictions.extend(plr_source.records)
 
@@ -139,7 +132,16 @@ class ExtractReader(object):
 
         else:
             for plr_source in self._plr_sources_:
-                themes_without_data.append(Config.get_theme_by_code(plr_source.info.get('code')))
+                themes_without_data.append(Config.get_theme_by_code_sub_code(plr_source.info.get('code')))
+
+        # sort plr according to theme, sub-theme and law-status
+        start_time = timer()
+        log.debug("sort plrs by theme and law status start")
+        real_estate.public_law_restrictions.sort(key=lambda element: (
+            self._sort_plr_theme(element), self._sort_plr_law_status(element)
+        ))
+        end_time = timer()
+        log.debug(f"DONE with sort plrs by theme and law status, time spent: {end_time-start_time} seconds")
 
         # Load base data form configuration
         resolver = DottedNameResolver()
@@ -204,3 +206,27 @@ class ExtractReader(object):
             return self.law_status.index(plr_element.law_status.code)
         else:
             return len(self.law_status)
+
+    @staticmethod
+    def _sort_plr_theme(plr_element):
+        """
+        This method generates a sorting key to sort PLRs in to themes and sub-themes.
+        The value is generated using the extract_index given for each theme.
+        Currently it is assumed that the extract_index for a sub-theme is in accord to
+        its theme so that the order will be correct.
+
+        If the plr_element is not a PlrRecord 10 000 will be returned so that it is
+        added at the end of the list
+
+        Args:
+            plr_element (PlrRecord or EmptyPlrRecord) a plr record element.
+
+        Returns:
+            int: Value which can be used to sort the record depending on its theme/sub-theme.
+        """
+        if (isinstance(plr_element, PlrRecord)):
+            index = plr_element.sub_theme.extract_index \
+                if (plr_element.sub_theme is not None) \
+                else plr_element.theme.extract_index
+            return index
+        return 10000

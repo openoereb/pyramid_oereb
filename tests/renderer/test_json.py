@@ -266,6 +266,7 @@ def test_format_plr(parameter):
         )
         documents = [document]
         theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test theme'}, 410)
+        subTheme = ThemeRecord(u'ContaminatedSites', {u'de': u'SubTheme'}, 411, u'SubCodeContaminatedSites')
         office = OfficeRecord({'de': 'Test Office'})
         legend_entry = LegendEntryRecord(
             ImageRecord(FileAdapter().read('tests/resources/python.svg')),
@@ -286,9 +287,7 @@ def test_format_plr(parameter):
             ImageRecord(FileAdapter().read('tests/resources/python.svg')),
             view_service,
             [geometry],
-            sub_theme={
-                'de': 'Subtopic'
-            },
+            subTheme,
             type_code='CodeA',
             type_code_list='TypeCodeList',
             documents=documents,
@@ -309,7 +308,14 @@ def test_format_plr(parameter):
             },
             'ResponsibleOffice': renderer.format_office(plr.responsible_office),
             'Map': renderer.format_map(plr.view_service),
-            'SubTheme': 'Subtopic',
+            'SubTheme': {
+                'Code': 'ContaminatedSites',
+                'Text': {
+                    'Language': 'de',
+                    'Text': 'SubTheme'
+                },
+                'Sub_Code': 'SubCodeContaminatedSites'
+            },
             'TypeCode': 'CodeA',
             'TypeCodelist': 'TypeCodeList',
             'LegalProvisions': [renderer.format_document(document)],
@@ -333,7 +339,7 @@ def test_format_plr(parameter):
                 },
                 'ResponsibleOffice': renderer.format_office(plr.responsible_office),
                 'Map': renderer.format_map(plr.view_service),
-                'SubTheme': 'Subtopic',
+                'SubTheme': renderer.format_theme(plr.sub_theme),
                 'TypeCode': 'CodeA',
                 'TypeCodelist': 'TypeCodeList',
                 'LegalProvisions': [renderer.format_document(document)],
@@ -534,7 +540,6 @@ def test_format_legend_entry(parameter):
             u'CodeA',
             u'type_code_list',
             theme,
-            {'de': u'Subthema'},
             view_service_id=1
         )
         result = renderer.format_legend_entry(legend_entry)
@@ -543,7 +548,6 @@ def test_format_legend_entry(parameter):
             'TypeCode': 'CodeA',
             'TypeCodelist': 'type_code_list',
             'Theme': renderer.format_theme(theme),
-            'SubTheme': 'Subthema',
         }
         if parameter.images:
             expected.update({

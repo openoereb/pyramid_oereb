@@ -180,7 +180,7 @@ class LegendEntry(Base):
             legend  entry.
         topic (str): Statement to describe to which public law restriction this legend entry
             belongs.
-        sub_theme (dict): Multilingual description for sub topics this legend entry might belonging to.
+        sub_theme (str): Code for subtopic if this legend entry belongs to an existing sub_theme.
 % if primary_key_is_string:
         view_service_id (str): The foreign key to the view service this legend entry is related to.
 % else:
@@ -201,7 +201,7 @@ class LegendEntry(Base):
     type_code = sa.Column(sa.String(40), nullable=False)
     type_code_list = sa.Column(sa.String, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
-    sub_theme = sa.Column(JSONType, nullable=True)
+    sub_theme = sa.Column(sa.String, nullable=True)
     view_service_id = sa.Column(
 % if primary_key_is_string:
         sa.String,
@@ -228,7 +228,7 @@ class PublicLawRestriction(Base):
 % endif
         information (dict): The multilingual textual representation of the public law restriction.
         topic (str): Category for this public law restriction (name of the topic).
-        sub_theme (dict): Multilingual textual explanation to subtype the topic attribute.
+        sub_theme (str): Code for sub topics this public law restriction might belonging to if a sub_theme exists.
         type_code (str): Type code of the public law restriction machine readable based on the
             original data  model of this public law restriction.
         type_code_list (str): List of full range of type_codes for this public law restriction in a
@@ -264,7 +264,7 @@ class PublicLawRestriction(Base):
 % endif
     information = sa.Column(JSONType, nullable=False)
     topic = sa.Column(sa.String, nullable=False)
-    sub_theme = sa.Column(JSONType, nullable=True)
+    sub_theme = sa.Column(sa.String, nullable=True)
     type_code = sa.Column(sa.String(40), nullable=True)
     type_code_list = sa.Column(sa.String, nullable=True)
     law_status = sa.Column(sa.String, nullable=False)

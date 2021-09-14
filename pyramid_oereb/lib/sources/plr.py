@@ -70,7 +70,7 @@ class PlrBaseSource(Base):
         """
         return self._plr_info
 
-    def read(self, params, real_estate, bbox, position=None):
+    def read(self, params, real_estate, bbox):
         """
         Every public law restriction source has to implement a read method. This method must accept the two
         key word parameters. If you want adapt to your own source for real estates, this is the point where
@@ -84,6 +84,5 @@ class PlrBaseSource(Base):
                 all public law restrictions. This is related to the fact that we need to provide not only the
                 public law restrictions that are related to the real estate but also the ones which are in
                 the visible extent of the map.
-            position (int or None): relative position of the plr (within a list of plrs)
         """
         self.records = list()

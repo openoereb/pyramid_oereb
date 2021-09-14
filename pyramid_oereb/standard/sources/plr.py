@@ -10,9 +10,7 @@ from sqlalchemy import text, or_
 from pyramid_oereb import Config
 from pyramid_oereb.lib import b64
 from pyramid_oereb.lib.records.availability import AvailabilityRecord
-from pyramid_oereb.lib.records.embeddable import DatasourceRecord
 from pyramid_oereb.lib.records.image import ImageRecord
-from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import EmptyPlrRecord
 from pyramid_oereb.lib.sources import BaseDatabaseSource
 from pyramid_oereb.lib.sources.plr import PlrBaseSource
@@ -112,11 +110,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         self.legend_entry_model = models.LegendEntry
         availability_model = models.Availability
-        data_integration_model = models.DataIntegration
-        self._theme_record = Config.get_theme_by_code(self._plr_info.get('code'))
 
         self.availabilities = []
-        self.datasource = []
 
         session = self._adapter_.get_session(self._key_)
 
@@ -128,18 +123,11 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     AvailabilityRecord(availability.fosnr, available=availability.available)
                 )
 
-            data_integration = session.query(data_integration_model).all()
-            for source in data_integration:
-                self.datasource.append(DatasourceRecord(
-                    self._theme_record,
-                    source.date,
-                    OfficeRecord(source.office.name)
-                ))
-
         finally:
             session.close()
 
-    def from_db_to_legend_entry_record(self, theme, legend_entry_from_db):
+    def from_db_to_legend_entry_record(self, legend_entry_from_db):
+        theme = Config.get_theme_by_code_sub_code(legend_entry_from_db.theme, legend_entry_from_db.sub_theme)
         legend_entry_record = self._legend_entry_record_class(
             ImageRecord(b64.decode(legend_entry_from_db.symbol)),
             legend_entry_from_db.legend_text,
@@ -147,22 +135,21 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             legend_entry_from_db.type_code_list,
             theme,
             view_service_id=legend_entry_from_db.view_service_id,
-            sub_theme=legend_entry_from_db.sub_theme
         )
         return legend_entry_record
 
-    def from_db_to_legend_entry_records(self, theme, legend_entries_from_db):
+    def from_db_to_legend_entry_records(self, legend_entries_from_db, sub_theme=None):
         legend_entry_records = []
-        for legend_entry_from_db in legend_entries_from_db:
-            legend_entry_records.append(self._legend_entry_record_class(
-                ImageRecord(b64.decode(legend_entry_from_db.symbol)),
-                legend_entry_from_db.legend_text,
-                legend_entry_from_db.type_code,
-                legend_entry_from_db.type_code_list,
-                theme,
-                view_service_id=legend_entry_from_db.view_service_id,
-                sub_theme=legend_entry_from_db.sub_theme
-            ))
+        if sub_theme is not None:
+            for legend_entry_from_db in legend_entries_from_db:
+                if legend_entry_from_db.sub_theme == sub_theme:
+                    self.from_db_to_legend_entry_record(legend_entry_from_db)
+        else:
+            for legend_entry_from_db in legend_entries_from_db:
+                legend_entry_records.append(
+                    self.from_db_to_legend_entry_record(legend_entry_from_db)
+                )
+
         return legend_entry_records
 
     def from_db_to_view_service_record(self, view_service_from_db, legend_entry_records, theme):
@@ -320,12 +307,11 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         min_area = thresholds.get('area').get('limit')
         area_unit = thresholds.get('area').get('unit')
         legend_entry_record = self.from_db_to_legend_entry_record(
-            self._theme_record,
             public_law_restriction_from_db.legend_entry
         )
         legend_entry_records = self.from_db_to_legend_entry_records(
-            self._theme_record,
-            legend_entries_from_db
+            legend_entries_from_db,
+            legend_entry_record.theme.sub_code
         )
         symbol = ImageRecord(b64.decode(public_law_restriction_from_db.legend_entry.symbol))
         view_service_record = self.from_db_to_view_service_record(
@@ -339,8 +325,10 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             self._plr_info.get('code'),
             public_law_restriction_from_db.law_status
         )
+        sub_theme_legend_entry_record = \
+            legend_entry_record.theme if legend_entry_record.theme.sub_code else None
         plr_record = self._plr_record_class(
-            self._theme_record,
+            Config.get_theme_by_code_sub_code(legend_entry_record.theme.code),
             legend_entry_record,
             law_status,
             public_law_restriction_from_db.published_from,
@@ -349,7 +337,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             symbol,
             view_service_record,
             geometry_records,
-            sub_theme=public_law_restriction_from_db.legend_entry.sub_theme,
+            sub_theme=sub_theme_legend_entry_record,
             type_code=public_law_restriction_from_db.legend_entry.type_code,
             type_code_list=public_law_restriction_from_db.legend_entry.type_code_list,
             documents=document_records,
@@ -484,7 +472,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return session.query(self.legend_entry_model).filter(
             self.legend_entry_model.id.in_((distinct_legend_entry_ids))).all()
 
-    def read(self, params, real_estate, bbox, position=None):
+    def read(self, params, real_estate, bbox):  # pylint: disable=W:0221
         """
         The read point which creates a extract, depending on a passed real estate.
 
@@ -493,18 +481,14 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate in its record representation.
             bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
-            position (int or None): relative position of the plr (within a list of plrs)
         """
-        log.debug("read() start; position of theme in theme list: {}".format(position))
-        self._theme_record.position = position
-
         # Check if the plr is marked as available
         if self._is_available(real_estate):
             session = self._adapter_.get_session(self._key_)
             try:
                 if session.query(self._model_).count() == 0:
                     # We can stop here already because there are no items in the database
-                    self.records = [EmptyPlrRecord(self._theme_record)]
+                    self.records = [EmptyPlrRecord(Config.get_theme_by_code_sub_code(self._plr_info['code']))]
                 else:
                     # We need to investigate more in detail
 
@@ -515,7 +499,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     if len(geometry_results) == 0:
                         # We checked if there are spatially related elements in database. But there is none.
                         # So we can stop here.
-                        self.records = [EmptyPlrRecord(self._theme_record)]
+                        self.records = [EmptyPlrRecord(
+                            Config.get_theme_by_code_sub_code(self._plr_info['code'])
+                        )]
                     else:
                         # We found spatially related elements. This means we need to extract the actual plr
                         # information related to the found geometries.
@@ -535,7 +521,10 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         # Add empty record if topic is not available
         else:
-            self.records = [EmptyPlrRecord(self._theme_record, has_data=False)]
+            self.records = [EmptyPlrRecord(
+                Config.get_theme_by_code_sub_code(self._plr_info['code']),
+                has_data=False
+            )]
 
     def _is_available(self, real_estate):
         """

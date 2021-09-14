@@ -23,21 +23,17 @@ class LegendEntryRecord(object):
         legend_text (dict of unicode): The multilingual description text for the legend entry.
         type_code (unicode): The class of the legend entry corresponding to the plrs classes.
         type_code_list (unicode): An URL to the type code list.
-        theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the legend entry belongs
-            to.
-        sub_theme (dict of unicode or None): Theme sub category.
+        theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme or sub-them to which the legend entry
+            belongs.
         view_service_id (int): The id to the connected view service. This is very important to be able to
             solve bug https://github.com/openoereb/pyramid_oereb/issues/521
     """
 
-    def __init__(self, symbol, legend_text, type_code, type_code_list, theme, sub_theme=None,
+    def __init__(self, symbol, legend_text, type_code, type_code_list, theme,
                  view_service_id=None):
 
         if not isinstance(legend_text, dict):
             warnings.warn('Type of "legend_text" should be "dict"')
-
-        if sub_theme is not None and not isinstance(sub_theme, dict):
-            warnings.warn('Type of "sub_theme" should be "dict"')
 
         self.symbol = symbol
         self.legend_text = legend_text
@@ -45,15 +41,12 @@ class LegendEntryRecord(object):
         self.type_code_list = type_code_list
         self.theme = theme
         self.view_service_id = view_service_id
-        self.sub_theme = sub_theme
-        self.view_service_id = view_service_id
 
     def __str__(self):
         return '<{} -- symbol: {} legend_text: {} type_code: {} type_code_list: {}'\
-                    ' theme: {} sub_theme: {}'\
+                    ' theme: {}'\
                     .format(self.__class__.__name__, self.symbol, self.legend_text,
-                            self.type_code, self.type_code_list, self.theme,
-                            self.sub_theme)
+                            self.type_code, self.type_code_list, self.theme)
 
 
 class ViewServiceRecord(object):

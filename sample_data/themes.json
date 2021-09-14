@@ -12,6 +12,32 @@
         "extract_index": 20
     },
     {
+        "id": 20,
+        "code": "LandUsePlans",
+        "sub_code": "ch.SubTheme",
+        "title": {
+            "de": "SubTheme",
+            "fr": "SubTheme",
+            "it": "SubTheme",
+            "rm": "SubTheme",
+            "en": "SubTheme"
+        },
+        "extract_index": 22
+    },
+    {
+        "id": 19,
+        "code": "LandUsePlans",
+        "sub_code": "ch.Baulinien",
+        "title": {
+            "de": "Baulinien",
+            "fr": "Alignements",
+            "it": "Allineamenti",
+            "rm": "Lingias da construcziun",
+            "en": "Building lines"
+        },
+        "extract_index": 21
+    },
+    {
         "id": 2,
         "code": "MotorwaysProjectPlaningZones",
         "title": {
