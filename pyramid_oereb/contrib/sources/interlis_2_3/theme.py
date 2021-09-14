@@ -105,7 +105,7 @@ class DatabaseSource(BaseDatabaseSource, ThemeBaseSource):
                         en=result.title_en),
                     result.extract_index,
                     results.sub_code,
-                    self.get_document_records(self, result)
+                    self.get_document_records(result)
                 ))
         finally:
             session.close()
