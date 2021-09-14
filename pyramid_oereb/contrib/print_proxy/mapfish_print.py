@@ -40,7 +40,6 @@ class Renderer(JsonRenderer):
 
             self._multilingual_m_text(item, 'Text')
             self._multilingual_text(item, 'Title')
-            self._multilingual_text(item, 'OfficialTitle')
             self._multilingual_text(item, 'Abbreviation')
 
     def __call__(self, value, system):
