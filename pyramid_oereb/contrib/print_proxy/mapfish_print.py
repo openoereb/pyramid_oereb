@@ -366,8 +366,7 @@ class Renderer(JsonRenderer):
             sub_theme_text = restriction_on_landownership.get('SubTheme_Text')
             theme_text = f"{theme_text}: {sub_theme_text}" if sub_theme_text else theme_text
 
-            lawstatus_text = restriction_on_landownership['Lawstatus_Text']
-            restriction_on_landownership['Theme_Text'] = f"{theme_text} ({lawstatus_text})"
+            restriction_on_landownership['Theme_Text'] = f"{theme_text}"
 
             sub_theme_code = restriction_on_landownership.get('SubTheme_Sub_Code', '')
             theme = restriction_on_landownership['Theme_Code'] + \
