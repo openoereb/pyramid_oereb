@@ -30,20 +30,6 @@ def expected_printable_extract():
         return json.loads(f.read())
 
 
-def sub_theme_extract():
-    with codecs.open(
-            'tests/contrib/print_proxy/resources/sub_theme_test_extract.json'
-    ) as f:
-        return json.loads(f.read())
-
-
-def sub_theme_expected_printable_extract():
-    with codecs.open(
-            'tests/contrib/print_proxy/resources/sub_theme_expected_getspec_extract.json'
-    ) as f:
-        return json.loads(f.read())
-
-
 def test_toc_pages():
     assert TocPages(extract()).getNbPages() == 1
 
@@ -340,7 +326,7 @@ def test_get_sorted_hints():
     renderer = Renderer(DummyRenderInfo())
     test_hints = [{
         "Canton": "BL",
-        "DocumentType": "LegalProvision",
+        "DocumentType": "Hint",
         "Lawstatus_Code": "inKraft",
         "Lawstatus_Text": "Rechtskräftig",
         "OfficialNumber": "3891.100",
@@ -350,18 +336,20 @@ def test_get_sorted_hints():
         "Title": "Revision Ortsplanung"
     }, {
         "Canton": "BL",
-        "DocumentType": "LegalProvision",
+        "DocumentType": "Hint",
         "Lawstatus_Code": "inKraft",
         "Lawstatus_Text": "Rechtskräftig",
+        "index": 1,
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
         "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
     }, {
         "Canton": "BL",
-        "DocumentType": "LegalProvision",
+        "DocumentType": "Hint",
         "Lawstatus_Code": "inKraft",
         "Lawstatus_Text": "Rechtskräftig",
+        "index": 2,
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
@@ -372,18 +360,20 @@ def test_get_sorted_hints():
 
     expected_result = [{
         "Canton": "BL",
-        "DocumentType": "LegalProvision",
+        "DocumentType": "Hint",
         "Lawstatus_Code": "inKraft",
         "Lawstatus_Text": "Rechtskräftig",
+        "index": 1,
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
         "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
     }, {
         "Canton": "BL",
-        "DocumentType": "LegalProvision",
+        "DocumentType": "Hint",
         "Lawstatus_Code": "inKraft",
         "Lawstatus_Text": "Rechtskräftig",
+        "index": 2,
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
@@ -391,7 +381,7 @@ def test_get_sorted_hints():
         "Title": "Baugesetz"
     }, {
         "Canton": "BL",
-        "DocumentType": "LegalProvision",
+        "DocumentType": "Hint",
         "Lawstatus_Code": "inKraft",
         "Lawstatus_Text": "Rechtskräftig",
         "OfficialNumber": "3891.100",
@@ -401,7 +391,7 @@ def test_get_sorted_hints():
         "Title": "Revision Ortsplanung"
     }]
 
-    assert expected_result == renderer.sort_dict_list(test_hints, renderer.sort_hints)
+    assert expected_result == renderer.sort_dict_list(test_hints, renderer.sort_hints_laws)
 
 
 def test_get_sorted_law():
@@ -413,6 +403,7 @@ def test_get_sorted_law():
             'Title': 'Raumplanungsverordnung für den Kanton Graubünden',
             'Abbreviation': 'KRVO',
             'OfficialNumber': 'BR 801.110',
+            'index': 5,
             'Canton': 'GR',
             'Lawstatus_Code': 'inKraft',
             'Lawstatus_Text': 'Rechtskräftig',
@@ -424,6 +415,7 @@ def test_get_sorted_law():
             'TextAtWeb': [{'URL': u'http://www.admin.ch/ch/d/sr/c814_680.html'}],
             'Title': u'Raumplanungsgesetz für den Kanton Graubünden',
             'Abbreviation': u'KRG',
+            'index': 3,
             'Canton': u'GR',
             'Lawstatus_Code': u'inKraft',
             'Lawstatus_Text': u'Rechtskräftig',
@@ -436,6 +428,7 @@ def test_get_sorted_law():
             'Title': u'Raumplanungsgesetz für den Kanton Graubünden2',
             'Abbreviation': u'KRG',
             'OfficialNumber': u'BR 801.100',
+            'index': 1,
             'Canton': u'GR',
             'Lawstatus_Code': u'inKraft',
             'Lawstatus_Text': u'Rechtskräftig',
@@ -448,6 +441,7 @@ def test_get_sorted_law():
             'Title': 'Bundesgesetz über die Raumplanung',
             'Abbreviation': 'RPG',
             'OfficialNumber': 'SR 700',
+            'index': 4,
             'Canton': 'GR',
             'Lawstatus_Code': 'inKraft',
             'Lawstatus_Text': 'Rechtskräftig',
@@ -459,6 +453,7 @@ def test_get_sorted_law():
             'Title': u'Raumplanungsgesetz für den Kanton Graubünden',
             'Abbreviation': u'KRG',
             'OfficialNumber': u'BR 801.100',
+            'index': 2,
             'Canton': u'GR',
             'Lawstatus_Code': u'inKraft',
             'Lawstatus_Text': u'Rechtskräftig',
@@ -472,9 +467,10 @@ def test_get_sorted_law():
         {
             'DocumentType': u'Law',
             'TextAtWeb': [{'URL': u'http://www.admin.ch/ch/d/sr/c814_680.html'}],
-            'Title': u'Raumplanungsgesetz für den Kanton Graubünden',
+            'Title': u'Raumplanungsgesetz für den Kanton Graubünden2',
             'Abbreviation': u'KRG',
             'OfficialNumber': u'BR 801.100',
+            'index': 1,
             'Canton': u'GR',
             'Lawstatus_Code': u'inKraft',
             'Lawstatus_Text': u'Rechtskräftig',
@@ -484,9 +480,10 @@ def test_get_sorted_law():
         }, {
             'DocumentType': u'Law',
             'TextAtWeb': [{'URL': u'http://www.admin.ch/ch/d/sr/c814_680.html'}],
-            'Title': u'Raumplanungsgesetz für den Kanton Graubünden2',
+            'Title': u'Raumplanungsgesetz für den Kanton Graubünden',
             'Abbreviation': u'KRG',
             'OfficialNumber': u'BR 801.100',
+            'index': 2,
             'Canton': u'GR',
             'Lawstatus_Code': u'inKraft',
             'Lawstatus_Text': u'Rechtskräftig',
@@ -494,43 +491,45 @@ def test_get_sorted_law():
             'ResponsibleOffice_OfficeAtWeb':
                 u'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de'
         }, {
-            'DocumentType': 'Law',
-            'TextAtWeb': [{'URL': 'http://www.admin.ch/ch/d/sr/c814_01.html'}],
-            'Title': 'Raumplanungsverordnung für den Kanton Graubünden',
-            'Abbreviation': 'KRVO',
-            'OfficialNumber': 'BR 801.110',
-            'Canton': 'GR',
-            'Lawstatus_Code': 'inKraft',
-            'Lawstatus_Text': 'Rechtskräftig',
+            'DocumentType': u'Law',
+            'TextAtWeb': [{'URL': u'http://www.admin.ch/ch/d/sr/c814_680.html'}],
+            'Title': u'Raumplanungsgesetz für den Kanton Graubünden',
+            'Abbreviation': u'KRG',
+            'index': 3,
+            'Canton': u'GR',
+            'Lawstatus_Code': u'inKraft',
+            'Lawstatus_Text': u'Rechtskräftig',
             'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
             'ResponsibleOffice_OfficeAtWeb':
-                'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2934?locale=de'
+                u'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de'
         }, {
             'DocumentType': 'Law',
             'TextAtWeb': [{'URL': u'http://www.admin.ch/ch/d/sr/c814_680.html'}],
             'Title': 'Bundesgesetz über die Raumplanung',
             'Abbreviation': 'RPG',
             'OfficialNumber': 'SR 700',
+            'index': 4,
             'Canton': 'GR',
             'Lawstatus_Code': 'inKraft',
             'Lawstatus_Text': 'Rechtskräftig',
             'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
             'ResponsibleOffice_OfficeAtWeb': 'http://www.lexfind.ch/dtah/167348/2'
         }, {
-            'DocumentType': u'Law',
-            'TextAtWeb': [{'URL': u'http://www.admin.ch/ch/d/sr/c814_680.html'}],
-            'Title': u'Raumplanungsgesetz für den Kanton Graubünden',
-            'Abbreviation': u'KRG',
-            'Canton': u'GR',
-            'Lawstatus_Code': u'inKraft',
-            'Lawstatus_Text': u'Rechtskräftig',
+            'DocumentType': 'Law',
+            'TextAtWeb': [{'URL': 'http://www.admin.ch/ch/d/sr/c814_01.html'}],
+            'Title': 'Raumplanungsverordnung für den Kanton Graubünden',
+            'Abbreviation': 'KRVO',
+            'OfficialNumber': 'BR 801.110',
+            'index': 5,
+            'Canton': 'GR',
+            'Lawstatus_Code': 'inKraft',
+            'Lawstatus_Text': 'Rechtskräftig',
             'ResponsibleOffice_Name': u'Bundesamt für Verkehr BAV',
             'ResponsibleOffice_OfficeAtWeb':
-                u'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2936?locale=de'
-
+                'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2934?locale=de'
         }
     ]
-    assert expected_result == renderer.sort_dict_list(test_law, renderer.sort_laws)
+    assert expected_result == renderer.sort_dict_list(test_law, renderer.sort_hints_laws)
 
 
 def test_group_legal_provisions():

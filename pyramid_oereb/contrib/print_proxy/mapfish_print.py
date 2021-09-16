@@ -40,7 +40,6 @@ class Renderer(JsonRenderer):
 
             self._multilingual_m_text(item, 'Text')
             self._multilingual_text(item, 'Title')
-            self._multilingual_text(item, 'OfficialTitle')
             self._multilingual_text(item, 'Abbreviation')
 
     def __call__(self, value, system):
@@ -306,9 +305,6 @@ class Renderer(JsonRenderer):
                 }, basemap]
             }
 
-            restriction_on_landownership['legend'] = restriction_on_landownership['Map'].get(
-                'LegendAtWeb', '')
-
             # Legend of other visible restriction objects in the topic map
             restriction_on_landownership['OtherLegend'] = restriction_on_landownership['Map'].get(
                 'OtherLegend', [])
@@ -370,8 +366,7 @@ class Renderer(JsonRenderer):
             sub_theme_text = restriction_on_landownership.get('SubTheme_Text')
             theme_text = f"{theme_text}: {sub_theme_text}" if sub_theme_text else theme_text
 
-            lawstatus_text = restriction_on_landownership['Lawstatus_Text']
-            restriction_on_landownership['Theme_Text'] = f"{theme_text} ({lawstatus_text})"
+            restriction_on_landownership['Theme_Text'] = f"{theme_text}"
 
             sub_theme_code = restriction_on_landownership.get('SubTheme_Sub_Code', '')
             theme = restriction_on_landownership['Theme_Code'] + \
@@ -471,11 +466,11 @@ class Renderer(JsonRenderer):
             )
             restriction_on_landownership['Laws'] = self.sort_dict_list(
                 restriction_on_landownership['Laws'],
-                self.sort_laws
+                self.sort_hints_laws
             )
             restriction_on_landownership['Hints'] = self.sort_dict_list(
                 restriction_on_landownership['Hints'],
-                self.sort_hints
+                self.sort_hints_laws
             )
 
         restrictions = list(theme_restriction.values())
@@ -676,35 +671,17 @@ class Renderer(JsonRenderer):
         return sort_title, sort_number
 
     @staticmethod
-    def sort_hints(elem):
+    def sort_hints_laws(elem):
         """
-        Provides the sort key for the supplied hint element as a tuple consisting of:
-         * Title
+        Provides the sort key for the supplied hint & law element as a tuple consisting of:
+         * index
 
         Args:
             elem (dict): one element of the hints list
         Returns:
             sort key (tuple)
         """
-        return elem['Title'] if 'Title' in elem else ''
-
-    @staticmethod
-    def sort_laws(elem):
-        """
-        Provides the sort key for the supplied law element as a tuple consisting of:
-         * OfficialNumber (if this attribute is empty the element will be placed at the end of the list)
-         * Title
-
-        Args:
-            elem (dict): one element of the legal laws list
-
-        Returns:
-            sort key (tuple)
-        """
-        sort_empty_number_last = 0 if 'OfficialNumber' in elem else 1
-        sort_number = elem['OfficialNumber'] if 'OfficialNumber' in elem else ""
-        sort_title = elem['Title'] if 'Title' in elem else ""
-        return sort_empty_number_last, sort_number, sort_title
+        return elem.get('index', 1000)
 
     @staticmethod
     def sort_legend_elem(elem):
