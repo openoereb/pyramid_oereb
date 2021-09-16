@@ -1,574 +1,1214 @@
 {
-  "GeneralInformation": "Der Inhalt des \u00d6REB-Katasters wird als bekannt vorausgesetzt. Der Kanton Basel-Landschaft ist f\u00fcr die Genauigkeit und Verl\u00e4sslichkeit der gesetzgebenden Dokumente in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begr\u00fcndet insbesondere keine Rechte und Pflichten. Rechtsverbindlich sind diejenigen Dokumente, welche rechtskr\u00e4ftig verabschiedet oder ver\u00f6ffentlicht worden sind. Mit der Beglaubigung des Auszugs wird die \u00dcbereinstimmung des Auszugs mit dem \u00d6REB-Kataster zum Zeitpunkt der Auszugserstellung best\u00e4tigt.",
+  "Certification": "Referenz zur kantonsspezifischen Gesetzesgrundlage bezüglich Beglaubigungen.",
+  "CertificationAtWeb": "https://oereb.bl.ch/certification/de",
+  "GeneralInformation": "Der Inhalt des ÖREB-Katasters wird als bekannt vorausgesetzt. Der Kanton Basel-Landschaft ist für die Genauigkeit und Verlässlichkeit der gesetzgebenden Dokumente in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begründet insbesondere keine Rechte und Pflichten. Rechtsverbindlich sind diejenigen Dokumente, welche rechtskräftig verabschiedet oder veröffentlicht worden sind. Mit der Beglaubigung des Auszugs wird die Übereinstimmung des Auszugs mit dem ÖREB-Kataster zum Zeitpunkt der Auszugserstellung bestätigt.",
+  "CreationDate": "16.02.2018",
+  "ConcernedTheme": [
+    {
+      "Code": "LandUsePlansch.BaulinieninKraft",
+      "Text": "Nutzungsplanung: 02.73A.Grundnutzung (Rechtskräftig)"
+    },
+    {
+      "Code": "LandUsePlansch.BaulinieninKraft",
+      "Text": "Nutzungsplanung: 02.73A.Grundnutzung (Rechtskräftig)"
+    },
+    {
+      "Code": "LandUsePlansch.BaulinieninKraft",
+      "Text": "Nutzungsplanung: 02.73A.Grundnutzung (Rechtskräftig)"
+    },
+    {
+      "Code": "LandUsePlansch.BaulinieninKraft",
+      "Text": "Nutzungsplanung: 02.73A.Grundnutzung (Rechtskräftig)"
+    },
+    {
+      "Code": "LandUsePlansch.UeberlagerunginKraft",
+      "Text": "Nutzungsplanung: 08.73B.Ueberlagerung_Flaeche (Rechtskräftig)"
+    },
+    {
+      "Code": "ContaminatedSitesinKraft",
+      "Text": "Kataster der belasteten Standorte (Rechtskräftig)"
+    },
+    {
+      "Code": "ContaminatedSitesinKraft",
+      "Text": "Kataster der belasteten Standorte (Rechtskräftig)"
+    },
+    {
+      "Code": "ContaminatedSitesinKraft",
+      "Text": "Kataster der belasteten Standorte (Rechtskräftig)"
+    },
+    {
+      "Code": "ContaminatedSitesinKraft",
+      "Text": "Kataster der belasteten Standorte (Rechtskräftig)"
+    },
+    {
+      "Code": "ContaminatedSitesinKraft",
+      "Text": "Kataster der belasteten Standorte (Rechtskräftig)"
+    },
+    {
+      "Code": "NoiseSensitivityLevelsinKraft",
+      "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen) (Rechtskräftig)"
+    },
+    {
+      "Code": "NoiseSensitivityLevelsinKraft",
+      "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen) (Rechtskräftig)"
+    },
+    {
+      "Code": "NoiseSensitivityLevelsinKraft",
+      "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen) (Rechtskräftig)"
+    }
+  ],
+  "LogoPLRCadastreRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/logo/oereb",
+  "FederalLogoRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/logo/confederation",
+  "Glossary": [
+    {
+      "Content": "Wenn der projektierte Strassenverlauf definitiv bekannt ist, werden beiderseits der Strasse Baulinien festgelegt. Diese Baulinien ermöglichen es, die Anforderungen der Verkehrssicherheit und der Wohnhygiene sowie die Erfordernisse eines eventuellen künftigen Ausbaus der Strasse zu berücksichtigen. Zwischen den Baulinien dürfen ohne Bewilligung weder Neubauten erstellt noch Umbauten bestehender Gebäude vorgenommen werden, auch wenn diese nur teilweise in die Baulinien hineinragen.",
+      "Title": "Baulinien Nationalstrassen"
+    },
+    {
+      "Content": "Die Kantone scheiden Schutzzonen für die im öffentlichen Interesse liegenden Grundwasserfassungen und -anreicherungsanlagen aus; sie legen die notwendigen Eigentumsbeschränkungen fest.",
+      "Title": "Grundwasserschutzzonen"
+    },
+    {
+      "Content": "Die Kantone scheiden Areale aus, die für die künftige Nutzung und Anreicherung von Grundwasservorkommen von Bedeutung sind. In diesen Arealen dürfen keine Bauten und Anlagen erstellt oder Arbeiten ausgeführt werden, welche die künftige Errichtung von Grundwassernutzungs- oder -anreicherungsanlagen beeinträchtigen könnten.",
+      "Title": "Grundwasserschutzareale"
+    },
+    {
+      "Content": "Der Kanton kann im Rahmen von Kantonalen Nutzungsplänen Bau- und Strassenlinien für kantonale Verkehrsflächen, Bau- und Trasseelinien entlang von Schienenwegen sowie Baulinien entlang der Leitungen von regionaler Bedeutung, Gewässer und kantonalen Schutzzonen festlegen (§12 Raumplanungs- und Baugesetz). Hinweis: Generell gelten immer auch die gesetzlichen Abstände, welche im ÖREB-Katasterauszug nicht dargestellt werden.",
+      "Title": "Kantonale Baulinien"
+    },
+    {
+      "Content": "Die Kantone sorgen dafür, dass Deponien und andere durch Abfälle belastete Standorte saniert werden, wenn sie zu schädlichen oder lästigen Einwirkungen führen oder die konkrete Gefahr besteht, dass solche Einwirkungen entstehen. Die Behörde ermittelt die belasteten Standorte, indem sie vorhandene Angaben wie Karten, Verzeichnisse und Meldungen auswertet. Sie trägt diejenigen Standorte, deren Belastung erwiesen oder sehr wahrscheinlich ist, in den Kataster ein.",
+      "Title": "Kataster der belasteten Standorte (KbS)"
+    },
+    {
+      "Content": "In der Schweiz unterliegt die Nutzung eines Grundstücks mancherlei Einschränkungen. Im ÖREB-Kataster sind die wichtigsten dieser Beschränkungen zusammengefasst und abrufbar. ",
+      "Title": "Kataster der öffentlich-rechtlichen Eigentumsbeschränkungen (ÖREB-Kataster)"
+    },
+    {
+      "Content": "Die Gemeinden können mittels Bau- und Strassenlinienplänen die Verkehrsflächen konkretisieren und die Feinerschliessung und die Abstände festlegen (§ 35 Raumplanungs- und Baugesetz). Die Gemeinden können zudem im Rahmen ihrer Nutzungsplanung Baulinien festlegen. Hinweis: Generell gelten immer auch die gesetzlichen Abstände, welche im ÖREB-Katasterauszug nicht dargestellt werden.",
+      "Title": "Kommunale Baulinien"
+    },
+    {
+      "Content": "In den Nutzungsplänen können Empfindlichkeitsstufen festgelegt werden, um jeweils bestimmte Zonen zu definieren: diejenigen, die eines erhöhten Lärmschutzes bedürfen, diejenigen, in denen keine störenden Betriebe zugelassen sind, und diejenigen, in denen mässig und stark störende Betriebe zugelassen sind.",
+      "Title": "Lärmempfindlichkeitsstufen"
+    },
+    {
+      "Content": "In den Nutzungsplänen (häufig auch als Zonenpläne bezeichnet) wird die Art der Bodennutzung geregelt. Sie unterteilen das Gebiet in verschiedene Bau-, Landwirtschafts- oder Schutzzonen. Über sie wird in der Regel auf Stufe Gemeinde entschieden, gefolgt von der Genehmigung durch eine kantonale Behörde. Diese Genehmigung verleiht den Nutzungsplänen eine bindende Wirkung.",
+      "Title": "Nutzungsplanung"
+    },
+    {
+      "Content": "Um die freie Verfügbarkeit der für Flughafenanlagen erforderlichen Grundstücke zu gewährleisten, können Projektierungszonen festgelegt werden, deren Gebiet genau abzugrenzen ist. In diesen Zonen dürfen keine baulichen Veränderungen vorgenommen werden, die dem Zweck der Flughafenanlagen widersprechen.",
+      "Title": "Projektierungszonen Flughafenanlagen"
+    },
+    {
+      "Content": "Eine Sicherheitszone muss für jeden Flughafen eingerichtet werden. Das Amt entscheidet im Einzelfall, ob für Flugsicherungsanlagen und Flugwege eine Sicherheitszone erforderlich ist. Ohne Zustimmung des Gesuchstellers kann niemand über eine Liegenschaft verfügen, die einem solchen Sicherheitszonenplan unterliegt.",
+      "Title": "Sicherheitszonenplan"
+    },
+    {
+      "Content": "Statische Waldgrenzen müssen auf der Grundlage rechtskräftiger Waldfeststellungen festgelegt werden. Neue Bestockungen ausserhalb dieser Waldgrenzen gelten nicht als Wald.",
+      "Title": "Statische Waldgrenzen"
+    },
+    {
+      "Content": "Bauten und Anlagen in Waldesnähe sind nur zulässig, wenn sie die Erhaltung, Pflege und Nutzung des Waldes nicht beeinträchtigen. Die Kantone legen aufgrund rechtskräftiger Waldabstandslinien einen angemessenen Mindestabstand fest, der zwischen den Bauten und Anlagen und dem Waldrand einzuhalten ist. Im Kanton Basel-Landschaft werden Waldabstandslinien als kommunale Waldbaulinien festgesetzt.",
+      "Title": "Waldabstandslinien"
+    }
+  ],
+  "CantonalLogoRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/logo/canton",
+  "MunicipalityLogoRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/municipality/2766",
+  "ExtractIdentifier": "e2ec795b-91f8-4827-8549-808ca7f25251",
+  "NotConcernedTheme": [
+    {
+      "Text": "Kantonale Baulinien",
+      "Code": "ch.BL.CantonalBuildingLines"
+    },
+    {
+      "Text": "Projektierungszonen Nationalstrassen",
+      "Code": "MotorwaysProjectPlaningZones"
+    },
+    {
+      "Text": "Projektierungszonen Eisenbahnanlagen",
+      "Code": "RailwaysProjectPlanningZones"
+    },
+    {
+      "Text": "Baulinien Eisenbahnanlagen",
+      "Code": "RailwaysBuildingLines"
+    },
+    {
+      "Text": "Projektierungszonen Flughafenanlagen",
+      "Code": "AirportsProjectPlanningZones"
+    },
+    {
+      "Text": "Baulinien Flughafenanlagen",
+      "Code": "AirportsBuildingLines"
+    },
+    {
+      "Text": "Sicherheitszonenplan",
+      "Code": "AirportsSecurityZonePlans"
+    },
+    {
+      "Text": "Kataster der belasteten Standorte im Bereich der zivilen Flugplätze",
+      "Code": "ContaminatedCivilAviationSites"
+    },
+    {
+      "Text": "Kataster der belasteten Standorte im Bereich des öffentlichen Verkehrs",
+      "Code": "ContaminatedPublicTransportSites"
+    },
+    {
+      "Text": "Grundwasserschutzzonen",
+      "Code": "GroundwaterProtectionZones"
+    },
+    {
+      "Text": "Grundwasserschutzareale",
+      "Code": "GroundwaterProtectionSites"
+    },
+    {
+      "Text": "Statische Waldgrenzen",
+      "Code": "ForestPerimeters"
+    }
+  ],
+  "ExclusionOfLiability": [
+    {
+      "Content": "Der Kataster der belasteten Standorte (KbS) wurde anhand der vom Bundesamt für Umwelt BAFU festgelegten Kriterien erstellt und wird fortwährend aufgrund neuer Erkenntnisse (z.B. Untersuchungen) aktualisiert. Die im KbS eingetragenen Flächen können vom tatsächlichen Ausmass der Belastung abweichen. Erscheint ein Grundstück nicht im KbS, besteht keine absolute Gewähr, dass das Areal frei von jeglichen Abfall- oder Schadstoffbelastungen ist. Bahnbetrieblich, militärisch und für die Luftfahrt genutzte Standorte liegen im Zuständigkeitsbereich des Bundes.Für weitere Informationen wenden Sie sich an die kantonale Altlastenfachstelle: E-Mail Adresse und/oder Webseite",
+      "Title": "Haftungsausschluss Kataster der belasteten Standorte (KbS)"
+    },
+    {
+      "Content": "Der Kataster der belasteten Standorte (KbS) wurde anhand der vom Bundesamt für Umwelt BAFU festgelegten Kriterien erstellt und wird fortwährend aufgrund neuer Erkenntnisse (z.B. Untersuchungen) aktualisiert. Die im KbS eingetragenen Flächen können vom tatsächlichen Ausmass der Belastung abweichen. Erscheint ein Grundstück nicht im KbS, besteht keine absolute Gewähr, dass das Areal frei von jeglichen Abfall- oder Schadstoffbelastungen ist. Bahnbetrieblich, militärisch und für die Luftfahrt genutzte Standorte liegen im Zuständigkeitsbereich des Bundes.Für weitere Informationen wenden Sie sich an die kantonale Altlastenfachstelle: E-Mail Adresse und/oder Webseite",
+      "Title": "Haftungsausschluss Kataster der belasteten Standorte (KbS)"
+    }
+  ],
+  "ThemeWithoutData": [
+    {
+      "Text": "Kommunale Baulinien",
+      "Code": "ch.BL.MunicipalBuildingLines"
+    },
+    {
+      "Text": "Baulinien Nationalstrassen",
+      "Code": "MotorwaysBuildingLines"
+    },
+    {
+      "Text": "Kataster der belasteten Standorte im Bereich des Militärs",
+      "Code": "ContaminatedMilitarySites"
+    },
+    {
+      "Text": "Waldabstandslinien",
+      "Code": "ForestDistanceLines"
+    }
+  ],
+  "UpdateDateOS": "27.01.2018",
+  "Footer": "16.02.2018   11:54:24   e2ec795b-91f8-4827-8549-808ca7f25251",
+  "PLRCadastreAuthority_City": "Liestal",
+  "PLRCadastreAuthority_Name": "Amt für Geoinformation",
+  "PLRCadastreAuthority_Number": 36,
+  "PLRCadastreAuthority_OfficeAtWeb": "http://www.agi.bl.ch",
+  "PLRCadastreAuthority_Street": "Mühlemattstrasse",
+  "PLRCadastreAuthority_PostalCode": 4410,
+  "RealEstate_EGRID": "CH874978848203",
+  "RealEstate_IdentDN": "BL0200002766",
+  "RealEstate_Municipality": "Birsfelden",
+  "RealEstate_PlanForLandRegisterMainPage": {
+    "ReferenceWMS": "http://dev2.geowms.bl.ch/?STYLES=default&LAYERS=grundbuchplan_gebaeude_nicht_gefuellt_group&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&CRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.3.0&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415",
+    "layerOpacity": 0.5
+  },
+  "RealEstate_Canton": "BL",
+  "RealEstate_FosNr": 2766,
+  "RealEstate_Number": "1274",
+  "RealEstate_LandRegistryArea": "119681 m²",
   "RealEstate_RestrictionOnLandownership": [
     {
-      "LegendText": "",
-      "Lawstatus_Code": "inKraft",
-      "Lawstatus_Text": "Rechtskräftig",
-      "TypeCode": "",
-      "LegalProvisions": [
+      "ResponsibleOffice": [
         {
-          "OfficialNumber": "1484",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
-          "Lawstatus_Code": "inKraft",
-          "Title": "RRB Nr. 1484 vom 23.09.2003",
-          "DocumentType": {"Code": "GesetzlicheGrundlage", "Text": [ {"Language": "de", "Text": "Gesetzliche Grundlage"}]},
-          "Canton": "BL",
-          "TextAtWeb": [{"URL": "https://oereblex.bl.ch/api/attachments/403"}],
-          "Lawstatus_Text": "Rechtskräftig",
-          "ResponsibleOffice_Name": "Landeskanzlei"
-        },
-        {
-          "OfficialNumber": "12/ZRS/2/1",
-          "ResponsibleOffice_OfficeAtWeb": "www.birsfelden.ch",
-          "Lawstatus_Code": "inKraft",
-          "Title": "Zonenreglement Siedlung (Stand 30.03.2010)",
-          "DocumentType": {"Code": "GesetzlicheGrundlage", "Text": [ {"Language": "de", "Text": "Gesetzliche Grundlage"}]},
-          "Canton": "BL",
-          "TextAtWeb": [{"URL": "https://oereblex.bl.ch/api/attachments/1471"}],
-          "Lawstatus_Text": "Rechtskräftig",
-          "ResponsibleOffice_Name": "Gemeindeverwaltung"
-        },
-        {
-          "OfficialNumber": "400",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
-          "Lawstatus_Code": "inKraft",
-          "Title": "Raumplanungs- und Baugesetz (RBG)",
-          "DocumentType": {"Code": "GesetzlicheGrundlage", "Text": [ {"Language": "de", "Text": "Gesetzliche Grundlage"}]},
-          "Canton": "BL",
-          "Abbreviation": "RBG",
-          "TextAtWeb": [{"URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1964?locale=de"}],
-          "Lawstatus_Text": "Rechtskräftig",
-          "ResponsibleOffice_Name": "Landeskanzlei"
-        },
-        {
-          "OfficialNumber": "429",
-          "ResponsibleOffice_OfficeAtWeb": "www.birsfelden.ch",
-          "Lawstatus_Code": "inKraft",
-          "Title": "RRB Nr. 429 vom 01.04.2008",
-          "DocumentType": {"Code": "GesetzlicheGrundlage", "Text": [ {"Language": "de", "Text": "Gesetzliche Grundlage"}]},
-          "Canton": "BL",
-          "TextAtWeb": [{"URL": "https://oereblex.bl.ch/api/attachments/2537"}],
-          "Lawstatus_Text": "Rechtskräftig",
-          "ResponsibleOffice_Name": "Gemeindeverwaltung"
-        },
-        {
-          "OfficialNumber": "1484",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
-          "Lawstatus_Code": "inKraft",
-          "Title": "RRB Nr. 1484 vom 23.09.2003",
-          "DocumentType": {"Code": "GesetzlicheGrundlage", "Text": [ {"Language": "de", "Text": "Gesetzliche Grundlage"}]},
-          "Canton": "BL",
-          "TextAtWeb": [{"URL": "https://oereblex.bl.ch/api/attachments/2916"}],
-          "Lawstatus_Text": "Rechtskräftig",
-          "ResponsibleOffice_Name": "Landeskanzlei"
-        },
-        {
-          "OfficialNumber": "400.11",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
-          "Lawstatus_Code": "inKraft",
-          "Title": "Verordnung zum Raumplanungs- und Baugesetz (RBV)",
-          "DocumentType": {"Code": "GesetzlicheGrundlage", "Text": [ {"Language": "de", "Text": "Gesetzliche Grundlage"}]},
-          "Canton": "BL",
-          "Abbreviation": "RBV",
-          "TextAtWeb": [{"URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/2032?locale=de"}],
-          "Lawstatus_Text": "Rechtskräftig",
-          "ResponsibleOffice_Name": "Landeskanzlei"
-        },
-        {
-          "OfficialNumber": "700",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
-          "Lawstatus_Code": "inKraft",
-          "Title": "Bundesgesetz über die Raumplanung (Raumplanungsgesetz, RPG)",
-          "DocumentType": {"Code": "GesetzlicheGrundlage", "Text": [ {"Language": "de", "Text": "Gesetzliche Grundlage"}]},
-          "Canton": "BL",
-          "Abbreviation": "Raumplanungsgesetz, RPG",
-          "TextAtWeb": [{"URL": "http://www.lexfind.ch/dtah/155346/2"}],
-          "Lawstatus_Text": "Rechtskräftig",
-          "ResponsibleOffice_Name": "Bundeskanzlei"
+          "OfficeAtWeb": "http://www.arp.bl.ch",
+          "Name": "Amt für Raumplanung BL"
         }
       ],
+      "Lawstatus_Text": "Rechtskräftig",
+      "Lawstatus_Code": "inKraft",
+      "Theme_Text": "Nutzungsplanung: 02.73A.Grundnutzung (Rechtskräftig)",
+      "Theme_Code": "LandUsePlans",
       "SubTheme_Code": "LandUsePlans",
       "SubTheme_Sub_Code": "ch.Baulinien",
       "SubTheme_Text": "02.73A.Grundnutzung",
       "baseLayers": {
         "layers": [
           {
+            "type": "wms",
             "opacity": 1,
             "styles": "default",
+            "baseURL": "http://dev2.geowms.bl.ch/",
             "layers": [
               "oereb_nutzungsplanung_group"
             ],
+            "imageFormat": "image/png",
             "customParams": {
               "TRANSPARENT": "true"
-            },
-            "baseURL": "http://dev2.geowms.bl.ch/",
-            "imageFormat": "image/png",
-            "type": "wms"
+            }
           },
           {
+            "type": "wms",
             "styles": "default",
             "opacity": 1,
+            "baseURL": "http://dev2.geowms.bl.ch/",
             "layers": [
               "grundbuchplan_gebaeude_nicht_gefuellt_group"
             ],
+            "imageFormat": "image/png",
             "customParams": {
               "TRANSPARENT": "true"
-            },
-            "baseURL": "http://dev2.geowms.bl.ch/",
-            "imageFormat": "image/png",
-            "type": "wms"
+            }
           }
         ]
       },
-      "Theme_Text": "Nutzungsplanung",
-      "SymbolRef": "",
-      "Theme_Code": "LandUsePlans",
       "legend": "http://dev2.geoview.bl.ch/vvmruder/oereb/custom_legend_at_web/LandUsePlans.png",
-      "Geom_Type": "AreaShare",
-      "Laws": [],
-      "ResponsibleOffice": [
+      "OtherLegend": [
         {
-          "OfficeAtWeb": "http://www.arp.bl.ch",
-          "Name": "Amt für Raumplanung BL"
+          "LegendText": "Allee",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/354000",
+          "TypeCode": "354000"
         },
+        {
+          "LegendText": "Bahnbordzone",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/130000",
+          "TypeCode": "130000"
+        },
+        {
+          "LegendText": "befestigter Bereich",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/216115",
+          "TypeCode": "216115"
+        },
+        {
+          "LegendText": "Gebäudebereich",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/215307",
+          "TypeCode": "215307"
+        },
+        {
+          "LegendText": "Gewerbezone",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/106405",
+          "TypeCode": "106405"
+        },
+        {
+          "LegendText": "Grünbereich",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/216004",
+          "TypeCode": "216004"
+        },
+        {
+          "LegendText": "Grünzone",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/131003",
+          "TypeCode": "131003"
+        },
+        {
+          "LegendText": "Industrie-Randzone",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/109000",
+          "TypeCode": "109000"
+        },
+        {
+          "LegendText": "Industriezone",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/108001",
+          "TypeCode": "108001"
+        },
+        {
+          "LegendText": "Landschaftsschutzzone",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/211110",
+          "TypeCode": "211110"
+        },
+        {
+          "LegendText": "Naturnah gestaltete Grünzone mit Allee",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/131013",
+          "TypeCode": "131013"
+        },
+        {
+          "LegendText": "Ökologischhe Schutzzone",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/130005",
+          "TypeCode": "130005"
+        },
+        {
+          "LegendText": "Perimeter Sondernutzungsplan",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/500100",
+          "TypeCode": "500100"
+        },
+        {
+          "LegendText": "Schutzzone Hardwald",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/212155",
+          "TypeCode": "212155"
+        },
+        {
+          "LegendText": "Sichtschutzbepflanzung",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/351105",
+          "TypeCode": "351105"
+        },
+        {
+          "LegendText": "Spezialzone Kraftwerk und Erholungseinrichtungen",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/142101",
+          "TypeCode": "142101"
+        },
+        {
+          "LegendText": "Spezialzone Ortsbilderhaltung",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/101003",
+          "TypeCode": "101003"
+        },
+        {
+          "LegendText": "Wohnzone W3",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/101307",
+          "TypeCode": "101307"
+        },
+        {
+          "LegendText": "Wohnzone W4",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/101401",
+          "TypeCode": "101401"
+        },
+        {
+          "LegendText": "Zone für öffentliche Werke und Anlagen OeWA",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/112033",
+          "TypeCode": "112033"
+        }
+      ],
+      "LegalProvisions": [
+        {
+          "OfficialNumber": "700",
+          "Title": "Bundesgesetz über die Raumplanung (Raumplanungsgesetz, RPG)",
+          "Abbreviation": "Raumplanungsgesetz, RPG",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "http://www.lexfind.ch/dtah/155346/2"
+            }
+          ],
+          "DocumentType": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Code": "inKraft",
+          "Lawstatus_Text": "Rechtskräftig",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+          "ResponsibleOffice_Name": "Bundeskanzlei"
+        },
+        {
+          "OfficialNumber": "1484",
+          "Title": "RRB Nr. 1484 vom 23.09.2003",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "https://oereblex.bl.ch/api/attachments/2916"
+            }
+          ],
+          "DocumentType": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Text": "Rechtskräftig",
+          "Lawstatus_Code": "inKraft",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+          "ResponsibleOffice_Name": "Landeskanzlei"
+        },
+        {
+          "OfficialNumber": "1484",
+          "Title": "RRB Nr. 1484 vom 23.09.2003",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "https://oereblex.bl.ch/api/attachments/403"
+            }
+          ],
+          "DocumentType": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Text": "Rechtskräftig",
+          "Lawstatus_Code": "inKraft",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+          "ResponsibleOffice_Name": "Landeskanzlei"
+        },
+        {
+          "OfficialNumber": "400",
+          "Title": "Raumplanungs- und Baugesetz (RBG)",
+          "Abbreviation": "RBG",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1964?locale=de"
+            }
+          ],
+          "DocumentType": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Code": "inKraft",
+          "Lawstatus_Text": "Rechtskräftig",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+          "ResponsibleOffice_Name": "Landeskanzlei"
+        },
+        {
+          "OfficialNumber": "400.11",
+          "Title": "Verordnung zum Raumplanungs- und Baugesetz (RBV)",
+          "Abbreviation": "RBV",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/2032?locale=de"
+            }
+          ],
+          "DocumentType": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Code": "inKraft",
+          "Lawstatus_Text": "Rechtskräftig",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+          "ResponsibleOffice_Name": "Landeskanzlei"
+        }
+      ],
+      "Laws": [],
+      "Hints": [],
+      "Geom_Type": "AreaShare",
+      "Legend": [
+        {
+          "TypeCode": "108000",
+          "Geom_Type": "AreaShare",
+          "AreaShare": "87380.21 m²",
+          "PartInPercent": "73.0%",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/108000",
+          "LegendText": "Industrie- und Gewerbezone"
+        },
+        {
+          "TypeCode": "130004",
+          "Geom_Type": "AreaShare",
+          "AreaShare": "7379.93 m²",
+          "PartInPercent": "6.2%",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/130004",
+          "LegendText": "Rheinuferzone"
+        }
+      ],
+      "LegendText": "",
+      "SymbolRef": "",
+      "TypeCode": ""
+    },
+    {
+      "ResponsibleOffice": [
         {
           "OfficeAtWeb": "http://www.birsfelden.ch",
           "Name": "Gemeinde Birsfelden"
         }
       ],
-      "OtherLegend": [
-        {
-          "TypeCode": "354000",
-          "LegendText": "Allee",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/354000"
-        },
-        {
-          "TypeCode": "130000",
-          "LegendText": "Bahnbordzone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/130000"
-        },
-        {
-          "TypeCode": "216115",
-          "LegendText": "befestigter Bereich",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/216115"
-        },
-        {
-          "TypeCode": "215307",
-          "LegendText": "Geb\u00e4udebereich",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/215307"
-        },
-        {
-          "TypeCode": "106405",
-          "LegendText": "Gewerbezone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/106405"
-        },
-        {
-          "TypeCode": "216004",
-          "LegendText": "Gr\u00fcnbereich",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/216004"
-        },
-        {
-          "TypeCode": "131003",
-          "LegendText": "Gr\u00fcnzone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/131003"
-        },
-        {
-          "TypeCode": "109000",
-          "LegendText": "Industrie-Randzone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/109000"
-        },
-        {
-          "TypeCode": "108001",
-          "LegendText": "Industriezone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/108001"
-        },
-        {
-          "TypeCode": "211110",
-          "LegendText": "Landschaftsschutzzone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/211110"
-        },
-        {
-          "TypeCode": "131013",
-          "LegendText": "Naturnah gestaltete Gr\u00fcnzone mit Allee",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/131013"
-        },
-        {
-          "TypeCode": "130005",
-          "LegendText": "\u00d6kologischhe Schutzzone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/130005"
-        },
-        {
-          "TypeCode": "500100",
-          "LegendText": "Perimeter Sondernutzungsplan",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/500100"
-        },
-        {
-          "TypeCode": "212155",
-          "LegendText": "Schutzzone Hardwald",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/212155"
-        },
-        {
-          "TypeCode": "351105",
-          "LegendText": "Sichtschutzbepflanzung",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/351105"
-        },
-        {
-          "TypeCode": "142101",
-          "LegendText": "Spezialzone Kraftwerk und Erholungseinrichtungen",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/142101"
-        },
-        {
-          "TypeCode": "101003",
-          "LegendText": "Spezialzone Ortsbilderhaltung",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/101003"
-        },
-        {
-          "TypeCode": "101307",
-          "LegendText": "Wohnzone W3",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/101307"
-        },
-        {
-          "TypeCode": "101401",
-          "LegendText": "Wohnzone W4",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/101401"
-        },
-        {
-          "TypeCode": "112033",
-          "LegendText": "Zone f\u00fcr \u00f6ffentliche Werke und Anlagen OeWA",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/112033"
-        }
-      ],
       "Lawstatus_Text": "Rechtskräftig",
-      "Legend": [
-        {
-          "PartInPercent": "73.0%",
-          "LegendText": "Industrie- und Gewerbezone",
-          "TypeCode": "108000",
-          "AreaShare": "87380.21 m\u00b2",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/108000",
-          "Geom_Type": "AreaShare"
-        },
-        {
-          "PartInPercent": "6.2%",
-          "LegendText": "Rheinuferzone",
-          "TypeCode": "130004",
-          "AreaShare": "7379.93 m\u00b2",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/130004",
-          "Geom_Type": "AreaShare"
-        },
-        {
-          "PartInPercent": "5.1%",
-          "LegendText": "Arch\u00e4ologische Schutzzone",
-          "TypeCode": "219106",
-          "AreaShare": "6125.68 m\u00b2",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/219106",
-          "Geom_Type": "AreaShare"
-        }
-      ],
-      "Hints": []
-    },
-    {
-      "LegendText": "",
       "Lawstatus_Code": "inKraft",
-      "TypeCode": "",
-      "LegalProvisions": [
-        {
-          "Lawstatus_Code": "inKraft",
-          "Title": "Ersteintrag in den KbS: 09.12.2016",
-          "ResponsibleOffice_OfficeAtWeb": "http://www.aue.bl.ch",
-          "TextAtWeb": [{"URL": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster"}],
-          "Lawstatus_Text": "Rechtskräftig",
-          "DocumentType": {"Code": "GesetzlicheGrundlage", "Text": [ {"Language": "de", "Text": "Gesetzliche Grundlage"}]},
-          "ResponsibleOffice_Name": "Amt f\u00fcr Umweltschutz und Energie BL"
-        },
-        {
-          "OfficialNumber": "814.01",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
-          "Lawstatus_Code": "inKraft",
-          "Title": "Bundesgesetz \u00fcber den Umweltschutz (Umweltschutzgesetz, USG)",
-          "DocumentType": {"Code": "GesetzlicheGrundlage", "Text": [ {"Language": "de", "Text": "Gesetzliche Grundlage"}]},
-          "Canton": "BL",
-          "Abbreviation": "Umweltschutzgesetz, USG",
-          "TextAtWeb": [{"URL": "http://www.lexfind.ch/dtah/155395/2"}],
-          "Lawstatus_Text": "Rechtskräftig",
-          "ResponsibleOffice_Name": "Bundeskanzlei"
-        },
-        {
-          "OfficialNumber": "814.680",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
-          "Lawstatus_Code": "inKraft",
-          "Title": "Verordnung \u00fcber die Sanierung von belasteten Standorten (Altlasten-Verordnung, AltlV)",
-          "DocumentType": {"Code": "GesetzlicheGrundlage", "Text": [ {"Language": "de", "Text": "Gesetzliche Grundlage"}]},
-          "Canton": "BL",
-          "Abbreviation": "Altlasten-Verordnung, AltlV",
-          "TextAtWeb": [{"URL": "http://www.lexfind.ch/dtah/147568/2"}],
-          "Lawstatus_Text": "Rechtskräftig",
-          "ResponsibleOffice_Name": "Bundeskanzlei"
-        },
-        {
-          "Lawstatus_Code": "inKraft",
-          "Title": "Ersteintrag in den KbS: 16.04.2015",
-          "ResponsibleOffice_OfficeAtWeb": "http://www.aue.bl.ch",
-          "TextAtWeb": [{"URL": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster"}],
-          "Lawstatus_Text": "Rechtskräftig",
-          "DocumentType": {"Code": "GesetzlicheGrundlage", "Text": [ {"Language": "de", "Text": "Gesetzliche Grundlage"}]},
-          "ResponsibleOffice_Name": "Amt f\u00fcr Umweltschutz und Energie BL"
-        },
-        {
-          "OfficialNumber": "780",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
-          "Lawstatus_Code": "inKraft",
-          "Title": "Umweltschutzgesetz Basel-Landschaft (USG BL)",
-          "DocumentType": {"Code": "GesetzlicheGrundlage", "Text": [ {"Language": "de", "Text": "Gesetzliche Grundlage"}]},
-          "Canton": "BL",
-          "Abbreviation": "USG BL",
-          "TextAtWeb": [{"URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1337?locale=de"}],
-          "Lawstatus_Text": "Rechtskräftig",
-          "ResponsibleOffice_Name": "Landeskanzlei"
-        },
-        {
-          "OfficialNumber": "780.11",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
-          "Lawstatus_Code": "inKraft",
-          "Title": "Verordnung \u00fcber den Umweltschutz (USV)",
-          "DocumentType": {"Code": "GesetzlicheGrundlage", "Text": [ {"Language": "de", "Text": "Gesetzliche Grundlage"}]},
-          "Canton": "BL",
-          "Abbreviation": "USV",
-          "TextAtWeb": [{"URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/273?locale=de"}],
-          "Lawstatus_Text": "Rechtskräftig",
-          "ResponsibleOffice_Name": "Landeskanzlei"
-        }
-      ],
+      "Theme_Text": "Nutzungsplanung: 08.73B.Ueberlagerung_Flaeche (Rechtskräftig)",
+      "Theme_Code": "LandUsePlans",
+      "SubTheme_Code": "LandUsePlans",
+      "SubTheme_Sub_Code": "ch.Ueberlagerung",
+      "SubTheme_Text": "08.73B.Ueberlagerung_Flaeche",
       "baseLayers": {
         "layers": [
           {
+            "type": "wms",
             "opacity": 1,
             "styles": "default",
+            "baseURL": "http://dev2.geowms.bl.ch/",
             "layers": [
-              "oereb_kataster_der_belasteten_standorte"
+              "oereb_nutzungsplanung_group"
             ],
+            "imageFormat": "image/png",
             "customParams": {
               "TRANSPARENT": "true"
-            },
-            "baseURL": "http://dev2.geowms.bl.ch/",
-            "imageFormat": "image/png",
-            "type": "wms"
+            }
           },
           {
+            "type": "wms",
             "styles": "default",
             "opacity": 1,
+            "baseURL": "http://dev2.geowms.bl.ch/",
             "layers": [
               "grundbuchplan_gebaeude_nicht_gefuellt_group"
             ],
+            "imageFormat": "image/png",
             "customParams": {
               "TRANSPARENT": "true"
-            },
-            "baseURL": "http://dev2.geowms.bl.ch/",
-            "imageFormat": "image/png",
-            "type": "wms"
+            }
           }
         ]
       },
-      "Theme_Text": "Kataster der belasteten Standorte",
-      "SymbolRef": "",
-      "Theme_Code": "ContaminatedSites",
-      "legend": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetLegendGraphic&SLD_VERSION=1.1.0&LAYER=oereb_kataster_der_belasteten_standorte&FORMAT=image/png",
-      "Geom_Type": "AreaShare",
+      "legend": "http://dev2.geoview.bl.ch/vvmruder/oereb/custom_legend_at_web/LandUsePlans.png",
+      "OtherLegend": [
+        {
+          "LegendText": "Allee",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/354000",
+          "TypeCode": "354000"
+        },
+        {
+          "LegendText": "Bahnbordzone",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/130000",
+          "TypeCode": "130000"
+        },
+        {
+          "LegendText": "befestigter Bereich",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/216115",
+          "TypeCode": "216115"
+        },
+        {
+          "LegendText": "Gebäudebereich",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/215307",
+          "TypeCode": "215307"
+        },
+        {
+          "LegendText": "Gewerbezone",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/106405",
+          "TypeCode": "106405"
+        },
+        {
+          "LegendText": "Grünbereich",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/216004",
+          "TypeCode": "216004"
+        },
+        {
+          "LegendText": "Grünzone",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/131003",
+          "TypeCode": "131003"
+        },
+        {
+          "LegendText": "Industrie-Randzone",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/109000",
+          "TypeCode": "109000"
+        },
+        {
+          "LegendText": "Industriezone",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/108001",
+          "TypeCode": "108001"
+        },
+        {
+          "LegendText": "Landschaftsschutzzone",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/211110",
+          "TypeCode": "211110"
+        },
+        {
+          "LegendText": "Naturnah gestaltete Grünzone mit Allee",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/131013",
+          "TypeCode": "131013"
+        },
+        {
+          "LegendText": "Ökologischhe Schutzzone",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/130005",
+          "TypeCode": "130005"
+        },
+        {
+          "LegendText": "Perimeter Sondernutzungsplan",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/500100",
+          "TypeCode": "500100"
+        },
+        {
+          "LegendText": "Schutzzone Hardwald",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/212155",
+          "TypeCode": "212155"
+        },
+        {
+          "LegendText": "Sichtschutzbepflanzung",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/351105",
+          "TypeCode": "351105"
+        },
+        {
+          "LegendText": "Spezialzone Kraftwerk und Erholungseinrichtungen",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/142101",
+          "TypeCode": "142101"
+        },
+        {
+          "LegendText": "Spezialzone Ortsbilderhaltung",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/101003",
+          "TypeCode": "101003"
+        },
+        {
+          "LegendText": "Wohnzone W3",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/101307",
+          "TypeCode": "101307"
+        },
+        {
+          "LegendText": "Wohnzone W4",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/101401",
+          "TypeCode": "101401"
+        },
+        {
+          "LegendText": "Zone für öffentliche Werke und Anlagen OeWA",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/112033",
+          "TypeCode": "112033"
+        }
+      ],
+      "LegalProvisions": [
+        {
+          "OfficialNumber": "700",
+          "Title": "Bundesgesetz über die Raumplanung (Raumplanungsgesetz, RPG)",
+          "Abbreviation": "Raumplanungsgesetz, RPG",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "http://www.lexfind.ch/dtah/155346/2"
+            }
+          ],
+          "DocumentType": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Code": "inKraft",
+          "Lawstatus_Text": "Rechtskräftig",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+          "ResponsibleOffice_Name": "Bundeskanzlei"
+        },
+        {
+          "OfficialNumber": "429",
+          "Title": "RRB Nr. 429 vom 01.04.2008",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "https://oereblex.bl.ch/api/attachments/2537"
+            }
+          ],
+          "DocumentType": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Text": "Rechtskräftig",
+          "Lawstatus_Code": "inKraft",
+          "ResponsibleOffice_OfficeAtWeb": "www.birsfelden.ch",
+          "ResponsibleOffice_Name": "Gemeindeverwaltung"
+        },
+        {
+          "OfficialNumber": "400",
+          "Title": "Raumplanungs- und Baugesetz (RBG)",
+          "Abbreviation": "RBG",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1964?locale=de"
+            }
+          ],
+          "DocumentType": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Code": "inKraft",
+          "Lawstatus_Text": "Rechtskräftig",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+          "ResponsibleOffice_Name": "Landeskanzlei"
+        },
+        {
+          "OfficialNumber": "400.11",
+          "Title": "Verordnung zum Raumplanungs- und Baugesetz (RBV)",
+          "Abbreviation": "RBV",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/2032?locale=de"
+            }
+          ],
+          "DocumentType": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Code": "inKraft",
+          "Lawstatus_Text": "Rechtskräftig",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+          "ResponsibleOffice_Name": "Landeskanzlei"
+        },
+        {
+          "OfficialNumber": "12/ZRS/2/1",
+          "Title": "Zonenreglement Siedlung (Stand 30.03.2010)",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "https://oereblex.bl.ch/api/attachments/1471"
+            }
+          ],
+          "DocumentType": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Text": "Rechtskräftig",
+          "Lawstatus_Code": "inKraft",
+          "ResponsibleOffice_OfficeAtWeb": "www.birsfelden.ch",
+          "ResponsibleOffice_Name": "Gemeindeverwaltung"
+        }
+      ],
       "Laws": [],
+      "Hints": [],
+      "Geom_Type": "AreaShare",
+      "Legend": [
+        {
+          "TypeCode": "219106",
+          "Geom_Type": "AreaShare",
+          "AreaShare": "6125.68 m²",
+          "PartInPercent": "5.1%",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/219106",
+          "LegendText": "Archäologische Schutzzone"
+        }
+      ],
+      "LegendText": "",
+      "SymbolRef": "",
+      "TypeCode": ""
+    },
+    {
       "ResponsibleOffice": [
         {
           "OfficeAtWeb": "http://www.aue.bl.ch",
           "Name": "Amt für Umweltschutz und Energie BL"
         }
       ],
-      "OtherLegend": [
-        {
-          "TypeCode": "StaoTyp1_StatusAltlV1",
-          "LegendText": "Ablagerungsstandort. Belastet, keine sch\u00e4dlichen oder l\u00e4stigen Einwirkungen zu erwarten",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp1_StatusAltlV1"
-        },
-        {
-          "TypeCode": "StaoTyp1_StatusAltlV2",
-          "LegendText": "Ablagerungsstandort. Belastet, untersuchungsbed\u00fcrftig",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp1_StatusAltlV2"
-        },
-        {
-          "TypeCode": "StaoTyp1_StatusAltlV3",
-          "LegendText": "Ablagerungsstandort. Belastet, weder \u00fcberwachungs- noch sanierungsbed\u00fcrftig",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp1_StatusAltlV3"
-        },
-        {
-          "TypeCode": "StaoTyp2_StatusAltlV2",
-          "LegendText": "Betriebsstandort. Belastet, untersuchungsbed\u00fcrftig",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV2"
-        }
-      ],
       "Lawstatus_Text": "Rechtskräftig",
-      "Legend": [
-        {
-          "PartInPercent": "51.8%",
-          "LegendText": "Betriebsstandort. Belastet, keine sch\u00e4dlichen oder l\u00e4stigen Einwirkungen zu erwarten",
-          "TypeCode": "StaoTyp2_StatusAltlV1",
-          "AreaShare": "61999.23 m\u00b2",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV1",
-          "Geom_Type": "AreaShare"
-        },
-        {
-          "PartInPercent": "12.1%",
-          "LegendText": "Betriebsstandort. Belastet, weder \u00fcberwachungs- noch sanierungsbed\u00fcrftig",
-          "TypeCode": "StaoTyp2_StatusAltlV3",
-          "AreaShare": "14503.04 m\u00b2",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV3",
-          "Geom_Type": "AreaShare"
-        },
-        {
-          "PartInPercent": "4.8%",
-          "LegendText": "Betriebsstandort. Belastet,  \u00fcberwachungsbed\u00fcrftig",
-          "TypeCode": "StaoTyp2_StatusAltlV4",
-          "AreaShare": "5764.33 m\u00b2",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV4",
-          "Geom_Type": "AreaShare"
-        },
-        {
-          "PartInPercent": "1.0%",
-          "LegendText": "Unfallstandort. Belastet, keine sch\u00e4dlichen oder l\u00e4stigen Einwirkungen zu erwarten",
-          "TypeCode": "StaoTyp3_StatusAltlV1",
-          "AreaShare": "1210.49 m\u00b2",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp3_StatusAltlV1",
-          "Geom_Type": "AreaShare"
-        }
-      ],
-      "Hints": []
-    },
-    {
-      "LegendText": "",
       "Lawstatus_Code": "inKraft",
-      "TypeCode": "",
-      "LegalProvisions": [
-        {
-          "OfficialNumber": "429",
-          "ResponsibleOffice_OfficeAtWeb": "www.birsfelden.ch",
-          "Lawstatus_Code": "inKraft",
-          "Title": "RRB Nr. 429 vom 01.04.2008",
-          "DocumentType": {"Code": "GesetzlicheGrundlage", "Text": [ {"Language": "de", "Text": "Gesetzliche Grundlage"}]},
-          "Canton": "BL",
-          "TextAtWeb": [{"URL": "https://oereblex.bl.ch/api/attachments/2798"}],
-          "Lawstatus_Text": "Rechtskräftig",
-          "ResponsibleOffice_Name": "Gemeindeverwaltung"
-        },
-        {
-          "OfficialNumber": "780",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
-          "Lawstatus_Code": "inKraft",
-          "Title": "Umweltschutzgesetz Basel-Landschaft (USG BL)",
-          "DocumentType": {"Code": "GesetzlicheGrundlage", "Text": [ {"Language": "de", "Text": "Gesetzliche Grundlage"}]},
-          "Canton": "BL",
-          "Abbreviation": "USG BL",
-          "TextAtWeb": [{"URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1337?locale=de"}],
-          "Lawstatus_Text": "Rechtskräftig",
-          "ResponsibleOffice_Name": "Landeskanzlei"
-        },
-        {
-          "OfficialNumber": "814.41",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
-          "Lawstatus_Code": "inKraft",
-          "Title": "Lärmschutz-Verordnung (LSV)",
-          "DocumentType": {"Code": "GesetzlicheGrundlage", "Text": [ {"Language": "de", "Text": "Gesetzliche Grundlage"}]},
-          "Canton": "BL",
-          "Abbreviation": "LSV",
-          "TextAtWeb": [{"URL": "http://www.lexfind.ch/dtah/147569/2"}],
-          "Lawstatus_Text": "Rechtskräftig",
-          "ResponsibleOffice_Name": "Bundeskanzlei"
-        }
-      ],
+      "Theme_Text": "Kataster der belasteten Standorte (Rechtskräftig)",
+      "Theme_Code": "ContaminatedSites",
       "baseLayers": {
         "layers": [
           {
+            "type": "wms",
             "opacity": 1,
             "styles": "default",
+            "baseURL": "http://dev2.geowms.bl.ch/",
             "layers": [
-              "oereb_laermempfindlichkeitsstufen"
+              "oereb_kataster_der_belasteten_standorte"
             ],
+            "imageFormat": "image/png",
             "customParams": {
               "TRANSPARENT": "true"
-            },
-            "baseURL": "http://dev2.geowms.bl.ch/",
-            "imageFormat": "image/png",
-            "type": "wms"
+            }
           },
           {
+            "type": "wms",
             "styles": "default",
             "opacity": 1,
+            "baseURL": "http://dev2.geowms.bl.ch/",
             "layers": [
               "grundbuchplan_gebaeude_nicht_gefuellt_group"
             ],
+            "imageFormat": "image/png",
             "customParams": {
               "TRANSPARENT": "true"
-            },
-            "baseURL": "http://dev2.geowms.bl.ch/",
-            "imageFormat": "image/png",
-            "type": "wms"
+            }
           }
         ]
       },
-      "Theme_Text": "L\u00e4rmempfindlichkeitsstufen (in Nutzungszonen)",
-      "SymbolRef": "",
-      "Theme_Code": "NoiseSensitivityLevels",
-      "legend": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetLegendGraphic&SLD_VERSION=1.1.0&LAYER=oereb_laermempfindlichkeitsstufen&FORMAT=image/png",
-      "Geom_Type": "AreaShare",
+      "legend": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetLegendGraphic&SLD_VERSION=1.1.0&LAYER=oereb_kataster_der_belasteten_standorte&FORMAT=image/png",
+      "OtherLegend": [
+        {
+          "LegendText": "Ablagerungsstandort. Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp1_StatusAltlV1",
+          "TypeCode": "StaoTyp1_StatusAltlV1"
+        },
+        {
+          "LegendText": "Ablagerungsstandort. Belastet, untersuchungsbedürftig",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp1_StatusAltlV2",
+          "TypeCode": "StaoTyp1_StatusAltlV2"
+        },
+        {
+          "LegendText": "Ablagerungsstandort. Belastet, weder überwachungs- noch sanierungsbedürftig",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp1_StatusAltlV3",
+          "TypeCode": "StaoTyp1_StatusAltlV3"
+        },
+        {
+          "LegendText": "Betriebsstandort. Belastet, untersuchungsbedürftig",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV2",
+          "TypeCode": "StaoTyp2_StatusAltlV2"
+        }
+      ],
+      "LegalProvisions": [
+        {
+          "OfficialNumber": "814.01",
+          "Title": "Bundesgesetz über den Umweltschutz (Umweltschutzgesetz, USG)",
+          "Abbreviation": "Umweltschutzgesetz, USG",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "http://www.lexfind.ch/dtah/155395/2"
+            }
+          ],
+          "DocumentType": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Code": "inKraft",
+          "Lawstatus_Text": "Rechtskräftig",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+          "ResponsibleOffice_Name": "Bundeskanzlei"
+        },
+        {
+          "DocumentType": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "TextAtWeb": [
+            {
+              "URL": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster"
+            }
+          ],
+          "Title": "Ersteintrag in den KbS: 09.12.2016",
+          "Lawstatus_Text": "Rechtskräftig",
+          "Lawstatus_Code": "inKraft",
+          "ResponsibleOffice_OfficeAtWeb": "http://www.aue.bl.ch",
+          "ResponsibleOffice_Name": "Amt für Umweltschutz und Energie BL"
+        },
+        {
+          "DocumentType": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "TextAtWeb": [
+            {
+              "URL": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster"
+            }
+          ],
+          "Title": "Ersteintrag in den KbS: 16.04.2015",
+          "Lawstatus_Text": "Rechtskräftig",
+          "Lawstatus_Code": "inKraft",
+          "ResponsibleOffice_OfficeAtWeb": "http://www.aue.bl.ch",
+          "ResponsibleOffice_Name": "Amt für Umweltschutz und Energie BL"
+        },
+        {
+          "OfficialNumber": "780",
+          "Title": "Umweltschutzgesetz Basel-Landschaft (USG BL)",
+          "Abbreviation": "USG BL",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1337?locale=de"
+            }
+          ],
+          "DocumentType": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Code": "inKraft",
+          "Lawstatus_Text": "Rechtskräftig",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+          "ResponsibleOffice_Name": "Landeskanzlei"
+        },
+        {
+          "OfficialNumber": "780.11",
+          "Title": "Verordnung über den Umweltschutz (USV)",
+          "Abbreviation": "USV",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/273?locale=de"
+            }
+          ],
+          "DocumentType": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Code": "inKraft",
+          "Lawstatus_Text": "Rechtskräftig",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+          "ResponsibleOffice_Name": "Landeskanzlei"
+        },
+        {
+          "OfficialNumber": "814.680",
+          "Title": "Verordnung über die Sanierung von belasteten Standorten (Altlasten-Verordnung, AltlV)",
+          "Abbreviation": "Altlasten-Verordnung, AltlV",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "http://www.lexfind.ch/dtah/147568/2"
+            }
+          ],
+          "DocumentType": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Code": "inKraft",
+          "Lawstatus_Text": "Rechtskräftig",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+          "ResponsibleOffice_Name": "Bundeskanzlei"
+        }
+      ],
       "Laws": [],
+      "Hints": [],
+      "Geom_Type": "AreaShare",
+      "Legend": [
+        {
+          "TypeCode": "StaoTyp2_StatusAltlV1",
+          "Geom_Type": "AreaShare",
+          "AreaShare": "61999.23 m²",
+          "PartInPercent": "51.8%",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV1",
+          "LegendText": "Betriebsstandort. Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten"
+        },
+        {
+          "TypeCode": "StaoTyp2_StatusAltlV3",
+          "Geom_Type": "AreaShare",
+          "AreaShare": "14503.04 m²",
+          "PartInPercent": "12.1%",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV3",
+          "LegendText": "Betriebsstandort. Belastet, weder überwachungs- noch sanierungsbedürftig"
+        },
+        {
+          "TypeCode": "StaoTyp2_StatusAltlV4",
+          "Geom_Type": "AreaShare",
+          "AreaShare": "5764.33 m²",
+          "PartInPercent": "4.8%",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV4",
+          "LegendText": "Betriebsstandort. Belastet,  überwachungsbedürftig"
+        },
+        {
+          "TypeCode": "StaoTyp3_StatusAltlV1",
+          "Geom_Type": "AreaShare",
+          "AreaShare": "1210.49 m²",
+          "PartInPercent": "1%",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp3_StatusAltlV1",
+          "LegendText": "Unfallstandort. Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten"
+        }
+      ],
+      "LegendText": "",
+      "SymbolRef": "",
+      "TypeCode": ""
+    },
+    {
       "ResponsibleOffice": [
         {
           "OfficeAtWeb": "http://www.birsfelden.ch",
           "Name": "Gemeinde Birsfelden"
         }
       ],
+      "Lawstatus_Text": "Rechtskräftig",
+      "Lawstatus_Code": "inKraft",
+      "Theme_Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen) (Rechtskräftig)",
+      "Theme_Code": "NoiseSensitivityLevels",
+      "baseLayers": {
+        "layers": [
+          {
+            "type": "wms",
+            "opacity": 1,
+            "styles": "default",
+            "baseURL": "http://dev2.geowms.bl.ch/",
+            "layers": [
+              "oereb_laermempfindlichkeitsstufen"
+            ],
+            "imageFormat": "image/png",
+            "customParams": {
+              "TRANSPARENT": "true"
+            }
+          },
+          {
+            "type": "wms",
+            "styles": "default",
+            "opacity": 1,
+            "baseURL": "http://dev2.geowms.bl.ch/",
+            "layers": [
+              "grundbuchplan_gebaeude_nicht_gefuellt_group"
+            ],
+            "imageFormat": "image/png",
+            "customParams": {
+              "TRANSPARENT": "true"
+            }
+          }
+        ]
+      },
+      "legend": "http://dev2.geowms.bl.ch/?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetLegendGraphic&SLD_VERSION=1.1.0&LAYER=oereb_laermempfindlichkeitsstufen&FORMAT=image/png",
       "OtherLegend": [
         {
-          "TypeCode": "ES_II",
           "LegendText": "Empfindlichkeitsstufe ES II",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_II"
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_II",
+          "TypeCode": "ES_II"
         },
         {
-          "TypeCode": "ES_III",
           "LegendText": "Empfindlichkeitsstufe ES III",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_III"
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_III",
+          "TypeCode": "ES_III"
         }
       ],
-      "Lawstatus_Text": "Rechtskräftig",
+      "LegalProvisions": [
+        {
+          "OfficialNumber": "814.41",
+          "Title": "Lärmschutz-Verordnung (LSV)",
+          "Abbreviation": "LSV",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "http://www.lexfind.ch/dtah/147569/2"
+            }
+          ],
+          "DocumentType": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Code": "inKraft",
+          "Lawstatus_Text": "Rechtskräftig",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+          "ResponsibleOffice_Name": "Bundeskanzlei"
+        },
+        {
+          "OfficialNumber": "429",
+          "Title": "RRB Nr. 429 vom 01.04.2008",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "https://oereblex.bl.ch/api/attachments/2798"
+            }
+          ],
+          "DocumentType": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Text": "Rechtskräftig",
+          "Lawstatus_Code": "inKraft",
+          "ResponsibleOffice_OfficeAtWeb": "www.birsfelden.ch",
+          "ResponsibleOffice_Name": "Gemeindeverwaltung"
+        },
+        {
+          "OfficialNumber": "780",
+          "Title": "Umweltschutzgesetz Basel-Landschaft (USG BL)",
+          "Abbreviation": "USG BL",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1337?locale=de"
+            }
+          ],
+          "DocumentType": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Code": "inKraft",
+          "Lawstatus_Text": "Rechtskräftig",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+          "ResponsibleOffice_Name": "Landeskanzlei"
+        }
+      ],
+      "Laws": [],
+      "Hints": [],
+      "Geom_Type": "AreaShare",
       "Legend": [
         {
-          "PartInPercent": "73.0%",
-          "LegendText": "Empfindlichkeitsstufe ES IV",
           "TypeCode": "ES_IV",
-          "AreaShare": "87381.15 m\u00b2",
+          "Geom_Type": "AreaShare",
+          "AreaShare": "87381.15 m²",
+          "PartInPercent": "73.0%",
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_IV",
-          "Geom_Type": "AreaShare"
+          "LegendText": "Empfindlichkeitsstufe ES IV"
         }
       ],
-      "Hints": []
+      "LegendText": "",
+      "SymbolRef": "",
+      "TypeCode": ""
     }
   ],
-  "ConcernedTheme": [
-    {
-      "Text": "Nutzungsplanung",
-      "Code": "LandUsePlans"
-    },
-    {
-      "Text": "Kataster der belasteten Standorte",
-      "Code": "ContaminatedSites"
-    },
-    {
-      "Text": "L\u00e4rmempfindlichkeitsstufen (in Nutzungszonen)",
-      "Code": "NoiseSensitivityLevels"
-    }
-  ],
+  "RealEstate_Type_Code": "Liegenschaft",
+  "RealEstate_Type_Text": "Liegenschaft",
+  "baseLayers": {
+    "layers": [
+      {
+        "type": "wms",
+        "styles": "default",
+        "opacity": 0.5,
+        "baseURL": "http://dev2.geowms.bl.ch/",
+        "layers": [
+          "grundbuchplan_gebaeude_nicht_gefuellt_group"
+        ],
+        "imageFormat": "image/png",
+        "customParams": {
+          "TRANSPARENT": "true"
+        }
+      }
+    ]
+  },
+  "DisclaimerLandRegister_Content": "Der Kataster der belasteten Standorte (KbS) wurde anhand der vom Bundesamt für Umwelt BAFU festgelegten Kriterien erstellt und wird fortwährend aufgrund neuer Erkenntnisse (z.B. Untersuchungen) aktualisiert. Die im KbS eingetragenen Flächen können vom tatsächlichen Ausmass der Belastung abweichen. Erscheint ein Grundstück nicht im KbS, besteht keine absolute Gewähr, dass das Areal frei von jeglichen Abfall- oder Schadstoffbelastungen ist. Bahnbetrieblich, militärisch und für die Luftfahrt genutzte Standorte liegen im Zuständigkeitsbereich des Bundes.Für weitere Informationen wenden Sie sich an die kantonale Altlastenfachstelle: E-Mail Adresse und/oder Webseite",
+  "DisclaimerLandRegister_Title": "Haftungsausschluss Kataster der belasteten Standorte (KbS)",
+  "DisclaimerPollutedSites_Content": "Der Kataster der belasteten Standorte (KbS) wurde anhand der vom Bundesamt für Umwelt BAFU festgelegten Kriterien erstellt und wird fortwährend aufgrund neuer Erkenntnisse (z.B. Untersuchungen) aktualisiert. Die im KbS eingetragenen Flächen können vom tatsächlichen Ausmass der Belastung abweichen. Erscheint ein Grundstück nicht im KbS, besteht keine absolute Gewähr, dass das Areal frei von jeglichen Abfall- oder Schadstoffbelastungen ist. Bahnbetrieblich, militärisch und für die Luftfahrt genutzte Standorte liegen im Zuständigkeitsbereich des Bundes.Für weitere Informationen wenden Sie sich an die kantonale Altlastenfachstelle: E-Mail Adresse und/oder Webseite",
+  "DisclaimerPollutedSites_Title": "Haftungsausschluss Kataster der belasteten Standorte (KbS)",
   "features": {
     "features": {
       "type": "FeatureCollection",
       "features": [
         {
+          "type": "Feature",
           "geometry": {
             "type": "MultiPolygon",
             "coordinates": [
@@ -618,184 +1258,10 @@
               ]
             ]
           },
-          "type": "Feature",
           "properties": {}
         }
       ]
     }
   },
-  "PLRCadastreAuthority_Street": "M\u00fchlemattstrasse",
-  "NotConcernedTheme": [
-    {
-      "Text": "Kantonale Baulinien",
-      "Code": "ch.BL.CantonalBuildingLines"
-    },
-    {
-      "Text": "Projektierungszonen Nationalstrassen",
-      "Code": "MotorwaysProjectPlaningZones"
-    },
-    {
-      "Text": "Projektierungszonen Eisenbahnanlagen",
-      "Code": "RailwaysProjectPlanningZones"
-    },
-    {
-      "Text": "Baulinien Eisenbahnanlagen",
-      "Code": "RailwaysBuildingLines"
-    },
-    {
-      "Text": "Projektierungszonen Flughafenanlagen",
-      "Code": "AirportsProjectPlanningZones"
-    },
-    {
-      "Text": "Baulinien Flughafenanlagen",
-      "Code": "AirportsBuildingLines"
-    },
-    {
-      "Text": "Sicherheitszonenplan",
-      "Code": "AirportsSecurityZonePlans"
-    },
-    {
-      "Text": "Kataster der belasteten Standorte im Bereich der zivilen Flugpl\u00e4tze",
-      "Code": "ContaminatedCivilAviationSites"
-    },
-    {
-      "Text": "Kataster der belasteten Standorte im Bereich des \u00f6ffentlichen Verkehrs",
-      "Code": "ContaminatedPublicTransportSites"
-    },
-    {
-      "Text": "Grundwasserschutzzonen",
-      "Code": "GroundwaterProtectionZones"
-    },
-    {
-      "Text": "Grundwasserschutzareale",
-      "Code": "GroundwaterProtectionSites"
-    },
-    {
-      "Text": "Statische Waldgrenzen",
-      "Code": "ForestPerimeters"
-    }
-  ],
-  "PLRCadastreAuthority_Number": 36,
-  "ThemeWithoutData": [
-    {
-      "Text": "Kommunale Baulinien",
-      "Code": "ch.BL.MunicipalBuildingLines"
-    },
-    {
-      "Text": "Baulinien Nationalstrassen",
-      "Code": "MotorwaysBuildingLines"
-    },
-    {
-      "Text": "Kataster der belasteten Standorte im Bereich des Milit\u00e4rs",
-      "Code": "ContaminatedMilitarySites"
-    },
-    {
-      "Text": "Waldabstandslinien",
-      "Code": "ForestDistanceLines"
-    }
-  ],
-  "RealEstate_Number": "1274",
-  "RealEstate_Municipality": "Birsfelden",
-  "FederalLogoRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/logo/confederation",
-  "ExtractIdentifier": "e2ec795b-91f8-4827-8549-808ca7f25251",
-  "CertificationAtWeb": "https://oereb.bl.ch/certification/de",
-  "ExclusionOfLiability": [
-    {
-      "Content": "Der Kataster der belasteten Standorte (KbS) wurde anhand der vom Bundesamt f\u00fcr Umwelt BAFU festgelegten Kriterien erstellt und wird fortw\u00e4hrend aufgrund neuer Erkenntnisse (z.B. Untersuchungen) aktualisiert. Die im KbS eingetragenen Fl\u00e4chen k\u00f6nnen vom tats\u00e4chlichen Ausmass der Belastung abweichen. Erscheint ein Grundst\u00fcck nicht im KbS, besteht keine absolute Gew\u00e4hr, dass das Areal frei von jeglichen Abfall- oder Schadstoffbelastungen ist. Bahnbetrieblich, milit\u00e4risch und f\u00fcr die Luftfahrt genutzte Standorte liegen im Zust\u00e4ndigkeitsbereich des Bundes. F\u00fcr weitere Informationen wenden Sie sich an die kantonale Altlastenfachstelle, Amt f\u00fcr Umweltschutz und Energie (www.aue.bl.ch).",
-      "Title": "Haftungsausschluss Kataster der belasteten Standorte (KbS)"
-    }
-  ],
-  "LogoPLRCadastreRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/logo/oereb",
-  "RealEstate_LandRegistryArea": "119681.0 m\u00b2",
-  "RealEstate_Type": "RealEstate",
-  "Footer": "16.02.2018   11:54:24   e2ec795b-91f8-4827-8549-808ca7f25251",
-  "Glossary": [
-    {
-      "Content": "Wenn der projektierte Strassenverlauf definitiv bekannt ist, werden beiderseits der Strasse Baulinien festgelegt. Diese Baulinien erm\u00f6glichen es, die Anforderungen der Verkehrssicherheit und der Wohnhygiene sowie die Erfordernisse eines eventuellen k\u00fcnftigen Ausbaus der Strasse zu ber\u00fccksichtigen. Zwischen den Baulinien d\u00fcrfen ohne Bewilligung weder Neubauten erstellt noch Umbauten bestehender Geb\u00e4ude vorgenommen werden, auch wenn diese nur teilweise in die Baulinien hineinragen.",
-      "Title": "Baulinien Nationalstrassen"
-    },
-    {
-      "Content": "Die Kantone scheiden Schutzzonen f\u00fcr die im \u00f6ffentlichen Interesse liegenden Grundwasserfassungen und -anreicherungsanlagen aus; sie legen die notwendigen Eigentumsbeschr\u00e4nkungen fest.",
-      "Title": "Grundwasserschutzzonen"
-    },
-    {
-      "Content": "Die Kantone scheiden Areale aus, die f\u00fcr die k\u00fcnftige Nutzung und Anreicherung von Grundwasservorkommen von Bedeutung sind. In diesen Arealen d\u00fcrfen keine Bauten und Anlagen erstellt oder Arbeiten ausgef\u00fchrt werden, welche die k\u00fcnftige Errichtung von Grundwassernutzungs- oder -anreicherungsanlagen beeintr\u00e4chtigen k\u00f6nnten.",
-      "Title": "Grundwasserschutzareale"
-    },
-    {
-      "Content": "Der Kanton kann im Rahmen von Kantonalen Nutzungspl\u00e4nen Bau- und Strassenlinien f\u00fcr kantonale Verkehrsfl\u00e4chen, Bau- und Trasseelinien entlang von Schienenwegen sowie Baulinien entlang der Leitungen von regionaler Bedeutung, Gew\u00e4sser und kantonalen Schutzzonen festlegen (\u00a712 Raumplanungs- und Baugesetz). Hinweis: Generell gelten immer auch die gesetzlichen Abst\u00e4nde, welche im \u00d6REB-Katasterauszug nicht dargestellt werden.",
-      "Title": "Kantonale Baulinien"
-    },
-    {
-      "Content": "Die Kantone sorgen daf\u00fcr, dass Deponien und andere durch Abf\u00e4lle belastete Standorte saniert werden, wenn sie zu sch\u00e4dlichen oder l\u00e4stigen Einwirkungen f\u00fchren oder die konkrete Gefahr besteht, dass solche Einwirkungen entstehen. Die Beh\u00f6rde ermittelt die belasteten Standorte, indem sie vorhandene Angaben wie Karten, Verzeichnisse und Meldungen auswertet. Sie tr\u00e4gt diejenigen Standorte, deren Belastung erwiesen oder sehr wahrscheinlich ist, in den Kataster ein.",
-      "Title": "Kataster der belasteten Standorte (KbS)"
-    },
-    {
-      "Content": "In der Schweiz unterliegt die Nutzung eines Grundst\u00fccks mancherlei Einschr\u00e4nkungen. Im \u00d6REB-Kataster sind die wichtigsten dieser Beschr\u00e4nkungen zusammengefasst und abrufbar.\u00a0",
-      "Title": "Kataster der \u00f6ffentlich-rechtlichen Eigentumsbeschr\u00e4nkungen (\u00d6REB-Kataster)"
-    },
-    {
-      "Content": "Die Gemeinden k\u00f6nnen mittels Bau- und Strassenlinienpl\u00e4nen die Verkehrsfl\u00e4chen konkretisieren und die Feinerschliessung und die Abst\u00e4nde festlegen (\u00a7 35 Raumplanungs- und Baugesetz). Die Gemeinden k\u00f6nnen zudem im Rahmen ihrer Nutzungsplanung Baulinien festlegen. Hinweis: Generell gelten immer auch die gesetzlichen Abst\u00e4nde, welche im \u00d6REB-Katasterauszug nicht dargestellt werden.",
-      "Title": "Kommunale Baulinien"
-    },
-    {
-      "Content": "In den Nutzungspl\u00e4nen k\u00f6nnen Empfindlichkeitsstufen festgelegt werden, um jeweils bestimmte Zonen zu definieren: diejenigen, die eines erh\u00f6hten L\u00e4rmschutzes bed\u00fcrfen, diejenigen, in denen keine st\u00f6renden Betriebe zugelassen sind, und diejenigen, in denen m\u00e4ssig und stark st\u00f6rende Betriebe zugelassen sind.",
-      "Title": "L\u00e4rmempfindlichkeitsstufen"
-    },
-    {
-      "Content": "In den Nutzungspl\u00e4nen (h\u00e4ufig auch als Zonenpl\u00e4ne bezeichnet) wird die Art der Bodennutzung geregelt. Sie unterteilen das Gebiet in verschiedene Bau-, Landwirtschafts- oder Schutzzonen. \u00dcber sie wird in der Regel auf Stufe Gemeinde entschieden, gefolgt von der Genehmigung durch eine kantonale Beh\u00f6rde. Diese Genehmigung verleiht den Nutzungspl\u00e4nen eine bindende Wirkung.",
-      "Title": "Nutzungsplanung"
-    },
-    {
-      "Content": "Um die freie Verf\u00fcgbarkeit der f\u00fcr Flughafenanlagen erforderlichen Grundst\u00fccke zu gew\u00e4hrleisten, k\u00f6nnen Projektierungszonen festgelegt werden, deren Gebiet genau abzugrenzen ist. In diesen Zonen d\u00fcrfen keine baulichen Ver\u00e4nderungen vorgenommen werden, die dem Zweck der Flughafenanlagen widersprechen.",
-      "Title": "Projektierungszonen Flughafenanlagen"
-    },
-    {
-      "Content": "Eine Sicherheitszone muss f\u00fcr jeden Flughafen eingerichtet werden. Das Amt entscheidet im Einzelfall, ob f\u00fcr Flugsicherungsanlagen und Flugwege eine Sicherheitszone erforderlich ist. Ohne Zustimmung des Gesuchstellers kann niemand \u00fcber eine Liegenschaft verf\u00fcgen, die einem solchen Sicherheitszonenplan unterliegt.",
-      "Title": "Sicherheitszonenplan"
-    },
-    {
-      "Content": "Statische Waldgrenzen m\u00fcssen\u00a0auf der Grundlage rechtskr\u00e4ftiger Waldfeststellungen festgelegt werden. Neue Bestockungen ausserhalb dieser Waldgrenzen gelten nicht als Wald.",
-      "Title": "Statische Waldgrenzen"
-    },
-    {
-      "Content": "Bauten und Anlagen in Waldesn\u00e4he sind nur zul\u00e4ssig, wenn sie die Erhaltung, Pflege und Nutzung des Waldes nicht beeintr\u00e4chtigen. Die Kantone legen aufgrund rechtskr\u00e4ftiger Waldabstandslinien einen angemessenen Mindestabstand fest, der zwischen den Bauten und Anlagen und dem Waldrand einzuhalten ist. Im Kanton Basel-Landschaft werden Waldabstandslinien als kommunale Waldbaulinien festgesetzt.",
-      "Title": "Waldabstandslinien"
-    }
-  ],
-  "MunicipalityLogoRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/municipality/2766",
-  "baseLayers": {
-    "layers": [
-      {
-        "styles": "default",
-        "opacity": 0.5,
-        "layers": [
-          "grundbuchplan_gebaeude_nicht_gefuellt_group"
-        ],
-        "customParams": {
-          "TRANSPARENT": "true"
-        },
-        "baseURL": "http://dev2.geowms.bl.ch/",
-        "imageFormat": "image/png",
-        "type": "wms"
-      }
-    ]
-  },
-  "RealEstate_FosNr": 2766,
-  "PLRCadastreAuthority_City": "Liestal",
-  "PLRCadastreAuthority_PostalCode": 4410,
-  "PLRCadastreAuthority_OfficeAtWeb": "http://www.agi.bl.ch",
-  "RealEstate_PlanForLandRegisterMainPage": {
-    "layerOpacity": 0.5,
-    "ReferenceWMS": "http://dev2.geowms.bl.ch/?STYLES=default&LAYERS=grundbuchplan_gebaeude_nicht_gefuellt_group&SERVICE=WMS&FORMAT=image%2Fpng&REQUEST=GetMap&CRS=EPSG%3A2056&HEIGHT=280&WIDTH=493&VERSION=1.3.0&BBOX=2614423.83901%2C1266646.57585%2C2615979.16299%2C1267529.92415"
-  },
-  "CantonalLogoRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/logo/canton",
-  "Certification": "Referenz zur kantonsspezifischen Gesetzesgrundlage bez\u00fcglich Beglaubigungen.",
-  "RealEstate_Canton": "BL",
-  "PLRCadastreAuthority_Name": "Amt f\u00fcr Geoinformation",
-  "RealEstate_IdentDN": "BL0200002766",
-  "CreationDate": "16.02.2018",
-  "RealEstate_EGRID": "CH874978848203",
-  "UpdateDateOS": "27.01.2018",
   "PrintCantonLogo": true
 }
