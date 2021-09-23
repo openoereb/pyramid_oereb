@@ -2,7 +2,6 @@
 import os
 
 import logging
-import datetime
 import yaml
 from io import open as ioopen
 from pyramid.config import ConfigurationError
@@ -159,12 +158,12 @@ class Config(object):
         return Config.themes
 
     @staticmethod
-    def get_theme_by_code(code):
+    def get_theme_by_code_sub_code(code, sub_code=None):
         """
-        Returns the theme with the specified code.
+        Returns the theme or sub-theme which matches the code.
 
         Args:
-            code (str): The theme's code.
+            code (str): The theme's code or sub-code.
 
         Returns:
             pyramid_oereb.lib.records.theme.ThemeRecord or None: The theme with the specified
@@ -172,10 +171,13 @@ class Config(object):
         """
         if Config.themes is None:
             raise ConfigurationError("Themes have not been initialized")
-        for theme in Config.themes:
-            if theme.code == code:
-                return theme
-        raise ConfigurationError(f"Theme {code} not found in the application configuration")
+        theme_result = [theme for theme in Config.themes if theme.sub_code == sub_code and theme.code == code]
+        if len(theme_result) > 0:
+            return theme_result[0]
+        else:
+            raise ConfigurationError(
+                f"Theme {code} with sub-code {sub_code} not found in the application configuration"
+            )
 
     @staticmethod
     def init_logos():
@@ -638,25 +640,6 @@ class Config(object):
         return Config._config.get('oereblex')
 
     @staticmethod
-    def get_base_data(base_data_date):
-        """
-        Returns the multilingual base data description with updated currentness.
-
-        Args:
-            base_data_date datetime.datetime: The base data currentness.
-
-        Returns:
-            dict: The multilingual base data with updated currentness.
-        """
-        assert Config._config is not None
-        assert isinstance(base_data_date, datetime.datetime)
-        base_data = dict(Config.get_extract_config().get('base_data').get('text'))
-        assert isinstance(base_data, dict)
-        for k in base_data.keys():
-            base_data.update({k: base_data.get(k).format(base_data_date.strftime('%d.%m.%Y'))})
-        return base_data
-
-    @staticmethod
     def get(key, default=None):
         """
         Returns the specified configuration value.
@@ -836,31 +819,6 @@ class Config(object):
             u'There was no proper configuration for the real estate types.'
             u'"real_estate_type_lookup" from config could not be matched.'
         )
-
-    @staticmethod
-    def get_sub_theme_sorter_config(theme_code):
-        assert Config._config is not None
-        sorter = {
-            'module': 'pyramid_oereb.contrib.print_proxy.sub_themes.sorting',
-            'class_name': 'BaseSort',
-            'params': {}
-        }
-        themes = Config._config.get('plrs')
-        if themes and isinstance(themes, list):
-            for theme in themes:
-                if theme.get('code') == theme_code:
-                    sub_themes = theme.get('sub_themes', {})
-                    if 'sorter' in sub_themes:
-                        sorter = sub_themes.get('sorter')
-                    break
-        # Check if sorter is valid
-        if 'module' not in sorter:
-            log.error("Invalid configuration for sub theme sorter for theme {}, "
-                      "no module property".format(theme_code))
-        if 'class_name' not in sorter:
-            log.error("Invalid configuration for sub theme sorter for theme {}, "
-                      "no class_name property".format(theme_code))
-        return sorter
 
     @staticmethod
     def extract_module_function(dotted_function_path):

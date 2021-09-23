@@ -58,18 +58,13 @@ class TocPages():
             return self.d5_height
 
     def compute_d6_left(self):
+        # TODO: compute height when QR-Code is integrated
         content_min_size = 10 + 10 + 5 + 10 + 10  # spacing between paragraphs
         total_size = 39
         paragraph_space = 11
         for i in self.extract['GeneralInformation']:
             total_size += paragraph_space
             total_size += self.compute_length_of_wrapped_text(i['Content'][0]['Text'],
-                                                              78,
-                                                              10)
-        total_size += 5
-        for i in self.extract['BaseData']:
-            total_size += paragraph_space
-            total_size += self.compute_length_of_wrapped_text(i['Text'],
                                                               78,
                                                               10)
         log.debug('d6 left total_size : {}'.format(total_size))

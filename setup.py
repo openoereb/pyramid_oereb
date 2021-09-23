@@ -20,7 +20,7 @@ with open('requirements-tests.txt') as f:
 
 setup(
     name='pyramid_oereb',
-    version='2.0.0',
+    version='2.0.0.b1',
     description='pyramid_oereb, extension for pyramid web frame work to provide '
             'a basic server part for the oereb project',
     long_description='{readme}\n\n{changes}'.format(readme=README, changes=CHANGES),
@@ -36,8 +36,8 @@ setup(
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application"
     ],
     license='BSD 2',
-    author='Clemens Rudert',
-    author_email='clemens.rudert@bl.ch',
+    author='François Voisard',
+    author_email='francois.voisard@ne.ch',
     url='https://github.com/openoereb/pyramid_oereb',
     keywords='pyramid oereb',
     packages=find_packages(),

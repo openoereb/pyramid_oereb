@@ -1,5 +1,8 @@
 <%page args="theme"/>
 <data:Code>${theme.code | x}</data:Code>
+%if theme.sub_code:
+    <data:SubCode>${theme.sub_code | x}</data:SubCode>
+%endif
 <data:Text>
     <%include file="localized_text.xml" args="text=theme.title"/>
 </data:Text>

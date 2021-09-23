@@ -226,6 +226,22 @@ class DummyData(object):
                 "it": u'Il catasto dei siti inquinati (CSIN) è stato elaborato sulla \
                       base dei criteri definiti dall ...',
                 "rm": u''
+            },
+            'id': 2,
+            'title': {
+                'de': u'Haftungsausschluss Kataster der belasteten Standorte',
+                'fr': u'Clause de non-responsabilité du cadastre des sites pollués (CSP)',
+                'it': u'Clausola di esclusione della responsabilità ...',
+                'rm': u''
+            },
+            'content': {
+                "de": u'Der Kataster der belasteten Standorte (KbS) \
+                      wurde anhand der vom Bundesamt für Umwelt BAFU fe ...',
+                "fr": u'Le cadastre des sites pollués (CSP) est établi d’après \
+                      les critères émis par l’Office fédéral ...',
+                "it": u'Il catasto dei siti inquinati (CSIN) è stato elaborato sulla \
+                      base dei criteri definiti dall ...',
+                "rm": u''
             }
         })
 

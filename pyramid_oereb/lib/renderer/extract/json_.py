@@ -87,7 +87,7 @@ class Renderer(Base):
         extract_dict = {
             'CreationDate': self.date_time(extract.creation_date),
             'ExtractIdentifier': extract.extract_identifier,
-            'BaseData': self.get_multilingual_text(extract.base_data),
+            'UpdateDateOS': self.date_time(extract.update_date_os),
             'PLRCadastreAuthority': self.format_office(extract.plr_cadastre_authority),
             'RealEstate': self.format_real_estate(extract.real_estate),
             'ConcernedTheme': [self.format_theme(theme) for theme in extract.concerned_theme],
@@ -312,7 +312,7 @@ class Renderer(Base):
                 if plr.nr_of_points is not None:
                     plr_dict['NrOfPoints'] = plr.nr_of_points
                 if plr.sub_theme is not None:
-                    plr_dict['SubTheme'] = self.get_localized_text(plr.sub_theme).get('Text')
+                    plr_dict['SubTheme'] = self.format_theme(plr.sub_theme)
                 if plr.type_code is not None:
                     plr_dict['TypeCode'] = plr.type_code
                 if plr.type_code_list is not None:
@@ -476,6 +476,9 @@ class Renderer(Base):
             'Code': theme.code,
             'Text': self.get_localized_text(theme.title)
         }
+        if theme.sub_code:  # only for sub-themes
+            theme_dict.update({'Sub_Code': theme.sub_code})
+
         return theme_dict
 
     def format_map(self, map_):
@@ -501,7 +504,8 @@ class Renderer(Base):
             )
 
             map_dict['OtherLegend'] = [
-                self.format_legend_entry(legend_entry) for legend_entry in other_legend]
+                self.format_legend_entry(legend_entry) for legend_entry in other_legend
+            ]
 
         map_dict['layerIndex'] = map_.layer_index
         map_dict['layerOpacity'] = map_.layer_opacity
@@ -538,9 +542,6 @@ class Renderer(Base):
             legend_entry_dict.update({
                 'SymbolRef': self.get_symbol_ref(self._request, legend_entry)
             })
-
-        if legend_entry.sub_theme is not None:
-            legend_entry_dict['SubTheme'] = self.get_localized_text(legend_entry.sub_theme).get('Text')
         return legend_entry_dict
 
     @staticmethod

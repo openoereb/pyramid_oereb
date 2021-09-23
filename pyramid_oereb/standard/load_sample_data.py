@@ -197,6 +197,7 @@ class SampleData(object):
         # Find data model for each PLR from config
         themes = parse_multiple_standard_themes(Config)
         contaminated_public_transport_sites = themes['ch.BelasteteStandorteOeffentlicherVerkehr']
+        land_use_plans = themes['ch.Nutzungsplanung']
         groundwater_protection_zones = themes['ch.Grundwasserschutzzonen']
         motorways_building_lines = themes['ch.BaulinienNationalstrassen']
         contaminated_military_sites = themes['ch.BelasteteStandorteMilitaer']
@@ -228,6 +229,7 @@ class SampleData(object):
 
             for schema, folder in [
                 (contaminated_public_transport_sites, "contaminated_public_transport_sites"),
+                (land_use_plans, "land_use_plans"),
                 (groundwater_protection_zones, "groundwater_protection_zones"),
                 (forest_perimeters, "forest_perimeters"),
                 (motorways_building_lines, "motorways_building_lines"),

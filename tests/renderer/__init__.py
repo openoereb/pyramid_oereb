@@ -50,11 +50,10 @@ def _get_test_extract(glossary):
         resolver = DottedNameResolver()
         date_method_string = Config.get('extract').get('base_data').get('methods').get('date')
         date_method = resolver.resolve(date_method_string)
-        av_update_date = date_method(real_estate)
-        base_data = Config.get_base_data(av_update_date)
+        update_date_os = date_method(real_estate)
 
-        av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
-        av_provider_method = resolver.resolve(av_provider_method_string)
+        os_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
+        os_provider_method = resolver.resolve(os_provider_method_string)
         cadaster_state = date
         theme = ThemeRecord(u'TEST', {'de': u'TEST TEXT'}, 100)
         datasources = [DatasourceRecord(theme, date, office_record)]
@@ -62,8 +61,8 @@ def _get_test_extract(glossary):
         embeddable = EmbeddableRecord(
             cadaster_state,
             plr_cadastre_authority,
-            av_provider_method(real_estate),
-            av_update_date,
+            os_provider_method(real_estate),
+            update_date_os,
             datasources
         )
         extract = ExtractRecord(
@@ -73,7 +72,7 @@ def _get_test_extract(glossary):
             Config.get_canton_logo(),
             Config.get_municipality_logo(1234),
             office_record,
-            base_data,
+            update_date_os,
             embeddable,
             exclusions_of_liability=[
                 ExclusionOfLiabilityRecord({'de': u'Haftungsausschluss'}, {'de': u'Test'})

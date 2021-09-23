@@ -72,6 +72,9 @@
     %for general_information in extract.general_information:
         <%include file="general_information.xml" args="general_information=general_information"/>
     %endfor
+        <data:UpdateDateOS>
+            ${extract.creation_date.strftime(date_format)}
+        </data:UpdateDateOS>
         %for glossary in sorted_glossaries:
         <%include file="glossary.xml" args="glossary=glossary"/>
         %endfor

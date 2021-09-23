@@ -47,7 +47,7 @@ class PlrRecord(EmptyPlrRecord):
                 associated with this record.
             geometries (list of pyramid_oereb.lib.records.geometry.GeometryRecord): List of geometry records
                 associated with this record.
-            sub_theme (dict of unicode or None): Optional subtopic.
+            sub_theme (pyramid_oereb.lib.records.theme.ThemeRecord or None): Optional subtopic.
             type_code (unicode): The PLR record's type code (also used by view service).
             type_code_list (unicode): URL to the PLR's list of type codes.
             documents (list of pyramid_oereb.lib.records.documents.DocumentBaseRecord): List of documents
@@ -65,9 +65,6 @@ class PlrRecord(EmptyPlrRecord):
         if not isinstance(legend_entry.legend_text, dict):
             warnings.warn('Type of "legend_text" should be "dict"')
 
-        if sub_theme is not None and not isinstance(sub_theme, dict):
-            warnings.warn('Type of "sub_theme" should be "dict"')
-
         assert isinstance(geometries, list)
         assert len(geometries) > 0
 
@@ -76,7 +73,6 @@ class PlrRecord(EmptyPlrRecord):
         self.published_from = published_from
         self.published_until = published_until
         self.responsible_office = responsible_office
-        self.sub_theme = sub_theme
         self.type_code = type_code
         self.type_code_list = type_code_list
         self.view_service = view_service
@@ -88,6 +84,7 @@ class PlrRecord(EmptyPlrRecord):
             self.geometries = []
         else:
             self.geometries = geometries
+        self.sub_theme = sub_theme
         self.info = info
         self.has_data = True
         self.min_length = min_length

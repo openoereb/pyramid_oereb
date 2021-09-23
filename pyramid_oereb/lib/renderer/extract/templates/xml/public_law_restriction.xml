@@ -7,6 +7,11 @@
     <data:Theme>
         <%include file="theme.xml" args="theme=public_law_restriction.theme"/>
     </data:Theme>
+    %if public_law_restriction.sub_theme:
+    <data:SubTheme>
+        <%include file="theme.xml" args="theme=public_law_restriction.sub_theme"/>
+    </data:SubTheme>
+    %endif3fb
     %if public_law_restriction.type_code:
     <data:TypeCode>${public_law_restriction.type_code | x}</data:TypeCode>
     %endif

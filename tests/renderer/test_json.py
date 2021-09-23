@@ -82,11 +82,10 @@ def test_render(parameter, glossaries_input, glossaries_expected):
         resolver = DottedNameResolver()
         date_method_string = Config.get('extract').get('base_data').get('methods').get('date')
         date_method = resolver.resolve(date_method_string)
-        av_update_date = date_method(real_estate)
-        base_data = Config.get_base_data(av_update_date)
+        update_date_os = date_method(real_estate)
 
-        av_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
-        av_provider_method = resolver.resolve(av_provider_method_string)
+        os_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
+        os_provider_method = resolver.resolve(os_provider_method_string)
         cadaster_state = date
         theme = ThemeRecord(u'TEST', {'de': u'TEST TEXT'}, 100)
         datasources = [DatasourceRecord(theme, date, office_record)]
@@ -94,8 +93,8 @@ def test_render(parameter, glossaries_input, glossaries_expected):
         embeddable = EmbeddableRecord(
             cadaster_state,
             plr_cadastre_authority,
-            av_provider_method(real_estate),
-            av_update_date,
+            os_provider_method(real_estate),
+            update_date_os,
             datasources
         )
         extract = ExtractRecord(
@@ -109,7 +108,7 @@ def test_render(parameter, glossaries_input, glossaries_expected):
             LogoRecord('ch.1234', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
                 3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
             office_record,
-            base_data,
+            update_date_os,
             embeddable,
             exclusions_of_liability=[
                 ExclusionOfLiabilityRecord({'de': u'Haftungsausschluss'}, {'de': u'Test'})
@@ -141,7 +140,7 @@ def test_render(parameter, glossaries_input, glossaries_expected):
                 'NotConcernedTheme': [],
                 'ThemeWithoutData': [],
                 'PLRCadastreAuthority': renderer.format_office(office_record),
-                'BaseData': renderer.get_multilingual_text(Config.get_base_data(av_update_date)),
+                'UpdateDateOS': Base.date_time(extract.update_date_os),
                 'RealEstate': renderer.format_real_estate(real_estate),
                 'Certification': [{'Language': 'de', 'Text': 'certification'}],
                 'CertificationAtWeb': [{'Language': 'de', 'Text': 'certification_at_web'}],
@@ -267,6 +266,7 @@ def test_format_plr(parameter):
         )
         documents = [document]
         theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test theme'}, 410)
+        subTheme = ThemeRecord(u'ContaminatedSites', {u'de': u'SubTheme'}, 411, u'SubCodeContaminatedSites')
         office = OfficeRecord({'de': 'Test Office'})
         legend_entry = LegendEntryRecord(
             ImageRecord(FileAdapter().read('tests/resources/python.svg')),
@@ -287,9 +287,7 @@ def test_format_plr(parameter):
             ImageRecord(FileAdapter().read('tests/resources/python.svg')),
             view_service,
             [geometry],
-            sub_theme={
-                'de': 'Subtopic'
-            },
+            subTheme,
             type_code='CodeA',
             type_code_list='TypeCodeList',
             documents=documents,
@@ -310,7 +308,14 @@ def test_format_plr(parameter):
             },
             'ResponsibleOffice': renderer.format_office(plr.responsible_office),
             'Map': renderer.format_map(plr.view_service),
-            'SubTheme': 'Subtopic',
+            'SubTheme': {
+                'Code': 'ContaminatedSites',
+                'Text': {
+                    'Language': 'de',
+                    'Text': 'SubTheme'
+                },
+                'Sub_Code': 'SubCodeContaminatedSites'
+            },
             'TypeCode': 'CodeA',
             'TypeCodelist': 'TypeCodeList',
             'LegalProvisions': [renderer.format_document(document)],
@@ -334,7 +339,7 @@ def test_format_plr(parameter):
                 },
                 'ResponsibleOffice': renderer.format_office(plr.responsible_office),
                 'Map': renderer.format_map(plr.view_service),
-                'SubTheme': 'Subtopic',
+                'SubTheme': renderer.format_theme(plr.sub_theme),
                 'TypeCode': 'CodeA',
                 'TypeCodelist': 'TypeCodeList',
                 'LegalProvisions': [renderer.format_document(document)],
@@ -535,7 +540,6 @@ def test_format_legend_entry(parameter):
             u'CodeA',
             u'type_code_list',
             theme,
-            {'de': u'Subthema'},
             view_service_id=1
         )
         result = renderer.format_legend_entry(legend_entry)
@@ -544,7 +548,6 @@ def test_format_legend_entry(parameter):
             'TypeCode': 'CodeA',
             'TypeCodelist': 'type_code_list',
             'Theme': renderer.format_theme(theme),
-            'SubTheme': 'Subthema',
         }
         if parameter.images:
             expected.update({

@@ -105,7 +105,7 @@ class Processor(object):
                     return True
             return False
 
-        # Ensure ConcernedThemes contains only inside PLRs
+        # Ensure only ConcernedThemes are contained in PLRs
         themes_to_move = []
         for i, theme in enumerate(extract.concerned_theme):
             if not is_inside_plr(theme.code):
@@ -120,7 +120,7 @@ class Processor(object):
                           )
                 extract.not_concerned_theme.append(new_not_concerned_theme)
             # Need to reorder, because order must stay exactly as defined in configuration
-            extract.not_concerned_theme = sorted(extract.not_concerned_theme, key=attrgetter('position'))
+            extract.not_concerned_theme = sorted(extract.not_concerned_theme, key=attrgetter('extract_index'))
 
         real_estate.public_law_restrictions = self.get_legend_entries(inside_plrs, outside_plrs)
         return extract

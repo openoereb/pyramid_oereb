@@ -18,7 +18,8 @@ class DatabaseSource(BaseDatabaseSource, ThemeBaseSource):
                 self.records.append(self._record_class_(
                     result.code,
                     result.title,
-                    result.extract_index
+                    result.extract_index,
+                    result.sub_code
                 ))
         finally:
             session.close()

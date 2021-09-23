@@ -186,8 +186,8 @@ def test_return_json(egrid, topics):
         assert restrictions[2]['Theme']['Code'] == 'ContaminatedSites'
         # Check consistency of ordering (according to config) for not concerned themes
         assert extract.get('NotConcernedTheme')[0]['Code'] == 'MotorwaysProjectPlaningZones'
-        assert extract.get('NotConcernedTheme')[1]['Code'] == 'RailwaysBuildingLines'
-        assert extract.get('NotConcernedTheme')[2]['Code'] == 'RailwaysProjectPlanningZones'
+        assert extract.get('NotConcernedTheme')[1]['Code'] == 'RailwaysProjectPlanningZones'
+        assert extract.get('NotConcernedTheme')[2]['Code'] == 'RailwaysBuildingLines'
         assert extract.get('NotConcernedTheme')[3]['Code'] == 'AirportsProjectPlanningZones'
         assert extract.get('NotConcernedTheme')[4]['Code'] == 'AirportsBuildingLines'
         assert extract.get('NotConcernedTheme')[5]['Code'] == 'AirportsSecurityZonePlans'
