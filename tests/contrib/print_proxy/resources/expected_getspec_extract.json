@@ -5,7 +5,7 @@
   "CreationDate": "16.02.2018",
   "ConcernedTheme": [
     {
-      "Code": "LandUsePlansch.BaulinieninKraft",
+      "Code": "ch.Nutzungsplanung",
       "Text": "Nutzungsplanung: 02.73A.Grundnutzung"
     },
     {
@@ -25,35 +25,35 @@
       "Text": "Nutzungsplanung: 08.73B.Ueberlagerung_Flaeche"
     },
     {
-      "Code": "ContaminatedSitesinKraft",
+      "Code": "ch.BelasteteStandorteinKraft",
       "Text": "Kataster der belasteten Standorte"
     },
     {
-      "Code": "ContaminatedSitesinKraft",
+      "Code": "ch.BelasteteStandorteinKraft",
       "Text": "Kataster der belasteten Standorte"
     },
     {
-      "Code": "ContaminatedSitesinKraft",
+      "Code": "ch.BelasteteStandorteinKraft",
       "Text": "Kataster der belasteten Standorte"
     },
     {
-      "Code": "ContaminatedSitesinKraft",
+      "Code": "ch.BelasteteStandorteinKraft",
       "Text": "Kataster der belasteten Standorte"
     },
     {
-      "Code": "ContaminatedSitesinKraft",
+      "Code": "ch.BelasteteStandorteinKraft",
       "Text": "Kataster der belasteten Standorte"
     },
     {
-      "Code": "NoiseSensitivityLevelsinKraft",
+      "Code": "ch.LaermempfindlichkeitsstufeninKraft",
       "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
     },
     {
-      "Code": "NoiseSensitivityLevelsinKraft",
+      "Code": "ch.LaermempfindlichkeitsstufeninKraft",
       "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
     },
     {
-      "Code": "NoiseSensitivityLevelsinKraft",
+      "Code": "ch.LaermempfindlichkeitsstufeninKraft",
       "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
     }
   ],
@@ -123,50 +123,50 @@
     },
     {
       "Text": "Projektierungszonen Nationalstrassen",
-      "Code": "MotorwaysProjectPlaningZones"
+      "Code": "ch.ProjektierungszonenNationalstrassen"
     },
     {
       "Text": "Projektierungszonen Eisenbahnanlagen",
-      "Code": "RailwaysProjectPlanningZones"
+      "Code": "ch.ProjektierungszonenEisenbahnanlagen"
     },
     {
       "Text": "Baulinien Eisenbahnanlagen",
-      "Code": "RailwaysBuildingLines"
+      "Code": "ch.BaulinienEisenbahnanlagen"
     },
     {
       "Text": "Projektierungszonen Flughafenanlagen",
-      "Code": "AirportsProjectPlanningZones"
+      "Code": "ch.ProjektierungszonenFlughafenanlagen"
     },
     {
       "Text": "Baulinien Flughafenanlagen",
-      "Code": "AirportsBuildingLines"
+      "Code": "ch.BaulinienFlughafenanlagen"
     },
     {
       "Text": "Sicherheitszonenplan",
-      "Code": "AirportsSecurityZonePlans"
+      "Code": "ch.Sicherheitszonenplan"
     },
     {
       "Text": "Kataster der belasteten Standorte im Bereich der zivilen Flugplätze",
-      "Code": "ContaminatedCivilAviationSites"
+      "Code": "ch.BelasteteStandorteZivileFlugplaetze"
     },
     {
       "Text": "Kataster der belasteten Standorte im Bereich des öffentlichen Verkehrs",
-      "Code": "ContaminatedPublicTransportSites"
+      "Code": "ch.BelasteteStandorteOeffentlicherVerkehr"
     },
     {
       "Text": "Grundwasserschutzzonen",
-      "Code": "GroundwaterProtectionZones"
+      "Code": "ch.Grundwasserschutzzonen"
     },
     {
       "Text": "Grundwasserschutzareale",
-      "Code": "GroundwaterProtectionSites"
+      "Code": "ch.Grundwasserschutzareale"
     },
     {
       "Text": "Statische Waldgrenzen",
-      "Code": "ForestPerimeters"
+      "Code": "ch.StatischeWaldgrenzen"
     }
   ],
-  "ExclusionOfLiability": [
+  "Disclaimer": [
     {
       "Content": "Der Kataster der belasteten Standorte (KbS) wurde anhand der vom Bundesamt für Umwelt BAFU festgelegten Kriterien erstellt und wird fortwährend aufgrund neuer Erkenntnisse (z.B. Untersuchungen) aktualisiert. Die im KbS eingetragenen Flächen können vom tatsächlichen Ausmass der Belastung abweichen. Erscheint ein Grundstück nicht im KbS, besteht keine absolute Gewähr, dass das Areal frei von jeglichen Abfall- oder Schadstoffbelastungen ist. Bahnbetrieblich, militärisch und für die Luftfahrt genutzte Standorte liegen im Zuständigkeitsbereich des Bundes.Für weitere Informationen wenden Sie sich an die kantonale Altlastenfachstelle: E-Mail Adresse und/oder Webseite",
       "Title": "Haftungsausschluss Kataster der belasteten Standorte (KbS)"
@@ -183,15 +183,15 @@
     },
     {
       "Text": "Baulinien Nationalstrassen",
-      "Code": "MotorwaysBuildingLines"
+      "Code": "ch.BaulinienNationalstrassen"
     },
     {
       "Text": "Kataster der belasteten Standorte im Bereich des Militärs",
-      "Code": "ContaminatedMilitarySites"
+      "Code": "ch.BelasteteStandorteMilitaer"
     },
     {
       "Text": "Waldabstandslinien",
-      "Code": "ForestDistanceLines"
+      "Code": "ch.Waldabstandslinien"
     }
   ],
   "UpdateDateOS": "27.01.2018",
@@ -224,8 +224,8 @@
       "Lawstatus_Text": "Rechtskräftig",
       "Lawstatus_Code": "inKraft",
       "Theme_Text": "Nutzungsplanung: 02.73A.Grundnutzung",
-      "Theme_Code": "LandUsePlans",
-      "SubTheme_Code": "LandUsePlans",
+      "Theme_Code": "ch.Nutzungsplanung",
+      "SubTheme_Code": "ch.Nutzungsplanung",
       "SubTheme_Sub_Code": "ch.Baulinien",
       "SubTheme_Text": "02.73A.Grundnutzung",
       "baseLayers": {
@@ -261,102 +261,102 @@
       "OtherLegend": [
         {
           "LegendText": "Allee",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/354000",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/354000",
           "TypeCode": "354000"
         },
         {
           "LegendText": "Bahnbordzone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/130000",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/130000",
           "TypeCode": "130000"
         },
         {
           "LegendText": "befestigter Bereich",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/216115",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/216115",
           "TypeCode": "216115"
         },
         {
           "LegendText": "Gebäudebereich",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/215307",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/215307",
           "TypeCode": "215307"
         },
         {
           "LegendText": "Gewerbezone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/106405",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/106405",
           "TypeCode": "106405"
         },
         {
           "LegendText": "Grünbereich",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/216004",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/216004",
           "TypeCode": "216004"
         },
         {
           "LegendText": "Grünzone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/131003",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/131003",
           "TypeCode": "131003"
         },
         {
           "LegendText": "Industrie-Randzone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/109000",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/109000",
           "TypeCode": "109000"
         },
         {
           "LegendText": "Industriezone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/108001",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/108001",
           "TypeCode": "108001"
         },
         {
           "LegendText": "Landschaftsschutzzone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/211110",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/211110",
           "TypeCode": "211110"
         },
         {
           "LegendText": "Naturnah gestaltete Grünzone mit Allee",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/131013",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/131013",
           "TypeCode": "131013"
         },
         {
           "LegendText": "Ökologischhe Schutzzone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/130005",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/130005",
           "TypeCode": "130005"
         },
         {
           "LegendText": "Perimeter Sondernutzungsplan",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/500100",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/500100",
           "TypeCode": "500100"
         },
         {
           "LegendText": "Schutzzone Hardwald",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/212155",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/212155",
           "TypeCode": "212155"
         },
         {
           "LegendText": "Sichtschutzbepflanzung",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/351105",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/351105",
           "TypeCode": "351105"
         },
         {
           "LegendText": "Spezialzone Kraftwerk und Erholungseinrichtungen",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/142101",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/142101",
           "TypeCode": "142101"
         },
         {
           "LegendText": "Spezialzone Ortsbilderhaltung",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/101003",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/101003",
           "TypeCode": "101003"
         },
         {
           "LegendText": "Wohnzone W3",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/101307",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/101307",
           "TypeCode": "101307"
         },
         {
           "LegendText": "Wohnzone W4",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/101401",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/101401",
           "TypeCode": "101401"
         },
         {
           "LegendText": "Zone für öffentliche Werke und Anlagen OeWA",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/112033",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/112033",
           "TypeCode": "112033"
         }
       ],
@@ -489,7 +489,7 @@
           "Geom_Type": "AreaShare",
           "AreaShare": "87380.21 m²",
           "PartInPercent": "73.0%",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/108000",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/108000",
           "LegendText": "Industrie- und Gewerbezone"
         },
         {
@@ -497,7 +497,7 @@
           "Geom_Type": "AreaShare",
           "AreaShare": "7379.93 m²",
           "PartInPercent": "6.2%",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/130004",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/130004",
           "LegendText": "Rheinuferzone"
         }
       ],
@@ -515,8 +515,8 @@
       "Lawstatus_Text": "Rechtskräftig",
       "Lawstatus_Code": "inKraft",
       "Theme_Text": "Nutzungsplanung: 08.73B.Ueberlagerung_Flaeche",
-      "Theme_Code": "LandUsePlans",
-      "SubTheme_Code": "LandUsePlans",
+      "Theme_Code": "ch.Nutzungsplanung",
+      "SubTheme_Code": "ch.Nutzungsplanung",
       "SubTheme_Sub_Code": "ch.Ueberlagerung",
       "SubTheme_Text": "08.73B.Ueberlagerung_Flaeche",
       "baseLayers": {
@@ -552,102 +552,102 @@
       "OtherLegend": [
         {
           "LegendText": "Allee",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/354000",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/354000",
           "TypeCode": "354000"
         },
         {
           "LegendText": "Bahnbordzone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/130000",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/130000",
           "TypeCode": "130000"
         },
         {
           "LegendText": "befestigter Bereich",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/216115",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/216115",
           "TypeCode": "216115"
         },
         {
           "LegendText": "Gebäudebereich",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/215307",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/215307",
           "TypeCode": "215307"
         },
         {
           "LegendText": "Gewerbezone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/106405",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/106405",
           "TypeCode": "106405"
         },
         {
           "LegendText": "Grünbereich",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/216004",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/216004",
           "TypeCode": "216004"
         },
         {
           "LegendText": "Grünzone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/131003",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/131003",
           "TypeCode": "131003"
         },
         {
           "LegendText": "Industrie-Randzone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/109000",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/109000",
           "TypeCode": "109000"
         },
         {
           "LegendText": "Industriezone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/108001",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/108001",
           "TypeCode": "108001"
         },
         {
           "LegendText": "Landschaftsschutzzone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/211110",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/211110",
           "TypeCode": "211110"
         },
         {
           "LegendText": "Naturnah gestaltete Grünzone mit Allee",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/131013",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/131013",
           "TypeCode": "131013"
         },
         {
           "LegendText": "Ökologischhe Schutzzone",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/130005",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/130005",
           "TypeCode": "130005"
         },
         {
           "LegendText": "Perimeter Sondernutzungsplan",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/500100",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/500100",
           "TypeCode": "500100"
         },
         {
           "LegendText": "Schutzzone Hardwald",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/212155",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/212155",
           "TypeCode": "212155"
         },
         {
           "LegendText": "Sichtschutzbepflanzung",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/351105",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/351105",
           "TypeCode": "351105"
         },
         {
           "LegendText": "Spezialzone Kraftwerk und Erholungseinrichtungen",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/142101",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/142101",
           "TypeCode": "142101"
         },
         {
           "LegendText": "Spezialzone Ortsbilderhaltung",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/101003",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/101003",
           "TypeCode": "101003"
         },
         {
           "LegendText": "Wohnzone W3",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/101307",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/101307",
           "TypeCode": "101307"
         },
         {
           "LegendText": "Wohnzone W4",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/101401",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/101401",
           "TypeCode": "101401"
         },
         {
           "LegendText": "Zone für öffentliche Werke und Anlagen OeWA",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/112033",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/112033",
           "TypeCode": "112033"
         }
       ],
@@ -780,7 +780,7 @@
           "Geom_Type": "AreaShare",
           "AreaShare": "6125.68 m²",
           "PartInPercent": "5.1%",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/LandUsePlans/219106",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/219106",
           "LegendText": "Archäologische Schutzzone"
         }
       ],
@@ -798,7 +798,7 @@
       "Lawstatus_Text": "Rechtskräftig",
       "Lawstatus_Code": "inKraft",
       "Theme_Text": "Kataster der belasteten Standorte",
-      "Theme_Code": "ContaminatedSites",
+      "Theme_Code": "ch.BelasteteStandorte",
       "baseLayers": {
         "layers": [
           {
@@ -832,22 +832,22 @@
       "OtherLegend": [
         {
           "LegendText": "Ablagerungsstandort. Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp1_StatusAltlV1",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.BelasteteStandorte/StaoTyp1_StatusAltlV1",
           "TypeCode": "StaoTyp1_StatusAltlV1"
         },
         {
           "LegendText": "Ablagerungsstandort. Belastet, untersuchungsbedürftig",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp1_StatusAltlV2",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.BelasteteStandorte/StaoTyp1_StatusAltlV2",
           "TypeCode": "StaoTyp1_StatusAltlV2"
         },
         {
           "LegendText": "Ablagerungsstandort. Belastet, weder überwachungs- noch sanierungsbedürftig",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp1_StatusAltlV3",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.BelasteteStandorte/StaoTyp1_StatusAltlV3",
           "TypeCode": "StaoTyp1_StatusAltlV3"
         },
         {
           "LegendText": "Betriebsstandort. Belastet, untersuchungsbedürftig",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV2",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.BelasteteStandorte/StaoTyp2_StatusAltlV2",
           "TypeCode": "StaoTyp2_StatusAltlV2"
         }
       ],
@@ -1000,7 +1000,7 @@
           "Geom_Type": "AreaShare",
           "AreaShare": "61999.23 m²",
           "PartInPercent": "51.8%",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV1",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.BelasteteStandorte/StaoTyp2_StatusAltlV1",
           "LegendText": "Betriebsstandort. Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten"
         },
         {
@@ -1008,7 +1008,7 @@
           "Geom_Type": "AreaShare",
           "AreaShare": "14503.04 m²",
           "PartInPercent": "12.1%",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV3",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.BelasteteStandorte/StaoTyp2_StatusAltlV3",
           "LegendText": "Betriebsstandort. Belastet, weder überwachungs- noch sanierungsbedürftig"
         },
         {
@@ -1016,7 +1016,7 @@
           "Geom_Type": "AreaShare",
           "AreaShare": "5764.33 m²",
           "PartInPercent": "4.8%",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp2_StatusAltlV4",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.BelasteteStandorte/StaoTyp2_StatusAltlV4",
           "LegendText": "Betriebsstandort. Belastet,  überwachungsbedürftig"
         },
         {
@@ -1024,7 +1024,7 @@
           "Geom_Type": "AreaShare",
           "AreaShare": "1210.49 m²",
           "PartInPercent": "1%",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ContaminatedSites/StaoTyp3_StatusAltlV1",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.BelasteteStandorte/StaoTyp3_StatusAltlV1",
           "LegendText": "Unfallstandort. Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten"
         }
       ],
@@ -1042,7 +1042,7 @@
       "Lawstatus_Text": "Rechtskräftig",
       "Lawstatus_Code": "inKraft",
       "Theme_Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)",
-      "Theme_Code": "NoiseSensitivityLevels",
+      "Theme_Code": "ch.Laermempfindlichkeitsstufen",
       "baseLayers": {
         "layers": [
           {
@@ -1076,12 +1076,12 @@
       "OtherLegend": [
         {
           "LegendText": "Empfindlichkeitsstufe ES II",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_II",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Laermempfindlichkeitsstufen/ES_II",
           "TypeCode": "ES_II"
         },
         {
           "LegendText": "Empfindlichkeitsstufe ES III",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_III",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Laermempfindlichkeitsstufen/ES_III",
           "TypeCode": "ES_III"
         }
       ],
@@ -1167,7 +1167,7 @@
           "Geom_Type": "AreaShare",
           "AreaShare": "87381.15 m²",
           "PartInPercent": "73.0%",
-          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/NoiseSensitivityLevels/ES_IV",
+          "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Laermempfindlichkeitsstufen/ES_IV",
           "LegendText": "Empfindlichkeitsstufe ES IV"
         }
       ],

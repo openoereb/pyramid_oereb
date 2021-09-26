@@ -16,7 +16,7 @@ def create_oereblex_model():
         metavar='OEREB NAME',
         type='string',
         help='The code/name for the oereb theme/topic/whatever. It must be camel case like: '
-             'ForestPerimeters, ForestDistanceLines, NoiseSensitivityLevels,...'
+             'ch.StatischeWaldgrenzen, ch.Waldabstandslinien, ch.Laermempfindlichkeitsstufen,...'
     )
     parser.add_option(
         '-g', '--geometry_type',

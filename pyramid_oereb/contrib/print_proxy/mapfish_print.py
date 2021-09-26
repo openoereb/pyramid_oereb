@@ -495,12 +495,12 @@ class Renderer(JsonRenderer):
         extract_dict['RealEstate_RestrictionOnLandownership'] = restrictions
         # End one restriction entry per theme
 
-        for item in extract_dict.get('ExclusionOfLiability', []):
+        for item in extract_dict.get('Disclaimer', []):
             self._multilingual_text(item, 'Title')
             self._multilingual_text(item, 'Content')
 
-        extract_dict['DisclaimerLandRegister'] = extract_dict['ExclusionOfLiability'][0]
-        extract_dict['DisclaimerPollutedSites'] = extract_dict['ExclusionOfLiability'][1]
+        extract_dict['DisclaimerLandRegister'] = extract_dict['Disclaimer'][0]
+        extract_dict['DisclaimerPollutedSites'] = extract_dict['Disclaimer'][1]
         self._flatten_object(extract_dict, 'DisclaimerLandRegister')
         self._flatten_object(extract_dict, 'DisclaimerPollutedSites')
 

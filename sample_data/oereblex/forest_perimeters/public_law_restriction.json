@@ -12,7 +12,7 @@
       "de": "Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten",
       "fr": "Pollué, pas d?atteinte nuisible ou incommodante à attendre"
     },
-    "topic": "ForestPerimeters",
+    "theme": "ch.StatischeWaldgrenzen",
     "geolink": 2862
   },
   {
@@ -28,7 +28,7 @@
       "de": "Belastet, weder überwachungs- noch sanierungsbedürftig",
       "it": "Inquinato, non deve essere né sorvegliato né risanato"
     },
-    "topic": "ForestPerimeters",
+    "theme": "ch.StatischeWaldgrenzen",
     "geolink": 2862
   }
 ]

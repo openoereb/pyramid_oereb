@@ -10,7 +10,7 @@ from pyramid_oereb.standard.sources.plr import StandardThemeConfigParser
 
 Config._config = None
 Config.init(tests.pyramid_oereb_test_yml, 'pyramid_oereb')
-theme_config = Config.get_theme_config_by_code('AirportsSecurityZonePlans')
+theme_config = Config.get_theme_config_by_code('ch.Sicherheitszonenplan')
 config_parser = StandardThemeConfigParser(**theme_config)
 models = config_parser.get_models()
 LegendEntry = models.LegendEntry

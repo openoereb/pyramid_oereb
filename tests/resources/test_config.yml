@@ -90,7 +90,7 @@ pyramid_oereb:
       https:
   srid: 2056
   plrs:
-    - code: LandUsePlans
+    - code: ch.Nutzungsplanung
       view_service:
         layer_index: 1
         layer_opacity: 0.25
@@ -98,12 +98,12 @@ pyramid_oereb:
         inKraft: inKraft
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
-    - code: MotorwaysProjectPlaningZones
+    - code: ch.ProjektierungszonenNationalstrassen
       law_status:
         inKraft: inKraft
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
-    - code: ContaminatedSites
+    - code: ch.BelasteteStandorte
       law_status:
         inKraft: inKraft
         AenderungMitVorwirkung: AenderungMitVorwirkung

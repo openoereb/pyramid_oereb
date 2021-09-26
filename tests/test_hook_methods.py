@@ -36,7 +36,7 @@ def test_get_symbol_invalid_theme_code():
 def test_get_symbol_not_found():
     request = DummyRequest()
     request.matchdict.update({
-        'theme_code': 'ContaminatedSites',
+        'theme_code': 'ch.BelasteteStandorte',
         'view_service_id': '1',
         'type_code': 'missing'
     })
@@ -47,7 +47,7 @@ def test_get_symbol_not_found():
 def test_get_symbol():
     request = DummyRequest()
     request.matchdict.update({
-        'theme_code': 'ContaminatedSites',
+        'theme_code': 'ch.BelasteteStandorte',
         'view_service_id': '1',
         'type_code': 'CodeA'
     })
@@ -61,13 +61,13 @@ def test_get_symbol_ref():
         {'de': 'Test'},
         'CodeA',
         'http://my.codelist.com/test.xml',
-        ThemeRecord('ContaminatedSites', {'de': 'Belastete Standorte'}, 410),
+        ThemeRecord('ch.BelasteteStandorte', {'de': 'Belastete Standorte'}, 410),
         view_service_id='1'
     )
     with pyramid_oereb_test_config():
         request = DummyRequest()
         url = urlparse(get_symbol_ref(request, record))
-        assert url.path == '/image/symbol/ContaminatedSites/1/CodeA.png'
+        assert url.path == '/image/symbol/ch.BelasteteStandorte/1/CodeA.png'
 
 
 def test_get_surveying_data_date():

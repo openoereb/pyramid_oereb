@@ -20,7 +20,7 @@ class DatabaseSource(BaseDatabaseSource, DocumentTypesBaseSource):
             for result in results:
                 self.records.append(self._record_class_(
                     result.code,
-                    result.text
+                    result.title
                 ))
         finally:
             session.close()

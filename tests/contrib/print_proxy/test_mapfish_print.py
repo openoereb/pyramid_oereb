@@ -138,7 +138,7 @@ def test_get_sorted_legend():
             'AreaShare': 11432,
             'PartInPercent': 32.6,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
-                        ContaminatedPublicTransportSites/1/StaoTyp2',
+                        ch.BelasteteStandorteOeffentlicherVerkehr/1/StaoTyp2',
             'LegendText': u'Belastet, untersuchungsbedürftig'
         }, {
             'TypeCode': u'StaoTyp3',
@@ -146,7 +146,7 @@ def test_get_sorted_legend():
             'TypeCodelist': '',
             'LengthShare': 164,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
-                        ContaminatedPublicTransportSites/1/StaoTyp3',
+                        ch.BelasteteStandorteOeffentlicherVerkehr/1/StaoTyp3',
             'LegendText': u'Belastet, überwachungsbedürftig'
         }, {
             'TypeCode': u'StaoTyp1',
@@ -154,7 +154,7 @@ def test_get_sorted_legend():
             'TypeCodelist': '',
             'NrOfPoints': 2,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
-                        ContaminatedPublicTransportSites/1/StaoTyp1',
+                        ch.BelasteteStandorteOeffentlicherVerkehr/1/StaoTyp1',
             'LegendText': u'Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten'
         }, {
             'TypeCode': u'StaoTyp3',
@@ -162,7 +162,7 @@ def test_get_sorted_legend():
             'TypeCodelist': '',
             'LengthShare': 2000,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
-                        ContaminatedPublicTransportSites/1/StaoTyp3',
+                        ch.BelasteteStandorteOeffentlicherVerkehr/1/StaoTyp3',
             'LegendText': u'Belastet, untersuchungsbedürftig'
         }, {
             'TypeCode': u'StaoTyp2',
@@ -171,7 +171,7 @@ def test_get_sorted_legend():
             'AreaShare': 114,
             'PartInPercent': 32.6,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
-                        ContaminatedPublicTransportSites/1/StaoTyp2',
+                        ch.BelasteteStandorteOeffentlicherVerkehr/1/StaoTyp2',
             'LegendText': u'Belastet, untersuchungsbedürftig'
         }
     ]
@@ -184,7 +184,7 @@ def test_get_sorted_legend():
             'AreaShare': 11432,
             'PartInPercent': 32.6,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
-                        ContaminatedPublicTransportSites/1/StaoTyp2',
+                        ch.BelasteteStandorteOeffentlicherVerkehr/1/StaoTyp2',
             'LegendText': u'Belastet, untersuchungsbedürftig'
         }, {
             'TypeCode': u'StaoTyp2',
@@ -193,7 +193,7 @@ def test_get_sorted_legend():
             'AreaShare': 114,
             'PartInPercent': 32.6,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
-                        ContaminatedPublicTransportSites/1/StaoTyp2',
+                        ch.BelasteteStandorteOeffentlicherVerkehr/1/StaoTyp2',
             'LegendText': u'Belastet, untersuchungsbedürftig'
         }, {
             'TypeCode': u'StaoTyp3',
@@ -201,7 +201,7 @@ def test_get_sorted_legend():
             'TypeCodelist': '',
             'LengthShare': 2000,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
-                        ContaminatedPublicTransportSites/1/StaoTyp3',
+                        ch.BelasteteStandorteOeffentlicherVerkehr/1/StaoTyp3',
             'LegendText': u'Belastet, untersuchungsbedürftig'
         }, {
             'TypeCode': u'StaoTyp3',
@@ -209,7 +209,7 @@ def test_get_sorted_legend():
             'TypeCodelist': '',
             'LengthShare': 164,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
-                        ContaminatedPublicTransportSites/1/StaoTyp3',
+                        ch.BelasteteStandorteOeffentlicherVerkehr/1/StaoTyp3',
             'LegendText': u'Belastet, überwachungsbedürftig'
         }, {
             'TypeCode': u'StaoTyp1',
@@ -217,7 +217,7 @@ def test_get_sorted_legend():
             'TypeCodelist': '',
             'NrOfPoints': 2,
             'SymbolRef': u'http://localhost:6543/oereb/image/symbol/\
-                        ContaminatedPublicTransportSites/1/StaoTyp1',
+                        ch.BelasteteStandorteOeffentlicherVerkehr/1/StaoTyp1',
             'LegendText': u'Belastet, keine schädlichen oder lästigen Einwirkungen zu erwarten'
         }
     ]

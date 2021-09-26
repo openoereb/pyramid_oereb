@@ -56,12 +56,11 @@ class Theme(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'theme'
-    id = Column(Integer, primary_key=True)
+    id = Column(String, primary_key=True)
     code = Column(String, nullable=False)
     sub_code = Column(String, nullable=True)
     title = Column(JSONType, nullable=False)
     extract_index = Column(Integer, nullable=False)
-
     UniqueConstraint(code, sub_code)
 
 
@@ -75,7 +74,6 @@ class Logo(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'logo'
-    id = Column(Integer, primary_key=True)
     code = Column(String, primary_key=True)
     logo = Column(JSONType, nullable=False)
 
@@ -164,7 +162,7 @@ class RealEstateType(Base):
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'real_estate_type'
     code = Column(String, primary_key=True)
-    text = Column(JSONType, nullable=False)
+    title = Column(JSONType, nullable=False)
 
 
 class Address(Base):
@@ -187,7 +185,7 @@ class Address(Base):
         {'schema': app_schema_name}
     )
     __tablename__ = 'address'
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(String, primary_key=True)
     street_name = Column(Unicode, nullable=False)
     street_number = Column(String, nullable=False)
     zip_code = Column(Integer, nullable=False, autoincrement=False)
@@ -206,7 +204,7 @@ class Glossary(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'glossary'
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(String, primary_key=True)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
 
@@ -223,7 +221,7 @@ class Disclaimer(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'disclaimer'
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(String, primary_key=True)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
 
@@ -234,11 +232,10 @@ class LawStatus(Base):
     should have access to, for creating extracts.
     Attributes:
         code (str): The identifier on federal level.
-        text (JSONType): The text for the multilingual text.
+        title (JSONType): The text for the multilingual text.
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'law_status'
-    id = Column(Integer, primary_key=True, autoincrement=True)
     code = Column(String, primary_key=True)
     title = Column(JSONType, nullable=False)
 
@@ -249,13 +246,12 @@ class DocumentTypeText(Base):
 
     Attributes:
         code (str): The identifier given by a code
-        text (str): The display name for the document type
+        title (str): The display name for the document type
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'document_types'
-    id = Column(Integer, primary_key=True, autoincrement=True)
     code = Column(String, primary_key=True)
-    text = Column(JSONType, nullable=False)
+    title = Column(JSONType, nullable=False)
 
 
 class GeneralInformation(Base):
@@ -270,44 +266,45 @@ class GeneralInformation(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'general_information'
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(String, primary_key=True)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
 
 
 class ThemeDocument(Base):
-        """
-        Meta bucket (join table) for the relationship between theme and documents.
-        Attributes:
-            id (str): The identifier. This is used in the database only and must not be set manually. If
-                you  don't like it - don't care about.
-            theme_id (str): The foreign key to the theme which has
-                relation to  a document.
-            document_id (str): The foreign key to the document which has relation to the public law
-                restriction.
-            theme (Theme):
-                The dedicated relation to the theme instance from database.
-            document (Document):
-                The dedicated relation to the document instance from database.
-        """
-        __tablename__ = 'theme_document'
-        __table_args__ = {'schema': app_schema_name}
-        id = Column(Integer, primary_key=True, autoincrement=True)
-        theme_id = Column(
-            Integer,
-            ForeignKey(Theme.id),
-            nullable=False
-        )
-        document_id = Column(
-            Integer,
-            ForeignKey(Document.id),
-            nullable=False
-        )
-        theme = relationship(
-            Theme,
-            backref='legal_provisions'
-        )
-        document = relationship(
-            Document
-        )
-        article_numbers = Column(String, nullable=True)
+    """
+    Meta bucket (join table) for the relationship between theme and documents.
+    Attributes:
+        id (str): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        theme_id (str): The foreign key to the theme which has
+            relation to  a document.
+        document_id (str): The foreign key to the document which has relation to the public law
+            restriction.
+        theme (Theme):
+            The dedicated relation to the theme instance from database.
+        document (Document):
+            The dedicated relation to the document instance from database.
+    """
+    __tablename__ = 'theme_document'
+    __table_args__ = {'schema': app_schema_name}
+
+    id = Column(String, primary_key=True)
+    theme_id = Column(
+        String,
+        ForeignKey(Theme.id),
+        nullable=False
+    )
+    document_id = Column(
+        Integer,
+        ForeignKey(Document.id),
+        nullable=False
+    )
+    theme = relationship(
+        Theme,
+        backref='legal_provisions'
+    )
+    document = relationship(
+        Document
+    )
+    article_numbers = Column(String, nullable=True)

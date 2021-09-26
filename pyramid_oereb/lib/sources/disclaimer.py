@@ -8,7 +8,7 @@ class DisclaimerBaseSource(Base):
     Base class for exclusion of liability sources.
 
     Attributes:
-        records (list of pyramid_oereb.lib.records.exclusion_of_liability.DisclaimerRecord): List
+        records (list of pyramid_oereb.lib.records.disclaimer.DisclaimerRecord): List
             of exclusion of liability records.
     """
     _record_class_ = DisclaimerRecord

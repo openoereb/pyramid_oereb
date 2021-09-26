@@ -4,6 +4,7 @@ import re
 import json
 import optparse
 import os
+import uuid
 
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Connection
@@ -102,6 +103,9 @@ class SampleData(object):
             else:
                 sql = str(class_.__table__.insert())
                 for r in json.loads(f.read()):
+                    if hasattr(class_, 'id'):
+                        if r.get('id') is None:
+                            r['id'] = str(uuid.uuid4())
                     self._do_sql_insert(sql, r)
 
     def _truncate_existing(self, schema):
@@ -129,8 +133,8 @@ class SampleData(object):
                 table=schema.Glossary.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=schema.ExclusionOfLiability.__table__.schema,
-                table=schema.ExclusionOfLiability.__table__.name
+                schema=schema.Disclaimer.__table__.schema,
+                table=schema.Disclaimer.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
                 schema=schema.GeneralInformation.__table__.schema,
@@ -219,6 +223,7 @@ class SampleData(object):
                 (Theme, 'ch.themes.json'),
                 (Theme, 'dev.themes.json'),
                 (Logo, 'ch.logo.json'),
+                (Logo, 'dev.logo.json'),
                 (DocumentTypeText, 'ch.document_type.json'),
                 (RealEstate, 'dev.real_estates.json'),
                 (Address, 'dev.addresses.json'),

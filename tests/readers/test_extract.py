@@ -50,5 +50,5 @@ def test_read():
     plrs = extract.real_estate.public_law_restrictions
     assert isinstance(plrs, list)
     assert isinstance(plrs[0], PlrRecord)
-    assert plrs[3].theme.code == 'MotorwaysBuildingLines'
+    assert plrs[3].theme.code == 'ch.BaulinienNationalstrassen'
     assert plrs[3].law_status.code == 'AenderungMitVorwirkung'

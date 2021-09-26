@@ -175,7 +175,7 @@ vars:
       #   password:
       # Additional URL parameters to pass, depending on the PLR theme
       # url_param_config:
-      # - code: ForestPerimeters
+      # - code: ch.StatischeWaldgrenzen
       #   url_param: 'oereb_id=5'
 
     # Defines the information of the oereb cadastre providing authority. Please change this to your data. This
@@ -336,18 +336,18 @@ vars:
     # liability out of an existing database table to avoid imports of this data every time it gets updates you
     # only need to change the model bound to the source. The model must implement the same field names and
     # information as the default model does.
-    exclusion_of_liability:
-      # The exclusion_of_liability must have a property source.
+    disclaimer:
+      # The disclaimer must have a property source.
       source:
         # The source must have a class which represents the accessor to the source. In this example, it is an
         # already implemented source which reads data from a database.
-        class: pyramid_oereb.standard.sources.exclusion_of_liability.DatabaseSource
+        class: pyramid_oereb.standard.sources.disclaimer.DatabaseSource
         # The necessary parameters to use this class
         params:
           # The connection path where the database can be found
           db_connection: *main_db_connection
-          # The model which maps the exclusion_of_liability database table.
-          model: pyramid_oereb.standard.models.main.ExclusionOfLiability
+          # The model which maps the disclaimer database table.
+          model: pyramid_oereb.standard.models.main.Disclaimer
 
     # The extract is the entry point which binds everything
     # related to data together.
@@ -387,7 +387,7 @@ vars:
     # the extract creation process which loops over this list.
     plrs:
 
-    - code: LandUsePlans
+    - code: ch.Nutzungsplanung
       geometry_type: GEOMETRYCOLLECTION
       # Define the minmal area and length for public law restrictions that should be considered as 'true' restrictions
       # and not as calculation errors (false trues) due to topological imperfections
@@ -427,7 +427,7 @@ vars:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: MotorwaysProjectPlaningZones
+    - code: ch.ProjektierungszonenNationalstrassen
       geometry_type: MULTIPOLYGON
       thresholds:
         length:
@@ -465,7 +465,7 @@ vars:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: MotorwaysBuildingLines
+    - code: ch.BaulinienNationalstrassen
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -503,7 +503,7 @@ vars:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: RailwaysBuildingLines
+    - code: ch.BaulinienEisenbahnanlagen
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -541,7 +541,7 @@ vars:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: RailwaysProjectPlanningZones
+    - code: ch.ProjektierungszonenEisenbahnanlagen
       geometry_type: POLYGON
       thresholds:
         length:
@@ -579,7 +579,7 @@ vars:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: AirportsProjectPlanningZones
+    - code: ch.ProjektierungszonenFlughafenanlagen
       geometry_type: POLYGON
       thresholds:
         length:
@@ -617,7 +617,7 @@ vars:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: AirportsBuildingLines
+    - code: ch.BaulinienFlughafenanlagen
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -655,7 +655,7 @@ vars:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: AirportsSecurityZonePlans
+    - code: ch.Sicherheitszonenplan
       geometry_type: MULTIPOLYGON
       thresholds:
         length:
@@ -694,7 +694,7 @@ vars:
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
       download: https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan.oereb/data.zip
 
-    - code: ContaminatedSites
+    - code: ch.BelasteteStandorte
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -732,7 +732,7 @@ vars:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: ContaminatedMilitarySites
+    - code: ch.BelasteteStandorteMilitaer
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -770,7 +770,7 @@ vars:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: ContaminatedCivilAviationSites
+    - code: ch.BelasteteStandorteZivileFlugplaetze
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -808,7 +808,7 @@ vars:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: ContaminatedPublicTransportSites
+    - code: ch.BelasteteStandorteOeffentlicherVerkehr
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -846,7 +846,7 @@ vars:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: GroundwaterProtectionZones
+    - code: ch.Grundwasserschutzzonen
       geometry_type: POLYGON
       thresholds:
         length:
@@ -884,7 +884,7 @@ vars:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: GroundwaterProtectionSites
+    - code: ch.Grundwasserschutzareale
       geometry_type: POLYGON
       thresholds:
         length:
@@ -922,7 +922,7 @@ vars:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: NoiseSensitivityLevels
+    - code: ch.Laermempfindlichkeitsstufen
       geometry_type: POLYGON
       thresholds:
         length:
@@ -960,7 +960,7 @@ vars:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: ForestPerimeters
+    - code: ch.StatischeWaldgrenzen
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -1004,7 +1004,7 @@ vars:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: ForestDistanceLines
+    - code: ch.Waldabstandslinien
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -1050,5 +1050,5 @@ environment:
 - pyramid_oereb.address.source.params.db_connection
 - pyramid_oereb.municipality.source.params.db_connection
 - pyramid_oereb.glossary.source.params.db_connection
-- pyramid_oereb.exclusion_of_liability.source.params.db_connection
+- pyramid_oereb.disclaimer.source.params.db_connection
 - pyramid_oereb.plrs.[].source.params.db_connection

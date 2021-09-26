@@ -29,9 +29,9 @@ class ExtractRecord(object):
     """binary or None: QR code for the extract as binary string."""
 
     def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo,
-                 plr_cadastre_authority, base_data, update_date_os, embeddable,
-                 disclaimers=None, glossaries=None, concerned_theme=None,
-                 not_concerned_theme=None, theme_without_data=None, general_information=None):
+                 plr_cadastre_authority, update_date_os, disclaimers=None, glossaries=None,
+                 concerned_theme=None, not_concerned_theme=None, theme_without_data=None,
+                 general_information=None):
         """
         Args:
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate in its
@@ -44,7 +44,6 @@ class ExtractRecord(object):
             plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority which is
                 responsible for the PLR cadastre.
             update_date_os (datetime): Last update of the official survey used as base map in the extract.
-            embeddable (pyramid_oereb.lib.records.embeddable.EmbeddableRecord):
             disclaimer (list of
                 pyramid_oereb.lib.records.disclaimer.DisclaimerRecord or None): Disclaimers for the extract.
             glossaries (list of pyramid_oereb.lib.records.glossary.GlossaryRecord): Glossaries for the
@@ -63,7 +62,6 @@ class ExtractRecord(object):
             warnings.warn('Type of "general_information" should be "list"')
 
         self.update_date_os = update_date_os
-        self.embeddable = embeddable
         self.general_information = general_information
         self.extract_identifier = str(uuid.uuid4())
         self.real_estate = real_estate

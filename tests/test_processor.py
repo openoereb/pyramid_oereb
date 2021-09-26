@@ -12,7 +12,7 @@ from pyramid_oereb.lib.records.plr import PlrRecord
 from pyramid_oereb.lib.records.theme import ThemeRecord
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
-from pyramid_oereb.lib.readers.exclusion_of_liability import ExclusionOfLiabilityReader
+from pyramid_oereb.lib.readers.disclaimer import DisclaimerReader
 from pyramid_oereb.lib.readers.extract import ExtractReader
 from pyramid_oereb.lib.readers.glossary import GlossaryReader
 from pyramid_oereb.lib.readers.municipality import MunicipalityReader
@@ -45,7 +45,7 @@ def test_properties():
     processor = create_processor()
     assert isinstance(processor.extract_reader, ExtractReader)
     assert isinstance(processor.municipality_reader, MunicipalityReader)
-    assert isinstance(processor.exclusion_of_liability_reader, ExclusionOfLiabilityReader)
+    assert isinstance(processor.disclaimer_reader, DisclaimerReader)
     assert isinstance(processor.glossary_reader, GlossaryReader)
     assert isinstance(processor.plr_sources, list)
     assert isinstance(processor.real_estate_reader, RealEstateReader)
@@ -87,7 +87,7 @@ def test_filter_published_documents():
     real_estate = processor.real_estate_reader.read(params, egrid=u'TEST')
     extract = processor.process(real_estate[0], params, 'http://test.ch')
     for plr in extract.real_estate.public_law_restrictions:
-        if plr.theme.code == u'MotorwaysBuildingLines':
+        if plr.theme.code == u'ch.BaulinienNationalstrassen':
             assert len(plr.documents) == 2
 
 
@@ -275,7 +275,7 @@ def test_processor_sort_by_law_status():
     extract = processor.process(real_estate[0], params, 'http://test.ch')
     plrs = extract.real_estate.public_law_restrictions
     assert len(plrs) == 4
-    assert plrs[1].theme.code == 'MotorwaysBuildingLines'
+    assert plrs[1].theme.code == 'ch.BaulinienNationalstrassen'
     assert plrs[1].law_status.code == 'inKraft'
-    assert plrs[2].theme.code == 'MotorwaysBuildingLines'
+    assert plrs[2].theme.code == 'ch.BaulinienNationalstrassen'
     assert plrs[2].law_status.code == 'AenderungOhneVorwirkung'

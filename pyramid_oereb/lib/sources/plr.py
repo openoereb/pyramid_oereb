@@ -26,7 +26,7 @@ class PlrBaseSource(Base):
             records used for the additional data in flavour `embeddable`.
     """
     _documents_record_class = DocumentRecord
-    _exclusion_of_liability_record_class = DisclaimerRecord
+    _disclaimer_record_class = DisclaimerRecord
     _geometry_record_class = GeometryRecord
     _glossary_record_class = GlossaryRecord
     _legend_entry_record_class = LegendEntryRecord

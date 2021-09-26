@@ -185,7 +185,7 @@ pyramid_oereb:
     validation: true
     # Additional URL parameters to pass, depending on the PLR theme
     # url_param_config:
-    # - code: ForestPerimeters
+    # - code: ch.StatischeWaldgrenzen
     #   url_param: 'oereb_id=5'
 
   # Defines the information of the oereb cadastre providing authority. Please change this to your data. This

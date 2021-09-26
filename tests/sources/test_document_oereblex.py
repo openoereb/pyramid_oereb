@@ -36,14 +36,14 @@ from tests.mockrequest import MockParameter
         'host': 'http://oereblex.example.com',
         'language': 'de',
         'canton': 'BL',
-        'url_param_config': [{'code': 'ForestPerimeters', 'url_param': 'oereb_id=5'},
-                             {'code': 'LandUsePlans', 'url_param': 'oereb_id=15'}]
+        'url_param_config': [{'code': 'ch.StatischeWaldgrenzen', 'url_param': 'oereb_id=5'},
+                             {'code': 'ch.Nutzungsplanung', 'url_param': 'oereb_id=15'}]
     }),
     (False, {
         'host': 'http://oereblex.example.com',
         'language': 'de',
         'canton': 'BL',
-        'url_param_config': {'code': 'ForestPerimeters', 'url_param': 'oereb_id=5'}
+        'url_param_config': {'code': 'ch.StatischeWaldgrenzen', 'url_param': 'oereb_id=5'}
     }),
     (False, {
         'host': 'http://oereblex.example.com',

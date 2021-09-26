@@ -149,7 +149,6 @@ class ExtractReader(object):
             municipality_logo,
             self.plr_cadastre_authority,
             update_date_os,
-            embeddable,
             concerned_theme=concerned_themes,
             not_concerned_theme=not_concerned_themes,
             theme_without_data=themes_without_data,

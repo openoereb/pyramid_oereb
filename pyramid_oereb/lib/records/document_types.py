@@ -8,14 +8,14 @@ class DocumentTypeRecord(object):
 
     Args:
         code (str of unicode): The code for the document type (Law, LegalProvision, Hint).
-        text (dict of unicode): The label text for the document type (multilingual).
+        title (dict of unicode): The label title for the document type (multilingual).
     """
-    def __init__(self, code, text):
+    def __init__(self, code, title):
 
         if not isinstance(code, str):
             warnings.warn('Type of "code" should be "str"')
-        if not isinstance(text, dict):
-            warnings.warn('Type of "text" should be "dict"')
+        if not isinstance(title, dict):
+            warnings.warn('Type of "title" should be "dict"')
 
         self.code = code
-        self.text = text
+        self.title = title

@@ -15,19 +15,19 @@ def test_sort():
     extract = create_dummy_extract()
     real_estate = extract.real_estate
     plr1 = create_dummy_plr()
-    plr1.theme.code = "LandUsePlans"
+    plr1.theme.code = "ch.Nutzungsplanung"
     plr1.type_code = "Zebra"
 
     plr2 = create_dummy_plr()
-    plr2.theme.code = "LandUsePlans"
+    plr2.theme.code = "ch.Nutzungsplanung"
     plr2.type_code = "Belize"
 
     plr3 = create_dummy_plr()
-    plr3.theme.code = "LandUsePlans"
+    plr3.theme.code = "ch.Nutzungsplanung"
     plr3.type_code = "Dingo"
 
     plr4 = create_dummy_plr()
-    plr4.theme.code = "ForestDistanceLines"
+    plr4.theme.code = "ch.Waldabstandslinien"
     plr4.type_code = "Arboretum"
 
     real_estate.public_law_restrictions.append(plr1)
@@ -39,10 +39,10 @@ def test_sort():
     sorted_real_estate = sorted_extract.real_estate
 
     plr = sorted_real_estate.public_law_restrictions[0]
-    assert plr.theme.code == "LandUsePlans" and plr.type_code == "Belize"
+    assert plr.theme.code == "ch.Nutzungsplanung" and plr.type_code == "Belize"
     plr = sorted_real_estate.public_law_restrictions[1]
-    assert plr.theme.code == "LandUsePlans" and plr.type_code == "Dingo"
+    assert plr.theme.code == "ch.Nutzungsplanung" and plr.type_code == "Dingo"
     plr = sorted_real_estate.public_law_restrictions[2]
-    assert plr.theme.code == "LandUsePlans" and plr.type_code == "Zebra"
+    assert plr.theme.code == "ch.Nutzungsplanung" and plr.type_code == "Zebra"
     plr = sorted_real_estate.public_law_restrictions[3]
-    assert plr.theme.code == "ForestDistanceLines" and plr.type_code == "Arboretum"
+    assert plr.theme.code == "ch.Waldabstandslinien" and plr.type_code == "Arboretum"
