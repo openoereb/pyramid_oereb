@@ -26,7 +26,7 @@ But you can change it also via configuration.
 
 """
 from pyramid_oereb.standard.models.theme import generic_models
-from sqlalchemy import Column, PrimaryKeyConstraint, ForeignKey
+from sqlalchemy import Column, PrimaryKeyConstraint, ForeignKey, UniqueConstraint
 from sqlalchemy import Unicode, String, text, Integer, Boolean
 from sqlalchemy.sql.expression import null
 from geoalchemy2 import Geometry
@@ -56,7 +56,7 @@ class Theme(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'theme'
-    id = Column(Integer, primary_key=True, autoincrement=False)
+    id = Column(Integer, primary_key=True)
     code = Column(String, nullable=False)
     sub_code = Column(String, nullable=True)
     title = Column(JSONType, nullable=False)
@@ -75,6 +75,7 @@ class Logo(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'logo'
+    id = Column(Integer, primary_key=True)
     code = Column(String, primary_key=True)
     logo = Column(JSONType, nullable=False)
 
@@ -136,7 +137,7 @@ class RealEstate(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'real_estate'
-    id = Column(Integer, primary_key=True, autoincrement=False)
+    id = Column(Integer, primary_key=True)
     identdn = Column(String, nullable=True)
     number = Column(String, nullable=True)
     egrid = Column(String, nullable=True)
@@ -186,6 +187,7 @@ class Address(Base):
         {'schema': app_schema_name}
     )
     __tablename__ = 'address'
+    id = Column(Integer, primary_key=True, autoincrement=True)
     street_name = Column(Unicode, nullable=False)
     street_number = Column(String, nullable=False)
     zip_code = Column(Integer, nullable=False, autoincrement=False)
@@ -204,7 +206,7 @@ class Glossary(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'glossary'
-    id = Column(Integer, primary_key=True, autoincrement=False)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
 
@@ -221,7 +223,7 @@ class Disclaimer(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'disclaimer'
-    id = Column(Integer, primary_key=True, autoincrement=False)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
 
@@ -236,8 +238,9 @@ class LawStatus(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'law_status'
+    id = Column(Integer, primary_key=True, autoincrement=True)
     code = Column(String, primary_key=True)
-    text = Column(JSONType, nullable=False)
+    title = Column(JSONType, nullable=False)
 
 
 class DocumentTypeText(Base):
@@ -250,6 +253,7 @@ class DocumentTypeText(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'document_types'
+    id = Column(Integer, primary_key=True, autoincrement=True)
     code = Column(String, primary_key=True)
     text = Column(JSONType, nullable=False)
 
@@ -266,7 +270,7 @@ class GeneralInformation(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'general_information'
-    id = Column(Integer, primary_key=True, autoincrement=False)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
 
@@ -288,7 +292,7 @@ class ThemeDocument(Base):
         """
         __tablename__ = 'theme_document'
         __table_args__ = {'schema': app_schema_name}
-        id = Column(Integer, primary_key=True, autoincrement=False)
+        id = Column(Integer, primary_key=True, autoincrement=True)
         theme_id = Column(
             Integer,
             ForeignKey(Theme.id),

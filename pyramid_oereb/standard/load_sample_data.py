@@ -56,7 +56,9 @@ class SampleData(object):
             return "'t'" if value else "'f'"
         if isinstance(value, dict):
             return cls._format_value(json.dumps(value, ensure_ascii=False))
-        raise "Unsupported type {}".format(type(value))
+        if value is None:
+            return "NULL"
+        raise LookupError("Unsupported type {}".format(type(value)))
 
     def _do_sql_insert(self, sql, items):
         """
@@ -67,6 +69,7 @@ class SampleData(object):
             items (array): The values
         """
         for k, v in items.items():
+            print(k,v)
             sql = re.sub(r":{}\b".format(re.escape(k)), self._format_value(v), sql)
 
         for column in re.findall(r":[a-z_0-9]+\b", sql):
@@ -213,17 +216,18 @@ class SampleData(object):
 
             # Fill tables with sample data
             for class_, file_name in [
-                (Theme, 'themes.json'),
-                (Logo, 'logo.json'),
-                (DocumentTypeText, 'document_types.json'),
-                (RealEstate, 'real_estates.json'),
-                (Address, 'addresses.json'),
-                (Municipality, 'municipalities.json'),
-                (Glossary, 'glossary.json'),
-                (Disclaimer, 'disclaimer.json'),
-                (LawStatus, 'law_status.json'),
-                (RealEstateType, 'real_estate_type.json'),
-                (GeneralInformation, 'general_information.json')
+                (Theme, 'ch.themes.json'),
+                (Theme, 'dev.themes.json'),
+                (Logo, 'ch.logo.json'),
+                (DocumentTypeText, 'ch.document_type.json'),
+                (RealEstate, 'dev.real_estates.json'),
+                (Address, 'dev.addresses.json'),
+                (Municipality, 'dev.municipalities.json'),
+                (Glossary, 'ch.glossary.json'),
+                (Disclaimer, 'ch.disclaimer.json'),
+                (LawStatus, 'ch.law_status.json'),
+                (RealEstateType, 'ch.real_estate_type.json'),
+                (GeneralInformation, 'ch.general_information.json')
             ]:
                 self._load_sample(class_, file_name)
 
