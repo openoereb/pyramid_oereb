@@ -28,7 +28,6 @@ But you can change it also via configuration.
 from pyramid_oereb.standard.models.theme import generic_models
 from sqlalchemy import Column, PrimaryKeyConstraint, ForeignKey, UniqueConstraint
 from sqlalchemy import Unicode, String, text, Integer, Boolean
-from sqlalchemy.sql.expression import null
 from geoalchemy2 import Geometry
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import JSONType
@@ -41,6 +40,7 @@ app_schema_name = Config.get('app_schema').get('name')
 srid = Config.get('srid')
 
 Office, Document = generic_models(Base, app_schema_name, Integer)
+
 
 class Theme(Base):
     """

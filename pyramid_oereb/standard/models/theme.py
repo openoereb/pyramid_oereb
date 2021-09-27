@@ -25,6 +25,7 @@ class Models(object):
         self.db_connection = db_connection
         self.schema_name = schema_name
 
+
 def generic_models(base, schema_name, pk_type):
     """
     Factory to produce a set of generic standard models.
@@ -156,8 +157,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         fosnr = Column(pk_type, primary_key=True, autoincrement=False)
         available = Column(Boolean, nullable=False, default=False)
 
-    
-
     class DataIntegration(Base):
         """
         The bucket to fill in the date when this whole schema was updated. It has a relation to the
@@ -178,7 +177,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         office_id = Column(pk_type, ForeignKey(Office.id), nullable=False)
         office = relationship(Office)
         checksum = Column(String, nullable=True)
-    
 
     class ViewService(Base):
         """

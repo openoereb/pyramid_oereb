@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import datetime
 import logging
 from pyramid.path import DottedNameResolver
 
@@ -7,7 +6,6 @@ from shapely.geometry import box
 from timeit import default_timer as timer
 
 from pyramid_oereb.lib.config import Config
-from pyramid_oereb.lib.records.embeddable import EmbeddableRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.plr import PlrRecord, EmptyPlrRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
@@ -76,7 +74,6 @@ class ExtractReader(object):
         bbox = ViewServiceRecord.get_bbox(real_estate.limit)
         bbox = box(bbox[0], bbox[1], bbox[2], bbox[3])
 
-        datasource = list()
         concerned_themes = list()
         not_concerned_themes = list()
         themes_without_data = list()
@@ -86,9 +83,6 @@ class ExtractReader(object):
             for plr_source in self._plr_sources_:
                 if not params.skip_topic(plr_source.info.get('code')):
                     plr_source.read(params, real_estate, bbox)
-                    for ds in plr_source.datasource:
-                        if not params.skip_topic(ds.theme.code):
-                            datasource.append(ds)
 
                     real_estate.public_law_restrictions.extend(plr_source.records)
 
@@ -129,17 +123,6 @@ class ExtractReader(object):
         confederation_logo = Config.get_conferderation_logo()
         canton_logo = Config.get_canton_logo()
         municipality_logo = Config.get_municipality_logo(municipality.fosnr)
-
-        os_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
-        os_provider_method = resolver.resolve(os_provider_method_string)
-        cadaster_state = datetime.datetime.now()
-        embeddable = EmbeddableRecord(
-            cadaster_state,
-            self.plr_cadastre_authority,
-            os_provider_method(real_estate),
-            update_date_os,
-            datasource
-        )
 
         self.extract = ExtractRecord(
             real_estate,

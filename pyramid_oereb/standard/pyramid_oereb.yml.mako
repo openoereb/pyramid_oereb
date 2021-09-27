@@ -621,7 +621,7 @@ pyramid_oereb:
         inKraft: inKraft
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
-  
+
     - code: ch.BaulinienEisenbahnanlagen
       geometry_type: LINESTRING
       thresholds:

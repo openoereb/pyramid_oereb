@@ -19,7 +19,7 @@ class RealEstateRecord(object):
 
     def __init__(self, type, canton, municipality, fosnr, land_registry_area, limit,
                  metadata_of_geographical_base_data=None, number=None, identdn=None, egrid=None,
-                 subunit_of_land_register=None, subunit_of_land_register_designation=None, 
+                 subunit_of_land_register=None, subunit_of_land_register_designation=None,
                  public_law_restrictions=None, references=None):
         """
 
@@ -37,7 +37,8 @@ class RealEstateRecord(object):
             identdn (unicode or None): The unique identifier of the property
             egrid (unicode or None): The federal property identifier
             subunit_of_land_register (unicode or None): Subunit of the land register if existing.
-            subunit_of_land_register_designation (unicode or None): Dexciption of subunit_of_land_register if exisiting.
+            subunit_of_land_register_designation (unicode or None): Dexciption of
+                subunit_of_land_register if exisiting.
             public_law_restrictions (list of pyramid_oereb.lib.records.plr.PlrRecord or None): List of public
                 law restrictions for this real estate
             references (list of pyramid_oereb.lib.records.documents.DocumentRecord or None): Documents

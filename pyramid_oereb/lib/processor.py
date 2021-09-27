@@ -320,7 +320,6 @@ def create_processor():
     municipality_config = Config.get_municipality_config()
     disclaimer_config = Config.get_disclaimer_config()
     glossary_config = Config.get_glossary_config()
-    extract = Config.get_extract_config()
 
     plr_cadastre_authority = Config.get_plr_cadastre_authority()
 

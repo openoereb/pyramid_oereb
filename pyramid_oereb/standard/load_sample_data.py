@@ -70,7 +70,6 @@ class SampleData(object):
             items (array): The values
         """
         for k, v in items.items():
-            print(k,v)
             sql = re.sub(r":{}\b".format(re.escape(k)), self._format_value(v), sql)
 
         for column in re.findall(r":[a-z_0-9]+\b", sql):
@@ -211,7 +210,7 @@ class SampleData(object):
         forest_perimeters = themes['ch.StatischeWaldgrenzen']
 
         from pyramid_oereb.standard.models.main import Theme, Logo, DocumentTypeText, RealEstate, Address, \
-            Municipality, Glossary, Disclaimer, GeneralInformation, RealEstateType, LawStatus, Document, Office, ThemeDocument
+            Municipality, Glossary, Disclaimer, GeneralInformation, RealEstateType, LawStatus
 
         if self._sql_file is None:
             self._connection = self._engine.connect()

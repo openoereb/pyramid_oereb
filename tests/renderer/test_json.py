@@ -10,7 +10,6 @@ from pyramid.path import DottedNameResolver
 from pyramid_oereb import Config
 from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.documents import DocumentRecord
-from pyramid_oereb.lib.records.embeddable import EmbeddableRecord, DatasourceRecord
 from pyramid_oereb.lib.records.disclaimer import DisclaimerRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.geometry import GeometryRecord
@@ -67,7 +66,6 @@ def glossary_expected():
     (None, None, None)
 ])
 def test_render(parameter, glossaries_input, glossaries_expected):
-    date = datetime.datetime.now()
     with pyramid_oereb_test_config():
         view_service = ViewServiceRecord({'de': u'http://geowms.bl.ch'},
                                          1,
@@ -83,13 +81,6 @@ def test_render(parameter, glossaries_input, glossaries_expected):
         date_method_string = Config.get('extract').get('base_data').get('methods').get('date')
         date_method = resolver.resolve(date_method_string)
         update_date_os = date_method(real_estate)
-
-        os_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
-        os_provider_method = resolver.resolve(os_provider_method_string)
-        cadaster_state = date
-        theme = ThemeRecord(u'TEST', {'de': u'TEST TEXT'}, 100)
-        datasources = [DatasourceRecord(theme, date, office_record)]
-        plr_cadastre_authority = Config.get_plr_cadastre_authority()
         extract = ExtractRecord(
             real_estate,
             LogoRecord('ch', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
@@ -254,7 +245,10 @@ def test_format_plr(parameter):
         )
         documents = [document]
         theme = ThemeRecord(u'ch.BelasteteStandorte', {u'de': u'Test theme'}, 410)
-        subTheme = ThemeRecord(u'ch.BelasteteStandorte', {u'de': u'SubTheme'}, 411, u'SubCodech.BelasteteStandorte')
+        subTheme = ThemeRecord(
+            u'ch.BelasteteStandorte',
+            {u'de': u'SubTheme'}, 411, u'SubCodech.BelasteteStandorte'
+        )
         office = OfficeRecord({'de': 'Test Office'})
         legend_entry = LegendEntryRecord(
             ImageRecord(FileAdapter().read('tests/resources/python.svg')),
