@@ -4,13 +4,14 @@
     <data:LegendText>
         <%include file="multilingual_text.xml" args="text=public_law_restriction.legend_text, not_null=True"/>
     </data:LegendText>
-    <data:Theme>
-        <%include file="theme.xml" args="theme=public_law_restriction.theme"/>
-    </data:Theme>
     %if public_law_restriction.sub_theme:
     <data:SubTheme>
         <%include file="theme.xml" args="theme=public_law_restriction.sub_theme"/>
     </data:SubTheme>
+    %else:
+    <data:Theme>
+        <%include file="theme.xml" args="theme=public_law_restriction.theme"/>
+    </data:Theme>
     %endif
     %if public_law_restriction.type_code:
     <data:TypeCode>${public_law_restriction.type_code | x}</data:TypeCode>
@@ -47,7 +48,7 @@
         <%include file="view_service.xml" args="map=public_law_restriction.view_service"/>
     </data:Map>
     %for document in public_law_restriction.documents:
-    <data:LegalProvisions xsi:type="data:Document">
+    <data:LegalProvisions>
         <%include file="document.xml" args="document=document"/>
     </data:LegalProvisions>
     %endfor

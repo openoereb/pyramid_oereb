@@ -1,11 +1,14 @@
 ## -*- coding: utf-8 -*-
 <?xml version="1.0" encoding="UTF-8" ?>
-<GetExtractByIdResponse xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+<extract:GetExtractByIdResponse 
+                        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                        xmlns="http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData"
                         xmlns:data="http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData"
+                        xmlns:extract="http://schemas.geo.admin.ch/V_D/OeREB/2.0/Extract"
                         xmlns:gml="http://www.opengis.net/gml/3.2"
-                        xsi:schemaLocation="http://schemas.geo.admin.ch/V_D/OeREB/1.0/Extract http://schemas.geo.admin.ch/V_D/OeREB/1.0/Extract.xsd http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData.xsd">
+                        xsi:schemaLocation="http://schemas.geo.admin.ch/V_D/OeREB/2.0/Extract http://schemas.geo.admin.ch/V_D/OeREB/2.0/Extract.xsd
+                                            http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData.xsd
+                                            http://www.interlis.ch/geometry/1.0 https://raw.githubusercontent.com/openoereb/models/master/extract/xsd/OeREB/2.0/geometry.xsd">
 <%
     from pyramid_oereb.lib.records.plr import PlrRecord
     from pyramid_oereb import Config, route_prefix
@@ -72,9 +75,6 @@
     %for general_information in extract.general_information:
         <%include file="general_information.xml" args="general_information=general_information"/>
     %endfor
-        <data:UpdateDateOS>
-            ${extract.creation_date.strftime(date_format)}
-        </data:UpdateDateOS>
         %for glossary in sorted_glossaries:
         <%include file="glossary.xml" args="glossary=glossary"/>
         %endfor
@@ -85,5 +85,8 @@
         <data:PLRCadastreAuthority>
             <%include file="office.xml" args="office=extract.plr_cadastre_authority"/>
         </data:PLRCadastreAuthority>
+        <data:UpdateDateOS>
+            ${extract.creation_date.strftime(date_format)}
+        </data:UpdateDateOS>
     </data:Extract>
-</GetExtractByIdResponse>
+</extract:GetExtractByIdResponse>

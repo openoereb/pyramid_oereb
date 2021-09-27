@@ -51,4 +51,4 @@ def test_read():
     assert isinstance(plrs, list)
     assert isinstance(plrs[0], PlrRecord)
     assert plrs[3].theme.code == 'ch.BaulinienNationalstrassen'
-    assert plrs[3].law_status.code == 'AenderungMitVorwirkung'
+    assert plrs[3].law_status.code == 'inForce'

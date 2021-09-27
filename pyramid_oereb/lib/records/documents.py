@@ -5,6 +5,7 @@ import datetime
 
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
+from pyramid_oereb.lib.records.document_types import DocumentTypeRecord
 
 
 log = logging.getLogger(__name__)
@@ -15,8 +16,7 @@ class DocumentRecord(object):
     More specific document class representing real documents.
 
     Attributes:
-        document_type (str or unicode): The document type. It must be "LegalProvision", "Law" or "Hint"
-                every other value will raise an error.
+        document_type (pyramid_oereb.lib.records.document_types.DocumentTypeRecord): The document type.
         index (int): An index used to sort the documents.
         law_status (dict):  Multilingual label of the law status.
         title (dict of unicode): The multilingual title of the document. It might be shortened one.
@@ -37,8 +37,7 @@ class DocumentRecord(object):
         """
 
         Args:
-            document_type (str or unicode): The document type. It must be "Rechtsvorschrift",
-                "GesetzlicheGrundlage" or "Hinweis" every other value will raise an error.
+            document_type (pyramid_oereb.lib.records.document_types.DocumentTypeRecord): The document type.
             index (int): An index used to sort the documents.
             law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
             title (dict of unicode): The multilingual title of the document. It might be shortened one.
@@ -54,10 +53,10 @@ class DocumentRecord(object):
             file (bytes): The binary content of the document.
         """
 
-        if document_type not in ['Rechtsvorschrift', 'GesetzlicheGrundlage', 'Hinweis']:
-            raise AttributeError('Wrong value for document type was delivered. Only "Rechtsvorschrift", '
-                                 '"GesetzlicheGrundlage" and "Hinweis" are allowed. '
-                                 'Value was {0}'.format(document_type))
+        if not isinstance(document_type, DocumentTypeRecord):
+            raise AttributeError('Type of "document_type" must be '
+                                 'pyramid_oereb.lib.records.document_types.DocumentTypeRecord '
+                                 'but was {0}'.format(type(document_type)))
         if not isinstance(index, int):
             warnings.warn('Type of "index" should be "int"')
         if not isinstance(law_status, LawStatusRecord):

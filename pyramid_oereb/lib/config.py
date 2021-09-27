@@ -6,6 +6,8 @@ import yaml
 from io import open as ioopen
 from pyramid.config import ConfigurationError
 from pyramid_oereb.lib.records.office import OfficeRecord
+from pyramid_oereb.lib.records.document_types import DocumentTypeRecord
+from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.readers.theme import ThemeReader
 from pyramid_oereb.lib.records.logo import LogoRecord
 from pyramid_oereb.lib.readers.logo import LogoReader
@@ -134,8 +136,6 @@ class Config(object):
             information entries.
         """
         assert Config._config is not None
-        if len(Config.general_information) < 1:
-            raise ConfigurationError("At least one general information entry is required")
         return Config.general_information
 
     @staticmethod
@@ -345,6 +345,7 @@ class Config(object):
         return Config.real_estate_types
 
     @staticmethod
+<<<<<<< HEAD
     def init_map_layering():
         try:
             Config.map_layering = Config._read_map_layering()
@@ -401,11 +402,39 @@ class Config(object):
         return default_index, default_opacity
 
     @staticmethod
-    def get_document_types_lookup():
-        lookups = Config.get('document_types_lookup')
+    def get_document_types_lookups(theme_code):
+        lookups = Config.get_theme_config_by_code(theme_code).get('document_types_lookup') real estate type, fix tests)
         if lookups is None:
-            raise ConfigurationError('"document_types_lookup" must be defined in configuration!')
+            raise ConfigurationError(
+                '"document_types_lookup" must be defined in configuration for theme {}!'.format(theme_code)
+            )
         return lookups
+    
+    @staticmethod
+    def get_document_type_lookup_by_theme_code_key_code(theme_code, key, code):
+        lookups = Config.get_document_types_lookups(theme_code)
+        for lookup in lookups:
+            if lookup[key] == code:
+                return lookup
+        raise ConfigurationError(
+            'Document type lookup with key "{}" and code "{}" is not defined in configuration!'.format(key, code)
+        )
+    
+    @staticmethod
+    def get_document_type_lookup_by_transfer_code(theme_code, transfer_code):
+        return Config.get_document_type_lookup_by_theme_code_key_code(theme_code, 'transfer_code', transfer_code)
+    
+    @staticmethod
+    def get_document_type_lookup_by_data_code(theme_code, data_code):
+        return Config.get_document_type_lookup_by_theme_code_key_code(theme_code, 'data_code', data_code)
+    
+    @staticmethod
+    def get_document_type_by_data_code(theme_code, data_code):
+        lookup = Config.get_document_type_lookup_by_data_code(theme_code, data_code)
+        record = Config.get_document_type_by_code(lookup['transfer_code'])
+        log.debug('Translating code {} => code {} of {}'.format(lookup['transfer_code'], lookup['extract_code'], record.title))
+        translated_record = DocumentTypeRecord(lookup['extract_code'], record.title)
+        return translated_record
 
     @staticmethod
     def get_document_type_by_code(code):
@@ -419,10 +448,9 @@ class Config(object):
         """
         if Config.document_types is None:
             raise ConfigurationError("The document types have not been initialized")
-        document_type_lookup = Config.get('document_types_lookup')[code]
 
         for document_type in Config.document_types:
-            if document_type.code == document_type_lookup:
+            if document_type.code == code:
                 return document_type
         raise ConfigurationError(f"Document type {code} not found in the application configuration")
 
@@ -533,6 +561,18 @@ class Config(object):
         assert Config._config is not None
 
         return Config._config.get('real_estate')
+    
+    @staticmethod
+    def get_real_estate_type_config():
+        """
+        Returns a dictionary of the configured real estate settings.
+
+        Returns:
+            dict: The configured real estate settings.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('real_estate_type')
 
     @staticmethod
     def get_plan_for_land_register_main_page_config():
@@ -762,37 +802,58 @@ class Config(object):
         return Config._get_object_path(current_path, current_object[k], path[1:], default, required)
 
     @staticmethod
-    def get_law_status_by_code(theme_code, law_status_code):
+    def get_law_status_lookups(theme_code):
+        lookups = Config.get_theme_config_by_code(theme_code).get('law_status_lookup')
+        if lookups is None:
+            raise ConfigurationError(
+                '"document_types_lookup" must be defined in configuration for theme {}!'.format(theme_code)
+            )
+        return lookups
+    
+    @staticmethod
+    def get_law_status_lookup_by_theme_code_key_code(theme_code, key, code):
+        lookups = Config.get_law_status_lookups(theme_code)
+        for lookup in lookups:
+            if lookup[key] == code:
+                return lookup
+        raise ConfigurationError(
+            'Document type lookup with key "{}" and code "{}" is not defined in configuration!'.format(key, code)
+        )
+    
+    @staticmethod
+    def get_law_status_lookup_by_transfer_code(theme_code, transfer_code):
+        return Config.get_law_status_lookup_by_theme_code_key_code(theme_code, 'transfer_code', transfer_code)
+    
+    @staticmethod
+    def get_law_status_lookup_by_data_code(theme_code, data_code):
+        return Config.get_law_status_lookup_by_theme_code_key_code(theme_code, 'data_code', data_code)
+    
+    @staticmethod
+    def get_law_status_by_data_code(theme_code, data_code):
+        lookup = Config.get_law_status_lookup_by_data_code(theme_code, data_code)
+        record = Config.get_law_status_by_code(lookup['transfer_code'])
+        log.debug('Translating code {} => code {} of {}'.format(lookup['transfer_code'], lookup['extract_code'], record.title))
+        translated_record = LawStatusRecord(lookup['extract_code'], record.title)
+        return translated_record
+
+    @staticmethod
+    def get_law_status_by_code(law_status_code):
         """
          Returns a dictionary of the configured law status settings.
 
         Args:
-            theme_code (str): The theme code to look up the configured law status code.
-            law_status_code (str): The law status code. This must be "inKraft" or "AenderungMitVorwirkung"
-            or "AenderungOhneVorwirkung". Any other value won't match and throws a silent error.
+            law_status_code (str): The law status code.
 
         Returns:
-            dict: The translation from the configuration.
+            pyramid_oereb.lib.records.law_status.LawStatusRecord: The found record.
         """
-
-        theme_law_status = Config.get_theme_config_by_code(theme_code).get('law_status')
+        if Config.law_status is None:
+            raise ConfigurationError("The law status have not been initialized")
+        
         for record in Config.law_status:
-            law_status_code_from_config = theme_law_status.get(record.code)
-            if law_status_code == law_status_code_from_config:
+            if law_status_code == law_status_code:
                 return record
-
-        raise AttributeError(
-            u'There was no proper configuration for the theme "{theme}" on the law '
-            u'status it has to be configured depending on the data you imported. Law '
-            u'status in your data was: {data_law_status}, the configured options are: '
-            u'{in_kraft}, {aenderung_mit_vorwirkung} or {aenderung_ohne_vorwirkung}'.format(
-                theme=theme_code,
-                data_law_status=law_status_code,
-                in_kraft="inKraft",
-                aenderung_mit_vorwirkung='AenderungMitVorwirkung',
-                aenderung_ohne_vorwirkung='AenderungOhneVorwirkung'
-            )
-        )
+        raise ConfigurationError(f"Law status {law_status_code} not found in the application configuration")
 
     @staticmethod
     def get_law_status_by_law_status_code(law_status_code):
@@ -861,23 +922,59 @@ class Config(object):
                         return layer_index, layer_opacity
         return None, None
 
-    @classmethod
-    def get_real_estate_type_by_code(cls, code):
+    @staticmethod
+    def get_real_estate_type_lookups():
+        lookups = Config.get_real_estate_type_config().get('lookup')
+        if lookups is None:
+            raise ConfigurationError(
+                '"lookup" must be defined in configuration for theme real_estate_type!'
+            )
+        return lookups
+    
+    @staticmethod
+    def get_real_estate_type_lookup_by_key_code(key, code):
+        lookups = Config.get_real_estate_type_lookups()
+        for lookup in lookups:
+            if lookup[key] == code:
+                return lookup
+        raise ConfigurationError(
+            'Document type lookup with key "{}" and code "{}" is not defined in configuration!'.format(key, code)
+        )
+    
+    @staticmethod
+    def get_law_status_lookup_by_transfer_code(transfer_code):
+        return Config.get_real_estate_type_lookup_by_key_code('transfer_code', transfer_code)
+    
+    @staticmethod
+    def get_real_estate_type_lookup_by_data_code(data_code):
+        return Config.get_real_estate_type_lookup_by_key_code('data_code', data_code)
+    
+    @staticmethod
+    def get_real_estate_type_by_data_code(data_code):
+        lookup = Config.get_real_estate_type_lookup_by_data_code(data_code)
+        record = Config.get_real_estate_type_by_code(lookup['transfer_code'])
+        log.debug('Translating code {} => code {} of {}'.format(lookup['transfer_code'], lookup['extract_code'], record.title))
+        translated_record = DocumentTypeRecord(lookup['extract_code'], record.title)
+        return translated_record
+
+    @staticmethod
+    def get_real_estate_type_by_code(code):
         """
-        Returns a dictionary of the configured real estate type settings.
+         Returns a dictionary of the configured law status settings.
+
+        Args:
+            code (str): The real estate type code.
 
         Returns:
-            dict: The configured real estate type settings.
+            pyramid_oereb.lib.records.real_estate_type.RealEstateTypeRecord: The found record.
         """
-        real_estate_type_lookup = Config.get('real_estate_type_lookup')[code]
+        if Config.real_estate_types is None:
+            raise ConfigurationError("The real estate types have not been initialized")
+        
         for record in Config.real_estate_types:
-            if record.code == real_estate_type_lookup:
+            if record.code == code:
                 return record
-
-        raise AttributeError(
-            u'There was no proper configuration for the real estate types.'
-            u'"real_estate_type_lookup" from config could not be matched.'
-        )
+        raise ConfigurationError(f"Real estate type with {code} not found in the application configuration")
 
     @staticmethod
     def extract_module_function(dotted_function_path):

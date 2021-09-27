@@ -3,7 +3,7 @@
     from pyramid_oereb.lib.records.plr import PlrRecord
     from pyramid_oereb import Config
 
-    real_estate_type = Config.get_real_estate_type_by_code(real_estate.type)
+    real_estate_type = Config.get_real_estate_type_by_data_code(real_estate.type)
 %>
 <data:RealEstate>
 %if real_estate.number:
@@ -54,7 +54,7 @@
         <%include file="view_service.xml" args="map=real_estate.plan_for_land_register_main_page"/>
     </data:PlanForLandRegisterMainPage>
 %for reference in real_estate.references:
-    <data:Reference xsi:type="data:Document">
+    <data:Reference>
         <%include file="document.xml" args="document=reference"/>
     </data:Reference>
 %endfor
