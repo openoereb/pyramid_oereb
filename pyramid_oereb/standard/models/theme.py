@@ -26,38 +26,21 @@ class Models(object):
         self.schema_name = schema_name
 
 
-def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
+def generic_models(base, schema_name, pk_type):
     """
-    Factory to produce a set of standard models.
+    Factory to produce a set of generic standard models.
 
     Args:
+        base (): The SQLAlchemy base which is assigned to the models.
         schema_name (str): The name of the database schema where this models belong to.
         pk_type (sqlalchemy.sql.type_api.TypeEngine): The type of the primary column. E.g.
             sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
             needs
-        geometry_type (str): The geoalchemy geometry type defined as well known string.
-        srid (int): The SRID defining the projection of the geometries stored in standard db schema.
+    Retruns:
+        list: First element is the Office model and second is the Document model.
     """
-    Base = declarative_base()
 
-    class Availability(Base):
-        """
-        A simple bucket for achieving a switch per municipality. Here you can configure via the
-        imported data if a public law restriction is available or not. You need to fill it with
-        the data you provided in the app schemas municipality table (fosnr).
-
-        Attributes:
-            fosnr (int): The identifier of the municipality in your system (id_bfs = fosnr)
-            available (bool): The switch field to configure if this plr is available for the
-                municipality or not.  This field has direct influence on the applications
-                behaviour. See documentation for more info.
-        """
-        __table_args__ = {'schema': schema_name}
-        __tablename__ = 'availability'
-        fosnr = Column(pk_type, primary_key=True, autoincrement=False)
-        available = Column(Boolean, nullable=False, default=False)
-
-    class Office(Base):
+    class Office(base):
         """
         The bucket to fill in all the offices you need to reference from public law restriction, document,
         geometry.
@@ -88,28 +71,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         postal_code = Column(Integer, nullable=True)
         city = Column(String, nullable=True)
 
-    class DataIntegration(Base):
-        """
-        The bucket to fill in the date when this whole schema was updated. It has a relation to the
-        office to be able to find out who was the delivering instance.
-
-        Attributes:
-            id (str): The identifier. This is used in the database only and must not be set manually. If
-                you  don't like it - don't care about.
-            date (datetime.date): The date when this data set was delivered.
-            office_id (str): A foreign key which points to the actual office instance.
-            office (pyramid_oereb.standard.models.airports_building_lines.Office):
-                The actual office instance which the id points to.
-        """
-        __table_args__ = {'schema': schema_name}
-        __tablename__ = 'data_integration'
-        id = Column(pk_type, primary_key=True, autoincrement=False)
-        date = Column(DateTime, nullable=False)
-        office_id = Column(pk_type, ForeignKey(Office.id), nullable=False)
-        office = relationship(Office)
-        checksum = Column(String, nullable=True)
-
-    class Document(Base):
+    class Document(base):
         """
         THE DOCUMENT
         This represents the main document in the whole system.
@@ -140,13 +102,13 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         """
         __table_args__ = {'schema': schema_name}
         __tablename__ = 'document'
-        id = Column(String, primary_key=True, autoincrement=False)
+        id = Column(pk_type, primary_key=True, autoincrement=False)
         document_type = Column(String, nullable=False)
         index = Column(Integer, nullable=False)
         law_status = Column(String, nullable=False)
         title = Column(JSONType, nullable=False)
         office_id = Column(
-            String,
+            pk_type,
             ForeignKey(Office.id),
             nullable=False
         )
@@ -158,6 +120,63 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         official_number = Column(JSONType, nullable=True)
         only_in_municipality = Column(Integer, nullable=True)
         file = Column(String, nullable=True)
+
+    return [Office, Document]
+
+
+def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
+    """
+    Factory to produce a set of standard models.
+
+    Args:
+        schema_name (str): The name of the database schema where this models belong to.
+        pk_type (sqlalchemy.sql.type_api.TypeEngine): The type of the primary column. E.g.
+            sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
+            needs
+        geometry_type (str): The geoalchemy geometry type defined as well known string.
+        srid (int): The SRID defining the projection of the geometries stored in standard db schema.
+    """
+    Base = declarative_base()
+
+    Office, Document = generic_models(Base, schema_name, pk_type)
+
+    class Availability(Base):
+        """
+        A simple bucket for achieving a switch per municipality. Here you can configure via the
+        imported data if a public law restriction is available or not. You need to fill it with
+        the data you provided in the app schemas municipality table (fosnr).
+
+        Attributes:
+            fosnr (int): The identifier of the municipality in your system (id_bfs = fosnr)
+            available (bool): The switch field to configure if this plr is available for the
+                municipality or not.  This field has direct influence on the applications
+                behaviour. See documentation for more info.
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'availability'
+        fosnr = Column(pk_type, primary_key=True, autoincrement=False)
+        available = Column(Boolean, nullable=False, default=False)
+
+    class DataIntegration(Base):
+        """
+        The bucket to fill in the date when this whole schema was updated. It has a relation to the
+        office to be able to find out who was the delivering instance.
+
+        Attributes:
+            id (str): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            date (datetime.date): The date when this data set was delivered.
+            office_id (str): A foreign key which points to the actual office instance.
+            office (pyramid_oereb.standard.models.airports_building_lines.Office):
+                The actual office instance which the id points to.
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'data_integration'
+        id = Column(pk_type, primary_key=True, autoincrement=False)
+        date = Column(DateTime, nullable=False)
+        office_id = Column(pk_type, ForeignKey(Office.id), nullable=False)
+        office = relationship(Office)
+        checksum = Column(String, nullable=True)
 
     class ViewService(Base):
         """
@@ -196,7 +215,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         """
         __table_args__ = {'schema': schema_name}
         __tablename__ = 'legend_entry'
-        id = Column(String, primary_key=True, autoincrement=False)
+        id = Column(pk_type, primary_key=True, autoincrement=False)
         symbol = Column(String, nullable=False)
         legend_text = Column(JSONType, nullable=False)
         type_code = Column(String(40), nullable=False)
@@ -204,7 +223,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         theme = Column(String, nullable=False)
         sub_theme = Column(String, nullable=True)
         view_service_id = Column(
-            String,
+            pk_type,
             ForeignKey(ViewService.id),
             nullable=False
         )
@@ -237,12 +256,12 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         """
         __table_args__ = {'schema': schema_name}
         __tablename__ = 'public_law_restriction'
-        id = Column(String, primary_key=True, autoincrement=False)
+        id = Column(pk_type, primary_key=True, autoincrement=False)
         law_status = Column(String, nullable=False)
         published_from = Column(Date, nullable=False)
         published_until = Column(Date, nullable=True)
         view_service_id = Column(
-            String,
+            pk_type,
             ForeignKey(ViewService.id),
             nullable=False
         )
@@ -251,13 +270,13 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
             backref='public_law_restrictions'
         )
         office_id = Column(
-            String,
+            pk_type,
             ForeignKey(Office.id),
             nullable=False
         )
         responsible_office = relationship(Office)
         legend_entry_id = Column(
-            String,
+            pk_type,
             ForeignKey(LegendEntry.id),
             nullable=False
         )
@@ -288,14 +307,14 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         """
         __table_args__ = {'schema': schema_name}
         __tablename__ = 'geometry'
-        id = Column(String, primary_key=True, autoincrement=False)
+        id = Column(pk_type, primary_key=True, autoincrement=False)
         law_status = Column(String, nullable=False)
         published_from = Column(Date, nullable=False)
         published_until = Column(Date, nullable=True)
         geo_metadata = Column(String, nullable=True)
         geom = Column(GeoAlchemyGeometry(geometry_type, srid=srid), nullable=False)
         public_law_restriction_id = Column(
-            String,
+            pk_type,
             ForeignKey(PublicLawRestriction.id),
             nullable=False
         )
@@ -321,14 +340,14 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         """
         __tablename__ = 'public_law_restriction_document'
         __table_args__ = {'schema': schema_name}
-        id = Column(String, primary_key=True, autoincrement=False)
+        id = Column(pk_type, primary_key=True, autoincrement=False)
         public_law_restriction_id = Column(
-            String,
+            pk_type,
             ForeignKey(PublicLawRestriction.id),
             nullable=False
         )
         document_id = Column(
-            String,
+            pk_type,
             ForeignKey(Document.id),
             nullable=False
         )

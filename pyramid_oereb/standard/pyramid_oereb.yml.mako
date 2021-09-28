@@ -33,17 +33,11 @@ pyramid_oereb:
   #             a defined combination of topics to extract (e.g. only 'federal' topics without
   #             cantonal extensions - and choosing this option, legal provisions are only output
   #             as link.
-  # FULL:       Means you get all topics, whether they are defined in the 17 base topics or if they
-  #             are cantonal specificities.
-  #             The extract will also have the legal provisions and referenced documents
-  #             included as PDF.
-  # SIGNED:     Is essentially the same as FULL, but the extract is certified by the competent
+  # SIGNED:     Is essentially the same as REDUCED, but the extract is certified by the competent
   #             authority
-  # EMBEDDABLE: With this flavour all images and documents are included as base64 binary
   flavour:
     - REDUCED
-    - FULL
-    - EMBEDDABLE
+    - SIGNED
 
   print:
     # The pyramid renderer which is used as proxy pass through to the desired service for printable static
@@ -191,7 +185,7 @@ pyramid_oereb:
     validation: true
     # Additional URL parameters to pass, depending on the PLR theme
     # url_param_config:
-    # - code: ForestPerimeters
+    # - code: ch.StatischeWaldgrenzen
     #   url_param: 'oereb_id=5'
 
   # Defines the information of the oereb cadastre providing authority. Please change this to your data. This
@@ -387,23 +381,23 @@ pyramid_oereb:
         # The model which maps the glossary database table.
         model: pyramid_oereb.standard.models.main.Glossary
 
-  # The processor of the oereb project needs access to exclusion of liability data. In the standard
-  # configuration this is assumed to be read from a database. Hint: If you want to read the exclusion of
-  # liability out of an existing database table to avoid imports of this data every time it gets updates, you
+  # The processor of the oereb project needs access to disclaimer data. In the standard
+  # configuration this is assumed to be read from a database. Hint: If you want to read the disclaimer
+  # out of an existing database table to avoid imports of this data every time it gets updates, you
   # only need to change the model bound to the source. The model must implement the same field names and
   # information as the default model does.
-  exclusion_of_liability:
-    # The exclusion_of_liability must have a property source.
+  disclaimer:
+    # The disclaimer must have a property source.
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
       # already implemented source which reads data from a database.
-      class: pyramid_oereb.standard.sources.exclusion_of_liability.DatabaseSource
+      class: pyramid_oereb.standard.sources.disclaimer.DatabaseSource
       # The necessary parameters to use this class
       params:
         # The connection path where the database can be found
         db_connection: *main_db_connection
-        # The model which maps the exclusion_of_liability database table.
-        model: pyramid_oereb.standard.models.main.ExclusionOfLiability
+        # The model which maps the disclaimer database table.
+        model: pyramid_oereb.standard.models.main.Disclaimer
 
   # The processor of the oereb project joins the law status labels. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
@@ -474,17 +468,7 @@ pyramid_oereb:
         methods:
           date: pyramid_oereb.standard.hook_methods.get_surveying_data_update_date
           provider:  pyramid_oereb.standard.hook_methods.get_surveying_data_provider
-      # Certification and certification_at_web must be set with your own certification information.
-    certification:
-        de: Referenz zur kantonsspezifischen Gesetzesgrundlage bezüglich Beglaubigungen.
-        fr: Référence vers les dispositions légales cantonales concernant la certification
-        it: Certificazione secondo OCRDPP art. 14
-        rm: ...
-    certification_at_web:
-        de: https://oereb.bl.ch/certification/de
-        fr: https://oereb.bl.ch/certification/fr
-        it: https://oereb.bl.ch/certification/it
-        rm: https://oereb.bl.ch/certification/rm
+
     sort_within_themes_method: pyramid_oereb.standard.hook_methods.plr_sort_within_themes
     # Example of a specific sorting method:
     # sort_within_themes_method: pyramid_oereb.contrib.plr_sort_within_themes_by_type_code
@@ -496,7 +480,7 @@ pyramid_oereb:
   # the extract creation process which loops over this list.
   plrs:
 
-    - code: LandUsePlans
+    - code: ch.Nutzungsplanung
       geometry_type: GEOMETRYCOLLECTION
       # Define the minmal area and length for public law restrictions that should be considered as 'true' restrictions
       # and not as calculation errors (false trues) due to topological imperfections
@@ -533,7 +517,7 @@ pyramid_oereb:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: MotorwaysProjectPlaningZones
+    - code: ch.ProjektierungszonenNationalstrassen
       geometry_type: MULTIPOLYGON
       thresholds:
         length:
@@ -568,7 +552,7 @@ pyramid_oereb:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: MotorwaysBuildingLines
+    - code: ch.BaulinienNationalstrassen
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -603,42 +587,7 @@ pyramid_oereb:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: RailwaysBuildingLines
-      geometry_type: LINESTRING
-      thresholds:
-        length:
-          limit: 1.0
-          unit: 'm'
-          precision: 2
-        area:
-          limit: 1.0
-          unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
-      language: de
-      federal: true
-      standard: true
-      view_service:
-        layer_index: 1
-        layer_opacity: 0.75
-      source:
-        class: pyramid_oereb.standard.sources.plr.DatabaseSource
-        params:
-          db_connection: *main_db_connection
-          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
-          # uncomment line above and comment line below to use integer type for primary keys
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
-          schema_name: railways_building_lines
-      hooks:
-        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
-
-    - code: RailwaysProjectPlanningZones
+    - code: ch.ProjektierungszonenEisenbahnanlagen
       geometry_type: POLYGON
       thresholds:
         length:
@@ -673,7 +622,42 @@ pyramid_oereb:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: AirportsProjectPlanningZones
+    - code: ch.BaulinienEisenbahnanlagen
+      geometry_type: LINESTRING
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: de
+      federal: true
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
+      source:
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          schema_name: railways_building_lines
+      hooks:
+        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
+      law_status:
+        inKraft: inKraft
+        AenderungMitVorwirkung: AenderungMitVorwirkung
+        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+
+    - code: ch.ProjektierungszonenFlughafenanlagen
       geometry_type: POLYGON
       thresholds:
         length:
@@ -708,7 +692,7 @@ pyramid_oereb:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: AirportsBuildingLines
+    - code: ch.BaulinienFlughafenanlagen
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -743,7 +727,7 @@ pyramid_oereb:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: AirportsSecurityZonePlans
+    - code: ch.Sicherheitszonenplan
       geometry_type: MULTIPOLYGON
       thresholds:
         length:
@@ -779,7 +763,7 @@ pyramid_oereb:
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
       download: https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan.oereb/data.zip
 
-    - code: ContaminatedSites
+    - code: ch.BelasteteStandorte
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -814,7 +798,7 @@ pyramid_oereb:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: ContaminatedMilitarySites
+    - code: ch.BelasteteStandorteMilitaer
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -849,7 +833,7 @@ pyramid_oereb:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: ContaminatedCivilAviationSites
+    - code: ch.BelasteteStandorteZivileFlugplaetze
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -884,7 +868,7 @@ pyramid_oereb:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: ContaminatedPublicTransportSites
+    - code: ch.BelasteteStandorteOeffentlicherVerkehr
       geometry_type: GEOMETRYCOLLECTION
       thresholds:
         length:
@@ -919,7 +903,7 @@ pyramid_oereb:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: GroundwaterProtectionZones
+    - code: ch.Grundwasserschutzzonen
       geometry_type: POLYGON
       thresholds:
         length:
@@ -954,7 +938,7 @@ pyramid_oereb:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: GroundwaterProtectionSites
+    - code: ch.Grundwasserschutzareale
       geometry_type: POLYGON
       thresholds:
         length:
@@ -989,7 +973,7 @@ pyramid_oereb:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: NoiseSensitivityLevels
+    - code: ch.Laermempfindlichkeitsstufen
       geometry_type: POLYGON
       thresholds:
         length:
@@ -1024,7 +1008,7 @@ pyramid_oereb:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: ForestPerimeters
+    - code: ch.StatischeWaldgrenzen
       geometry_type: LINESTRING
       thresholds:
         length:
@@ -1062,7 +1046,7 @@ pyramid_oereb:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: ForestDistanceLines
+    - code: ch.Waldabstandslinien
       geometry_type: LINESTRING
       thresholds:
         length:

@@ -31,7 +31,7 @@ def test_getcapabilities():
 
         assert isinstance(caps[u'topic'], list)
         assert len(caps[u'topic']) == 17
-        assert caps[u'topic'][15][u'Code'] == u'ForestPerimeters'
+        assert caps[u'topic'][15][u'Code'] == u'ch.StatischeWaldgrenzen'
         forest_perimeter_languages = list(map(lambda l: l[u'Language'], caps[u'topic'][15][u'Text']))
         assert u'de' in forest_perimeter_languages
         assert u'fr' in forest_perimeter_languages
@@ -39,10 +39,9 @@ def test_getcapabilities():
         assert u'rm' in forest_perimeter_languages
 
         assert isinstance(caps[u'flavour'], list)
-        assert len(caps[u'flavour']) == 3
+        assert len(caps[u'flavour']) == 2
         assert u'REDUCED' in caps[u'flavour']
-        assert u'FULL' in caps[u'flavour']
-        assert u'EMBEDDABLE' in caps[u'flavour']
+        assert u'SIGNED' in caps[u'flavour']
 
         assert isinstance(caps[u'language'], list)
         assert len(caps[u'language']) == 4

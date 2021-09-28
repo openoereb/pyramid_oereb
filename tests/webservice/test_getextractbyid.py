@@ -143,7 +143,7 @@ def test_return_no_content():
 @pytest.mark.parametrize('egrid,topics', [
     ('TEST', 'ALL'),
     ('TEST', 'ALL_FEDERAL'),
-    ('TEST', 'ContaminatedSites,RailwaysProjectPlanningZones'),
+    ('TEST', 'ch.BelasteteStandorte,ch.ProjektierungszonenEisenbahnanlagen'),
     ('TEST3', 'ALL')
 ])
 def test_return_json(egrid, topics):
@@ -181,24 +181,24 @@ def test_return_json(egrid, topics):
         assert len(extract.get('NotConcernedTheme')) == 14
         assert len(extract.get('ThemeWithoutData')) == 0
         restrictions = real_estate.get('RestrictionOnLandownership')
-        assert restrictions[0]['Theme']['Code'] == 'LandUsePlans'
-        assert restrictions[1]['Theme']['Code'] == 'MotorwaysBuildingLines'
-        assert restrictions[2]['Theme']['Code'] == 'ContaminatedSites'
+        assert restrictions[0]['Theme']['Code'] == 'ch.Nutzungsplanung'
+        assert restrictions[1]['Theme']['Code'] == 'ch.BaulinienNationalstrassen'
+        assert restrictions[2]['Theme']['Code'] == 'ch.BelasteteStandorte'
         # Check consistency of ordering (according to config) for not concerned themes
-        assert extract.get('NotConcernedTheme')[0]['Code'] == 'MotorwaysProjectPlaningZones'
-        assert extract.get('NotConcernedTheme')[1]['Code'] == 'RailwaysProjectPlanningZones'
-        assert extract.get('NotConcernedTheme')[2]['Code'] == 'RailwaysBuildingLines'
-        assert extract.get('NotConcernedTheme')[3]['Code'] == 'AirportsProjectPlanningZones'
-        assert extract.get('NotConcernedTheme')[4]['Code'] == 'AirportsBuildingLines'
-        assert extract.get('NotConcernedTheme')[5]['Code'] == 'AirportsSecurityZonePlans'
-        assert extract.get('NotConcernedTheme')[6]['Code'] == 'ContaminatedMilitarySites'
-        assert extract.get('NotConcernedTheme')[7]['Code'] == 'ContaminatedCivilAviationSites'
-        assert extract.get('NotConcernedTheme')[8]['Code'] == 'ContaminatedPublicTransportSites'
-        assert extract.get('NotConcernedTheme')[9]['Code'] == 'GroundwaterProtectionZones'
-        assert extract.get('NotConcernedTheme')[10]['Code'] == 'GroundwaterProtectionSites'
-        assert extract.get('NotConcernedTheme')[11]['Code'] == 'NoiseSensitivityLevels'
-        assert extract.get('NotConcernedTheme')[12]['Code'] == 'ForestPerimeters'
-        assert extract.get('NotConcernedTheme')[13]['Code'] == 'ForestDistanceLines'
+        assert extract.get('NotConcernedTheme')[0]['Code'] == 'ch.ProjektierungszonenNationalstrassen'
+        assert extract.get('NotConcernedTheme')[1]['Code'] == 'ch.ProjektierungszonenEisenbahnanlagen'
+        assert extract.get('NotConcernedTheme')[2]['Code'] == 'ch.BaulinienEisenbahnanlagen'
+        assert extract.get('NotConcernedTheme')[3]['Code'] == 'ch.ProjektierungszonenFlughafenanlagen'
+        assert extract.get('NotConcernedTheme')[4]['Code'] == 'ch.BaulinienFlughafenanlagen'
+        assert extract.get('NotConcernedTheme')[5]['Code'] == 'ch.Sicherheitszonenplan'
+        assert extract.get('NotConcernedTheme')[6]['Code'] == 'ch.BelasteteStandorteMilitaer'
+        assert extract.get('NotConcernedTheme')[7]['Code'] == 'ch.BelasteteStandorteZivileFlugplaetze'
+        assert extract.get('NotConcernedTheme')[8]['Code'] == 'ch.BelasteteStandorteOeffentlicherVerkehr'
+        assert extract.get('NotConcernedTheme')[9]['Code'] == 'ch.Grundwasserschutzzonen'
+        assert extract.get('NotConcernedTheme')[10]['Code'] == 'ch.Grundwasserschutzareale'
+        assert extract.get('NotConcernedTheme')[11]['Code'] == 'ch.Laermempfindlichkeitsstufen'
+        assert extract.get('NotConcernedTheme')[12]['Code'] == 'ch.StatischeWaldgrenzen'
+        assert extract.get('NotConcernedTheme')[13]['Code'] == 'ch.Waldabstandslinien'
 
     if topics == 'ALL_FEDERAL':
         assert len(real_estate.get('RestrictionOnLandownership')) == 1
@@ -206,15 +206,15 @@ def test_return_json(egrid, topics):
         assert len(extract.get('NotConcernedTheme')) == 9
         assert len(extract.get('ThemeWithoutData')) == 0
         restrictions = real_estate.get('RestrictionOnLandownership')
-        assert restrictions[0]['Theme']['Code'] == 'MotorwaysBuildingLines'
+        assert restrictions[0]['Theme']['Code'] == 'ch.BaulinienNationalstrassen'
 
-    if topics == 'ContaminatedSites,RailwaysProjectPlanningZones':
+    if topics == 'ch.BelasteteStandorte,ch.ProjektierungszonenEisenbahnanlagen':
         assert len(real_estate.get('RestrictionOnLandownership')) == 1
         assert len(extract.get('ConcernedTheme')) == 1
         assert len(extract.get('NotConcernedTheme')) == 1
         assert len(extract.get('ThemeWithoutData')) == 0
         restrictions = real_estate.get('RestrictionOnLandownership')
-        assert restrictions[0]['Theme']['Code'] == 'ContaminatedSites'
+        assert restrictions[0]['Theme']['Code'] == 'ch.BelasteteStandorte'
 
     if topics == 'ALL' and egrid == 'TEST3':
         assert len(extract.get('ConcernedTheme')) == 3
@@ -222,9 +222,9 @@ def test_return_json(egrid, topics):
         assert len(extract.get('ThemeWithoutData')) == 0
         restrictions = real_estate.get('RestrictionOnLandownership')
         assert len(restrictions) == 4
-        assert restrictions[1]['Theme']['Code'] == 'MotorwaysBuildingLines'
+        assert restrictions[1]['Theme']['Code'] == 'ch.BaulinienNationalstrassen'
         assert restrictions[1]['Lawstatus']['Code'] == 'inKraft'
-        assert restrictions[2]['Theme']['Code'] == 'MotorwaysBuildingLines'
+        assert restrictions[2]['Theme']['Code'] == 'ch.BaulinienNationalstrassen'
         assert restrictions[2]['Lawstatus']['Code'] == 'AenderungOhneVorwirkung'
 
 

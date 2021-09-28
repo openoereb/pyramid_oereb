@@ -18,11 +18,11 @@ yaml_file = 'pyramid_oereb/standard/pyramid_oereb.yml'
 @pytest.mark.run(order=-1)
 def test_init():
     Config._config = None
-    loader = FederalTopic(yaml_file, 'AirportsSecurityZonePlans')
+    loader = FederalTopic(yaml_file, 'ch.Sicherheitszonenplan')
     assert isinstance(loader._log, Logger)
     assert isinstance(loader._settings, dict)
     assert len(loader._settings.get('plrs')) == 17
-    assert loader._topic_settings.get('code') == 'AirportsSecurityZonePlans'
+    assert loader._topic_settings.get('code') == 'ch.Sicherheitszonenplan'
     assert loader._connection.startswith('postgresql://')
     assert isinstance(loader._models, Models)
     assert len(loader._file_id) == 36
@@ -33,7 +33,7 @@ def test_init():
 @pytest.mark.run(order=-1)
 def test_unzip_cleanup():
     Config._config = None
-    loader = FederalTopic(yaml_file, 'AirportsSecurityZonePlans')
+    loader = FederalTopic(yaml_file, 'ch.Sicherheitszonenplan')
 
     zip_file = os.path.join(loader._tmp_dir, '{0}.zip'.format(loader._file_id))
     zip_path = os.path.join(loader._tmp_dir, '{0}'.format(loader._file_id))
@@ -49,7 +49,7 @@ def test_unzip_cleanup():
 @pytest.mark.run(order=-1)
 def test_collect_files():
     Config._config = None
-    loader = FederalTopic(yaml_file, 'AirportsSecurityZonePlans')
+    loader = FederalTopic(yaml_file, 'ch.Sicherheitszonenplan')
     zip_file = os.path.join(loader._tmp_dir, '{0}.zip'.format(loader._file_id))
     zip_path = os.path.join(loader._tmp_dir, '{0}'.format(loader._file_id))
     shutil.copy('tests/resources/data.zip', zip_file)
@@ -63,7 +63,7 @@ def test_collect_files():
 @pytest.mark.run(order=-1)
 def test_read_checksum():
     Config._config = None
-    loader = FederalTopic(yaml_file, 'AirportsSecurityZonePlans')
+    loader = FederalTopic(yaml_file, 'ch.Sicherheitszonenplan')
     zip_file = os.path.join(loader._tmp_dir, '{0}.zip'.format(loader._file_id))
     shutil.copy('tests/resources/data.zip', zip_file)
     loader.unzip_data()
@@ -102,7 +102,7 @@ def test_load():
         assert checksum == loader._checksum
     schema = 'airports_security_zone_plans'
     Config._config = None
-    loader = FederalTopic(yaml_file, 'AirportsSecurityZonePlans')
+    loader = FederalTopic(yaml_file, 'ch.Sicherheitszonenplan')
     zip_file = os.path.join(loader._tmp_dir, '{0}.zip'.format(loader._file_id))
     shutil.copy('tests/resources/data.zip', zip_file)
     loader.unzip_data()

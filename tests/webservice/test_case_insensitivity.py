@@ -67,19 +67,19 @@ def test_get_egrid_coord(params):
     }, {
         'GEOMETRY': 'true',
         'EGRID': 'TEST',
-        'TOPICS': 'ContaminatedSites,RailwaysProjectPlanningZones'
+        'TOPICS': 'ch.BelasteteStandorte,ch.ProjektierungszonenEisenbahnanlagen'
     }, {
         'GEOMETRY': 'true',
         'EGRID': 'TEST',
-        'topics': 'ContaminatedSites,RailwaysProjectPlanningZones'
+        'topics': 'ch.BelasteteStandorte,ch.ProjektierungszonenEisenbahnanlagen'
     }, {
         'GEOMETRY': 'true',
         'EGRID': 'TEST',
-        'ToPics': 'ContaminatedSites,RailwaysProjectPlanningZones'
+        'ToPics': 'ch.BelasteteStandorte,ch.ProjektierungszonenEisenbahnanlagen'
     }, {
         'GEOMETRY': 'true',
         'EGRID': 'TEST',
-        'topics': 'ContaminatedSites,RailwaysProjectPlanningZones',
+        'topics': 'ch.BelasteteStandorte,ch.ProjektierungszonenEisenbahnanlagen',
         'WITHIMAGES': 'trUE',
         'LanG': 'dE'
     }

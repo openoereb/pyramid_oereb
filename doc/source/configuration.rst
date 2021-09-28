@@ -55,7 +55,7 @@ this:
 
 .. code-block:: yaml
 
-   - code: MotorwaysBuildingLines
+   - code: ch.BaulinienNationalstrassen
      geometry_type: LINESTRING
      thresholds:
        length:
@@ -157,7 +157,7 @@ source.
 .. code-block:: yaml
 
    - name: plr88
-       code: MotorwaysBuildingLines
+       code: ch.BaulinienNationalstrassen
        (...)
        source:
          class: pyramid_oereb.lib.sources.plr.DatabaseSource

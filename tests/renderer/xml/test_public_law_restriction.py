@@ -30,12 +30,12 @@ def test_sub_theme():
     renderer._language = u'de'
     renderer._request = MockRequest()
     renderer._request.route_url = lambda url, **kwargs: "http://example.com/current/view"
-    theme = ThemeRecord(u'LandUsePlans', {'de': 'Theme 1'}, 1)
-    subtheme = ThemeRecord(u'LandUsePlans', {'de': 'sub-Theme 1'}, 2, u'LandUsePlansSubCode')
+    theme = ThemeRecord(u'ch.Nutzungsplanung', {'de': 'Theme 1'}, 1)
+    subtheme = ThemeRecord(u'ch.Nutzungsplanung', {'de': 'sub-Theme 1'}, 2, u'ch.NutzungsplanungSubCode')
     office = OfficeRecord(name={'de': 'office de'})
     law_status = LawStatusRecord(
         code='AenderungMitVorwirkung',
-        text={'de': 'law status de'}
+        title={'de': 'law status de'}
     )
     geometry = GeometryRecord(law_status, datetime.now(), datetime.now(), Polygon(), 'test')
     public_law_restriction = PlrRecord(
@@ -72,6 +72,6 @@ def test_sub_theme():
 
     assert '<data:SubTheme>' in no_empty_lines
     assert '<data:Text>sub-Theme 1</data:Text>' in no_empty_lines
-    assert '<data:SubCode>LandUsePlansSubCode</data:SubCode>' in no_empty_lines
-    assert '<data:Code>LandUsePlans</data:Code>' in no_empty_lines
-    assert len(no_empty_lines) == 70
+    assert '<data:SubCode>ch.NutzungsplanungSubCode</data:SubCode>' in no_empty_lines
+    assert '<data:Code>ch.Nutzungsplanung</data:Code>' in no_empty_lines
+    assert len(no_empty_lines) == 78

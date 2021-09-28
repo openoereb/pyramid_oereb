@@ -183,7 +183,7 @@ def test_sort_by_localized_text():
 
 
 @pytest.mark.parametrize('theme_code', [
-    u'ContaminatedSites',
+    u'ch.BelasteteStandorte',
     u'NotExistingTheme',
 ])
 def test_get_symbol_ref(theme_code):

@@ -81,7 +81,7 @@ def test_get_all_federal():
     all_federal = Config.get_all_federal()
     assert isinstance(all_federal, list)
     assert len(all_federal) == 10
-    assert 'RailwaysProjectPlanningZones' in all_federal
+    assert 'ch.ProjektierungszonenEisenbahnanlagen' in all_federal
 
 
 @pytest.mark.run(order=-1)
@@ -104,10 +104,10 @@ def test_get_oereblex_config():
 def test_get_layer_config():
     Config._config = None
     Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
-    layer_index, layer_opacity = Config.get_layer_config('LandUsePlans')
+    layer_index, layer_opacity = Config.get_layer_config('ch.Nutzungsplanung')
     assert layer_index == 1
     assert layer_opacity == 0.25
-    layer_index, layer_opacity = Config.get_layer_config('MotorwaysProjectPlaningZones')
+    layer_index, layer_opacity = Config.get_layer_config('ch.ProjektierungszonenNationalstrassen')
     assert layer_index is None
     assert layer_opacity is None
 

@@ -1,6 +1,5 @@
 [
   {
-    "id": 1,
     "title": {
       "de": "Eigentumsbeschränkungen im Grundbuch",
       "fr": "Restrictions de propriété dans le registre foncier",
@@ -17,7 +16,6 @@
     }
   },
   {
-    "id": 2,
     "title": {
       "de": "Haftungsausschluss Kataster der belasteten Standorte (KbS)",
       "fr": "Clause de non-responsabilité du cadastre des sites pollués (CSP) ",

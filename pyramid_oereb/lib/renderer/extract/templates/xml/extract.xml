@@ -2,8 +2,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <GetExtractByIdResponse xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                        xmlns="http://schemas.geo.admin.ch/V_D/OeREB/1.0/Extract"
-                        xmlns:data="http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData"
+                        xmlns="http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData"
+                        xmlns:data="http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData"
                         xmlns:gml="http://www.opengis.net/gml/3.2"
                         xsi:schemaLocation="http://schemas.geo.admin.ch/V_D/OeREB/1.0/Extract http://schemas.geo.admin.ch/V_D/OeREB/1.0/Extract.xsd http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData.xsd">
 <%
@@ -79,21 +79,11 @@
         <%include file="glossary.xml" args="glossary=glossary"/>
         %endfor
         <%include file="real_estate.xml" args="real_estate=extract.real_estate"/>
-        %for exclusion_of_liability in extract.exclusions_of_liability:
-        <%include file="exclusion_of_liability.xml" args="exclusion_of_liability=exclusion_of_liability"/>
+        %for disclaimer in extract.disclaimers:
+        <%include file="disclaimer.xml" args="disclaimer=disclaimer"/>
         %endfor
         <data:PLRCadastreAuthority>
             <%include file="office.xml" args="office=extract.plr_cadastre_authority"/>
         </data:PLRCadastreAuthority>
-    %if extract.certification:
-        <data:Certification>
-            <%include file="multilingual_text.xml" args="text=extract.certification, not_null=True"/>
-        </data:Certification>
-    %endif
-    %if extract.certification:
-        <data:CertificationAtWeb>
-            <%include file="multilingual_text.xml" args="text=extract.certification_at_web, not_null=True"/>
-        </data:CertificationAtWeb>
-    %endif
     </data:Extract>
 </GetExtractByIdResponse>

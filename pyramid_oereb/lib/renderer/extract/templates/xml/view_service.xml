@@ -20,19 +20,19 @@
 </data:OtherLegend>
 %endfor
 %endif
-%if map.min_NS95 is not None:
-<data:min_NS95>
+%if map.min is not None:
+<data:min>
     <gml:Point gml:id="${get_gml_id()}">
-        <gml:pos>${map.min_NS95.x} ${map.min_NS95.y}</gml:pos>
+        <gml:pos>${map.min.x} ${map.min.y}</gml:pos>
     </gml:Point>
-</data:min_NS95>
+</data:min>
 %endif
-%if map.max_NS95 is not None:
-<data:max_NS95>
+%if map.max is not None:
+<data:max>
     <gml:Point gml:id="${get_gml_id()}">
-        <gml:pos>${map.max_NS95.x} ${map.max_NS95.y}</gml:pos>
+        <gml:pos>${map.max.x} ${map.max.y}</gml:pos>
     </gml:Point>
-</data:max_NS95>
+</data:max>
 %endif
 <data:layerIndex>${map.layer_index | x}</data:layerIndex>
 <data:layerOpacity>${map.layer_opacity | x}</data:layerOpacity>

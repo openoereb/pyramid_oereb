@@ -27,9 +27,12 @@ def test_sub_theme():
     legend_entry = LegendEntryRecord(
         symbol=ImageRecord('1'.encode('utf-8')),
         legend_text={'de': 'legend1'},
-        type_code='LandUsePlans',
+        type_code='ch.Nutzungsplanung',
         type_code_list='bla',
-        theme=ThemeRecord(u'LandUsePlans', {'de': 'Theme 1 with sub-theme'}, 20, u'LandUsePlansSubCode'),
+        theme=ThemeRecord(
+            u'ch.Nutzungsplanung',
+            {'de': 'Theme 1 with sub-theme'}, 20, u'ch.NutzungsplanungSubCode'
+        ),
     )
     content = template.render(**{
         'params': parameters,
@@ -40,6 +43,6 @@ def test_sub_theme():
     no_empty_lines = list(filter(lambda line: line != '', content))
     no_empty_lines = [no_space.strip() for no_space in no_empty_lines]
     assert '<data:Text>Theme 1 with sub-theme</data:Text>' in no_empty_lines
-    assert '<data:SubCode>LandUsePlansSubCode</data:SubCode>' in no_empty_lines
-    assert '<data:Code>LandUsePlans</data:Code>' in no_empty_lines
-    assert len(no_empty_lines) == 20
+    assert '<data:SubCode>ch.NutzungsplanungSubCode</data:SubCode>' in no_empty_lines
+    assert '<data:Code>ch.Nutzungsplanung</data:Code>' in no_empty_lines
+    assert len(no_empty_lines) == 22

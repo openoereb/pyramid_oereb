@@ -12,7 +12,7 @@ from pyramid_oereb.views.webservice import Symbol
 def test_get_image():
     request = MockRequest()
     request.matchdict.update({
-        'theme_code': 'ContaminatedSites',
+        'theme_code': 'ch.BelasteteStandorte',
         'view_service_id': '1',
         'type_code': 'CodeA'
     })
@@ -25,7 +25,7 @@ def test_get_image():
 def test_get_image_invalid():
     request = MockRequest()
     request.matchdict.update({
-        'theme_code': 'ContaminatedSites',
+        'theme_code': 'ch.BelasteteStandorte',
         'view_service_id': '1',
         'type_code': 'notExisting'
     })

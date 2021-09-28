@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import uuid
+
 from datetime import date, timedelta
 
 from sqlalchemy import create_engine
@@ -24,10 +26,10 @@ class DummyData(object):
     def __init__(self):
         self._engine = create_engine(Config.get('app_schema').get('db_connection'))
         self.themes = create_themes()
-        self.contaminated_sites = self.themes['ContaminatedSites']
-        self.land_use_plans = self.themes['LandUsePlans']
-        self.motorways_building_lines = self.themes['MotorwaysBuildingLines']
-        self.forest_perimeters = self.themes['ForestPerimeters']
+        self.contaminated_sites = self.themes['ch.BelasteteStandorte']
+        self.land_use_plans = self.themes['ch.Nutzungsplanung']
+        self.motorways_building_lines = self.themes['ch.BaulinienNationalstrassen']
+        self.forest_perimeters = self.themes['ch.StatischeWaldgrenzen']
 
     def init(self):
         self._truncate()
@@ -55,9 +57,13 @@ class DummyData(object):
             schema=main.Municipality.__table__.schema,
             table=main.Municipality.__table__.name
         ))
-        connection.execute('TRUNCATE {schema}.{table};'.format(
+        connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
             schema=main.Theme.__table__.schema,
             table=main.Theme.__table__.name
+        ))
+        connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
+            schema=main.Document.__table__.schema,
+            table=main.Document.__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table};'.format(
             schema=main.DocumentTypeText.__table__.schema,
@@ -68,8 +74,8 @@ class DummyData(object):
             table=main.Glossary.__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table};'.format(
-            schema=main.ExclusionOfLiability.__table__.schema,
-            table=main.ExclusionOfLiability.__table__.name
+            schema=main.Disclaimer.__table__.schema,
+            table=main.Disclaimer.__table__.name
         ))
         connection.execute('TRUNCATE {schema}.{table};'.format(
             schema=main.GeneralInformation.__table__.schema,
@@ -194,6 +200,7 @@ class DummyData(object):
 
         # Add dummy address
         connection.execute(main.Address.__table__.insert(), {
+            'id': str(uuid.uuid4()),
             'street_name': u'test',
             'street_number': u'10',
             'zip_code': 4410,
@@ -210,7 +217,7 @@ class DummyData(object):
         })
 
         # Add dummy exclusion of liability
-        connection.execute(main.ExclusionOfLiability.__table__.insert(), {
+        connection.execute(main.Disclaimer.__table__.insert(), {
             'id': 1,
             'title': {
                 'de': u'Haftungsausschluss Kataster der belasteten Standorte',
@@ -265,7 +272,7 @@ class DummyData(object):
         # Add dummy themes
         connection.execute(main.Theme.__table__.insert(), {
             'id': 1,
-            'code': 'LandUsePlans',
+            'code': 'ch.Nutzungsplanung',
             'title': {
                 'de': 'Nutzungsplanung (kantonal/kommunal)',
                 'fr': 'Plans d’affectation (cantonaux/communaux)',
@@ -276,7 +283,7 @@ class DummyData(object):
         })
         connection.execute(main.Theme.__table__.insert(), {
             'id': 2,
-            'code': 'MotorwaysProjectPlaningZones',
+            'code': 'ch.ProjektierungszonenNationalstrassen',
             'title': {
                 'de': 'Projektierungszonen Nationalstrassen',
                 'fr': 'Zones réservées des routes nationales',
@@ -287,91 +294,91 @@ class DummyData(object):
         })
         connection.execute(main.Theme.__table__.insert(), {
             'id': 3,
-            'code': 'MotorwaysBuildingLines',
+            'code': 'ch.BaulinienNationalstrassen',
             'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
             'extract_index': 120
         })
         connection.execute(main.Theme.__table__.insert(), {
             'id': 4,
-            'code': 'RailwaysProjectPlanningZones',
+            'code': 'ch.ProjektierungszonenEisenbahnanlagen',
             'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
             'extract_index': 210
         })
         connection.execute(main.Theme.__table__.insert(), {
             'id': 5,
-            'code': 'RailwaysBuildingLines',
+            'code': 'ch.BaulinienEisenbahnanlagen',
             'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
             'extract_index': 220
         })
         connection.execute(main.Theme.__table__.insert(), {
             'id': 6,
-            'code': 'AirportsProjectPlanningZones',
+            'code': 'ch.ProjektierungszonenFlughafenanlagen',
             'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
             'extract_index': 310
         })
         connection.execute(main.Theme.__table__.insert(), {
             'id': 7,
-            'code': 'AirportsBuildingLines',
+            'code': 'ch.BaulinienFlughafenanlagen',
             'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
             'extract_index': 320
         })
         connection.execute(main.Theme.__table__.insert(), {
             'id': 8,
-            'code': 'AirportsSecurityZonePlans',
+            'code': 'ch.Sicherheitszonenplan',
             'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
             'extract_index': 330
         })
         connection.execute(main.Theme.__table__.insert(), {
             'id': 9,
-            'code': 'ContaminatedSites',
+            'code': 'ch.BelasteteStandorte',
             'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
             'extract_index': 410
         })
         connection.execute(main.Theme.__table__.insert(), {
             'id': 10,
-            'code': 'ContaminatedMilitarySites',
+            'code': 'ch.BelasteteStandorteMilitaer',
             'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
             'extract_index': 420
         })
         connection.execute(main.Theme.__table__.insert(), {
             'id': 11,
-            'code': 'ContaminatedCivilAviationSites',
+            'code': 'ch.BelasteteStandorteZivileFlugplaetze',
             'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
             'extract_index': 430
         })
         connection.execute(main.Theme.__table__.insert(), {
             'id': 12,
-            'code': 'ContaminatedPublicTransportSites',
+            'code': 'ch.BelasteteStandorteOeffentlicherVerkehr',
             'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
             'extract_index': 440
         })
         connection.execute(main.Theme.__table__.insert(), {
             'id': 13,
-            'code': 'GroundwaterProtectionZones',
+            'code': 'ch.Grundwasserschutzzonen',
             'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
             'extract_index': 510
         })
         connection.execute(main.Theme.__table__.insert(), {
             'id': 14,
-            'code': 'GroundwaterProtectionSites',
+            'code': 'ch.Grundwasserschutzareale',
             'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
             'extract_index': 520
         })
         connection.execute(main.Theme.__table__.insert(), {
             'id': 15,
-            'code': 'NoiseSensitivityLevels',
+            'code': 'ch.Laermempfindlichkeitsstufen',
             'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
             'extract_index': 610
         })
         connection.execute(main.Theme.__table__.insert(), {
             'id': 16,
-            'code': 'ForestPerimeters',
+            'code': 'ch.StatischeWaldgrenzen',
             'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
             'extract_index': 710
         })
         connection.execute(main.Theme.__table__.insert(), {
             'id': 17,
-            'code': 'ForestDistanceLines',
+            'code': 'ch.Waldabstandslinien',
             'title': {'de': '', 'fr': '', 'it': '', 'rm': ''},
             'extract_index': 720
         })
@@ -379,15 +386,15 @@ class DummyData(object):
         # Add dummy document types
         connection.execute(main.DocumentTypeText.__table__.insert(), {
             'code': 'GesetzlicheGrundlage',
-            'text': {'de': 'Gesetzliche Grundlage', 'fr': '', 'it': '', 'rm': ''}
+            'title': {'de': 'Gesetzliche Grundlage', 'fr': '', 'it': '', 'rm': ''}
         })
         connection.execute(main.DocumentTypeText.__table__.insert(), {
             'code': 'Rechtsvorschrift',
-            'text': {'de': 'Rechtsvorschrift', 'fr': '', 'it': '', 'rm': ''}
+            'title': {'de': 'Rechtsvorschrift', 'fr': '', 'it': '', 'rm': ''}
         })
         connection.execute(main.DocumentTypeText.__table__.insert(), {
             'code': 'Hinweis',
-            'text': {'de': 'Hinweis', 'fr': '', 'it': '', 'rm': ''}
+            'title': {'de': 'Hinweis', 'fr': '', 'it': '', 'rm': ''}
         })
 
         # Add dummy glossary
@@ -439,32 +446,32 @@ class DummyData(object):
         # Add dummy real estate types
         connection.execute(main.RealEstateType.__table__.insert(), {
             'code': 'Liegenschaft',
-            'text': {'de': 'Liegenschaft', 'fr': 'Bien-fonds', 'it': 'Bene immobile',
+            'title': {'de': 'Liegenschaft', 'fr': 'Bien-fonds', 'it': 'Bene immobile',
                      'rm': 'Bain immobigliar', 'en': 'Property'}
         })
         connection.execute(main.RealEstateType.__table__.insert(), {
             'code': 'SelbstRecht.Baurecht',
-            'text': {'de': 'Baurecht', 'fr': 'Droitdesuperficie', 'it': 'Dirittodisuperficie',
+            'title': {'de': 'Baurecht', 'fr': 'Droitdesuperficie', 'it': 'Dirittodisuperficie',
                      'rm': 'Dretgdaconstrucziun', 'en': 'Buildingright'}
         })
         connection.execute(main.RealEstateType.__table__.insert(), {
             'code': 'SelbstRecht.Quellenrecht',
-            'text': {'de': 'Quellenrecht', 'fr': 'Droit de source', 'it': 'Diritto di sorgente',
+            'title': {'de': 'Quellenrecht', 'fr': 'Droit de source', 'it': 'Diritto di sorgente',
                      'rm': 'Dretg da funtauna', 'en': 'Right to spring water'}
         })
         connection.execute(main.RealEstateType.__table__.insert(), {
             'code': 'SelbstRecht.Konzessionsrecht',
-            'text': {'de': 'Konzessionsrecht', 'fr': 'Droit de concession', 'it': 'Diritto di concessione',
+            'title': {'de': 'Konzessionsrecht', 'fr': 'Droit de concession', 'it': 'Diritto di concessione',
                      'rm': 'Dretg da concessiun', 'en': 'Right to licence'}
         })
         connection.execute(main.RealEstateType.__table__.insert(), {
             'code': 'SelbstRecht.weitere',
-            'text': {'de': 'weiteres SDR', 'fr': 'Autre DDP', 'it': 'altre DSP',
+            'title': {'de': 'weiteres SDR', 'fr': 'Autre DDP', 'it': 'altre DSP',
                      'rm': 'ulteriur DIP', 'en': 'other distinct and permanent rights'}
         })
         connection.execute(main.RealEstateType.__table__.insert(), {
             'code': 'Bergwerk',
-            'text': {'de': 'Bergwerk', 'fr': 'Mine', 'it': 'Miniera', 'rm': 'Miniera', 'en': 'Mine'}
+            'title': {'de': 'Bergwerk', 'fr': 'Mine', 'it': 'Miniera', 'rm': 'Miniera', 'en': 'Mine'}
         })
         connection.execute(main.Logo.__table__.insert(), {
             "code": "ch",
@@ -520,18 +527,18 @@ class DummyData(object):
         # Add dummy law statuses
         connection.execute(main.LawStatus.__table__.insert(), {
             'code': 'inKraft',
-            "text": {"de": "Rechtskräftig", "fr": "En vigueur",
+            "title": {"de": "Rechtskräftig", "fr": "En vigueur",
                      "it": "In vigore", "rm": "En vigur", "en": "In force"}
         })
         connection.execute(main.LawStatus.__table__.insert(), {
             "code": "AenderungMitVorwirkung",
-            "text": {"de": "Änderung mit Vorwirkung", "fr": "Modification avec effet anticipé",
+            "title": {"de": "Änderung mit Vorwirkung", "fr": "Modification avec effet anticipé",
                      "it": "Modificazione con effetto anticipato", "rm": "Midada cun effect anticipà",
                      "en": "Modification with pre-effect"}
         })
         connection.execute(main.LawStatus.__table__.insert(), {
             "code": "AenderungOhneVorwirkung",
-            "text": {"de": "Änderung ohne Vorwirkung", "fr": "Modification sans effet anticipé",
+            "title": {"de": "Änderung ohne Vorwirkung", "fr": "Modification sans effet anticipé",
                      "it": "Modificazione senza effetto anticipato", "rm": "Midada senza effect anticipà",
                      "en": "Modification without pre-effect"}
         })
@@ -562,7 +569,7 @@ class DummyData(object):
             },
             'type_code': u'CodeA',
             'type_code_list': u'type_code_list',
-            'theme': u'MotorwaysBuildingLines',
+            'theme': u'ch.BaulinienNationalstrassen',
             'view_service_id': '1'
         })
         connection.execute(motorways_building_lines.Office.__table__.insert(), {
@@ -723,7 +730,7 @@ class DummyData(object):
             },
             'type_code': u'CodeA',
             'type_code_list': u'type_code_list',
-            'theme': u'ContaminatedSites',
+            'theme': u'ch.BelasteteStandorte',
             'view_service_id': '1'
         })
 
@@ -765,7 +772,7 @@ class DummyData(object):
         connection.execute(contaminated_sites.PublicLawRestriction.__table__.insert(), {
             'id': '4',
             'legend_text': {'de': u'Future PLR'},
-            'topic': u'ContaminatedSites',
+            'topic': u'ch.BelasteteStandorte',
             'type_code': u'CodeA',
             "type_code_list": u'',
             'law_status': u'inKraft',
@@ -832,7 +839,7 @@ class DummyData(object):
             },
             'type_code': u'CodeA',
             'type_code_list': u'type_code_list',
-            'theme': u'LandUsePlans',
+            'theme': u'ch.Nutzungsplanung',
             'view_service_id': '1'
         })
 
@@ -944,7 +951,7 @@ class DummyData(object):
             },
             'type_code': u'CodeA',
             'type_code_list': u'type_code_list',
-            'theme': u'ForestPerimeters',
+            'theme': u'ch.StatischeWaldgrenzen',
             'view_service_id': '1'
         })
         connection.execute(forest_perimeters.Office.__table__.insert(), {

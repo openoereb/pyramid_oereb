@@ -2,9 +2,9 @@
 from pyramid.path import DottedNameResolver
 
 
-class ExclusionOfLiabilityReader(object):
+class DisclaimerReader(object):
     """
-    The central reader for the exclusion of liability definitions. It is directly bound to a so called source
+    The central reader for the disclaimer definitions. It is directly bound to a so called source
     which is defined by a pythonic dotted string to the class definition of this source.
     An instance of the passed source will be created on instantiation of this reader class by passing through
     the parameter kwargs.
@@ -14,10 +14,10 @@ class ExclusionOfLiabilityReader(object):
         """
         Args:
             dotted_source_class_path (str or
-                pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord):
+                pyramid_oereb.lib.records.disclaimer.DisclaimerRecord):
                 The path to the class which represents the source used by this reader. This
                 class must exist and it must implement basic source behaviour of the
-                :ref:`api-pyramid_oereb-lib-sources-exclusion_of_liability-exclusionofliabilitybasesource`.
+                :ref:`api-pyramid_oereb-lib-sources-disclaimer-disclaimerbasesource`.
             (kwargs): kwargs, which are necessary as configuration parameter for the above by
                 dotted name defined class.
         """
@@ -37,7 +37,7 @@ class ExclusionOfLiabilityReader(object):
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
 
         Returns:
-            list of pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord:
+            list of pyramid_oereb.lib.records.disclaimer.DisclaimerRecord:
                 The list of found records. Since these are not filtered by any criteria the list simply
                 contains all records delivered by the source.
         """

@@ -28,4 +28,4 @@ def test_read():
     result = results[0]
     assert isinstance(result, LawStatusRecord)
     assert result.code == 'inKraft'
-    assert result.text['fr'] == 'En vigueur'
+    assert result.title['fr'] == 'En vigueur'

@@ -1,7 +1,7 @@
 <%page args="real_estate_type"/>
 <%
     real_estate_type_code = real_estate_type.code
-    real_estate_type_text = real_estate_type.text
+    real_estate_type_text = real_estate_type.title
 %>
 <data:Code>${real_estate_type_code | x}</data:Code>
 <data:Text>

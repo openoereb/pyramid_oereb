@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import datetime
 import logging
 from pyramid.path import DottedNameResolver
 
@@ -7,7 +6,6 @@ from shapely.geometry import box
 from timeit import default_timer as timer
 
 from pyramid_oereb.lib.config import Config
-from pyramid_oereb.lib.records.embeddable import EmbeddableRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.plr import PlrRecord, EmptyPlrRecord
 from pyramid_oereb.lib.records.view_service import ViewServiceRecord
@@ -27,22 +25,17 @@ class ExtractReader(object):
             instance.
     """
 
-    def __init__(self, plr_sources, plr_cadastre_authority, certification=None,
-                 certification_at_web=None):
+    def __init__(self, plr_sources, plr_cadastre_authority):
         """
         Args:
             plr_sources (list of pyramid_oereb.lib.sources.plr.PlrBaseSource): The list of PLR source
                 instances which the achieved extract should be about.
             plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority responsible
                 for the PLR cadastre.
-            certification (dict of unicode or None): A multilingual dictionary of certification information.
-            certification_at_web (dict of unicode or None): Multilingual list of certification uri.
         """
         self.extract = None
         self._plr_sources_ = plr_sources
         self._plr_cadastre_authority_ = plr_cadastre_authority
-        self._certification = certification
-        self._certification_at_web = certification_at_web
         self.law_status = Config.get_law_status_codes()
 
     @property
@@ -55,26 +48,6 @@ class ExtractReader(object):
             cadastre.
         """
         return self._plr_cadastre_authority_
-
-    @property
-    def certification(self):
-        """
-        Returns the certification if it exists.
-
-        Returns:
-            dict: (dict of unicode or None) The multilingual list of certification or None.
-        """
-        return self._certification
-
-    @property
-    def certification_at_web(self):
-        """
-        Returns the web certification if it exists.
-
-        Returns:
-            dict: (dict of unicode or None) The multilingual list of certification uri None.
-        """
-        return self._certification_at_web
 
     def read(self, params, real_estate, municipality):
         """
@@ -101,7 +74,6 @@ class ExtractReader(object):
         bbox = ViewServiceRecord.get_bbox(real_estate.limit)
         bbox = box(bbox[0], bbox[1], bbox[2], bbox[3])
 
-        datasource = list()
         concerned_themes = list()
         not_concerned_themes = list()
         themes_without_data = list()
@@ -111,9 +83,6 @@ class ExtractReader(object):
             for plr_source in self._plr_sources_:
                 if not params.skip_topic(plr_source.info.get('code')):
                     plr_source.read(params, real_estate, bbox)
-                    for ds in plr_source.datasource:
-                        if not params.skip_topic(ds.theme.code):
-                            datasource.append(ds)
 
                     real_estate.public_law_restrictions.extend(plr_source.records)
 
@@ -155,17 +124,6 @@ class ExtractReader(object):
         canton_logo = Config.get_canton_logo()
         municipality_logo = Config.get_municipality_logo(municipality.fosnr)
 
-        os_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
-        os_provider_method = resolver.resolve(os_provider_method_string)
-        cadaster_state = datetime.datetime.now()
-        embeddable = EmbeddableRecord(
-            cadaster_state,
-            self.plr_cadastre_authority,
-            os_provider_method(real_estate),
-            update_date_os,
-            datasource
-        )
-
         self.extract = ExtractRecord(
             real_estate,
             oereb_logo,
@@ -174,9 +132,6 @@ class ExtractReader(object):
             municipality_logo,
             self.plr_cadastre_authority,
             update_date_os,
-            embeddable,
-            self.certification,
-            self.certification_at_web,
             concerned_theme=concerned_themes,
             not_concerned_theme=not_concerned_themes,
             theme_without_data=themes_without_data,

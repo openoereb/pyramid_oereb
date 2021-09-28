@@ -10,8 +10,7 @@ from pyramid.path import DottedNameResolver
 from pyramid_oereb import Config
 from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.documents import DocumentRecord
-from pyramid_oereb.lib.records.embeddable import EmbeddableRecord, DatasourceRecord
-from pyramid_oereb.lib.records.exclusion_of_liability import ExclusionOfLiabilityRecord
+from pyramid_oereb.lib.records.disclaimer import DisclaimerRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.geometry import GeometryRecord
 from pyramid_oereb.lib.records.glossary import GlossaryRecord
@@ -67,7 +66,6 @@ def glossary_expected():
     (None, None, None)
 ])
 def test_render(parameter, glossaries_input, glossaries_expected):
-    date = datetime.datetime.now()
     with pyramid_oereb_test_config():
         view_service = ViewServiceRecord({'de': u'http://geowms.bl.ch'},
                                          1,
@@ -83,20 +81,6 @@ def test_render(parameter, glossaries_input, glossaries_expected):
         date_method_string = Config.get('extract').get('base_data').get('methods').get('date')
         date_method = resolver.resolve(date_method_string)
         update_date_os = date_method(real_estate)
-
-        os_provider_method_string = Config.get('extract').get('base_data').get('methods').get('provider')
-        os_provider_method = resolver.resolve(os_provider_method_string)
-        cadaster_state = date
-        theme = ThemeRecord(u'TEST', {'de': u'TEST TEXT'}, 100)
-        datasources = [DatasourceRecord(theme, date, office_record)]
-        plr_cadastre_authority = Config.get_plr_cadastre_authority()
-        embeddable = EmbeddableRecord(
-            cadaster_state,
-            plr_cadastre_authority,
-            os_provider_method(real_estate),
-            update_date_os,
-            datasources
-        )
         extract = ExtractRecord(
             real_estate,
             LogoRecord('ch', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
@@ -109,18 +93,15 @@ def test_render(parameter, glossaries_input, glossaries_expected):
                 3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
             office_record,
             update_date_os,
-            embeddable,
-            exclusions_of_liability=[
-                ExclusionOfLiabilityRecord({'de': u'Haftungsausschluss'}, {'de': u'Test'})
+            disclaimers=[
+                DisclaimerRecord({'de': u'Haftungsausschluss'}, {'de': u'Test'})
             ],
             glossaries=glossaries_input,
             general_information=[
                 GeneralInformationRecord(
                     {'de': u'Allgemeine Informationen'},
                     {'de': u'Inhalt der allgemeinen Informationen'})
-            ],
-            certification={'de': u'certification'},
-            certification_at_web={'de': u'certification_at_web'},
+            ]
         )
         extract.qr_code = '1'.encode('utf-8')
         extract.electronic_signature = 'Signature'
@@ -142,14 +123,12 @@ def test_render(parameter, glossaries_input, glossaries_expected):
                 'PLRCadastreAuthority': renderer.format_office(office_record),
                 'UpdateDateOS': Base.date_time(extract.update_date_os),
                 'RealEstate': renderer.format_real_estate(real_estate),
-                'Certification': [{'Language': 'de', 'Text': 'certification'}],
-                'CertificationAtWeb': [{'Language': 'de', 'Text': 'certification_at_web'}],
                 'GeneralInformation': [{
                     'Title': [{'Language': 'de', 'Text': 'Allgemeine Informationen'}],
                     'Content': [{'Language': 'de', 'Text': 'Inhalt der allgemeinen Informationen'}]
                 }],
                 'QRCode': '1'.encode('utf-8'),
-                'ExclusionOfLiability': [{
+                'Disclaimer': [{
                     'Title': [{'Language': 'de', 'Text': 'Haftungsausschluss'}],
                     'Content': [{'Language': 'de', 'Text': 'Test'}]
                 }],
@@ -265,8 +244,11 @@ def test_format_plr(parameter):
             text_at_web={'de': 'http://mein.dokument.ch'}
         )
         documents = [document]
-        theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test theme'}, 410)
-        subTheme = ThemeRecord(u'ContaminatedSites', {u'de': u'SubTheme'}, 411, u'SubCodeContaminatedSites')
+        theme = ThemeRecord(u'ch.BelasteteStandorte', {u'de': u'Test theme'}, 410)
+        subTheme = ThemeRecord(
+            u'ch.BelasteteStandorte',
+            {u'de': u'SubTheme'}, 411, u'SubCodech.BelasteteStandorte'
+        )
         office = OfficeRecord({'de': 'Test Office'})
         legend_entry = LegendEntryRecord(
             ImageRecord(FileAdapter().read('tests/resources/python.svg')),
@@ -309,12 +291,12 @@ def test_format_plr(parameter):
             'ResponsibleOffice': renderer.format_office(plr.responsible_office),
             'Map': renderer.format_map(plr.view_service),
             'SubTheme': {
-                'Code': 'ContaminatedSites',
+                'Code': 'ch.BelasteteStandorte',
                 'Text': {
                     'Language': 'de',
                     'Text': 'SubTheme'
                 },
-                'Sub_Code': 'SubCodeContaminatedSites'
+                'Sub_Code': 'SubCodech.BelasteteStandorte'
             },
             'TypeCode': 'CodeA',
             'TypeCodelist': 'TypeCodeList',
@@ -353,7 +335,7 @@ def test_format_plr(parameter):
                 expected.update({
                     'SymbolRef': 'http://example.com/image/symbol/{theme}/{view_service_id}/{code}.svg'
                         .format(
-                            theme='ContaminatedSites',
+                            theme='ch.BelasteteStandorte',
                             view_service_id=1,
                             code='CodeA'
                         )
@@ -533,7 +515,7 @@ def test_format_legend_entry(parameter):
         renderer._language = u'de'
         renderer._params = parameter
         renderer._request = MockRequest()
-        theme = ThemeRecord(u'ContaminatedSites', {u'de': u'Test'}, 410)
+        theme = ThemeRecord(u'ch.BelasteteStandorte', {u'de': u'Test'}, 410)
         legend_entry = LegendEntryRecord(
             ImageRecord(FileAdapter().read('tests/resources/python.svg')),
             {u'de': u'Legendeneintrag'},
@@ -557,7 +539,7 @@ def test_format_legend_entry(parameter):
             expected.update({
                 'SymbolRef': 'http://example.com/image/symbol/{theme_code}/{view_service_id}/{code}.svg'
                     .format(
-                        theme_code='ContaminatedSites',
+                        theme_code='ch.BelasteteStandorte',
                         view_service_id=1,
                         code='CodeA'
                     )

@@ -4,6 +4,7 @@ import re
 import json
 import optparse
 import os
+import uuid
 
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Connection
@@ -56,7 +57,9 @@ class SampleData(object):
             return "'t'" if value else "'f'"
         if isinstance(value, dict):
             return cls._format_value(json.dumps(value, ensure_ascii=False))
-        raise "Unsupported type {}".format(type(value))
+        if value is None:
+            return "NULL"
+        raise LookupError("Unsupported type {}".format(type(value)))
 
     def _do_sql_insert(self, sql, items):
         """
@@ -99,6 +102,9 @@ class SampleData(object):
             else:
                 sql = str(class_.__table__.insert())
                 for r in json.loads(f.read()):
+                    if hasattr(class_, 'id'):
+                        if r.get('id') is None:
+                            r['id'] = str(uuid.uuid4())
                     self._do_sql_insert(sql, r)
 
     def _truncate_existing(self, schema):
@@ -126,8 +132,8 @@ class SampleData(object):
                 table=schema.Glossary.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
-                schema=schema.ExclusionOfLiability.__table__.schema,
-                table=schema.ExclusionOfLiability.__table__.name
+                schema=schema.Disclaimer.__table__.schema,
+                table=schema.Disclaimer.__table__.name
             ))
             self._connection.execute('TRUNCATE {schema}.{table} CASCADE;'.format(
                 schema=schema.GeneralInformation.__table__.schema,
@@ -196,15 +202,15 @@ class SampleData(object):
         """
         # Find data model for each PLR from config
         themes = parse_multiple_standard_themes(Config)
-        contaminated_public_transport_sites = themes['ContaminatedPublicTransportSites']
-        land_use_plans = themes['LandUsePlans']
-        groundwater_protection_zones = themes['GroundwaterProtectionZones']
-        motorways_building_lines = themes['MotorwaysBuildingLines']
-        contaminated_military_sites = themes['ContaminatedMilitarySites']
-        forest_perimeters = themes['ForestPerimeters']
+        contaminated_public_transport_sites = themes['ch.BelasteteStandorteOeffentlicherVerkehr']
+        land_use_plans = themes['ch.Nutzungsplanung']
+        groundwater_protection_zones = themes['ch.Grundwasserschutzzonen']
+        motorways_building_lines = themes['ch.BaulinienNationalstrassen']
+        contaminated_military_sites = themes['ch.BelasteteStandorteMilitaer']
+        forest_perimeters = themes['ch.StatischeWaldgrenzen']
 
         from pyramid_oereb.standard.models.main import Theme, Logo, DocumentTypeText, RealEstate, Address, \
-            Municipality, Glossary, ExclusionOfLiability, GeneralInformation, RealEstateType, LawStatus
+            Municipality, Glossary, Disclaimer, GeneralInformation, RealEstateType, LawStatus
 
         if self._sql_file is None:
             self._connection = self._engine.connect()
@@ -213,17 +219,19 @@ class SampleData(object):
 
             # Fill tables with sample data
             for class_, file_name in [
-                (Theme, 'themes.json'),
-                (Logo, 'logo.json'),
-                (DocumentTypeText, 'document_types.json'),
-                (RealEstate, 'real_estates.json'),
-                (Address, 'addresses.json'),
-                (Municipality, 'municipalities.json'),
-                (Glossary, 'glossary.json'),
-                (ExclusionOfLiability, 'exclusion_of_liability.json'),
-                (LawStatus, 'law_status.json'),
-                (RealEstateType, 'real_estate_type.json'),
-                (GeneralInformation, 'general_information.json')
+                (Theme, 'ch.themes.json'),
+                (Theme, 'dev.themes.json'),
+                (Logo, 'ch.logo.json'),
+                (Logo, 'dev.logo.json'),
+                (DocumentTypeText, 'ch.document_type.json'),
+                (RealEstate, 'dev.real_estates.json'),
+                (Address, 'dev.addresses.json'),
+                (Municipality, 'dev.municipalities.json'),
+                (Glossary, 'ch.glossary.json'),
+                (Disclaimer, 'ch.disclaimer.json'),
+                (LawStatus, 'ch.law_status.json'),
+                (RealEstateType, 'ch.real_estate_type.json'),
+                (GeneralInformation, 'ch.general_information.json')
             ]:
                 self._load_sample(class_, file_name)
 

@@ -29,8 +29,7 @@ class ExtractRecord(object):
     """binary or None: QR code for the extract as binary string."""
 
     def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo,
-                 plr_cadastre_authority, update_date_os, embeddable, certification=None,
-                 certification_at_web=None, exclusions_of_liability=None, glossaries=None,
+                 plr_cadastre_authority, update_date_os, disclaimers=None, glossaries=None,
                  concerned_theme=None, not_concerned_theme=None, theme_without_data=None,
                  general_information=None):
         """
@@ -45,12 +44,8 @@ class ExtractRecord(object):
             plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority which is
                 responsible for the PLR cadastre.
             update_date_os (datetime): Last update of the official survey used as base map in the extract.
-            embeddable (pyramid_oereb.lib.records.embeddable.EmbeddableRecord):
-            certification (dict of unicode or None): Multilingual list of certification.
-            certification_at_web (dict of unicode or None): Multilingual list of certification uri.
-            exclusions_of_liability (list of
-                pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord): Exclusions of
-                liability for the extract.
+            disclaimer (list of
+                pyramid_oereb.lib.records.disclaimer.DisclaimerRecord or None): Disclaimers for the extract.
             glossaries (list of pyramid_oereb.lib.records.glossary.GlossaryRecord): Glossaries for the
                 extract.
             concerned_theme (list of pyramid_oereb.lib.records.theme.ThemeRecord or None): Concerned themes.
@@ -67,7 +62,6 @@ class ExtractRecord(object):
             warnings.warn('Type of "general_information" should be "list"')
 
         self.update_date_os = update_date_os
-        self.embeddable = embeddable
         self.general_information = general_information
         self.extract_identifier = str(uuid.uuid4())
         self.real_estate = real_estate
@@ -89,12 +83,10 @@ class ExtractRecord(object):
         self.cantonal_logo = cantonal_logo
         self.municipality_logo = municipality_logo
         self.plr_cadastre_authority = plr_cadastre_authority
-        self.certification = certification
-        self.certification_at_web = certification_at_web
-        if exclusions_of_liability:
-            self.exclusions_of_liability = exclusions_of_liability
+        if disclaimers:
+            self.disclaimers = disclaimers
         else:
-            self.exclusions_of_liability = []
+            self.disclaimers = []
         if glossaries:
             self.glossaries = glossaries
         else:

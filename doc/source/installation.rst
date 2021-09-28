@@ -113,7 +113,7 @@ script:
 The easiest way to add some data, is to import the data of an available federal topic using the provided
 script.
 
-.. note:: This exmple shows the import for the topic `AirportsSecurityZonePlans`, but you can use any federal
+.. note:: This exmple shows the import for the topic `ch.Sicherheitszonenplan`, but you can use any federal
    topic you like to. You should ensure, that the topic contains some data within the perimeter (canton) you
    want to show.
 
@@ -130,7 +130,7 @@ First you have to ensure, that the correct download URL is defined for the topic
  ...
 
  - name: plr108
-   code: AirportsSecurityZonePlans
+   code: ch.Sicherheitszonenplan
    ...
    download: https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan.oereb/data.zip
 
@@ -138,7 +138,7 @@ If this is the case, you can run the import script for this topic:
 
 .. code-block:: shell
 
- import_federal_topic -c pyramid_oereb_standard.yml -t AirportsSecurityZonePlans
+ import_federal_topic -c pyramid_oereb_standard.yml -t ch.Sicherheitszonenplan
 
 The data for this federal topic should now be available in your standard database. For an overview of the
 available import options, please run ``import_federal_topic --help``.

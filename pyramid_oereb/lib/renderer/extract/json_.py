@@ -154,16 +154,6 @@ class Renderer(Base):
                 ) + '?fosnr={}'.format(extract.real_estate.fosnr)
             })
 
-        if extract.certification:
-            extract_dict.update({
-              'Certification': self.get_multilingual_text(extract.certification),
-            })
-
-        if extract.certification_at_web:
-            extract_dict.update({
-              'CertificationAtWeb': self.get_multilingual_text(extract.certification_at_web),
-            })
-
         if extract.electronic_signature is not None:
             extract_dict['ElectronicSignature'] = extract.electronic_signature
         if extract.qr_code is not None:
@@ -178,14 +168,14 @@ class Renderer(Base):
                 })
             extract_dict['GeneralInformation'] = general_information
 
-        if isinstance(extract.exclusions_of_liability, list) and len(extract.exclusions_of_liability) > 0:
-            exclusions_of_liability = list()
-            for eol in extract.exclusions_of_liability:
-                exclusions_of_liability.append({
-                    'Title': self.get_multilingual_text(eol.title),
-                    'Content': self.get_multilingual_text(eol.content)
+        if isinstance(extract.disclaimers, list) and len(extract.disclaimers) > 0:
+            disclaimers = list()
+            for disclaimer in extract.disclaimers:
+                disclaimers.append({
+                    'Title': self.get_multilingual_text(disclaimer.title),
+                    'Content': self.get_multilingual_text(disclaimer.content)
                 })
-            extract_dict['ExclusionOfLiability'] = exclusions_of_liability
+            extract_dict['Disclaimer'] = disclaimers
 
         if isinstance(extract.glossaries, list) and len(extract.glossaries) > 0:
             glossaries = list()
@@ -226,7 +216,7 @@ class Renderer(Base):
         real_estate_dict = {
             'Type': {
                 'Code': real_estate.type,
-                'Text': self.get_multilingual_text(real_estate_type.text)
+                'Text': self.get_multilingual_text(real_estate_type.title)
             },
             'Canton': real_estate.canton,
             'Municipality': real_estate.municipality,
@@ -288,7 +278,7 @@ class Renderer(Base):
                     'Theme': self.format_theme(plr.theme),
                     'Lawstatus': {
                         'Code': plr.law_status.code,
-                        'Text': self.get_multilingual_text(plr.law_status.text)
+                        'Text': self.get_multilingual_text(plr.law_status.title)
                     },
                     'ResponsibleOffice': self.format_office(plr.responsible_office),
                     'Map': self.format_map(plr.view_service)
@@ -361,13 +351,13 @@ class Renderer(Base):
         document_dict.update({
             'DocumentType': {
                 'Code': document_type.code,
-                'Text': self.get_multilingual_text(document_type.text)
+                'Text': self.get_multilingual_text(document_type.title)
             },
             'Index': document.index,
             'Title': self.get_multilingual_text(document.title),
             'Lawstatus': {
                 'Code': document.law_status.code,
-                'Text': self.get_multilingual_text(document.law_status.text)
+                'Text': self.get_multilingual_text(document.law_status.title)
             },
             'TextAtWeb': multilingual_text_at_web,
             'ResponsibleOffice': self.format_office(document.responsible_office)
@@ -420,7 +410,7 @@ class Renderer(Base):
             geometry_type: self.from_shapely(geometry.geom),
             'Lawstatus': {
                 'Code': geometry.law_status.code,
-                'Text': self.get_multilingual_text(geometry.law_status.text)
+                'Text': self.get_multilingual_text(geometry.law_status.title)
             }
         }
 
@@ -509,10 +499,10 @@ class Renderer(Base):
 
         map_dict['layerIndex'] = map_.layer_index
         map_dict['layerOpacity'] = map_.layer_opacity
-        if map_.min_NS95 is not None:
-            map_dict['min_NS95'] = self.format_point(map_.min_NS95, 'EPSG:2056')
-        if map_.max_NS95 is not None:
-            map_dict['max_NS95'] = self.format_point(map_.max_NS95, 'EPSG:2056')
+        if map_.min is not None:
+            map_dict['min'] = self.format_point(map_.min, 'EPSG:2056')
+        if map_.max is not None:
+            map_dict['max'] = self.format_point(map_.max, 'EPSG:2056')
 
         return map_dict
 

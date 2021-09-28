@@ -6,7 +6,7 @@ class LawStatusRecord(object):
     Law status record.
     """
 
-    def __init__(self, code, text):
+    def __init__(self, code, title):
         """
         Create a new law status record.
 
@@ -14,7 +14,7 @@ class LawStatusRecord(object):
             code (str or unicode): The code of the law status. It must be "inKraft" or
             "AenderungMitVorwirkung" or "AenderungOhneVorwirkung" every other value will
             raise an error.
-        text (dict of unicode): The multilingual law status description.
+        title (dict of unicode): The multilingual law status description.
         """
 
         if code != u'inKraft' and code != u'AenderungMitVorwirkung' and code != u'AenderungOhneVorwirkung':
@@ -23,4 +23,4 @@ class LawStatusRecord(object):
                                  ' allowed. Value was {0}'.format(code))
 
         self.code = code
-        self.text = text
+        self.title = title

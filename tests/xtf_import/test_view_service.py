@@ -9,7 +9,7 @@ from tests.xtf_import import MockSession
 
 Config._config = None
 Config.init(tests.pyramid_oereb_test_yml, 'pyramid_oereb')
-theme_config = Config.get_theme_config_by_code('AirportsSecurityZonePlans')
+theme_config = Config.get_theme_config_by_code('ch.Sicherheitszonenplan')
 config_parser = StandardThemeConfigParser(**theme_config)
 models = config_parser.get_models()
 
@@ -40,7 +40,7 @@ def test_parse():
     </OeREBKRMtrsfr_V2_0.Transferstruktur.DarstellungsDienst>
     """)
     legend_entry_session = MockSession()
-    legend_entry = LegendEntry(legend_entry_session, LegendEntryModel, 'AirportsSecurityZonePlans')
+    legend_entry = LegendEntry(legend_entry_session, LegendEntryModel, 'ch.Sicherheitszonenplan')
     view_service_session = MockSession()
     view_service = ViewService(view_service_session, ViewServiceModel, legend_entry)
     view_service.parse(element)

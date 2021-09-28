@@ -8,7 +8,7 @@ from tests.xtf_import import MockSession
 
 Config._config = None
 Config.init(tests.pyramid_oereb_test_yml, 'pyramid_oereb')
-theme_config = Config.get_theme_config_by_code('AirportsSecurityZonePlans')
+theme_config = Config.get_theme_config_by_code('ch.Sicherheitszonenplan')
 config_parser = StandardThemeConfigParser(**theme_config)
 models = config_parser.get_models()
 
@@ -57,14 +57,14 @@ def test_parse():
     public_law_restriction = PublicLawRestriction(
         session,
         PublicLawRestrictionModel,
-        'AirportsSecurityZonePlans'
+        'ch.Sicherheitszonenplan'
     )
     public_law_restriction.parse(element)
     parsed = session.getData()
     assert len(parsed) == 1
     assert parsed[0].id == '108-Z-0010-A'
     assert parsed[0].legend_text['de'] == u'Höhenbeschränkung für Bauten und andere Hindernisse'
-    assert parsed[0].topic == 'AirportsSecurityZonePlans'
+    assert parsed[0].topic == 'ch.Sicherheitszonenplan'
     assert parsed[0].sub_theme == {
         'de': 'Just a SubTheme'
     }

@@ -104,17 +104,17 @@ def test_view_service_correct_init_ns():
     with_bbox = {'de': 'https://host/?&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&'
                  'WIDTH=493&HEIGHT=280&FORMAT=image/png'}
     test_view_service = ViewServiceRecord(with_bbox, 1, 1.0, None)
-    assert isinstance(test_view_service.min_NS95, Point)
-    assert test_view_service.min_NS95.x == 2475000.0
-    assert test_view_service.min_NS95.y == 1065000.0
-    assert isinstance(test_view_service.max_NS95, Point)
-    assert test_view_service.max_NS95.x == 2850000.0
-    assert test_view_service.max_NS95.y == 1300000.0
+    assert isinstance(test_view_service.min, Point)
+    assert test_view_service.min.x == 2475000.0
+    assert test_view_service.min.y == 1065000.0
+    assert isinstance(test_view_service.max, Point)
+    assert test_view_service.max.x == 2850000.0
+    assert test_view_service.max.y == 1300000.0
 
     no_bbox = {'de': 'https://host/?&SRS=EPSG:2056WIDTH=493&HEIGHT=280&FORMAT=image/png'}
     test_view_service_no_bbox = ViewServiceRecord(no_bbox, 1, 1.0, None)
-    assert test_view_service_no_bbox.min_NS95 is None
-    assert test_view_service_no_bbox.max_NS95 is None
+    assert test_view_service_no_bbox.min is None
+    assert test_view_service_no_bbox.max is None
 
 
 def get_width_from_bbox(bbox):

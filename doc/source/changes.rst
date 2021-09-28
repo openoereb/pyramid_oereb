@@ -989,7 +989,7 @@ Find an example configuration for land use plans below:
 .. code-block:: yaml
 
     - name: plr73
-      code: LandUsePlans
+      code: ch.Nutzungsplanung
       geometry_type: GEOMETRYCOLLECTION
       # Define the minmal area and length for public law restrictions that should be considered as 'true' restrictions
       # and not as calculation errors (false true's) due to topological imperfections

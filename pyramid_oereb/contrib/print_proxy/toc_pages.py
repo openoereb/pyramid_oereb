@@ -79,12 +79,12 @@ class TocPages():
         return len(t) * font_size
 
     def compute_d6_right(self):
-        # variables taken from template exclusion_of_liability.jrxml
+        # variables taken from template disclaimer.jrxml
         space_above = 4
         space_title_content = 2
         content_min_size = 23
         total_size = 0
-        for i in self.extract['ExclusionOfLiability']:
+        for i in self.extract['Disclaimer']:
             total_size += space_above
             total_size += self.compute_length_of_wrapped_text(i['Title'][0]['Text'],
                                                               65,

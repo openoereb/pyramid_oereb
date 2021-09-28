@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from pyramid_oereb.lib.sources import BaseDatabaseSource
-from pyramid_oereb.lib.sources.exclusion_of_liability import ExclusionOfLiabilityBaseSource
+from pyramid_oereb.lib.sources.disclaimer import DisclaimerBaseSource
 
 
-class DatabaseSource(BaseDatabaseSource, ExclusionOfLiabilityBaseSource):
+class DatabaseSource(BaseDatabaseSource, DisclaimerBaseSource):
 
     def read(self, params):
         """
