@@ -502,12 +502,12 @@ pyramid_oereb:
         layer_index: 1
         layer_opacity: 1.0
       source:
-        class: pyramid_oereb.standard.sources.plr.DatabaseSource
+        class: pyramid_oereb.contrib.sources.interlis_2_3.plr.DatabaseSource
         params:
-          db_connection: *main_db_connection
+          db_connection: postgresql://postgres:postgres@oereb-db:5432/oereb_fed_test
           # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
           # uncomment line above and comment line below to use integer type for primary keys
-          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
+          model_factory: pyramid_oereb.contrib.models.interlis_2_3.theme.model_factory_integer_pk
           schema_name: land_use_plans
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
@@ -539,7 +539,7 @@ pyramid_oereb:
       source:
         class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: *main_db_connection
+          db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
           # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk

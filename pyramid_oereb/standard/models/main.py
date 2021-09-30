@@ -39,7 +39,122 @@ Base = declarative_base()
 app_schema_name = Config.get('app_schema').get('name')
 srid = Config.get('srid')
 
+
+def generic_models_main(base, schema_name):
+    """
+    Factory to produce a set of generic standard models.
+
+    Args:
+        base (): The SQLAlchemy base which is assigned to the models.
+        schema_name (str): The name of the database schema where this models belong to.
+        pk_type (sqlalchemy.sql.type_api.TypeEngine): The type of the primary column. E.g.
+            sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
+            needs
+    Retruns:
+        list: First element is the Office model and second is the Document model.
+    """
+
+    class RealEstate(base):
+        """
+        The container where you can throw in all the real estates this application should have access to, for
+        creating extracts.
+
+        Attributes:
+            id (int): The identifier. This is used in the database only and must not be set manually. If
+                you  don't like it - don't care about.
+            identdn (str): The identifier on cantonal level.
+            number (str): The identifier on municipality level.
+            egrid (str): The identifier on federal level (the all unique one...)
+            type (str): The type of the real estate (This must base on DM01)
+            canton (str): Which canton this real estate is situated in (use official shortened Version
+                here. e.g. 'BE')
+            municipality (str): The name of the municipality this real estate is situated in.
+            subunit_of_land_register (str): The name of the maybe existing sub unit of land register if
+                municipality in  combination with number does not offer a unique constraint.
+                Else you can skip that.
+            subunit_of_land_register_designation (str): The maybe existing cantonal description
+                of the subunit_of_land_register e.g. «Grundbuchkreis», «Sektion», «Fraktion» etc.
+            fosnr (int): The identifier of the municipality. It is the commonly known id_bfs.
+            metadata_of_geographical_base_data (str): A link to the metadata which this geometry is
+                based on which is  delivering a machine readable response format (XML).
+            land_registry_area (str): The amount of the area of this real estate as it is declared in
+                the land  registers information.
+            limit (geoalchemy2.types.Geometry): The geometry of real estates border. For type
+                information see geoalchemy2_.  .. _geoalchemy2:
+                https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the
+                configured type.  This concrete one is MULTIPOLYGON
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'real_estate'
+        id = Column(Integer, primary_key=True)
+        identdn = Column(String, nullable=True)
+        number = Column(String, nullable=True)
+        egrid = Column(String, nullable=True)
+        type = Column(String, nullable=False)
+        canton = Column(String, nullable=False)
+        municipality = Column(String, nullable=False)
+        subunit_of_land_register = Column(String, nullable=True)
+        subunit_of_land_register_designation = Column(String, nullable=True)
+        fosnr = Column(Integer, nullable=False)
+        metadata_of_geographical_base_data = Column(String, nullable=True)
+        land_registry_area = Column(Integer, nullable=False)
+        limit = Column(Geometry('MULTIPOLYGON', srid=srid))
+
+    class Municipality(base):
+        """
+        The municipality is the place where you hold the information about all the municipalities
+        you are having in your canton. This is used also in the applications process to check whether
+        a municipality is published or not.
+
+        Attributes:
+            fosnr (int): The identifier of the municipality. It is the commonly known id_bfs or as or
+                nofs in the  french part.
+            name (str): The Name of the municipality.
+            published (bool): Switch whether a municipality is published or not. This has direct
+                influence on extract  generation.
+            geom (geoalchemy2.types.Geometry): The geometry of municipality borders. For type
+                information see geoalchemy2_.  .. _geoalchemy2:
+                https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the
+                configured type.  This concrete one is MULTIPOLYGON
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'municipality'
+        fosnr = Column(Integer, primary_key=True, autoincrement=False)
+        name = Column(String, nullable=False)
+        published = Column(Boolean, nullable=False, default=False, server_default=text('FALSE'))
+        geom = Column(Geometry('MULTIPOLYGON', srid=srid), nullable=True)
+
+    class Address(base):
+        """
+        The bucket you can throw all addresses in the application should be able to use for the get egrid
+        webservice. This is a bypass for the moment. In the end it seems ways more flexible to bind
+        a service here but if you like you can use it.
+
+        Attributes:
+            street_name (unicode): The street name for this address.
+            street_number (str): The house number of this address.
+            zip_code (int): The ZIP code for this address.
+            geom (geoalchemy2.types.Geometry): The geometry of real estates border. For type information
+                see geoalchemy2_.  .. _geoalchemy2:
+                https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the
+                configured type.  This concrete one is POINT
+        """
+        __table_args__ = (
+            PrimaryKeyConstraint("street_name", "street_number", "zip_code"),
+            {'schema': schema_name}
+        )
+        __tablename__ = 'address'
+        # id = Column(String, primary_key=True)
+        street_name = Column(Unicode, nullable=False)
+        street_number = Column(String, nullable=False)
+        zip_code = Column(Integer, nullable=False, autoincrement=False)
+        geom = Column(Geometry('POINT', srid=srid))
+
+    return [RealEstate, Municipality, Address]
+
+
 Office, Document = generic_models(Base, app_schema_name, Integer)
+RealEstate, Municipality, Address = generic_models_main(Base, app_schema_name)
 
 
 class Theme(Base):
@@ -78,78 +193,6 @@ class Logo(Base):
     logo = Column(JSONType, nullable=False)
 
 
-class Municipality(Base):
-    """
-    The municipality is the place where you hold the information about all the municipalities you are having
-    in your canton. This is used also in the applications process to check whether a municipality is published
-    or not.
-
-    Attributes:
-        fosnr (int): The identifier of the municipality. It is the commonly known id_bfs or as or
-            nofs in the  french part.
-        name (str): The Name of the municipality.
-        published (bool): Switch whether a municipality is published or not. This has direct
-            influence on extract  generation.
-        geom (geoalchemy2.types.Geometry): The geometry of municipality borders. For type
-            information see geoalchemy2_.  .. _geoalchemy2:
-            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the
-            configured type.  This concrete one is MULTIPOLYGON
-    """
-    __table_args__ = {'schema': app_schema_name}
-    __tablename__ = 'municipality'
-    fosnr = Column(Integer, primary_key=True, autoincrement=False)
-    name = Column(String, nullable=False)
-    published = Column(Boolean, nullable=False, default=False, server_default=text('FALSE'))
-    geom = Column(Geometry('MULTIPOLYGON', srid=srid), nullable=True)
-
-
-class RealEstate(Base):
-    """
-    The container where you can throw in all the real estates this application should have access to, for
-    creating extracts.
-
-    Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
-            you  don't like it - don't care about.
-        identdn (str): The identifier on cantonal level.
-        number (str): The identifier on municipality level.
-        egrid (str): The identifier on federal level (the all unique one...)
-        type (str): The type of the real estate (This must base on DM01)
-        canton (str): Which canton this real estate is situated in (use official shortened Version
-            here. e.g. 'BE')
-        municipality (str): The name of the municipality this real estate is situated in.
-        subunit_of_land_register (str): The name of the maybe existing sub unit of land register if
-            municipality in  combination with number does not offer a unique constraint.
-            Else you can skip that.
-        subunit_of_land_register_designation (str): The maybe existing cantonal description
-            of the subunit_of_land_register e.g. «Grundbuchkreis», «Sektion», «Fraktion» etc.
-        fosnr (int): The identifier of the municipality. It is the commonly known id_bfs.
-        metadata_of_geographical_base_data (str): A link to the metadata which this geometry is
-            based on which is  delivering a machine readable response format (XML).
-        land_registry_area (str): The amount of the area of this real estate as it is declared in
-            the land  registers information.
-        limit (geoalchemy2.types.Geometry): The geometry of real estates border. For type
-            information see geoalchemy2_.  .. _geoalchemy2:
-            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the
-            configured type.  This concrete one is MULTIPOLYGON
-    """
-    __table_args__ = {'schema': app_schema_name}
-    __tablename__ = 'real_estate'
-    id = Column(Integer, primary_key=True)
-    identdn = Column(String, nullable=True)
-    number = Column(String, nullable=True)
-    egrid = Column(String, nullable=True)
-    type = Column(String, nullable=False)
-    canton = Column(String, nullable=False)
-    municipality = Column(String, nullable=False)
-    subunit_of_land_register = Column(String, nullable=True)
-    subunit_of_land_register_designation = Column(String, nullable=True)
-    fosnr = Column(Integer, nullable=False)
-    metadata_of_geographical_base_data = Column(String, nullable=True)
-    land_registry_area = Column(Integer, nullable=False)
-    limit = Column(Geometry('MULTIPOLYGON', srid=srid))
-
-
 class RealEstateType(Base):
     """
     The container where you can throw in all the real estates type texts this application
@@ -163,33 +206,6 @@ class RealEstateType(Base):
     __tablename__ = 'real_estate_type'
     code = Column(String, primary_key=True)
     title = Column(JSONType, nullable=False)
-
-
-class Address(Base):
-    """
-    The bucket you can throw all addresses in the application should be able to use for the get egrid
-    webservice. This is a bypass for the moment. In the end it seems ways more flexible to bind a service here
-    but if you like you can use it.
-
-    Attributes:
-        street_name (unicode): The street name for this address.
-        street_number (str): The house number of this address.
-        zip_code (int): The ZIP code for this address.
-        geom (geoalchemy2.types.Geometry): The geometry of real estates border. For type information
-            see geoalchemy2_.  .. _geoalchemy2:
-            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the
-            configured type.  This concrete one is POINT
-    """
-    __table_args__ = (
-        PrimaryKeyConstraint("street_name", "street_number", "zip_code"),
-        {'schema': app_schema_name}
-    )
-    __tablename__ = 'address'
-    id = Column(String, primary_key=True)
-    street_name = Column(Unicode, nullable=False)
-    street_number = Column(String, nullable=False)
-    zip_code = Column(Integer, nullable=False, autoincrement=False)
-    geom = Column(Geometry('POINT', srid=srid))
 
 
 class Glossary(Base):

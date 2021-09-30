@@ -31,37 +31,20 @@ class Models(object):
         self.schema_name = schema_name
 
 
-def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
+def generic_models(base, schema_name, pk_type):
     """
-    Factory to produce a set of standard models.
-
+    Factory to produce a set of generic standard models.
     Args:
+        base (): The SQLAlchemy base which is assigned to the models.
         schema_name (str): The name of the database schema where this models belong to.
         pk_type (sqlalchemy.sql.type_api.TypeEngine): The type of the primary column. E.g.
             sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
             needs
-        geometry_type (str): The geoalchemy geometry type defined as well known string.
-        srid (int): The SRID defining the projection of the geometries stored in standard db schema.
+    Retruns:
+        list: First element is the Office model and second is the Document model.
     """
-    Base = declarative_base()
 
-    class Availability(Base):
-        """
-        A simple bucket for achieving a switch per municipality. Here you can configure via the
-        imported data if a public law restriction is available or not. You need to fill it with
-        the data you provided in the app schemas municipality table (fosnr).
-        Attributes:
-            fosnr (int): The identifier of the municipality in your system (id_bfs = fosnr)
-            available (bool): The switch field to configure if this plr is available for the
-                municipality or not.  This field has direct influence on the applications
-                behaviour. See documentation for more info.
-        """
-        __table_args__ = {'schema': schema_name}
-        __tablename__ = 'verfuegbarkeit'
-        fosnr = Column('bfsnr', pk_type, primary_key=True, autoincrement=False)
-        available = Column('verfuegbar', Boolean, nullable=False, default=False)
-
-    class Office(Base):
+    class Office(base):
         """
         The bucket to fill in all the offices you need to reference from public law restriction, document,
         geometry.
@@ -102,7 +85,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         postal_code = Column('plz', Integer, nullable=True)
         city = Column('ort', String, nullable=True)
 
-    class Document(Base):
+    class Document(base):
         """
         THE DOCUMENT
         This represents the main document in the whole system.
@@ -152,7 +135,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         __tablename__ = 'dokument'
         t_id = Column(pk_type, primary_key=True, autoincrement=False)
         t_ili_tid = Column(String, nullable=True)
-        document_type = Column('type', String, nullable=False)
+        document_type = Column('typ', String, nullable=False)
         title = Column('titel', Text, nullable=True)
         title_de = Column('titel_de', Text, nullable=True)
         title_fr = Column('titel_fr', Text, nullable=True)
@@ -177,11 +160,47 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         published_from = Column('publiziertab', Date, nullable=False)
         published_until = Column('publiziertbis', Date, nullable=True)
         office_id = Column(
+            'zustaendigestelle',
             Integer,
             ForeignKey(Office.t_id),
             nullable=False
         )
         responsible_office = relationship(Office)
+
+    return [Office, Document]
+
+
+def model_factory(schema_name, pk_type, srid, db_connection):
+    """
+    Factory to produce a set of standard models.
+
+    Args:
+        schema_name (str): The name of the database schema where this models belong to.
+        pk_type (sqlalchemy.sql.type_api.TypeEngine): The type of the primary column. E.g.
+            sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
+            needs
+        geometry_type (str): The geoalchemy geometry type defined as well known string.
+        srid (int): The SRID defining the projection of the geometries stored in standard db schema.
+    """
+    Base = declarative_base()
+
+    Office, Document = generic_models(Base, schema_name, pk_type)
+
+    class Availability(Base):
+        """
+        A simple bucket for achieving a switch per municipality. Here you can configure via the
+        imported data if a public law restriction is available or not. You need to fill it with
+        the data you provided in the app schemas municipality table (fosnr).
+        Attributes:
+            fosnr (int): The identifier of the municipality in your system (id_bfs = fosnr)
+            available (bool): The switch field to configure if this plr is available for the
+                municipality or not.  This field has direct influence on the applications
+                behaviour. See documentation for more info.
+        """
+        __table_args__ = {'schema': schema_name}
+        __tablename__ = 'verfuegbarkeit'
+        fosnr = Column('bfsnr', pk_type, primary_key=True, autoincrement=False)
+        available = Column('verfuegbar', Boolean, nullable=False, default=False)
 
     class DataIntegration(Base):
         """
@@ -255,7 +274,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         legend_text_en = Column('legendetext_en', Text, nullable=True)
         type_code = Column('artcode', String(40), nullable=False)
         type_code_list = Column('artcodeliste', String, nullable=False)
-        theme = Column(String, nullable=False)
+        theme = Column('thema', String, nullable=False)
         sub_theme = Column('subthema', String, nullable=True)
         view_service_id = Column(
             'darstellungsdienst',
@@ -469,6 +488,10 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
             ForeignKey(MultilingualUri.t_id),
             nullable=False
         )
+        multilingualuri = relationship(
+            'MultilingualUri',
+            backref='localised_uri'
+        )
 
     class LocalisedBlob(Base):
         """
@@ -493,6 +516,10 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
             Integer,
             ForeignKey(MultilingualBlob.t_id),
             nullable=True
+        )
+        multilingualblob = relationship(
+            'MultilingualBlob',
+            backref='localised_uri'
         )
 
     class PublicLawRestrictionDocument(Base):
@@ -544,4 +571,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
 
 
 def model_factory_integer_pk(schema_name, geometry_type, srid, db_connection):
-    return model_factory(schema_name, Integer, geometry_type, srid, db_connection)
+    if geometry_type is not None:
+        geometry_type = None
+    return model_factory(schema_name, Integer, srid, db_connection)

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 import importlib
+import binascii
 
 from geoalchemy2.shape import to_shape, from_shape
 from shapely.geometry import Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, \
@@ -10,9 +11,7 @@ from sqlalchemy import text, or_
 from pyramid_oereb import Config
 from pyramid_oereb.lib import b64
 from pyramid_oereb.lib.records.availability import AvailabilityRecord
-from pyramid_oereb.lib.records.embeddable import DatasourceRecord
 from pyramid_oereb.lib.records.image import ImageRecord
-from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.plr import EmptyPlrRecord
 from pyramid_oereb.lib.sources import BaseDatabaseSource
 from pyramid_oereb.lib.sources.plr import PlrBaseSource
@@ -114,8 +113,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         self.legend_entry_model = models.LegendEntry
         availability_model = models.Availability
-        data_integration_model = models.DataIntegration
-        self._theme_record = Config.get_theme_by_code(self._plr_info.get('code'))
 
         self.availabilities = []
         self.datasource = []
@@ -130,20 +127,17 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     AvailabilityRecord(availability.fosnr, available=availability.available)
                 )
 
-            data_integration = session.query(data_integration_model).all()
-            for source in data_integration:
-                self.datasource.append(DatasourceRecord(
-                    self._theme_record,
-                    source.date,
-                    OfficeRecord(source.office.name)
-                ))
-
         finally:
             session.close()
 
-    def from_db_to_legend_entry_record(self, theme, legend_entry_from_db):
+    def from_db_to_legend_entry_record(self, legend_entry_from_db):
+        theme = Config.get_theme_by_code_sub_code(legend_entry_from_db.theme, legend_entry_from_db.sub_theme)
         legend_entry_record = self._legend_entry_record_class(
-            ImageRecord(b64.decode(legend_entry_from_db.symbol)),
+            ImageRecord(
+                b64.decode(
+                    binascii.b2a_base64(legend_entry_from_db.symbol).decode('ascii')
+                )
+            ),
             from_multilingual_text_to_dict(
                 de=legend_entry_from_db.legend_text_de,
                 fr=legend_entry_from_db.legend_text_fr,
@@ -155,34 +149,27 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             legend_entry_from_db.type_code_list,
             theme,
             view_service_id=legend_entry_from_db.view_service_id,
-            sub_theme=legend_entry_from_db.sub_theme
         )
         return legend_entry_record
 
-    def from_db_to_legend_entry_records(self, theme, legend_entries_from_db):
+    def from_db_to_legend_entry_records(self, legend_entries_from_db, sub_theme=None):
         legend_entry_records = []
-        for legend_entry_from_db in legend_entries_from_db:
-            legend_entry_records.append(self._legend_entry_record_class(
-                ImageRecord(b64.decode(legend_entry_from_db.symbol)),
-                from_multilingual_text_to_dict(
-                    de=legend_entry_from_db.legend_text_de,
-                    fr=legend_entry_from_db.legend_text_fr,
-                    it=legend_entry_from_db.legend_text_it,
-                    rm=legend_entry_from_db.legend_text_rm,
-                    en=legend_entry_from_db.legend_text_en
-                ),
-                legend_entry_from_db.type_code,
-                legend_entry_from_db.type_code_list,
-                theme,
-                view_service_id=legend_entry_from_db.view_service_id,
-                sub_theme=legend_entry_from_db.sub_theme
-            ))
+        if sub_theme is not None:
+            for legend_entry_from_db in legend_entries_from_db:
+                if legend_entry_from_db.sub_theme == sub_theme:
+                    self.from_db_to_legend_entry_record(legend_entry_from_db)
+        else:
+            for legend_entry_from_db in legend_entries_from_db:
+                legend_entry_records.append(
+                    self.from_db_to_legend_entry_record(legend_entry_from_db)
+                )
+
         return legend_entry_records
 
     def from_db_to_view_service_record(self, view_service_from_db, legend_entry_records, theme):
         layer_index, layer_opacity = Config.get_layer_config(theme)
         view_service_record = self._view_service_record_class(
-            from_multilingual_uri_to_dict(view_service_from_db.reference_wms.multilingual_uri),
+            from_multilingual_uri_to_dict(view_service_from_db.multilingual_uri),
             layer_index,
             layer_opacity,
             legends=legend_entry_records
@@ -274,12 +261,19 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     geometry_from_db.law_status
                 )
 
+            if geometry_from_db.point is not None:
+                geom = geometry_from_db.point
+            elif geometry_from_db.line is not None:
+                geom = geometry_from_db.line
+            elif geometry_from_db.surface is not None:
+                geom = geometry_from_db.surface
+
             # Create geometry records
             geometry_records.extend(self.create_geometry_records_(
                 law_status,
                 geometry_from_db.published_from,
                 geometry_from_db.published_until,
-                to_shape(geometry_from_db.geom),
+                to_shape(geom),
                 geometry_from_db.geo_metadata
             ))
 
@@ -300,12 +294,11 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         return office_record
 
-    def from_db_to_document_records(self, documents_from_db, article_numbers=None):
+    def from_db_to_document_records(self, documents_from_db):
         document_records = []
         for i, document in enumerate(documents_from_db):
             office_record = self.from_db_to_office_record(document.responsible_office)
 
-            article_nrs = article_numbers[i] if isinstance(article_numbers, list) else None
             law_status = Config.get_law_status_by_code(
                 self._plr_info.get('code'),
                 document.law_status
@@ -337,8 +330,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         rm=document.official_number_rm,
                         en=document.official_number_en),
                 only_in_municipality=document.only_in_municipality,
-                article_numbers=article_nrs,
-                file=document.file
+                article_numbers=None,
+                file=None
             ))
         return document_records
 
@@ -349,28 +342,39 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         min_area = thresholds.get('area').get('limit')
         area_unit = thresholds.get('area').get('unit')
         legend_entry_record = self.from_db_to_legend_entry_record(
-            self._theme_record,
             public_law_restriction_from_db.legend_entry
         )
         legend_entry_records = self.from_db_to_legend_entry_records(
-            self._theme_record,
-            legend_entries_from_db
+            legend_entries_from_db,
+            legend_entry_record.theme.sub_code
         )
-        symbol = ImageRecord(b64.decode(public_law_restriction_from_db.legend_entry.symbol))
+        symbol = ImageRecord(
+            b64.decode(
+                binascii.b2a_base64(public_law_restriction_from_db.legend_entry.symbol).decode('ascii')
+            )
+        )
         view_service_record = self.from_db_to_view_service_record(
             public_law_restriction_from_db.view_service,
             legend_entry_records,
             self._plr_info.get('code')
         )
-        document_records = self._theme_record.document_records +\
-            self.get_document_records(params, public_law_restriction_from_db)
+        theme = Config.get_theme_by_code_sub_code(
+            public_law_restriction_from_db.legend_entry.theme,
+            public_law_restriction_from_db.legend_entry.sub_theme)
+        if theme.document_records is None:
+            document_records = self.get_document_records(params, public_law_restriction_from_db)
+        else:
+            document_records = theme.document_records +\
+                self.get_document_records(params, public_law_restriction_from_db)
         geometry_records = self.from_db_to_geometry_records(public_law_restriction_from_db.geometries)
         law_status = Config.get_law_status_by_code(
             self._plr_info.get('code'),
             public_law_restriction_from_db.law_status
         )
+        sub_theme_legend_entry_record = \
+            legend_entry_record.theme if legend_entry_record.theme.sub_code else None
         plr_record = self._plr_record_class(
-            self._theme_record,
+            Config.get_theme_by_code_sub_code(legend_entry_record.theme.code),
             legend_entry_record,
             law_status,
             public_law_restriction_from_db.published_from,
@@ -379,7 +383,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             symbol,
             view_service_record,
             geometry_records,
-            sub_theme=public_law_restriction_from_db.legend_entry.sub_theme,
+            sub_theme=sub_theme_legend_entry_record,
             type_code=public_law_restriction_from_db.legend_entry.type_code,
             type_code_list=public_law_restriction_from_db.legend_entry.type_code_list,
             documents=document_records,
@@ -394,18 +398,13 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
     def get_document_records(self, params, public_law_restriction_from_db):
         documents_from_db = []
-        article_numbers = []
         if not hasattr(public_law_restriction_from_db, 'legal_provisions'):
             raise AttributeError('The public_law_restriction implementation of type {} has no '
                                  'legal_provisions attribute. Check the model implementation.'
                                  .format(type(public_law_restriction_from_db)))
         for legal_provision in public_law_restriction_from_db.legal_provisions:
             documents_from_db.append(legal_provision.document)
-            # article_nrs = legal_provision.article_numbers.split('|') if legal_provision.article_numbers \
-            #     else None
-            # article_numbers.append(article_nrs)
-            article_numbers.append(None)
-        document_records = self.from_db_to_document_records(documents_from_db, article_numbers)
+        document_records = self.from_db_to_document_records(documents_from_db)
         return document_records
 
     @staticmethod
@@ -451,31 +450,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         ]
         return or_(*clause_blocks)
 
-    # def handle_collection(self, session, geometry_to_check):
-    #     geometry_types = Config.get('geometry_types')
-    #     collection_types = geometry_types.get('collection').get('types')
-    #     # Check for Geometry type, cause we can't handle geometry collections
-    #     # the same as specific geometries
-    #     if self._plr_info.get('geometry_type') in [x.upper() for x in collection_types]:
-    #
-    #        # The PLR is defined as a collection type. We need to do a special handling
-    #        query = session.query(self._model_).filter(
-    #            self.extract_geometry_collection_db(
-    #                '{schema}.{table}.geom'.format(
-    #                    schema=self._model_.__table__.schema,
-    #                    table=self._model_.__table__.name
-    #                ),
-    #                geometry_to_check
-    #            )
-    #        )
-    #
-    #    else:
-    #        # The PLR is not problematic at all cause we do not have a collection type here
-    #        query = session.query(self._model_).filter(self._model_.geom.ST_Intersects(
-    #            from_shape(geometry_to_check, srid=Config.get('srid'))
-    #        ))
-    #    return query
-
     def collect_related_geometries_by_real_estate(self, session, real_estate):
         """
         Extracts all geometries in the topic which have spatial relation with the passed real estate
@@ -488,9 +462,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         Returns:
             list: The result of the related geometries unique by the public law restriction id
         """
-        # return self.handle_collection(session, real_estate.limit).distinct(
-        #     self._model_.public_law_restriction_id
-        # ).all()
 
         return session.query(self._model_).filter(
                  or_(
@@ -512,9 +483,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             list: The result of the related geometries unique by the public law restriction id
         """
         distinct_legend_entry_ids = []
-        # geometries = self.handle_collection(session, bbox).distinct(
-        #     self._model_.public_law_restriction_id
-        # ).all()
         geometries = session.query(self._model_).filter(
                       or_(
                        self._model_.point.ST_Intersects(from_shape(bbox, srid=Config.get('srid'))),
@@ -529,7 +497,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return session.query(self.legend_entry_model).filter(
             self.legend_entry_model.t_id.in_((distinct_legend_entry_ids))).all()
 
-    def read(self, params, real_estate, bbox, position=None):
+    def read(self, params, real_estate, bbox):
         """
         The read point which creates a extract, depending on a passed real estate.
 
@@ -540,8 +508,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
             position (int or None): relative position of the plr (within a list of plrs)
         """
-        log.debug("read() start; position of theme in theme list: {}".format(position))
-        self._theme_record.position = position
 
         # Check if the plr is marked as available
         if self._is_available(real_estate):
@@ -549,7 +515,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             try:
                 if session.query(self._model_).count() == 0:
                     # We can stop here already because there are no items in the database
-                    self.records = [EmptyPlrRecord(self._theme_record)]
+                    self.records = [EmptyPlrRecord(
+                            Config.get_theme_by_code_sub_code(self._plr_info['code'])
+                        )]
                 else:
                     # We need to investigate more in detail
 
@@ -560,7 +528,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     if len(geometry_results) == 0:
                         # We checked if there are spatially related elements in database. But there is none.
                         # So we can stop here.
-                        self.records = [EmptyPlrRecord(self._theme_record)]
+                        self.records = [EmptyPlrRecord(
+                            Config.get_theme_by_code_sub_code(self._plr_info['code'])
+                        )]
                     else:
                         # We found spatially related elements. This means we need to extract the actual plr
                         # information related to the found geometries.

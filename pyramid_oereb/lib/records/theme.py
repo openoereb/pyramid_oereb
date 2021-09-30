@@ -5,13 +5,14 @@ import warnings
 class ThemeRecord(object):
     """Creates a new theme record."""
 
-    def __init__(self, code, title, extract_index, sub_code=None):
+    def __init__(self, code, title, extract_index, sub_code=None, document_records=None):
         """
         Args:
             code (unicode): The theme's code.
             title (dict of unicode): The multilingual description.
             extract_index (int): Index to sort themes in the extract.
             sub_code (unicode): The code of the sub_theme. Is none for themes.
+            document_records (list): Documents that relates to this theme
         """
         if not isinstance(title, dict):
             warnings.warn('Type of "title" should be "dict"')
@@ -23,5 +24,6 @@ class ThemeRecord(object):
         self.document_records = document_records
 
     def __str__(self):
-        return '<{} -- code: {} sub code: {} title: {} extract index: {}>'.format(
-            self.__class__.__name__, self.code, self.sub_code, self.title, self.extract_index)
+        return '<{} -- code: {} sub code: {} title: {} extract index: {} document records: {}>'.format(
+            self.__class__.__name__, self.code, self.sub_code, self.title,
+            self.extract_index, self.document_records)
