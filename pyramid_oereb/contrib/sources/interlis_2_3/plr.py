@@ -296,7 +296,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
     def from_db_to_document_records(self, documents_from_db):
         document_records = []
-        for i, document in enumerate(documents_from_db):
+        for document in documents_from_db:
             office_record = self.from_db_to_office_record(document.responsible_office)
 
             law_status = Config.get_law_status_by_code(
