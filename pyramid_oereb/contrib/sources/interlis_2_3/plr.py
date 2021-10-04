@@ -304,7 +304,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         document_records = []
         for document in documents_from_db:
             office_record = self.from_db_to_office_record(document.responsible_office)
-
             law_status = Config.get_law_status_by_code(
                 self._plr_info.get('code'),
                 document.law_status

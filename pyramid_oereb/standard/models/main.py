@@ -323,4 +323,4 @@ class ThemeDocument(Base):
     document = relationship(
         Document
     )
-    article_numbers = Column(String, nullable=True)
+    article_numbers = Column(JSONType, nullable=True)

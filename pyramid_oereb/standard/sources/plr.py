@@ -273,12 +273,10 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         return office_record
 
-    def from_db_to_document_records(self, documents_from_db, article_numbers=None):
+    def from_db_to_document_records(self, documents_from_db):
         document_records = []
-        for i, document in enumerate(documents_from_db):
+        for document in documents_from_db:
             office_record = self.from_db_to_office_record(document.responsible_office)
-
-            article_nrs = article_numbers[i] if isinstance(article_numbers, list) else None
             law_status = Config.get_law_status_by_code(
                 self._plr_info.get('code'),
                 document.law_status
@@ -295,7 +293,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 abbreviation=document.abbreviation,
                 official_number=document.official_number,
                 only_in_municipality=document.only_in_municipality,
-                article_numbers=article_nrs,
+                article_numbers=None,
                 file=document.file
             ))
         return document_records
@@ -319,7 +317,14 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             legend_entry_records,
             self._plr_info.get('code')
         )
-        document_records = self.get_document_records(params, public_law_restriction_from_db)
+        theme = Config.get_theme_by_code_sub_code(
+            public_law_restriction_from_db.legend_entry.theme,
+            public_law_restriction_from_db.legend_entry.sub_theme)
+        if theme.document_records is None:
+            document_records = self.get_document_records(params, public_law_restriction_from_db)
+        else:
+            document_records = theme.document_records +\
+                self.get_document_records(params, public_law_restriction_from_db)
         geometry_records = self.from_db_to_geometry_records(public_law_restriction_from_db.geometries)
         law_status = Config.get_law_status_by_code(
             self._plr_info.get('code'),
@@ -352,17 +357,13 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
     def get_document_records(self, params, public_law_restriction_from_db):
         documents_from_db = []
-        article_numbers = []
         if not hasattr(public_law_restriction_from_db, 'legal_provisions'):
             raise AttributeError('The public_law_restriction implementation of type {} has no '
                                  'legal_provisions attribute. Check the model implementation.'
                                  .format(type(public_law_restriction_from_db)))
         for legal_provision in public_law_restriction_from_db.legal_provisions:
             documents_from_db.append(legal_provision.document)
-            article_nrs = legal_provision.article_numbers.split('|') if legal_provision.article_numbers \
-                else None
-            article_numbers.append(article_nrs)
-        document_records = self.from_db_to_document_records(documents_from_db, article_numbers)
+        document_records = self.from_db_to_document_records(documents_from_db)
         return document_records
 
     @staticmethod
