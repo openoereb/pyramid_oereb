@@ -99,10 +99,10 @@ PACKAGE = pyramid_oereb
 ##########
 
 # URLS to fed data
-THEMES_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Themen_20210714.xml
+THEMES_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Themen_20210915.xml
 LAWS_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Gesetze_20210414.xml
-LOGOS_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Logos_20210414.xml
-TEXTS_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Texte_20210714.xml
+LOGOS_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Logos_20210915.xml
+TEXTS_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Texte_20210915.xml
 
 # XML files for creating XML files
 FED_TMP = .fed
