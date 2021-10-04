@@ -281,7 +281,13 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
     def from_db_to_office_record(self, offices_from_db):
         office_record = self._office_record_class(
-            offices_from_db.name,
+            from_multilingual_text_to_dict(
+                de=offices_from_db.name_de,
+                fr=offices_from_db.name_fr,
+                it=offices_from_db.name_it,
+                rm=offices_from_db.name_rm,
+                en=offices_from_db.name_en,
+            ),
             offices_from_db.uid,
             from_multilingual_uri_to_dict(offices_from_db.multilingual_uri),
             offices_from_db.line1,
