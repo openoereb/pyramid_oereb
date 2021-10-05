@@ -4,6 +4,8 @@ def from_multilingual_text_to_dict(de=None, fr=None, it=None, rm=None, en=None):
     dict_var = dict()
     if de is not None:
         dict_var['de'] = de
+    else:
+        dict_var['de'] = 'Keine Abkuerzung.'
     if fr is not None:
         dict_var['fr'] = fr
     if it is not None:
