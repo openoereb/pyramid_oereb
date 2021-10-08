@@ -372,8 +372,8 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         __tablename__ = 'geometrie'
         t_id = Column(pk_type, primary_key=True, autoincrement=False)
         point = Column('punkt', GeoAlchemyGeometry('POINT', srid=srid), nullable=True)
-        line = Column('linie', GeoAlchemyGeometry('GEOMETRYCOLLECTION', srid=srid), nullable=True)
-        surface = Column('flaeche', GeoAlchemyGeometry('GEOMETRYCOLLECTION', srid=srid), nullable=True)
+        line = Column('linie', GeoAlchemyGeometry('LINESTRING', srid=srid), nullable=True)
+        surface = Column('flaeche', GeoAlchemyGeometry('POLYGON', srid=srid), nullable=True)
         law_status = Column('rechtsstatus', String, nullable=False)
         published_from = Column('publiziertab', Date, nullable=False)
         published_until = Column('publiziertbis', Date, nullable=True)

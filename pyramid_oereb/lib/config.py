@@ -32,6 +32,7 @@ class Config(object):
     general_information = None
     law_status = None
     real_estate_types = None
+    map_layering = None
 
     @staticmethod
     def init(configfile, configsection, c2ctemplate_style=False):
@@ -51,6 +52,7 @@ class Config(object):
         Config.init_general_information()
         Config.init_law_status()
         Config.init_real_estate_types()
+        Config.init_map_layering()
 
     @staticmethod
     def get_config():
@@ -340,6 +342,37 @@ class Config(object):
         """
         assert Config._config is not None
         return Config.real_estate_types
+
+    @staticmethod
+    def init_map_layering():
+        try:
+            Config.map_layering = Config._read_map_layering()
+        # When initializing the database (create_tables), the table 'map_layering' does not exist yet
+        except ProgrammingError:
+            Config.map_layering = None
+
+    @staticmethod
+    def _read_map_layering():
+        map_layering_config = Config.get('map_layering')
+        if map_layering_config is None:
+            raise ConfigurationError("Missing configuration for map layering source config")
+        map_layering_reader = MapLayeringReader(
+            map_layering_config.get('source').get('class'),
+            **map_layering_config.get('source').get('params'))
+
+        return map_layering_reader.read()
+
+    @staticmethod
+    def get_map_layering():
+        """
+        Returns a list of available map layerings.
+
+        Returns:
+            list of pyramid_oereb.lib.records.map_layering.MapLayeringRecord: The available
+            map layering.
+        """
+        assert Config._config is not None
+        return Config.map_layering
 
     @staticmethod
     def get_document_types_lookup():
