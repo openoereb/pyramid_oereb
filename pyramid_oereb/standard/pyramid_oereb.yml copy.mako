@@ -460,23 +460,6 @@ pyramid_oereb:
         # The model which maps the general_information database table.
         model: pyramid_oereb.standard.models.main.GeneralInformation
 
-  # The processor of the oereb project needs access to map layering data. In the standard configuration this
-  # is assumed to be read from a database. Hint: If you want to read the map layering out of an existing database
-  # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
-  # the source. The model must implement the same field names and information as the default model does.
-  map_layering:
-    # The map layering must have a property source.
-    source:
-      # The source must have a class which represents the accessor to the source. In this example, it is an
-      # already implemented source which reads data from a database.
-      class: pyramid_oereb.standard.sources.map_layering.DatabaseSource
-      # The necessary parameters to use this class
-      params:
-        # The connection path where the database can be found
-        db_connection: *main_db_connection
-        # The model which maps the map layering database table.
-        model: pyramid_oereb.standard.models.main.MapLayering
-
   # The extract is the entry point which binds everything
   # related to data together.
   extract:
@@ -870,12 +853,12 @@ pyramid_oereb:
         layer_index: 1
         layer_opacity: 0.75
       source:
-        class: pyramid_oereb.contrib.sources.interlis_2_3.plr.DatabaseSource
+        class: pyramid_oereb.standard.sources.plr.DatabaseSource
         params:
-          db_connection: postgresql://postgres:postgres@oereb-db:5432/oereb_fed_test
+          db_connection: *main_db_connection
           # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
           # uncomment line above and comment line below to use integer type for primary keys
-          model_factory: pyramid_oereb.contrib.models.interlis_2_3.theme.model_factory_integer_pk
+          model_factory: pyramid_oereb.standard.models.theme.model_factory_string_pk
           schema_name: contaminated_civil_aviation_sites
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol

@@ -13,6 +13,7 @@ from pyramid_oereb.lib.readers.law_status import LawStatusReader
 from pyramid_oereb.lib.readers.real_estate_type import RealEstateTypeReader
 from pyramid_oereb.lib.readers.document_types import DocumentTypeReader
 from pyramid_oereb.lib.readers.general_information import GeneralInformationReader
+from pyramid_oereb.lib.readers.map_layering import MapLayeringReader
 from sqlalchemy.exc import ProgrammingError
 
 log = logging.getLogger(__name__)
@@ -32,6 +33,7 @@ class Config(object):
     general_information = None
     law_status = None
     real_estate_types = None
+    map_layering = None
 
     @staticmethod
     def init(configfile, configsection, c2ctemplate_style=False):
@@ -51,6 +53,7 @@ class Config(object):
         Config.init_general_information()
         Config.init_law_status()
         Config.init_real_estate_types()
+        Config.init_map_layering()
 
     @staticmethod
     def get_config():
@@ -340,6 +343,62 @@ class Config(object):
         """
         assert Config._config is not None
         return Config.real_estate_types
+
+    @staticmethod
+    def init_map_layering():
+        try:
+            Config.map_layering = Config._read_map_layering()
+        # When initializing the database (create_tables), the table 'map_layering' does not exist yet
+        except ProgrammingError:
+            Config.map_layering = None
+
+    @staticmethod
+    def _read_map_layering():
+        map_layering_config = Config.get('map_layering')
+        if map_layering_config is None:
+            raise ConfigurationError("Missing configuration for map layering source config")
+        map_layering_reader = MapLayeringReader(
+            map_layering_config.get('source').get('class'),
+            **map_layering_config.get('source').get('params'))
+
+        return map_layering_reader.read()
+
+    @staticmethod
+    def get_map_layering():
+        """
+        Returns a list of available map layerings.
+
+        Returns:
+            list of pyramid_oereb.lib.records.map_layering.MapLayeringRecord: The available
+            map layering.
+        """
+        assert Config._config is not None
+        return Config.map_layering
+
+    @staticmethod
+    def get_index_and_opacity_of_view_service(reference_wms):
+        """
+        Returns the index and the opacity of the view service.
+
+        Args:
+            reference_wms (dict): reference_wms.
+
+        Returns:
+            pyramid_oereb.standard.models.main.MapLayering.layer_index or 1 (default value),
+            pyramid_oereb.standard.models.main.MapLayering.layer_opacity or 0.75 (default value)
+        """
+        default_index = 1
+        default_opacity = 0.75
+        if Config.map_layering is None:
+            raise ConfigurationError("Map layering has not been initialized")
+        if len(Config.map_layering) == 0:
+            return default_index, default_opacity
+        for map_layering_result in Config.map_layering:
+            for lang1 in list(reference_wms.keys()):
+                for lang2 in list(map_layering_result.keys()):
+                    if reference_wms[lang1] == map_layering_result[lang2]:
+                        return map_layering_result.layer_index, map_layering_result.layer_opacity
+        return default_index, default_opacity
 
     @staticmethod
     def get_document_types_lookup():

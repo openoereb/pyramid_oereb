@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 import logging
+import binascii
 
 from mako import exceptions
 from mako.template import Template
@@ -59,7 +60,10 @@ def get_symbol(request):
             if symbol:
                 response = request.response
                 response.status_int = 200
-                response.body = b64.decode(symbol)
+                if isinstance(symbol, str):
+                    response.body = b64.decode(symbol)
+                if isinstance(symbol, bytes):
+                    response.body = b64.decode(binascii.b2a_base64(symbol).decode('ascii'))
                 response.content_type = ImageRecord.get_mimetype(bytearray(response.body))
                 return response
         raise HTTPNotFound()

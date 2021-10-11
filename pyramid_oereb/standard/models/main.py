@@ -27,7 +27,7 @@ But you can change it also via configuration.
 """
 from pyramid_oereb.standard.models.theme import generic_models
 from sqlalchemy import Column, PrimaryKeyConstraint, ForeignKey, UniqueConstraint
-from sqlalchemy import Unicode, String, text, Integer, Boolean
+from sqlalchemy import Unicode, String, text, Integer, Boolean, Float
 from geoalchemy2 import Geometry
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import JSONType
@@ -38,69 +38,6 @@ from pyramid_oereb.lib.config import Config
 Base = declarative_base()
 app_schema_name = Config.get('app_schema').get('name')
 srid = Config.get('srid')
-
-Office, Document = generic_models(Base, app_schema_name, Integer)
-
-
-class Theme(Base):
-    """
-    The OEREB themes of the application
-
-    Attributes:
-        id (int): identifier, used in the database only
-        code (str): OEREB code of the theme - unique and used to link each PublicLawRestriction
-            with the corresponding theme
-        sub_code (str): OEREB sub_code of the sub-theme: only available for sub themes.
-        title (dict): the title of the theme as a multilingual dictionary
-        extract_index (int): index to sort the themes in the extract, defined in the specification
-    """
-    __table_args__ = {'schema': app_schema_name}
-    __tablename__ = 'theme'
-    id = Column(String, primary_key=True)
-    code = Column(String, nullable=False)
-    sub_code = Column(String, nullable=True)
-    title = Column(JSONType, nullable=False)
-    extract_index = Column(Integer, nullable=False)
-    UniqueConstraint(code, sub_code)
-
-
-class Logo(Base):
-    """
-    The container for all logos and municipality coat of arms
-
-    Attributes:
-        code (str): The identifier given by a code
-        logo (dict): The image encoded in base64
-    """
-    __table_args__ = {'schema': app_schema_name}
-    __tablename__ = 'logo'
-    code = Column(String, primary_key=True)
-    logo = Column(JSONType, nullable=False)
-
-
-class Municipality(Base):
-    """
-    The municipality is the place where you hold the information about all the municipalities you are having
-    in your canton. This is used also in the applications process to check whether a municipality is published
-    or not.
-
-    Attributes:
-        fosnr (int): The identifier of the municipality. It is the commonly known id_bfs or as or
-            nofs in the  french part.
-        name (str): The Name of the municipality.
-        published (bool): Switch whether a municipality is published or not. This has direct
-            influence on extract  generation.
-        geom (geoalchemy2.types.Geometry): The geometry of municipality borders. For type
-            information see geoalchemy2_.  .. _geoalchemy2:
-            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the
-            configured type.  This concrete one is MULTIPOLYGON
-    """
-    __table_args__ = {'schema': app_schema_name}
-    __tablename__ = 'municipality'
-    fosnr = Column(Integer, primary_key=True, autoincrement=False)
-    name = Column(String, nullable=False)
-    published = Column(Boolean, nullable=False, default=False, server_default=text('FALSE'))
-    geom = Column(Geometry('MULTIPOLYGON', srid=srid), nullable=True)
 
 
 class RealEstate(Base):
@@ -150,26 +87,36 @@ class RealEstate(Base):
     limit = Column(Geometry('MULTIPOLYGON', srid=srid))
 
 
-class RealEstateType(Base):
+class Municipality(Base):
     """
-    The container where you can throw in all the real estates type texts this application
-    should have access to, for creating extracts.
+    The municipality is the place where you hold the information about all the municipalities
+    you are having in your canton. This is used also in the applications process to check whether
+    a municipality is published or not.
 
     Attributes:
-        code (str): The identifier on federal level.
-        text (str): The text for the multilingual text.
+        fosnr (int): The identifier of the municipality. It is the commonly known id_bfs or as or
+            nofs in the  french part.
+        name (str): The Name of the municipality.
+        published (bool): Switch whether a municipality is published or not. This has direct
+            influence on extract  generation.
+        geom (geoalchemy2.types.Geometry): The geometry of municipality borders. For type
+            information see geoalchemy2_.  .. _geoalchemy2:
+            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the
+            configured type.  This concrete one is MULTIPOLYGON
     """
     __table_args__ = {'schema': app_schema_name}
-    __tablename__ = 'real_estate_type'
-    code = Column(String, primary_key=True)
-    title = Column(JSONType, nullable=False)
+    __tablename__ = 'municipality'
+    fosnr = Column(Integer, primary_key=True, autoincrement=False)
+    name = Column(String, nullable=False)
+    published = Column(Boolean, nullable=False, default=False, server_default=text('FALSE'))
+    geom = Column(Geometry('MULTIPOLYGON', srid=srid), nullable=True)
 
 
 class Address(Base):
     """
     The bucket you can throw all addresses in the application should be able to use for the get egrid
-    webservice. This is a bypass for the moment. In the end it seems ways more flexible to bind a service here
-    but if you like you can use it.
+    webservice. This is a bypass for the moment. In the end it seems ways more flexible to bind
+    a service here but if you like you can use it.
 
     Attributes:
         street_name (unicode): The street name for this address.
@@ -185,11 +132,65 @@ class Address(Base):
         {'schema': app_schema_name}
     )
     __tablename__ = 'address'
-    id = Column(String, primary_key=True)
+    # id = Column(String, primary_key=True)
     street_name = Column(Unicode, nullable=False)
     street_number = Column(String, nullable=False)
     zip_code = Column(Integer, nullable=False, autoincrement=False)
     geom = Column(Geometry('POINT', srid=srid))
+
+
+Office, Document = generic_models(Base, app_schema_name, Integer)
+
+
+class Theme(Base):
+    """
+    The OEREB themes of the application
+
+    Attributes:
+        id (int): identifier, used in the database only
+        code (str): OEREB code of the theme - unique and used to link each PublicLawRestriction
+            with the corresponding theme
+        sub_code (str): OEREB sub_code of the sub-theme: only available for sub themes.
+        title (dict): the title of the theme as a multilingual dictionary
+        extract_index (int): index to sort the themes in the extract, defined in the specification
+    """
+    __table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'theme'
+    id = Column(String, primary_key=True)
+    code = Column(String, nullable=False)
+    sub_code = Column(String, nullable=True)
+    title = Column(JSONType, nullable=False)
+    extract_index = Column(Integer, nullable=False)
+    UniqueConstraint(code, sub_code)
+
+
+class Logo(Base):
+    """
+    The container for all logos and municipality coat of arms
+
+    Attributes:
+        code (str): The identifier given by a code
+        logo (dict): The image encoded in base64
+    """
+    __table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'logo'
+    code = Column(String, primary_key=True)
+    logo = Column(JSONType, nullable=False)
+
+
+class RealEstateType(Base):
+    """
+    The container where you can throw in all the real estates type texts this application
+    should have access to, for creating extracts.
+
+    Attributes:
+        code (str): The identifier on federal level.
+        text (str): The text for the multilingual text.
+    """
+    __table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'real_estate_type'
+    code = Column(String, primary_key=True)
+    title = Column(JSONType, nullable=False)
 
 
 class Glossary(Base):
@@ -285,6 +286,7 @@ class ThemeDocument(Base):
             The dedicated relation to the theme instance from database.
         document (Document):
             The dedicated relation to the document instance from database.
+        article_numbers (dict): relevant articles for the theme document relation
     """
     __tablename__ = 'theme_document'
     __table_args__ = {'schema': app_schema_name}
@@ -307,4 +309,21 @@ class ThemeDocument(Base):
     document = relationship(
         Document
     )
-    article_numbers = Column(String, nullable=True)
+    article_numbers = Column(JSONType, nullable=True)
+
+
+class MapLayering(Base):
+    """
+    Attributes:
+        id (str): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        view_service (dict): Darstellungsdienst
+        layer_index (int): Index for sorting the layering of the view services for a theme
+        layer_opacity (float): Opacity of a view service
+    """
+    table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'map_layering'
+    id = Column(String, primary_key=True, autoincrement=False)
+    view_service = Column(JSONType, nullable=False)
+    layer_index = Column(Integer, nullable=False)
+    layer_opacity = Column(Float, nullable=False)

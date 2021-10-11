@@ -1,10 +1,27 @@
 # -*- coding: utf-8 -*-
 from pyramid_oereb.lib.sources import BaseDatabaseSource
 from pyramid_oereb.lib.sources.theme import ThemeBaseSource
+from pyramid_oereb.contrib.interlis.interlis_2_3_utils import from_multilingual_text_to_dict
+from pyramid_oereb.contrib.interlis.interlis_2_3_utils import from_multilingual_uri_to_dict
 from pyramid_oereb import Config
 
 
 class DatabaseSource(BaseDatabaseSource, ThemeBaseSource):
+
+    def from_db_to_office_record(self, offices_from_db):
+        office_record = self._office_record_class(
+            offices_from_db.name,
+            offices_from_db.uid,
+            from_multilingual_uri_to_dict(offices_from_db.multilingual_uri),
+            offices_from_db.line1,
+            offices_from_db.line2,
+            offices_from_db.street,
+            offices_from_db.number,
+            offices_from_db.postal_code,
+            offices_from_db.city
+        )
+
+        return office_record
 
     def from_db_to_document_records(self, documents_from_db, article_numbers=None):
         document_records = []
@@ -20,13 +37,28 @@ class DatabaseSource(BaseDatabaseSource, ThemeBaseSource):
                 document_type=document.document_type,
                 index=document.index,
                 law_status=law_status,
-                title=document.title,
+                title=from_multilingual_text_to_dict(
+                        de=document.title_de,
+                        fr=document.title_fr,
+                        it=document.title_it,
+                        rm=document.title_rm,
+                        en=document.title_en),
                 responsible_office=office_record,
                 published_from=document.published_from,
                 published_until=document.published_until,
-                text_at_web=document.text_at_web,
-                abbreviation=document.abbreviation,
-                official_number=document.official_number,
+                text_at_web=from_multilingual_uri_to_dict(document.multilingual_uri),
+                abbreviation=from_multilingual_text_to_dict(
+                        de=document.abbreviation_de,
+                        fr=document.abbreviation_fr,
+                        it=document.abbreviation_it,
+                        rm=document.abbreviation_rm,
+                        en=document.abbreviation_en),
+                official_number=from_multilingual_text_to_dict(
+                        de=document.official_number_de,
+                        fr=document.official_number_fr,
+                        it=document.official_number_it,
+                        rm=document.official_number_rm,
+                        en=document.official_number_en),
                 only_in_municipality=document.only_in_municipality,
                 article_numbers=article_nrs,
                 file=document.file
@@ -42,9 +74,14 @@ class DatabaseSource(BaseDatabaseSource, ThemeBaseSource):
                                  .format(type(theme_from_db)))
         for legal_provision in theme_from_db.legal_provisions:
             documents_from_db.append(legal_provision.document)
-            article_nrs = legal_provision.articles['articles'] if legal_provision.articles \
-                else None
-            article_numbers.append(article_nrs)
+            if len(legal_provision.article_numbers) == 0:
+                article_numbers.append(None)
+            else:
+                article_nrs = []
+                for article_number in legal_provision.article_numbers:
+                    article_nrs.append(article_number.value)
+                article_numbers.append(article_nrs)
+
         document_records = self.from_db_to_document_records(documents_from_db, article_numbers)
         return document_records
 
@@ -60,9 +97,14 @@ class DatabaseSource(BaseDatabaseSource, ThemeBaseSource):
             for result in results:
                 self.records.append(self._record_class_(
                     result.code,
-                    result.title,
+                    from_multilingual_text_to_dict(
+                        de=result.title_de,
+                        fr=result.title_fr,
+                        it=result.title_it,
+                        rm=result.title_rm,
+                        en=result.title_en),
                     result.extract_index,
-                    result.sub_code,
+                    results.sub_code,
                     self.get_document_records(result)
                 ))
         finally:
