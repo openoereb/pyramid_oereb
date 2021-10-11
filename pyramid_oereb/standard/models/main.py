@@ -286,6 +286,7 @@ class ThemeDocument(Base):
             The dedicated relation to the theme instance from database.
         document (Document):
             The dedicated relation to the document instance from database.
+        article_numbers (dict): relevant articles for the theme document relation
     """
     __tablename__ = 'theme_document'
     __table_args__ = {'schema': app_schema_name}
@@ -313,15 +314,16 @@ class ThemeDocument(Base):
 
 class MapLayering(Base):
     """
-    id (str): The identifier. This is used in the database only and must not be set manually. If
-        you  don't like it - don't care about.
-    view_service (str): Darstellungsdienst
-    layer_index (int): Index for sorting the layering of the view services for a theme
-    layer_opacity (str): Deckkraft eines Darstellungsdienstes
+    Attributes:
+        id (str): The identifier. This is used in the database only and must not be set manually. If
+            you  don't like it - don't care about.
+        view_service (dict): Darstellungsdienst
+        layer_index (int): Index for sorting the layering of the view services for a theme
+        layer_opacity (float): Opacity of a view service
     """
     table_args__ = {'schema': app_schema_name}
     __tablename__ = 'map_layering'
-    t_id = Column(Integer, primary_key=True, autoincrement=False)
-    view_service = Column('verweiswms', String, nullable=False)
-    layer_index = Column('layerindex', Integer, nullable=False)
-    layer_opacity = Column('layerdeckkraft', Float, nullable=False)
+    id = Column(String, primary_key=True, autoincrement=False)
+    view_service = Column(JSONType, nullable=False)
+    layer_index = Column(Integer, nullable=False)
+    layer_opacity = Column(Float, nullable=False)

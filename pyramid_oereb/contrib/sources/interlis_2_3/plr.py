@@ -167,9 +167,10 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return legend_entry_records
 
     def from_db_to_view_service_record(self, view_service_from_db, legend_entry_records, theme):
-        layer_index, layer_opacity = Config.get_layer_config(theme)
+        multilingual_uri = from_multilingual_uri_to_dict(view_service_from_db.multilingual_uri)
+        layer_index, layer_opacity = Config.get_index_and_opacity_of_view_service(multilingual_uri)
         view_service_record = self._view_service_record_class(
-            from_multilingual_uri_to_dict(view_service_from_db.multilingual_uri),
+            multilingual_uri,
             layer_index,
             layer_opacity,
             legends=legend_entry_records

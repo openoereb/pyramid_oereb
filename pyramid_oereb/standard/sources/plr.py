@@ -152,12 +152,11 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         return legend_entry_records
 
-    def from_db_to_view_service_record(self, view_service_from_db, legend_entry_records, theme):
-        layer_index, layer_opacity = Config.get_layer_config(theme)
+    def from_db_to_view_service_record(self, view_service_from_db, legend_entry_records):
         view_service_record = self._view_service_record_class(
             view_service_from_db.reference_wms,
-            layer_index,
-            layer_opacity,
+            view_service_from_db.layer_index,
+            view_service_from_db.layer_opacity,
             legends=legend_entry_records
         )
         return view_service_record
@@ -314,8 +313,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         symbol = ImageRecord(b64.decode(public_law_restriction_from_db.legend_entry.symbol))
         view_service_record = self.from_db_to_view_service_record(
             public_law_restriction_from_db.view_service,
-            legend_entry_records,
-            self._plr_info.get('code')
+            legend_entry_records
         )
         theme = Config.get_theme_by_code_sub_code(
             public_law_restriction_from_db.legend_entry.theme,

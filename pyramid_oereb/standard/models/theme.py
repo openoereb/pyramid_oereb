@@ -1,5 +1,5 @@
 from sqlalchemy import Column, ForeignKey
-from sqlalchemy import Boolean, String, Integer, DateTime, Date
+from sqlalchemy import Boolean, String, Integer, Float, DateTime, Date
 from sqlalchemy.ext.declarative import declarative_base
 from geoalchemy2.types import Geometry as GeoAlchemyGeometry
 from sqlalchemy.orm import relationship
@@ -187,11 +187,15 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
                 manually. If you  don't like it - don't care about.
             reference_wms (dict of str): The actual url which leads to the desired cartographic
                 representation (multilingual).
+            layer_index (int): Index for sorting the layering of the view services for a theme
+            layer_opacity (float): Opacity of a view service
         """
         __table_args__ = {'schema': schema_name}
         __tablename__ = 'view_service'
         id = Column(pk_type, primary_key=True, autoincrement=False)
         reference_wms = Column(JSONType, nullable=False)
+        layer_index = Column(Integer, nullable=False)
+        layer_opacity = Column(Float, nullable=False)
 
     class LegendEntry(Base):
         """

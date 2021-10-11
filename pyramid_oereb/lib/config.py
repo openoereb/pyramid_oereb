@@ -13,6 +13,7 @@ from pyramid_oereb.lib.readers.law_status import LawStatusReader
 from pyramid_oereb.lib.readers.real_estate_type import RealEstateTypeReader
 from pyramid_oereb.lib.readers.document_types import DocumentTypeReader
 from pyramid_oereb.lib.readers.general_information import GeneralInformationReader
+from pyramid_oereb.lib.readers.map_layering import MapLayeringReader
 from sqlalchemy.exc import ProgrammingError
 
 log = logging.getLogger(__name__)
@@ -373,6 +374,31 @@ class Config(object):
         """
         assert Config._config is not None
         return Config.map_layering
+
+    @staticmethod
+    def get_index_and_opacity_of_view_service(reference_wms):
+        """
+        Returns the index and the opacity of the view service.
+
+        Args:
+            reference_wms (dict): reference_wms.
+
+        Returns:
+            pyramid_oereb.standard.models.main.MapLayering.layer_index or 1 (default value),
+            pyramid_oereb.standard.models.main.MapLayering.layer_opacity or 0.75 (default value)
+        """
+        default_index = 1
+        default_opacity = 0.75
+        if Config.map_layering is None:
+            raise ConfigurationError("Map layering has not been initialized")
+        if len(Config.map_layering) == 0:
+            return default_index, default_opacity
+        for map_layering_result in Config.map_layering:
+            for lang1 in list(reference_wms.keys()):
+                for lang2 in list(map_layering_result.keys()):
+                    if reference_wms[lang1] == map_layering_result[lang2]:
+                        return map_layering_result.layer_index, map_layering_result.layer_opacity
+        return default_index, default_opacity
 
     @staticmethod
     def get_document_types_lookup():

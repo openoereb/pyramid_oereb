@@ -469,7 +469,7 @@ pyramid_oereb:
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
       # already implemented source which reads data from a database.
-      class: pyramid_oereb.standard.sources.MapLayering.DatabaseSource
+      class: pyramid_oereb.standard.sources.map_layering.DatabaseSource
       # The necessary parameters to use this class
       params:
         # The connection path where the database can be found

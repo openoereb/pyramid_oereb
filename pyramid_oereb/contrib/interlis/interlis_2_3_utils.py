@@ -31,7 +31,7 @@ def from_multilingual_uri_to_dict(obj):
 
 def from_multilingual_blob_to_dict(obj):
     """
-    obj: one of logo.multilingual_blob, document.multilingual_blob
+    obj (pyramid_oereb.contrib.models.interlis_2_3.MultilingualBlob)
     """
     for ml_blobs in obj:
         var_dict = dict()
