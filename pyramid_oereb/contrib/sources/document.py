@@ -25,7 +25,7 @@ class OEREBlexSource(Base):
 
         Keyword Args:
             host (uri): Host URL of OEREBlex (without /api/...).
-            version (str): The used geoLink schema version. Default is 1.2.0
+            version (str): The used geoLink schema version. Default is 1.2.2
             pass_version (bool): True to pass version in URL, false otherwise. Defaults is false.
             language (str): The language of the received data.
             canton (str): Canton code used for the documents.
@@ -51,7 +51,7 @@ class OEREBlexSource(Base):
 
         # Set default values for missing parameters
         if self._version is None:
-            self._version = '1.2.0'
+            self._version = '1.2.2'
         if self._pass_version is None:
             self._pass_version = False
 
