@@ -21,7 +21,7 @@ lxml==4.6.3
 Mako==1.1.5
 mako-render==0.1.0
 requests==2.26.0
-geolink-formatter==2.0.0
+geolink-formatter==2.0.1
 pyconizer==0.1.4
 tqdm==4.62.1
 numpy==1.19.5 # rq.filter: <1.20.0
