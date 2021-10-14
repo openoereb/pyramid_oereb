@@ -188,7 +188,7 @@ class OEREBlexSource(Base):
         for f in document.files:
             arguments = {
                 'document_type': document_type,
-                'index': document.index,  # TODO: Generate correct index for sorting
+                'index': document.index,
                 'law_status': Config.get_law_status_by_law_status_code(u'inKraft'),
                 'title': self._get_multilingual(f.title or document.title, language),
                 'responsible_office': office,
