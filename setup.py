@@ -53,7 +53,6 @@ setup(
             'main = pyramid_oereb:main'
         ],
         'console_scripts': [
-            'create_oereblex_model = pyramid_oereb.contrib.scripts:create_oereblex_model',
             'create_standard_tables = pyramid_oereb.standard.create_tables:create_standard_tables',
             'create_standard_yaml = pyramid_oereb.standard.create_yaml:create_standard_yaml',
             'drop_standard_tables = pyramid_oereb.standard.drop_tables:drop_standard_tables',
