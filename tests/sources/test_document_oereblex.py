@@ -82,7 +82,8 @@ def test_get_mapped_value(key, language, result):
         doctype='edict',
         authority='Office',
         files=[File(href='/api/attachments/1', category='main')],
-        enactment_date=datetime.date.today()
+        enactment_date=datetime.date.today(),
+        index=1
     )),
     (2, Document(
         id='doc2',
@@ -94,7 +95,8 @@ def test_get_mapped_value(key, language, result):
             File(href='/api/attachments/2', category='main'),
             File(href='/api/attachments/3', category='additional')
         ],
-        enactment_date=datetime.date.today()
+        enactment_date=datetime.date.today(),
+        index=2
     )),
     (3, Document(
         id='doc1',
@@ -131,8 +133,12 @@ def test_get_document_records(i, document):
             assert isinstance(record, DocumentRecord)
             if i == 1:
                 record.document_type == 'GesetzlicheGrundlage'
+                assert record.index == 1
             elif i == 2:
                 record.document_type == 'Rechtsvorschrift'
+                assert record.index == 2
+            else:
+                assert record.index is None
             assert record.title == {'de': 'Document {0}'.format(i)}
             assert record.published_from == datetime.date.today()
             assert record.text_at_web == {'de': '/api/attachments/{fid}'.format(fid=i + idx)}
@@ -140,13 +146,13 @@ def test_get_document_records(i, document):
 
 def test_read():
     with requests_mock.mock() as m:
-        with open('./tests/resources/geolink_v1.2.1.xml', 'rb') as f:
+        with open('./tests/resources/geolink_v1.2.2.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(
             host='http://oereblex.example.com',
             language='de',
             canton='BL',
-            version='1.2.1'
+            version='1.2.2'
         )
         source.read(MockParameter(), 100)
         assert len(source.records) == 9
@@ -157,17 +163,18 @@ def test_read():
         assert document.text_at_web == {
             'de': 'http://oereblex.example.com/api/attachments/4735'
         }
+        assert document.index == 30
 
 
 def test_read_related_decree_as_main():
     with requests_mock.mock() as m:
-        with open('./tests/resources/geolink_v1.2.1.xml', 'rb') as f:
+        with open('./tests/resources/geolink_v1.2.2.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(
             host='http://oereblex.example.com',
             language='de',
             canton='BL',
-            version='1.2.1',
+            version='1.2.2',
             related_decree_as_main=True
         )
         source.read(MockParameter(), 100)
@@ -179,17 +186,18 @@ def test_read_related_decree_as_main():
         assert document.text_at_web == {
             'de': 'http://oereblex.example.com/api/attachments/4735'
         }
+        assert document.index == 30
 
 
 def test_read_related_notice_as_main():
     with requests_mock.mock() as m:
-        with open('./tests/resources/geolink_v1.2.1.xml', 'rb') as f:
+        with open('./tests/resources/geolink_v1.2.2.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(
             host='http://oereblex.example.com',
             language='de',
             canton='BL',
-            version='1.2.1',
+            version='1.2.2',
             related_notice_as_main=True
         )
         source.read(MockParameter(), 100)
@@ -201,17 +209,18 @@ def test_read_related_notice_as_main():
         assert document.responsible_office.name == {'de': '-'}
         assert document.responsible_office.office_at_web is None
         assert document.published_from == datetime.date(1970, 1, 1)
+        assert document.index == 40
 
 
 def test_read_with_version_in_url():
     with requests_mock.mock() as m:
-        with open('./tests/resources/geolink_v1.2.1.xml', 'rb') as f:
-            m.get('http://oereblex.example.com/api/1.2.1/geolinks/100.xml', content=f.read())
+        with open('./tests/resources/geolink_v1.2.2.xml', 'rb') as f:
+            m.get('http://oereblex.example.com/api/1.2.2/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(
             host='http://oereblex.example.com',
             language='de',
             canton='BL',
-            version='1.2.1',
+            version='1.2.2',
             pass_version=True
         )
         source.read(MockParameter(), 100)
@@ -220,13 +229,13 @@ def test_read_with_version_in_url():
 
 def test_read_with_specified_version():
     with requests_mock.mock() as m:
-        with open('./tests/resources/geolink_v1.2.1.xml', 'rb') as f:
-            m.get('http://oereblex.example.com/api/1.2.1/geolinks/100.xml', content=f.read())
+        with open('./tests/resources/geolink_v1.2.2.xml', 'rb') as f:
+            m.get('http://oereblex.example.com/api/1.2.2/geolinks/100.xml', content=f.read())
         source = OEREBlexSource(
             host='http://oereblex.example.com',
             language='de',
             canton='BL',
-            version='1.2.1',
+            version='1.2.2',
             pass_version=True
         )
         source.read(MockParameter(), 100)
@@ -235,13 +244,13 @@ def test_read_with_specified_version():
 
 def test_read_with_specified_language():
     with requests_mock.mock() as m:
-        with open('./tests/resources/geolink_v1.2.1.xml', 'rb') as f:
+        with open('./tests/resources/geolink_v1.2.2.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml?locale=fr', content=f.read())
         source = OEREBlexSource(
             host='http://oereblex.example.com',
             language='de',
             canton='BL',
-            version='1.2.1'
+            version='1.2.2'
         )
         params = MockParameter()
         params.set_language('fr')
@@ -252,6 +261,7 @@ def test_read_with_specified_language():
         assert document.text_at_web == {
             'fr': 'http://oereblex.example.com/api/attachments/4735'
         }
+        assert document.index == 30
 
 
 def test_authentication():
