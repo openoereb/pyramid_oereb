@@ -188,17 +188,17 @@ class OEREBlexSource(Base):
         for f in document.files:
             arguments = {
                 'document_type': document_type,
-                'index': 0,  # TODO: Generate correct index for sorting
+                'index': document.index,  # TODO: Generate correct index for sorting
                 'law_status': Config.get_law_status_by_law_status_code(u'inKraft'),
                 'title': self._get_multilingual(f.title or document.title, language),
                 'responsible_office': office,
-                'published_from': enactment_date,  # TODO: Use publication_date instead?
-                'published_until': None,  # TODO: Use abrogation_date?
+                'published_from': enactment_date,  # TODO: Use "publication_date" instead?
+                'published_until': None,  # TODO: Use "abrogation_date"?
                 'text_at_web': self._get_multilingual(f.href, language),
                 'abbreviation': self._get_multilingual(document.abbreviation, language),
                 'official_number': self._get_multilingual(document.number, language),
-                'only_in_municipality': None,  # TODO: Available in OEREBlex?
-                'article_numbers': None  # TODO: Available in OEREBlex?
+                'only_in_municipality': None,  # TODO: Use "municipality" from OEREBlex?
+                'article_numbers': None
             }
             records.append(DocumentRecord(**arguments))
 
