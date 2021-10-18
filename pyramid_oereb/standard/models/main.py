@@ -25,7 +25,7 @@ But you can change it also via configuration.
         variables.
 
 """
-from pyramid_oereb.standard.models.theme import generic_models
+from pyramid_oereb.standard.models import get_office, get_document
 from sqlalchemy import Column, PrimaryKeyConstraint, ForeignKey, UniqueConstraint
 from sqlalchemy import Unicode, String, text, Integer, Boolean, Float
 from geoalchemy2 import Geometry
@@ -139,7 +139,8 @@ class Address(Base):
     geom = Column(Geometry('POINT', srid=srid))
 
 
-Office, Document = generic_models(Base, app_schema_name, Integer)
+Office = get_office(Base, app_schema_name, Integer)
+Document = get_document(Base, app_schema_name, Integer, Office)
 
 
 class Theme(Base):
