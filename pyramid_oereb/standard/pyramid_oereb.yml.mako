@@ -1098,41 +1098,6 @@ pyramid_oereb:
         AenderungMitVorwirkung: AenderungMitVorwirkung
         AenderungOhneVorwirkung: AenderungOhneVorwirkung
 
-    - code: ch.OereblexTest
-      geometry_type: POLYGON
-      thresholds:
-        length:
-          limit: 1.0
-          unit: 'm'
-          precision: 2
-        area:
-          limit: 1.0
-          unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
-      language: de
-      federal: false
-      standard: true
-      view_service:
-        layer_index: 1
-        layer_opacity: 1.0
-      source:
-        class: pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource
-        params:
-          db_connection: *main_db_connection
-          # model_factory: pyramid_oereb.standard.models.theme.model_factory_integer_pk
-          # uncomment line above and comment line below to use integer type for primary keys
-          model_factory: pyramid_oereb.contrib.models.oereblex.theme.model_factory_string_pk
-          schema_name: oereblex_test
-      hooks:
-        get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
-
   # The error message returned if an error occurs when requesting a static extract
   # The content of the message is defined in the specification (document "Inhalt und Darstellung des statischen Auszugs")
   static_error_message:
