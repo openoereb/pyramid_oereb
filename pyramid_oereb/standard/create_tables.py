@@ -198,12 +198,7 @@ def create_theme_tables():
             options.c2ctemplate_style
         )
 
-    theme_config = None
-    for cfg in Config.get('plrs'):
-        if cfg.get('code') == options.theme:
-            theme_config = cfg
-            break
-
+    theme_config = Config.get_theme_config_by_code(options.theme)
     if theme_config is None:
         parser.error('Specified theme not found in configuration.')
 
