@@ -345,7 +345,6 @@ class Config(object):
         return Config.real_estate_types
 
     @staticmethod
-<<<<<<< HEAD
     def init_map_layering():
         try:
             Config.map_layering = Config._read_map_layering()
@@ -403,13 +402,13 @@ class Config(object):
 
     @staticmethod
     def get_document_types_lookups(theme_code):
-        lookups = Config.get_theme_config_by_code(theme_code).get('document_types_lookup') real estate type, fix tests)
+        lookups = Config.get_theme_config_by_code(theme_code).get('document_types_lookup')
         if lookups is None:
             raise ConfigurationError(
                 '"document_types_lookup" must be defined in configuration for theme {}!'.format(theme_code)
             )
         return lookups
-    
+
     @staticmethod
     def get_document_type_lookup_by_theme_code_key_code(theme_code, key, code):
         lookups = Config.get_document_types_lookups(theme_code)
@@ -419,15 +418,15 @@ class Config(object):
         raise ConfigurationError(
             'Document type lookup with key "{}" and code "{}" is not defined in configuration!'.format(key, code)
         )
-    
+
     @staticmethod
     def get_document_type_lookup_by_transfer_code(theme_code, transfer_code):
         return Config.get_document_type_lookup_by_theme_code_key_code(theme_code, 'transfer_code', transfer_code)
-    
+
     @staticmethod
     def get_document_type_lookup_by_data_code(theme_code, data_code):
         return Config.get_document_type_lookup_by_theme_code_key_code(theme_code, 'data_code', data_code)
-    
+
     @staticmethod
     def get_document_type_by_data_code(theme_code, data_code):
         lookup = Config.get_document_type_lookup_by_data_code(theme_code, data_code)
