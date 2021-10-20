@@ -8,6 +8,7 @@ from pyramid.config import ConfigurationError
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.records.document_types import DocumentTypeRecord
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
+from pyramid_oereb.lib.records.real_estate_type import RealEstateTypeRecord
 from pyramid_oereb.lib.readers.theme import ThemeReader
 from pyramid_oereb.lib.records.logo import LogoRecord
 from pyramid_oereb.lib.readers.logo import LogoReader
@@ -953,7 +954,7 @@ class Config(object):
         lookup = Config.get_real_estate_type_lookup_by_data_code(data_code)
         record = Config.get_real_estate_type_by_code(lookup['transfer_code'])
         log.debug('Translating code {} => code {} of {}'.format(lookup['transfer_code'], lookup['extract_code'], record.title))
-        translated_record = DocumentTypeRecord(lookup['extract_code'], record.title)
+        translated_record = RealEstateTypeRecord(lookup['extract_code'], record.title)
         return translated_record
 
     @staticmethod
