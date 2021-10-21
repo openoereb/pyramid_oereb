@@ -322,7 +322,7 @@ class MapLayering(Base):
         layer_index (int): Index for sorting the layering of the view services for a theme
         layer_opacity (float): Opacity of a view service
     """
-    table_args__ = {'schema': app_schema_name}
+    __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'map_layering'
     id = Column(String, primary_key=True, autoincrement=False)
     view_service = Column(JSONType, nullable=False)
