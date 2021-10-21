@@ -1,2 +1,2 @@
-<%page args="point"/>
-<gml:pos>${point.x} ${point.y}</gml:pos>
+<%page args="coords"/>
+<geometry:c1>${coords[0]}</geometry:c1><geometry:c2>${coords[1]}</geometry:c2>

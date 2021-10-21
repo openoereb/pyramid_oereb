@@ -33,13 +33,11 @@
     <data:LandRegistryArea>${int(real_estate.land_registry_area)}</data:LandRegistryArea>
 %if extract.real_estate.limit and params.with_geometry:
     <data:Limit>
-        <gml:MultiSurface gml:id="${get_gml_id()}">
+        <geometry:multisurface>
             %for polygon in real_estate.limit.geoms:
-            <gml:surfaceMember>
                 <%include file="geometry/polygon.xml" args="polygon=polygon"/>
-            </gml:surfaceMember>
             %endfor
-        </gml:MultiSurface>
+        </geometry:multisurface>
     </data:Limit>
 %endif
 %for public_law_restriction in real_estate.public_law_restrictions:

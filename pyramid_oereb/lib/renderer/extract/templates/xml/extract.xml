@@ -5,9 +5,10 @@
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                         xmlns:data="http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData"
                         xmlns:extract="http://schemas.geo.admin.ch/V_D/OeREB/2.0/Extract"
-                        xmlns:gml="http://www.opengis.net/gml/3.2"
+                        xmlns:geometry="http://www.interlis.ch/geometry/1.0"
                         xsi:schemaLocation="http://schemas.geo.admin.ch/V_D/OeREB/2.0/Extract http://schemas.geo.admin.ch/V_D/OeREB/2.0/Extract.xsd
-                                            http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData.xsd">
+                                            http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData.xsd
+                                            http://www.interlis.ch/geometry/1.0 http://models.interlis.ch/refhb24/geometry.xsd">
 <%
     from pyramid_oereb.lib.records.plr import PlrRecord
     from pyramid_oereb import Config, route_prefix
@@ -84,8 +85,8 @@
         <data:PLRCadastreAuthority>
             <%include file="office.xml" args="office=extract.plr_cadastre_authority"/>
         </data:PLRCadastreAuthority>
-        <data:UpdateDateOS>
+        <data:UpdateDateCS>
             ${extract.creation_date.strftime(date_format)}
-        </data:UpdateDateOS>
+        </data:UpdateDateCS>
     </data:Extract>
 </extract:GetExtractByIdResponse>
