@@ -161,7 +161,7 @@ def generic_models(base, schema_name, pk_type):
         published_until = Column('publiziertbis', Date, nullable=True)
         office_id = Column(
             'zustaendigestelle',
-            Integer,
+            pk_type,
             ForeignKey(Office.t_id),
             nullable=False
         )
@@ -318,7 +318,7 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         published_until = Column('publiziertbis', Date, nullable=True)
         view_service_id = Column(
             'darstellungsdienst',
-            Integer,
+            pk_type,
             ForeignKey(ViewService.t_id),
             nullable=False
         )
@@ -328,7 +328,7 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         )
         legend_entry_id = Column(
             'legende',
-            Integer,
+            pk_type,
             ForeignKey(LegendEntry.t_id),
             nullable=False
         )
@@ -337,7 +337,7 @@ def model_factory(schema_name, pk_type, srid, db_connection):
             backref='public_law_restrictions')
         office_id = Column(
             'zustaendigestelle',
-            Integer,
+            pk_type,
             ForeignKey(Office.t_id),
             nullable=False
         )
@@ -380,7 +380,7 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         geo_metadata = Column('metadatengeobasisdaten', String, nullable=True)
         public_law_restriction_id = Column(
             'eigentumsbeschraenkung',
-            Integer,
+            pk_type,
             ForeignKey(PublicLawRestriction.t_id),
             nullable=False
         )
@@ -412,19 +412,19 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         t_seq = Column(Integer, nullable=True)
         office_id = Column(
             'amt_amtimweb',
-            Integer,
+            pk_type,
             ForeignKey(Office.t_id),
             nullable=True
         )
         document_id = Column(
             'dokument_textimweb',
-            Integer,
+            pk_type,
             ForeignKey(Document.t_id),
             nullable=True
         )
         view_service_id = Column(
             'darstellungsdienst_verweiswms',
-            Integer,
+            pk_type,
             ForeignKey(ViewService.t_id),
             nullable=True
         )
@@ -458,7 +458,7 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         t_seq = Column(Integer, nullable=True)
         document_id = Column(
             'dokument_dokument',
-            Integer,
+            pk_type,
             ForeignKey(Document.t_id),
             nullable=True
         )
@@ -484,7 +484,7 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         text = Column('atext', String, nullable=False)
         multilingualuri_id = Column(
             'multilingualuri_localisedtext',
-            Integer,
+            pk_type,
             ForeignKey(MultilingualUri.t_id),
             nullable=False
         )
@@ -513,7 +513,7 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         blob = Column('ablob', LargeBinary, nullable=False)
         multilingualblob_id = Column(
             'multilingualblob_localisedblob',
-            Integer,
+            pk_type,
             ForeignKey(MultilingualBlob.t_id),
             nullable=True
         )
@@ -543,13 +543,13 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         t_id = Column(pk_type, primary_key=True, autoincrement=False)
         public_law_restriction_id = Column(
             'eigentumsbeschraenkung',
-            Integer,
+            pk_type,
             ForeignKey(PublicLawRestriction.t_id),
             nullable=False
         )
         document_id = Column(
             'vorschrift',
-            Integer,
+            pk_type,
             ForeignKey(Document.t_id),
             nullable=False
         )
