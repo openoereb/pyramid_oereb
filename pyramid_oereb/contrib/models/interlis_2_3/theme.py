@@ -278,7 +278,7 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         sub_theme = Column('subthema', String, nullable=True)
         view_service_id = Column(
             'darstellungsdienst',
-            String,
+            pk_type,
             ForeignKey(ViewService.t_id),
             nullable=False
         )
