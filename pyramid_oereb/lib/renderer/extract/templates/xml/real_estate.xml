@@ -33,11 +33,11 @@
     <data:LandRegistryArea>${int(real_estate.land_registry_area)}</data:LandRegistryArea>
 %if extract.real_estate.limit and params.with_geometry:
     <data:Limit>
-        <geometry:multisurface>
+        <geometry:surface>
             %for polygon in real_estate.limit.geoms:
                 <%include file="geometry/polygon.xml" args="polygon=polygon"/>
             %endfor
-        </geometry:multisurface>
+        </geometry:surface>
     </data:Limit>
 %endif
 %for public_law_restriction in real_estate.public_law_restrictions:
