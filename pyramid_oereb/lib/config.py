@@ -417,22 +417,35 @@ class Config(object):
             if lookup[key] == code:
                 return lookup
         raise ConfigurationError(
-            'Document type lookup with key "{}" and code "{}" is not defined in configuration!'.format(key, code)
+            'Document type lookup with key "{}" and code "{}" is not '
+            'defined in configuration!'.format(key, code)
         )
 
     @staticmethod
     def get_document_type_lookup_by_transfer_code(theme_code, transfer_code):
-        return Config.get_document_type_lookup_by_theme_code_key_code(theme_code, 'transfer_code', transfer_code)
+        return Config.get_document_type_lookup_by_theme_code_key_code(
+            theme_code,
+            'transfer_code',
+            transfer_code
+        )
 
     @staticmethod
     def get_document_type_lookup_by_data_code(theme_code, data_code):
-        return Config.get_document_type_lookup_by_theme_code_key_code(theme_code, 'data_code', data_code)
+        return Config.get_document_type_lookup_by_theme_code_key_code(
+            theme_code,
+            'data_code',
+            data_code
+        )
 
     @staticmethod
     def get_document_type_by_data_code(theme_code, data_code):
         lookup = Config.get_document_type_lookup_by_data_code(theme_code, data_code)
         record = Config.get_document_type_by_code(lookup['transfer_code'])
-        log.debug('Translating code {} => code {} of {}'.format(lookup['transfer_code'], lookup['extract_code'], record.title))
+        log.debug(
+            'Translating code {} => code {} of {}'.format(
+                lookup['transfer_code'], lookup['extract_code'], record.title
+            )
+        )
         translated_record = DocumentTypeRecord(lookup['extract_code'], record.title)
         return translated_record
 
@@ -561,7 +574,7 @@ class Config(object):
         assert Config._config is not None
 
         return Config._config.get('real_estate')
-    
+
     @staticmethod
     def get_real_estate_type_config():
         """
@@ -809,7 +822,7 @@ class Config(object):
                 '"document_types_lookup" must be defined in configuration for theme {}!'.format(theme_code)
             )
         return lookups
-    
+
     @staticmethod
     def get_law_status_lookup_by_theme_code_key_code(theme_code, key, code):
         lookups = Config.get_law_status_lookups(theme_code)
@@ -817,22 +830,35 @@ class Config(object):
             if lookup[key] == code:
                 return lookup
         raise ConfigurationError(
-            'Document type lookup with key "{}" and code "{}" is not defined in configuration!'.format(key, code)
+            'Document type lookup with key "{}" and code "{}" is not'
+            'defined in configuration!'.format(key, code)
         )
-    
+
     @staticmethod
     def get_law_status_lookup_by_transfer_code(theme_code, transfer_code):
-        return Config.get_law_status_lookup_by_theme_code_key_code(theme_code, 'transfer_code', transfer_code)
-    
+        return Config.get_law_status_lookup_by_theme_code_key_code(
+            theme_code,
+            'transfer_code',
+            transfer_code
+        )
+
     @staticmethod
     def get_law_status_lookup_by_data_code(theme_code, data_code):
-        return Config.get_law_status_lookup_by_theme_code_key_code(theme_code, 'data_code', data_code)
-    
+        return Config.get_law_status_lookup_by_theme_code_key_code(
+            theme_code,
+            'data_code',
+            data_code
+        )
+
     @staticmethod
     def get_law_status_by_data_code(theme_code, data_code):
         lookup = Config.get_law_status_lookup_by_data_code(theme_code, data_code)
         record = Config.get_law_status_by_code(lookup['transfer_code'])
-        log.debug('Translating code {} => code {} of {}'.format(lookup['transfer_code'], lookup['extract_code'], record.title))
+        log.debug(
+            'Translating code {} => code {} of {}'.format(
+                lookup['transfer_code'], lookup['extract_code'], record.title
+            )
+        )
         translated_record = LawStatusRecord(lookup['extract_code'], record.title)
         return translated_record
 
@@ -849,7 +875,7 @@ class Config(object):
         """
         if Config.law_status is None:
             raise ConfigurationError("The law status have not been initialized")
-        
+
         for record in Config.law_status:
             if law_status_code == law_status_code:
                 return record
@@ -930,7 +956,7 @@ class Config(object):
                 '"lookup" must be defined in configuration for theme real_estate_type!'
             )
         return lookups
-    
+
     @staticmethod
     def get_real_estate_type_lookup_by_key_code(key, code):
         lookups = Config.get_real_estate_type_lookups()
@@ -938,22 +964,27 @@ class Config(object):
             if lookup[key] == code:
                 return lookup
         raise ConfigurationError(
-            'Document type lookup with key "{}" and code "{}" is not defined in configuration!'.format(key, code)
+            'Document type lookup with key "{}" and code "{}" is not '
+            'defined in configuration!'.format(key, code)
         )
-    
+
     @staticmethod
-    def get_law_status_lookup_by_transfer_code(transfer_code):
+    def get_real_estate_lookup_by_transfer_code(transfer_code):
         return Config.get_real_estate_type_lookup_by_key_code('transfer_code', transfer_code)
-    
+
     @staticmethod
     def get_real_estate_type_lookup_by_data_code(data_code):
         return Config.get_real_estate_type_lookup_by_key_code('data_code', data_code)
-    
+
     @staticmethod
     def get_real_estate_type_by_data_code(data_code):
         lookup = Config.get_real_estate_type_lookup_by_data_code(data_code)
         record = Config.get_real_estate_type_by_code(lookup['transfer_code'])
-        log.debug('Translating code {} => code {} of {}'.format(lookup['transfer_code'], lookup['extract_code'], record.title))
+        log.debug(
+            'Translating code {} => code {} of {}'.format(
+                lookup['transfer_code'], lookup['extract_code'], record.title
+            )
+        )
         translated_record = RealEstateTypeRecord(lookup['extract_code'], record.title)
         return translated_record
 
@@ -970,7 +1001,7 @@ class Config(object):
         """
         if Config.real_estate_types is None:
             raise ConfigurationError("The real estate types have not been initialized")
-        
+
         for record in Config.real_estate_types:
             if record.code == code:
                 return record

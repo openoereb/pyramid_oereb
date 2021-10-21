@@ -16,6 +16,6 @@ class DocumentTypeRecord(object):
             warnings.warn('Type of "code" should be "str"')
         if not isinstance(title, dict):
             warnings.warn('Type of "title" should be "dict"')
-        
+
         self.code = code
         self.title = title

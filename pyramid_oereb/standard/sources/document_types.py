@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from pyramid_oereb import Config
 from pyramid_oereb.lib.sources import BaseDatabaseSource
 from pyramid_oereb.lib.sources.document_types import DocumentTypesBaseSource
 

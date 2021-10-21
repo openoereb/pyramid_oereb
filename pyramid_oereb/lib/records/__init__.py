@@ -26,5 +26,4 @@ class BaseLookUpRecord(object):
         self.code = code
 
     def get_extract_code(self):
-        return self.lookup[self.code]    
-
+        return self.lookup[self.code]

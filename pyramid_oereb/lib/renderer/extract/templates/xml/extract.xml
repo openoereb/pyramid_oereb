@@ -1,6 +1,6 @@
 ## -*- coding: utf-8 -*-
 <?xml version="1.0" encoding="UTF-8" ?>
-<extract:GetExtractByIdResponse 
+<extract:GetExtractByIdResponse
                         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                         xmlns:data="http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData"
