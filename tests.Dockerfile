@@ -8,7 +8,7 @@ RUN apt update && \
 
 COPY requirements.txt requirements-tests.txt /app/
 
-ARG DEV_PACKAGES="libgeos-c1v5 libpq-dev"
+ARG DEV_PACKAGES="libgeos-c1v5 libpq-dev libffi-dev"
 ARG PYTHON_TEST_VERSION
 ENV PYTHON_DEV_PACKAGE=${PYTHON_TEST_VERSION}-dev
 RUN apt update && \

@@ -3,7 +3,7 @@ LABEL maintainer "info@camptocamp.org"
 
 WORKDIR /app
 
-ARG DEV_PACKAGES="libgeos-c1v5 libpq-dev"
+ARG DEV_PACKAGES="libgeos-c1v5 libpq-dev libffi-dev"
 ARG PYTHON_DEV_PACKAGES="python3.7-dev build-essential"
 
 # The full pdf extract functionality requires pdftk, but this library is not available in Ubuntu bionic.
