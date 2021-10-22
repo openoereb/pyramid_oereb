@@ -226,6 +226,7 @@ class Base(object):
             dict: The formatted geometry.
         """
         geom_dict = {
+            'type': geom.geom_type,
             'coordinates': mapping(geom)['coordinates'],
             'crs': 'EPSG:{srid}'.format(srid=Config.get('srid'))
             # isosqlmmwkb only used for curved geometries (not supported by shapely)
