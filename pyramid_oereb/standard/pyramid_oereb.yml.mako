@@ -324,12 +324,6 @@ pyramid_oereb:
         # The model which maps the logo images database table.
         model: pyramid_oereb.standard.models.main.Logo
 
-  # Define the document type values configured as default in the data
-  document_types_lookup:
-    GesetzlicheGrundlage: "GesetzlicheGrundlage"
-    Rechtsvorschrift: "Rechtsvorschrift"
-    Hinweis: "Hinweis"
-
   # The processor of the oereb project joins the document type labels. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
   # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
@@ -416,20 +410,30 @@ pyramid_oereb:
         # The model which maps the document type texts database table.
         model: pyramid_oereb.standard.models.main.LawStatus
 
-  # Define the real estate type values configured as default in the data
-  real_estate_type_lookup:
-    Liegenschaft: "Liegenschaft"
-    SelbstRecht.Baurecht: "SelbstRecht.Baurecht"
-    SelbstRecht.Quellenrecht: "SelbstRecht.Quellenrecht"
-    SelbstRecht.Konzessionsrecht: "SelbstRecht.Konzessionsrecht"
-    SelbstRecht.weitere: "SelbstRecht.weitere"
-    Bergwerk: "Bergwerk"
-
   # The processor of the oereb project joins the real estate type labels. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
   # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
   # the source. The model must implement the same field names and information as the default model does.
   real_estate_type:
+    lookup:
+      - data_code: Liegenschaft
+        extract_code: RealEstate
+        transfer_code: Liegenschaft
+      - data_code: SelbstRecht.Baurecht
+        extract_code: Distinct_and_permanent_rights.BuildingRight
+        transfer_code: SelbstRecht.Baurecht
+      - data_code: SelbstRecht.Quellenrecht
+        extract_code: Distinct_and_permanent_rights.right_to_spring_water
+        transfer_code: SelbstRecht.Quellenrecht
+      - data_code: SelbstRecht.Konzessionsrecht
+        extract_code: Distinct_and_permanent_rights.concession
+        transfer_code: SelbstRecht.Konzessionsrecht
+      - data_code: SelbstRecht.weitere
+        extract_code: Distinct_and_permanent_rights.other
+        transfer_code: SelbstRecht.weitere
+      - data_code: Bergwerk
+        extract_code: Mineral_rights
+        transfer_code: Bergwerk
     # The real estate type text elements must have a property source.
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
@@ -529,10 +533,26 @@ pyramid_oereb:
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: GesetzlicheGrundlage
+          extract_code: LegalProvision
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Rechtsvorschrift
+          extract_code: Law
+          transfer_code: Rechtsvorschrift
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
 
     - code: ch.ProjektierungszonenNationalstrassen
       geometry_type: MULTIPOLYGON
@@ -564,10 +584,26 @@ pyramid_oereb:
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: GesetzlicheGrundlage
+          extract_code: LegalProvision
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Rechtsvorschrift
+          extract_code: Law
+          transfer_code: Rechtsvorschrift
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
 
     - code: ch.BaulinienNationalstrassen
       geometry_type: LINESTRING
@@ -599,10 +635,26 @@ pyramid_oereb:
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: GesetzlicheGrundlage
+          extract_code: LegalProvision
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Rechtsvorschrift
+          extract_code: Law
+          transfer_code: Rechtsvorschrift
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
 
     - code: ch.ProjektierungszonenEisenbahnanlagen
       geometry_type: POLYGON
@@ -634,10 +686,26 @@ pyramid_oereb:
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: GesetzlicheGrundlage
+          extract_code: LegalProvision
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Rechtsvorschrift
+          extract_code: Law
+          transfer_code: Rechtsvorschrift
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
 
     - code: ch.BaulinienEisenbahnanlagen
       geometry_type: LINESTRING
@@ -669,10 +737,26 @@ pyramid_oereb:
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: GesetzlicheGrundlage
+          extract_code: LegalProvision
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Rechtsvorschrift
+          extract_code: Law
+          transfer_code: Rechtsvorschrift
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
 
     - code: ch.ProjektierungszonenFlughafenanlagen
       geometry_type: POLYGON
@@ -704,10 +788,26 @@ pyramid_oereb:
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: GesetzlicheGrundlage
+          extract_code: LegalProvision
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Rechtsvorschrift
+          extract_code: Law
+          transfer_code: Rechtsvorschrift
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
 
     - code: ch.BaulinienFlughafenanlagen
       geometry_type: LINESTRING
@@ -739,10 +839,26 @@ pyramid_oereb:
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: GesetzlicheGrundlage
+          extract_code: LegalProvision
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Rechtsvorschrift
+          extract_code: Law
+          transfer_code: Rechtsvorschrift
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
 
     - code: ch.Sicherheitszonenplan
       geometry_type: MULTIPOLYGON
@@ -774,10 +890,26 @@ pyramid_oereb:
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: GesetzlicheGrundlage
+          extract_code: LegalProvision
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Rechtsvorschrift
+          extract_code: Law
+          transfer_code: Rechtsvorschrift
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
       download: https://data.geo.admin.ch/ch.bazl.sicherheitszonenplan.oereb/data.zip
 
     - code: ch.BelasteteStandorte
@@ -810,10 +942,26 @@ pyramid_oereb:
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: GesetzlicheGrundlage
+          extract_code: LegalProvision
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Rechtsvorschrift
+          extract_code: Law
+          transfer_code: Rechtsvorschrift
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
 
     - code: ch.BelasteteStandorteMilitaer
       geometry_type: GEOMETRYCOLLECTION
@@ -845,10 +993,26 @@ pyramid_oereb:
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: GesetzlicheGrundlage
+          extract_code: LegalProvision
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Rechtsvorschrift
+          extract_code: Law
+          transfer_code: Rechtsvorschrift
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
 
     - code: ch.BelasteteStandorteZivileFlugplaetze
       geometry_type: GEOMETRYCOLLECTION
@@ -880,10 +1044,26 @@ pyramid_oereb:
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: GesetzlicheGrundlage
+          extract_code: LegalProvision
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Rechtsvorschrift
+          extract_code: Law
+          transfer_code: Rechtsvorschrift
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
 
     - code: ch.BelasteteStandorteOeffentlicherVerkehr
       geometry_type: GEOMETRYCOLLECTION
@@ -915,10 +1095,26 @@ pyramid_oereb:
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: GesetzlicheGrundlage
+          extract_code: LegalProvision
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Rechtsvorschrift
+          extract_code: Law
+          transfer_code: Rechtsvorschrift
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
 
     - code: ch.Grundwasserschutzzonen
       geometry_type: POLYGON
@@ -950,10 +1146,26 @@ pyramid_oereb:
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: GesetzlicheGrundlage
+          extract_code: LegalProvision
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Rechtsvorschrift
+          extract_code: Law
+          transfer_code: Rechtsvorschrift
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
 
     - code: ch.Grundwasserschutzareale
       geometry_type: POLYGON
@@ -985,10 +1197,26 @@ pyramid_oereb:
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: GesetzlicheGrundlage
+          extract_code: LegalProvision
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Rechtsvorschrift
+          extract_code: Law
+          transfer_code: Rechtsvorschrift
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
 
     - code: ch.Laermempfindlichkeitsstufen
       geometry_type: POLYGON
@@ -1020,10 +1248,26 @@ pyramid_oereb:
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: GesetzlicheGrundlage
+          extract_code: LegalProvision
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Rechtsvorschrift
+          extract_code: Law
+          transfer_code: Rechtsvorschrift
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
 
     - code: ch.StatischeWaldgrenzen
       geometry_type: LINESTRING
@@ -1058,10 +1302,26 @@ pyramid_oereb:
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: GesetzlicheGrundlage
+          extract_code: LegalProvision
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Rechtsvorschrift
+          extract_code: Law
+          transfer_code: Rechtsvorschrift
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
 
     - code: ch.Waldabstandslinien
       geometry_type: LINESTRING
@@ -1093,10 +1353,26 @@ pyramid_oereb:
       hooks:
         get_symbol: pyramid_oereb.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.standard.hook_methods.get_symbol_ref
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          extract_code: inForce
+          transfer_code: inKraft
+        - data_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+          transfer_code: AenderungMitVorwirkung
+        - data_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          transfer_code: AenderungOhneVorwirkung
+      document_types_lookup:
+        - data_code: GesetzlicheGrundlage
+          extract_code: LegalProvision
+          transfer_code: GesetzlicheGrundlage
+        - data_code: Rechtsvorschrift
+          extract_code: Law
+          transfer_code: Rechtsvorschrift
+        - data_code: Hinweis
+          extract_code: Hint
+          transfer_code: Hinweis
 
   # The error message returned if an error occurs when requesting a static extract
   # The content of the message is defined in the specification (document "Inhalt und Darstellung des statischen Auszugs")

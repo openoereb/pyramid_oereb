@@ -223,9 +223,9 @@ def test_return_json(egrid, topics):
         restrictions = real_estate.get('RestrictionOnLandownership')
         assert len(restrictions) == 4
         assert restrictions[1]['Theme']['Code'] == 'ch.BaulinienNationalstrassen'
-        assert restrictions[1]['Lawstatus']['Code'] == 'inKraft'
+        assert restrictions[1]['Lawstatus']['Code'] == 'changeWithoutPreEffect'
         assert restrictions[2]['Theme']['Code'] == 'ch.BaulinienNationalstrassen'
-        assert restrictions[2]['Lawstatus']['Code'] == 'AenderungOhneVorwirkung'
+        assert restrictions[2]['Lawstatus']['Code'] == 'inForce'
 
 
 def test_format_url():

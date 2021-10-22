@@ -4,6 +4,7 @@ import pytest
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
 
 from pyramid_oereb.lib.records.documents import DocumentRecord
+from pyramid_oereb.lib.records.document_types import DocumentTypeRecord
 from pyramid_oereb.lib.records.office import OfficeRecord
 from pyramid_oereb.lib.config import Config
 
@@ -16,8 +17,12 @@ def test_mandatory_fields():
 def test_init():
     office_record = OfficeRecord({'en': 'name'})
     law_status = Config.get_law_status_by_law_status_code(u'inKraft')
-    record = DocumentRecord('GesetzlicheGrundlage', 1, law_status, {'en': 'title'}, office_record,
-                            datetime.date(1985, 8, 29), text_at_web={'en': 'http://my.document.com'})
+    record = DocumentRecord(
+        DocumentTypeRecord('GesetzlicheGrundlage', {'de': 'Gesetzliche Grundlage'}),
+        1, law_status, {'en': 'title'},
+        office_record, datetime.date(1985, 8, 29),
+        text_at_web={'en': 'http://my.document.com'}
+    )
     assert isinstance(record.document_type, str)
     assert isinstance(record.index, int)
     assert isinstance(record.law_status, LawStatusRecord)
@@ -43,26 +48,35 @@ def test_invalid_document_type():
 def test_future_document():
     office_record = OfficeRecord({'en': 'name'})
     law_status = Config.get_law_status_by_law_status_code(u'inKraft')
-    record = DocumentRecord('Hinweis', 1, law_status, {'en': 'title'}, office_record,
-                            (datetime.datetime.now().date() + datetime.timedelta(days=7)),
-                            text_at_web={'en': 'http://my.document.com'})
+    record = DocumentRecord(
+        DocumentTypeRecord('Hinweis', {'de': 'Hinweis'}),
+        1, law_status, {'en': 'title'}, office_record,
+        (datetime.datetime.now().date() + datetime.timedelta(days=7)),
+        text_at_web={'en': 'http://my.document.com'}
+    )
     assert not record.published
 
 
 def test_past_document():
     office_record = OfficeRecord({'en': 'name'})
     law_status = Config.get_law_status_by_law_status_code(u'inKraft')
-    record = DocumentRecord('Hinweis', 1, law_status, {'en': 'title'}, office_record,
-                            (datetime.datetime.now().date() - datetime.timedelta(days=7)),
-                            published_until=(datetime.datetime.now().date() - datetime.timedelta(days=6)),
-                            text_at_web={'en': 'http://my.document.com'})
+    record = DocumentRecord(
+        DocumentTypeRecord('Hinweis', {'de': 'Hinweis'}),
+        1, law_status, {'en': 'title'}, office_record,
+        (datetime.datetime.now().date() - datetime.timedelta(days=7)),
+        published_until=(datetime.datetime.now().date() - datetime.timedelta(days=6)),
+        text_at_web={'en': 'http://my.document.com'}
+    )
     assert not record.published
 
 
 def test_legal_provision():
     office_record = OfficeRecord({'en': 'name'})
     law_status = Config.get_law_status_by_law_status_code(u'inKraft')
-    legal_provision = DocumentRecord('Rechtsvorschrift', 1, law_status, {'de': 'title'},
-                                     office_record, datetime.date(1985, 8, 29))
+    legal_provision = DocumentRecord(
+        DocumentTypeRecord('Rechtsvorschrift', {'de': 'Rechtsvorschrift'}),
+        1, law_status, {'de': 'title'},
+        office_record, datetime.date(1985, 8, 29)
+    )
     assert isinstance(legal_provision.document_type, str)
     assert legal_provision.document_type == 'Rechtsvorschrift'

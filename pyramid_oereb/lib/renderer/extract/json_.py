@@ -212,7 +212,7 @@ class Renderer(Base):
 
         assert isinstance(self._params, Parameter)
 
-        real_estate_type = Config.get_real_estate_type_by_code(real_estate.type)
+        real_estate_type = Config.get_real_estate_type_by_data_code(real_estate.type)
         real_estate_dict = {
             'Type': {
                 'Code': real_estate.type,
@@ -346,7 +346,7 @@ class Renderer(Base):
 
         multilingual_text_at_web = self.get_multilingual_text(document.text_at_web)
 
-        document_type = Config.get_document_type_by_code(document.document_type)
+        document_type = document.document_type
 
         document_dict.update({
             'DocumentType': {

@@ -22,16 +22,12 @@
 %endif
 %if map.min is not None:
 <data:min>
-    <gml:Point gml:id="${get_gml_id()}">
-        <gml:pos>${map.min.x} ${map.min.y}</gml:pos>
-    </gml:Point>
+    <%include file="geometry/point.xml" args="coords=map.min.coords[0]"/>
 </data:min>
 %endif
 %if map.max is not None:
 <data:max>
-    <gml:Point gml:id="${get_gml_id()}">
-        <gml:pos>${map.max.x} ${map.max.y}</gml:pos>
-    </gml:Point>
+    <%include file="geometry/point.xml" args="coords=map.max.coords[0]"/>
 </data:max>
 %endif
 <data:layerIndex>${map.layer_index | x}</data:layerIndex>

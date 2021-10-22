@@ -1,7 +1,7 @@
 <%page args="geometry"/>
 %if 'Point' == geometry.type:
 <data:Point>
-    <%include file="geometry/point.xml" args="point=geometry"/>
+    <%include file="geometry/point.xml" args="coords=geometry.coords[0]"/>
 </data:Point>
 %elif 'LineString' == geometry.type:
 <data:Line>

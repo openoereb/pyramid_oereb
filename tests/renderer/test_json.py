@@ -10,6 +10,7 @@ from pyramid.path import DottedNameResolver
 from pyramid_oereb import Config
 from pyramid_oereb.lib.adapter import FileAdapter
 from pyramid_oereb.lib.records.documents import DocumentRecord
+from pyramid_oereb.lib.records.document_types import DocumentTypeRecord
 from pyramid_oereb.lib.records.disclaimer import DisclaimerRecord
 from pyramid_oereb.lib.records.extract import ExtractRecord
 from pyramid_oereb.lib.records.geometry import GeometryRecord
@@ -346,7 +347,7 @@ def test_format_plr(parameter):
 @pytest.mark.parametrize('document,result_dict', [
     (
         DocumentRecord(
-            document_type='Rechtsvorschrift',
+            document_type=DocumentTypeRecord('Rechtsvorschrift', {"de": "Rechtsvorschrift"}),
             index=2,
             law_status=law_status(),
             title={'de': 'Test Rechtsvorschrift'},
@@ -377,7 +378,7 @@ def test_format_plr(parameter):
         }
     ), (
         DocumentRecord(
-            document_type='GesetzlicheGrundlage',
+            document_type=DocumentTypeRecord('GesetzlicheGrundlage', {"de": "GesetzlicheGrundlage"}),
             index=1,
             law_status=law_status(),
             title={'de': 'Test Gesetz'},
@@ -404,7 +405,7 @@ def test_format_plr(parameter):
         }
     ), (
         DocumentRecord(
-            document_type='Hinweis',
+            document_type=DocumentTypeRecord('Hinweis', {"de": "Hinweis"}),
             index=3,
             law_status=law_status(),
             title={'de': 'Test Hinweis'},

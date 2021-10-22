@@ -257,7 +257,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         geometry_records = []
         for geometry_from_db in geometries_from_db:
             # Create law status record
-            law_status = Config.get_law_status_by_code(
+            law_status = Config.get_law_status_by_data_code(
                     self._plr_info.get('code'),
                     geometry_from_db.law_status
                 )
@@ -305,12 +305,15 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         document_records = []
         for document in documents_from_db:
             office_record = self.from_db_to_office_record(document.responsible_office)
-            law_status = Config.get_law_status_by_code(
+            law_status = Config.get_law_status_by_data_code(
                 self._plr_info.get('code'),
                 document.law_status
             )
             document_records.append(self._documents_record_class(
-                document_type=document.document_type,
+                document_type=Config.get_document_type_by_data_code(
+                    self._plr_info.get('code'),
+                    document.document_type
+                ),
                 index=document.index,
                 law_status=law_status,
                 title=from_multilingual_text_to_dict(
@@ -373,7 +376,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             document_records = theme.document_records +\
                 self.get_document_records(params, public_law_restriction_from_db)
         geometry_records = self.from_db_to_geometry_records(public_law_restriction_from_db.geometries)
-        law_status = Config.get_law_status_by_code(
+        law_status = Config.get_law_status_by_data_code(
             self._plr_info.get('code'),
             public_law_restriction_from_db.law_status
         )

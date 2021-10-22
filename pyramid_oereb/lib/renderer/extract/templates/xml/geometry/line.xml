@@ -1,7 +1,7 @@
 <%page args="line"/>
-<% from itertools import chain %>
-<gml:LineString gml:id="${get_gml_id()}">
-    <gml:posList>
-        ${' '.join(map(str,chain.from_iterable(line.coords)))}
-    </gml:posList>
-</gml:LineString>
+
+% for coords in line.coords:
+<geometry:coord>
+    <%include file="point.xml" args="coords=coords"/>
+</geometry:coord>
+% endfor

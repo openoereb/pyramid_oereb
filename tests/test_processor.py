@@ -276,6 +276,6 @@ def test_processor_sort_by_law_status():
     plrs = extract.real_estate.public_law_restrictions
     assert len(plrs) == 4
     assert plrs[1].theme.code == 'ch.BaulinienNationalstrassen'
-    assert plrs[1].law_status.code == 'inKraft'
+    assert plrs[1].law_status.code == 'changeWithoutPreEffect'
     assert plrs[2].theme.code == 'ch.BaulinienNationalstrassen'
-    assert plrs[2].law_status.code == 'AenderungOhneVorwirkung'
+    assert plrs[2].law_status.code == 'inForce'

@@ -1,10 +1,6 @@
 <%page args="document"/>
-<%
-    from pyramid_oereb import Config
-    document_type = Config.get_document_type_by_code(document.document_type)
-%>
 <data:Type>
-    <%include file="document_type.xml" args="document_type=document_type"/>
+    <%include file="document_type.xml" args="document_type=document.document_type"/>
 </data:Type>
 <data:Title>
     <%include file="multilingual_text.xml" args="text=document.title, not_null=True"/>

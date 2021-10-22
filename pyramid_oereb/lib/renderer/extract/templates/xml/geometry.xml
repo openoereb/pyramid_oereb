@@ -6,7 +6,9 @@
     <data:Lawstatus>
         <%include file="law_status.xml" args="law_status=geometry.law_status"/>
     </data:Lawstatus>
+    % if geometry.geo_metadata is not None:
     <data:MetadataOfGeographicalBaseData>
-        ${geometry.geo_metadata}
+        ${geometry.geo_metadata | x}
     </data:MetadataOfGeographicalBaseData>
+    % endif
 </data:Geometry>
