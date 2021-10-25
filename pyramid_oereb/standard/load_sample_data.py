@@ -210,7 +210,8 @@ class SampleData(object):
         forest_perimeters = themes['ch.StatischeWaldgrenzen']
 
         from pyramid_oereb.standard.models.main import Theme, Logo, DocumentTypeText, RealEstate, Address, \
-            Municipality, Glossary, Disclaimer, GeneralInformation, RealEstateType, LawStatus, Document, Office
+            Municipality, Glossary, Disclaimer, GeneralInformation, RealEstateType, LawStatus, Document, \
+            Office
 
         if self._sql_file is None:
             self._connection = self._engine.connect()
