@@ -170,11 +170,11 @@ class OEREBlexSource(Base):
 
         # Get document type
         if document.doctype == 'decree':
-            document_type = 'Rechtsvorschrift'
+            document_type = Config.get_document_type_by_code('Rechtsvorschrift')
         elif document.doctype == 'edict':
-            document_type = 'GesetzlicheGrundlage'
+            document_type = Config.get_document_type_by_code('GesetzlicheGrundlage')
         elif document.doctype == 'notice':
-            document_type = 'Hinweis'
+            document_type = Config.get_document_type_by_code('Hinweis')
         else:
             raise TypeError('Wrong doctype: expected decree, edict or notice, got {0}'.format(
                 document.doctype
