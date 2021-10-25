@@ -50,6 +50,7 @@ class Renderer(Base):
 
         extract_dict = self._render(value[0], value[1])
         result = {
+            '$schema': 'https://raw.githubusercontent.com/openoereb/schemas/1744277f2f4c8a67061b42072d77458da6b0d90e/extract.json',  # noqa: E501
             u'GetExtractByIdResponse': {
                 u'extract': extract_dict
             }
@@ -87,7 +88,7 @@ class Renderer(Base):
         extract_dict = {
             'CreationDate': self.date_time(extract.creation_date),
             'ExtractIdentifier': extract.extract_identifier,
-            'UpdateDateOS': self.date_time(extract.update_date_os),
+            'UpdateDateCS': self.date_time(extract.update_date_os),
             'PLRCadastreAuthority': self.format_office(extract.plr_cadastre_authority),
             'RealEstate': self.format_real_estate(extract.real_estate),
             'ConcernedTheme': [self.format_theme(theme) for theme in extract.concerned_theme],
@@ -162,10 +163,9 @@ class Renderer(Base):
         if isinstance(extract.general_information, list) and len(extract.general_information) > 0:
             general_information = list()
             for info in extract.general_information:
-                general_information.append({
-                    'Title': self.get_multilingual_text(info.title),
-                    'Content': self.get_multilingual_text(info.content)
-                })
+                general_information.append(
+                    self.get_multilingual_text(info.content)
+                )
             extract_dict['GeneralInformation'] = general_information
 
         if isinstance(extract.disclaimers, list) and len(extract.disclaimers) > 0:
@@ -215,12 +215,12 @@ class Renderer(Base):
         real_estate_type = Config.get_real_estate_type_by_data_code(real_estate.type)
         real_estate_dict = {
             'Type': {
-                'Code': real_estate.type,
+                'Code': real_estate_type.code,
                 'Text': self.get_multilingual_text(real_estate_type.title)
             },
             'Canton': real_estate.canton,
-            'Municipality': real_estate.municipality,
-            'FosNr': real_estate.fosnr,
+            'MunicipalityName': real_estate.municipality,
+            'MunicipalityCode': real_estate.fosnr,
             'LandRegistryArea': real_estate.land_registry_area,
             'PlanForLandRegister': self.format_map(real_estate.plan_for_land_register),
             'PlanForLandRegisterMainPage': self.format_map(real_estate.plan_for_land_register_main_page)
@@ -349,7 +349,7 @@ class Renderer(Base):
         document_type = document.document_type
 
         document_dict.update({
-            'DocumentType': {
+            'Type': {
                 'Code': document_type.code,
                 'Text': self.get_multilingual_text(document_type.title)
             },
@@ -444,9 +444,9 @@ class Renderer(Base):
         if office.street is not None:
             office_dict['Street'] = office.street
         if office.number is not None:
-            office_dict['Number'] = office.number
+            office_dict['Number'] = str(office.number)
         if office.postal_code is not None:
-            office_dict['PostalCode'] = office.postal_code
+            office_dict['PostalCode'] = str(office.postal_code)
         if office.city is not None:
             office_dict['City'] = office.city
         return office_dict
@@ -464,7 +464,7 @@ class Renderer(Base):
         """
         theme_dict = {
             'Code': theme.code,
-            'Text': self.get_localized_text(theme.title)
+            'Text': [self.get_localized_text(theme.title)]
         }
         if theme.sub_code:  # only for sub-themes
             theme_dict.update({'Sub_Code': theme.sub_code})
@@ -537,6 +537,7 @@ class Renderer(Base):
     @staticmethod
     def format_point(point, crs):
         return {
+            'type': 'Point',
             'coordinates': [point.x, point.y],
             'crs': crs
         }
