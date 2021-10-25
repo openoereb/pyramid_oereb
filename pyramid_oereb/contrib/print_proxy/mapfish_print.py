@@ -220,10 +220,17 @@ class Renderer(JsonRenderer):
         extract_dict['ConcernedTheme'] = []
         for attr_name in ['NotConcernedTheme', 'ThemeWithoutData']:
             for theme in extract_dict[attr_name]:
-                self._localised_text(theme, 'Text')
+                self._multilingual_text(theme, 'Text')
         self._flatten_object(extract_dict, 'PLRCadastreAuthority')
         self._multilingual_text(extract_dict, 'PLRCadastreAuthority_OfficeAtWeb')
         self._flatten_object(extract_dict, 'RealEstate')
+
+        #TODO temporary fix to get static extract. JSON Attributes were renamed 
+        # RealEstate.MunicipalityName instead RealEstate.Municipality and
+        # RealEstate.MunicipalityCode instead RealEsteta.FosNr
+        extract_dict['RealEstate_Municipality'] = extract_dict['RealEstate_MunicipalityName']
+        extract_dict['RealEstate_FosNr'] = extract_dict['RealEstate_MunicipalityCode']
+
         self._multilingual_text(extract_dict['RealEstate_Type'], 'Text')
         self._flatten_object(extract_dict, 'RealEstate_Type')
         if 'Image' in extract_dict.get('RealEstate_Highlight', {}):
@@ -263,9 +270,16 @@ class Renderer(JsonRenderer):
         }
         del extract_dict['RealEstate_PlanForLandRegister']  # /definitions/Map
 
-        self._multilingual_m_text(extract_dict['GeneralInformation'][0], 'Content')
-        extract_dict['GeneralInformation'] = extract_dict['GeneralInformation'][0]['Content']
-        update_date_os = datetime.strptime(extract_dict['UpdateDateOS'], '%Y-%m-%dT%H:%M:%S')
+        flattened_general_info = []
+        for item in extract_dict['GeneralInformation']:
+            lang_obj = dict([(e['Language'], e['Text']) for e in item])
+            if self._language in lang_obj.keys():
+                flattened_general_info.append(lang_obj[self._language])
+            else:
+                flattened_general_info.append(lang_obj[self._fallback_language])
+        #TODO handle multiple general information corretly, it can be an array now!
+        extract_dict['GeneralInformation'] = flattened_general_info[0]
+        update_date_os = datetime.strptime(extract_dict['UpdateDateCS'], '%Y-%m-%dT%H:%M:%S')
         extract_dict['UpdateDateOS'] = update_date_os.strftime('%d.%m.%Y')
         self._multilingual_m_text(extract_dict, 'Certification')
         self._multilingual_m_text(extract_dict, 'CertificationAtWeb')
@@ -280,8 +294,8 @@ class Renderer(JsonRenderer):
             self._flatten_object(restriction_on_landownership, 'Theme')
             self._flatten_object(restriction_on_landownership, 'SubTheme')
             self._flatten_array_object(restriction_on_landownership, 'Geometry', 'ResponsibleOffice')
-            self._localised_text(restriction_on_landownership, 'Theme_Text')
-            self._localised_text(restriction_on_landownership, 'SubTheme_Text')
+            self._multilingual_text(restriction_on_landownership, 'Theme_Text')
+            self._multilingual_text(restriction_on_landownership, 'SubTheme_Text')
             self._multilingual_text(restriction_on_landownership, 'Lawstatus_Text')
             self._multilingual_m_text(restriction_on_landownership, 'LegendText')
 
@@ -576,7 +590,7 @@ class Renderer(JsonRenderer):
             hints (dict): The Hints dictionary to fill.
         """
         uid = Renderer._get_element_of_legal_provision_maybe_uid(document)
-        documentType = document.get('DocumentType').get('Code')
+        documentType = document.get('Type').get('Code')
         if documentType is None:
             error_msg = "mandatory attribute document_type is missing in document " \
                         ": {}".format(document)
