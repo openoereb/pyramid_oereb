@@ -138,6 +138,7 @@ $(TEXTS_XML): $(FED_TMP_TIMESTAMP)
 THEMES_JSON = $(PG_DEV_DATA_DIR)/ch.themes.json
 THEMES_DOCS_JSON = $(PG_DEV_DATA_DIR)/ch.themes_docs.json
 LAWS_JSON = $(PG_DEV_DATA_DIR)/ch.laws.json
+LAW_RESPONSIBLE_OFFICES_JSON = $(PG_DEV_DATA_DIR)/ch.laws_responsible_office.json
 LOGOS_JSON = $(PG_DEV_DATA_DIR)/ch.logo.json
 LAW_STATUS_JSON = $(PG_DEV_DATA_DIR)/ch.law_status.json
 DOCUMENT_TYPE_JSON = $(PG_DEV_DATA_DIR)/ch.document_type.json
@@ -150,6 +151,7 @@ GENERAL_INFORMATION_JSON = $(PG_DEV_DATA_DIR)/ch.general_information.json
 THEMES_XSL = fed/themes.json.xsl
 THEMES_DOCS_XSL = fed/themes_docs.json.xsl
 LAWS_XSL = fed/laws.json.xsl
+LAW_RESPONSIBLE_OFFICES_XSL = fed/laws_responsible_office.json.xsl
 LOGOS_XSL = fed/logos.json.xsl
 LAW_STATUS_XSL = fed/law_status.json.xsl
 DOCUMENT_TYPE_XSL = fed/document_type.json.xsl
@@ -166,6 +168,9 @@ $(THEMES_DOCS_JSON): $(THEMES_XML) $(THEMES_DOCS_XSL)
 
 $(LAWS_JSON): $(LAWS_XML) $(LAWS_XSL)
 	xsltproc $(LAWS_XSL) $< > $@
+
+$(LAW_RESPONSIBLE_OFFICES_JSON): $(LAWS_XML) $(LAW_RESPONSIBLE_OFFICES_XSL)
+	xsltproc $(LAW_RESPONSIBLE_OFFICES_XSL) $< > $@
 
 $(LOGOS_JSON): $(LOGOS_XML) $(LOGOS_XSL)
 	xsltproc $(LOGOS_XSL) $< > $@
@@ -191,6 +196,7 @@ $(GENERAL_INFORMATION_JSON): $(TEXTS_XML) $(GENERAL_INFORMATION_XSL)
 FED_JSONS = $(THEMES_JSON) \
 	$(THEMES_DOCS_JSON) \
 	$(LAWS_JSON) \
+	$(LAW_RESPONSIBLE_OFFICES_JSON) \
 	$(LOGOS_JSON) \
 	$(LAW_STATUS_JSON) \
 	$(DOCUMENT_TYPE_JSON) \
