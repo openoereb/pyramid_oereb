@@ -74,4 +74,5 @@ sample_data/ch.real_estate_type.json
 sample_data/ch.glossary.json
 sample_data/ch.disclaimer.json
 sample_data/ch.general_information.json
+sample_data/ch.law_responsible_offices.json
 DataExtract.json

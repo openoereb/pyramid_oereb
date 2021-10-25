@@ -139,7 +139,7 @@ class Address(Base):
     geom = Column(Geometry('POINT', srid=srid))
 
 
-Office = get_office(Base, app_schema_name, Integer)
+Office = get_office(Base, app_schema_name, String)
 Document = get_document(Base, app_schema_name, Integer, Office)
 
 

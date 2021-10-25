@@ -138,7 +138,7 @@ $(TEXTS_XML): $(FED_TMP_TIMESTAMP)
 THEMES_JSON = $(PG_DEV_DATA_DIR)/ch.themes.json
 THEMES_DOCS_JSON = $(PG_DEV_DATA_DIR)/ch.themes_docs.json
 LAWS_JSON = $(PG_DEV_DATA_DIR)/ch.laws.json
-LAW_RESPONSIBLE_OFFICES_JSON = $(PG_DEV_DATA_DIR)/ch.laws_responsible_office.json
+LAW_RESPONSIBLE_OFFICES_JSON = $(PG_DEV_DATA_DIR)/ch.law_responsible_offices.json
 LOGOS_JSON = $(PG_DEV_DATA_DIR)/ch.logo.json
 LAW_STATUS_JSON = $(PG_DEV_DATA_DIR)/ch.law_status.json
 DOCUMENT_TYPE_JSON = $(PG_DEV_DATA_DIR)/ch.document_type.json
