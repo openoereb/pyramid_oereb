@@ -464,20 +464,7 @@ class Renderer(JsonRenderer):
                    ):
                     restriction_on_landownership[element] = \
                         self.group_legal_provisions(restriction_on_landownership[element])
-
-            # sort legal provisioning, hints and laws
-            restriction_on_landownership['LegalProvisions'] = self.sort_dict_list(
-                restriction_on_landownership['LegalProvisions'],
-                self.sort_legal_provision
-            )
-            restriction_on_landownership['Laws'] = self.sort_dict_list(
-                restriction_on_landownership['Laws'],
-                self.sort_laws
-            )
-            restriction_on_landownership['Hints'] = self.sort_dict_list(
-                restriction_on_landownership['Hints'],
-                self.sort_hints
-            )
+            self.sort_restriction_on_landownership_documents(restriction_on_landownership)
 
         restrictions = list(theme_restriction.values())
         for restriction in restrictions:
@@ -548,6 +535,21 @@ class Renderer(JsonRenderer):
 
         log.debug("After transformation, extract_dict is {}".format(extract_dict))
         return extract_dict
+
+    @staticmethod 
+    def sort_restriction_on_landownership_documents(restriction_on_landownership):
+        restriction_on_landownership['LegalProvisions'] = Renderer.sort_dict_list(
+            restriction_on_landownership['LegalProvisions'],
+            Renderer.sort_legal_provision
+        )
+        restriction_on_landownership['Laws'] = Renderer.sort_dict_list(
+            restriction_on_landownership['Laws'],
+            Renderer.sort_laws
+        )
+        restriction_on_landownership['Hints'] = Renderer.sort_dict_list(
+            restriction_on_landownership['Hints'],
+            Renderer.sort_hints
+        )
 
     @staticmethod
     def group_legal_provisions(legal_provisions):
