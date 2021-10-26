@@ -139,8 +139,8 @@ class Address(Base):
     geom = Column(Geometry('POINT', srid=srid))
 
 
-Office = get_office(Base, app_schema_name, Integer)
-Document = get_document(Base, app_schema_name, Integer, Office)
+Office = get_office(Base, app_schema_name, String)
+Document = get_document(Base, app_schema_name, String, Office)
 
 
 class Theme(Base):
