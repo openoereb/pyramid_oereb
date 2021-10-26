@@ -294,12 +294,10 @@ class ThemeDocument(Base):
 
     id = Column(String, primary_key=True)
     theme_id = Column(
-        String,
         ForeignKey(Theme.id),
         nullable=False
     )
     document_id = Column(
-        Integer,
         ForeignKey(Document.id),
         nullable=False
     )
