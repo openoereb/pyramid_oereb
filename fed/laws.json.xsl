@@ -25,9 +25,10 @@
             "<xsl:value-of select="ili:Language"/>": "<xsl:value-of select="ili:Text"/>"<xsl:if test="not(position() = last())">,</xsl:if>
         </xsl:for-each>
         },
+        "index": "<xsl:value-of select="ili:AuszugIndex"/>",
         "law_status": "<xsl:value-of select="ili:Rechtsstatus"/>",
         "published_from": "<xsl:value-of select="ili:publiziertAb"/>",
-        "responsible_office": "<xsl:value-of select="ili:ZustaendigeStelle/@REF"/>"
+        "office_id": "<xsl:value-of select="ili:ZustaendigeStelle/@REF"/>"
     }<xsl:if test="not(position() = last())">,</xsl:if>
 </xsl:for-each>
 ]

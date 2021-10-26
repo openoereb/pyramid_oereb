@@ -140,7 +140,7 @@ class Address(Base):
 
 
 Office = get_office(Base, app_schema_name, String)
-Document = get_document(Base, app_schema_name, Integer, Office)
+Document = get_document(Base, app_schema_name, String, Office)
 
 
 class Theme(Base):

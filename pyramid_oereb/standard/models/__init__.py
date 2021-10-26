@@ -121,7 +121,6 @@ def get_document(base, schema_name, pk_type, Office):
         law_status = Column(String, nullable=False)
         title = Column(JSONType, nullable=False)
         office_id = Column(
-            pk_type,
             ForeignKey(Office.id),
             nullable=False
         )
