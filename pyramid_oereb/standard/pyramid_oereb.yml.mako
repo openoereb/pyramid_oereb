@@ -544,12 +544,12 @@ pyramid_oereb:
           extract_code: changeWithoutPreEffect
           transfer_code: AenderungOhneVorwirkung
       document_types_lookup:
-        - data_code: GesetzlicheGrundlage
-          extract_code: LegalProvision
-          transfer_code: GesetzlicheGrundlage
         - data_code: Rechtsvorschrift
-          extract_code: Law
+          extract_code: LegalProvision
           transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
         - data_code: Hinweis
           extract_code: Hint
           transfer_code: Hinweis
@@ -595,12 +595,12 @@ pyramid_oereb:
           extract_code: changeWithoutPreEffect
           transfer_code: AenderungOhneVorwirkung
       document_types_lookup:
-        - data_code: GesetzlicheGrundlage
-          extract_code: LegalProvision
-          transfer_code: GesetzlicheGrundlage
         - data_code: Rechtsvorschrift
-          extract_code: Law
+          extract_code: LegalProvision
           transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
         - data_code: Hinweis
           extract_code: Hint
           transfer_code: Hinweis
@@ -646,12 +646,12 @@ pyramid_oereb:
           extract_code: changeWithoutPreEffect
           transfer_code: AenderungOhneVorwirkung
       document_types_lookup:
-        - data_code: GesetzlicheGrundlage
-          extract_code: LegalProvision
-          transfer_code: GesetzlicheGrundlage
         - data_code: Rechtsvorschrift
-          extract_code: Law
+          extract_code: LegalProvision
           transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
         - data_code: Hinweis
           extract_code: Hint
           transfer_code: Hinweis
@@ -697,12 +697,12 @@ pyramid_oereb:
           extract_code: changeWithoutPreEffect
           transfer_code: AenderungOhneVorwirkung
       document_types_lookup:
-        - data_code: GesetzlicheGrundlage
-          extract_code: LegalProvision
-          transfer_code: GesetzlicheGrundlage
         - data_code: Rechtsvorschrift
-          extract_code: Law
+          extract_code: LegalProvision
           transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
         - data_code: Hinweis
           extract_code: Hint
           transfer_code: Hinweis
@@ -748,12 +748,12 @@ pyramid_oereb:
           extract_code: changeWithoutPreEffect
           transfer_code: AenderungOhneVorwirkung
       document_types_lookup:
-        - data_code: GesetzlicheGrundlage
-          extract_code: LegalProvision
-          transfer_code: GesetzlicheGrundlage
         - data_code: Rechtsvorschrift
-          extract_code: Law
+          extract_code: LegalProvision
           transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
         - data_code: Hinweis
           extract_code: Hint
           transfer_code: Hinweis
@@ -799,12 +799,12 @@ pyramid_oereb:
           extract_code: changeWithoutPreEffect
           transfer_code: AenderungOhneVorwirkung
       document_types_lookup:
-        - data_code: GesetzlicheGrundlage
-          extract_code: LegalProvision
-          transfer_code: GesetzlicheGrundlage
         - data_code: Rechtsvorschrift
-          extract_code: Law
+          extract_code: LegalProvision
           transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
         - data_code: Hinweis
           extract_code: Hint
           transfer_code: Hinweis
@@ -850,12 +850,12 @@ pyramid_oereb:
           extract_code: changeWithoutPreEffect
           transfer_code: AenderungOhneVorwirkung
       document_types_lookup:
-        - data_code: GesetzlicheGrundlage
-          extract_code: LegalProvision
-          transfer_code: GesetzlicheGrundlage
         - data_code: Rechtsvorschrift
-          extract_code: Law
+          extract_code: LegalProvision
           transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
         - data_code: Hinweis
           extract_code: Hint
           transfer_code: Hinweis
@@ -901,12 +901,12 @@ pyramid_oereb:
           extract_code: changeWithoutPreEffect
           transfer_code: AenderungOhneVorwirkung
       document_types_lookup:
-        - data_code: GesetzlicheGrundlage
-          extract_code: LegalProvision
-          transfer_code: GesetzlicheGrundlage
         - data_code: Rechtsvorschrift
-          extract_code: Law
+          extract_code: LegalProvision
           transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
         - data_code: Hinweis
           extract_code: Hint
           transfer_code: Hinweis
@@ -953,12 +953,12 @@ pyramid_oereb:
           extract_code: changeWithoutPreEffect
           transfer_code: AenderungOhneVorwirkung
       document_types_lookup:
-        - data_code: GesetzlicheGrundlage
-          extract_code: LegalProvision
-          transfer_code: GesetzlicheGrundlage
         - data_code: Rechtsvorschrift
-          extract_code: Law
+          extract_code: LegalProvision
           transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
         - data_code: Hinweis
           extract_code: Hint
           transfer_code: Hinweis
@@ -1004,12 +1004,12 @@ pyramid_oereb:
           extract_code: changeWithoutPreEffect
           transfer_code: AenderungOhneVorwirkung
       document_types_lookup:
-        - data_code: GesetzlicheGrundlage
-          extract_code: LegalProvision
-          transfer_code: GesetzlicheGrundlage
         - data_code: Rechtsvorschrift
-          extract_code: Law
+          extract_code: LegalProvision
           transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
         - data_code: Hinweis
           extract_code: Hint
           transfer_code: Hinweis
@@ -1055,12 +1055,12 @@ pyramid_oereb:
           extract_code: changeWithoutPreEffect
           transfer_code: AenderungOhneVorwirkung
       document_types_lookup:
-        - data_code: GesetzlicheGrundlage
-          extract_code: LegalProvision
-          transfer_code: GesetzlicheGrundlage
         - data_code: Rechtsvorschrift
-          extract_code: Law
+          extract_code: LegalProvision
           transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
         - data_code: Hinweis
           extract_code: Hint
           transfer_code: Hinweis
@@ -1106,12 +1106,12 @@ pyramid_oereb:
           extract_code: changeWithoutPreEffect
           transfer_code: AenderungOhneVorwirkung
       document_types_lookup:
-        - data_code: GesetzlicheGrundlage
-          extract_code: LegalProvision
-          transfer_code: GesetzlicheGrundlage
         - data_code: Rechtsvorschrift
-          extract_code: Law
+          extract_code: LegalProvision
           transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
         - data_code: Hinweis
           extract_code: Hint
           transfer_code: Hinweis
@@ -1157,12 +1157,12 @@ pyramid_oereb:
           extract_code: changeWithoutPreEffect
           transfer_code: AenderungOhneVorwirkung
       document_types_lookup:
-        - data_code: GesetzlicheGrundlage
-          extract_code: LegalProvision
-          transfer_code: GesetzlicheGrundlage
         - data_code: Rechtsvorschrift
-          extract_code: Law
+          extract_code: LegalProvision
           transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
         - data_code: Hinweis
           extract_code: Hint
           transfer_code: Hinweis
@@ -1208,12 +1208,12 @@ pyramid_oereb:
           extract_code: changeWithoutPreEffect
           transfer_code: AenderungOhneVorwirkung
       document_types_lookup:
-        - data_code: GesetzlicheGrundlage
-          extract_code: LegalProvision
-          transfer_code: GesetzlicheGrundlage
         - data_code: Rechtsvorschrift
-          extract_code: Law
+          extract_code: LegalProvision
           transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
         - data_code: Hinweis
           extract_code: Hint
           transfer_code: Hinweis
@@ -1259,12 +1259,12 @@ pyramid_oereb:
           extract_code: changeWithoutPreEffect
           transfer_code: AenderungOhneVorwirkung
       document_types_lookup:
-        - data_code: GesetzlicheGrundlage
-          extract_code: LegalProvision
-          transfer_code: GesetzlicheGrundlage
         - data_code: Rechtsvorschrift
-          extract_code: Law
+          extract_code: LegalProvision
           transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
         - data_code: Hinweis
           extract_code: Hint
           transfer_code: Hinweis
@@ -1313,12 +1313,12 @@ pyramid_oereb:
           extract_code: changeWithoutPreEffect
           transfer_code: AenderungOhneVorwirkung
       document_types_lookup:
-        - data_code: GesetzlicheGrundlage
-          extract_code: LegalProvision
-          transfer_code: GesetzlicheGrundlage
         - data_code: Rechtsvorschrift
-          extract_code: Law
+          extract_code: LegalProvision
           transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
         - data_code: Hinweis
           extract_code: Hint
           transfer_code: Hinweis
@@ -1364,12 +1364,12 @@ pyramid_oereb:
           extract_code: changeWithoutPreEffect
           transfer_code: AenderungOhneVorwirkung
       document_types_lookup:
-        - data_code: GesetzlicheGrundlage
-          extract_code: LegalProvision
-          transfer_code: GesetzlicheGrundlage
         - data_code: Rechtsvorschrift
-          extract_code: Law
+          extract_code: LegalProvision
           transfer_code: Rechtsvorschrift
+        - data_code: GesetzlicheGrundlage
+          extract_code: Law
+          transfer_code: GesetzlicheGrundlage
         - data_code: Hinweis
           extract_code: Hint
           transfer_code: Hinweis
