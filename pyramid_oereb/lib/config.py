@@ -877,7 +877,7 @@ class Config(object):
             raise ConfigurationError("The law status have not been initialized")
 
         for record in Config.law_status:
-            if law_status_code == law_status_code:
+            if record.code == law_status_code:
                 return record
         raise ConfigurationError(f"Law status {law_status_code} not found in the application configuration")
 
