@@ -202,7 +202,7 @@ def get_data_integration(base, schema_name, pk_type, Office):
         __tablename__ = 'data_integration'
         id = Column(pk_type, primary_key=True, autoincrement=False)
         date = Column(DateTime, nullable=False)
-        office_id = Column(pk_type, ForeignKey(Office.id), nullable=False)
+        office_id = Column(ForeignKey(Office.id), nullable=False)
         office = relationship(Office)
         checksum = Column(String, nullable=True)
 
@@ -290,7 +290,6 @@ def get_legend_entry(base, schema_name, pk_type, ViewService):
         theme = Column(String, nullable=False)
         sub_theme = Column(String, nullable=True)
         view_service_id = Column(
-            pk_type,
             ForeignKey(ViewService.id),
             nullable=False
         )
@@ -348,7 +347,6 @@ def get_public_law_restriction(base, schema_name, pk_type, Office, ViewService, 
         published_from = Column(Date, nullable=False)
         published_until = Column(Date, nullable=True)
         view_service_id = Column(
-            pk_type,
             ForeignKey(ViewService.id),
             nullable=False
         )
@@ -357,13 +355,11 @@ def get_public_law_restriction(base, schema_name, pk_type, Office, ViewService, 
             backref='public_law_restrictions'
         )
         office_id = Column(
-            pk_type,
             ForeignKey(Office.id),
             nullable=False
         )
         responsible_office = relationship(Office)
         legend_entry_id = Column(
-            pk_type,
             ForeignKey(LegendEntry.id),
             nullable=False
         )
@@ -421,7 +417,6 @@ def get_geometry(base, schema_name, pk_type, geometry_type, srid, PublicLawRestr
         geo_metadata = Column(String, nullable=True)
         geom = Column(GeoAlchemyGeometry(geometry_type, srid=srid), nullable=False)
         public_law_restriction_id = Column(
-            pk_type,
             ForeignKey(PublicLawRestriction.id),
             nullable=False
         )
@@ -468,12 +463,10 @@ def get_public_law_restriction_document(base, schema_name, pk_type, PublicLawRes
         __table_args__ = {'schema': schema_name}
         id = Column(pk_type, primary_key=True, autoincrement=False)
         public_law_restriction_id = Column(
-            pk_type,
             ForeignKey(PublicLawRestriction.id),
             nullable=False
         )
         document_id = Column(
-            pk_type,
             ForeignKey(Document.id),
             nullable=False
         )

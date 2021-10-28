@@ -85,7 +85,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
         published_until = Column(Date, nullable=True)
         geolink = Column(Integer, nullable=False)
         view_service_id = Column(
-            pk_type,
             ForeignKey(ViewService.id),
             nullable=False
         )
@@ -94,13 +93,11 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
             backref='public_law_restrictions'
         )
         office_id = Column(
-            pk_type,
             ForeignKey(Office.id),
             nullable=False
         )
         responsible_office = relationship(Office)
         legend_entry_id = Column(
-            pk_type,
             ForeignKey(LegendEntry.id),
             nullable=False
         )

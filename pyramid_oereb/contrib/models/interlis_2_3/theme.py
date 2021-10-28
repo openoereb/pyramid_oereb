@@ -161,7 +161,6 @@ def generic_models(base, schema_name, pk_type):
         published_until = Column('publiziertbis', Date, nullable=True)
         office_id = Column(
             'zustaendigestelle',
-            pk_type,
             ForeignKey(Office.t_id),
             nullable=False
         )
@@ -218,7 +217,7 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         __tablename__ = 'datenintegration'
         t_id = Column(pk_type, primary_key=True, autoincrement=False)
         date = Column('datum', DateTime, nullable=False)
-        office_id = Column('amt', pk_type, ForeignKey(Office.t_id), nullable=False)
+        office_id = Column('amt', ForeignKey(Office.t_id), nullable=False)
         office = relationship(Office)
         checksum = Column(String, nullable=True)
 
@@ -278,7 +277,6 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         sub_theme = Column('subthema', String, nullable=True)
         view_service_id = Column(
             'darstellungsdienst',
-            pk_type,
             ForeignKey(ViewService.t_id),
             nullable=False
         )
@@ -318,7 +316,6 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         published_until = Column('publiziertbis', Date, nullable=True)
         view_service_id = Column(
             'darstellungsdienst',
-            pk_type,
             ForeignKey(ViewService.t_id),
             nullable=False
         )
@@ -328,7 +325,6 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         )
         legend_entry_id = Column(
             'legende',
-            pk_type,
             ForeignKey(LegendEntry.t_id),
             nullable=False
         )
@@ -337,7 +333,6 @@ def model_factory(schema_name, pk_type, srid, db_connection):
             backref='public_law_restrictions')
         office_id = Column(
             'zustaendigestelle',
-            pk_type,
             ForeignKey(Office.t_id),
             nullable=False
         )
@@ -380,7 +375,6 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         geo_metadata = Column('metadatengeobasisdaten', String, nullable=True)
         public_law_restriction_id = Column(
             'eigentumsbeschraenkung',
-            pk_type,
             ForeignKey(PublicLawRestriction.t_id),
             nullable=False
         )
@@ -412,19 +406,16 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         t_seq = Column(Integer, nullable=True)
         office_id = Column(
             'amt_amtimweb',
-            pk_type,
             ForeignKey(Office.t_id),
             nullable=True
         )
         document_id = Column(
             'dokument_textimweb',
-            pk_type,
             ForeignKey(Document.t_id),
             nullable=True
         )
         view_service_id = Column(
             'darstellungsdienst_verweiswms',
-            pk_type,
             ForeignKey(ViewService.t_id),
             nullable=True
         )
@@ -458,7 +449,6 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         t_seq = Column(Integer, nullable=True)
         document_id = Column(
             'dokument_dokument',
-            pk_type,
             ForeignKey(Document.t_id),
             nullable=True
         )
@@ -484,7 +474,6 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         text = Column('atext', String, nullable=False)
         multilingualuri_id = Column(
             'multilingualuri_localisedtext',
-            pk_type,
             ForeignKey(MultilingualUri.t_id),
             nullable=False
         )
@@ -513,7 +502,6 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         blob = Column('ablob', LargeBinary, nullable=False)
         multilingualblob_id = Column(
             'multilingualblob_localisedblob',
-            pk_type,
             ForeignKey(MultilingualBlob.t_id),
             nullable=True
         )
@@ -543,13 +531,11 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         t_id = Column(pk_type, primary_key=True, autoincrement=False)
         public_law_restriction_id = Column(
             'eigentumsbeschraenkung',
-            pk_type,
             ForeignKey(PublicLawRestriction.t_id),
             nullable=False
         )
         document_id = Column(
             'vorschrift',
-            pk_type,
             ForeignKey(Document.t_id),
             nullable=False
         )
