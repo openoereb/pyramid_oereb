@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.0.0.b2
+--------
+- First fully functional implementation of new Oereb specification as per 28.10.11 (Status: beta)
+
 2.0.0.b1
 --------
 - Implementation of the new Oereb specification 2021 (Status: beta)
