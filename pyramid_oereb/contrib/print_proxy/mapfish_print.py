@@ -225,7 +225,7 @@ class Renderer(JsonRenderer):
         self._multilingual_text(extract_dict, 'PLRCadastreAuthority_OfficeAtWeb')
         self._flatten_object(extract_dict, 'RealEstate')
 
-        #TODO temporary fix to get static extract. JSON Attributes were renamed 
+        # TODO temporary fix to get static extract. JSON Attributes were renamed
         # RealEstate.MunicipalityName instead RealEstate.Municipality and
         # RealEstate.MunicipalityCode instead RealEsteta.FosNr
         extract_dict['RealEstate_Municipality'] = extract_dict['RealEstate_MunicipalityName']
@@ -277,7 +277,7 @@ class Renderer(JsonRenderer):
                 flattened_general_info.append(lang_obj[self._language])
             else:
                 flattened_general_info.append(lang_obj[self._fallback_language])
-        #TODO handle multiple general information corretly, it can be an array now!
+        # TODO handle multiple general information corretly, it can be an array now!
         extract_dict['GeneralInformation'] = flattened_general_info[0]
         update_date_os = datetime.strptime(extract_dict['UpdateDateCS'], '%Y-%m-%dT%H:%M:%S')
         extract_dict['UpdateDateOS'] = update_date_os.strftime('%d.%m.%Y')
