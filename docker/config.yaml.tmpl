@@ -103,7 +103,7 @@ vars:
       # Flag to print or not the canton logo
       print_canton_logo: true
 
-  # The "app_schema" property contains only one sub property "name". This is directly related to the database
+    # The "app_schema" property contains only one sub property "name". This is directly related to the database
     # creation process, because this name is used as schema name in the target database. The app_schema holds
     # all application stuff like: addresses, municipalities, real estates, etc.
     # Please note that this is only necessary if you want to use the standard configuration. Normally you don't
@@ -147,7 +147,11 @@ vars:
     oereblex:
       # OEREBlex host
       host: https://oereblex.sg.ch
-      version: 1.2.0
+      # geoLink schema version
+      version: 1.2.2
+      # Pass schema version in URL
+      pass_version: true
+      # Enable/disable XML validation
       validation: true
       # Default language of returned values
       language: de
@@ -196,7 +200,7 @@ vars:
       # The city name of the address of your office. For instance: Liestal
       city: Wabern
 
-    # The extract provides logos. Therefor you need to provide a path to these logos. Note: This must be a
+    # The extract provides logos. Therefore you need to provide a path to these logos. Note: This must be a
     # valid absolute system path available for reading by the user running this server.
     logo:
       # The logo representing the swiss confederation. You can use it as is because it is provided in this
@@ -389,7 +393,7 @@ vars:
 
     - code: ch.Nutzungsplanung
       geometry_type: GEOMETRYCOLLECTION
-      # Define the minmal area and length for public law restrictions that should be considered as 'true' restrictions
+      # Define the minimal area and length for public law restrictions that should be considered as 'true' restrictions
       # and not as calculation errors (false trues) due to topological imperfections
       thresholds:
         length:
