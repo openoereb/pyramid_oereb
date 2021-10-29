@@ -473,19 +473,7 @@ class Renderer(JsonRenderer):
                     restriction_on_landownership[element] = \
                         self.group_legal_provisions(restriction_on_landownership[element])
 
-            # sort legal provisioning, hints and laws
-            restriction_on_landownership['LegalProvisions'] = self.sort_dict_list(
-                restriction_on_landownership['LegalProvisions'],
-                self.sort_legal_provision
-            )
-            restriction_on_landownership['Laws'] = self.sort_dict_list(
-                restriction_on_landownership['Laws'],
-                self.sort_hints_laws
-            )
-            restriction_on_landownership['Hints'] = self.sort_dict_list(
-                restriction_on_landownership['Hints'],
-                self.sort_hints_laws
-            )
+        self.sort_restriction_on_landownership_documents(restriction_on_landownership)
 
         restrictions = list(theme_restriction.values())
         for restriction in restrictions:
@@ -652,6 +640,20 @@ class Renderer(JsonRenderer):
                 parent[name] = lang_obj[self._fallback_language]
 
     @staticmethod
+    def sort_restriction_on_landownership_documents(restriction_on_landownership):
+        """
+        sort legal provisioning, hints and laws on restriction_on_landownership
+
+        Args:
+            restriction_on_landownership (list(dict)): restrictions on landownership
+        """
+        for element in ['LegalProvisions', 'Laws', 'Hints']:
+            restriction_on_landownership[element] = Renderer.sort_dict_list(
+                restriction_on_landownership[element],
+                Renderer.sort_legal_provision
+            )
+
+    @staticmethod
     def sort_dict_list(legend_list, sort_keys):
         """
         Sorts list of dictionaries by one or more sort keys.
@@ -659,7 +661,7 @@ class Renderer(JsonRenderer):
         correctness of the sorting.
 
         Args:
-            legend_list (list(dict): list of legend dictionaries
+            legend_list (list(dict)): list of legend dictionaries
             sort_keys (tuple/any): tuple of keys according to which the list of dictionaries will be
             sorted (at least one is needed)
         Returns:
