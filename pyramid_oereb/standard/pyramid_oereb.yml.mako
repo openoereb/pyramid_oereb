@@ -12,7 +12,7 @@ pyramid_oereb:
     # https: https://"username":"password"@your_proxy.com:8088
 
   # The "language" property is a list of all languages supported by this application. It only affects the
-  # output of the extract webservice. The default langage below and any language specified by a "LANG"
+  # output of the extract webservice. The default language below and any language specified by a "LANG"
   # parameter in a request of an extract must be in this list to be accepted.
   language:
     - de
@@ -28,7 +28,7 @@ pyramid_oereb:
   # For the moment this only affects the output of the capabilities webservice. In later
   # versions, this will be the place to directly influence the available output formats.
   #
-  # Possible flavours are: REDUCED, FULL, EMBEDDABLE, SIGNED
+  # Possible flavours are: REDUCED, SIGNED
   # REDUCED:    Means that depending on the cantonal implementation you may be able to select
   #             a defined combination of topics to extract (e.g. only 'federal' topics without
   #             cantonal extensions - and choosing this option, legal provisions are only output
@@ -157,6 +157,12 @@ pyramid_oereb:
   oereblex:
     # OEREBlex host
     host: https://oereblex.sg.ch
+    # geoLink schema version
+    version: 1.2.2
+    # Pass schema version in URL
+    pass_version: true
+    # Enable/disable XML validation
+    validation: true
     # Default language of returned values
     language: de
     # Value for canton attribute
@@ -181,8 +187,6 @@ pyramid_oereb:
     # auth:
     #   username:
     #   password:
-    # Enable/disable XML validation
-    validation: true
     # Additional URL parameters to pass, depending on the PLR theme
     # url_param_config:
     # - code: ch.StatischeWaldgrenzen
@@ -486,9 +490,9 @@ pyramid_oereb:
   extract:
     # Information about the official survey (last update and provider) used as a base map in the extract
     base_data:
-        methods:
-          date: pyramid_oereb.standard.hook_methods.get_surveying_data_update_date
-          provider:  pyramid_oereb.standard.hook_methods.get_surveying_data_provider
+      methods:
+        date: pyramid_oereb.standard.hook_methods.get_surveying_data_update_date
+        provider:  pyramid_oereb.standard.hook_methods.get_surveying_data_provider
 
     sort_within_themes_method: pyramid_oereb.standard.hook_methods.plr_sort_within_themes
     # Example of a specific sorting method:
