@@ -104,6 +104,7 @@ class DocumentRecord(object):
         else:
             self.article_numbers = []
         self.file = file
+        self.identifier = identifier
 
     @property
     def published(self):

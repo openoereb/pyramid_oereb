@@ -16,9 +16,10 @@ class OfficeRecord(object):
         number (unicode): House number
         postal_code (integer): ZIP Code of the
         city (unicode): The city where the authority is located
+            identifier (str): The identifier of the theme which might be used for linking to other elements.
     """
     def __init__(self, name, uid=None, office_at_web=None, line1=None, line2=None,
-                 street=None, number=None, postal_code=None, city=None):
+                 street=None, number=None, postal_code=None, city=None, identifier=None):
         if not isinstance(name, dict):
             warnings.warn('Type of "name" should be "dict"')
 
@@ -31,3 +32,4 @@ class OfficeRecord(object):
         self.number = number
         self.postal_code = postal_code
         self.city = city
+        self.identifier = identifier

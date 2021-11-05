@@ -12,7 +12,7 @@ class DocumentBaseSource(Base):
     """
     _record_class_ = DocumentRecord
 
-    def read(self):
+    def read(self, office_records):
         """
         Every document source has to implement a read method. This method must accept no parameters. Because
         it should deliver all items available.

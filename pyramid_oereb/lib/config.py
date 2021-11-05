@@ -17,6 +17,7 @@ from pyramid_oereb.lib.readers.law_status import LawStatusReader
 from pyramid_oereb.lib.readers.real_estate_type import RealEstateTypeReader
 from pyramid_oereb.lib.readers.document_types import DocumentTypeReader
 from pyramid_oereb.lib.readers.document import DocumentReader
+from pyramid_oereb.lib.readers.office import OfficeReader
 from pyramid_oereb.lib.readers.general_information import GeneralInformationReader
 from pyramid_oereb.lib.readers.map_layering import MapLayeringReader
 from sqlalchemy.exc import ProgrammingError
@@ -40,6 +41,8 @@ class Config(object):
     law_status = None
     real_estate_types = None
     map_layering = None
+    theme_document = None
+    offices = None
 
     @staticmethod
     def init(configfile, configsection, c2ctemplate_style=False):
@@ -55,12 +58,16 @@ class Config(object):
         Config._config = _parse(configfile, configsection, c2ctemplate_style)
         Config.init_law_status()
         Config.init_document_types()
+        Config.init_offices()
         Config.init_themes()
+        Config.init_theme_document()
         Config.init_documents()
         Config.init_general_information()
         Config.init_real_estate_types()
         Config.init_map_layering()
         Config.init_logos()
+        
+        Config.assemble_relation_themes_documents()
 
     @staticmethod
     def get_config():
@@ -87,7 +94,7 @@ class Config(object):
     @staticmethod
     def init_theme_document():
         try:
-            Config.theme_document = Config._read_theme_docuemnt()
+            Config.theme_document = Config._read_theme_document()
         except ProgrammingError:
             Config.theme_document = None
 
@@ -110,7 +117,27 @@ class Config(object):
         try:
             Config.documents = Config._read_documents()
         except ProgrammingError:
-            Config.law_status = None
+            Config.documents = None
+    
+    @staticmethod
+    def init_offices():
+        try:
+            Config.offices = Config._read_offices()
+        except ProgrammingError:
+            Config.offices = None
+
+    @staticmethod
+    def assemble_relation_themes_documents():
+        theme_documents = []
+        for theme in Config.themes:
+            for theme_document in Config.theme_document:
+                if theme_document.theme_id == theme.identifier:
+                    for document in Config.documents:
+                        if theme_document.document_id == document.identifier:
+                            document.article_numbers = theme_document.article_numbers
+                            theme_documents.append(document)
+            if len(theme_documents) > 0:
+                theme.document_records = theme_documents
 
     @staticmethod
     def _read_themes():
@@ -165,6 +192,18 @@ class Config(object):
             document_config.get('source').get('class'),
             **document_config.get('source').get('params')
         )
+        return document_reader.read(Config.offices)
+
+    @staticmethod
+    def _read_offices():
+        office_config = Config.get_office_config()
+        if office_config is None:
+            raise ConfigurationError("Missing configuration for office source config")
+        office_reader = OfficeReader(
+            office_config.get('source').get('class'),
+            **office_config.get('source').get('params')
+        )
+        return office_reader.read()
 
     @staticmethod
     def get_general_information():
@@ -742,6 +781,7 @@ class Config(object):
 
         return Config._config.get('law_status_labels')
 
+    @staticmethod
     def get_document_config():
         """
         Returns a dictionary of the configured document sources.
@@ -752,6 +792,19 @@ class Config(object):
         assert Config._config is not None
 
         return Config._config.get('documents')
+    
+    @staticmethod
+    def get_office_config():
+        """
+        Returns a dictionary of the configured office sources.
+
+        Returns:
+            dict: The configured office sources.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('offices')
+
 
     @staticmethod
     def get_municipality_config():

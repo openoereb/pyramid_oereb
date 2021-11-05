@@ -17,7 +17,8 @@ class DatabaseSource(BaseDatabaseSource, ThemeDocumentBaseSource):
             for result in results:
                 self.records.append(self._record_class_(
                     result.theme_id,
-                    result.document_id
+                    result.document_id,
+                    result.article_numbers
                 ))
         finally:
             session.close()
