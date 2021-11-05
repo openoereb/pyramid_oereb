@@ -5,7 +5,7 @@ import warnings
 class ThemeRecord(object):
     """Creates a new theme record."""
 
-    def __init__(self, code, title, extract_index, sub_code=None, document_records=None):
+    def __init__(self, code, title, extract_index, sub_code=None, document_records=None, identifier=None):
         """
         Args:
             code (unicode): The theme's code.
@@ -13,6 +13,7 @@ class ThemeRecord(object):
             extract_index (int): Index to sort themes in the extract.
             sub_code (unicode): The code of the sub_theme. Is none for themes.
             document_records (list): Documents that relates to this theme
+            identifier (str): The identifier of the theme which might be used for linking to other elements.
         """
         if not isinstance(title, dict):
             warnings.warn('Type of "title" should be "dict"')

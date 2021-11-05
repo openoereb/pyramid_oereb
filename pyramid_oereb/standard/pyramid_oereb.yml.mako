@@ -344,6 +344,23 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the document type texts database table.
         model: pyramid_oereb.standard.models.main.DocumentTypeText
+  
+  # The processor of the oereb project joins the document type labels. In the standard configuration this
+  # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
+  # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
+  # the source. The model must implement the same field names and information as the default model does.
+  documents:
+    # The document type text elements must have a property source.
+    source:
+      # The source must have a class which represents the accessor to the source. In this example, it is an
+      # already implemented source which reads data from a database.
+      class: pyramid_oereb.standard.sources.document.DatabaseSource
+      # The necessary parameters to use this class
+      params:
+        # The connection path where the database can be found
+        db_connection: *main_db_connection
+        # The model which maps the document type texts database table.
+        model: pyramid_oereb.standard.models.main.Document
 
   # The processor of the oereb project needs access to theme data. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the themes out of an existing database

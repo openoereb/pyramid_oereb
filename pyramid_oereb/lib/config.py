@@ -16,6 +16,7 @@ from pyramid_oereb.lib.readers.logo import LogoReader
 from pyramid_oereb.lib.readers.law_status import LawStatusReader
 from pyramid_oereb.lib.readers.real_estate_type import RealEstateTypeReader
 from pyramid_oereb.lib.readers.document_types import DocumentTypeReader
+from pyramid_oereb.lib.readers.document import DocumentReader
 from pyramid_oereb.lib.readers.general_information import GeneralInformationReader
 from pyramid_oereb.lib.readers.map_layering import MapLayeringReader
 from sqlalchemy.exc import ProgrammingError
@@ -34,6 +35,7 @@ class Config(object):
     themes = None
     logos = None
     document_types = None
+    documents = None
     general_information = None
     law_status = None
     real_estate_types = None
@@ -51,14 +53,14 @@ class Config(object):
         assert Config._config is None
 
         Config._config = _parse(configfile, configsection, c2ctemplate_style)
-        Config.init_themes()
-        Config.init_theme_document()
-        Config.init_logos()
-        Config.init_document_types()
-        Config.init_general_information()
         Config.init_law_status()
+        Config.init_document_types()
+        Config.init_themes()
+        Config.init_documents()
+        Config.init_general_information()
         Config.init_real_estate_types()
         Config.init_map_layering()
+        Config.init_logos()
 
     @staticmethod
     def get_config():
@@ -100,6 +102,13 @@ class Config(object):
     def init_law_status():
         try:
             Config.law_status = Config._read_law_status()
+        except ProgrammingError:
+            Config.law_status = None
+    
+    @staticmethod
+    def init_documents():
+        try:
+            Config.documents = Config._read_documents()
         except ProgrammingError:
             Config.law_status = None
 
@@ -146,6 +155,16 @@ class Config(object):
             **law_status_config.get('source').get('params')
         )
         return law_status_reader.read()
+
+    @staticmethod
+    def _read_documents():
+        document_config = Config.get_document_config()
+        if document_config is None:
+            raise ConfigurationError("Missing configuration for document source config")
+        document_reader = DocumentReader(
+            document_config.get('source').get('class'),
+            **document_config.get('source').get('params')
+        )
 
     @staticmethod
     def get_general_information():
@@ -722,6 +741,17 @@ class Config(object):
         assert Config._config is not None
 
         return Config._config.get('law_status_labels')
+
+    def get_document_config():
+        """
+        Returns a dictionary of the configured document sources.
+
+        Returns:
+            dict: The configured documents sources.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('documents')
 
     @staticmethod
     def get_municipality_config():
