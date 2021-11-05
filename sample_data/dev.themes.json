@@ -1,5 +1,6 @@
 [
     {
+        "id": "ch.Nutzungsplanungch.SubTheme",
         "code": "ch.Nutzungsplanung",
         "sub_code": "ch.SubTheme",
         "title": {
@@ -12,6 +13,7 @@
         "extract_index": 22
     },
     {
+        "id": "ch.Nutzungsplanungch.Baulinien",
         "code": "ch.Nutzungsplanung",
         "sub_code": "ch.Baulinien",
         "title": {
