@@ -132,7 +132,6 @@ class Address(Base):
         {'schema': app_schema_name}
     )
     __tablename__ = 'address'
-    # id = Column(String, primary_key=True)
     street_name = Column(Unicode, nullable=False)
     street_number = Column(String, nullable=False)
     zip_code = Column(Integer, nullable=False, autoincrement=False)
@@ -199,14 +198,11 @@ class Glossary(Base):
     The bucket you can throw all items you want to have in the extracts glossary as reading help.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
-            you  don't like it - don't care about.
         title (str): The title or abbreviation of a glossary item.
         content (str): The description or definition of a glossary item.
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'glossary'
-    id = Column(String, primary_key=True)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
 
@@ -216,14 +212,11 @@ class Disclaimer(Base):
     The bucket you can throw all disclaimers in the application should be able to use.
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
-            you  don't like it - don't care about.
         title (str): The title which the disclaimer item has.
         content (str): The content which the disclaimer item has.
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'disclaimer'
-    id = Column(String, primary_key=True)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
 
@@ -261,14 +254,11 @@ class GeneralInformation(Base):
     The bucket to store the general information about the OEREB cadastre
 
     Attributes:
-        id (int): The identifier. This is used in the database only and must not be set manually. If
-            you  don't like it - don't care about.
         title (dict): The title of the general information (multilingual)
         content (dict): The actual information (multilingual)
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'general_information'
-    id = Column(String, primary_key=True)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
 
@@ -277,8 +267,6 @@ class ThemeDocument(Base):
     """
     Meta bucket (join table) for the relationship between theme and documents.
     Attributes:
-        id (str): The identifier. This is used in the database only and must not be set manually. If
-            you  don't like it - don't care about.
         theme_id (str): The foreign key to the theme which has
             relation to  a document.
         document_id (str): The foreign key to the document which has relation to the public law
@@ -290,9 +278,11 @@ class ThemeDocument(Base):
         article_numbers (dict): relevant articles for the theme document relation
     """
     __tablename__ = 'theme_document'
-    __table_args__ = {'schema': app_schema_name}
+    __table_args__ = (
+        PrimaryKeyConstraint("theme_id", "document_id"),
+        {'schema': app_schema_name}
+    )
 
-    id = Column(String, primary_key=True)
     theme_id = Column(
         ForeignKey(Theme.id),
         nullable=False
@@ -314,15 +304,12 @@ class ThemeDocument(Base):
 class MapLayering(Base):
     """
     Attributes:
-        id (str): The identifier. This is used in the database only and must not be set manually. If
-            you  don't like it - don't care about.
         view_service (dict): Darstellungsdienst
         layer_index (int): Index for sorting the layering of the view services for a theme
         layer_opacity (float): Opacity of a view service
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'map_layering'
-    id = Column(String, primary_key=True, autoincrement=False)
     view_service = Column(JSONType, nullable=False)
     layer_index = Column(Integer, nullable=False)
     layer_opacity = Column(Float, nullable=False)
