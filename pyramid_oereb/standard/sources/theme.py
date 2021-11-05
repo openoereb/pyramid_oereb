@@ -42,7 +42,7 @@ class DatabaseSource(BaseDatabaseSource, ThemeBaseSource):
                                  .format(type(theme_from_db)))
         for legal_provision in theme_from_db.legal_provisions:
             documents_from_db.append(legal_provision.document)
-            article_nrs = legal_provision.articles['articles'] if legal_provision.articles \
+            article_nrs = legal_provision.article_numbers if legal_provision.article_numbers \
                 else None
             article_numbers.append(article_nrs)
         document_records = self.from_db_to_document_records(documents_from_db, article_numbers)

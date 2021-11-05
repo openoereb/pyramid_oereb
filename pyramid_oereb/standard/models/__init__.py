@@ -477,6 +477,5 @@ def get_public_law_restriction_document(base, schema_name, pk_type, PublicLawRes
         document = relationship(
             Document
         )
-        article_numbers = Column(String, nullable=True)
 
     return PublicLawRestrictionDocument
