@@ -262,7 +262,6 @@ clean: .db/.drop-db clean_fed_data
 .PHONY: clean-all
 clean-all: clean
 	rm -rf .venv
-	rm -f *.png
 	rm -f development.ini
 	rm -rf $(PACKAGE).egg-info
 
