@@ -10,6 +10,7 @@ from pyramid_oereb.lib.records.document_types import DocumentTypeRecord
 from pyramid_oereb.lib.records.law_status import LawStatusRecord
 from pyramid_oereb.lib.records.real_estate_type import RealEstateTypeRecord
 from pyramid_oereb.lib.readers.theme import ThemeReader
+from pyramid_oereb.lib.readers.theme_document import ThemeDocumentReader
 from pyramid_oereb.lib.records.logo import LogoRecord
 from pyramid_oereb.lib.readers.logo import LogoReader
 from pyramid_oereb.lib.readers.law_status import LawStatusReader
@@ -51,6 +52,7 @@ class Config(object):
 
         Config._config = _parse(configfile, configsection, c2ctemplate_style)
         Config.init_themes()
+        Config.init_theme_document()
         Config.init_logos()
         Config.init_document_types()
         Config.init_general_information()
@@ -81,6 +83,13 @@ class Config(object):
             Config.themes = None
 
     @staticmethod
+    def init_theme_document():
+        try:
+            Config.theme_document = Config._read_theme_docuemnt()
+        except ProgrammingError:
+            Config.theme_document = None
+
+    @staticmethod
     def init_general_information():
         try:
             Config.general_information = Config._read_general_information()
@@ -104,6 +113,17 @@ class Config(object):
             **Config.get_theme_config().get('source').get('params')
         )
         return theme_reader.read()
+
+    @staticmethod
+    def _read_theme_document():
+        theme_document_config = Config.get_theme_document_config()
+        if theme_document_config is None:
+            raise ConfigurationError("Missing configuration for theme document")
+        theme_document_reader = ThemeDocumentReader(
+            theme_document_config.get('source').get('class'),
+            **Config.get_theme_document_config().get('source').get('params')
+        )
+        return theme_document_reader.read()
 
     @staticmethod
     def _read_general_information():
@@ -620,6 +640,18 @@ class Config(object):
         assert Config._config is not None
 
         return Config._config.get('theme')
+
+    @staticmethod
+    def get_theme_document_config():
+        """
+        Returns a dictionary of the configured theme document settings.
+
+        Returns:
+            dict: The configured theme document settings.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('theme_document')
 
     @staticmethod
     def get_document_types_config():
