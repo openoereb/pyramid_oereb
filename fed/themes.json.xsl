@@ -7,6 +7,7 @@
 <xsl:template match="/">
 [<xsl:for-each select="ili:TRANSFER/ili:DATASECTION/ili:OeREBKRMkvs_V2_0.Thema/ili:OeREBKRMkvs_V2_0.Thema.Thema">
     {
+        "id": "<xsl:value-of select="@TID"/>",
         "code": "<xsl:value-of select="ili:Code"/>",
         "sub_code": <xsl:choose><xsl:when test="count(ili:SubCode) &gt; 0">"<xsl:value-of select="ili:SubCode"/>"</xsl:when><xsl:otherwise>null</xsl:otherwise></xsl:choose>,
         "extract_index": <xsl:value-of select="number(ili:AuszugIndex)"/>,
