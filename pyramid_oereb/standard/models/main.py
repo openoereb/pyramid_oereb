@@ -174,7 +174,8 @@ class Logo(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'logo'
-    code = Column(String, primary_key=True)
+    id = Column(String, primary_key=True)
+    code = Column(String, nullable=False)
     logo = Column(JSONType, nullable=False)
 
 
@@ -189,7 +190,8 @@ class RealEstateType(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'real_estate_type'
-    code = Column(String, primary_key=True)
+    id = Column(String, primary_key=True)
+    code = Column(String, nullable=False)
     title = Column(JSONType, nullable=False)
 
 
@@ -203,8 +205,9 @@ class Glossary(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'glossary'
-    title = Column(JSONType, primary_key=True)
-    content = Column(JSONType, primary_key=True)
+    id = Column(String, primary_key=True)
+    title = Column(JSONType, nullable=False)
+    content = Column(JSONType, nullable=False)
 
 
 class Disclaimer(Base):
@@ -217,8 +220,9 @@ class Disclaimer(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'disclaimer'
-    title = Column(JSONType, primary_key=True)
-    content = Column(JSONType, primary_key=True)
+    id = Column(String, primary_key=True)
+    title = Column(JSONType, nullable=False)
+    content = Column(JSONType, nullable=False)
 
 
 class LawStatus(Base):
@@ -259,8 +263,9 @@ class GeneralInformation(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'general_information'
-    title = Column(JSONType, primary_key=True)
-    content = Column(JSONType, primary_key=True)
+    id = Column(String, primary_key=True)
+    title = Column(JSONType, nullable=False)
+    content = Column(JSONType, nullable=False)
 
 
 class ThemeDocument(Base):
@@ -310,6 +315,7 @@ class MapLayering(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'map_layering'
-    view_service = Column(JSONType, primary_key=True)
-    layer_index = Column(Integer, primary_key=True)
-    layer_opacity = Column(Float, primary_key=True)
+    id = Column(String, primary_key=True)
+    view_service = Column(JSONType, nullable=False)
+    layer_index = Column(Integer, nullable=False)
+    layer_opacity = Column(Float, nullable=False)

@@ -234,8 +234,11 @@ class SampleData(object):
                 (RealEstateType, 'ch.real_estate_type.json'),
                 (GeneralInformation, 'ch.general_information.json'),
                 (Office, 'ch.law_responsible_offices.json'),
+                (Office, 'dev.law_responsible_offices.json'),
                 (Document, 'ch.laws.json'),
-                (ThemeDocument, 'ch.themes_docs.json')
+                (Document, 'dev.laws.json'),
+                (ThemeDocument, 'ch.themes_docs.json'),
+                (ThemeDocument, 'dev.themes_docs.json')
             ]:
                 self._load_sample(class_, file_name)
 

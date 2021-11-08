@@ -1,0 +1,22 @@
+
+[
+    {
+        "id": "ch.cr.geoinformatik",
+        "name": {
+            "de": "Rudert-Geoinformatik",
+            "fr": "Rudert-Geoinformatik",
+            "it": "Rudert-Geoinformatik",
+            "rm": "Rudert-Geoinformatik",
+            "en": "Rudert-Geoinformatik"
+        },
+        "office_at_web": {
+            "de": "https://www.rudert-geoinformatik.ch",
+            "fr": "https://www.rudert-geoinformatik.ch",
+            "it": "https://www.rudert-geoinformatik.ch",
+            "rm": "https://www.rudert-geoinformatik.ch",
+            "en": "https://www.rudert-geoinformatik.ch"
+        },
+        "uid": "CHE123456778"
+    }
+]
+

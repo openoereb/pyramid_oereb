@@ -18,8 +18,8 @@ class DatabaseSource(BaseDatabaseSource, DocumentBaseSource):
                 office_record_match = None
                 for office_record in office_records:
                     if office_record.identifier == result.office_id:
-                        office_record_match = office_record
-                    break
+                        office_record_match = office_record_match
+                        break
                 self.records.append(
                     self._record_class_(
                         document_type=Config.get_document_type_by_code(

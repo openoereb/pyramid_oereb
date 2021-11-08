@@ -45,7 +45,7 @@ class Config(object):
     offices = None
 
     @staticmethod
-    def init(configfile, configsection, c2ctemplate_style=False):
+    def init(configfile, configsection, c2ctemplate_style=False, resolve_doument_theme_relation=False):
         """
         Loads configuration from yaml file and provides methods for generating webservice output.
 
@@ -67,7 +67,8 @@ class Config(object):
         Config.init_map_layering()
         Config.init_logos()
         
-        Config.assemble_relation_themes_documents()
+        if resolve_doument_theme_relation:
+            Config.assemble_relation_themes_documents()
 
     @staticmethod
     def get_config():
