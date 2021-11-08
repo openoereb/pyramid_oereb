@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from pyramid_oereb.lib.sources import BaseDatabaseSource
 from pyramid_oereb.lib.sources.office import OfficeBaseSource
-from pyramid_oereb import Config
 
 
 class DatabaseSource(BaseDatabaseSource, OfficeBaseSource):
@@ -16,7 +15,7 @@ class DatabaseSource(BaseDatabaseSource, OfficeBaseSource):
 
             self.records = list()
             for result in results:
-                self.records.append(self._record_class_(       
+                self.records.append(self._record_class_(
                     result.name,
                     result.uid,
                     result.office_at_web,

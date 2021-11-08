@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from pyramid_oereb.lib.sources import BaseDatabaseSource
 from pyramid_oereb.lib.sources.theme import ThemeBaseSource
-from pyramid_oereb import Config
 
 
 class DatabaseSource(BaseDatabaseSource, ThemeBaseSource):

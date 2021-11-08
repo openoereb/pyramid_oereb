@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import warnings
 
 
 class ThemeDocumentRecord(object):

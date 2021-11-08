@@ -66,7 +66,7 @@ class Config(object):
         Config.init_real_estate_types()
         Config.init_map_layering()
         Config.init_logos()
-        
+
         if resolve_doument_theme_relation:
             Config.assemble_relation_themes_documents()
 
@@ -112,14 +112,14 @@ class Config(object):
             Config.law_status = Config._read_law_status()
         except ProgrammingError:
             Config.law_status = None
-    
+
     @staticmethod
     def init_documents():
         try:
             Config.documents = Config._read_documents()
         except ProgrammingError:
             Config.documents = None
-    
+
     @staticmethod
     def init_offices():
         try:
@@ -793,7 +793,7 @@ class Config(object):
         assert Config._config is not None
 
         return Config._config.get('documents')
-    
+
     @staticmethod
     def get_office_config():
         """
@@ -805,7 +805,6 @@ class Config(object):
         assert Config._config is not None
 
         return Config._config.get('offices')
-
 
     @staticmethod
     def get_municipality_config():

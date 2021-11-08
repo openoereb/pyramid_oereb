@@ -51,7 +51,8 @@ class DocumentRecord(object):
             only_in_municipality (int): Restrict document to a specific municipality by code.
             article_numbers (list of unicode): Pointers to specific articles.
             file (bytes): The binary content of the document.
-            identifier (str): The identifier of the document which might be used for linking to other elements.
+            identifier (str): The identifier of the document which might be used for linking to
+                other elements.
         """
 
         if not isinstance(document_type, DocumentTypeRecord):
