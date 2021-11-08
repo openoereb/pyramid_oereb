@@ -16,6 +16,8 @@ from pyramid_oereb.lib.readers.logo import LogoReader
 from pyramid_oereb.lib.readers.law_status import LawStatusReader
 from pyramid_oereb.lib.readers.real_estate_type import RealEstateTypeReader
 from pyramid_oereb.lib.readers.document_types import DocumentTypeReader
+from pyramid_oereb.lib.readers.document import DocumentReader
+from pyramid_oereb.lib.readers.office import OfficeReader
 from pyramid_oereb.lib.readers.general_information import GeneralInformationReader
 from pyramid_oereb.lib.readers.map_layering import MapLayeringReader
 from sqlalchemy.exc import ProgrammingError
@@ -34,13 +36,16 @@ class Config(object):
     themes = None
     logos = None
     document_types = None
+    documents = None
     general_information = None
     law_status = None
     real_estate_types = None
     map_layering = None
+    theme_document = None
+    offices = None
 
     @staticmethod
-    def init(configfile, configsection, c2ctemplate_style=False):
+    def init(configfile, configsection, c2ctemplate_style=False, resolve_doument_theme_relation=False):
         """
         Loads configuration from yaml file and provides methods for generating webservice output.
 
@@ -51,14 +56,19 @@ class Config(object):
         assert Config._config is None
 
         Config._config = _parse(configfile, configsection, c2ctemplate_style)
+        Config.init_law_status()
+        Config.init_document_types()
+        Config.init_offices()
         Config.init_themes()
         Config.init_theme_document()
-        Config.init_logos()
-        Config.init_document_types()
+        Config.init_documents()
         Config.init_general_information()
-        Config.init_law_status()
         Config.init_real_estate_types()
         Config.init_map_layering()
+        Config.init_logos()
+
+        if resolve_doument_theme_relation:
+            Config.assemble_relation_themes_documents()
 
     @staticmethod
     def get_config():
@@ -85,7 +95,7 @@ class Config(object):
     @staticmethod
     def init_theme_document():
         try:
-            Config.theme_document = Config._read_theme_docuemnt()
+            Config.theme_document = Config._read_theme_document()
         except ProgrammingError:
             Config.theme_document = None
 
@@ -102,6 +112,33 @@ class Config(object):
             Config.law_status = Config._read_law_status()
         except ProgrammingError:
             Config.law_status = None
+
+    @staticmethod
+    def init_documents():
+        try:
+            Config.documents = Config._read_documents()
+        except ProgrammingError:
+            Config.documents = None
+
+    @staticmethod
+    def init_offices():
+        try:
+            Config.offices = Config._read_offices()
+        except ProgrammingError:
+            Config.offices = None
+
+    @staticmethod
+    def assemble_relation_themes_documents():
+        theme_documents = []
+        for theme in Config.themes:
+            for theme_document in Config.theme_document:
+                if theme_document.theme_id == theme.identifier:
+                    for document in Config.documents:
+                        if theme_document.document_id == document.identifier:
+                            document.article_numbers = theme_document.article_numbers
+                            theme_documents.append(document)
+            if len(theme_documents) > 0:
+                theme.document_records = theme_documents
 
     @staticmethod
     def _read_themes():
@@ -146,6 +183,28 @@ class Config(object):
             **law_status_config.get('source').get('params')
         )
         return law_status_reader.read()
+
+    @staticmethod
+    def _read_documents():
+        document_config = Config.get_document_config()
+        if document_config is None:
+            raise ConfigurationError("Missing configuration for document source config")
+        document_reader = DocumentReader(
+            document_config.get('source').get('class'),
+            **document_config.get('source').get('params')
+        )
+        return document_reader.read(Config.offices)
+
+    @staticmethod
+    def _read_offices():
+        office_config = Config.get_office_config()
+        if office_config is None:
+            raise ConfigurationError("Missing configuration for office source config")
+        office_reader = OfficeReader(
+            office_config.get('source').get('class'),
+            **office_config.get('source').get('params')
+        )
+        return office_reader.read()
 
     @staticmethod
     def get_general_information():
@@ -722,6 +781,30 @@ class Config(object):
         assert Config._config is not None
 
         return Config._config.get('law_status_labels')
+
+    @staticmethod
+    def get_document_config():
+        """
+        Returns a dictionary of the configured document sources.
+
+        Returns:
+            dict: The configured documents sources.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('documents')
+
+    @staticmethod
+    def get_office_config():
+        """
+        Returns a dictionary of the configured office sources.
+
+        Returns:
+            dict: The configured office sources.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('offices')
 
     @staticmethod
     def get_municipality_config():

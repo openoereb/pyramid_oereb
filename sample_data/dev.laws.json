@@ -1,0 +1,38 @@
+[
+    {
+        "id": "ch.cr.murphys-gesetz",
+        "document_type": "GesetzlicheGrundlage",
+        "extract_index": 10,
+        "title": {
+            "de": "Murphys Gesetz",
+            "fr": "Loi de Murphy",
+            "it": "Legge di Murphy",
+            "rm": "Lescha dal Murphy",
+            "en": "Murphy's law"
+        },
+        "abbreviation": {
+            "de": "MG",
+            "fr": "LM",
+            "it": "LM",
+            "rm": "LM",
+            "en": "ML"
+        },
+        "official_number": {
+            "de": "SR 969",
+            "fr": "RS 969",
+            "it": "RS 969",
+            "rm": "CS 969",
+            "en": "SR 969"
+        },
+        "text_at_web": {
+            "de": "https://de.wikipedia.org/wiki/Murphys_Gesetz",
+            "fr": "https://fr.wikipedia.org/wiki/Loi_de_Murphy",
+            "it": "https://it.wikipedia.org/wiki/Legge_di_Murphy",
+            "en": "https://en.wikipedia.org/wiki/Murphy%27s_law"
+        },
+        "index": "10",
+        "law_status": "inKraft",
+        "published_from": "1950-01-01",
+        "office_id": "ch.cr.geoinformatik"
+    }
+]

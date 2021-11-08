@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 import optparse
-import os
 
 from mako.template import Template
 from pyramid.path import AssetResolver
-from shutil import copyfile
 
 
 def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',

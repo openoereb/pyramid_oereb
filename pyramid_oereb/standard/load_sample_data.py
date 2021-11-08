@@ -211,7 +211,7 @@ class SampleData(object):
 
         from pyramid_oereb.standard.models.main import Theme, Logo, DocumentTypeText, RealEstate, Address, \
             Municipality, Glossary, Disclaimer, GeneralInformation, RealEstateType, LawStatus, Document, \
-            Office
+            Office, ThemeDocument
 
         if self._sql_file is None:
             self._connection = self._engine.connect()
@@ -234,7 +234,11 @@ class SampleData(object):
                 (RealEstateType, 'ch.real_estate_type.json'),
                 (GeneralInformation, 'ch.general_information.json'),
                 (Office, 'ch.law_responsible_offices.json'),
-                (Document, 'ch.laws.json')
+                (Office, 'dev.law_responsible_offices.json'),
+                (Document, 'ch.laws.json'),
+                (Document, 'dev.laws.json'),
+                (ThemeDocument, 'ch.themes_docs.json'),
+                (ThemeDocument, 'dev.themes_docs.json')
             ]:
                 self._load_sample(class_, file_name)
 

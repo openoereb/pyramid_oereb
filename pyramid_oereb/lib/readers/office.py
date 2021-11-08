@@ -2,9 +2,9 @@
 from pyramid.path import DottedNameResolver
 
 
-class ThemeDocumentReader(object):
+class OfficeReader(object):
     """
-    The central reader for the theme_document definitions. It is directly bound to a so called source
+    The central reader for the office definitions. It is directly bound to a so called source
     which is defined by a pythonic dotted string to the class definition of this source.
     An instance of the passed source will be created on instantiation of this reader class by passing through
     the parameter kwargs.
@@ -14,10 +14,10 @@ class ThemeDocumentReader(object):
         """
         Args:
             dotted_source_class_path
-                (str or pyramid_oereb.lib.sources.theme_document.ThemeDocumentBaseSource): The path to
+                (str or pyramid_oereb.lib.sources.office.OfficeBaseSource): The path to
                 the class which represents the source used by this reader. This class must
                 exist and it must implement basic source behaviour of the
-                :ref:`api-pyramid_oereb-lib-sources-theme_document-ThemeDocumentBaseSource`.
+                :ref:`api-pyramid_oereb-lib-sources-office-officebasesource`.
             (kwargs): kwargs, which are necessary as configuration parameter for the above by
                 dotted name defined class.
         """
@@ -30,11 +30,11 @@ class ThemeDocumentReader(object):
 
         .. note:: If you subclass this class your implementation needs to offer this method in the same
             signature. Means the parameters must be the same and the return must be a list of
-            :ref:`api-pyramid_oereb-lib-records-theme_document-ThemeDocumentRecord`. Otherwise the
-            API like way the server works would be broken.
+            :ref:`api-pyramid_oereb-lib-records-office-officerecord`. Otherwise the API like way
+            the server works would be broken.
 
         Returns:
-            list of pyramid_oereb.lib.records.theme_document.ThemeDocumentRecord:
+            list of pyramid_oereb.lib.records.office.OfficeRecord:
                 The list of found records. Since these are not filtered by any criteria the list simply
                 contains all records delivered by the source.
         """

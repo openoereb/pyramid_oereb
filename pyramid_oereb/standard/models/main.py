@@ -174,7 +174,8 @@ class Logo(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'logo'
-    code = Column(String, primary_key=True)
+    id = Column(String, primary_key=True)
+    code = Column(String, nullable=False)
     logo = Column(JSONType, nullable=False)
 
 
@@ -189,7 +190,8 @@ class RealEstateType(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'real_estate_type'
-    code = Column(String, primary_key=True)
+    id = Column(String, primary_key=True)
+    code = Column(String, nullable=False)
     title = Column(JSONType, nullable=False)
 
 
@@ -203,6 +205,7 @@ class Glossary(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'glossary'
+    id = Column(String, primary_key=True)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
 
@@ -217,6 +220,7 @@ class Disclaimer(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'disclaimer'
+    id = Column(String, primary_key=True)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
 
@@ -259,6 +263,7 @@ class GeneralInformation(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'general_information'
+    id = Column(String, primary_key=True)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
 
@@ -310,6 +315,7 @@ class MapLayering(Base):
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'map_layering'
+    id = Column(String, primary_key=True)
     view_service = Column(JSONType, nullable=False)
     layer_index = Column(Integer, nullable=False)
     layer_opacity = Column(Float, nullable=False)
