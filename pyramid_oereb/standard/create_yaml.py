@@ -21,13 +21,6 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
             'postgresql://postgres:password@localhost/pyramid_oereb'
     """
 
-    # File names
-    logo_oereb_name_de = 'logo_oereb_de.png'
-    logo_oereb_name_fr = 'logo_oereb_fr.png'
-    logo_oereb_name_it = 'logo_oereb_it.png'
-    logo_confederation_name = 'logo_confederation.png'
-    logo_canton_name = 'logo_canton.png'
-
     # Create pyramid_oereb.yml from template
     template = Template(
         filename=AssetResolver('pyramid_oereb').resolve('standard/pyramid_oereb.yml.mako').abspath(),
@@ -36,50 +29,12 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
     )
     config = template.render(
         sqlalchemy_url=database,
-        png_root_dir='',
         print_backend=print_backend,
         print_url=print_url
     )
     pyramid_oereb_yml = open(name, 'wb+')
     pyramid_oereb_yml.write(config)
     pyramid_oereb_yml.close()
-
-    # Copy static files
-    logo_oereb_path_de = AssetResolver('pyramid_oereb').resolve(
-        'standard/{name}'.format(name=logo_oereb_name_de)
-    ).abspath()
-    logo_oereb_path_fr = AssetResolver('pyramid_oereb').resolve(
-        'standard/{name}'.format(name=logo_oereb_name_fr)
-    ).abspath()
-    logo_oereb_path_it = AssetResolver('pyramid_oereb').resolve(
-        'standard/{name}'.format(name=logo_oereb_name_it)
-    ).abspath()
-    logo_confederation_path = AssetResolver('pyramid_oereb').resolve(
-        'standard/{name}'.format(name=logo_confederation_name)
-    ).abspath()
-    logo_sample_path = AssetResolver('pyramid_oereb').resolve(
-        'standard/{name}'.format(name=logo_canton_name)
-    ).abspath()
-    target_path = os.path.abspath('{path}{sep}{name}'.format(
-        path=os.getcwd(), name=logo_oereb_name_de, sep=os.sep)
-    )
-    copyfile(logo_oereb_path_de, target_path)
-    target_path = os.path.abspath('{path}{sep}{name}'.format(
-        path=os.getcwd(), name=logo_oereb_name_fr, sep=os.sep)
-    )
-    copyfile(logo_oereb_path_fr, target_path)
-    target_path = os.path.abspath('{path}{sep}{name}'.format(
-        path=os.getcwd(), name=logo_oereb_name_it, sep=os.sep)
-    )
-    copyfile(logo_oereb_path_it, target_path)
-    target_path = os.path.abspath('{path}{sep}{name}'.format(
-        path=os.getcwd(), name=logo_confederation_name, sep=os.sep)
-    )
-    copyfile(logo_confederation_path, target_path)
-    target_path = os.path.abspath('{path}{sep}{name}'.format(
-        path=os.getcwd(), name=logo_canton_name, sep=os.sep)
-    )
-    copyfile(logo_sample_path, target_path)
 
 
 def create_standard_yaml():
