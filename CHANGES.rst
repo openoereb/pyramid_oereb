@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.0.0.b3
+--------
+- New federal data import tool and bug-fixes V2 (Status: beta)
+
 2.0.0.b2
 --------
 - First fully functional implementation of new Oereb specification as per 28.10.11 (Status: beta)
