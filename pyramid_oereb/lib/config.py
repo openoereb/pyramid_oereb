@@ -3,6 +3,7 @@ import os
 
 import logging
 import yaml
+from copy import deepcopy
 from io import open as ioopen
 from pyramid.config import ConfigurationError
 from pyramid_oereb.lib.records.office import OfficeRecord
@@ -131,12 +132,23 @@ class Config(object):
     def assemble_relation_themes_documents():
         theme_documents = []
         for theme in Config.themes:
-            for theme_document in Config.theme_document:
-                if theme_document.theme_id == theme.identifier:
-                    for document in Config.documents:
-                        if theme_document.document_id == document.identifier:
-                            document.article_numbers = theme_document.article_numbers
-                            theme_documents.append(document)
+            plrs = Config._config.get('plrs')
+            if plrs is not None and theme.code in [x['code'] for x in plrs]:
+                for theme_document in Config.theme_document:
+                    if theme_document.theme_id == theme.identifier:
+                        for document in Config.documents:
+                            if theme_document.document_id == document.identifier:
+                                theme_document_doc = deepcopy(document)
+                                theme_document_doc.article_numbers = theme_document.article_numbers
+                                theme_document_doc.document_type = Config.get_document_type_by_transfer_code(
+                                    theme.code,
+                                    theme_document_doc.document_type.code
+                                )
+                                theme_document_doc.law_status = Config.get_law_status_by_transfer_code(
+                                    theme.code,
+                                    theme_document_doc.law_status.code
+                                )
+                                theme_documents.append(theme_document_doc)
             if len(theme_documents) > 0:
                 theme.document_records = theme_documents
 
@@ -517,12 +529,24 @@ class Config(object):
         )
 
     @staticmethod
+    def get_document_type_by_transfer_code(theme_code, transfer_code):
+        lookup = Config.get_document_type_lookup_by_transfer_code(theme_code, transfer_code)
+        record = Config.get_document_type_by_code(lookup['transfer_code'])
+        log.debug(
+            'Translating code {} => code {} of {}'.format(
+                lookup['transfer_code'], lookup['extract_code'], record.title
+            )
+        )
+        translated_record = DocumentTypeRecord(lookup['extract_code'], record.title)
+        return translated_record
+
+    @staticmethod
     def get_document_type_by_data_code(theme_code, data_code):
         lookup = Config.get_document_type_lookup_by_data_code(theme_code, data_code)
         record = Config.get_document_type_by_code(lookup['transfer_code'])
         log.debug(
             'Translating code {} => code {} of {}'.format(
-                lookup['transfer_code'], lookup['extract_code'], record.title
+                lookup['data_code'], lookup['extract_code'], record.title
             )
         )
         translated_record = DocumentTypeRecord(lookup['extract_code'], record.title)
@@ -966,12 +990,24 @@ class Config(object):
         )
 
     @staticmethod
+    def get_law_status_by_transfer_code(theme_code, transfer_code):
+        lookup = Config.get_law_status_lookup_by_transfer_code(theme_code, transfer_code)
+        record = Config.get_law_status_by_code(lookup['transfer_code'])
+        log.debug(
+            'Translating code {} => code {} of {}'.format(
+                lookup['transfer_code'], lookup['extract_code'], record.title
+            )
+        )
+        translated_record = LawStatusRecord(lookup['extract_code'], record.title)
+        return translated_record
+
+    @staticmethod
     def get_law_status_by_data_code(theme_code, data_code):
         lookup = Config.get_law_status_lookup_by_data_code(theme_code, data_code)
         record = Config.get_law_status_by_code(lookup['transfer_code'])
         log.debug(
             'Translating code {} => code {} of {}'.format(
-                lookup['transfer_code'], lookup['extract_code'], record.title
+                lookup['data_code'], lookup['extract_code'], record.title
             )
         )
         translated_record = LawStatusRecord(lookup['extract_code'], record.title)
