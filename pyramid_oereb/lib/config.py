@@ -208,28 +208,6 @@ class Config(object):
         return office_reader.read()
 
     @staticmethod
-    def get_global_extract_translation():
-        assert Config._config is not None
-        translations = Config._config.get('extract_translation')
-        assert translations is not None
-        assert isinstance(translations, dict)
-        return translations
-
-    def get_global_law_status_extract_translation():
-        translations = Config.get_extract_translation()
-        law_status_extract_translation = translations.get('law_status_lookup')
-        assert law_status_extract_translation is not None
-        assert isinstance(law_status_extract_translation, list)
-        return law_status_extract_translation
-
-    def get_global_document_type_extract_translation():
-        translations = Config.get_extract_translation()
-        document_type_extract_translation = translations.get('document_types_lookup')
-        assert document_type_extract_translation is not None
-        assert isinstance(document_type_extract_translation, list)
-        return document_type_extract_translation
-
-    @staticmethod
     def get_general_information():
         """
         Returns the general information.
