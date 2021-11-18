@@ -347,16 +347,6 @@ pyramid_oereb:
   # the source. The model must implement the same field names and information as the default model does.
   document_types:
     # The document type text elements must have a property source.
-    lookup:
-      - data_code: Rechtsvorschrift
-        extract_code: LegalProvision
-        transfer_code: Rechtsvorschrift
-      - data_code: GesetzlicheGrundlage
-        extract_code: Law
-        transfer_code: GesetzlicheGrundlage
-      - data_code: Hinweis
-        extract_code: Hint
-        transfer_code: Hinweis
     source:
       # The source must have a class which represents the accessor to the source. In this example, it is an
       # already implemented source which reads data from a database.

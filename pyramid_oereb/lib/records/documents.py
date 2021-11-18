@@ -139,7 +139,7 @@ class DocumentRecord(object):
 
     def __str__(self):
         return str(self.__class__) + ": " + str(self.__dict__)
-    
+
     def copy(self):
         return DocumentRecord(
             self.document_type,

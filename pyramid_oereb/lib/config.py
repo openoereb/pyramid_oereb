@@ -3,7 +3,6 @@ import os
 
 import logging
 import yaml
-from copy import deepcopy
 from io import open as ioopen
 from pyramid.config import ConfigurationError
 from pyramid_oereb.lib.records.office import OfficeRecord
@@ -130,8 +129,8 @@ class Config(object):
 
     @staticmethod
     def assemble_relation_themes_documents():
-        theme_documents = []
         for theme in Config.themes:
+            theme_documents = []
             for theme_document in Config.theme_document:
                 if theme_document.theme_id == theme.identifier:
                     for document in Config.documents:
@@ -207,27 +206,27 @@ class Config(object):
             **office_config.get('source').get('params')
         )
         return office_reader.read()
-    
+
     @staticmethod
     def get_global_extract_translation():
         assert Config._config is not None
         translations = Config._config.get('extract_translation')
         assert translations is not None
-        assert instance(translations, dict)
+        assert isinstance(translations, dict)
         return translations
-    
+
     def get_global_law_status_extract_translation():
         translations = Config.get_extract_translation()
         law_status_extract_translation = translations.get('law_status_lookup')
         assert law_status_extract_translation is not None
-        assert instance(law_status_extract_translation, list)
+        assert isinstance(law_status_extract_translation, list)
         return law_status_extract_translation
-    
+
     def get_global_document_type_extract_translation():
         translations = Config.get_extract_translation()
         document_type_extract_translation = translations.get('document_types_lookup')
         assert document_type_extract_translation is not None
-        assert instance(document_type_extract_translation, list)
+        assert isinstance(document_type_extract_translation, list)
         return document_type_extract_translation
 
     @staticmethod
@@ -549,7 +548,7 @@ class Config(object):
         lookups = Config._config.get('app_schema').get('document_types_lookup')
         if lookups is None:
             raise ConfigurationError(
-                '"document_types_lookup" must be defined in configuration for theme {}!'.format(theme_code)
+                '"document_types_lookup" must be defined in "app_schema"!'
             )
         return lookups
 
@@ -1029,7 +1028,7 @@ class Config(object):
         lookups = Config._config.get('app_schema').get('law_status_lookup')
         if lookups is None:
             raise ConfigurationError(
-                '"document_types_lookup" must be defined in configuration for theme {}!'.format(theme_code)
+                '"law_status_lookup" must be defined in "app_schema"!'
             )
         return lookups
 
@@ -1063,7 +1062,6 @@ class Config(object):
         translated_record = LawStatusRecord(lookup['extract_code'], record.title)
         return translated_record
 
-
     @staticmethod
     def get_law_status_by_code(law_status_code):
         """
@@ -1082,17 +1080,6 @@ class Config(object):
             if record.code == law_status_code:
                 return record
         raise ConfigurationError(f"Law status {law_status_code} not found in the application configuration")
-    
-    @staticmethod
-    def get_law_status_by_code_main_extract(law_status_code):
-        record = Config.get_law_status_by_code(law_status_code)
-        lookup = Config.get_law_status_lookup_by_data_code(theme_code, data_code)
-        log.debug(
-            'Translating code {} => code {} of {}'.format(
-                lookup['data_code'], lookup['extract_code'], record.title
-            )
-        )
-        translated_record = LawStatusRecord(lookup['extract_code'], record.title)
 
     @staticmethod
     def get_theme_config_by_code(theme_code):
