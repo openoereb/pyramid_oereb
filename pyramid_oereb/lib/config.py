@@ -136,8 +136,9 @@ class Config(object):
                 if theme_document.theme_id == theme.identifier:
                     for document in Config.documents:
                         if theme_document.document_id == document.identifier:
-                            document.article_numbers = theme_document.article_numbers
-                            theme_documents.append(document)
+                            document_copy = document.copy()
+                            document_copy.article_numbers = theme_document.article_numbers
+                            theme_documents.append(document_copy)
             if len(theme_documents) > 0:
                 theme.document_records = theme_documents
 
@@ -543,8 +544,6 @@ class Config(object):
         translated_record = DocumentTypeRecord(lookup['extract_code'], record.title)
         return translated_record
 
-
-######################
     @staticmethod
     def get_main_document_types_lookups():
         lookups = Config._config.get('app_schema').get('document_types_lookup')
@@ -1024,9 +1023,6 @@ class Config(object):
         )
         translated_record = LawStatusRecord(lookup['extract_code'], record.title)
         return translated_record
-
-
-#############################
 
     @staticmethod
     def get_main_law_status_lookups():
