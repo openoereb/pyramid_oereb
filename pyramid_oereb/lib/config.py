@@ -132,23 +132,12 @@ class Config(object):
     def assemble_relation_themes_documents():
         theme_documents = []
         for theme in Config.themes:
-            plrs = Config._config.get('plrs')
-            if plrs is not None and theme.code in [x['code'] for x in plrs]:
-                for theme_document in Config.theme_document:
-                    if theme_document.theme_id == theme.identifier:
-                        for document in Config.documents:
-                            if theme_document.document_id == document.identifier:
-                                theme_document_doc = deepcopy(document)
-                                theme_document_doc.article_numbers = theme_document.article_numbers
-                                theme_document_doc.document_type = Config.get_document_type_by_transfer_code(
-                                    theme.code,
-                                    theme_document_doc.document_type.code
-                                )
-                                theme_document_doc.law_status = Config.get_law_status_by_transfer_code(
-                                    theme.code,
-                                    theme_document_doc.law_status.code
-                                )
-                                theme_documents.append(theme_document_doc)
+            for theme_document in Config.theme_document:
+                if theme_document.theme_id == theme.identifier:
+                    for document in Config.documents:
+                        if theme_document.document_id == document.identifier:
+                            document.article_numbers = theme_document.article_numbers
+                            theme_documents.append(document)
             if len(theme_documents) > 0:
                 theme.document_records = theme_documents
 
@@ -217,6 +206,28 @@ class Config(object):
             **office_config.get('source').get('params')
         )
         return office_reader.read()
+    
+    @staticmethod
+    def get_global_extract_translation():
+        assert Config._config is not None
+        translations = Config._config.get('extract_translation')
+        assert translations is not None
+        assert instance(translations, dict)
+        return translations
+    
+    def get_global_law_status_extract_translation():
+        translations = Config.get_extract_translation()
+        law_status_extract_translation = translations.get('law_status_lookup')
+        assert law_status_extract_translation is not None
+        assert instance(law_status_extract_translation, list)
+        return law_status_extract_translation
+    
+    def get_global_document_type_extract_translation():
+        translations = Config.get_extract_translation()
+        document_type_extract_translation = translations.get('document_types_lookup')
+        assert document_type_extract_translation is not None
+        assert instance(document_type_extract_translation, list)
+        return document_type_extract_translation
 
     @staticmethod
     def get_general_information():
@@ -513,14 +524,6 @@ class Config(object):
         )
 
     @staticmethod
-    def get_document_type_lookup_by_transfer_code(theme_code, transfer_code):
-        return Config.get_document_type_lookup_by_theme_code_key_code(
-            theme_code,
-            'transfer_code',
-            transfer_code
-        )
-
-    @staticmethod
     def get_document_type_lookup_by_data_code(theme_code, data_code):
         return Config.get_document_type_lookup_by_theme_code_key_code(
             theme_code,
@@ -529,21 +532,50 @@ class Config(object):
         )
 
     @staticmethod
-    def get_document_type_by_transfer_code(theme_code, transfer_code):
-        lookup = Config.get_document_type_lookup_by_transfer_code(theme_code, transfer_code)
-        record = Config.get_document_type_by_code(lookup['transfer_code'])
+    def get_document_type_by_data_code(theme_code, data_code):
+        lookup = Config.get_document_type_lookup_by_data_code(theme_code, data_code)
+        record = Config.get_document_type_by_code(data_code)
         log.debug(
             'Translating code {} => code {} of {}'.format(
-                lookup['transfer_code'], lookup['extract_code'], record.title
+                lookup['data_code'], lookup['extract_code'], record.title
             )
         )
         translated_record = DocumentTypeRecord(lookup['extract_code'], record.title)
         return translated_record
 
+
+######################
     @staticmethod
-    def get_document_type_by_data_code(theme_code, data_code):
-        lookup = Config.get_document_type_lookup_by_data_code(theme_code, data_code)
-        record = Config.get_document_type_by_code(lookup['transfer_code'])
+    def get_main_document_types_lookups():
+        lookups = Config._config.get('app_schema').get('document_types_lookup')
+        if lookups is None:
+            raise ConfigurationError(
+                '"document_types_lookup" must be defined in configuration for theme {}!'.format(theme_code)
+            )
+        return lookups
+
+    @staticmethod
+    def get_main_document_type_lookup_by_key_code(key, code):
+        lookups = Config.get_main_document_types_lookups()
+        for lookup in lookups:
+            if lookup[key] == code:
+                return lookup
+        raise ConfigurationError(
+            'Document type lookup with key "{}" and code "{}" is not '
+            'defined in configuration!'.format(key, code)
+        )
+
+    @staticmethod
+    def get_main_document_type_lookup_by_data_code(data_code):
+        return Config.get_main_document_type_lookup_by_key_code(
+            'data_code',
+            data_code
+        )
+
+    @staticmethod
+    def get_main_document_type_by_data_code(data_code):
+        lookup = Config.get_main_document_type_lookup_by_data_code(data_code)
+        record = Config.get_document_type_by_code(data_code)
         log.debug(
             'Translating code {} => code {} of {}'.format(
                 lookup['data_code'], lookup['extract_code'], record.title
@@ -974,14 +1006,6 @@ class Config(object):
         )
 
     @staticmethod
-    def get_law_status_lookup_by_transfer_code(theme_code, transfer_code):
-        return Config.get_law_status_lookup_by_theme_code_key_code(
-            theme_code,
-            'transfer_code',
-            transfer_code
-        )
-
-    @staticmethod
     def get_law_status_lookup_by_data_code(theme_code, data_code):
         return Config.get_law_status_lookup_by_theme_code_key_code(
             theme_code,
@@ -990,21 +1014,9 @@ class Config(object):
         )
 
     @staticmethod
-    def get_law_status_by_transfer_code(theme_code, transfer_code):
-        lookup = Config.get_law_status_lookup_by_transfer_code(theme_code, transfer_code)
-        record = Config.get_law_status_by_code(lookup['transfer_code'])
-        log.debug(
-            'Translating code {} => code {} of {}'.format(
-                lookup['transfer_code'], lookup['extract_code'], record.title
-            )
-        )
-        translated_record = LawStatusRecord(lookup['extract_code'], record.title)
-        return translated_record
-
-    @staticmethod
     def get_law_status_by_data_code(theme_code, data_code):
         lookup = Config.get_law_status_lookup_by_data_code(theme_code, data_code)
-        record = Config.get_law_status_by_code(lookup['transfer_code'])
+        record = Config.get_law_status_by_code(data_code)
         log.debug(
             'Translating code {} => code {} of {}'.format(
                 lookup['data_code'], lookup['extract_code'], record.title
@@ -1012,6 +1024,49 @@ class Config(object):
         )
         translated_record = LawStatusRecord(lookup['extract_code'], record.title)
         return translated_record
+
+
+#############################
+
+    @staticmethod
+    def get_main_law_status_lookups():
+        lookups = Config._config.get('app_schema').get('law_status_lookup')
+        if lookups is None:
+            raise ConfigurationError(
+                '"document_types_lookup" must be defined in configuration for theme {}!'.format(theme_code)
+            )
+        return lookups
+
+    @staticmethod
+    def get_main_law_status_lookup_by_key_code(key, code):
+        lookups = Config.get_main_law_status_lookups()
+        for lookup in lookups:
+            if lookup[key] == code:
+                return lookup
+        raise ConfigurationError(
+            'Document type lookup with key "{}" and code "{}" is not'
+            'defined in configuration!'.format(key, code)
+        )
+
+    @staticmethod
+    def get_main_law_status_lookup_by_data_code(data_code):
+        return Config.get_main_law_status_lookup_by_key_code(
+            'data_code',
+            data_code
+        )
+
+    @staticmethod
+    def get_main_law_status_by_data_code(data_code):
+        lookup = Config.get_main_law_status_lookup_by_data_code(data_code)
+        record = Config.get_law_status_by_code(data_code)
+        log.debug(
+            'Translating code {} => code {} of {}'.format(
+                lookup['data_code'], lookup['extract_code'], record.title
+            )
+        )
+        translated_record = LawStatusRecord(lookup['extract_code'], record.title)
+        return translated_record
+
 
     @staticmethod
     def get_law_status_by_code(law_status_code):
@@ -1031,23 +1086,17 @@ class Config(object):
             if record.code == law_status_code:
                 return record
         raise ConfigurationError(f"Law status {law_status_code} not found in the application configuration")
-
+    
     @staticmethod
-    def get_law_status_by_law_status_code(law_status_code):
-        """
-         Returns a dictionary of the configured law status settings.
-
-        Args:
-            law_status_code (str): The law status code. It must be "inKraft" or
-            "AenderungMitVorwirkung" or "AenderungOhneVorwirkung". Any other value won't match
-            and throws a silent error.
-
-        Returns:
-            dict: The translation from the configuration.
-        """
-        for status in Config.law_status:
-            if status.code == law_status_code:
-                return status
+    def get_law_status_by_code_main_extract(law_status_code):
+        record = Config.get_law_status_by_code(law_status_code)
+        lookup = Config.get_law_status_lookup_by_data_code(theme_code, data_code)
+        log.debug(
+            'Translating code {} => code {} of {}'.format(
+                lookup['data_code'], lookup['extract_code'], record.title
+            )
+        )
+        translated_record = LawStatusRecord(lookup['extract_code'], record.title)
 
     @staticmethod
     def get_theme_config_by_code(theme_code):
@@ -1120,20 +1169,16 @@ class Config(object):
         )
 
     @staticmethod
-    def get_real_estate_lookup_by_transfer_code(transfer_code):
-        return Config.get_real_estate_type_lookup_by_key_code('transfer_code', transfer_code)
-
-    @staticmethod
     def get_real_estate_type_lookup_by_data_code(data_code):
         return Config.get_real_estate_type_lookup_by_key_code('data_code', data_code)
 
     @staticmethod
     def get_real_estate_type_by_data_code(data_code):
         lookup = Config.get_real_estate_type_lookup_by_data_code(data_code)
-        record = Config.get_real_estate_type_by_code(lookup['transfer_code'])
+        record = Config.get_real_estate_type_by_code(data_code)
         log.debug(
             'Translating code {} => code {} of {}'.format(
-                lookup['transfer_code'], lookup['extract_code'], record.title
+                data_code, lookup['extract_code'], record.title
             )
         )
         translated_record = RealEstateTypeRecord(lookup['extract_code'], record.title)
