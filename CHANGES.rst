@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.0.0.b4
+--------
+- Fix JSON extract
+
 2.0.0.b3
 --------
 - New federal data import tool and bug-fixes V2 (Status: beta)
