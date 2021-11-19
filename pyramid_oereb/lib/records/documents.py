@@ -139,3 +139,21 @@ class DocumentRecord(object):
 
     def __str__(self):
         return str(self.__class__) + ": " + str(self.__dict__)
+
+    def copy(self):
+        return DocumentRecord(
+            self.document_type,
+            self.index,
+            self.law_status,
+            self.title,
+            self.responsible_office,
+            self.published_from,
+            published_until=self.published_until,
+            text_at_web=self.text_at_web,
+            abbreviation=self.abbreviation,
+            official_number=self.official_number,
+            only_in_municipality=self.only_in_municipality,
+            article_numbers=self.article_numbers,
+            file=self.file,
+            identifier=self.identifier
+        )

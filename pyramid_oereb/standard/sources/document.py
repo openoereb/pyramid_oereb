@@ -22,11 +22,11 @@ class DatabaseSource(BaseDatabaseSource, DocumentBaseSource):
                         break
                 self.records.append(
                     self._record_class_(
-                        document_type=Config.get_document_type_by_code(
+                        document_type=Config.get_main_document_type_by_data_code(
                             result.document_type
                         ),
                         index=result.index,
-                        law_status=Config.get_law_status_by_code(
+                        law_status=Config.get_main_law_status_by_data_code(
                             result.law_status
                         ),
                         title=result.title,
