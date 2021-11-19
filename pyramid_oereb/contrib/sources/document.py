@@ -170,11 +170,13 @@ class OEREBlexSource(Base):
 
         # Get document type
         if document.doctype == 'decree':
-            document_type = Config.get_document_type_by_code('Rechtsvorschrift')
+            document_type = Config.get_document_type_by_data_code(self._plr_info.get('code'),
+                                                                  'Rechtsvorschrift')
         elif document.doctype == 'edict':
-            document_type = Config.get_document_type_by_code('GesetzlicheGrundlage')
+            document_type = Config.get_document_type_by_data_code(self._plr_info.get('code'),
+                                                                  'GesetzlicheGrundlage')
         elif document.doctype == 'notice':
-            document_type = Config.get_document_type_by_code('Hinweis')
+            document_type = Config.get_document_type_by_data_code(self._plr_info.get('code'), 'Hinweis')
         else:
             raise TypeError('Wrong doctype: expected decree, edict or notice, got {0}'.format(
                 document.doctype
@@ -189,7 +191,7 @@ class OEREBlexSource(Base):
             arguments = {
                 'document_type': document_type,
                 'index': document.index,
-                'law_status': Config.get_law_status_by_law_status_code(u'inKraft'),
+                'law_status': Config.get_law_status_by_data_code(self._plr_info.get('code'), u'inKraft'),
                 'title': self._get_multilingual(f.title or document.title, language),
                 'responsible_office': office,
                 'published_from': enactment_date,  # TODO: Use "publication_date" instead?
