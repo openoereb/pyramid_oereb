@@ -35,7 +35,8 @@ class DatabaseOEREBlexSource(DatabaseSource):
                 or "AenderungOhneVorwirkung".
         """
         super(DatabaseOEREBlexSource, self).__init__(**kwargs)
-        self._oereblex_source = OEREBlexSource(**Config.get_oereblex_config())
+        self._oereblex_source = OEREBlexSource(**dict(Config.get_oereblex_config(),
+                                                      **{"code": self._plr_info.get('code')}))
         self._queried_geolinks = {}
 
     @staticmethod
