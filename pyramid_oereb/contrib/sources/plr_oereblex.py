@@ -37,7 +37,7 @@ class DatabaseOEREBlexSource(DatabaseSource):
         super(DatabaseOEREBlexSource, self).__init__(**kwargs)
         config = Config.get_oereblex_config()
         config["code"] = self._plr_info.get('code')
-        self._oereblex_source = OEREBlexSource(**config))
+        self._oereblex_source = OEREBlexSource(**config)
         self._queried_geolinks = {}
 
     @staticmethod
