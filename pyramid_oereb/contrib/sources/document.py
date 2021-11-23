@@ -189,7 +189,7 @@ class OEREBlexSource(Base):
             arguments = {
                 'document_type': document_type,
                 'index': document.index,
-                'law_status': Config. get_main_law_status_by_data_code(u'inKraft'),
+                'law_status': Config.get_main_law_status_by_data_code(u'inKraft'),
                 'title': self._get_multilingual(f.title or document.title, language),
                 'responsible_office': office,
                 'published_from': enactment_date,  # TODO: Use "publication_date" instead?
