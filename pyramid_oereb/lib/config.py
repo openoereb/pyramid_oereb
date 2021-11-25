@@ -512,7 +512,7 @@ class Config(object):
     @staticmethod
     def get_document_type_by_data_code(theme_code, data_code):
         lookup = Config.get_document_type_lookup_by_data_code(theme_code, data_code)
-        record = Config.get_document_type_by_code(data_code)
+        record = Config.get_document_type_by_code(lookup['transfer_code'])
         log.debug(
             'Translating code {} => code {} of {}'.format(
                 lookup['data_code'], lookup['extract_code'], record.title
@@ -551,7 +551,7 @@ class Config(object):
     @staticmethod
     def get_main_document_type_by_data_code(data_code):
         lookup = Config.get_main_document_type_lookup_by_data_code(data_code)
-        record = Config.get_document_type_by_code(data_code)
+        record = Config.get_document_type_by_code(lookup['transfer_code'])
         log.debug(
             'Translating code {} => code {} of {}'.format(
                 lookup['data_code'], lookup['extract_code'], record.title
@@ -992,7 +992,7 @@ class Config(object):
     @staticmethod
     def get_law_status_by_data_code(theme_code, data_code):
         lookup = Config.get_law_status_lookup_by_data_code(theme_code, data_code)
-        record = Config.get_law_status_by_code(data_code)
+        record = Config.get_law_status_by_code(lookup['transfer_code'])
         log.debug(
             'Translating code {} => code {} of {}'.format(
                 lookup['data_code'], lookup['extract_code'], record.title
@@ -1031,7 +1031,7 @@ class Config(object):
     @staticmethod
     def get_main_law_status_by_data_code(data_code):
         lookup = Config.get_main_law_status_lookup_by_data_code(data_code)
-        record = Config.get_law_status_by_code(data_code)
+        record = Config.get_law_status_by_code(lookup['transfer_code'])
         log.debug(
             'Translating code {} => code {} of {}'.format(
                 lookup['data_code'], lookup['extract_code'], record.title
@@ -1136,7 +1136,7 @@ class Config(object):
     @staticmethod
     def get_real_estate_type_by_data_code(data_code):
         lookup = Config.get_real_estate_type_lookup_by_data_code(data_code)
-        record = Config.get_real_estate_type_by_code(data_code)
+        record = Config.get_real_estate_type_by_code(lookup['transfer_code'])
         log.debug(
             'Translating code {} => code {} of {}'.format(
                 data_code, lookup['extract_code'], record.title

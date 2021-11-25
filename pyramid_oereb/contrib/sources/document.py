@@ -37,6 +37,7 @@ class OEREBlexSource(Base):
                 and `password` to be defined.
             validation (bool): Turn XML validation on/off. Default is true.
             url_param_config (list of code and url_param): Optional url parameters to use, per plr code
+            code (str): The official code. Regarding to the federal specifications.
 
         """
         super(OEREBlexSource, self).__init__()
@@ -48,6 +49,7 @@ class OEREBlexSource(Base):
         self._related_decree_as_main = kwargs.get('related_decree_as_main')
         self._related_notice_as_main = kwargs.get('related_notice_as_main')
         self._proxies = kwargs.get('proxy')
+        self._code = kwargs.get('code')
 
         # Set default values for missing parameters
         if self._version is None:
@@ -169,16 +171,7 @@ class OEREBlexSource(Base):
             raise AssertionError('Missing authority for document #{0}'.format(document.id))
 
         # Get document type
-        if document.doctype == 'decree':
-            document_type = Config.get_document_type_by_code('Rechtsvorschrift')
-        elif document.doctype == 'edict':
-            document_type = Config.get_document_type_by_code('GesetzlicheGrundlage')
-        elif document.doctype == 'notice':
-            document_type = Config.get_document_type_by_code('Hinweis')
-        else:
-            raise TypeError('Wrong doctype: expected decree, edict or notice, got {0}'.format(
-                document.doctype
-            ))
+        document_type = Config.get_document_type_by_data_code(self._code, document.doctype)
 
         # Create related office record
         office = OfficeRecord({language: authority}, office_at_web=document.authority_url)
@@ -189,7 +182,7 @@ class OEREBlexSource(Base):
             arguments = {
                 'document_type': document_type,
                 'index': document.index,
-                'law_status': Config.get_law_status_by_law_status_code(u'inKraft'),
+                'law_status': Config.get_law_status_by_data_code(self._code, u'inKraft'),
                 'title': self._get_multilingual(f.title or document.title, language),
                 'responsible_office': office,
                 'published_from': enactment_date,  # TODO: Use "publication_date" instead?
