@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from pyramid_oereb.lib.records.law_status import LawStatusRecord
+from pyramid_oereb.core.records.law_status import LawStatusRecord
 
 
 def test_law_status_init():

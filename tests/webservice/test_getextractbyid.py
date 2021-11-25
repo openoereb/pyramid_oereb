@@ -7,7 +7,7 @@ from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNoContent
 
 from tests import pyramid_oereb_test_config, schema_json_extract
 from tests.mockrequest import MockRequest
-from pyramid_oereb.views.webservice import PlrWebservice
+from pyramid_oereb.core.views import PlrWebservice
 
 log = logging.getLogger('pyramid_oereb')
 
@@ -149,7 +149,7 @@ def test_return_no_content():
 def test_return_json(egrid, topics):
     with pyramid_oereb_test_config() as pyramid_config:
         pyramid_config.add_renderer('pyramid_oereb_extract_json',
-                                    'pyramid_oereb.lib.renderer.extract.json_.Renderer')
+                                    'pyramid_oereb.core.renderer.extract.json_.Renderer')
         request = MockRequest()
         request.matchdict.update({
             'format': 'JSON'

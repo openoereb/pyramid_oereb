@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import datetime
 
-from pyramid_oereb.lib.records.embeddable import EmbeddableRecord, DatasourceRecord
-from pyramid_oereb.lib.records.office import OfficeRecord
-from pyramid_oereb.lib.records.theme import ThemeRecord
+from pyramid_oereb.core.records.embeddable import EmbeddableRecord, DatasourceRecord
+from pyramid_oereb.core.records.office import OfficeRecord
+from pyramid_oereb.core.records.theme import ThemeRecord
 
 
 def test_embeddable_record_init():

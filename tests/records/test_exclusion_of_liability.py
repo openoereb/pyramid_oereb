@@ -2,7 +2,7 @@
 
 import pytest
 
-from pyramid_oereb.lib.records.disclaimer import DisclaimerRecord
+from pyramid_oereb.core.records.disclaimer import DisclaimerRecord
 
 
 def test_mandatory_fields():

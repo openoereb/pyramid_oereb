@@ -1,4 +1,4 @@
-from pyramid_oereb.lib.records.real_estate_type import RealEstateTypeRecord
+from pyramid_oereb.core.records.real_estate_type import RealEstateTypeRecord
 
 
 def test_real_estate_type_init():

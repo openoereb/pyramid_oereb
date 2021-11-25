@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from pyramid_oereb.lib.records.theme import ThemeRecord
+from pyramid_oereb.core.records.theme import ThemeRecord
 
 
 def test_theme_init():

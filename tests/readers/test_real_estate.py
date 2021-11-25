@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from pyramid_oereb.lib.config import Config
-from pyramid_oereb.lib.records.real_estate import RealEstateRecord
-from pyramid_oereb.lib.sources import Base
-from pyramid_oereb.lib.readers.real_estate import RealEstateReader
+from pyramid_oereb.core.config import Config
+from pyramid_oereb.core.records.real_estate import RealEstateRecord
+from pyramid_oereb.core.sources import Base
+from pyramid_oereb.core.readers.real_estate import RealEstateReader
 from tests.mockrequest import MockParameter
 
 

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from pyramid_oereb.lib.config import Config
-from pyramid_oereb.lib.records.municipality import MunicipalityRecord
-from pyramid_oereb.lib.sources import Base
-from pyramid_oereb.lib.readers.municipality import MunicipalityReader
+from pyramid_oereb.core.config import Config
+from pyramid_oereb.core.records.municipality import MunicipalityRecord
+from pyramid_oereb.core.sources import Base
+from pyramid_oereb.core.readers.municipality import MunicipalityReader
 from tests.mockrequest import MockParameter
 
 

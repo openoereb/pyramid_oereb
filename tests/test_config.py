@@ -3,9 +3,9 @@ import pytest
 
 from pyramid.config import ConfigurationError
 
-# from pyramid_oereb.lib.adapter import FileAdapter
-from pyramid_oereb.lib.config import Config
-from pyramid_oereb.lib.records.office import OfficeRecord
+# from pyramid_oereb.core.adapter import FileAdapter
+from pyramid_oereb.core.config import Config
+from pyramid_oereb.core.records.office import OfficeRecord
 
 
 # order=-1 to run them after all and don't screw the configuration in Config

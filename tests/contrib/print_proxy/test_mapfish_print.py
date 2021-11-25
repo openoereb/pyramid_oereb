@@ -4,7 +4,7 @@ import json
 import codecs
 from pyramid_oereb.contrib.print_proxy.mapfish_print import Renderer
 from tests.renderer import DummyRenderInfo
-from pyramid_oereb.contrib.print_proxy.toc_pages import TocPages
+from pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages import TocPages
 
 
 def coordinates():

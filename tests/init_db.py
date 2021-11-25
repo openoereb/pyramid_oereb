@@ -6,10 +6,10 @@ from datetime import date, timedelta
 
 from sqlalchemy import create_engine
 
-from pyramid_oereb.lib import b64
-from pyramid_oereb.lib.adapter import FileAdapter
-from pyramid_oereb.lib.config import Config
-from pyramid_oereb.standard.sources.plr import parse_multiple_standard_themes
+from pyramid_oereb.core import b64
+from pyramid_oereb.core.adapter import FileAdapter
+from pyramid_oereb.core.config import Config
+from pyramid_oereb.contrib.data_sources.standard import parse_multiple_standard_themes
 
 file_adapter = FileAdapter()
 
@@ -40,7 +40,7 @@ class DummyData(object):
         self._import_forest_perimeters()
 
     def _truncate(self):
-        from pyramid_oereb.standard.models import main
+        from pyramid_oereb.contrib.data_sources.standard.models import main
         contaminated_sites = self.contaminated_sites
         land_use_plans = self.land_use_plans
         motorways_building_lines = self.motorways_building_lines
@@ -194,7 +194,7 @@ class DummyData(object):
         connection.close()
 
     def _import_main(self):
-        from pyramid_oereb.standard.models import main
+        from pyramid_oereb.contrib.data_sources.standard.models import main
         connection = self._engine.connect()
         trans = connection.begin()
 

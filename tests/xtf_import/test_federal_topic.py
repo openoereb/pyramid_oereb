@@ -8,9 +8,9 @@ from logging import Logger
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from pyramid_oereb.lib.config import Config
-from pyramid_oereb.standard.xtf_import import FederalTopic
-from pyramid_oereb.standard.models.theme import Models
+from pyramid_oereb.core.config import Config
+from pyramid_oereb.contrib.data_sources.standard.xtf_import import FederalTopic
+from pyramid_oereb.contrib.data_sources.standard.models.theme import Models
 
 yaml_file = 'pyramid_oereb/standard/pyramid_oereb.yml'
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from pyramid_oereb.standard.xtf_import.public_law_restriction_document import PublicLawRestrictionDocument
+from pyramid_oereb.contrib.data_sources.standard.xtf_import.public_law_restriction_document import PublicLawRestrictionDocument
 
 
 def test_init():

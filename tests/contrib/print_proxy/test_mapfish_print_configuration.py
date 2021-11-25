@@ -1,5 +1,5 @@
 from pyramid_oereb.contrib.print_proxy.mapfish_print import Renderer
-from pyramid_oereb.lib.config import Config
+from pyramid_oereb.core.config import Config
 from tests.renderer import DummyRenderInfo
 
 

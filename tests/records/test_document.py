@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 import datetime
 import pytest
-from pyramid_oereb.lib.records.law_status import LawStatusRecord
+from pyramid_oereb.core.records.law_status import LawStatusRecord
 
-from pyramid_oereb.lib.records.documents import DocumentRecord
-from pyramid_oereb.lib.records.document_types import DocumentTypeRecord
-from pyramid_oereb.lib.records.office import OfficeRecord
-from pyramid_oereb.lib.config import Config
+from pyramid_oereb.core.records.documents import DocumentRecord
+from pyramid_oereb.core.records.document_types import DocumentTypeRecord
+from pyramid_oereb.core.records.office import OfficeRecord
+from pyramid_oereb.core.config import Config
 
 
 def test_mandatory_fields():

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from pyramid_oereb.standard.xtf_import.base_refinement import BaseRefinement
+from pyramid_oereb.contrib.data_sources.standard.xtf_import import BaseRefinement
 
 
 def test_init():

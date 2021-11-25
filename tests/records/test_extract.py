@@ -4,13 +4,13 @@ import pytest
 from pyramid.path import DottedNameResolver
 
 from pyramid_oereb import Config
-from pyramid_oereb.lib.records.logo import LogoRecord
-from pyramid_oereb.lib.records.office import OfficeRecord
-from pyramid_oereb.lib.records.real_estate import RealEstateRecord
-from pyramid_oereb.lib.records.extract import ExtractRecord
+from pyramid_oereb.core.records.logo import LogoRecord
+from pyramid_oereb.core.records.office import OfficeRecord
+from pyramid_oereb.core.records.real_estate import RealEstateRecord
+from pyramid_oereb.core.records.extract import ExtractRecord
 from shapely.geometry.multipolygon import MultiPolygon
 
-from pyramid_oereb.lib.records.view_service import ViewServiceRecord
+from pyramid_oereb.core.records.view_service import ViewServiceRecord
 
 
 def test_class_variables():

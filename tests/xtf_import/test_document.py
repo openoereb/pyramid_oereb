@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from pyramid_oereb.standard.xtf_import.document import Document
+from pyramid_oereb.contrib.data_sources.standard.xtf_import import Document
 
 
 def test_init():

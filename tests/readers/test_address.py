@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from pyramid_oereb.lib.config import Config
-from pyramid_oereb.lib.records.address import AddressRecord
-from pyramid_oereb.lib.sources import Base
-from pyramid_oereb.lib.readers.address import AddressReader
+from pyramid_oereb.core.config import Config
+from pyramid_oereb.core.records.address import AddressRecord
+from pyramid_oereb.core.sources import Base
+from pyramid_oereb.core.readers.address import AddressReader
 from tests.mockrequest import MockParameter
 
 

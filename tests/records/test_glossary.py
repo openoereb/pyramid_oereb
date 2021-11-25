@@ -2,7 +2,7 @@
 
 import pytest
 
-from pyramid_oereb.lib.records.glossary import GlossaryRecord
+from pyramid_oereb.core.records.glossary import GlossaryRecord
 
 
 def test_mandatory_fields():

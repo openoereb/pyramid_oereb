@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from pyramid_oereb.lib.records.document_types import DocumentTypeRecord
+from pyramid_oereb.core.records.document_types import DocumentTypeRecord
 
 
 def test_document_type_init():

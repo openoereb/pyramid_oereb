@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from lxml.etree import XML
 import tests
-from pyramid_oereb.lib.config import Config
-from pyramid_oereb.standard.xtf_import.legend_entry import LegendEntry
-from pyramid_oereb.standard.sources.plr import StandardThemeConfigParser
+from pyramid_oereb.core.config import Config
+from pyramid_oereb.contrib.data_sources.standard.xtf_import import LegendEntry
+from pyramid_oereb.contrib.data_sources.standard import StandardThemeConfigParser
 from tests.xtf_import import MockSession
 
 Config._config = None

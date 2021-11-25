@@ -6,7 +6,7 @@ from jsonschema import Draft4Validator
 
 from tests import schema_json_extract, pyramid_oereb_test_config
 from tests.mockrequest import MockRequest
-from pyramid_oereb.views.webservice import PlrWebservice
+from pyramid_oereb.core.views import PlrWebservice
 
 
 def test_getcapabilities():

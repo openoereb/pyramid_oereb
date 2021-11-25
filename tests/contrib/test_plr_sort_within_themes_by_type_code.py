@@ -2,7 +2,7 @@
 import logging
 import pytest
 
-from pyramid_oereb.contrib import plr_sort_within_themes_by_type_code
+from pyramid_oereb.contrib.data_sources import plr_sort_within_themes_by_type_code
 from tests.records.test_extract import create_dummy_extract
 from tests.records.test_plr import create_dummy_plr
 

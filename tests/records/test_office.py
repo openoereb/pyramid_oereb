@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from pyramid_oereb.lib.records.office import OfficeRecord
+from pyramid_oereb.core.records.office import OfficeRecord
 
 
 def test_mandatory_fields():

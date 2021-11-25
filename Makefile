@@ -34,9 +34,9 @@ PG_DEV_DATA = $(shell ls -1 $(PG_DEV_DATA_DIR)/*.json) \
 	$(shell ls -1 $(PG_DEV_DATA_DIR)/motorways_building_lines/*.json) \
 	$(shell ls -1 $(PG_DEV_DATA_DIR)/contaminated_military_sites/*.json)
 
-DEV_CONFIGURATION_YML = pyramid_oereb/standard/pyramid_oereb.yml
-DEV_CREATE_FILL_SCRIPT = pyramid_oereb/standard/load_sample_data.py
-DEV_CREATE_STANDARD_YML_SCRIPT = $(VENV_BIN)/create_standard_yaml
+DEV_CONFIGURATION_YML = pyramid_oereb/dev/config/pyramid_oereb.yml
+DEV_CREATE_FILL_SCRIPT = pyramid_oereb/contrib/data_sources/standard/load_sample_data.py
+DEV_CREATE_STANDARD_YML_SCRIPT = $(VENV_BIN)/create_example_yaml
 DEV_CREATE_TABLES_SCRIPT = $(VENV_BIN)/create_standard_tables
 DEV_CREATE_SCRIPT = .db/12-create.sql
 DEV_FILL_SCRIPT = .db/13-fill.sql

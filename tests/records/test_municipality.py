@@ -4,7 +4,7 @@ import pytest
 import shapely.wkt
 import shapely.geometry
 
-from pyramid_oereb.lib.records.municipality import MunicipalityRecord
+from pyramid_oereb.core.records.municipality import MunicipalityRecord
 
 
 def test_mandatory_fields():

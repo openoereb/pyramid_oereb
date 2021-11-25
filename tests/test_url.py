@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from pyramid_oereb.lib.url import uri_validator
+from pyramid_oereb.core.url import uri_validator
 
 
 @pytest.mark.parametrize('uri', [

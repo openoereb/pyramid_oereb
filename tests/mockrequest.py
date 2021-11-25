@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from pyramid.testing import DummyRequest
 
-from pyramid_oereb.views.webservice import Parameter
+from pyramid_oereb.core.views import Parameter
 
 
 class MockParameter(Parameter):

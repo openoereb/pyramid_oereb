@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from pyramid_oereb.lib.records.address import AddressRecord
-from pyramid_oereb.contrib.sources.address import AddressGeoAdminSource
+from pyramid_oereb.core.records.address import AddressRecord
+from pyramid_oereb.contrib.data_sources.swisstopo.address import AddressGeoAdminSource
 import pytest
 import requests_mock
 from requests import HTTPError

@@ -83,7 +83,7 @@ pyramid_oereb:
     city: Wabern
 
   oereblex:
-    host: http://oereblex.example.com
+    host: http://models.example.com
     language: de
     proxy:
       http: http://my.proxy.org

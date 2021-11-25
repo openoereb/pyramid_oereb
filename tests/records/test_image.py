@@ -2,9 +2,9 @@
 
 import pytest
 
-from pyramid_oereb.lib import b64
-from pyramid_oereb.lib.adapter import FileAdapter
-from pyramid_oereb.lib.records.image import ImageRecord
+from pyramid_oereb.core import b64
+from pyramid_oereb.core.adapter import FileAdapter
+from pyramid_oereb.core.records.image import ImageRecord
 
 
 def test_init():

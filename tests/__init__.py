@@ -2,7 +2,7 @@
 from contextlib import contextmanager
 from pyramid.testing import testConfig
 
-from pyramid_oereb.lib.config import Config
+from pyramid_oereb.core.config import Config
 
 
 params = [

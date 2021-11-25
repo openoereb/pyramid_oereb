@@ -3,7 +3,7 @@ import pytest
 from shapely.geometry import Polygon
 from shapely.wkt import loads
 
-from pyramid_oereb.lib.records.real_estate import RealEstateRecord
+from pyramid_oereb.core.records.real_estate import RealEstateRecord
 
 
 def test_mandatory_fields():

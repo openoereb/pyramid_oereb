@@ -1,0 +1,92 @@
+## -*- coding: utf-8 -*-
+<?xml version="1.0" encoding="UTF-8" ?>
+<extract:GetExtractByIdResponse
+                        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xmlns:data="http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData"
+                        xmlns:extract="http://schemas.geo.admin.ch/V_D/OeREB/2.0/Extract"
+                        xmlns:geometry="http://www.interlis.ch/geometry/1.0"
+                        xsi:schemaLocation="http://schemas.geo.admin.ch/V_D/OeREB/2.0/Extract http://schemas.geo.admin.ch/V_D/OeREB/2.0/Extract.xsd
+                                            http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData.xsd
+                                            http://www.interlis.ch/geometry/1.0 http://models.interlis.ch/refhb24/geometry.xsd">
+<%
+    from pyramid_oereb.core.records.plr import PlrRecord
+    from pyramid_oereb import Config, route_prefix
+    from pyramid_oereb.core import get_multilingual_element
+
+    language = params.language or Config.get('default_language')
+%>
+<%
+    def parse_bool(expression):
+        if expression:
+            return 'true'
+        else:
+            return 'false'
+%>
+<%
+    def accessor(element):
+        return element.title
+
+    sorted_glossaries = list()
+    if isinstance(extract.glossaries, list):
+        sorted_glossaries = sort_by_localized_text(extract.glossaries, accessor, False)
+%>
+    <data:Extract>
+        <data:CreationDate>${extract.creation_date.strftime(date_format)}</data:CreationDate>
+    %if extract.electronic_signature:
+        <data:Signature>${extract.electronic_signature | x}</data:Signature>
+    %endif
+    %if extract.concerned_theme:
+        %for theme in extract.concerned_theme:
+        <data:ConcernedTheme>
+            <%include file="theme.xml" args="theme=theme"/>
+        </data:ConcernedTheme>
+        %endfor
+    %endif
+    %if extract.not_concerned_theme:
+        %for theme in extract.not_concerned_theme:
+        <data:NotConcernedTheme>
+            <%include file="theme.xml" args="theme=theme"/>
+        </data:NotConcernedTheme>
+        %endfor
+    %endif
+    %if extract.theme_without_data:
+        %for theme in extract.theme_without_data:
+        <data:ThemeWithoutData>
+            <%include file="theme.xml" args="theme=theme"/>
+        </data:ThemeWithoutData>
+        %endfor
+    %endif
+    %if params.images:
+        <data:LogoPLRCadastre>${get_multilingual_element(extract.logo_plr_cadastre.image_dict, language).encode()}</data:LogoPLRCadastre>
+        <data:FederalLogo>${get_multilingual_element(extract.federal_logo.image_dict, language).encode()}</data:FederalLogo>
+        <data:CantonalLogo>${get_multilingual_element(extract.cantonal_logo.image_dict, language).encode()}</data:CantonalLogo>
+        <data:MunicipalityLogo>${get_multilingual_element(extract.municipality_logo.image_dict, language).encode()}</data:MunicipalityLogo>
+    %else:
+        <data:LogoPLRCadastreRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='oereb', language=language, extension=get_multilingual_element(extract.logo_plr_cadastre.image_dict, language).extension) | x}</data:LogoPLRCadastreRef>
+        <data:FederalLogoRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='confederation', language=language, extension=get_multilingual_element(extract.federal_logo.image_dict, language).extension) | x}</data:FederalLogoRef>
+        <data:CantonalLogoRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='canton', language=language, extension=get_multilingual_element(extract.cantonal_logo.image_dict, language).extension) | x}</data:CantonalLogoRef>
+        <data:MunicipalityLogoRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='municipality', language=language, extension=get_multilingual_element(extract.municipality_logo.image_dict, language).extension) + '?fosnr={}'.format(extract.real_estate.fosnr) | x}</data:MunicipalityLogoRef>
+    %endif
+        <data:ExtractIdentifier>${extract.extract_identifier}</data:ExtractIdentifier>
+    %if extract.qr_code:
+        <data:QRCode>${extract.qr_code}</data:QRCode>
+    %endif
+    %for general_information in extract.general_information:
+        <%include file="general_information.xml" args="general_information=general_information"/>
+    %endfor
+        %for glossary in sorted_glossaries:
+        <%include file="glossary.xml" args="glossary=glossary"/>
+        %endfor
+        <%include file="real_estate.xml" args="real_estate=extract.real_estate"/>
+        %for disclaimer in extract.disclaimers:
+        <%include file="disclaimer.xml" args="disclaimer=disclaimer"/>
+        %endfor
+        <data:PLRCadastreAuthority>
+            <%include file="office.xml" args="office=extract.plr_cadastre_authority"/>
+        </data:PLRCadastreAuthority>
+        <data:UpdateDateCS>
+            ${extract.creation_date.strftime(date_format)}
+        </data:UpdateDateCS>
+    </data:Extract>
+</extract:GetExtractByIdResponse>

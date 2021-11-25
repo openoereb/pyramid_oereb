@@ -31,7 +31,7 @@ __pycache__/
 
 # Standard configuration
 /pyramid_oereb_standard.yml
-/pyramid_oereb/standard/pyramid_oereb.yml
+/pyramid_oereb/contrib/data_sources/standard/pyramid_oereb.yml
 /logo_*.png
 /logo_*.jpg
 
@@ -76,3 +76,4 @@ sample_data/ch.disclaimer.json
 sample_data/ch.general_information.json
 sample_data/ch.law_responsible_offices.json
 DataExtract.json
+/pyramid_oereb/dev/config/pyramid_oereb.yml

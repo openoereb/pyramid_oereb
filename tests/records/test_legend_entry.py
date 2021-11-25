@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from pyramid_oereb.lib.records.image import ImageRecord
-from pyramid_oereb.lib.records.theme import ThemeRecord
-from pyramid_oereb.lib.records.view_service import LegendEntryRecord
+from pyramid_oereb.core.records.image import ImageRecord
+from pyramid_oereb.core.records.theme import ThemeRecord
+from pyramid_oereb.core.records.view_service import LegendEntryRecord
 
 
 def test_mandatory_fields():

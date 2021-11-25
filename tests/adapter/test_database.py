@@ -3,8 +3,8 @@ import pytest
 from sqlalchemy.exc import ArgumentError
 from sqlalchemy.orm import Session
 
-from pyramid_oereb.lib.config import Config
-from pyramid_oereb.lib.adapter import DatabaseAdapter
+from pyramid_oereb.core.config import Config
+from pyramid_oereb.core.adapter import DatabaseAdapter
 
 
 def test_init():

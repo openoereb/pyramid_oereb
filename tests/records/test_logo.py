@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from pyramid_oereb.lib.records.logo import LogoRecord
-from pyramid_oereb.lib.records.image import ImageRecord
+from pyramid_oereb.core.records.logo import LogoRecord
+from pyramid_oereb.core.records.image import ImageRecord
 
 
 def test_logo_init():

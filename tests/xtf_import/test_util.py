@@ -4,7 +4,7 @@ import math
 import pytest
 from lxml.etree import XML
 
-from pyramid_oereb.standard.xtf_import.util import get_tag, parse_ref, parse_string, \
+from pyramid_oereb.contrib.data_sources.standard.xtf_import import get_tag, parse_ref, parse_string, \
     parse_multilingual_text, parse_article_numbers, stroke_arc, get_angle
 
 

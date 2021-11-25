@@ -6,7 +6,7 @@ from pyreproj import Reprojector
 from shapely.geometry import Point, LineString, Polygon, MultiPoint, GeometryCollection, MultiLineString, \
     MultiPolygon
 
-from pyramid_oereb.standard.xtf_import.geometry import Geometry
+from pyramid_oereb.contrib.data_sources.standard.xtf_import import Geometry
 
 
 def test_geometry_init():

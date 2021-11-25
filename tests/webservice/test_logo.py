@@ -4,7 +4,7 @@ from pyramid.httpexceptions import HTTPNotFound
 from pyramid.response import Response
 
 from tests.mockrequest import MockRequest
-from pyramid_oereb.views.webservice import Logo
+from pyramid_oereb.core.views import Logo
 
 
 def test_get_image():

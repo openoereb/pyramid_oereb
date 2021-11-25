@@ -1,12 +1,12 @@
-from pyramid_oereb.lib.records.geometry import GeometryRecord
-from pyramid_oereb.lib.records.image import ImageRecord
-from pyramid_oereb.lib.records.law_status import LawStatusRecord
-from pyramid_oereb.lib.records.office import OfficeRecord
-from pyramid_oereb.lib.records.plr import PlrRecord
-from pyramid_oereb.lib.records.theme import ThemeRecord
-from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
-from pyramid_oereb.lib.renderer.extract.xml_ import Renderer
-from pyramid_oereb.views.webservice import Parameter
+from pyramid_oereb.core.records.geometry import GeometryRecord
+from pyramid_oereb.core.records.image import ImageRecord
+from pyramid_oereb.core.records.law_status import LawStatusRecord
+from pyramid_oereb.core.records.office import OfficeRecord
+from pyramid_oereb.core.records.plr import PlrRecord
+from pyramid_oereb.core.records.theme import ThemeRecord
+from pyramid_oereb.core.records.view_service import ViewServiceRecord, LegendEntryRecord
+from pyramid_oereb.core.renderer.extract.xml_ import Renderer
+from pyramid_oereb.core.views import Parameter
 from tests.mockrequest import MockRequest
 from tests.renderer import DummyRenderInfo
 from tests.renderer.xml import xml_templates

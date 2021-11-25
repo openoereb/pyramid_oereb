@@ -8,28 +8,28 @@ from shapely.geometry import MultiPolygon, Polygon, Point, LineString
 from pyramid.path import DottedNameResolver
 
 from pyramid_oereb import Config
-from pyramid_oereb.lib.adapter import FileAdapter
-from pyramid_oereb.lib.records.documents import DocumentRecord
-from pyramid_oereb.lib.records.document_types import DocumentTypeRecord
-from pyramid_oereb.lib.records.disclaimer import DisclaimerRecord
-from pyramid_oereb.lib.records.extract import ExtractRecord
-from pyramid_oereb.lib.records.geometry import GeometryRecord
-from pyramid_oereb.lib.records.glossary import GlossaryRecord
-from pyramid_oereb.lib.records.image import ImageRecord
-from pyramid_oereb.lib.records.logo import LogoRecord
-from pyramid_oereb.lib.records.office import OfficeRecord
-from pyramid_oereb.lib.records.plr import PlrRecord
-from pyramid_oereb.lib.records.law_status import LawStatusRecord
-from pyramid_oereb.lib.records.real_estate import RealEstateRecord
-from pyramid_oereb.lib.records.theme import ThemeRecord
-from pyramid_oereb.lib.records.general_information import GeneralInformationRecord
-from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
-from pyramid_oereb.lib.renderer import Base
-from pyramid_oereb.lib.renderer.extract.json_ import Renderer
+from pyramid_oereb.core.adapter import FileAdapter
+from pyramid_oereb.core.records.documents import DocumentRecord
+from pyramid_oereb.core.records.document_types import DocumentTypeRecord
+from pyramid_oereb.core.records.disclaimer import DisclaimerRecord
+from pyramid_oereb.core.records.extract import ExtractRecord
+from pyramid_oereb.core.records.geometry import GeometryRecord
+from pyramid_oereb.core.records.glossary import GlossaryRecord
+from pyramid_oereb.core.records.image import ImageRecord
+from pyramid_oereb.core.records.logo import LogoRecord
+from pyramid_oereb.core.records.office import OfficeRecord
+from pyramid_oereb.core.records.plr import PlrRecord
+from pyramid_oereb.core.records.law_status import LawStatusRecord
+from pyramid_oereb.core.records.real_estate import RealEstateRecord
+from pyramid_oereb.core.records.theme import ThemeRecord
+from pyramid_oereb.core.records.general_information import GeneralInformationRecord
+from pyramid_oereb.core.records.view_service import ViewServiceRecord, LegendEntryRecord
+from pyramid_oereb.core.renderer import Base
+from pyramid_oereb.core.renderer.extract.json_ import Renderer
 from tests import pyramid_oereb_test_config
 from tests.mockrequest import MockRequest
 from tests.renderer import DummyRenderInfo
-from pyramid_oereb.views.webservice import Parameter
+from pyramid_oereb.core.views import Parameter
 
 
 def law_status():
