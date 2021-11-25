@@ -50,7 +50,7 @@ class Renderer(Base):
 
         extract_dict = self._render(value[0], value[1])
         result = {
-            '$schema': 'https://raw.githubusercontent.com/openoereb/schemas/1744277f2f4c8a67061b42072d77458da6b0d90e/extract.json',  # noqa: E501
+            '$schema': 'https://raw.githubusercontent.com/openoereb/schemas/ea4fe8e696b84b923cb9aa9fb27c3ba4e2d8eb5b/extract.json',  # noqa: E501
             u'GetExtractByIdResponse': {
                 u'extract': extract_dict
             }
