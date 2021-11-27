@@ -497,8 +497,8 @@ class Config(object):
             if lookup[key] == code:
                 return lookup
         raise ConfigurationError(
-            'Document type lookup with key "{}" and code "{}" is not '
-            'defined in configuration!'.format(key, code)
+            'Document type lookup for theme {} with key "{}" and code "{}" is not '
+            'defined in configuration!'.format(theme_code, key, code)
         )
 
     @staticmethod
@@ -977,8 +977,8 @@ class Config(object):
             if lookup[key] == code:
                 return lookup
         raise ConfigurationError(
-            'Document type lookup with key "{}" and code "{}" is not'
-            'defined in configuration!'.format(key, code)
+            'Document type lookup for theme {} with key "{}" and code "{}" is not '
+            'defined in configuration!'.format(theme_code, key, code)
         )
 
     @staticmethod
@@ -1114,7 +1114,7 @@ class Config(object):
         lookups = Config.get_real_estate_type_config().get('lookup')
         if lookups is None:
             raise ConfigurationError(
-                '"lookup" must be defined in configuration for theme real_estate_type!'
+                '"lookup" must be defined in configuration for real_estate_type!'
             )
         return lookups
 
