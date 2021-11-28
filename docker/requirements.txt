@@ -1,1 +1,0 @@
-c2c-template==1.5.1
