@@ -6,7 +6,7 @@ from pyramid.path import DottedNameResolver
 
 from pyramid_oereb.core.config import Config
 from pyramid_oereb.contrib.data_sources.standard.sources.plr import StandardThemeConfigParser
-from pyramid_oereb.contrib.data_sources.standard import tables, create_sql, create_tables_sql, execute_sql
+from pyramid_oereb.contrib.data_sources.standard import tables, create_sql, create_tables_sql
 
 logging.basicConfig()
 log = logging.getLogger(__name__)
@@ -21,21 +21,17 @@ def create_theme_tables_(theme_config, tables_only=False, sql_file=None):
         tables_only (bool): True to skip creation of schema. Default is False.
         sql_file (file): The file to generate. Default is None (in the database).
     """
-    if theme_config.get('standard'):
+    if theme_config.get('standard') == True:
         config_parser = StandardThemeConfigParser(**theme_config)
         models = config_parser.get_models()
-        theme_db_connection = models.db_connection
         theme_schema_name = models.schema_name
         theme_tables = tables(models.Base)
         if tables_only:
-            sql = create_tables_sql(theme_db_connection, theme_tables)
+            sql = create_tables_sql(theme_tables)
         else:
-            sql = create_sql(theme_schema_name, theme_db_connection, theme_tables)
+            sql = create_sql(theme_schema_name, theme_tables)
 
-        if sql_file is None:
-            execute_sql(theme_db_connection, sql)
-        else:
-            sql_file.write(sql)
+        sql_file.write(sql)
 
 
 def create_tables_from_standard_configuration(
@@ -62,17 +58,14 @@ def create_tables_from_standard_configuration(
     main_base_class = DottedNameResolver().maybe_resolve('{package}.Base'.format(
         package=Config.get('app_schema').get('models')
     ))
-    main_db_connection = Config.get('app_schema').get('db_connection')
     main_schema_name = Config.get('app_schema').get('name')
     main_tables = tables(main_base_class)
     if tables_only:
-        sql = create_tables_sql(main_db_connection, main_tables)
+        sql = create_tables_sql(main_tables)
     else:
-        sql = create_sql(main_schema_name, main_db_connection, main_tables)
-    if sql_file is None:
-        execute_sql(main_db_connection, sql)
-    else:
-        sql_file.write(sql)
+        sql = create_sql(main_schema_name, main_tables)
+
+    sql_file.write(sql)
 
     for theme_config in Config.get('plrs'):
         if theme_config.get('standard'):

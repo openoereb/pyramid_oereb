@@ -5,7 +5,7 @@ from mako.template import Template
 from pyramid.path import AssetResolver
 
 
-def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
+def _create_yaml_config_(name='pyramid_oereb.yml',
                                   database='postgresql://postgres:password@localhost/pyramid_oereb',
                                   print_backend='MapFishPrint',
                                   print_url='http://oereb-print:8080/print/oereb'):
@@ -21,7 +21,7 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
 
     # Create pyramid_oereb.yml from template
     template = Template(
-        filename=AssetResolver('pyramid_oereb').resolve('dev/config/pyramid_oereb.yml.mako').abspath(),
+        filename=AssetResolver('dev').resolve('config/pyramid_oereb.yml.mako').abspath(),
         input_encoding='utf-8',
         output_encoding='utf-8'
     )
@@ -35,7 +35,7 @@ def _create_standard_yaml_config_(name='pyramid_oereb_standard.yml',
     pyramid_oereb_yml.close()
 
 
-def create_standard_yaml():
+def create_yaml():
     parser = optparse.OptionParser(
         usage='usage: %prog [options]',
         description='Create all content for the standard database'
@@ -74,5 +74,5 @@ def create_standard_yaml():
         help='The URL of the print server'
     )
     options, args = parser.parse_args()
-    _create_standard_yaml_config_(name=options.name, database=options.database,
+    _create_yaml_config_(name=options.name, database=options.database,
                                   print_backend=options.print_backend)

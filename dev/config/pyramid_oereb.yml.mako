@@ -1103,14 +1103,14 @@ pyramid_oereb:
           precision: 1
       language: de
       federal: true
-      standard: true
+      standard: false
       view_service:
         layer_index: 1
         layer_opacity: 0.75
       source:
         class: pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.DatabaseSource
         params:
-          db_connection: postgresql://postgres:postgres@oereb-db:5432/oereb_fed_test
+          db_connection: *main_db_connection
           # model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_integer_pk
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.interlis_2_3.models.theme.model_factory_integer_pk

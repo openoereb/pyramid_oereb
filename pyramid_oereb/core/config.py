@@ -56,18 +56,17 @@ class Config(object):
         assert Config._config is None
 
         Config._config = _parse(configfile, configsection, c2ctemplate_style)
-        Config.init_law_status()
-        Config.init_document_types()
-        Config.init_offices()
-        Config.init_themes()
-        Config.init_theme_document()
-        Config.init_documents()
-        Config.init_general_information()
-        Config.init_real_estate_types()
-        Config.init_map_layering()
-        Config.init_logos()
-
         if resolve_doument_theme_relation:
+            Config.init_law_status()
+            Config.init_document_types()
+            Config.init_offices()
+            Config.init_themes()
+            Config.init_theme_document()
+            Config.init_documents()
+            Config.init_general_information()
+            Config.init_real_estate_types()
+            Config.init_map_layering()
+            Config.init_logos()
             Config.assemble_relation_themes_documents()
 
     @staticmethod

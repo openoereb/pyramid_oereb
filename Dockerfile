@@ -20,5 +20,11 @@ ENV SHELL /bin/zsh
 
 RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
 
+COPY . /workspace/
+
+WORKDIR /workspace
+
+RUN pip install -r requirements.txt -r requirements-tests.txt -r dev-requirements.txt
+
 # keep container running until killed - For DEV use only
-CMD [ "sleep", "infinity" ]
+CMD [ "pserve", "development.ini", "--reload"]

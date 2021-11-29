@@ -3,6 +3,7 @@
 import datetime
 from datetime import date, timedelta
 import math
+import os
 from pathlib import Path
 
 from shapely.geometry import Polygon, MultiPolygon, LineString, Point, MultiPoint, MultiLineString, \
@@ -15,6 +16,8 @@ from pyramid_oereb.core.records.geometry import GeometryRecord
 from pyramid_oereb.core.records.law_status import LawStatusRecord
 from pyramid_oereb.core.records.real_estate import RealEstateRecord
 
+
+__location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 def test_mandatory_fields():
     with pytest.raises(TypeError):
@@ -211,8 +214,7 @@ def test_extract_collection(input_geom, result, extracted):
         ), (
             # Intersection area with polygon result: Polygon, should pass
             # PLR geometry is Interlis valid and OGC invalid
-            shapely.wkt.loads( \
-                (Path("tests/records") / "sources-valid-ogc-invalid-geometry.txt").read_text()),
+            shapely.wkt.loads(open(os.path.join(__location__, "interlis-valid-ogc-invalid-geometry.txt")).read()),
             Polygon([(2698200, 1208800), (2698400, 1208800), (2698400, 1209000), (2698200, 1209000)]),
             1,
             1,
@@ -223,8 +225,7 @@ def test_extract_collection(input_geom, result, extracted):
         ), (
             # Intersection area with polygon result: Polygon, should be dismissed
             # PLR geometry is Interlis valid and OGC invalid
-            shapely.wkt.loads( \
-                (Path("tests/records") / "sources-valid-ogc-invalid-geometry.txt").read_text()),
+            shapely.wkt.loads(open(os.path.join(__location__, "interlis-valid-ogc-invalid-geometry.txt")).read()),
             Polygon([(2696500, 1208800), (2696700, 1208800), (2696700, 1209000), (2696500, 1209000)]),
             1,
             1,
@@ -264,13 +265,11 @@ def test_calculate(geometry, real_estate_geometry, length_limit, area_limit, len
     "geometry,test", [
         (
             # Invalid geometry according to OGC
-            shapely.wkt.loads( \
-                (Path("tests/records") / "sources-valid-ogc-invalid-geometry.txt").read_text()),
+            shapely.wkt.loads(open(os.path.join(__location__, "interlis-valid-ogc-invalid-geometry.txt")).read()),
             False,
         ), (
             # Valid geometry according to OGC
-            shapely.wkt.loads( \
-                (Path("tests/records") / "sources-valid-ogc-valid-geometry.txt").read_text()),
+            shapely.wkt.loads(open(os.path.join(__location__, "interlis-valid-ogc-valid-geometry.txt")).read()),
             True,
         )
     ]

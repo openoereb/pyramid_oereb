@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import re
-
-from sqlalchemy import create_engine
 from sqlalchemy.schema import CreateTable
-
+from sqlalchemy.dialects import postgresql
 
 def convert_camel_case_to_snake_case(name):
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
@@ -24,40 +22,26 @@ def create_schema_sql(schema_name):
     return 'CREATE SCHEMA IF NOT EXISTS {0};'.format(schema_name)
 
 
-def create_tables_sql(db_connection, tables):
+def create_tables_sql(tables_to_create):
     """
     Args:
-        db_connection (str): The db connection string.
-        tables (list of sqlalchemy.schema.Table): The table objects from sqlalchemy.
+        tables_to_create (list of sqlalchemy.schema.Table): The table objects from sqlalchemy.
     Returns:
         a string with the sql statement used to create the tables
     """
     sqls = []
-    engine = create_engine(db_connection, echo=True)
-    for table in tables:
+    for table in tables_to_create:
         sqls.append(
             '{};\n'.format(
-                str(CreateTable(table).compile(engine)).replace('DATETIME', 'timestamp')
+                str(CreateTable(table).compile(dialect=postgresql.dialect())).replace('DATETIME', 'timestamp')
             )
         )
     return ''.join(sqls)
 
 
-def create_sql(schema_name, db_connection, tables):
+def create_sql(schema_name, tables_to_create):
     sqls = [
         create_schema_sql(schema_name),
-        create_tables_sql(db_connection, tables)
+        create_tables_sql(tables_to_create)
     ]
     return '\n'.join(sqls)
-
-
-def drop_sql(schema_name):
-    return 'DROP SCHEMA IF EXISTS {0} CASCADE;'.format(schema_name)
-
-
-def execute_sql(db_connection, sql):
-    connection = create_engine(db_connection, echo=True).connect()
-    try:
-        connection.execute(sql)
-    finally:
-        connection.close()

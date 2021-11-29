@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
-      - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
+      - run: sudo apt-get install virtualenv libpq-pyramid_oereb_dev libgeos-pyramid_oereb_dev
       - name: Run make lint
         run: make lint
 
@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
-      - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
+      - run: sudo apt-get install virtualenv libpq-pyramid_oereb_dev libgeos-pyramid_oereb_dev
       - name: Run make git-attributes
         run: make git-attributes
 
