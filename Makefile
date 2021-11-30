@@ -245,8 +245,11 @@ install: .venv/requirements-timestamp
 $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT): setup.py $(BUILD_DEPS)
 	$(VENV_BIN)/python $< develop
 
+development.ini: install
+	$(VENV_BIN)/mako-render --var pyramid_oereb_port=$(PYRAMID_OEREB_PORT) development.ini.mako > development.ini
+
 .PHONY: build
-build: install $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CONFIGURATION_YML) create_dev_db_scripts
+build: install $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CONFIGURATION_YML) create_dev_db_scripts development.ini
 
 .PHONY: clean
 clean: clean_fed_data clean_dev_db_scripts
@@ -288,12 +291,9 @@ updates: $(PIP_REQUIREMENTS)
 	$(VENV_BIN)/pip list --outdated
 
 .PHONY: serve-dev
-serve-dev: development.ini build
+serve-dev: build
 	$(VENV_BIN)/pserve $< --reload
 
 .PHONY: serve
-serve: development.ini build
+serve: build
 	$(VENV_BIN)/pserve $<
-
-development.ini: install
-	$(VENV_BIN)/mako-render --var pyramid_oereb_port=$(PYRAMID_OEREB_PORT) development.ini.mako > development.ini
