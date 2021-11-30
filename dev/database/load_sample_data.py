@@ -86,7 +86,7 @@ class SampleData(object):
         """
         with codecs.open(os.path.join(self._directory, import_file_name), encoding='utf-8') as f:
             sql = str(class_.__table__.insert())
-            for r in json.loads(f.read()):
+            for r in json.load(f):
                 if hasattr(class_, 'id'):
                     if r.get('id') is None:
                         r['id'] = str(uuid.uuid4())
