@@ -10,7 +10,7 @@ log = logging.getLogger(__name__)
 
 
 class DatabaseAdapter(object):
-    _connections_ = dict()  
+    _connections_ = dict()
 
     def __init__(self):
         """
