@@ -63,7 +63,7 @@ class BaseDatabaseSource(Base):
                 current_wait_position += int(sleep_period)
                 # 1.0 sets it to a second
                 log.info('Waiting for the database {} more seconds ({})'.format(
-                    self.TIMEOUT - sleep_period,
+                    self.TIMEOUT - current_wait_position,
                     self._key_
                 ))
                 time.sleep(sleep_period)
