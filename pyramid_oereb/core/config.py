@@ -45,7 +45,7 @@ class Config(object):
     offices = None
 
     @staticmethod
-    def init(configfile, configsection, c2ctemplate_style=False, resolve_doument_theme_relation=False):
+    def init(configfile, configsection, c2ctemplate_style=False, init_data=False):
         """
         Loads configuration from yaml file and provides methods for generating webservice output.
 
@@ -56,7 +56,7 @@ class Config(object):
         assert Config._config is None
 
         Config._config = _parse(configfile, configsection, c2ctemplate_style)
-        if resolve_doument_theme_relation:
+        if init_data:
             Config.init_law_status()
             Config.init_document_types()
             Config.init_offices()

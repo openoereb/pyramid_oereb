@@ -52,7 +52,7 @@ def includeme(config):
     Config.init(
         cfg_file or cfg_c2ctemplate_file,
         cfg_section, cfg_file is None,
-        resolve_doument_theme_relation=True
+        init_data=True
     )
     Config.update_settings(settings)
 

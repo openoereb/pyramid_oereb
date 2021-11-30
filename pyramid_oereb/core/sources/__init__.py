@@ -2,9 +2,12 @@
 """
 This is package provides the minimum requirements on the classes which can be used as a source.
 """
+import time
+import logging
 from pyramid.config import ConfigurationError
 from pyramid.path import DottedNameResolver
 
+log = logging.getLogger(__name__)
 
 class Base(object):
     """
@@ -18,6 +21,9 @@ class Base(object):
 
 
 class BaseDatabaseSource(Base):
+
+    # Seconds to wait until database should be ready
+    TIMEOUT = 60
     """
     The plug for addresses which uses a database as source.
     """
@@ -46,3 +52,33 @@ class BaseDatabaseSource(Base):
             self._model_ = DottedNameResolver().maybe_resolve(kwargs.get('model'))
         else:
             raise ConfigurationError('"model" for source has to be defined in used yaml configuration file')
+        # check if database is available and wait until it might be or raise error
+        timeout_target = time.time() + self.TIMEOUT
+        db_healthy = False
+        current_wait_position = 0
+        sleep_period = 1.0
+        while time.time() < timeout_target:
+            db_healthy = self.health_check()
+            if not db_healthy:
+                current_wait_position += int(sleep_period)
+                # 1.0 sets it to a second
+                log.info('Waiting for the database {} more seconds ({})'.format(
+                    self.TIMEOUT - sleep_period,
+                    self._key_
+                ))
+                time.sleep(sleep_period)
+            else:
+                break
+        if not db_healthy:
+            raise ConfigurationError('Database was not reached until timeout of {} seconds ({})'.format(
+                self.TIMEOUT,
+                self._key_
+            ))
+
+    def health_check(self):
+        session = self._adapter_.get_session(self._key_)
+        try:
+            session.execute('SELECT 1')
+            return True
+        except Exception as e:
+            return False

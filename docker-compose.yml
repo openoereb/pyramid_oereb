@@ -30,9 +30,9 @@ services:
       PGUSER: ${PGUSER:-postgres}
       PGPORT: ${PGPORT:-5432}
       PGPASSWORD: ${PGPASSWORD:-postgres}
-      EXPOSED_PGPORT: ${EXPOSED_PGPORT:-15432}
+      EXPOSED_PGPORT: ${EXPOSED_PGPORT:-5432}
     ports:
-      - ${EXPOSED_PGPORT:-15432}:${PGPORT:-5432}
+      - ${EXPOSED_PGPORT:-5432}:${PGPORT:-5432}
     volumes:
       - ./dev/database/structure:/docker-entrypoint-initdb.d
 
