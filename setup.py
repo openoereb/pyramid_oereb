@@ -53,7 +53,7 @@ setup(
             'main = pyramid_oereb:main'
         ],
         'console_scripts': [
-            'create_standard_tables = pyramid_oereb.contrib.data_sources.create_tables:create_standard_tables',
+            'create_standard_tables = pyramid_oereb.contrib.data_sources.create_tables:create_standard_tables',  # noqa: E501
             'create_example_yaml = dev.config.create_yaml:create_yaml',
             'create_theme_tables = pyramid_oereb.contrib.data_sources.create_tables:create_theme_tables',
             'create_legend_entries = pyramid_oereb.contrib.data_sources.standard.load_legend_entries:run',

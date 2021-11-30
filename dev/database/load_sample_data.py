@@ -6,9 +6,6 @@ import optparse
 import os
 import uuid
 
-from sqlalchemy import create_engine
-from sqlalchemy.engine import Connection
-
 from pyramid_oereb.core.config import Config
 from pyramid_oereb.contrib.data_sources.standard.sources.plr import parse_multiple_standard_themes
 
@@ -105,9 +102,9 @@ class SampleData(object):
         contaminated_military_sites = themes['ch.BelasteteStandorteMilitaer']
         forest_perimeters = themes['ch.StatischeWaldgrenzen']
 
-        from pyramid_oereb.contrib.data_sources.standard.models.main import Theme, Logo, DocumentTypeText, RealEstate, Address, \
-            Municipality, Glossary, Disclaimer, GeneralInformation, RealEstateType, LawStatus, Document, \
-            Office, ThemeDocument
+        from pyramid_oereb.contrib.data_sources.standard.models.main import Theme, Logo, \
+            DocumentTypeText, RealEstate, Address, Municipality, Glossary, Disclaimer, \
+            GeneralInformation, RealEstateType, LawStatus, Document, Office, ThemeDocument
 
         # Fill tables with sample data
         for class_, file_name in [
@@ -160,6 +157,7 @@ class SampleData(object):
                     (schema.PublicLawRestrictionDocument, 'public_law_restriction_document.json')
                 ]:
                     self._load_sample(class_, os.path.join(folder, file_name))
+
 
 def _run():
     """

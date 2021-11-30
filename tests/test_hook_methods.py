@@ -13,7 +13,8 @@ from pyramid_oereb.core.records.image import ImageRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.view_service import LegendEntryRecord
 from pyramid_oereb.core.records.real_estate import RealEstateRecord
-from pyramid_oereb.contrib.data_sources.standard import get_symbol, get_symbol_ref, get_surveying_data_update_date
+from pyramid_oereb.contrib.data_sources.standard import get_symbol, get_symbol_ref, \
+    get_surveying_data_update_date
 from tests import pyramid_oereb_test_config
 
 try:

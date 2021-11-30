@@ -8,7 +8,8 @@ class ThemeDocumentBaseSource(Base):
     Base class for theme document sources.
 
     Attributes:
-        records (list of pyramid_oereb.core.records.theme.ThemeDocumentRecord): List of theme document records.
+        records (list of pyramid_oereb.core.records.theme.ThemeDocumentRecord): List of theme
+            document records.
     """
     _record_class_ = ThemeDocumentRecord
 

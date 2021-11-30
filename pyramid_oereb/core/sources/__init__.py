@@ -9,6 +9,7 @@ from pyramid.path import DottedNameResolver
 
 log = logging.getLogger(__name__)
 
+
 class Base(object):
     """
     The basic source class. This is not meant to be used directly as a source at runtime. But more as a basic
@@ -80,5 +81,5 @@ class BaseDatabaseSource(Base):
         try:
             session.execute('SELECT 1')
             return True
-        except Exception as e:
+        except Exception:
             return False

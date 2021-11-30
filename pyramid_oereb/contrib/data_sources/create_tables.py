@@ -21,7 +21,7 @@ def create_theme_tables_(theme_config, tables_only=False, sql_file=None):
         tables_only (bool): True to skip creation of schema. Default is False.
         sql_file (file): The file to generate. Default is None (in the database).
     """
-    if theme_config.get('standard') == True:
+    if theme_config.get('standard') == True:  # noqa: E712
         config_parser = StandardThemeConfigParser(**theme_config)
         models = config_parser.get_models()
         theme_schema_name = models.schema_name

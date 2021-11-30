@@ -5,10 +5,11 @@ from mako.template import Template
 from pyramid.path import AssetResolver
 
 
-def _create_yaml_config_(name='pyramid_oereb.yml',
-                                  database='postgresql://postgres:password@localhost/pyramid_oereb',
-                                  print_backend='MapFishPrint',
-                                  print_url='http://oereb-print:8080/print/oereb'):
+def _create_yaml_config_(
+        name='pyramid_oereb.yml',
+        database='postgresql://postgres:password@localhost/pyramid_oereb',
+        print_backend='MapFishPrint',
+        print_url='http://oereb-print:8080/print/oereb'):
     """
     Creates the specified YAML file using a template. This YAML file contains the standard
     configuration to run a oereb server out of the box.
@@ -74,5 +75,8 @@ def create_yaml():
         help='The URL of the print server'
     )
     options, args = parser.parse_args()
-    _create_yaml_config_(name=options.name, database=options.database,
-                                  print_backend=options.print_backend)
+    _create_yaml_config_(
+        name=options.name,
+        database=options.database,
+        print_backend=options.print_backend
+    )
