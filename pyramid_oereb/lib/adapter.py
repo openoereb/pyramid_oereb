@@ -10,7 +10,7 @@ log = logging.getLogger(__name__)
 
 
 class DatabaseAdapter(object):
-    _connections_ = dict()
+    _connections_ = dict()  
 
     def __init__(self):
         """
@@ -100,7 +100,7 @@ class FileAdapter(object):
         self._cwd_ = os.path.abspath(os.path.join(self._cwd_, path))
 
     def ls(self):
-         """
+        """
         This method lists all content of the given path.
 
         Args:
