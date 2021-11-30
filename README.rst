@@ -4,6 +4,8 @@
 
 Temporary Startup of the dev server:
 
+Required package: ``xsltproc``
+
 Without docker run locally:
 
 ``make build``
