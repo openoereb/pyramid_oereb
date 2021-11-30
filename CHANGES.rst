@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.0.0.b6
+--------
+- Improvements in error logging
+
 2.0.0.b5
 --------
 - Fixes in Oereblex integration
