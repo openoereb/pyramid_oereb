@@ -19,7 +19,7 @@ def includeme(config):  # pragma: no cover
                     request_method='GET'
                     )
     # TODO after fix of issue #1293, replace previous statement with this one
-    # config.add_view(Logo, attr='get_image', route_name='{0}/image/logo'.format(route_prefix), 
+    # config.add_view(Logo, attr='get_image', route_name='{0}/image/logo'.format(route_prefix),
     #                 request_method='GET',
     #                  decorator=log_response
     #                )
@@ -28,7 +28,7 @@ def includeme(config):  # pragma: no cover
     config.add_route('{0}/image/symbol'.format(route_prefix),
                      '/image/symbol/{theme_code}/{view_service_id}/{type_code}.{extension}')
 
-    config.add_view(Symbol, attr='get_image', route_name='{0}/image/symbol'.format(route_prefix), 
+    config.add_view(Symbol, attr='get_image', route_name='{0}/image/symbol'.format(route_prefix),
                     request_method='GET'
                     )
     # TODO after fix of issue #1293, replace previous statement with this one
