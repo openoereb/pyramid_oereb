@@ -55,7 +55,7 @@ class DatabaseAdapter(object):
             key (str): The key to identify the desired connection in the pool of available
                 connections.
             request (pyramid.request.Request or None): The request of the underlying pyramid
-                application. This can be useful to handle errorcases and threat sessions in
+                application. This can be useful to handle errorcases and treat sessions in
                 the right way.
 
         Returns:
