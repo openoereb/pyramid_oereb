@@ -2,8 +2,8 @@
 
 import logging
 
-from pyramid_oereb.lib.adapter import DatabaseAdapter
-from pyramid_oereb.lib.config import Config
+from pyramid_oereb.core.adapter import DatabaseAdapter
+from pyramid_oereb.core.config import Config
 from pyramid.config import Configurator
 
 __version__ = '1.0.1'
@@ -52,7 +52,7 @@ def includeme(config):
     Config.init(
         cfg_file or cfg_c2ctemplate_file,
         cfg_section, cfg_file is None,
-        resolve_doument_theme_relation=True
+        init_data=True
     )
     Config.update_settings(settings)
 
@@ -60,12 +60,12 @@ def includeme(config):
         'pyramid_oereb': Config.get_config()
     })
 
-    config.add_renderer('pyramid_oereb_extract_json', 'pyramid_oereb.lib.renderer.extract.json_.Renderer')
-    config.add_renderer('pyramid_oereb_extract_xml', 'pyramid_oereb.lib.renderer.extract.xml_.Renderer')
+    config.add_renderer('pyramid_oereb_extract_json', 'pyramid_oereb.core.renderer.extract.json_.Renderer')
+    config.add_renderer('pyramid_oereb_extract_xml', 'pyramid_oereb.core.renderer.extract.xml_.Renderer')
     config.add_renderer('pyramid_oereb_extract_print', Config.get('print').get('renderer'))
-    config.add_renderer('pyramid_oereb_versions_xml', 'pyramid_oereb.lib.renderer.versions.xml_.Renderer')
+    config.add_renderer('pyramid_oereb_versions_xml', 'pyramid_oereb.core.renderer.versions.xml_.Renderer')
     config.add_renderer('pyramid_oereb_capabilities_xml',
-                        'pyramid_oereb.lib.renderer.capabilities.xml_.Renderer')
-    config.add_renderer('pyramid_oereb_getegrid_xml', 'pyramid_oereb.lib.renderer.getegrid.xml_.Renderer')
+                        'pyramid_oereb.core.renderer.capabilities.xml_.Renderer')
+    config.add_renderer('pyramid_oereb_getegrid_xml', 'pyramid_oereb.core.renderer.getegrid.xml_.Renderer')
 
-    config.include('pyramid_oereb.routes')
+    config.include('pyramid_oereb.core.routes')

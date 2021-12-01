@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from pyramid_oereb.lib.config import Config
-from pyramid_oereb.lib.sources import Base
-from pyramid_oereb.lib.readers.glossary import GlossaryReader
-from pyramid_oereb.lib.records.glossary import GlossaryRecord
+from pyramid_oereb.core.config import Config
+from pyramid_oereb.core.sources import Base
+from pyramid_oereb.core.readers.glossary import GlossaryReader
+from pyramid_oereb.core.records.glossary import GlossaryRecord
 from tests.mockrequest import MockParameter
 
 

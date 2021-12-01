@@ -2,6 +2,26 @@
 ``pyramid_oereb`` (ÖREB-Server)
 ===============================
 
+Temporary Startup of the dev server:
+
+Required package: ``xsltproc``
+
+Without docker run locally:
+
+``make build``
+
+This builds the local venv for development + the SQL files for the DEV DB (dev/database/structure/...)
+
+You can run first new approach tests:
+
+``make test-core``
+
+Run ``docker-compose up`` to start the DB (it will automatically import the SQL's on startup) and start
+a running instance of the pyramid_oereb DEV server connected to the DB. The project folder is mounted
+to it. So changes take effect.
+
+
+
 |Build Status| |Requirements Status|
 
 ``pyramid_oereb`` is an open-source implementation of the server side part for the swiss `"Cadastre of

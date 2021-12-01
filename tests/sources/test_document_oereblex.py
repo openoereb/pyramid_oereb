@@ -7,9 +7,9 @@ import requests_mock
 from geolink_formatter.entity import Document, File
 from requests.auth import HTTPBasicAuth
 
-from pyramid_oereb.contrib.sources.document import OEREBlexSource
-from pyramid_oereb.lib.records.documents import DocumentRecord
-from pyramid_oereb.lib.records.office import OfficeRecord
+from pyramid_oereb.contrib.data_sources.oereblex.sources.document import OEREBlexSource
+from pyramid_oereb.core.records.documents import DocumentRecord
+from pyramid_oereb.core.records.office import OfficeRecord
 from tests.mockrequest import MockParameter
 
 

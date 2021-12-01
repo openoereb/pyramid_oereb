@@ -3,13 +3,13 @@ import pytest
 from pyramid.path import DottedNameResolver
 from shapely.geometry import MultiPolygon, Polygon
 
-from pyramid_oereb.lib.config import Config
-from pyramid_oereb.lib.records.extract import ExtractRecord
-from pyramid_oereb.lib.records.plr import PlrRecord
-from pyramid_oereb.lib.records.real_estate import RealEstateRecord
-from pyramid_oereb.lib.records.view_service import ViewServiceRecord
-from pyramid_oereb.lib.records.municipality import MunicipalityRecord
-from pyramid_oereb.lib.readers.extract import ExtractReader
+from pyramid_oereb.core.config import Config
+from pyramid_oereb.core.records.extract import ExtractRecord
+from pyramid_oereb.core.records.plr import PlrRecord
+from pyramid_oereb.core.records.real_estate import RealEstateRecord
+from pyramid_oereb.core.records.view_service import ViewServiceRecord
+from pyramid_oereb.core.records.municipality import MunicipalityRecord
+from pyramid_oereb.core.readers.extract import ExtractReader
 from tests.mockrequest import MockParameter
 
 

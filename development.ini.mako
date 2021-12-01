@@ -11,7 +11,7 @@ pyramid.debug_notfound = false
 pyramid.debug_routematch = false
 pyramid.default_locale_name = en
 
-pyramid_oereb.cfg.file = %(here)s/pyramid_oereb/standard/pyramid_oereb.yml
+pyramid_oereb.cfg.file = %(here)s/pyramid_oereb.yml
 pyramid_oereb.cfg.section = pyramid_oereb
 
 sqlalchemy.url = sqlite:///%(here)s/pyramid_oereb.sqlite

@@ -2,11 +2,11 @@
 
 import pytest
 
-from pyramid_oereb.lib.config import Config
-from pyramid_oereb.lib.adapter import DatabaseAdapter
-from pyramid_oereb.lib.records.address import AddressRecord
-from pyramid_oereb.standard.sources.address import DatabaseSource
-from pyramid_oereb.standard.models.main import Address
+from pyramid_oereb.core.config import Config
+from pyramid_oereb.core.adapter import DatabaseAdapter
+from pyramid_oereb.core.records.address import AddressRecord
+from pyramid_oereb.contrib.data_sources.standard.sources.address import DatabaseSource
+from pyramid_oereb.contrib.data_sources.standard.models import Address
 from tests.mockrequest import MockParameter
 
 

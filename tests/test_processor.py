@@ -3,24 +3,24 @@ import datetime
 import pytest
 from shapely.geometry import Point
 
-from pyramid_oereb.lib.processor import Processor, create_processor
-from pyramid_oereb.lib.records.extract import ExtractRecord
-from pyramid_oereb.lib.records.geometry import GeometryRecord
-from pyramid_oereb.lib.records.image import ImageRecord
-from pyramid_oereb.lib.records.office import OfficeRecord
-from pyramid_oereb.lib.records.plr import PlrRecord
-from pyramid_oereb.lib.records.theme import ThemeRecord
-from pyramid_oereb.lib.records.law_status import LawStatusRecord
-from pyramid_oereb.lib.records.view_service import ViewServiceRecord, LegendEntryRecord
-from pyramid_oereb.lib.readers.disclaimer import DisclaimerReader
-from pyramid_oereb.lib.readers.extract import ExtractReader
-from pyramid_oereb.lib.readers.glossary import GlossaryReader
-from pyramid_oereb.lib.readers.municipality import MunicipalityReader
-from pyramid_oereb.lib.readers.real_estate import RealEstateReader
-from pyramid_oereb.views.webservice import PlrWebservice
+from pyramid_oereb.core.processor import Processor, create_processor
+from pyramid_oereb.core.records.extract import ExtractRecord
+from pyramid_oereb.core.records.geometry import GeometryRecord
+from pyramid_oereb.core.records.image import ImageRecord
+from pyramid_oereb.core.records.office import OfficeRecord
+from pyramid_oereb.core.records.plr import PlrRecord
+from pyramid_oereb.core.records.theme import ThemeRecord
+from pyramid_oereb.core.records.law_status import LawStatusRecord
+from pyramid_oereb.core.records.view_service import ViewServiceRecord, LegendEntryRecord
+from pyramid_oereb.core.readers.disclaimer import DisclaimerReader
+from pyramid_oereb.core.readers.extract import ExtractReader
+from pyramid_oereb.core.readers.glossary import GlossaryReader
+from pyramid_oereb.core.readers.municipality import MunicipalityReader
+from pyramid_oereb.core.readers.real_estate import RealEstateReader
+from pyramid_oereb.core.views import PlrWebservice
 from tests.mockrequest import MockRequest
 
-from pyramid_oereb.lib.config import Config
+from pyramid_oereb.core.config import Config
 
 import logging
 log = logging.getLogger(__name__)

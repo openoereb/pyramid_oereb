@@ -3,9 +3,9 @@
 from io import BytesIO
 
 from lxml import etree
-from pyramid_oereb.lib.renderer.extract.xml_ import Renderer
-from pyramid_oereb.lib.renderer.versions.xml_ import Renderer as VersionsRenderer
-from pyramid_oereb.views.webservice import Parameter
+from pyramid_oereb.core.renderer.extract.xml_ import Renderer
+from pyramid_oereb.core.renderer.versions.xml_ import Renderer as VersionsRenderer
+from pyramid_oereb.core.views import Parameter
 from tests import schema_xml_versions, schema_xml_extract
 from tests.mockrequest import MockRequest
 from tests.renderer import DummyRenderInfo, get_default_extract,\
