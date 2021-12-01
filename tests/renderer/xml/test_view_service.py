@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from tests.renderer import DummyRenderInfo
-from pyramid_oereb.lib.renderer.extract.xml_ import Renderer
+from pyramid_oereb.core.renderer.extract.xml_ import Renderer
 from tests.renderer.xml import xml_templates
-from pyramid_oereb.lib.records.view_service import ViewServiceRecord
+from pyramid_oereb.core.records.view_service import ViewServiceRecord
 
 template = xml_templates().get_template('view_service.xml')
 

@@ -12,3 +12,4 @@
 !pytest.ini
 !.coveragerc
 !requirements-tests.txt
+!dev-requirements.txt

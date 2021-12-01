@@ -1,0 +1,59 @@
+<%page args="real_estate"/>
+<%
+    from pyramid_oereb.core.records.plr import PlrRecord
+    from pyramid_oereb import Config
+
+    real_estate_type = Config.get_real_estate_type_by_data_code(real_estate.type)
+%>
+<data:RealEstate>
+%if real_estate.number:
+    <data:Number>${real_estate.number}</data:Number>
+%endif
+%if extract.real_estate.identdn:
+    <data:IdentDN>${real_estate.identdn}</data:IdentDN>
+%endif
+%if extract.real_estate.egrid:
+    <data:EGRID>${real_estate.egrid}</data:EGRID>
+%endif
+    <data:Type>
+        <%include file="real_estate_type.xml" args="real_estate_type=real_estate_type"/>
+    </data:Type>
+    <data:Canton>${real_estate.canton | x}</data:Canton>
+    <data:MunicipalityName>${real_estate.municipality | x}</data:MunicipalityName>
+%if extract.real_estate.subunit_of_land_register:
+    <data:SubunitOfLandRegister>${real_estate.subunit_of_land_register | x}</data:SubunitOfLandRegister>
+%endif
+%if extract.real_estate.subunit_of_land_register_designation:
+    <data:SubunitOfLandRegisterDesignation>${real_estate.subunit_of_land_register_designation | x}</data:SubunitOfLandRegisterDesignation>
+%endif
+    <data:MunicipalityCode>${real_estate.fosnr}</data:MunicipalityCode>
+%if extract.real_estate.metadata_of_geographical_base_data:
+    <data:MetadataOfGeographicalBaseData>${real_estate.metadata_of_geographical_base_data | x}</data:MetadataOfGeographicalBaseData>
+%endif
+    <data:LandRegistryArea>${int(real_estate.land_registry_area)}</data:LandRegistryArea>
+%if extract.real_estate.limit and params.with_geometry:
+    <data:Limit>
+        <geometry:surface>
+            %for polygon in real_estate.limit.geoms:
+                <%include file="geometry/polygon.xml" args="polygon=polygon"/>
+            %endfor
+        </geometry:surface>
+    </data:Limit>
+%endif
+%for public_law_restriction in real_estate.public_law_restrictions:
+    %if isinstance(public_law_restriction, PlrRecord):
+    <%include file="public_law_restriction.xml" args="public_law_restriction=public_law_restriction"/>
+    %endif
+%endfor
+    <data:PlanForLandRegister>
+        <%include file="view_service.xml" args="map=real_estate.plan_for_land_register"/>
+    </data:PlanForLandRegister>
+    <data:PlanForLandRegisterMainPage>
+        <%include file="view_service.xml" args="map=real_estate.plan_for_land_register_main_page"/>
+    </data:PlanForLandRegisterMainPage>
+%for reference in real_estate.references:
+    <data:Reference>
+        <%include file="document.xml" args="document=reference"/>
+    </data:Reference>
+%endfor
+</data:RealEstate>

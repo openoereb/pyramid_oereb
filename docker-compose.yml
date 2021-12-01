@@ -1,13 +1,10 @@
-version: "2.1"
+version: "3.7"
 
 services:
   oereb-server:
     build:
       context: .
       dockerfile: Dockerfile
-    depends_on:
-      oereb-db:
-        condition: service_healthy
     environment:
       PGHOST: ${PGHOST:-oereb-db}
       PGPORT: ${PGPORT:-5432}
@@ -26,13 +23,6 @@ services:
   oereb-db:
     image: postgis/postgis
     restart: unless-stopped
-    healthcheck:
-      test: /usr/bin/pg_isready
-      interval: 5s
-      timeout: 10s
-      retries: 120
-    ports:
-      - ${PGPORT:-5432}:${PGPORT:-5432}
     environment:
       POSTGRES_DB: ${PGDATABASE:-pyramid_oereb_test}
       POSTGRES_USER: ${PGUSER:-postgres}
@@ -40,13 +30,11 @@ services:
       PGUSER: ${PGUSER:-postgres}
       PGPORT: ${PGPORT:-5432}
       PGPASSWORD: ${PGPASSWORD:-postgres}
-      EXPOSED_PGPORT: ${EXPOSED_PGPORT:-15432}
+      EXPOSED_PGPORT: ${EXPOSED_PGPORT:-5432}
     ports:
-      - ${EXPOSED_PGPORT:-15432}:${PGPORT:-5432}
+      - ${EXPOSED_PGPORT:-5432}:${PGPORT:-5432}
     volumes:
-      - type: bind
-        source: ./sample_data_OeREBKRMtrsfr_V2_0
-        target: /restore
+      - ./dev/database/structure:/docker-entrypoint-initdb.d
 
 networks:
   print-network:

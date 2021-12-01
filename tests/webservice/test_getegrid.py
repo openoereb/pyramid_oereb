@@ -9,11 +9,11 @@ import pytest
 
 from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
 
-from pyramid_oereb.lib.records.real_estate import RealEstateRecord
-from pyramid_oereb.lib.records.view_service import ViewServiceRecord
+from pyramid_oereb.core.records.real_estate import RealEstateRecord
+from pyramid_oereb.core.records.view_service import ViewServiceRecord
 from tests import schema_json_extract, pyramid_oereb_test_config
 from tests.mockrequest import MockRequest
-from pyramid_oereb.views.webservice import PlrWebservice, Parameter
+from pyramid_oereb.core.views import PlrWebservice, Parameter
 
 
 def test_getegrid_coord_missing_parameter():

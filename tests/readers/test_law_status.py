@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from pyramid_oereb.lib.config import Config
-from pyramid_oereb.lib.records.law_status import LawStatusRecord
-from pyramid_oereb.lib.sources import Base
-from pyramid_oereb.lib.readers.law_status import LawStatusReader
+from pyramid_oereb.core.config import Config
+from pyramid_oereb.core.records.law_status import LawStatusRecord
+from pyramid_oereb.core.sources import Base
+from pyramid_oereb.core.readers.law_status import LawStatusReader
 
 
 @pytest.mark.run(order=2)

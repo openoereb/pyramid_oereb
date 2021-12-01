@@ -7,13 +7,13 @@ from pyramid.httpexceptions import HTTPServerError, HTTPInternalServerError
 from pyramid.response import Response
 from pyramid.testing import DummyRequest
 
-from pyramid_oereb.lib.adapter import FileAdapter
-from pyramid_oereb.lib.config import Config
-from pyramid_oereb.lib.records.image import ImageRecord
-from pyramid_oereb.lib.records.theme import ThemeRecord
-from pyramid_oereb.lib.records.view_service import LegendEntryRecord
-from pyramid_oereb.lib.renderer import Base
-from pyramid_oereb.lib.renderer.extract.json_ import Renderer
+from pyramid_oereb.core.adapter import FileAdapter
+from pyramid_oereb.core.config import Config
+from pyramid_oereb.core.records.image import ImageRecord
+from pyramid_oereb.core.records.theme import ThemeRecord
+from pyramid_oereb.core.records.view_service import LegendEntryRecord
+from pyramid_oereb.core.renderer import Base
+from pyramid_oereb.core.renderer.extract.json_ import Renderer
 from tests import pyramid_oereb_test_config
 from tests.mockrequest import MockRequest
 from tests.renderer import DummyRenderInfo

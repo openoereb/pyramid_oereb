@@ -26,7 +26,7 @@ import re
 import six
 import subprocess
 import sphinx_rtd_theme
-from pyramid_oereb.lib.config import Config
+from pyramid_oereb.core.config import Config
 
 Config._config = {'srid': -1}
 
@@ -84,7 +84,7 @@ with open('contrib/stats.rst', 'w') as sources:
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
         'contrib/stats.rst.mako']).decode('utf-8'))
 
-files = glob.glob('../../pyramid_oereb/standard/models/*.py')
+files = glob.glob('../../pyramid_oereb/contrib/data_sources/standard/models/*.py')
 modules = [
     re.sub(r'\.__init__', '', f[6:-3].replace("/", ".")) for f in files
     if not f.startswith("../../pyramid_oereb/standard/models/main.py") and
