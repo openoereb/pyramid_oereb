@@ -1,0 +1,484 @@
+
+[
+    {
+        "title": {
+            "de": "ÖREB-Kataster",
+            "fr": "Cadastre RDPPF",
+            "it": "Catasto RDPP",
+            "rm": "Cataster RDPP",
+            "en": "PLR Cadastre"
+        },
+        "content": {
+            "de": "Kataster der öffentlich-rechtlichen Eigentumsbeschränkungen",
+            "fr": "Cadastre des restrictions de droit public à la propriété foncière",
+            "it": "Catasto delle restrizioni di diritto pubblico della proprietà",
+            "rm": "Cataster da las restricziuns da dretg public da la proprietad",
+            "en": "Cadastre of public-law restrictions on landownership"
+        }
+    },
+    {
+        "title": {
+            "de": "ÖREB",
+            "fr": "RDPPF",
+            "it": "RDPP",
+            "rm": "RDPP",
+            "en": "PLR"
+        },
+        "content": {
+            "de": "Öffentlich-rechtliche Eigentumsbeschränkung",
+            "fr": "Restriction de droit public à la propriété foncière",
+            "it": "Restrizione di diritto pubblico della proprietà",
+            "rm": "Restricziun da dretg public da la proprietad funsila",
+            "en": "Public-law restriction on landownership rights"
+        }
+    },
+    {
+        "title": {
+            "de": "Eigentumsbeschränkung",
+            "fr": "Restriction de la propriété",
+            "it": "Restrizione del diritto di proprietà",
+            "rm": "Restricziun da la proprietad",
+            "en": "Restriction on ownership"
+        },
+        "content": {
+            "de": "Der Zweck aller Eigentumsbeschränkungen ist die Wahrung von Interessen anderer Personen, denen jene des Eigentümers sich in bestimmter Beziehung unterordnen müssen. Dies sind entweder die Eigentümer angrenzender Grundstücke, die Nachbarn, oder auch weitere Kreise von Privatpersonen oder endlich die Allgemeinheit selber, der Staat. Die Beschränkungen zugunsten der Nachbarn oder weiterer Privatpersonen sind regelmässig privatrechtlicher, jene zugunsten der Allgemeinheit öffentlich-rechtlicher Natur.",
+            "fr": "Les restrictions de propriété ont toujours pour but de préserver les intérêts d'autres personnes auxquels ceux du propriétaire doivent se soumettre dans le cadre d'une relation donnée. Il s'agit soit des propriétaires d'immeubles contigus, de voisins, d'autres cercles de particuliers voire de la collectivité dans son ensemble, soit de l'Etat. Les restrictions au profit des voisins ou d'autres particuliers relèvent normalement du droit privé, celles décidées au profit de la collectivité relevant du droit public.",
+            "it": "Lo scopo di tutte le restrizioni della proprietà è quello di tutelare gli interessi di altre persone, a cui quelli del proprietario devono essere subordinati in un certo rapporto. Questi sono o i proprietari dei fondi adiacenti, i vicini, o anche altre cerchie di privati, o infine la collettività stessa, lo Stato. Le restrizioni a favore dei vicini o di altri privati sono generalmente di diritto privato, quelle a favore della collettività di diritto pubblico.",
+            "rm": "La finamira da tut las restricziuns da la proprietad è quella da mantegnair ils interess d'autras persunas, a quests interess ston sa suttametter ils interess da la proprietaria u dal proprietari en tscherts reguards. Quai èn ubain las proprietarias ed ils proprietaris da bains immobigliars cunfinants, las vischinas ed ils vischins u er ulteriurs circuls da persunas privatas ubain la finala la generalitad sezza, il stadi. Las restricziuns a favur da las vischinas e dals vischins u d'ulteriuras persunas privatas èn adina da natira da dretg privat, quellas a favur da la generalitad da natira da dretg public.",
+            "en": "The purpose of all landownership restrictions is to safeguard those interests of other persons or entities that take precedence over those of the landowner in a certain context. The persons or entities concerned may be the owners of neighbouring properties, neighbours, broader circles of private individuals, or ultimately the general public or the state. Restrictions in favour of neighbours or other private individuals are of a private-law nature, while those in favour of the general public or state are classified as public-law restrictions."
+        }
+    },
+    {
+        "title": {
+            "de": "E-GRID",
+            "fr": "E-GRID",
+            "it": "E-GRID",
+            "rm": "E-GRID",
+            "en": "E-GRID"
+        },
+        "content": {
+            "de": "Eidgenössischer Grundstücksidentifikator; Aus einem Präfix und einer Nummer bestehende Bezeichnung, die es erlaubt, jedes in das Grundbuch aufgenommene Grundstück landesweit eindeutig zu identifizieren, und die zum Datenaustausch zwischen Informatiksystemen dient.",
+            "fr": "Identificateur fédéral des immeubles; Désignation composée d'un préfixe et d'un numéro qui permet l'identification univoque pour tout le pays de chaque immeuble immatriculé au registre foncier et sert à l'échange des données entre les systèmes informatiques.",
+            "it": "Identificatore federale dei fondi; Identificatore federale dei fondi; designazione composta da un prefisso e da un numero che permette di identificare in modo univoco ogni fondo iscritto nel registro fondiario in tutto il Paese e che viene utilizzato per lo scambio di dati tra sistemi informatici.",
+            "rm": "Identificaziun federala dals bains immobigliars; Indicaziun che consista d'in prefix e d'in numer che permetta d'identifitgar precis mintga immobiglia registrada en il cudesch funsil e che serva al barat da datas tranter ils sistems d'informatica.",
+            "en": "Official real estate identifier: A designation comprising a prefix and a number by means of which every plot recorded in the land register throughout the country can be unequivocally identified; these identifiers are also used for exchanging data between IT systems."
+        }
+    },
+    {
+        "title": {
+            "de": "BFS-Nr.",
+            "fr": "N° OFS",
+            "it": "N. UST",
+            "rm": "UST nr.",
+            "en": "FSO number"
+        },
+        "content": {
+            "de": "Gemeindenummer aus amtlichem Gemeindeverzeichnis; Eine vom schweizerischen Bundesamt für Statistik mit dem Amtlichen Gemeindeverzeichnis im Jahre 1986 erstmals vergebene Zahl, die der eineindeutigen Bezeichnung von territorialen Einheiten im Einzugsbereich der Schweiz dient.",
+            "fr": "Numéro officiel de la commune issu du répertoire officiel des communes; Attribué pour la toute première fois en 1986 par l'Office fédéral de la statistique avec le répertoire officiel des communes, ce numéro sert à la désignation univoque d'entités territoriales en Suisse.",
+            "it": "Numero del Comune nell'elenco ufficiale dei Comuni; un numero assegnato per la prima volta nel 1986 dall'Ufficio federale di statistica con l'elenco ufficiale dei Comuni della Svizzera, che serve a contraddistinguere in modo inequivocabile le unità territoriali nell'area di insediamento della Svizzera.",
+            "rm": "Numer da la vischnanca sin la glista uffiziala da las vischnancas; ina cifra surdada per l'emprima giada da l'Uffizi federal da statistica en il rom da la glista uffiziala da las vischnancas da la Svizra l'onn 1986. Quest numer serva a designar cleramain las unitads territorialas en l'intschess da la Svizra.",
+            "en": "Municipal number from the official directory of municipalities: A number initially allocated by the Swiss Federal Statistical Office in the official directory of municipalities in 1986 for the purpose of unequivocally designating territorial units within Switzerland."
+        }
+    },
+    {
+        "title": {
+            "de": "Baulinien Eisenbahnanlagen",
+            "fr": "Alignements des installations ferroviaires",
+            "it": "Allineamenti per gli impianti ferroviari",
+            "rm": "Lingias da construcziun dals implants da viafier",
+            "en": "Building lines for railways"
+        },
+        "content": {
+            "de": "Zwischen den Baulinien dürfen keine baulichen Veränderungen vorgenommen oder sonstige Massnahmen getroffen werden, die dem Zweck bestehender oder künftiger Eisenbahnanlagen widersprechen.",
+            "fr": "Entre les alignements, il est interdit de procéder à des modifications des constructions existantes ou de prendre des mesures allant à l’encontre de la finalité poursuivie par les installations ferroviaires présentes ou à venir.",
+            "it": "Non possono essere apportate modifiche strutturali tra gli allineamenti o adottate altre misure che contraddicano lo scopo degli impianti ferroviari esistenti o futuri.",
+            "rm": "Tranter las lingias da construcziun na dastgan vegnir fatgas naginas midadas architectonicas u prendidas ulteriuras mesiras che cuntrafan a l'intent d'implants da viafier existents u futurs.",
+            "en": "Building lines may be specified in order to ensure that the necessary land for the ongoing or future construction of railway stretches and installations remains available. No structural alterations or other measures that do not correspond to the specified purpose of the railway operator may be carried out either between the building lines or between a building line and a railway installation."
+        }
+    },
+    {
+        "title": {
+            "de": "Baulinien Flughafenanlagen",
+            "fr": "Alignements des installations aéroportuaires",
+            "it": "Allineamenti per gli impianti aeroportuali",
+            "rm": "Lingias da construcziun dals implants d'eroport",
+            "en": "Building lines for airports"
+        },
+        "content": {
+            "de": "Zwischen den Baulinien dürfen keine baulichen Veränderungen vorgenommen oder sonstige Massnahmen getroffen werden, die dem Zweck bestehender oder künftiger Flughafenanlagen widersprechen.",
+            "fr": "Entre les alignements, il est interdit de procéder à des modifications des constructions existantes ou de prendre des mesures allant à l’encontre de la finalité poursuivie par les installations aéroportuaires présentes ou à venir.",
+            "it": "Non possono essere apportate modifiche strutturali tra gli allineamenti né adottate altre misure che sono in contrasto con lo scopo delle strutture aeroportuali esistenti o future.",
+            "rm": "Tranter las lingias da construcziun na dastgan vegnir fatgas naginas midadas architectonicas u prendidas ulteriuras mesiras che cuntrafan a l'intent d'eroports existents u futurs.",
+            "en": "Building lines for airports may be defined in order to ensure that airports have the necessary land at their disposal for existing or future facilities. Within these building lines, no structural changes may be carried out that conflict with the purpose of the defined building lines."
+        }
+    },
+    {
+        "title": {
+            "de": "Baulinien Nationalstrassen",
+            "fr": "Alignements des routes nationales",
+            "it": "Allineamenti per le strade nazionali",
+            "rm": "Lingias da construcziun da las vias naziunalas",
+            "en": "Building lines for motorways"
+        },
+        "content": {
+            "de": "Wenn der projektierte Strassenverlauf definitiv bekannt ist, werden beiderseits der Strasse Baulinien festgelegt. Diese Baulinien ermöglichen es, die Anforderungen der Verkehrssicherheit und der Wohnhygiene sowie die Erfordernisse eines eventuellen künftigen Ausbaus der Strasse zu berücksichtigen. Zwischen den Baulinien dürfen ohne Bewilligung weder Neubauten erstellt noch Umbauten bestehender Gebäude vorgenommen werden, auch wenn diese nur teilweise in die Baulinien hineinragen.",
+            "fr": "Des alignements sont définis de part et d’autre de la route lorsque le tracé de cette dernière est définitif. Ces alignements permettent de tenir compte d’impératifs différents: ceux touchant à la sécurité du trafic et à la salubrité publique mais également ceux découlant d’un possible élargissement de la chaussée à l’avenir. Entre les alignements définis, une autorisation est indispensable pour procéder à de nouvelles constructions ou pour modifier des bâtiments existants, même si ces derniers ne sont que partiellement frappés d’alignement.",
+            "it": "Quando il percorso stradale previsto è noto in via definitiva, su entrambi i lati della strada sono definiti gli allineamenti. Questi allineamenti consentono di tener conto delle esigenze di sicurezza del traffico e di igiene abitativa, nonché delle esigenze di un eventuale futuro ampliamento della strada. Non si possono costruire nuovi edifici tra gli allineamenti senza autorizzazione, né si possono effettuare ristrutturazioni degli edifici esistenti, anche se questi si estendono solo parzialmente all'interno degli allineamenti.",
+            "rm": "Sch'il traject projectà da la via è definitivamain enconuschent, vegnan las lingias da construcziun determinadas da tuttas duas varts da la via. Questas lingias da construcziun permettan da resguardar las premissas da la segirezza dal traffic e da l'igiena d'abitar sco er las necessitads d'ina eventuala renovaziun futura da la via. Senza permissiun na dastgan vegnir construids nagins edifizis novs u midads edifizis existents tranter las lingias da construcziun, er sch'els sa chattan mo per part entaifer las lingias da construcziun.",
+            "en": "Once the plans for a route have been finalised, building lines are defined along both sides of that route. These lines make it possible to take certain requirements into account, including road safety and public health, as well as the demands associated with the potential future widening of the stretch of road. Without a special permit, the construction of new buildings is prohibited between these lines, as is the renovation of existing structures, even if they only partially protrude into the building lines."
+        }
+    },
+    {
+        "title": {
+            "de": "Baulinien Starkstromanlagen",
+            "fr": "Alignements des installations électriques à courant fort",
+            "it": "Allineamenti per impianti a corrente forte",
+            "rm": "Lingias da construcziun d'implants da current ferm",
+            "en": "Building lines for high-voltage installations"
+        },
+        "content": {
+            "de": "Zwischen den Baulinien dürfen keine baulichen Veränderungen vorgenommen oder sonstige Massnahmen getroffen werden, die dem Zweck bestehender oder künftiger Starkstromanlagen widersprechen.",
+            "fr": "Entre les alignements, il est interdit de procéder à des modifications des constructions existantes ou de prendre des mesures allant à l’encontre de la finalité poursuivie par les installations à courant fort présentes ou à venir.",
+            "it": "Non possono essere apportate modifiche strutturali tra gli allineamenti o adottate altre misure che contraddicano lo scopo degli impianti ad alta tensione esistenti o futuri.",
+            "rm": "Tranter las lingias da construcziun na dastgan vegnir fatgas naginas midadas architectonicas u prendidas ulteriuras mesiras che cuntrafan a l'intent d'implants da current ferm existents u futurs.",
+            "en": "Between the designated building lines, no structural alterations may be carried out or other measures implemented that could interfere with the specified purpose of existing or future high-voltage installations."
+        }
+    },
+    {
+        "title": {
+            "de": "Gesetzliche Grundlage",
+            "fr": "Base légale",
+            "it": "Base legale",
+            "rm": "Basa legala",
+            "en": "Legal basis"
+        },
+        "content": {
+            "de": "Gesetz, Verordnung etc., das generell-abstrakt ist (generell für die Person, die nicht bekannt ist, abstrakt, weil der Perimeter ohne Karte definiert ist) und auf Bundesebene, auf kantonaler oder kommunaler Ebene erlassen worden ist und die bloss eine allgemeine Rechtsgrundlage der Eigentumsbeschränkung darstellen. Die gesetzliche Grundlage ist nicht Teil des ÖREB-Katasters. Der ÖREB-Kataster enthält aber Hinweise auf die entsprechende gesetzliche Grundlage.",
+            "fr": "Il s’agit de lois, d’ordonnances etc. à caractère général et abstrait (général car les personnes concernées ne sont pas connues et abstrait parce que le périmètre est défini sans plan) édictés au niveau fédéral, cantonal ou communal et qui ne constituent que des bases juridiques générales de la restriction de propriété. Les bases légales ne font pas partie du cadastre RDPPF qui contient toutefois des renvois vers les bases légales appropriées.",
+            "it": "Legge, ordinanza ecc., che sono generali-astratti (generalmente astratti per la persona sconosciuta, perché il perimetro è definito senza carta) e che sono stati emanati a livello federale, cantonale o comunale e costituiscono semplicemente una base giuridica generale per la restrizione della proprietà. La base giuridica non fa parte del Catasto RDPP. Tuttavia, il Catasto RDPP contiene riferimenti alla base giuridica corrispondente.",
+            "rm": "Lescha, ordinaziun e.u.v, tut quai ch'è general ed abstract (general per la persuna che n'è betg enconuschenta, abstract, perquai ch'il perimeter è definì senza charta) ed è vegnì relaschà sin plaun federal, chantunal u communal e che represchenta mo ina basa legala generala da la restricziun da la proprietad. La basa legala n'è betg ina part integrala dal cataster RPDP. Il cataster RPDP cuntegna però renviaments a la basa legala correspundenta.",
+            "en": "Acts, ordinances, etc., that are generally abstract and applicable (generally, because the person concerned is not known, and abstract because the perimeter is defined without a map), and which have been issued at the federal, cantonal or municipal level and merely represent a general legal basis for ownership restriction. The legal basis does not form an integral part of the PLR Cadastre. However, the latter does contain references to the corresponding legal basis."
+        }
+    },
+    {
+        "title": {
+            "de": "Gewässerraum",
+            "fr": "Espace réservé aux eaux",
+            "it": "Spazio riservato alle acque",
+            "rm": "Spazi d'auas",
+            "en": "Space provided for waters"
+        },
+        "content": {
+            "de": "Fliessgewässer können nur wieder naturnäher werden, wenn ausreichend Raum in den Schutz der Gewässer miteinbezogen wird. Der Gewässerraum soll weitgehend frei von neuen Anlagen bleiben; bestehende Anlagen haben jedoch Bestandesgarantie.",
+            "fr": "Les cours d’eau ne peuvent retrouver leur état naturel que si un espace suffisant est ménagé afin qu’ils puissent remplir leurs diverses fonctions. Ces surfaces doivent rester libres de toute nouvelle installation. Les installations existantes bénéficient de la garantie de la situation acquise.",
+            "it": "I corsi d'acqua possono tornare a essere più naturali soltanto se si proteggono a sufficienza le acque. Nello spazio riservato alle acque non devono essere costruiti nuovi impianti, mentre possono essere mantenuti quelli già esistenti.",
+            "rm": "Auas currentas pon mo daventar pli natiralas, sch'i vegn mess a disposiziun spazi avunda per la protecziun da las auas. Il spazi d'auas duai da princip restar liber da stabiliments novs; stabiliments existents han però ina garanzia d'existenza.",
+            "en": "Flowing bodies of water can only be preserved in their natural state if sufficient space is reserved for their protection. Watercourse corridors must be kept free from new installations, though existing structures may be retained."
+        }
+    },
+    {
+        "title": {
+            "de": "Grundwasserschutzareale",
+            "fr": "Périmètres de protection des eaux souterraines",
+            "it": "Aree di protezione delle acque sotterranee",
+            "rm": "Areals da protecziun da las auas sutterranas",
+            "en": "Groundwater protection areas"
+        },
+        "content": {
+            "de": "Von Kanton festgelegte Areale, die für die künftige Nutzung und Anreicherung von Grundwasservorkommen von Bedeutung sind und in dem keine Bauten und Anlagen erstellt oder Arbeiten ausgeführt werden, die künftige Nutzungs- und Anreicherungsanlagen beeinträchtigen könnten.",
+            "fr": "Périmètres concentriques dont le but est de protéger l'exploitation et l'alimentation artificielle de nappes souterraines et dans lequel il est interdit de construire des bâtiments ou d'effectuer des travaux qui pourraient compromettre l'établissement futur d'installations d'exploitation ou d'alimentation des eaux souterraines.",
+            "it": "Area delimitata dai Cantoni, importante per il futuro sfruttamento e l'alimentazione della falda freatica, in cui non possono essere costruiti edifici o impianti né essere eseguiti lavori che possano pregiudicare i futuri impianti di sfruttamento o alimentazione.",
+            "rm": "Areal determinà dal chantun ch'è d'impurtanza per utilisar e per concentrar en l'avegnir resursas d'aua sutterrana ed en il qual i na dastgan vegnir construids nagins edifizis e stabiliments ed exequidas naginas lavurs che pudessan disturbar en l'avegnir ils stabiliments per utilisar e per concentrar aua sutterrana.",
+            "en": "The cantons define sites that are of significance in terms of the future use and treatment of groundwater reserves. At these sites, no buildings or installations may be constructed, and no work may be carried out, that could interfere with the future construction of groundwater utilisation and treatment facilities."
+        }
+    },
+    {
+        "title": {
+            "de": "Grundwasserschutzzonen",
+            "fr": "Zones de protection des eaux souterraines",
+            "it": "Zone di protezione delle acque sotterranee",
+            "rm": "Zonas da protecziun da las auas sutterranas",
+            "en": "Groundwater protection zones"
+        },
+        "content": {
+            "de": "Grundwasserschutzzonen, in denen gewährleistet werden soll, dass bei unmittelbar drohenden Gefahren wie Unfällen mit wassergefährdenden Stoffen ausreichend Zeit und Raum für die erforderlichen Massnahmen zur Verfügung stehen.",
+            "fr": "Zones de protection des eaux souterraines devant garantir qu'en cas de danger imminent (p. ex. en cas d'accident impliquant des substances pouvant polluer les eaux), on dispose de suffisamment de temps et d'espace pour prendre les mesures qui s'imposent.",
+            "it": "Zone di protezione delle acque sotterranee che deve garantire che, in caso di pericolo immediato (p. es. incidenti con sostanze suscettibili di inquinare le acque), vi sia sufficiente tempo e spazio per le misure di risanamento.",
+            "rm": "Zona da protecziun da l'aua sutterrana, en la quala i duai vegnir garantì ch'i stattan a disposiziun temp e plazza avunda per prender las mesiras ch'èn necessarias en cas da privels directamain smanatschants sco accidents cun substanzas che pericliteschan l'aua.",
+            "en": "The cantons define groundwater protection zones for the supply and treatment facilities that are in the public interest, and specify the necessary landownership restrictions."
+        }
+    },
+    {
+        "title": {
+            "de": "Kataster der belasteten Standorte",
+            "fr": "Cadastre des sites pollués",
+            "it": "Catasto dei siti inquinati",
+            "rm": "Cataster dals lieus contaminads",
+            "en": "Cadastre of contaminated sites"
+        },
+        "content": {
+            "de": "Der Kataster enthält Deponien und andere durch Abfälle belastete Standorte, die saniert werden, wenn sie zu schädlichen oder lästigen Einwirkungen führen oder die konkrete Gefahr besteht, dass solche Einwirkungen entstehen. Die Behörde ermittelt die belasteten Standorte, indem sie vorhandene Angaben wie Karten, Verzeichnisse und Meldungen auswertet. Sie trägt diejenigen Standorte, deren Belastung erwiesen oder sehr wahrscheinlich ist, in den Kataster ein.",
+            "fr": "Le cadastre répertorie les décharges et les autres sites pollués par des déchets qui doivent être assainis lorsqu’ils sont à l’origine d’effets nocifs ou indésirables ou s’il existe un danger concret que de tels effets surviennent. L’autorité compétente détermine les sites pollués en se fondant sur l’ensemble des informations dont elle dispose (cartes, inventaires ou annonces qui lui sont faites). Elle inscrit au cadastre les sites dont la pollution est avérée ou semble très probable.",
+            "it": "Il catasto contiene discariche e altri siti inquinati da rifiuti, che vengono bonificati se provocano effetti dannosi o fastidiosi o se esiste il rischio concreto che tali effetti si verifichino. L'autorità identifica i siti inquinati valutando le informazioni esistenti come carte, elenchi e comunicazioni. Essa iscrive nel catasto i siti per i quali è provato o molto probabile che si verifichi un effetto inquinante.",
+            "rm": "Il cataster cuntegna deponias ed auters lieus contaminads cun ruments, ils qualsvegnan sanads, sch'els chaschunan influenzas nuschaivlas u mulestusas u sch'igl exista in privel concret che talas influenzas sa sviluppian. L'autoritad eruescha ils lieus contaminads cun evaluar las indicaziuns avant maun sco chartas, registers ed annunzias. En il register inscriva ella quels lieus, tar ils quals la contaminaziun è cumprovada u fitg probabla.",
+            "en": "The Cadastre includes landfills and other sites polluted by waste that have to be decontaminated if they give rise to harmful or undesirable impacts or if there is a specific risk that such impacts could arise. The relevant authority is responsible for identifying contaminated sites by evaluating existing sources such as maps, lists and reports. It is required to enter those sites in the cadastre that have been identified as definitely or almost certainly contaminated."
+        }
+    },
+    {
+        "title": {
+            "de": "Katasterverantwortliche Stelle",
+            "fr": "Organisme responsable du cadastre",
+            "it": "Organo responsabile del Catasto",
+            "rm": "Post resposnabel per il cataster",
+            "en": "Office responsible for managing the Cadastre"
+        },
+        "content": {
+            "de": "Die katasterverantwortliche Stelle im Kanton erhält die in den ÖREB-Kataster aufzunehmenden Daten von den zuständigen Fachstellen. Sie verwaltet diese Daten und stellt sie via kantonales ÖREB-Geoportal der Öffentlichkeit zur Verfügung.",
+            "fr": "L’organisme responsable du cadastre au sein du canton obtient les données à rassembler dans le cadastre RDPPF auprès des services spécialisés compétents. Il gère ces données et les met à la disposition du public via le géoportail RDPPF cantonal.",
+            "it": "L'organo cantonale responsabile del Catasto riceve i dati da inserire nel catasto RDPP dai servizi specializzati competenti. Gestisce questi dati e li mette a disposizione del pubblico attraverso il geoportale RDPP cantonale.",
+            "rm": "Il post chantunal ch'è responsabel per il cataster survegn las datas ch'ils posts spezialisads cumpetents ston inscriver en il cataster RDPP. El administrescha questas datas e las metta a disposiziun a la populaziun sur il geoportal RDPP dal chantun.",
+            "en": "The office responsible for the cadastre in each canton receives the data to be included in the PLR Cadastre from the relevant authorities. It is responsible for managing the data and placing them at the disposal of the general public via the corresponding cantonal geoportal."
+        }
+    },
+    {
+        "title": {
+            "de": "KbS",
+            "fr": "CSP",
+            "it": "CSIN",
+            "rm": "CLC",
+            "en": "CCS"
+        },
+        "content": {
+            "de": "Kataster der belasteten Standorte",
+            "fr": "Cadastre des sites pollués",
+            "it": "Catasto dei siti inquinati",
+            "rm": "Cataster dals lieus contaminads",
+            "en": "Cadastre of contaminated sites"
+        }
+    },
+    {
+        "title": {
+            "de": "Lärmempfindlichkeitsstufen",
+            "fr": "Degrés de sensibilité au bruit",
+            "it": "Gradi di sensibilità al rumore",
+            "rm": "Grads da sensibladad da canera",
+            "en": "Noise sensitivity level"
+        },
+        "content": {
+            "de": "Empfindlichkeitsstufen werden festgelegt, um jeweils bestimmte Zonen zu definieren: diejenigen, die eines erhöhten Lärmschutzes bedürfen, diejenigen, in denen keine störenden Betriebe zugelassen sind, und diejenigen, in denen mässig und stark störende Betriebe zugelassen sind.",
+            "fr": "Des degrés de sensibilité au bruit sont définis pour délimiter certaines zones: on distingue celles nécessitant une protection accrue contre le bruit, celles où l’exploitation d’aucun établissement susceptible de générer des nuisances sonores n’est permise et celles où l’exploitation d’établissements générant des nuisances moyennes à fortes est autorisée.",
+            "it": "I gradi di sensibilità al rumore sono stabiliti per definire zone specifiche: quelle che necessitano di una maggiore protezione dal rumore, quelle in cui non sono consentiti stabilimenti rumorosi e quelle in cui sono consentiti stabilimenti con livelli di rumore moderati ed elevati.",
+            "rm": "Grads da sensibilitad vegnan fixads per definir mintgamai tschertas zonas: quellas che basegnan ina protecziun pli gronda cunter la canera, quellas, en las qualas n'èn admess nagins manaschis disturbants, e quellas, en las qualas èn admess manaschis che chaschunan disturbis moderads e ferms.",
+            "en": "Sensitivity levels are specified in order to define certain zones, namely those in which increased noise abatement measures are required, those in which no activities are permitted that result in disturbance due to noise, and those in which activities are permitted that give rise to medium to high levels of noise."
+        }
+    },
+    {
+        "title": {
+            "de": "Planungszonen",
+            "fr": "Zones réservées",
+            "it": "Zone di pianificazione",
+            "rm": "Zonas da planisaziun",
+            "en": "Planning zones"
+        },
+        "content": {
+            "de": "Zone, die ein genau bezeichnetes Gebiet umfasst, für das ein Nutzungsplan angepasst werden muss oder noch keiner vorliegt, und innerhalb derer nichts unternommen werden darf, was die Nutzungsplanung erschwert.",
+            "fr": "Zone comprenant un territoire pour lequel un plan d'affectation doit être adopté ou adapté et à l'intérieur de laquelle rien ne doit être entrepris qui puisse entraver l'établissement du plan d'affectation.",
+            "it": "Zone comprendente un territorio per il quale il piano di utilizzazione manca o dev'essere adottato, e all'interno della quale nulla può essere intrapreso che possa rendere più ardua la pianificazione dell'utilizzazione.",
+            "rm": "Sche plans d'utilisaziun ston vegnir adattads u sch'els n'èn betg anc avant maun, po l'autoritad cumpetenta determinar zonas da planisaziun per territoris circumscrits detagliadamain. Entaifer las zonas da planisaziun na dastga vegnir fatg nagut che pudess engrevgiar la planisaziun d'utilisaziun.",
+            "en": "Area designated by the authorities with immediately binding effect for which land use plans have to be made or adapted and nothing may be done which could prejudice a future land use plan."
+        }
+    },
+    {
+        "title": {
+            "de": "Projektierungszonen Eisenbahnanlagen",
+            "fr": "Zones réservées des installations ferroviaires",
+            "it": "Zone riservate per gli impianti ferroviari",
+            "rm": "Zonas da projectaziun dals implants da viafier",
+            "en": "Reserved zones for railways"
+        },
+        "content": {
+            "de": "Um die freie Verfügbarkeit der für künftige Bahnbauten und -anlagen erforderlichen Grundstücke zu gewährleisten, können für genau bezeichnete Gebiete Projektierungszonen festgelegt werden. In diesen Zonen dürfen keine baulichen Veränderungen vorgenommen werden, die dem Zweck der Eisenbahnen widersprechen.",
+            "fr": "Des zones réservées peuvent être instaurées sur des portions de territoires clairement délimitées, afin de garantir la parfaite disponibilité des biens-fonds requis pour la construction future d’ouvrages et d’installations ferroviaires. Au sein de ces zones, toute modification des constructions contraire à l’affectation prévue est proscrite.",
+            "it": "Al fine di garantire la libera disponibilità dei fondi necessari per i futuri edifici e impianti ferroviari possono essere definite zone riservate per aree chiaramente contrassegnate. In queste zone non possono essere apportate modifiche strutturali contrarie allo scopo delle ferrovie.",
+            "rm": "Per garantir la libra disponibladad dals bains immobigliars ch'èn necessaris per construir futurs edifizis e stabiliments da viafier, pon vegnir determinadas zonas da projectaziun per territoris designads exactamain. En questas zonas na dastgan vegnir fatgas naginas midadas architectonicas che cuntrafan a l'intent da las viafiers.",
+            "en": "Reserved zones may be specified for precisely defined areas in order to ensure that the necessary land for the future construction of railway stretches and installations is kept in reserve. In these zones, no structural alterations may be carried out that do not correspond to the purpose specified by the railway operator."
+        }
+    },
+    {
+        "title": {
+            "de": "Projektierungszonen Flughafenanlagen",
+            "fr": "Zones réservées des installations aéroportuaires",
+            "it": "Zone riservate per gli impianti aeroportuali",
+            "rm": "Zonas da projectaziun dals implants d'eroport",
+            "en": "Reserved zones for airports"
+        },
+        "content": {
+            "de": "Um die freie Verfügbarkeit der für Flughafenanlagen erforderlichen Grundstücke zu gewährleisten, können für genau bezeichnete Gebiete Projektierungszonen festgelegt werden. In diesen Zonen dürfen keine baulichen Veränderungen vorgenommen werden, die dem Zweck der Flughafenanlagen widersprechen.",
+            "fr": "Des zones réservées peuvent être instaurées sur des portions de territoires clairement délimitées, afin de garantir la parfaite disponibilité des biens-fonds requis pour les installations aéroportuaires. Au sein de ces zones, toute modification des constructions contraire à l’affectation prévue est proscrite.",
+            "it": "Al fine di garantire la libera disponibilità dei fondi necessari per i futuri edifici e impianti aeroportuali possono essere definite zone riservate per aree chiaramente contrassegnate. In queste zone non possono essere apportate modifiche strutturali contrarie allo scopo degli impianti aeroportuali.",
+            "rm": "Per garantir la libra disponibladad dals bains immobigliars ch'èn necessaris per construir eroports, pon vegnir determinadas zonas da projectaziun per territoris designads exactamain. En questas zonas na dastgan vegnir fatgas naginas midadas architectonicas che cuntrafan a l'intent dals eroports.",
+            "en": "In order to ensure that airports have the necessary land at their disposal for their various facilities, project zones can be defined, the boundaries of which have to be clearly specified. Within these zones, no structural changes may be carried out that conflict with the purpose of the airport facilities."
+        }
+    },
+    {
+        "title": {
+            "de": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder höher",
+            "fr": "Zones réservées des lignes d’une tension nominale égale ou supérieure à 220 kV",
+            "it": "Zone riservate per linee con una tensione nominale pari o superiore a 220 kV",
+            "rm": "Zonas da projectaziun per conducts cun ina tensiun nominala da 220 kV u dapli",
+            "en": "Reserved zones for power lines with a nominal voltage of 220 kV or higher"
+        },
+        "content": {
+            "de": "Um die freie Verfügbarkeit der für Flughafenanlagen erforderlichen Grundstücke zu gewährleisten, können für genau bezeichnete Gebiete Projektierungszonen festgelegt werden. In diesen Zonen dürfen keine baulichen Veränderungen vorgenommen werden, die dem Zweck der Flughafenanlagen widersprechen.",
+            "fr": "Des zones réservées peuvent être instaurées sur des portions de territoires clairement délimitées, afin de garantir la parfaite disponibilité des biens-fonds requis pour les lignes d'une tension nominale égale ou supérieure à 220 kV. Au sein de ces zones, toute modification des constructions contraire à l’affectation prévue est proscrite.",
+            "it": "Al fine di garantire la libera disponibilità dei fondi necessari per le condotte con una tensione nominale di 220 kV o superiore, è possibile definire zone riservate per aree contrassegnate con precisione. In queste zone non possono essere apportate modifiche strutturali che contraddicano lo scopo delle condotte.",
+            "rm": "Per garantir la libra disponibladad dals bains immobigliars ch'èn necessaris per construir conducts cun ina tensiun nominala da 220 kilovolts u dapli, pon vegnir determinadas zonas da projectaziun per territoris designads exactamain. En questas zonas na dastgan vegnir fatgas naginas midadas architectonicas che cuntrafan a l'intent dals conducts.",
+            "en": "Reserve zones may be specified in precisely designated regions in order to secure the availability of the necessary plots of land for the use of power lines with a nominal voltage of 200 kV or higher. In these zones, no structural alterations may be carried out that could interfere with the specified purpose of the power lines."
+        }
+    },
+    {
+        "title": {
+            "de": "Projektierungszonen Nationalstrassen",
+            "fr": "Zones réservées des routes nationales",
+            "it": "Zone riservate per le strade nazionali",
+            "rm": "Zonas da projectaziun da las vias naziunalas",
+            "en": "Reserved zones for motorways"
+        },
+        "content": {
+            "de": "Um die freie Verfügbarkeit des für den Bau der Nationalstrassen erforderlichen Landes zu gewährleisten, können für genau bezeichnete Gebiete Projektierungszonen festgelegt werden. In diesen Zonen dürfen keine baulichen Veränderungen vorgenommen werden, die dem Zweck der Nationalstrassen widersprechen.",
+            "fr": "Des zones réservées peuvent être instaurées sur des portions de territoires clairement délimitées, afin de garantir la parfaite disponibilité des terrains requis pour la construction des routes nationales. Au sein de ces zones, toute modification des constructions contraire à l’affectation prévue est proscrite.",
+            "it": "Al fine di garantire la libera disponibilità del terreno necessario per la costruzione delle strade nazionali è possibile definire zone riservate per aree designate con precisione. In queste zone non possono essere apportate modifiche strutturali che contraddicano lo scopo delle strade nazionali.",
+            "rm": "Per garantir la libra disponibladad dal terren ch'è necessari per construir las vias naziunalas, pon vegnir determinadas zonas da projectaziun per territoris designads exactamain. En questas zonas na dastgan vegnir fatgas naginas midadas architectonicas che cuntrafan a l'intent da las vias naziunalas.",
+            "en": "Building lines may be specified in order to ensure that the necessary land for the ongoing or future construction of railway stretches and installations remains available. No structural alterations or other measures that do not correspond to the specified purpose of the railway operator may be carried out either between the building lines or between a building line and a railway installation."
+        }
+    },
+    {
+        "title": {
+            "de": "Nutzungsplanung",
+            "fr": "Plans d’affectation",
+            "it": "Piani di utilizzazione",
+            "rm": "Planisaziun d'utilisaziun",
+            "en": "Land use plans"
+        },
+        "content": {
+            "de": "Festlegung der Verwendung einzelner Bodenflächen für bestimmte Zwecke (z. B. Landwirtschaft, Siedlung, Wald).",
+            "fr": "Détermination de l'affectation des différentes surfaces du sol (agriculture, agglomérations, forêts, etc.).",
+            "it": "Definizione dell'uso di singole superfici di terreno per scopi specifici (ad es. agricoltura, insediamento, foresta).",
+            "rm": "Determinaziun da l'utilisaziun da singulas surfatschas da terren per tscherts intents (p.ex. agricultura, abitadi, guaud).",
+            "en": "Land use plans (which are often also referred to as zoning plans) specify the type and use of the land. They divide an area into various zones (building, agricultural, conservation)."
+        }
+    },
+    {
+        "title": {
+            "de": "Rechtsvorschrift",
+            "fr": "Disposition juridique",
+            "it": "Prescrizione legale",
+            "rm": "Prescripziun giuridica",
+            "en": "Legal provision"
+        },
+        "content": {
+            "de": "Generell-konkrete Rechtsnorm, die zusammen mit den ihr zugeschriebenen Geobasisdaten die Eigentumsbeschränkung unmittelbar umschreibt und innerhalb desselben Verfahrens verabschiedet worden ist.",
+            "fr": "Norme juridique à caractère général et concret qui, formant un tout avec les géodonnées de base qui lui sont associées, décrit directement la restriction de propriété et est régie par la même procédure.",
+            "it": "Norma giuridica generale e concreta che, unitamente ai corrispondenti geodati di base e costituendo un'unità con quest'ultimi, descrive in maniera immediata le restrizioni della proprietà e per le quali è determinante la medesima procedura.",
+            "rm": "Prescripziun general-concreta che circumscriva ensemen cun las geodatas da basa attribuidas directamain la restricziun da la proprietad e ch'è vegnida approvada entaifer la medema procedura.",
+            "en": "General-specific legal provision that together with the attributed official geodata directly describes the landownership restriction and has been adopted within the same process."
+        }
+    },
+    {
+        "title": {
+            "de": "Sicherheitszonenplan",
+            "fr": "Plan de la zone de sécurité",
+            "it": "Piano delle zone di sicurezza",
+            "rm": "Plan da zonas da segirezza",
+            "en": "Security zone plan"
+        },
+        "content": {
+            "de": "Zonenplan, in dem die Sicherheitszonen dargestellt sind und aus dem die Eigentumsbeschränkungen nach Fläche und Höhe ersichtlich sind.",
+            "fr": "Plan de zone représentant la zone de sécurité et indiquant les restrictions de la propriété en surface et en hauteur.",
+            "it": "Piano di zona in cui è rappresentata la zona di sicurezza e sono indicate le limitazioni della proprietà in superficie e in altezza.",
+            "rm": "Plan da zonas, en il qual èn represchentadas las zonas da segirezza che mussan las restricziuns da la proprietad tenor surfatscha e tenor autezza.",
+            "en": "Every airport is required to designate a security zone. The Federal Office of Civil Aviation (FOCA) is responsible for deciding on a case by case basis whether a security zone is required for air traffic control systems and flight paths. Without the consent of the applicant, no one may own property that is subject to a security zone plan."
+        }
+    },
+    {
+        "title": {
+            "de": "Statische Waldgrenzen",
+            "fr": "Limites forestières statiques",
+            "it": "Margini statici della foresta",
+            "rm": "Cunfins statics dal guaud",
+            "en": "Static forest perimeters"
+        },
+        "content": {
+            "de": "Statische Waldgrenzen müssen auf der Grundlage rechtskräftiger Waldfeststellungen festgelegt werden. Neue Bestockungen ausserhalb dieser Waldgrenzen gelten nicht als Wald.",
+            "fr": "Les limites forestières statiques doivent être fixées sur la base de constatations de la nature forestière faisant foi juridiquement. De nouveaux peuplements en dehors de ces limites ne sont pas considérés comme étant des forêts.",
+            "it": "I margini statici della foresta devono essere stabiliti sulla base di inventari forestali giuridicamente vincolanti. Le nuove zone boscate al di fuori di questi margini della foresta non sono considerate foresta.",
+            "rm": "Cunfins statics dal guaud ston vegnir fixads sin basa da determinaziuns dal guaud cun vigur legala. Novs plantadis ordaifer quests cunfins da guaud na valan betg sco guaud.",
+            "en": "Static forest perimeters have to be defined on the basis of legally binding declarations of forested areas. Newly planted trees outside the defined forest perimeter are not regarded as forest."
+        }
+    },
+    {
+        "title": {
+            "de": "Waldabstandslinien",
+            "fr": "Distances par rapport à la forêt",
+            "it": "Linee di distanza dalla foresta",
+            "rm": "Lingias da distanza dal guaud",
+            "en": "Forest distance lines"
+        },
+        "content": {
+            "de": "Bauten und Anlagen in Waldesnähe sind nur zulässig, wenn sie die Erhaltung, Pflege und Nutzung des Waldes nicht beeinträchtigen.",
+            "fr": "Les constructions et les installations proches de la forêt ne sont permises que si elles ne portent atteinte ni à sa conservation, ni à son entretien, ni à son exploitation.",
+            "it": "Gli edifici e gli impianti in prossimità della foresta sono consentiti solo se non compromettono la conservazione, la cura e lo sfruttamento della foresta.",
+            "rm": "Edifizis e stabiliments en la vischinanza dal guaud èn mo admissibels, sch'els na sminueschan betg la cultivaziun, la tgira e l'utilisaziun dal guaud.",
+            "en": "Buildings and installations are only permitted near a forested area if they do not interfere with the preservation, management and use of the forest. Based on legally binding forest boundaries, the cantons define an appropriate minimum distance between buildings and facilities and the forest perimeter. The minimum distance is defined while taking the location and the anticipated height of the trees into account."
+        }
+    },
+    {
+        "title": {
+            "de": "Waldreservate",
+            "fr": "Réserves forestières",
+            "it": "Riserve forestali",
+            "rm": "Reservats da guaud",
+            "en": "Forest reserves"
+        },
+        "content": {
+            "de": "Geschützte Waldfläche, die der Erhaltung der Artenvielfalt von Fauna und Flora dient.",
+            "fr": "Surface forestière protégée qui assure la conservation de la diversité des espèces animales et végétales.",
+            "it": "Superficie forestale protetta che garantisce la conservazione della molteplicità delle specie animali e vegetali.",
+            "rm": "Surfatscha da guaud protegida che serva a mantegnair la diversitad da las spezias da la fauna e da la flora.",
+            "en": "Protected forest land for the purpose of preserving the diversity of fauna and flora."
+        }
+    },
+    {
+        "title": {
+            "de": "Zuständige Stelle",
+            "fr": "Service compétent",
+            "it": "Servizio competente",
+            "rm": "Post cumpetent",
+            "en": "Responsible authority"
+        },
+        "content": {
+            "de": "Durch die Gesetzgebung bezeichnete Stelle des Bundes, des Kantons oder der Gemeinde, die für das Erheben, Nachführen und Verwalten der Geobasisdaten zuständig ist.",
+            "fr": "Service de la Confédération, du canton ou de la commune dont relèvent la saisie, la mise à jour et la gestion des géodonnées de base selon la législation.",
+            "it": "Servizio federale, cantonale o comunale designato dalla legislazione che è responsabile della raccolta, della tenuta a giorno e della gestione dei geodati di base.",
+            "rm": "Post da la Confederaziun, dal chantun u da la vischnanca designà da la legislaziun ch'è cumpetent per registrar, per actualisar e per administrar las geodatas da basa.",
+            "en": "Unit of the federal government, canton or municipality designated by law as responsible for the collection, updating and management of official geodata."
+        }
+    },
+    {
+        "title": {
+            "de": "Vorwirkung",
+            "fr": "Effet anticipé",
+            "it": "Effetto anticipato",
+            "rm": "Effect anticipà",
+            "en": "Pre-effect"
+        },
+        "content": {
+            "de": "Mit der öffentlichen Auflage entsteht eine Vorwirkung: Ab diesem Zeitpunkt dürfen Bauvorhaben in der Regel nur bewilligt werden, wenn sie der öffentlich aufgelegten Planung nicht widersprechen.",
+            "fr": "L’enquête publique génère un effet anticipé: à compter de son ouverture, seuls peuvent généralement être autorisés les projets de construction qui ne contreviennent pas aux nouvelles dispositions mises à l’enquête.",
+            "it": "La condizione pubblica crea un effetto anticipato: da questo momento in poi, i progetti di costruzione possono essere di regola approvati soltanto se non sono in contraddizione con la pianificazione impostata a livello pubblico.",
+            "rm": "L'exposiziun publica generescha in effect anticipà: a partir da quest termin dastgan projects da construcziun vegnir permess per regla mo, sch'els na stattan betg en cuntradicziun cun la planisaziun exponida publicamain.",
+            "en": "The publication of plans results in a pre-effect: From that moment onwards, construction projects may normally only be approved if they do not conflict with the published planning."
+        }
+    }
+]
+
