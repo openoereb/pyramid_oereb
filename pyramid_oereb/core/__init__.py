@@ -9,7 +9,7 @@ log = logging.getLogger(__name__)
 
 def get_multilingual_element(value, language, not_null=True):
     """
-        Method that takes a sting or dict in order to retrieve the text
+        Method that takes a string or dict in order to retrieve the text
         value of the requested language.
 
         Args:
