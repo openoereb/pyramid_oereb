@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from pyramid_oereb import route_prefix
-from pyramid_oereb.views.webservice import PlrWebservice, Symbol, Logo, Sld
+from pyramid_oereb.core.views.webservice import PlrWebservice, Symbol, Logo, Sld
 # from pyramid_oereb.contrib.stats.decorators import log_response
 
 
