@@ -79,5 +79,25 @@
     "id": 20,
     "document_id": 1358,
     "public_law_restriction_id": 396
+  },{
+    "id": 21,
+    "document_id": 1297,
+    "public_law_restriction_id": 396
+  },{
+    "id": 22,
+    "document_id": 1297,
+    "public_law_restriction_id": 397
+  },{
+    "id": 23,
+    "document_id": 1297,
+    "public_law_restriction_id": 398
+  },{
+    "id": 24,
+    "document_id": 1297,
+    "public_law_restriction_id": 399
+  },{
+    "id": 25,
+    "document_id": 1297,
+    "public_law_restriction_id": 400
   }
 ]
