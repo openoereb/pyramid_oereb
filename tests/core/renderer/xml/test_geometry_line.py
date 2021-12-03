@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import pytest
-from tests import params
-from tests.renderer.xml import xml_templates
+from tests.core.renderer.xml import params
 from shapely.geometry import LineString
-
-template = xml_templates().get_template('geometry/line.xml')
 
 
 @pytest.mark.parametrize('parameters', params)  # noqa
-def test_line(parameters):
+def test_line(template, parameters):
     line = LineString(((0, 0), (1, 1)))
 
     def get_gml_id():

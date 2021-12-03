@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import pytest
-from tests import params
-from tests.renderer.xml import xml_templates
+from tests.core.renderer.xml import params 
 from shapely.geometry import Polygon
-
-template = xml_templates().get_template('geometry/polygon.xml')
 
 
 @pytest.mark.parametrize('parameters', params)  # noqa
-def test_polygon(parameters):
+def test_polygon(template, parameters):
     polygon = Polygon(
         ((0, 0), (0, 1), (1, 1), (1, 0), (0, 0)),
         [((0.25, 0.25), (0.25, 0.75), (0.75, 0.75), (0.75, 0.25), (0.25, 0.25))]

@@ -8,15 +8,11 @@ from pyramid_oereb.core.records.view_service import ViewServiceRecord, LegendEnt
 from pyramid_oereb.core.renderer.extract.xml_ import Renderer
 from pyramid_oereb.core.views.webservice import Parameter
 from tests.mockrequest import MockRequest
-from tests.core.renderer import DummyRenderInfo
-from tests.core.renderer.xml import xml_templates
 from datetime import datetime
 from shapely.geometry import Polygon
 
-template = xml_templates().get_template('public_law_restriction.xml')
 
-
-def test_sub_theme():
+def test_sub_theme(DummyRenderInfo, template):
     parameters = Parameter(
         response_format='xml',
         with_geometry=False,

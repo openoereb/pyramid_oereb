@@ -13,9 +13,8 @@ from pyramid_oereb.core.records.image import ImageRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.view_service import LegendEntryRecord
 from pyramid_oereb.core.records.real_estate import RealEstateRecord
-from pyramid_oereb.contrib.data_sources.standard import get_symbol, get_symbol_ref, \
+from pyramid_oereb.contrib.data_sources.standard.hook_methods import get_symbol, get_symbol_ref, \
     get_surveying_data_update_date
-from tests import pyramid_oereb_test_config
 
 try:
     from urllib.parse import urlparse
@@ -65,15 +64,13 @@ def test_get_symbol_ref():
         ThemeRecord('ch.BelasteteStandorte', {'de': 'Belastete Standorte'}, 410),
         view_service_id='1'
     )
-    with pyramid_oereb_test_config():
-        request = DummyRequest()
-        url = urlparse(get_symbol_ref(request, record))
-        assert url.path == '/image/symbol/ch.BelasteteStandorte/1/CodeA.png'
+    request = DummyRequest()
+    url = urlparse(get_symbol_ref(request, record))
+    assert url.path == '/image/symbol/ch.BelasteteStandorte/1/CodeA.png'
 
 
 def test_get_surveying_data_date():
     real_estate = RealEstateRecord('test_type', 'BL', 'Nusshof', 1, 100,
                                    loads('POLYGON((0 0, 0 1, 1 1, 1 0, 0 0))'))
-    with pyramid_oereb_test_config():
-        update_date_os = get_surveying_data_update_date(real_estate)
-        assert isinstance(update_date_os, datetime.datetime)
+    update_date_os = get_surveying_data_update_date(real_estate)
+    assert isinstance(update_date_os, datetime.datetime)

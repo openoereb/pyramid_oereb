@@ -26,9 +26,7 @@ from pyramid_oereb.core.records.general_information import GeneralInformationRec
 from pyramid_oereb.core.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.core.renderer import Base
 from pyramid_oereb.core.renderer.extract.json_ import Renderer
-from tests import pyramid_oereb_test_config
 from tests.mockrequest import MockRequest
-from tests.core.renderer import DummyRenderInfo
 from pyramid_oereb.core.views.webservice import Parameter
 
 
@@ -66,8 +64,7 @@ def glossary_expected():
     (None, [], None),
     (None, None, None)
 ])
-def test_render(parameter, glossaries_input, glossaries_expected):
-    with pyramid_oereb_test_config():
+def test_render(pyramid_oereb_test_config, DummyRenderInfo, parameter, glossaries_input, glossaries_expected):
         view_service = ViewServiceRecord({'de': u'http://geowms.bl.ch'},
                                          1,
                                          1.0,
@@ -79,7 +76,7 @@ def test_render(parameter, glossaries_input, glossaries_expected):
         real_estate.set_main_page_view_service(view_service)
         office_record = OfficeRecord({'de': u'AGI'})
         resolver = DottedNameResolver()
-        date_method_string = Config.get('extract').get('base_data').get('methods').get('date')
+        date_method_string = pyramid_oereb_test_config.get('extract').get('base_data').get('methods').get('date')
         date_method = resolver.resolve(date_method_string)
         update_date_os = date_method(real_estate)
         extract = ExtractRecord(
@@ -158,7 +155,7 @@ def test_render(parameter, glossaries_input, glossaries_expected):
             assert result == expected
 
 
-def test_format_office():
+def test_format_office(DummyRenderInfo):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = 'de'
     office = OfficeRecord({'de': u'Test'}, uid=u'test_uid', office_at_web=u'http://test.example.com',
@@ -177,7 +174,7 @@ def test_format_office():
     }
 
 
-def test_format_real_estate():
+def test_format_real_estate(DummyRenderInfo):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = u'de'
     renderer._params = Parameter(
@@ -229,55 +226,85 @@ def test_format_real_estate():
     default_param(),
     Parameter('json', False, True, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
 ])
-def test_format_plr(parameter):
-    with pyramid_oereb_test_config():
-        renderer = Renderer(DummyRenderInfo())
-        renderer._language = 'de'
-        renderer._params = parameter
-        renderer._request = MockRequest()
-        document = DocumentRecord(
-            document_type='GesetzlicheGrundlage',
-            index=1,
-            law_status=law_status(),
-            published_from=datetime.date.today(),
-            title={u'de': u'Test Dokument'},
-            responsible_office=OfficeRecord({u'de': u'BUD'}),
-            text_at_web={'de': 'http://mein.dokument.ch'}
-        )
-        documents = [document]
-        theme = ThemeRecord(u'ch.BelasteteStandorte', {u'de': u'Test theme'}, 410)
-        subTheme = ThemeRecord(
-            u'ch.BelasteteStandorte',
-            {u'de': u'SubTheme'}, 411, u'SubCodech.BelasteteStandorte'
-        )
-        office = OfficeRecord({'de': 'Test Office'})
-        legend_entry = LegendEntryRecord(
-            ImageRecord(FileAdapter().read('tests/resources/python.svg')),
-            {'de': 'Test'}, 'CodeA', 'TypeCodeList', theme,
-            view_service_id=1)
-        view_service = ViewServiceRecord({'de': 'http://geowms.bl.ch'},
-                                         1,
-                                         1.0,
-                                         [legend_entry])
-        geometry = GeometryRecord(law_status(), datetime.date.today(), None, Point(1, 1))
-        plr = PlrRecord(
-            theme,
-            legend_entry,
-            law_status(),
-            datetime.date.today(),
-            None,
-            office,
-            ImageRecord(FileAdapter().read('tests/resources/python.svg')),
-            view_service,
-            [geometry],
-            subTheme,
-            type_code='CodeA',
-            type_code_list='TypeCodeList',
-            documents=documents,
-            view_service_id=1
-        )
-        plr.part_in_percent = 0.5
+def test_format_plr(DummyRenderInfo, parameter):
+    renderer = Renderer(DummyRenderInfo())
+    renderer._language = 'de'
+    renderer._params = parameter
+    renderer._request = MockRequest()
+    document = DocumentRecord(
+        document_type='GesetzlicheGrundlage',
+        index=1,
+        law_status=law_status(),
+        published_from=datetime.date.today(),
+        title={u'de': u'Test Dokument'},
+        responsible_office=OfficeRecord({u'de': u'BUD'}),
+        text_at_web={'de': 'http://mein.dokument.ch'}
+    )
+    documents = [document]
+    theme = ThemeRecord(u'ch.BelasteteStandorte', {u'de': u'Test theme'}, 410)
+    subTheme = ThemeRecord(
+        u'ch.BelasteteStandorte',
+        {u'de': u'SubTheme'}, 411, u'SubCodech.BelasteteStandorte'
+    )
+    office = OfficeRecord({'de': 'Test Office'})
+    legend_entry = LegendEntryRecord(
+        ImageRecord(FileAdapter().read('tests/resources/python.svg')),
+        {'de': 'Test'}, 'CodeA', 'TypeCodeList', theme,
+        view_service_id=1)
+    view_service = ViewServiceRecord({'de': 'http://geowms.bl.ch'},
+                                        1,
+                                        1.0,
+                                        [legend_entry])
+    geometry = GeometryRecord(law_status(), datetime.date.today(), None, Point(1, 1))
+    plr = PlrRecord(
+        theme,
+        legend_entry,
+        law_status(),
+        datetime.date.today(),
+        None,
+        office,
+        ImageRecord(FileAdapter().read('tests/resources/python.svg')),
+        view_service,
+        [geometry],
+        subTheme,
+        type_code='CodeA',
+        type_code_list='TypeCodeList',
+        documents=documents,
+        view_service_id=1
+    )
+    plr.part_in_percent = 0.5
 
+    result = renderer.format_plr([plr])
+    assert isinstance(result, list)
+    assert len(result) == 1
+    assert isinstance(result[0], dict)
+    expected = {
+        'LegendText': renderer.get_multilingual_text(plr.legend_text),
+        'Theme': renderer.format_theme(plr.theme),
+        'Lawstatus': {
+            'Code': 'inKraft',
+            'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
+        },
+        'ResponsibleOffice': renderer.format_office(plr.responsible_office),
+        'Map': renderer.format_map(plr.view_service),
+        'SubTheme': {
+            'Code': 'ch.BelasteteStandorte',
+            'Text': {
+                'Language': 'de',
+                'Text': 'SubTheme'
+            },
+            'Sub_Code': 'SubCodech.BelasteteStandorte'
+        },
+        'TypeCode': 'CodeA',
+        'TypeCodelist': 'TypeCodeList',
+        'LegalProvisions': [renderer.format_document(document)],
+        'PartInPercent': 0.5
+    }
+    if parameter.images:
+        expected.update({
+            'Symbol': ImageRecord(FileAdapter().read('tests/resources/python.svg')).encode()
+        })
+    else:
         result = renderer.format_plr([plr])
         assert isinstance(result, list)
         assert len(result) == 1
@@ -291,14 +318,7 @@ def test_format_plr(parameter):
             },
             'ResponsibleOffice': renderer.format_office(plr.responsible_office),
             'Map': renderer.format_map(plr.view_service),
-            'SubTheme': {
-                'Code': 'ch.BelasteteStandorte',
-                'Text': {
-                    'Language': 'de',
-                    'Text': 'SubTheme'
-                },
-                'Sub_Code': 'SubCodech.BelasteteStandorte'
-            },
+            'SubTheme': renderer.format_theme(plr.sub_theme),
             'TypeCode': 'CodeA',
             'TypeCodelist': 'TypeCodeList',
             'LegalProvisions': [renderer.format_document(document)],
@@ -309,39 +329,15 @@ def test_format_plr(parameter):
                 'Symbol': ImageRecord(FileAdapter().read('tests/resources/python.svg')).encode()
             })
         else:
-            result = renderer.format_plr([plr])
-            assert isinstance(result, list)
-            assert len(result) == 1
-            assert isinstance(result[0], dict)
-            expected = {
-                'LegendText': renderer.get_multilingual_text(plr.legend_text),
-                'Theme': renderer.format_theme(plr.theme),
-                'Lawstatus': {
-                    'Code': 'inKraft',
-                    'Text': [{'Language': 'de', 'Text': 'Rechtskräftig'}]
-                },
-                'ResponsibleOffice': renderer.format_office(plr.responsible_office),
-                'Map': renderer.format_map(plr.view_service),
-                'SubTheme': renderer.format_theme(plr.sub_theme),
-                'TypeCode': 'CodeA',
-                'TypeCodelist': 'TypeCodeList',
-                'LegalProvisions': [renderer.format_document(document)],
-                'PartInPercent': 0.5
-            }
-            if parameter.images:
-                expected.update({
-                    'Symbol': ImageRecord(FileAdapter().read('tests/resources/python.svg')).encode()
-                })
-            else:
-                expected.update({
-                    'SymbolRef': 'http://example.com/image/symbol/{theme}/{view_service_id}/{code}.svg'
-                        .format(
-                            theme='ch.BelasteteStandorte',
-                            view_service_id=1,
-                            code='CodeA'
-                        )
-                })
-            assert result[0] == expected
+            expected.update({
+                'SymbolRef': 'http://example.com/image/symbol/{theme}/{view_service_id}/{code}.svg'
+                    .format(
+                        theme='ch.BelasteteStandorte',
+                        view_service_id=1,
+                        code='CodeA'
+                    )
+            })
+        assert result[0] == expected
 
 
 @pytest.mark.parametrize('document,result_dict', [
@@ -432,7 +428,7 @@ def test_format_plr(parameter):
         }
     )
 ])
-def test_format_document(params, document, result_dict):
+def test_format_document(DummyRenderInfo, params, document, result_dict):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = u'de'
     renderer._params = params
@@ -484,7 +480,7 @@ def test_format_document(params, document, result_dict):
         }
     })
 ])
-def test_format_geometry(params, geometry, result_dict):
+def test_format_geometry(DummyRenderInfo, params, geometry, result_dict):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = u'de'
     renderer._params = params
@@ -493,7 +489,7 @@ def test_format_geometry(params, geometry, result_dict):
     assert result == result_dict
 
 
-def test_format_theme(params):
+def test_format_theme(DummyRenderInfo, params):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = u'de'
     renderer._params = params
@@ -510,40 +506,39 @@ def test_format_theme(params):
     default_param(),
     Parameter('json', 'reduced', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de')
 ])
-def test_format_legend_entry(parameter):
-    with pyramid_oereb_test_config():
-        renderer = Renderer(DummyRenderInfo())
-        renderer._language = u'de'
-        renderer._params = parameter
-        renderer._request = MockRequest()
-        theme = ThemeRecord(u'ch.BelasteteStandorte', {u'de': u'Test'}, 410)
-        legend_entry = LegendEntryRecord(
-            ImageRecord(FileAdapter().read('tests/resources/python.svg')),
-            {u'de': u'Legendeneintrag'},
-            u'CodeA',
-            u'type_code_list',
-            theme,
-            view_service_id=1
-        )
-        result = renderer.format_legend_entry(legend_entry)
-        expected = {
-            'LegendText': renderer.get_multilingual_text({'de': 'Legendeneintrag'}),
-            'TypeCode': 'CodeA',
-            'TypeCodelist': 'type_code_list',
-            'Theme': renderer.format_theme(theme),
-        }
-        if parameter.images:
-            expected.update({
-                'Symbol': ImageRecord(FileAdapter().read('tests/resources/python.svg')).encode()
-            })
-        else:
-            expected.update({
-                'SymbolRef': 'http://example.com/image/symbol/{theme_code}/{view_service_id}/{code}.svg'
-                    .format(
-                        theme_code='ch.BelasteteStandorte',
-                        view_service_id=1,
-                        code='CodeA'
-                    )
-            })
-        assert isinstance(result, dict)
-        assert result == expected
+def test_format_legend_entry(DummyRenderInfo, parameter):
+    renderer = Renderer(DummyRenderInfo())
+    renderer._language = u'de'
+    renderer._params = parameter
+    renderer._request = MockRequest()
+    theme = ThemeRecord(u'ch.BelasteteStandorte', {u'de': u'Test'}, 410)
+    legend_entry = LegendEntryRecord(
+        ImageRecord(FileAdapter().read('tests/resources/python.svg')),
+        {u'de': u'Legendeneintrag'},
+        u'CodeA',
+        u'type_code_list',
+        theme,
+        view_service_id=1
+    )
+    result = renderer.format_legend_entry(legend_entry)
+    expected = {
+        'LegendText': renderer.get_multilingual_text({'de': 'Legendeneintrag'}),
+        'TypeCode': 'CodeA',
+        'TypeCodelist': 'type_code_list',
+        'Theme': renderer.format_theme(theme),
+    }
+    if parameter.images:
+        expected.update({
+            'Symbol': ImageRecord(FileAdapter().read('tests/resources/python.svg')).encode()
+        })
+    else:
+        expected.update({
+            'SymbolRef': 'http://example.com/image/symbol/{theme_code}/{view_service_id}/{code}.svg'
+                .format(
+                    theme_code='ch.BelasteteStandorte',
+                    view_service_id=1,
+                    code='CodeA'
+                )
+        })
+    assert isinstance(result, dict)
+    assert result == expected

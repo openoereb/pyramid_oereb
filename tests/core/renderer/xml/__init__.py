@@ -1,14 +1,34 @@
 # -*- coding: utf-8 -*-
-from pyramid.path import AssetResolver
-from mako.lookup import TemplateLookup
-
-
-def xml_templates():
-    a = AssetResolver('pyramid_oereb')
-    resolver = a.resolve('core/renderer/extract/templates/xml')
-    templates = TemplateLookup(
-        directories=[resolver.abspath()],
-        output_encoding='utf-8',
-        input_encoding='utf-8'
-    )
-    return templates
+params = [
+            {
+                'flavour': 'INVALIDFLAVOUR',
+                'format': 'xml',
+                'param1': 'egrid'
+            },
+            {
+                'flavour': 'reduced',
+                'format': 'INVALIDFORMAT',
+                'param1': 'egrid'
+            },
+            {
+                'flavour': 'FULL',
+                'format': 'XML',
+                'param1': 'egrid'
+            },
+            {
+                'flavour': 'SIGNED',
+                'format': 'JSON',
+                'param1': 'egrid'
+            },
+            {
+                'flavour': 'EMBEDDABLE',
+                'format': 'PDF',
+                'param1': 'egrid'
+            },
+            {
+                'flavour': 'full',
+                'format': 'PDF',
+                'param1': 'GEOMETRY',
+                'param2': 'egrid'
+            }
+        ]

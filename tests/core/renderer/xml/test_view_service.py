@@ -1,14 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from tests.renderer import DummyRenderInfo
 from pyramid_oereb.core.renderer.extract.xml_ import Renderer
-from tests.renderer.xml import xml_templates
 from pyramid_oereb.core.records.view_service import ViewServiceRecord
 
-template = xml_templates().get_template('view_service.xml')
 
-
-def test_empty():
+def test_empty(template):
     map = ViewServiceRecord(
         reference_wms=dict(),
         layer_index=0,
@@ -24,7 +20,7 @@ def test_empty():
     assert len(content) == 4
 
 
-def test_reference_wms():
+def test_reference_wms(DummyRenderInfo, template):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = 'de'
     map = ViewServiceRecord(

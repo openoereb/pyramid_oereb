@@ -14,12 +14,10 @@ from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.view_service import LegendEntryRecord
 from pyramid_oereb.core.renderer import Base
 from pyramid_oereb.core.renderer.extract.json_ import Renderer
-from tests import pyramid_oereb_test_config
 from tests.mockrequest import MockRequest
-from tests.renderer import DummyRenderInfo
 
 
-def test_call():
+def test_call(DummyRenderInfo):
     renderer = Base(DummyRenderInfo())
     assert isinstance(renderer.info, DummyRenderInfo)
     assert renderer.info.name == 'test'
@@ -91,7 +89,7 @@ def test_get_localized_text_from_dict(language, result):
     ('de', None, False),  # allow null value if lang & default is not available
     ('fr', None, False)  # allow null value if lang & default is not available
 ])
-def test_get_localized_text_from_dict_no_default(language, result, disallowNull):
+def test_get_localized_text_from_dict_no_default(DummyRenderInfo, language, result, disallowNull):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = language
     multilingual_text = {
@@ -114,7 +112,7 @@ def test_get_localized_text_from_dict_no_default(language, result, disallowNull)
     ('en', u'This is a test'),
     ('fr', u'Dies ist ein Test')  # fr not available; use default language (de)
 ])
-def test_get_multilingual_text_from_dict(language, result):
+def test_get_multilingual_text_from_dict(DummyRenderInfo, language, result):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = language
     multilingual_text = {
@@ -128,7 +126,7 @@ def test_get_multilingual_text_from_dict(language, result):
     assert ml_text[0].get('Text') == result
 
 
-def test_sort_by_localized_text():
+def test_sort_by_localized_text(DummyRenderInfo):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = 'de'
     # Elements like in the glossary
@@ -187,23 +185,22 @@ def test_sort_by_localized_text():
     u'NotExistingTheme',
 ])
 def test_get_symbol_ref(theme_code):
-    with pyramid_oereb_test_config():
-        request = MockRequest()
-        record = LegendEntryRecord(
-            ImageRecord(FileAdapter().read('tests/resources/python.svg')),
-            {'de': 'Test'},
-            u'test',
-            u'test',
-            ThemeRecord(theme_code, {'de': 'Test'}, 100),
-            view_service_id=1
+    request = MockRequest()
+    record = LegendEntryRecord(
+        ImageRecord(FileAdapter().read('tests/resources/python.svg')),
+        {'de': 'Test'},
+        u'test',
+        u'test',
+        ThemeRecord(theme_code, {'de': 'Test'}, 100),
+        view_service_id=1
+    )
+    if theme_code == u'NotExistingTheme':
+        with pytest.raises(HTTPServerError):
+            Base.get_symbol_ref(request, record)
+    else:
+        ref = Base.get_symbol_ref(request, record)
+        assert ref == 'http://example.com/image/symbol/{}/{}/{}.svg'.format(
+            theme_code,
+            record.view_service_id,
+            record.type_code
         )
-        if theme_code == u'NotExistingTheme':
-            with pytest.raises(HTTPServerError):
-                Base.get_symbol_ref(request, record)
-        else:
-            ref = Base.get_symbol_ref(request, record)
-            assert ref == 'http://example.com/image/symbol/{}/{}/{}.svg'.format(
-                theme_code,
-                record.view_service_id,
-                record.type_code
-            )

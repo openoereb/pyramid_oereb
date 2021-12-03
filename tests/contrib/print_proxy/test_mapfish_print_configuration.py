@@ -1,33 +1,34 @@
 from pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print import Renderer
 from pyramid_oereb.core.config import Config
-from tests.core.renderer import DummyRenderInfo
+
+#TODO check that the config is actually changed
 
 
-def test_config_wms_url_params():
+def test_config_wms_url_params(config_path, DummyRenderInfo):
     Config._config = None
     Config.init('./tests/contrib/print_proxy/resources/test_config.yml', 'pyramid_oereb')
     renderer = Renderer(DummyRenderInfo())
     config = renderer.get_wms_url_params()
     # Restore normal config
     Config._config = None
-    Config.init('./pyramid_oereb/standard/pyramid_oereb.yml', 'pyramid_oereb')
+    Config.init(config_path, 'pyramid_oereb')
     # Do the check for this test. Value should match the one from the YAML configuration.
     assert config == {'TRANSPARENT': 'true', 'OTHERCUSTOM': 'myvalue'}
 
 
-def test_bad_config_wms_url_params():
+def test_bad_config_wms_url_params(config_path, DummyRenderInfo):
     Config._config = None
     Config.init('./tests/contrib/print_proxy/resources/test_bad_config.yml', 'pyramid_oereb')
     renderer = Renderer(DummyRenderInfo())
     config = renderer.get_wms_url_params()
     # Restore normal config
     Config._config = None
-    Config.init('./pyramid_oereb/standard/pyramid_oereb.yml', 'pyramid_oereb')
+    Config.init(config_path, 'pyramid_oereb')
     # Do the check for this test. Value should be empty.
     assert config == {}
 
 
-def test_get_custom_wms_params_false():
+def test_get_custom_wms_params_false(config_path, DummyRenderInfo):
     Config._config = None
     Config.init('./tests/contrib/print_proxy/resources/test_config.yml', 'pyramid_oereb')
     renderer = Renderer(DummyRenderInfo())
@@ -40,7 +41,7 @@ def test_get_custom_wms_params_false():
 
     # Restore normal config
     Config._config = None
-    Config.init('./pyramid_oereb/standard/pyramid_oereb.yml', 'pyramid_oereb')
+    Config.init(config_path, 'pyramid_oereb')
 
     assert config == {
         'OTHERCUSTOM': 'myvalue',
@@ -48,7 +49,7 @@ def test_get_custom_wms_params_false():
     }
 
 
-def test_get_custom_wms_params_true():
+def test_get_custom_wms_params_true(config_path, DummyRenderInfo):
     Config._config = None
     Config.init('./tests/contrib/print_proxy/resources/test_custom_config.yml', 'pyramid_oereb')
     renderer = Renderer(DummyRenderInfo())
@@ -76,7 +77,7 @@ def test_get_custom_wms_params_true():
 
     # Restore normal config
     Config._config = None
-    Config.init('./pyramid_oereb/standard/pyramid_oereb.yml', 'pyramid_oereb')
+    Config.init(config_path, 'pyramid_oereb')
 
     # Do the check for the different test cases. Value should match the ones from the YAML configuration.
     assert config1 == {
@@ -94,7 +95,7 @@ def test_get_custom_wms_params_true():
     }
 
 
-def test_default_wms_url_param_config():
+def test_default_wms_url_param_config(DummyRenderInfo):
     renderer = Renderer(DummyRenderInfo())
     config = renderer.get_wms_url_params()
     # Do the check for this test. Value should be the default setting.

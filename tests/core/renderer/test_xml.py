@@ -7,10 +7,7 @@ from lxml import etree
 from pyramid_oereb.core.renderer.extract.xml_ import Renderer
 from pyramid_oereb.core.renderer.versions.xml_ import Renderer as VersionsRenderer
 from pyramid_oereb.core.views.webservice import Parameter
-from tests import schema_xml_versions, schema_xml_extract
 from tests.mockrequest import MockRequest
-from tests.core.renderer import DummyRenderInfo, get_default_extract,\
-    get_empty_glossary_extract, get_none_glossary_extract
 
 
 def test_get_gml_id():
@@ -20,7 +17,7 @@ def test_get_gml_id():
     assert renderer._get_gml_id() == 'gml3'
 
 
-def test_version_against_schema():
+def test_version_against_schema(schema_xml_versions, DummyRenderInfo):
     versions = {
         u'GetVersionsResponse': {
             u'supportedVersion': [
@@ -40,22 +37,22 @@ def test_version_against_schema():
     doc = etree.parse(buffer)
     assert xmlschema.validate(doc)
 
-
+#TODO: check if fixtures work in this case
 @pytest.mark.parametrize('parameter, test_extract', [
     (
             Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
-            get_default_extract()
+            'get_default_extract'
     ),
     (
             Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
-            get_empty_glossary_extract()
+            'get_empty_glossary_extract'
     ),
     (
             Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
-            get_none_glossary_extract()
+            'get_none_glossary_extract'
     )
 ])
-def test_extract_against_schema(parameter, test_extract):
+def test_extract_against_schema(schema_xml_extract, DummyRenderInfo, parameter, test_extract):
     extract = test_extract
     renderer = Renderer(DummyRenderInfo())
     renderer._language = u'de'

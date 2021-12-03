@@ -1,5 +1,3 @@
-from tests.core.renderer import DummyRenderInfo
-from tests.core.renderer.xml import xml_templates
 from pyramid_oereb.core.records.image import ImageRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.view_service import LegendEntryRecord
@@ -7,10 +5,8 @@ from pyramid_oereb.core.renderer.extract.xml_ import Renderer
 from pyramid_oereb.core.views.webservice import Parameter
 from tests.mockrequest import MockRequest
 
-template = xml_templates().get_template('legend_entry.xml')
 
-
-def test_sub_theme():
+def test_sub_theme(DummyRenderInfo, template):
     parameters = Parameter(
         response_format='xml',
         with_geometry=False,

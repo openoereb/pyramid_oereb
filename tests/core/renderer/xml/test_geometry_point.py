@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import pytest
-from tests import params
-from tests.renderer.xml import xml_templates
+from tests.core.renderer.xml import params
 from shapely.geometry import Point
-
-template = xml_templates().get_template('geometry/point.xml')
 
 
 @pytest.mark.parametrize('parameters', params)  # noqa
-def test_point(parameters):
+def test_point(template, parameters):
     point = Point((0, 0))
     content = template.render(**{
         'params': parameters,
