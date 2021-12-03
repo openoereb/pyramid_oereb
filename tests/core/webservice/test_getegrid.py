@@ -11,7 +11,6 @@ from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
 
 from pyramid_oereb.core.records.real_estate import RealEstateRecord
 from pyramid_oereb.core.records.view_service import ViewServiceRecord
-from tests import schema_json_extract, pyramid_oereb_test_config
 from tests.mockrequest import MockRequest
 from pyramid_oereb.core.views.webservice import PlrWebservice, Parameter
 
@@ -29,8 +28,8 @@ def test_getegrid_coord_missing_parameter():
 
 
 @pytest.mark.parametrize('geometry', [False, True])
-def test_getegrid_ident(geometry):
-    with pyramid_oereb_test_config():
+def test_getegrid_ident(pyramid_test_config, schema_json_extract, geometry):
+    with pyramid_test_config():
         request = MockRequest(current_route_url='http://example.com/oereb/getegrid/json/BLTEST/1000')
 
         # Add params to matchdict as the view will do it for /getegrid/{format}/{identdn}/{number}
@@ -48,10 +47,8 @@ def test_getegrid_ident(geometry):
 
         webservice = PlrWebservice(request)
         response = webservice.get_egrid().json
-        with open(schema_json_extract) as f:
-            schema = json.loads(f.read())
-        Draft4Validator.check_schema(schema)
-        validator = Draft4Validator(schema)
+        Draft4Validator.check_schema(schema_json_extract)
+        validator = Draft4Validator(schema_json_extract)
         validator.validate(response)
         assert isinstance(response, dict)
         real_estates = response.get('GetEGRIDResponse')

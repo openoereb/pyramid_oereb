@@ -5,7 +5,6 @@ import pytest
 from jsonschema import Draft4Validator
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNoContent
 
-from tests import pyramid_oereb_test_config, schema_json_extract
 from tests.mockrequest import MockRequest
 from pyramid_oereb.core.views.webservice import PlrWebservice
 
@@ -146,26 +145,23 @@ def test_return_no_content():
     ('TEST', 'ch.BelasteteStandorte,ch.ProjektierungszonenEisenbahnanlagen'),
     ('TEST3', 'ALL')
 ])
-def test_return_json(egrid, topics):
-    with pyramid_oereb_test_config() as pyramid_config:
-        pyramid_config.add_renderer('pyramid_oereb_extract_json',
-                                    'pyramid_oereb.core.renderer.extract.json_.Renderer')
-        request = MockRequest()
-        request.matchdict.update({
-            'format': 'JSON'
-        })
-        request.params.update({
-            'GEOMETRY': 'true',
-            'EGRID': egrid,
-            'TOPICS': topics
-        })
-        service = PlrWebservice(request)
-        response = service.get_extract_by_id()
+def test_return_json(pyramid_test_config, schema_json_extract, egrid, topics):
+    pyramid_test_config.add_renderer('pyramid_oereb_extract_json',
+                                'pyramid_oereb.core.renderer.extract.json_.Renderer')
+    request = MockRequest()
+    request.matchdict.update({
+        'format': 'JSON'
+    })
+    request.params.update({
+        'GEOMETRY': 'true',
+        'EGRID': egrid,
+        'TOPICS': topics
+    })
+    service = PlrWebservice(request)
+    response = service.get_extract_by_id()
 
-    with open(schema_json_extract) as f:
-        schema = json.loads(f.read())
-    Draft4Validator.check_schema(schema)
-    validator = Draft4Validator(schema)
+    Draft4Validator.check_schema(schema_json_extract)
+    validator = Draft4Validator(schema_json_extract)
     response = json.loads(response.body.decode('utf-8'))
     validator.validate(response)
 

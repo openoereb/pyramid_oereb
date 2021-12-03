@@ -4,9 +4,9 @@ import pytest
 import tests
 from pyramid_oereb.core.config import Config
 from pyramid_oereb.core.adapter import DatabaseAdapter
-from pyramid_oereb.contrib.data_sources.standard import DatabaseSource
+from pyramid_oereb.contrib.data_sources.standard.sources.legend import DatabaseSource
 from tests.mockrequest import MockParameter
-from pyramid_oereb.contrib.data_sources.standard import StandardThemeConfigParser
+from pyramid_oereb.contrib.data_sources.standard.sources.plr import StandardThemeConfigParser
 
 Config._config = None
 Config.init(tests.pyramid_oereb_test_yml, 'pyramid_oereb')

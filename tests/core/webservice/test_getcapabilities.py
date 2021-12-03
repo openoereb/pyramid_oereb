@@ -4,13 +4,12 @@ import json
 
 from jsonschema import Draft4Validator
 
-from tests import schema_json_extract, pyramid_oereb_test_config
 from tests.mockrequest import MockRequest
 from pyramid_oereb.core.views.webservice import PlrWebservice
 
 
-def test_getcapabilities():
-    with pyramid_oereb_test_config():
+def test_getcapabilities(pyramid_test_config, schema_json_extract):
+    with pyramid_test_config():
         request = MockRequest(current_route_url='http://example.com/oereb/capabilities/json')
 
         # Add params to matchdict as the view will do it for /capabilities/{format}
@@ -19,10 +18,8 @@ def test_getcapabilities():
         })
 
         service = PlrWebservice(request)
-        with open(schema_json_extract) as f:
-            schema = json.loads(f.read())
-        Draft4Validator.check_schema(schema)
-        validator = Draft4Validator(schema)
+        Draft4Validator.check_schema(schema_json_extract)
+        validator = Draft4Validator(schema_json_extract)
         response = service.get_capabilities().json
         validator.validate(response)
 

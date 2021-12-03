@@ -2,13 +2,12 @@
 import json
 
 from jsonschema import Draft4Validator
-from tests import schema_json_versions, pyramid_oereb_test_config
 from tests.mockrequest import MockRequest
 from pyramid_oereb.core.views.webservice import PlrWebservice
 
 
-def test_getversions_json():
-    with pyramid_oereb_test_config():
+def test_getversions_json(pyramid_test_config, schema_json_versions):
+    with pyramid_test_config():
         request = MockRequest(current_route_url='http://example.com/oereb/versions/json')
 
         # Add params to matchdict as the view will do it for /versions/{format}

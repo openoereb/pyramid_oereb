@@ -1,7 +1,6 @@
 import pytest
 from pyramid_oereb.core.views.webservice import PlrWebservice
 from tests.mockrequest import MockRequest
-from tests import pyramid_oereb_test_config
 
 
 @pytest.mark.parametrize('params', [
@@ -19,8 +18,8 @@ from tests import pyramid_oereb_test_config
         'En': '32.1244978460310,-19.917989937473'
     }
 ])
-def test_get_egrid_coord(params):
-    with pyramid_oereb_test_config():
+def test_get_egrid_coord(pyramid_test_config, params):
+    with pyramid_test_config():
         request = MockRequest(
             current_route_url='http://example.com/oereb/getegrid/json'
         )

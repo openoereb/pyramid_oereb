@@ -3,7 +3,7 @@ import os
 import json
 import codecs
 from pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print import Renderer
-from tests.renderer import DummyRenderInfo
+from tests.core.renderer import DummyRenderInfo
 from pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages import TocPages
 
 

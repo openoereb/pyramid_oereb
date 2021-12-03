@@ -4,8 +4,8 @@ import pytest
 
 from pyramid_oereb.core.config import Config
 from pyramid_oereb.core.adapter import DatabaseAdapter
-from pyramid_oereb.contrib.data_sources.standard import DatabaseSource
-from pyramid_oereb.contrib.data_sources.standard.models import Municipality
+from pyramid_oereb.contrib.data_sources.standard.sources.municipality import DatabaseSource
+from pyramid_oereb.contrib.data_sources.standard.models.main import Municipality
 from tests.mockrequest import MockParameter
 
 
