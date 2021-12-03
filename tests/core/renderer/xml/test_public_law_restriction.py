@@ -6,10 +6,10 @@ from pyramid_oereb.core.records.plr import PlrRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.core.renderer.extract.xml_ import Renderer
-from pyramid_oereb.core.views import Parameter
+from pyramid_oereb.core.views.webservice import Parameter
 from tests.mockrequest import MockRequest
-from tests.renderer import DummyRenderInfo
-from tests.renderer.xml import xml_templates
+from tests.core.renderer import DummyRenderInfo
+from tests.core.renderer.xml import xml_templates
 from datetime import datetime
 from shapely.geometry import Polygon
 

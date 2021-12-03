@@ -1,5 +1,5 @@
 import pytest
-from pyramid_oereb.core.views import PlrWebservice
+from pyramid_oereb.core.views.webservice import PlrWebservice
 from tests.mockrequest import MockRequest
 from tests import pyramid_oereb_test_config
 

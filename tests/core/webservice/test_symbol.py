@@ -6,7 +6,7 @@ from pyramid.response import Response
 
 from pyramid_oereb.core.adapter import FileAdapter
 from tests.mockrequest import MockRequest
-from pyramid_oereb.core.views import Symbol
+from pyramid_oereb.core.views.webservice import Symbol
 
 
 def test_get_image():

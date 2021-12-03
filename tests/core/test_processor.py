@@ -17,7 +17,7 @@ from pyramid_oereb.core.readers.extract import ExtractReader
 from pyramid_oereb.core.readers.glossary import GlossaryReader
 from pyramid_oereb.core.readers.municipality import MunicipalityReader
 from pyramid_oereb.core.readers.real_estate import RealEstateReader
-from pyramid_oereb.core.views import PlrWebservice
+from pyramid_oereb.core.views.webservice import PlrWebservice
 from tests.mockrequest import MockRequest
 
 from pyramid_oereb.core.config import Config

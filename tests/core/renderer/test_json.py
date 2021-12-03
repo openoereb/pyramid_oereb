@@ -28,8 +28,8 @@ from pyramid_oereb.core.renderer import Base
 from pyramid_oereb.core.renderer.extract.json_ import Renderer
 from tests import pyramid_oereb_test_config
 from tests.mockrequest import MockRequest
-from tests.renderer import DummyRenderInfo
-from pyramid_oereb.core.views import Parameter
+from tests.core.renderer import DummyRenderInfo
+from pyramid_oereb.core.views.webservice import Parameter
 
 
 def law_status():

@@ -7,7 +7,7 @@ from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNoContent
 
 from tests import pyramid_oereb_test_config, schema_json_extract
 from tests.mockrequest import MockRequest
-from pyramid_oereb.core.views import PlrWebservice
+from pyramid_oereb.core.views.webservice import PlrWebservice
 
 log = logging.getLogger('pyramid_oereb')
 

@@ -1,6 +1,6 @@
-from pyramid_oereb.contrib.print_proxy.mapfish_print import Renderer
+from pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print import Renderer
 from pyramid_oereb.core.config import Config
-from tests.renderer import DummyRenderInfo
+from tests.core.renderer import DummyRenderInfo
 
 
 def test_config_wms_url_params():

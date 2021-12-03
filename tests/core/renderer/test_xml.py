@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
+import pytest
 from io import BytesIO
-
 from lxml import etree
+
 from pyramid_oereb.core.renderer.extract.xml_ import Renderer
 from pyramid_oereb.core.renderer.versions.xml_ import Renderer as VersionsRenderer
-from pyramid_oereb.core.views import Parameter
+from pyramid_oereb.core.views.webservice import Parameter
 from tests import schema_xml_versions, schema_xml_extract
 from tests.mockrequest import MockRequest
-from tests.renderer import DummyRenderInfo, get_default_extract,\
+from tests.core.renderer import DummyRenderInfo, get_default_extract,\
     get_empty_glossary_extract, get_none_glossary_extract
-import pytest
 
 
 def test_get_gml_id():

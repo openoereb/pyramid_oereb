@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from pyramid_oereb.core.views import Parameter
+from pyramid_oereb.core.views.webservice import Parameter
 
 
 def test_parameter():
