@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+import logging
+
+log = logging.getLogger(__name__)
+
 def eliminate_duplicated_document_records(main_document_records, plr_document_records):
     """ Filtering of document records that are associated to a plr.
 
@@ -27,6 +31,10 @@ def eliminate_duplicated_document_records(main_document_records, plr_document_re
         for index2, doc2 in enumerate(plr_document_records):
             if plr_document_is_duplicated_list[index2] is False:
                 # comparison of indices
+                log.info("----------------------------------------------------------------------------------------")
+                log.info("----------------------------------------------------------------------------------------")
+                log.info(doc1.index)
+                log.info(doc2.index)
                 if doc1.index != doc2.index:
                     continue
                 # comparison of document_type
@@ -47,5 +55,18 @@ def eliminate_duplicated_document_records(main_document_records, plr_document_re
 
     unique_document_indexes = [i for i, val in enumerate(plr_document_is_duplicated_list) if val is False]
     unique_document_records = [plr_document_records[i] for i in unique_document_indexes]
+
+    # logging message if document record was removed
+    if len(unique_document_records) != len(plr_document_records):
+        dupl_doc_indexes = [i for i, val in enumerate(plr_document_is_duplicated_list) if val is True]
+        for i in dupl_doc_indexes:
+            log.info(
+                '''PLR document record removed from extract as it is already provided by the main doc records
+                (title: {title}, number: {number}, index: {index})'''.format(
+                    title=plr_document_records[i].title,
+                    number=plr_document_records[i].official_number,
+                    index=plr_document_records[i].index
+                )
+            )
 
     return main_document_records + unique_document_records
