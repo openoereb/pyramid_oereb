@@ -4,6 +4,7 @@ import logging
 
 log = logging.getLogger(__name__)
 
+
 def eliminate_duplicated_document_records(main_document_records, plr_document_records):
     """ Filtering of document records that are associated to a plr.
 
@@ -31,10 +32,6 @@ def eliminate_duplicated_document_records(main_document_records, plr_document_re
         for index2, doc2 in enumerate(plr_document_records):
             if plr_document_is_duplicated_list[index2] is False:
                 # comparison of indices
-                log.info("----------------------------------------------------------------------------------------")
-                log.info("----------------------------------------------------------------------------------------")
-                log.info(doc1.index)
-                log.info(doc2.index)
                 if doc1.index != doc2.index:
                     continue
                 # comparison of document_type
