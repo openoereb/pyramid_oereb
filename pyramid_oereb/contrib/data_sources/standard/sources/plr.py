@@ -14,6 +14,7 @@ from pyramid_oereb.core.records.image import ImageRecord
 from pyramid_oereb.core.records.plr import EmptyPlrRecord
 from pyramid_oereb.core.sources import BaseDatabaseSource
 from pyramid_oereb.core.sources.plr import PlrBaseSource
+from pyramid_oereb.contrib import eliminate_duplicated_document_records
 
 log = logging.getLogger(__name__)
 
@@ -321,11 +322,10 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         theme = Config.get_theme_by_code_sub_code(
             public_law_restriction_from_db.legend_entry.theme,
             public_law_restriction_from_db.legend_entry.sub_theme)
-        if theme.document_records is None:
-            document_records = self.get_document_records(params, public_law_restriction_from_db)
-        else:
-            document_records = theme.document_records +\
-                self.get_document_records(params, public_law_restriction_from_db)
+        document_records = eliminate_duplicated_document_records(
+            theme.document_records,
+            self.get_document_records(params, public_law_restriction_from_db)
+        )
         geometry_records = self.from_db_to_geometry_records(public_law_restriction_from_db.geometries)
         law_status = Config.get_law_status_by_data_code(
             self._plr_info.get('code'),

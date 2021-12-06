@@ -20,7 +20,8 @@ class Renderer(Base):
         """
         a = AssetResolver('pyramid_oereb')
         resolver = a.resolve('core/renderer/getegrid/templates/xml')
-        self.template_dir = resolver.abspath()
+        geom_resolver = a.resolve('core/renderer/extract/templates/xml')
+        self.template_dirs = [resolver.abspath(), geom_resolver.abspath()]
         self._gml_id = 0
         super(Renderer, self).__init__(info)
 
@@ -48,7 +49,7 @@ class Renderer(Base):
             ))
 
         templates = TemplateLookup(
-            directories=[self.template_dir],
+            directories=self.template_dirs,
             output_encoding='utf-8',
             input_encoding='utf-8'
         )
