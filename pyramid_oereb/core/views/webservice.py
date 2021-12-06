@@ -479,8 +479,8 @@ class PlrWebservice(object):
                 real_estate.update({
                     'limit': getattr(r, 'limit')
                 })
-            else:
-                raise HTTPInternalServerError('Format for GetEgrid not correct {}'.format(output_format))
+            elif params.with_geometry and output_format not in ['json', 'xml']:
+                raise HTTPInternalServerError('Format for GetEgrid not correct: {}'.format(output_format))
             real_estates.append(real_estate)
         egrid = {'GetEGRIDResponse': real_estates}
         if output_format == 'json':

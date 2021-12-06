@@ -13,7 +13,7 @@
     <extract:number>${item['number']}</extract:number>
     <extract:identDN>${item['identDN']}</extract:identDN>
     <extract:type>${item['type']}</extract:type>
-    %if item['limit'] and params.with_geometry:
+    %if params.with_geometry:
     <extract:limit>
         <geometry:surface>
             %for polygon in item['limit'].geoms:
