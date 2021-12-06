@@ -7,8 +7,8 @@ Temporary Startup of the dev server:
 1. ``docker build -t pyramid_oereb:dev .``
 2. Build run the initial build depending on you OS:
   * Linux/Mac: ``docker run --rm -v $(pwd):/workspace -u $(id -u):$(id -g) pyramid_oereb:dev make clean-all build`` 
-  * Windows CMD: ``docker run --rm -v %cd%:/workspace -u $(id -u):$(id -g) pyramid_oereb:dev make clean-all build`` 
-  * Windows Powershell: ``docker run --rm -v ${PWD}:/workspace -u $(id -u):$(id -g) pyramid_oereb:dev make clean-all build`` 
+  * Windows CMD: ``docker run --rm -v %cd%:/workspace pyramid_oereb:dev make clean-all build`` 
+  * Windows Powershell: ``docker run --rm -v ${PWD}:/workspace pyramid_oereb:dev make clean-all build`` 
 5. ``docker-compose build``
 6. ``docker-compose up``
 
