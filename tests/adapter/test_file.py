@@ -3,7 +3,7 @@ import os
 
 import pytest
 
-from pyramid_oereb.lib.adapter import FileAdapter
+from pyramid_oereb.core.adapter import FileAdapter
 
 
 def test_init():

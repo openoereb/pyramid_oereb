@@ -1,0 +1,26 @@
+## -*- coding: utf-8 -*-
+<?xml version="1.0" encoding="UTF-8" ?>
+<extract:GetEGRIDResponse
+                        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xmlns:extract="http://schemas.geo.admin.ch/V_D/OeREB/2.0/Extract"
+                        xmlns:geometry="http://www.interlis.ch/geometry/1.0"
+                        xsi:schemaLocation="http://schemas.geo.admin.ch/V_D/OeREB/2.0/Extract http://schemas.geo.admin.ch/V_D/OeREB/2.0/Extract.xsd
+                                            http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData http://schemas.geo.admin.ch/V_D/OeREB/2.0/ExtractData.xsd
+                                            http://www.interlis.ch/geometry/1.0 http://models.interlis.ch/refhb24/geometry.xsd">
+% for item in data['GetEGRIDResponse']:
+    <extract:egrid>${item['egrid']}</extract:egrid>
+    <extract:number>${item['number']}</extract:number>
+    <extract:identDN>${item['identDN']}</extract:identDN>
+    <extract:type>${item['type']}</extract:type>
+    %if params.with_geometry:
+    <extract:limit>
+        <geometry:surface>
+            %for polygon in item['limit'].geoms:
+                <%include file="geometry/polygon.xml" args="polygon=polygon"/>
+            %endfor
+        </geometry:surface>
+    </extract:limit>
+    %endif
+% endfor
+</extract:GetEGRIDResponse>

@@ -1,0 +1,214 @@
+[
+  {
+    "office_id": 1,
+    "published_from": "2010-09-20",
+    "id": 1358,
+    "document_type": "GesetzlicheGrundlage",
+    "index": 1,
+    "text_at_web": {
+      "de": "http://www.admin.ch/ch/d/sr/c814_01.html"
+    },
+    "law_status": "inKraft",
+    "abbreviation": {
+      "de": "USG",
+      "fr": "LPE",
+      "it": "LPAmb",
+      "en": "EPA"
+    },
+    "title": {
+      "de": "Umweltschutzgesetz",
+      "fr": "Loi sur la protection de l'environnement",
+      "it": "Legge sulla protezione dell'ambiente",
+      "en": "Environmental Protection Act"
+    },
+    "official_number": {
+      "de": "SR 814.01"
+    }
+  },
+  {
+    "office_id": 1,
+    "published_from": "2010-09-20",
+    "id": 1359,
+    "document_type": "GesetzlicheGrundlage",
+    "index": 1,
+    "text_at_web": {
+      "de": "http://www.admin.ch/ch/d/sr/c814_680.html"
+    },
+    "law_status": "inKraft",
+    "abbreviation": {
+      "de": "AltlV",
+      "fr": "OSites",
+      "it": "OSiti",
+      "en": "CSO"
+    },
+    "title": {
+      "de": "Altlasten-Verordnung",
+      "fr": "Ordonnance sur les sites contaminés",
+      "it": "Ordinanza sui siti contaminati",
+      "en": "Contaminated Sites Ordinance"
+    },
+    "official_number": {
+      "de": "SR 814.680"
+    }
+  },
+  {
+    "office_id": 1,
+    "published_from": "2019-10-30",
+    "id": 8002,
+    "document_type": "GesetzlicheGrundlage",
+    "index": 1,
+    "text_at_web": {
+      "de": "http://www.lexfind.ch/dtah/167348/2"
+    },
+    "law_status": "inKraft",
+    "abbreviation": {
+      "de": "AltlV"
+    },
+    "title": {
+      "de": "Bundesgesetz über die Raumplanung (Raumplanungsgesetz, RPG)"
+    },
+    "official_number": {
+      "de": "SR 700"
+    }
+  }, {
+    "office_id": 1,
+    "published_from": "2019-10-30",
+    "id": 8000,
+    "document_type": "Rechtsvorschrift",
+    "index": 2,
+    "text_at_web": {
+      "de": "https://oereb-gr-preview.000.ch/api/attachments/213"
+    },
+    "law_status": "inKraft",
+    "title": {
+      "de": "Revision Ortsplanung"
+    },
+    "official_number": {
+      "de": "07.447"
+    }
+  }, {
+    "office_id": 1,
+    "published_from": "2019-10-30",
+    "id": 8001,
+    "document_type": "Rechtsvorschrift",
+    "index": 2,
+    "text_at_web": {
+      "de": "https://oereb-gr-preview.000.ch/api/attachments/214"
+    },
+    "law_status": "inKraft",
+    "title": {
+      "de": "Revision Ortsplanung"
+    },
+    "official_number": {
+      "de": "07.447"
+    }
+  }, {
+    "office_id": 1,
+    "published_from": "2016-02-25",
+    "id": 1292,
+    "document_type": "Rechtsvorschrift",
+    "index": 2,
+    "text_at_web": {
+      "de": "https://www.bav.admin.ch/dam/bav/de/dokumente/das-bav/finanzierung/faktenblatt_fernverkehr_konzessionierung.pdf.download.pdf/d_Faktenblatt_Fernverkehr_und_Konzessionierung%20.pdf"
+    },
+    "law_status": "inKraft",
+    "title": {
+      "de": "B61001",
+      "fr": "B61001",
+      "it": "B61001"
+    }
+  }, {
+    "office_id": 1,
+    "published_from": "2016-02-25",
+    "id": 1293,
+    "document_type": "Rechtsvorschrift",
+    "index": 2,
+    "text_at_web": {
+      "de": "https://www.bav.admin.ch/dam/bav/de/dokumente/das-bav/finanzierung/faktenblatt_fernverkehr_konzessionierung.pdf.download.pdf/d_Faktenblatt_Fernverkehr_und_Konzessionierung%20.pdf"
+    },
+    "law_status": "inKraft",
+    "title": {
+      "de": "B61001",
+      "fr": "B61001",
+      "it": "B61001"
+    }
+  }, {
+    "office_id": 1,
+    "published_from": "2016-02-25",
+    "id": 1294,
+    "document_type": "Rechtsvorschrift",
+    "index": 2,
+    "text_at_web": {
+      "de": "https://www.bav.admin.ch/dam/bav/de/dokumente/das-bav/finanzierung/faktenblatt_fernverkehr_konzessionierung.pdf.download.pdf/d_Faktenblatt_Fernverkehr_und_Konzessionierung%20.pdf"
+    },
+    "law_status": "inKraft",
+    "title": {
+      "de": "B61001",
+      "fr": "B61001",
+      "it": "B61001"
+    }
+  }, {
+    "office_id": 1,
+    "published_from": "2016-02-25",
+    "id": 1295,
+    "document_type": "Rechtsvorschrift",
+    "index": 2,
+    "text_at_web": {
+      "de": "https://www.bav.admin.ch/dam/bav/de/dokumente/das-bav/finanzierung/faktenblatt_fernverkehr_konzessionierung.pdf.download.pdf/d_Faktenblatt_Fernverkehr_und_Konzessionierung%20.pdf"
+    },
+    "law_status": "inKraft",
+    "title": {
+      "de": "B61001",
+      "fr": "B61001",
+      "it": "B61001"
+    }
+  }, {
+    "office_id": 1,
+    "published_from": "2016-02-25",
+    "id": 1296,
+    "document_type": "Rechtsvorschrift",
+    "index": 2,
+    "text_at_web": {
+      "de": "https://www.bav.admin.ch/dam/bav/de/dokumente/das-bav/finanzierung/faktenblatt_fernverkehr_konzessionierung.pdf.download.pdf/d_Faktenblatt_Fernverkehr_und_Konzessionierung%20.pdf"
+    },
+    "law_status": "inKraft",
+    "title": {
+      "de": "B61001",
+      "fr": "B61001",
+      "it": "B61001"
+    }
+  }, {
+      "id": 1297,
+      "document_type": "GesetzlicheGrundlage",
+      "title": {
+          "de": "Bundesgesetz über die Raumplanung",
+          "fr": "Loi fédérale sur l'aménagement du territoire",
+          "it": "Legge federale sulla pianificazione del territorio",
+          "rm": "Lescha federala davart la planisaziun dal territori",
+          "en": "Federal Act on Spatial Planning"
+      },
+      "abbreviation": {
+          "de": "RPG",
+          "fr": "LAT",
+          "it": "LPT",
+          "rm": "LPT",
+          "en": "SPA"
+      },
+      "official_number": {
+          "de": "SR 700",
+          "fr": "RS 700",
+          "it": "RS 700",
+          "rm": "CS 700",
+          "en": "SR 700"
+      },
+      "text_at_web": {
+          "de": "https://www.admin.ch/ch/d/sr/c700.html",
+          "fr": "https://www.admin.ch/ch/f/sr/c700.html",
+          "it": "https://www.admin.ch/ch/i/sr/c700.html"
+      },
+      "index": 10,
+      "law_status": "inKraft",
+      "published_from": "1979-06-22",
+      "office_id": 1
+  }
+]

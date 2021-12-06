@@ -31,7 +31,7 @@ __pycache__/
 
 # Standard configuration
 /pyramid_oereb_standard.yml
-/pyramid_oereb/standard/pyramid_oereb.yml
+/pyramid_oereb/contrib/data_sources/standard/pyramid_oereb.yml
 /logo_*.png
 /logo_*.jpg
 
@@ -61,18 +61,22 @@ development.ini
 
 #temporary extract for validation
 DataExtract.xml
+DataExtract.json
 
 #dynamic data
 .fed/
-sample_data/ch.themes.json
-sample_data/ch.themes_docs.json
-sample_data/ch.laws.json
-sample_data/ch.logo.json
-sample_data/ch.law_status.json
-sample_data/ch.document_type.json
-sample_data/ch.real_estate_type.json
-sample_data/ch.glossary.json
-sample_data/ch.disclaimer.json
-sample_data/ch.general_information.json
-sample_data/ch.law_responsible_offices.json
-DataExtract.json
+/pyramid_oereb_dev/config/pyramid_oereb.yml
+/dev/database/structure/03_fill_dev_tables.sql
+/dev/database/structure/02_create_dev_tables.sql
+/dev/database/structure/01_create_extension.sql
+/dev/sample_data/ch.disclaimer.json
+/dev/sample_data/ch.document_type.json
+/dev/sample_data/ch.general_information.json
+/dev/sample_data/ch.glossary.json
+/dev/sample_data/ch.law_responsible_offices.json
+/dev/sample_data/ch.law_status.json
+/dev/sample_data/ch.laws.json
+/dev/sample_data/ch.logo.json
+/dev/sample_data/ch.real_estate_type.json
+/dev/sample_data/ch.themes.json
+/dev/sample_data/ch.themes_docs.json

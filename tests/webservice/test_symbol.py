@@ -4,9 +4,9 @@ import pytest
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.response import Response
 
-from pyramid_oereb.lib.adapter import FileAdapter
+from pyramid_oereb.core.adapter import FileAdapter
 from tests.mockrequest import MockRequest
-from pyramid_oereb.views.webservice import Symbol
+from pyramid_oereb.core.views import Symbol
 
 
 def test_get_image():

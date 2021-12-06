@@ -1,0 +1,103 @@
+[
+  {
+    "id": 1,
+    "document_id": 8001,
+    "public_law_restriction_id": 396
+  }, {
+    "id": 2,
+    "document_id": 1358,
+    "public_law_restriction_id": 396
+  }, {
+    "id": 3,
+    "document_id": 1292,
+    "public_law_restriction_id": 396
+  }, {
+    "id": 4,
+    "document_id": 1359,
+    "public_law_restriction_id": 396
+  }, {
+    "id": 5,
+    "document_id": 1293,
+    "public_law_restriction_id": 397
+  }, {
+    "id": 6,
+    "document_id": 1358,
+    "public_law_restriction_id": 397
+  }, {
+    "id": 7,
+    "document_id": 1359,
+    "public_law_restriction_id": 397
+  }, {
+    "id": 8,
+    "document_id": 1294,
+    "public_law_restriction_id": 398
+  }, {
+    "id": 9,
+    "document_id": 1358,
+    "public_law_restriction_id": 398
+  }, {
+    "id": 10,
+    "document_id": 1359,
+    "public_law_restriction_id": 398
+  }, {
+    "id": 11,
+    "document_id": 1295,
+    "public_law_restriction_id": 399
+  }, {
+    "id": 12,
+    "document_id": 1358,
+    "public_law_restriction_id": 399
+  }, {
+    "id": 13,
+    "document_id": 1359,
+    "public_law_restriction_id": 399
+  }, {
+    "id": 14,
+    "document_id": 1296,
+    "public_law_restriction_id": 400
+  }, {
+    "id": 15,
+    "document_id": 1358,
+    "public_law_restriction_id": 400
+  }, {
+    "id": 16,
+    "document_id": 1359,
+    "public_law_restriction_id": 400
+  }, {
+    "id": 17,
+    "document_id": 8000,
+    "public_law_restriction_id": 396
+  }, {
+    "id": 18,
+    "document_id": 1358,
+    "public_law_restriction_id": 396
+  }, {
+    "id": 19,
+    "document_id": 8002,
+    "public_law_restriction_id": 396
+  }, {
+    "id": 20,
+    "document_id": 1358,
+    "public_law_restriction_id": 396
+  },{
+    "id": 21,
+    "document_id": 1297,
+    "public_law_restriction_id": 396
+  },{
+    "id": 22,
+    "document_id": 1297,
+    "public_law_restriction_id": 397
+  },{
+    "id": 23,
+    "document_id": 1297,
+    "public_law_restriction_id": 398
+  },{
+    "id": 24,
+    "document_id": 1297,
+    "public_law_restriction_id": 399
+  },{
+    "id": 25,
+    "document_id": 1297,
+    "public_law_restriction_id": 400
+  }
+]

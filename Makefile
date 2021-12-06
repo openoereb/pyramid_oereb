@@ -15,31 +15,17 @@ PGHOST ?= oereb-db
 PGUSER ?= postgres
 PGPASSWORD ?= postgres
 PGPORT ?= 5432
-EXPOSED_PGPORT ?= 15432
+EXPOSED_PGPORT ?= 5432
 PYRAMID_OEREB_PORT ?= 6543
 
-# Makefile internal aliases
-PG_DROP_DB = DROP DATABASE IF EXISTS $(PGDATABASE) WITH (FORCE);
-PG_CREATE_DB = CREATE DATABASE $(PGDATABASE);
-PG_CREATE_EXT = CREATE EXTENSION IF NOT EXISTS postgis;
-PG_CREATE_SCHEMA = CREATE SCHEMA plr;
 SQLALCHEMY_URL = "postgresql://$(PGUSER):$(PGPASSWORD)@$(PGHOST):$(PGPORT)/$(PGDATABASE)"
 
-PG_DEV_DATA_DIR = sample_data
-PG_DEV_DATA = $(shell ls -1 $(PG_DEV_DATA_DIR)/*.json) \
-	$(shell ls -1 $(PG_DEV_DATA_DIR)/contaminated_public_transport_sites/*.json) \
-	$(shell ls -1 $(PG_DEV_DATA_DIR)/land_use_plans/*.json) \
-	$(shell ls -1 $(PG_DEV_DATA_DIR)/groundwater_protection_zones/*.json) \
-	$(shell ls -1 $(PG_DEV_DATA_DIR)/forest_perimeters/*.json) \
-	$(shell ls -1 $(PG_DEV_DATA_DIR)/motorways_building_lines/*.json) \
-	$(shell ls -1 $(PG_DEV_DATA_DIR)/contaminated_military_sites/*.json)
+PG_DEV_DATA_DIR = dev/sample_data
 
-DEV_CONFIGURATION_YML = pyramid_oereb/standard/pyramid_oereb.yml
-DEV_CREATE_FILL_SCRIPT = pyramid_oereb/standard/load_sample_data.py
-DEV_CREATE_STANDARD_YML_SCRIPT = $(VENV_BIN)/create_standard_yaml
+DEV_CONFIGURATION_YML = pyramid_oereb.yml
+DEV_CREATE_FILL_SCRIPT = dev/database/load_sample_data.py
+DEV_CREATE_STANDARD_YML_SCRIPT = $(VENV_BIN)/create_example_yaml
 DEV_CREATE_TABLES_SCRIPT = $(VENV_BIN)/create_standard_tables
-DEV_CREATE_SCRIPT = .db/12-create.sql
-DEV_FILL_SCRIPT = .db/13-fill.sql
 
 MODEL_PK_TYPE_IS_STRING ?= true
 
@@ -64,34 +50,6 @@ PACKAGE = pyramid_oereb
 .venv/requirements-timestamp: .venv/timestamp setup.py requirements.txt requirements-tests.txt dev-requirements.txt
 	$(VENV_BIN)/$(PIP_COMMAND) install --upgrade pip wheel
 	$(VENV_BIN)/$(PIP_COMMAND) install -r requirements.txt -r requirements-tests.txt -r dev-requirements.txt
-	touch $@
-
-# ********************
-# Set up database
-# ********************
-
-.db/.drop-db:
-	psql -h $(PGHOST) -U $(PGUSER) -c "$(PG_DROP_DB)"
-
-.db/.create-db:
-	mkdir -p .db
-	psql -h $(PGHOST) -U $(PGUSER) -c "$(PG_CREATE_DB)" || /bin/true
-	touch $@
-
-.db/.create-db-extension: .db/.create-db
-	psql -h $(PGHOST) -U $(PGUSER) -d $(PGDATABASE) -c "$(PG_CREATE_EXT)"
-	touch $@
-
-.db/.create-db-schema: .db/.create-db-extension
-	psql -h $(PGHOST) -U $(PGUSER) -d $(PGDATABASE) -c "$(PG_CREATE_SCHEMA)"
-	touch $@
-
-.db/.create-db-dev-tables: .db/.setup-db $(DEV_CREATE_SCRIPT)
-	psql -h $(PGHOST) -U $(PGUSER) -d $(PGDATABASE) -f $(DEV_CREATE_SCRIPT)
-	touch $@
-
-.db/.fill-db-dev-tables: .db/.create-db-dev-tables $(DEV_FILL_SCRIPT)
-	psql -h $(PGHOST) -U $(PGUSER) -d $(PGDATABASE) -f $(DEV_FILL_SCRIPT)
 	touch $@
 
 ##########
@@ -148,17 +106,18 @@ DISCLAIMER_JSON = $(PG_DEV_DATA_DIR)/ch.disclaimer.json
 GENERAL_INFORMATION_JSON = $(PG_DEV_DATA_DIR)/ch.general_information.json
 
 # XSL files for transformation of XML to JSON
-THEMES_XSL = fed/themes.json.xsl
-THEMES_DOCS_XSL = fed/themes_docs.json.xsl
-LAWS_XSL = fed/laws.json.xsl
-LAW_RESPONSIBLE_OFFICES_XSL = fed/laws_responsible_office.json.xsl
-LOGOS_XSL = fed/logos.json.xsl
-LAW_STATUS_XSL = fed/law_status.json.xsl
-DOCUMENT_TYPE_XSL = fed/document_type.json.xsl
-REAL_ESTATE_TYPE_XSL = fed/real_estate_type.json.xsl
-GLOSSARY_XSL = fed/glossary.json.xsl
-DISCLAIMER_XSL = fed/disclaimer.json.xsl
-GENERAL_INFORMATION_XSL = fed/general_information.json.xsl
+FED_XSL_PATH = dev/database/fed
+THEMES_XSL = $(FED_XSL_PATH)/themes.json.xsl
+THEMES_DOCS_XSL = $(FED_XSL_PATH)/themes_docs.json.xsl
+LAWS_XSL = $(FED_XSL_PATH)/laws.json.xsl
+LAW_RESPONSIBLE_OFFICES_XSL = $(FED_XSL_PATH)/laws_responsible_office.json.xsl
+LOGOS_XSL = $(FED_XSL_PATH)/logos.json.xsl
+LAW_STATUS_XSL = $(FED_XSL_PATH)/law_status.json.xsl
+DOCUMENT_TYPE_XSL = $(FED_XSL_PATH)/document_type.json.xsl
+REAL_ESTATE_TYPE_XSL = $(FED_XSL_PATH)/real_estate_type.json.xsl
+GLOSSARY_XSL = $(FED_XSL_PATH)/glossary.json.xsl
+DISCLAIMER_XSL = $(FED_XSL_PATH)/disclaimer.json.xsl
+GENERAL_INFORMATION_XSL = $(FED_XSL_PATH)/general_information.json.xsl
 
 $(THEMES_JSON): $(THEMES_XML) $(THEMES_XSL)
 	xsltproc $(THEMES_XSL) $< > $@
@@ -215,6 +174,7 @@ clean_fed_jsons:
 prepare_fed_data: $(FED_JSONS)
 
 clean_fed_data: clean_fed_xmls clean_fed_jsons
+	rm -rf .fed
 
 ##########
 # END FEDERAL DATA SECTION
@@ -228,22 +188,56 @@ clean_fed_data: clean_fed_xmls clean_fed_jsons
 # Build dependencies
 BUILD_DEPS += .venv/requirements-timestamp
 
+# ***********************
+# START DEV-YAML creation
+# ***********************
+
 $(DEV_CONFIGURATION_YML): .venv/requirements-timestamp $(DEV_CREATE_STANDARD_YML_SCRIPT)
 	$(DEV_CREATE_STANDARD_YML_SCRIPT) --name $@ --database $(SQLALCHEMY_URL) --print_backend $(PRINT_BACKEND) --print_url $(PRINT_URL)
 
-$(DEV_CREATE_SCRIPT): $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_TABLES_SCRIPT)
+# *********************
+# END DEV-YAML creation
+# *********************
+
+# *********************
+# START Set up database
+# *********************
+
+DB_STRUCTURE_PATH = dev/database/structure
+
+DB_CREATE_EXTENSION = $(DB_STRUCTURE_PATH)/01_create_extension.sql
+DB_CREATE_EXTENSION_SQL = CREATE EXTENSION IF NOT EXISTS postgis;
+
+DB_DEV_TABLES_CREATE_SCRIPT = $(DB_STRUCTURE_PATH)/02_create_dev_tables.sql
+DEV_CREATE_TABLES_SCRIPT = $(VENV_BIN)/create_standard_tables
+
+DB_DEV_TABLES_FILL_SCRIPT = $(DB_STRUCTURE_PATH)/03_fill_dev_tables.sql
+
+$(DB_CREATE_EXTENSION):
+	echo "$(DB_CREATE_EXTENSION_SQL)" > $@
+
+$(DB_DEV_TABLES_CREATE_SCRIPT): $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_TABLES_SCRIPT)
 	$(DEV_CREATE_TABLES_SCRIPT) --configuration $< --sql-file $@
 
-$(DEV_FILL_SCRIPT): $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_FILL_SCRIPT) $(FED_JSONS)
+$(DB_DEV_TABLES_FILL_SCRIPT): $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_FILL_SCRIPT) $(FED_JSONS)
 	$(VENV_BIN)/python $(DEV_CREATE_FILL_SCRIPT) --configuration $< --sql-file $@ --dir $(PG_DEV_DATA_DIR)
 
-.PHONY: setup-db
-.db/.setup-db: .db/.create-db-schema
-	touch $@
+DB_STRUCTURE_SCRIPTS = $(DB_CREATE_EXTENSION) \
+	$(DB_DEV_TABLES_CREATE_SCRIPT) \
+	$(DB_DEV_TABLES_FILL_SCRIPT)
 
-.PHONY: setup-db-dev
-.db/.setup-db-dev: .db/.fill-db-dev-tables
-	touch $@
+# Creates the sql files for the DEV database from SQL-Alchemy models and
+# the generated DEV configuration (standard tables only!)
+.PHONY: create_dev_db_scripts
+create_dev_db_scripts: $(DB_STRUCTURE_SCRIPTS)
+
+.PHONY: clean_dev_db_scripts
+clean_dev_db_scripts:
+	rm -rf $(DB_STRUCTURE_SCRIPTS)
+
+# *********************
+# END Set up database
+# *********************
 
 .PHONY: install
 install: .venv/requirements-timestamp
@@ -251,12 +245,14 @@ install: .venv/requirements-timestamp
 $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT): setup.py $(BUILD_DEPS)
 	$(VENV_BIN)/python $< develop
 
+development.ini: install
+	$(VENV_BIN)/mako-render --var pyramid_oereb_port=$(PYRAMID_OEREB_PORT) development.ini.mako > development.ini
+
 .PHONY: build
-build: install $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT)
+build: install $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CONFIGURATION_YML) create_dev_db_scripts development.ini
 
 .PHONY: clean
-clean: .db/.drop-db clean_fed_data
-	rm -rf .db
+clean: clean_fed_data clean_dev_db_scripts
 	rm -f $(DEV_CONFIGURATION_YML)
 
 .PHONY: clean-all
@@ -264,11 +260,6 @@ clean-all: clean
 	rm -rf .venv
 	rm -f development.ini
 	rm -rf $(PACKAGE).egg-info
-
-.PHONY: create-default-models
-create-default-models:
-	VENV_BIN=$(VENV_BIN) MODEL_SCRIPT=create_standard_model MODEL_PATH=pyramid_oereb/standard/models/ \
-	MODEL_PK_TYPE_IS_STRING=$(MODEL_PK_TYPE_IS_STRING) bash generate_models.sh
 
 .PHONY: git-attributes
 git-attributes:
@@ -278,9 +269,9 @@ git-attributes:
 lint: .venv/requirements-timestamp
 	$(VENV_BIN)/flake8
 
-.PHONY: test
-test: .venv/requirements-timestamp .db/.setup-db-dev $(DEV_CONFIGURATION_YML)
-	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc --cov $(PACKAGE) --cov-report term-missing:skip-covered tests
+.PHONY: test-core
+test-core: .venv/requirements-timestamp
+	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc --cov $(PACKAGE) --cov-report term-missing:skip-covered tests/core
 
 .PHONY: check
 check: git-attributes lint test
@@ -300,12 +291,9 @@ updates: $(PIP_REQUIREMENTS)
 	$(VENV_BIN)/pip list --outdated
 
 .PHONY: serve-dev
-serve-dev: development.ini build .db/.setup-db-dev
+serve-dev: build
 	$(VENV_BIN)/pserve $< --reload
 
 .PHONY: serve
-serve: development.ini build
+serve: build
 	$(VENV_BIN)/pserve $<
-
-development.ini: install
-	$(VENV_BIN)/mako-render --var pyramid_oereb_port=$(PYRAMID_OEREB_PORT) development.ini.mako > development.ini

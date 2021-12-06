@@ -20,7 +20,7 @@ with open('requirements-tests.txt') as f:
 
 setup(
     name='pyramid_oereb',
-    version='2.0.0.b5',
+    version='2.0.0.b6',
     description='pyramid_oereb, extension for pyramid web frame work to provide '
             'a basic server part for the oereb project',
     long_description='{readme}\n\n{changes}'.format(readme=README, changes=CHANGES),
@@ -53,13 +53,11 @@ setup(
             'main = pyramid_oereb:main'
         ],
         'console_scripts': [
-            'create_standard_tables = pyramid_oereb.standard.create_tables:create_standard_tables',
-            'create_standard_yaml = pyramid_oereb.standard.create_yaml:create_standard_yaml',
-            'create_theme_tables = pyramid_oereb.standard.create_tables:create_theme_tables',
-            'drop_standard_tables = pyramid_oereb.standard.drop_tables:drop_standard_tables',
-            'create_legend_entries = pyramid_oereb.standard.load_legend_entries:run',
-            'import_federal_topic = pyramid_oereb.standard.import_federal_topic:run',
-            'create_stats_tables = pyramid_oereb.contrib.stats.scripts.create_stats_tables:create_stats_tables'  # noqa: E501
+            'create_standard_tables = pyramid_oereb.contrib.data_sources.create_tables:create_standard_tables',  # noqa: E501
+            'create_example_yaml = dev.config.create_yaml:create_yaml',
+            'create_theme_tables = pyramid_oereb.contrib.data_sources.create_tables:create_theme_tables',
+            'create_legend_entries = pyramid_oereb.contrib.data_sources.standard.load_legend_entries:run',
+            'create_stats_tables = pyramid_oereb.contrib.data_sources.contrib.stats.scripts.create_stats_tables:create_stats_tables'  # noqa: E501
         ]
     }
 )
