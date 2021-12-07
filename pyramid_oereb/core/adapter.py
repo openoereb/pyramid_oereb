@@ -80,6 +80,10 @@ class FileAdapter(object):
         This Class provides a list of methods for file handling.
 
         It uses the current working directory as central point for file handling.
+
+        Args:
+            cwd: The path of the current working directory.
+
         """
         self._cwd_ = os.path.abspath(cwd or '.')
 
@@ -102,9 +106,6 @@ class FileAdapter(object):
     def ls(self):
         """
         This method lists all content of the given path.
-
-        Args:
-            no Args.
 
         Returns:
             String: JSON formatted string.
