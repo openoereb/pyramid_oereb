@@ -18,8 +18,9 @@ a running instance of the pyramid_oereb DEV server connected to the DB. The proj
 to it. So changes take effect.
 
 To run the tests:
+
 1. Start the dev database with ``docker-compose up -d oereb-db`` (with the default config, this uses the default Postgres port on your machine)
-2. Run the tests with ``make tests`` (this will install the virtual environment on your machine it's not already installed)
+2. Run the tests with ``make tests`` (this will install the virtual environment on your machine if it's not already installed)
 
 To run one specfic test:
 
