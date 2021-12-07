@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 import pytest
 import json
+from unittest.mock import patch
 
 from pyramid.testing import testConfig
 from pyramid.path import DottedNameResolver
 from shapely.geometry import MultiPolygon, Polygon
+from sqlalchemy import create_engine, orm
 
 from pyramid_oereb.core.config import Config
 from pyramid_oereb.core.adapter import DatabaseAdapter
@@ -61,13 +63,25 @@ def schema_xml_versions():
         return json.load(f)
 
 
-@pytest.fixture(scope='session')
-@pytest.mark.usefixtures('pyramid_oereb_test_config')
+@pytest.fixture
 def dbsession(pyramid_oereb_test_config):
     db_url = pyramid_oereb_test_config.get('app_schema').get('db_connection')
-    adapter = DatabaseAdapter()
-    adapter.add_connection(db_url)
-    return adapter.get_session(db_url)
+    engine = create_engine(db_url)
+    session = orm.sessionmaker(bind=engine)()
+    with patch(
+        'pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=session
+    ), patch.object(
+        session, "close"
+    ):
+        yield session
+
+
+@pytest.fixture
+def transact(dbsession):
+    transact = dbsession.begin_nested()
+    yield transact
+    transact.rollback()
+    dbsession.expire_all()
 
 
 @pytest.fixture

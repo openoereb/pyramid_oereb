@@ -7,14 +7,19 @@ from tests.mockrequest import MockParameter
 
 
 @pytest.fixture
-def test_data(dbsession):
+def test_data(dbsession, transact):
     from pyramid_oereb.contrib.data_sources.standard.models.main import Address
+    del transact
     addresses = {
         'address1': Address(
             street_name='test', street_number=10, zip_code=4410, geom='SRID=2056;POINT(1 1)'
         )
     }
     dbsession.add_all(addresses.values())
+    dbsession.flush()
+    yield {
+        "addresses": addresses,
+    }
 
 
 @pytest.mark.run(order=2)
@@ -37,6 +42,7 @@ def test_read(pyramid_oereb_test_config, test_data, param, length):
     from pyramid_oereb.core.readers.address import AddressReader
 
     del test_data
+
     reader = AddressReader(
         pyramid_oereb_test_config.get_address_config().get('source').get('class'),
         **pyramid_oereb_test_config.get_address_config().get('source').get('params')
