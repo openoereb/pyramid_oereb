@@ -7,7 +7,6 @@ from tests.mockrequest import MockParameter
 from pyramid_oereb.core.adapter import DatabaseAdapter
 
 
-
 @pytest.mark.run(order=2)
 def test_init(pyramid_oereb_test_config):
     from pyramid_oereb.contrib.data_sources.standard.sources.disclaimer import DatabaseSource

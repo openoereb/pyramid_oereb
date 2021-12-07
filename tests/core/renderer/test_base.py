@@ -55,7 +55,7 @@ def test_get_missing_response():
     assert response is None
 
 
-def test_get_localized_text_from_string():
+def test_get_localized_text_from_string(DummyRenderInfo):
     renderer = Renderer(DummyRenderInfo())
     localized_text = renderer.get_localized_text('Test')
     assert isinstance(localized_text, dict)
@@ -68,7 +68,7 @@ def test_get_localized_text_from_string():
     ('en', u'This is a test'),
     ('fr', u'Dies ist ein Test')  # fr not available; use default language (de)
 ])
-def test_get_localized_text_from_dict(language, result):
+def test_get_localized_text_from_dict(DummyRenderInfo, language, result):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = language
     multilingual_text = {

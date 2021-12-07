@@ -1,7 +1,7 @@
 from pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print import Renderer
 from pyramid_oereb.core.config import Config
 
-#TODO check that the config is actually changed
+# #TODO check that the config is actually changed
 
 
 def test_config_wms_url_params(config_path, DummyRenderInfo):

@@ -10,10 +10,12 @@ from pyramid_oereb.core.records.view_service import ViewServiceRecord
 from pyramid_oereb.core.records.municipality import MunicipalityRecord
 from tests.mockrequest import MockParameter
 
+
 @pytest.fixture
 @pytest.mark.usefixtures('pyramid_oereb_test_config')
 def plr_cadastre_authority(pyramid_oereb_test_config):
     yield pyramid_oereb_test_config.get_plr_cadastre_authority()
+
 
 @pytest.fixture
 @pytest.mark.usefixtures('pyramid_oereb_test_config')
@@ -24,15 +26,17 @@ def plr_sources(pyramid_oereb_test_config):
         plr_sources.append(plr_source_class(**plr))
     yield plr_sources
 
+
 @pytest.fixture
 def real_estate():
     yield RealEstateRecord(u'test', u'BL', u'Laufen', 2770, 1000,
-                               MultiPolygon([Polygon([(0, 0), (4, 4), (4, 0)])]),
-                               ViewServiceRecord(
-                                   {'de': 'test_link'},
-                                   1,
-                                   1.0,
-                               ))
+                           MultiPolygon([Polygon([(0, 0), (4, 4), (4, 0)])]),
+                           ViewServiceRecord(
+                            {'de': 'test_link'},
+                            1,
+                            1.0,
+                            ))
+
 
 @pytest.fixture
 def municipality():

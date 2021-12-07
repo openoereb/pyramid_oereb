@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pytest
-from tests.core.renderer.xml import params 
+from tests.core.renderer.xml import params
 from shapely.geometry import Polygon
 
 

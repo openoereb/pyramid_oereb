@@ -37,7 +37,8 @@ def test_version_against_schema(schema_xml_versions, DummyRenderInfo):
     doc = etree.parse(buffer)
     assert xmlschema.validate(doc)
 
-#TODO: check if fixtures work in this case
+
+# #TODO: check if fixtures work in this case
 @pytest.mark.parametrize('parameter, test_extract', [
     (
             Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),

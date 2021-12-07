@@ -6,6 +6,7 @@ import pytest
 from pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print import Renderer
 from pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages import TocPages
 
+
 @pytest.fixture
 def coordinates():
     yield [[[
@@ -15,12 +16,14 @@ def coordinates():
         [2615122.772, 1266688.951]
     ]]]
 
+
 @pytest.fixture
 def extract():
     with codecs.open(
             'tests/contrib/print_proxy/resources/test_extract.json'
     ) as f:
         yield json.load(f)
+
 
 @pytest.fixture
 def expected_printable_extract():
@@ -29,8 +32,9 @@ def expected_printable_extract():
     ) as f:
         yield json.load(f)
 
+
 @pytest.fixture
-@pytest.mark.usefixture('coordinates')
+@pytest.mark.usefixtures('coordinates')
 def geometry(coordinates):
     yield {
         'type': 'MultiPolygon',

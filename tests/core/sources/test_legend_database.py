@@ -10,7 +10,6 @@ from tests.mockrequest import MockParameter
     "legend_entry"
 ])
 def test_init(pyramid_oereb_test_config, model):
-    
     from pyramid_oereb.contrib.data_sources.standard.sources.legend import DatabaseSource
 
     db_url = pyramid_oereb_test_config.get('app_schema').get('db_connection')

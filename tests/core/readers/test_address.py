@@ -5,11 +5,12 @@ from pyramid_oereb.core.records.address import AddressRecord
 from pyramid_oereb.core.sources import Base
 from tests.mockrequest import MockParameter
 
+
 @pytest.fixture
 def test_data(dbsession):
     from pyramid_oereb.contrib.data_sources.standard.models.main import Address
     addresses = {
-        'address1' : Address(
+        'address1': Address(
             street_name='test', street_number=10, zip_code=4410, geom='SRID=2056;POINT(1 1)'
         )
     }

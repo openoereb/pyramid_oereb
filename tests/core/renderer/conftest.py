@@ -15,6 +15,7 @@ def xml_templates():
     )
     return templates
 
+
 @pytest.fixture(scope='session')
 def template():
     xml_templates().get_template('geometry/line.xml')

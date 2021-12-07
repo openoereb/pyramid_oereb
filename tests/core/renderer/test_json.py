@@ -65,94 +65,94 @@ def glossary_expected():
     (None, None, None)
 ])
 def test_render(pyramid_oereb_test_config, DummyRenderInfo, parameter, glossaries_input, glossaries_expected):
-        view_service = ViewServiceRecord({'de': u'http://geowms.bl.ch'},
-                                         1,
-                                         1.0,
-                                         None)
-        real_estate = RealEstateRecord(u'Liegenschaft', u'BL', u'Liestal', 2829, 11395,
-                                       MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
-                                       u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712')
-        real_estate.set_view_service(view_service)
-        real_estate.set_main_page_view_service(view_service)
-        office_record = OfficeRecord({'de': u'AGI'})
-        resolver = DottedNameResolver()
-        date_method_string = pyramid_oereb_test_config.get('extract').get('base_data').get('methods').get('date')
-        date_method = resolver.resolve(date_method_string)
-        update_date_os = date_method(real_estate)
-        extract = ExtractRecord(
-            real_estate,
-            LogoRecord('ch', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
-                3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
-            LogoRecord('ch.plr', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
-                3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
-            LogoRecord('ne', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
-                3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
-            LogoRecord('ch.1234', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
-                3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
-            office_record,
-            update_date_os,
-            disclaimers=[
-                DisclaimerRecord({'de': u'Haftungsausschluss'}, {'de': u'Test'})
-            ],
-            glossaries=glossaries_input,
-            general_information=[
-                GeneralInformationRecord(
-                    {'de': u'Allgemeine Informationen'},
-                    {'de': u'Inhalt der allgemeinen Informationen'})
-            ]
-        )
-        extract.qr_code = '1'.encode('utf-8')
-        extract.electronic_signature = 'Signature'
-        renderer = Renderer(DummyRenderInfo())
-        renderer._language = u'de'
-        renderer._request = MockRequest()
-        if parameter is None:
-            with pytest.raises(TypeError):
-                renderer._render(extract, None)
+    view_service = ViewServiceRecord({'de': u'http://geowms.bl.ch'},
+                                     1,
+                                     1.0,
+                                     None)
+    real_estate = RealEstateRecord(u'Liegenschaft', u'BL', u'Liestal', 2829, 11395,
+                                   MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
+                                   u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712')
+    real_estate.set_view_service(view_service)
+    real_estate.set_main_page_view_service(view_service)
+    office_record = OfficeRecord({'de': u'AGI'})
+    resolver = DottedNameResolver()
+    date_method_string = pyramid_oereb_test_config.get('extract').get('base_data').get('methods').get('date')
+    date_method = resolver.resolve(date_method_string)
+    update_date_os = date_method(real_estate)
+    extract = ExtractRecord(
+        real_estate,
+        LogoRecord('ch', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
+            3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+        LogoRecord('ch.plr', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
+            3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+        LogoRecord('ne', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
+            3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+        LogoRecord('ch.1234', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd \
+            3EQBvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+        office_record,
+        update_date_os,
+        disclaimers=[
+            DisclaimerRecord({'de': u'Haftungsausschluss'}, {'de': u'Test'})
+        ],
+        glossaries=glossaries_input,
+        general_information=[
+            GeneralInformationRecord(
+                {'de': u'Allgemeine Informationen'},
+                {'de': u'Inhalt der allgemeinen Informationen'})
+        ]
+    )
+    extract.qr_code = '1'.encode('utf-8')
+    extract.electronic_signature = 'Signature'
+    renderer = Renderer(DummyRenderInfo())
+    renderer._language = u'de'
+    renderer._request = MockRequest()
+    if parameter is None:
+        with pytest.raises(TypeError):
+            renderer._render(extract, None)
+    else:
+        result = renderer._render(extract, parameter)
+        assert isinstance(result, dict)
+        expected = {
+            'ExtractIdentifier': extract.extract_identifier,
+            'CreationDate': Base.date_time(extract.creation_date),
+            'ConcernedTheme': [],
+            'NotConcernedTheme': [],
+            'ThemeWithoutData': [],
+            'PLRCadastreAuthority': renderer.format_office(office_record),
+            'UpdateDateOS': Base.date_time(extract.update_date_os),
+            'RealEstate': renderer.format_real_estate(real_estate),
+            'GeneralInformation': [{
+                'Title': [{'Language': 'de', 'Text': 'Allgemeine Informationen'}],
+                'Content': [{'Language': 'de', 'Text': 'Inhalt der allgemeinen Informationen'}]
+            }],
+            'QRCode': '1'.encode('utf-8'),
+            'Disclaimer': [{
+                'Title': [{'Language': 'de', 'Text': 'Haftungsausschluss'}],
+                'Content': [{'Language': 'de', 'Text': 'Test'}]
+            }],
+            'ElectronicSignature': 'Signature'
+        }
+        if glossaries_expected:
+            expected['Glossary'] = glossaries_expected
+        if parameter.images:
+            expected.update({
+                'LogoPLRCadastre': Config.get_oereb_logo()
+                    .encode(),
+                'FederalLogo': Config.get_conferderation_logo()
+                    .encode(),
+                'CantonalLogo': Config.get_canton_logo()
+                    .encode(),
+                'MunicipalityLogo': Config.get_municipality_logo(2771),
+            })
         else:
-            result = renderer._render(extract, parameter)
-            assert isinstance(result, dict)
-            expected = {
-                'ExtractIdentifier': extract.extract_identifier,
-                'CreationDate': Base.date_time(extract.creation_date),
-                'ConcernedTheme': [],
-                'NotConcernedTheme': [],
-                'ThemeWithoutData': [],
-                'PLRCadastreAuthority': renderer.format_office(office_record),
-                'UpdateDateOS': Base.date_time(extract.update_date_os),
-                'RealEstate': renderer.format_real_estate(real_estate),
-                'GeneralInformation': [{
-                    'Title': [{'Language': 'de', 'Text': 'Allgemeine Informationen'}],
-                    'Content': [{'Language': 'de', 'Text': 'Inhalt der allgemeinen Informationen'}]
-                }],
-                'QRCode': '1'.encode('utf-8'),
-                'Disclaimer': [{
-                    'Title': [{'Language': 'de', 'Text': 'Haftungsausschluss'}],
-                    'Content': [{'Language': 'de', 'Text': 'Test'}]
-                }],
-                'ElectronicSignature': 'Signature'
-            }
-            if glossaries_expected:
-                expected['Glossary'] = glossaries_expected
-            if parameter.images:
-                expected.update({
-                    'LogoPLRCadastre': Config.get_oereb_logo()
-                        .encode(),
-                    'FederalLogo': Config.get_conferderation_logo()
-                        .encode(),
-                    'CantonalLogo': Config.get_canton_logo()
-                        .encode(),
-                    'MunicipalityLogo': Config.get_municipality_logo(2771),
-                })
-            else:
-                expected.update({
-                    'LogoPLRCadastreRef': u'http://example.com/image/logo/oereb/de.png',
-                    'FederalLogoRef': u'http://example.com/image/logo/confederation/de.png',
-                    'CantonalLogoRef': u'http://example.com/image/logo/canton/de.png',
-                    'MunicipalityLogoRef': u'http://example.com/image/logo/municipality/de.png?fosnr=2829'
-                })
-            assert result['GeneralInformation'] == expected['GeneralInformation']
-            assert result == expected
+            expected.update({
+                'LogoPLRCadastreRef': u'http://example.com/image/logo/oereb/de.png',
+                'FederalLogoRef': u'http://example.com/image/logo/confederation/de.png',
+                'CantonalLogoRef': u'http://example.com/image/logo/canton/de.png',
+                'MunicipalityLogoRef': u'http://example.com/image/logo/municipality/de.png?fosnr=2829'
+            })
+        assert result['GeneralInformation'] == expected['GeneralInformation']
+        assert result == expected
 
 
 def test_format_office(DummyRenderInfo):
@@ -252,9 +252,9 @@ def test_format_plr(DummyRenderInfo, parameter):
         {'de': 'Test'}, 'CodeA', 'TypeCodeList', theme,
         view_service_id=1)
     view_service = ViewServiceRecord({'de': 'http://geowms.bl.ch'},
-                                        1,
-                                        1.0,
-                                        [legend_entry])
+                                     1,
+                                     1.0,
+                                     [legend_entry])
     geometry = GeometryRecord(law_status(), datetime.date.today(), None, Point(1, 1))
     plr = PlrRecord(
         theme,

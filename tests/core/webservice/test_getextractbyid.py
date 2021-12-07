@@ -147,7 +147,7 @@ def test_return_no_content():
 ])
 def test_return_json(pyramid_test_config, schema_json_extract, egrid, topics):
     pyramid_test_config.add_renderer('pyramid_oereb_extract_json',
-                                'pyramid_oereb.core.renderer.extract.json_.Renderer')
+                                     'pyramid_oereb.core.renderer.extract.json_.Renderer')
     request = MockRequest()
     request.matchdict.update({
         'format': 'JSON'
