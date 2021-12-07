@@ -73,6 +73,27 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: land_use_plans
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      document_types_lookup:
+      - data_code: Rechtsvorschrift
+        transfer_code: Rechtsvorschrift
+        extract_code: LegalProvision
+      - data_code: GesetzlicheGrundlage
+        transfer_code: GesetzlicheGrundlage
+        extract_code: Law
+      - data_code: Hinweis
+        transfer_code: Hinweis
+        extract_code: Hint
     - code: ch.ProjektierungszonenNationalstrassen
       law_status_lookup:
         - data_code: inKraft
@@ -91,6 +112,16 @@ pyramid_oereb:
         - data_code: inKraft
           transfer_code: inKraft
           extract_code: inForce
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          transfer_code: Rechtsvorschrift
+          extract_code: LegalProvision
+        - data_code: GesetzlicheGrundlage
+          transfer_code: GesetzlicheGrundlage
+          extract_code: Law
+        - data_code: Hinweis
+          transfer_code: Hinweis
+          extract_code: Hint
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:
@@ -99,6 +130,17 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: contaminated_sites
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
 
   real_estate:
     plan_for_land_register:

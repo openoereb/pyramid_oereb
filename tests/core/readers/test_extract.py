@@ -57,14 +57,19 @@ def test_init(plr_sources, plr_cadastre_authority):
 
 
 @pytest.mark.run(order=2)
-def test_read(plr_sources, plr_cadastre_authority, real_estate, municipality):
+def test_read(land_use_plans, test_data_contaminated_sites, plr_sources, plr_cadastre_authority,
+                real_estate, municipality):
     from pyramid_oereb.core.readers.extract import ExtractReader
 
+    del land_use_plans, test_data_contaminated_sites
     reader = ExtractReader(plr_sources, plr_cadastre_authority)
     extract = reader.read(MockParameter(), real_estate, municipality)
     assert isinstance(extract, ExtractRecord)
     plrs = extract.real_estate.public_law_restrictions
     assert isinstance(plrs, list)
+    print(plrs)
+    print([plr.theme.code for plr in plrs])
+    print(extract.real_estate.limit)
     assert isinstance(plrs[0], PlrRecord)
-    assert plrs[3].theme.code == 'ch.BaulinienNationalstrassen'
+    assert plrs[3].theme.code == 'ch.BelasteteStandorte'
     assert plrs[3].law_status.code == 'inForce'
