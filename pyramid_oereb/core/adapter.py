@@ -76,16 +76,40 @@ class DatabaseAdapter(object):
 class FileAdapter(object):
 
     def __init__(self, cwd=None):
+        """
+        This Class provides a list of methods for file handling.
+
+        It uses the current working directory as central point for file handling.
+
+        Args:
+            cwd: The path of the current working directory.
+
+        """
         self._cwd_ = os.path.abspath(cwd or '.')
 
     @property
     def cwd(self):
+        """
+        The property of the current working directory.
+        """
         return self._cwd_
 
     def cd(self, path):
+        """
+        This method changes the path of the current working directory.
+
+        Args:
+            path(str): The path of the new working directory.
+        """
         self._cwd_ = os.path.abspath(os.path.join(self._cwd_, path))
 
     def ls(self):
+        """
+        This method lists all content of the given path.
+
+        Returns:
+            String: JSON formatted string.
+        """
         result = list()
         for entry in os.listdir(self._cwd_):
             path = os.path.join(self._cwd_, entry)
@@ -97,6 +121,19 @@ class FileAdapter(object):
         return result
 
     def read(self, filename, mode='rb'):
+        """
+        This method uses a given path to read a file and returns its content.
+
+        Args:
+            filename (str): The path to the file.
+            mode: The mode in which to open the file. Default is "rb" (read binary).
+
+        Returns:
+            String: The content of the file
+
+        Raises:
+            IOError
+        """
         filepath = os.path.join(self._cwd_, filename)
         if os.path.isfile(filepath):
             with open(filepath, mode=mode) as f:

@@ -462,7 +462,7 @@ class PlrWebservice(object):
 
         if len(records) == 0:
             return HTTPNoContent()
-
+        output_format = self.__validate_format_param__(self._DEFAULT_FORMATS)
         real_estates = list()
         for r in records:
             real_estate = {
@@ -471,14 +471,18 @@ class PlrWebservice(object):
                 'identDN': getattr(r, 'identdn'),
                 'type': getattr(r, 'type')
             }
-            if params.with_geometry:
+            if params.with_geometry and output_format == 'json':
                 real_estate.update({
                     'limit': Renderer.from_shapely(getattr(r, 'limit'))
                 })
+            elif params.with_geometry and output_format == 'xml':
+                real_estate.update({
+                    'limit': getattr(r, 'limit')
+                })
+            elif params.with_geometry and output_format not in ['json', 'xml']:
+                raise HTTPInternalServerError('Format for GetEgrid not correct: {}'.format(output_format))
             real_estates.append(real_estate)
         egrid = {'GetEGRIDResponse': real_estates}
-
-        output_format = self.__validate_format_param__(self._DEFAULT_FORMATS)
         if output_format == 'json':
             response = render_to_response('json', egrid, request=self._request)
             response.content_type = 'application/json; charset=UTF-8'

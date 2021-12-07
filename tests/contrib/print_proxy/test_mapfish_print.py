@@ -2,13 +2,14 @@
 import os
 import json
 import codecs
-from pyramid_oereb.contrib.print_proxy.mapfish_print import Renderer
-from tests.renderer import DummyRenderInfo
+import pytest
+from pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print import Renderer
 from pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages import TocPages
 
 
+@pytest.fixture
 def coordinates():
-    return [[[
+    yield [[[
         [2615122.772, 1266688.951], [2615119.443, 1266687.783], [2615116.098, 1266686.662],
         [2615112.738, 1266685.586], [2615109.363, 1266684.556], [2615105.975, 1266683.573],
         [2615102.573, 1266682.637], [2615098.859, 1266681.622], [2615095.13, 1266680.663],
@@ -16,29 +17,33 @@ def coordinates():
     ]]]
 
 
+@pytest.fixture
 def extract():
     with codecs.open(
             'tests/contrib/print_proxy/resources/test_extract.json'
     ) as f:
-        return json.loads(f.read())
+        yield json.load(f)
 
 
+@pytest.fixture
 def expected_printable_extract():
     with codecs.open(
             'tests/contrib/print_proxy/resources/expected_getspec_extract.json'
     ) as f:
-        return json.loads(f.read())
+        yield json.load(f)
+
+
+@pytest.fixture
+@pytest.mark.usefixtures('coordinates')
+def geometry(coordinates):
+    yield {
+        'type': 'MultiPolygon',
+        'coordinates': coordinates
+    }
 
 
 def test_toc_pages():
     assert TocPages(extract()).getNbPages() == 1
-
-
-def geometry():
-    return {
-        'type': 'MultiPolygon',
-        'coordinates': coordinates()
-    }
 
 
 def getSameEntryInList(reference, objects):
@@ -105,30 +110,27 @@ def deepCompare(value, valueToCompare, verbose=True):
     return match
 
 
-def test_legend():
-    renderer = Renderer(DummyRenderInfo())
-    printable_extract = extract()
-    renderer.convert_to_printable_extract(printable_extract, geometry())
-    first_plr = printable_extract.get('RealEstate_RestrictionOnLandownership')[0]
+def test_legend(extract, geometry, DummyRenderInfo):
+    renderer = Renderer(DummyRenderInfo)
+    renderer.convert_to_printable_extract(extract, geometry())
+    first_plr = extract.get('RealEstate_RestrictionOnLandownership')[0]
     assert isinstance(first_plr, dict)
 
 
-def test_mapfish_print_entire_extract():
+def test_mapfish_print_entire_extract(extract, expected_printable_extract, DummyRenderInfo):
     renderer = Renderer(DummyRenderInfo())
-    printable_extract = extract()
-    renderer.convert_to_printable_extract(printable_extract, geometry())
+    renderer.convert_to_printable_extract(extract, geometry)
     # Uncomment to print the result
     # f = open('/workspace/printable_extract.json', 'w')
     # f.write(json.dumps(printable_extract))
     # f.close()
 
-    expected = expected_printable_extract()
-    assert deepCompare(printable_extract, expected)
+    assert deepCompare(extract, expected_printable_extract)
     # Do it twice, to test all keys in each reports
-    assert deepCompare(expected, printable_extract)
+    assert deepCompare(expected_printable_extract, extract)
 
 
-def test_get_sorted_legend():
+def test_get_sorted_legend(DummyRenderInfo):
     renderer = Renderer(DummyRenderInfo())
     test_legend_list = [
         {
@@ -224,7 +226,7 @@ def test_get_sorted_legend():
     assert sorted_list == expected_result
 
 
-def test_get_sorted_legal_provisions():
+def test_get_sorted_legal_provisions(DummyRenderInfo):
     renderer = Renderer(DummyRenderInfo())
     expected_result = [
         {
@@ -322,7 +324,7 @@ def test_get_sorted_legal_provisions():
     assert expected_result == renderer.sort_dict_list(test_legal_provisions, renderer.sort_legal_provision)
 
 
-def test_get_sorted_hints():
+def test_get_sorted_hints(DummyRenderInfo):
     renderer = Renderer(DummyRenderInfo())
     test_hints = [{
         "Canton": "BL",
@@ -394,7 +396,7 @@ def test_get_sorted_hints():
     assert expected_result == renderer.sort_dict_list(test_hints, renderer.sort_hints_laws)
 
 
-def test_get_sorted_law():
+def test_get_sorted_law(DummyRenderInfo):
     renderer = Renderer(DummyRenderInfo())
     test_law = [
         {
@@ -532,7 +534,7 @@ def test_get_sorted_law():
     assert expected_result == renderer.sort_dict_list(test_law, renderer.sort_hints_laws)
 
 
-def test_group_legal_provisions():
+def test_group_legal_provisions(DummyRenderInfo):
     renderer = Renderer(DummyRenderInfo())
     test_legal_provisions = [
         {
@@ -616,7 +618,7 @@ def test_group_legal_provisions():
     assert expected_results == renderer.group_legal_provisions(test_legal_provisions)
 
 
-def test_archive_pdf():
+def test_archive_pdf(DummyRenderInfo):
     renderer = Renderer(DummyRenderInfo())
     extract = {'RealEstate_EGRID': 'CH113928077734'}
     path_and_filename = renderer.archive_pdf_file('/tmp', bytes(), extract)
