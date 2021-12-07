@@ -273,6 +273,10 @@ lint: .venv/requirements-timestamp
 test-core: .venv/requirements-timestamp
 	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc --cov $(PACKAGE) --cov-report term-missing:skip-covered tests/core
 
+.PHONY: tests
+tests: .venv/requirements-timestamp
+	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc --cov $(PACKAGE) --cov-report term-missing:skip-covered tests/$(PYTEST_PATH)
+
 .PHONY: check
 check: git-attributes lint test
 

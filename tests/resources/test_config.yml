@@ -1,64 +1,31 @@
-section1:
-  param1: one
-  param2: 2
-
-section2:
-  param1: 1
-  param2:
-    - first
-    - second
-
-  theme:
-    source:
-      class: pyramid_oereb.standard.sources.theme.DatabaseSource
-      params:
-        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
-        model: pyramid_oereb.standard.models.main.Theme
-    law_status:
-      inKraft: inKraft
-      AenderungMitVorwirkung: AenderungMitVorwirkung
-      AenderungOhneVorwirkung: AenderungOhneVorwirkung
-
-  logos:
-    source:
-      class: pyramid_oereb.standard.sources.logo.DatabaseSource
-      params:
-        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
-        model: pyramid_oereb.standard.models.main.Logo
-
-  document_types:
-    source:
-      class: pyramid_oereb.standard.sources.document_types.DatabaseSource
-      params:
-        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
-        model: pyramid_oereb.standard.models.main.DocumentTypeText
-
-  general_information:
-    source:
-      class: pyramid_oereb.standard.sources.general_information.DatabaseSource
-      params:
-        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
-        model: pyramid_oereb.standard.models.main.GeneralInformation
-
-  real_estate_type:
-    source:
-      class: pyramid_oereb.standard.sources.real_estate_type.DatabaseSource
-      params:
-        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
-        model: pyramid_oereb.standard.models.main.RealEstateType
-
-  law_status_labels:
-    source:
-      class: pyramid_oereb.standard.sources.law_status.DatabaseSource
-      params:
-        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
-        model: pyramid_oereb.standard.models.main.LawStatus
 
 pyramid_oereb:
   app_schema:
     name: pyramid_oereb_main
-    models: pyramid_oereb.standard.models.main
-    db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
+    models: pyramid_oereb.contrib.data_sources.standard.models.main
+    db_connection: &main_db_connection
+      postgresql://postgres:postgres@localhost:5432/pyramid_oereb_test
+
+    law_status_lookup:
+      - data_code: inKraft
+        transfer_code: inKraft
+        extract_code: inForce
+      - data_code: AenderungMitVorwirkung
+        transfer_code: AenderungMitVorwirkung
+        extract_code: changeWithPreEffect
+      - data_code: AenderungOhneVorwirkung
+        transfer_code: AenderungOhneVorwirkung
+        extract_code: changeWithoutPreEffect
+    document_types_lookup:
+      - data_code: Rechtsvorschrift
+        transfer_code: Rechtsvorschrift
+        extract_code: LegalProvision
+      - data_code: GesetzlicheGrundlage
+        transfer_code: GesetzlicheGrundlage
+        extract_code: Law
+      - data_code: Hinweis
+        transfer_code: Hinweis
+        extract_code: Hint
 
   language:
     - de
@@ -94,20 +61,44 @@ pyramid_oereb:
       view_service:
         layer_index: 1
         layer_opacity: 0.25
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          transfer_code: inKraft
+          extract_code: inForce
+      source:
+        class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          # model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
+          schema_name: land_use_plans
     - code: ch.ProjektierungszonenNationalstrassen
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          transfer_code: inKraft
+          extract_code: inForce
+      source:
+        class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          # model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
+          schema_name: motorways_project_planing_zones
     - code: ch.BelasteteStandorte
-      law_status:
-        inKraft: inKraft
-        AenderungMitVorwirkung: AenderungMitVorwirkung
-        AenderungOhneVorwirkung: AenderungOhneVorwirkung
+      law_status_lookup:
+        - data_code: inKraft
+          transfer_code: inKraft
+          extract_code: inForce
+      source:
+        class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          # model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
+          schema_name: contaminated_sites
 
   real_estate:
     plan_for_land_register:
@@ -120,13 +111,18 @@ pyramid_oereb:
         de: https://wms.ch/?BBOX=2475000,1065000,2850000,1300000
       layer_index: 2
       layer_opacity: 0.5
+    source:
+      class: pyramid_oereb.contrib.data_sources.standard.sources.real_estate.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate
 
   theme:
     source:
-      class: pyramid_oereb.standard.sources.theme.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.theme.DatabaseSource
       params:
-        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
-        model: pyramid_oereb.standard.models.main.Theme
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Theme
     law_status:
       inKraft: inKraft
       AenderungMitVorwirkung: AenderungMitVorwirkung
@@ -134,31 +130,31 @@ pyramid_oereb:
 
   logos:
     source:
-      class: pyramid_oereb.standard.sources.logo.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.logo.DatabaseSource
       params:
-        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
-        model: pyramid_oereb.standard.models.main.Logo
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Logo
 
   document_types:
     source:
-      class: pyramid_oereb.standard.sources.document_types.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.document_types.DatabaseSource
       params:
-        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
-        model: pyramid_oereb.standard.models.main.DocumentTypeText
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText
 
   general_information:
     source:
-      class: pyramid_oereb.standard.sources.general_information.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.general_information.DatabaseSource
       params:
-        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
-        model: pyramid_oereb.standard.models.main.GeneralInformation
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation
 
   law_status_labels:
     source:
-      class: pyramid_oereb.standard.sources.law_status.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.law_status.DatabaseSource
       params:
-        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
-        model: pyramid_oereb.standard.models.main.LawStatus
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus
 
   real_estate_type_lookup:
     Liegenschaft: "Liegenschaft"
@@ -170,7 +166,164 @@ pyramid_oereb:
 
   real_estate_type:
     source:
-      class: pyramid_oereb.standard.sources.real_estate_type.DatabaseSource
+      class: pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource
       params:
-        db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
-        model: pyramid_oereb.standard.models.main.RealEstateType
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType
+
+  offices:
+    source:
+      class: pyramid_oereb.contrib.data_sources.standard.sources.office.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Office
+
+  theme_document:
+    source:
+      class: pyramid_oereb.contrib.data_sources.standard.sources.theme_document.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument
+
+  documents:
+    source:
+      class: pyramid_oereb.contrib.data_sources.standard.sources.document.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Document
+
+  map_layering:
+    source:
+      class: pyramid_oereb.contrib.data_sources.standard.sources.map_layering.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering
+
+  address:
+    source:
+      class: pyramid_oereb.contrib.data_sources.standard.sources.address.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Address
+
+  disclaimer:
+    source:
+      class: pyramid_oereb.contrib.data_sources.standard.sources.disclaimer.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer
+
+  print:
+    renderer: pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer
+    with_geometry: False
+    buffer: 10
+    basic_map_size: [493, 280]
+    pdf_dpi: 300
+    pdf_map_size_millimeters: [174, 99]
+    base_url: http://oereb-print:8080/print/oereb
+    template_name: A4 portrait
+    headers:
+      Content-Type: application/json; charset=UTF-8
+      Connection: close
+    display_real_estate_subunit_of_land_register: true
+    display_certification: false
+    group_legal_provisions: false
+    compute_toc_pages: true
+    wms_url_params:
+      TRANSPARENT: 'true'
+    # Flag to print or not the canton logo
+    print_canton_logo: true
+
+  geometry_types:
+    point:
+      types:
+       - Point
+       - MultiPoint
+    line:
+       types:
+       - LineString
+       - LinearRing
+       - MultiLineString
+    polygon:
+       types:
+       - Polygon
+       - MultiPolygon
+    collection:
+        types:
+        - GeometryCollection
+
+  extract:
+    base_data:
+      methods:
+        date: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_update_date
+        provider:  pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_provider
+
+  glossary:
+    source:
+      class: pyramid_oereb.contrib.data_sources.standard.sources.glossary.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Glossary
+
+  municipality:
+    source:
+      class: pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Municipality
+
+section1:
+  param1: one
+  param2: 2
+
+section2:
+  param1: 1
+  param2:
+    - first
+    - second
+
+  theme:
+    source:
+      class: pyramid_oereb.contrib.data_sources.standard.sources.theme.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Theme
+    law_status:
+      inKraft: inKraft
+      AenderungMitVorwirkung: AenderungMitVorwirkung
+      AenderungOhneVorwirkung: AenderungOhneVorwirkung
+
+  logos:
+    source:
+      class: pyramid_oereb.contrib.data_sources.standard.sources.logo.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Logo
+
+  document_types:
+    source:
+      class: pyramid_oereb.contrib.data_sources.standard.sources.document_types.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText
+
+  general_information:
+    source:
+      class: pyramid_oereb.contrib.data_sources.standard.sources.general_information.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation
+
+  real_estate_type:
+    source:
+      class: pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType
+
+  law_status_labels:
+    source:
+      class: pyramid_oereb.contrib.data_sources.standard.sources.law_status.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus
