@@ -19,8 +19,9 @@ to it. So changes take effect.
 
 To run the tests:
 
-1. Start the dev database with ``docker-compose up -d oereb-db`` (with the default config, this uses the default Postgres port on your machine)
-2. Run the tests with ``make tests`` (this will install the virtual environment on your machine if it's not already installed)
+1. Run ``make build`` (this will install the virtual environment on your machine if it's not already installed)
+2. Start the dev database with ``docker-compose up -d oereb-db`` (with the default config, this uses the default Postgres port on your machine)
+3. Run the tests with ``make tests``
 
 To run one specfic test:
 
@@ -64,7 +65,7 @@ Local testing for versions V1
 Run dev server
 --------------
 
-Following packages are required: ``python3-dev`` ``libgeos-dev`` ``python3-venv`` ``postgresql-client`` ``libpq-dev``
+Following packages are required: ``python3-dev`` ``libgeos-dev`` ``python3-venv`` ``postgresql-client`` ``libpq-dev`` ``xsltproc``
 
 Clone project:
 
