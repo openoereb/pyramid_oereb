@@ -64,134 +64,133 @@ def test_getegrid_ident(pyramid_test_config, schema_json_extract, geometry):
             assert 'coordinates' in real_estates[0]['limit']
 
 
-def test_getegrid_en():
-    with pyramid_oereb_test_config():
-        url = 'http://example.com/oereb/getegrid/json/?EN=2,0'
-        request = MockRequest(
-            current_route_url=url
-        )
+def test_getegrid_en(pyramid_test_config, schema_json_extract):
+    del pyramid_test_config
 
-        # Add params to matchdict as the view will do it for /getegrid/{format}/
-        request.matchdict.update({
-          'format': u'json'
-        })
-        request.params.update({
-            'EN': '2,0'
-        })
-        webservice = PlrWebservice(request)
-        response = webservice.get_egrid().json
-        with open(schema_json_extract) as f:
-            schema = json.loads(f.read())
-        Draft4Validator.check_schema(schema)
-        validator = Draft4Validator(schema)
-        validator.validate(response)
-        assert isinstance(response, dict)
-        real_estates = response.get('GetEGRIDResponse')
-        assert isinstance(real_estates, list)
-        assert len(real_estates) == 2
-        assert real_estates[0]['egrid'] == u'TEST'
-        assert real_estates[0]['number'] == u'1000'
-        assert real_estates[0]['identDN'] == u'BLTEST'
+    url = 'http://example.com/oereb/getegrid/json/?EN=2,0'
+    request = MockRequest(
+        current_route_url=url
+    )
 
-
-def test_getegrid_gnss():
-    with pyramid_oereb_test_config():
-        request = MockRequest(
-            current_route_url='http://example.com/oereb/getegrid/json/?GNSS=32.1244978460310,-19.917989937473'
-        )
-
-        # Add params to matchdict as the view will do it for /getegrid/{format}/
-        request.matchdict.update({
-          'format': u'json'
-        })
-        request.params.update({
-            'GNSS': '32.1244978460310,-19.917989937473'
-        })
-        webservice = PlrWebservice(request)
-        response = webservice.get_egrid().json
-        with open(schema_json_extract) as f:
-            schema = json.loads(f.read())
-        Draft4Validator.check_schema(schema)
-        validator = Draft4Validator(schema)
-        validator.validate(response)
-        assert isinstance(response, dict)
-        real_estates = response.get('GetEGRIDResponse')
-        assert isinstance(real_estates, list)
-        assert len(real_estates) == 1
-        assert real_estates[0]['egrid'] == u'TEST'
-        assert real_estates[0]['number'] == u'1000'
-        assert real_estates[0]['identDN'] == u'BLTEST'
+    # Add params to matchdict as the view will do it for /getegrid/{format}/
+    request.matchdict.update({
+        'format': u'json'
+    })
+    request.params.update({
+        'EN': '2,0'
+    })
+    webservice = PlrWebservice(request)
+    response = webservice.get_egrid().json
+    Draft4Validator.check_schema(schema_json_extract)
+    validator = Draft4Validator(schema_json_extract)
+    validator.validate(response)
+    assert isinstance(response, dict)
+    real_estates = response.get('GetEGRIDResponse')
+    assert isinstance(real_estates, list)
+    assert len(real_estates) == 2
+    assert real_estates[0]['egrid'] == u'TEST'
+    assert real_estates[0]['number'] == u'1000'
+    assert real_estates[0]['identDN'] == u'BLTEST'
 
 
-def test_getegrid_address():
-    with pyramid_oereb_test_config():
-        request = MockRequest(
-            current_route_url='http://example.com/oereb/getegrid/json/4410/test/10'
-        )
+def test_getegrid_gnss(pyramid_test_config, schema_json_extract):
+    del pyramid_test_config
 
-        # Add params to matchdict as the view will do it for
-        # /getegrid/{format}/{postalcode}/{localisation}/{number}
-        request.matchdict.update({
-            'format': u'json'
-        })
-        request.params.update({
-            'POSTALCODE': u'4410',
-            'LOCALISATION': u'test',
-            'NUMBER': u'10'
-        })
-        webservice = PlrWebservice(request)
-        response = webservice.get_egrid().json
-        with open(schema_json_extract) as f:
-            schema = json.loads(f.read())
-        Draft4Validator.check_schema(schema)
-        validator = Draft4Validator(schema)
-        validator.validate(response)
-        assert isinstance(response, dict)
-        assert response.get('GetEGRIDResponse') is not None
-        assert response.get('GetEGRIDResponse')[0].get('egrid') == u'TEST'
-        assert response.get('GetEGRIDResponse')[0].get('number') == u'1000'
-        assert response.get('GetEGRIDResponse')[0].get('identDN') == u'BLTEST'
+    request = MockRequest(
+        current_route_url='http://example.com/oereb/getegrid/json/?GNSS=32.1244978460310,-19.917989937473'
+    )
 
-
-def test_get_egrid_response():
-    with pyramid_oereb_test_config():
-        request = MockRequest(current_route_url='http://example.com/oereb/getegrid/json/')
-        # Add params to matchdict as the view will do it for /getegrid/{format}/
-        request.matchdict.update({
-          'format': u'json'
-        })
-
-        view_service = ViewServiceRecord({'de': 'test'},
-                                         1,
-                                         1.0,
-                                         None)
-        record = RealEstateRecord('Liegenschaft', 'BL', 'test', 1, 100,
-                                  MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]), view_service,
-                                  number='number', identdn='identdn', egrid='egrid')
-        params = Parameter('json')
-        response = PlrWebservice(request).__get_egrid_response__([record], params).json
-        assert response == {
-            'GetEGRIDResponse': [{
-                'egrid': 'egrid',
-                'number': 'number',
-                'identDN': 'identdn',
-                'type': 'Liegenschaft'
-            }]
-        }
+    # Add params to matchdict as the view will do it for /getegrid/{format}/
+    request.matchdict.update({
+        'format': u'json'
+    })
+    request.params.update({
+        'GNSS': '32.1244978460310,-19.917989937473'
+    })
+    webservice = PlrWebservice(request)
+    response = webservice.get_egrid().json
+    with open(schema_json_extract) as f:
+        schema = json.loads(f.read())
+    Draft4Validator.check_schema(schema)
+    validator = Draft4Validator(schema)
+    validator.validate(response)
+    assert isinstance(response, dict)
+    real_estates = response.get('GetEGRIDResponse')
+    assert isinstance(real_estates, list)
+    assert len(real_estates) == 1
+    assert real_estates[0]['egrid'] == u'TEST'
+    assert real_estates[0]['number'] == u'1000'
+    assert real_estates[0]['identDN'] == u'BLTEST'
 
 
-def test_get_egrid_response_no_content():
-    with pyramid_oereb_test_config():
-        request = MockRequest(current_route_url='http://example.com/oereb/getegrid/json/')
+def test_getegrid_address(pyramid_test_config, schema_json_extract):
+    del pyramid_test_config
 
-        # Add params to matchdict as the view will do it for /getegrid/{format}/
-        request.matchdict.update({
-          'format': u'json'
-        })
+    request = MockRequest(
+        current_route_url='http://example.com/oereb/getegrid/json/4410/test/10'
+    )
 
-        params = Parameter('json')
-        response = PlrWebservice(request).__get_egrid_response__([], params)
-        assert isinstance(response, HTTPNoContent)
+    # Add params to matchdict as the view will do it for
+    # /getegrid/{format}/{postalcode}/{localisation}/{number}
+    request.matchdict.update({
+        'format': u'json'
+    })
+    request.params.update({
+        'POSTALCODE': u'4410',
+        'LOCALISATION': u'test',
+        'NUMBER': u'10'
+    })
+    webservice = PlrWebservice(request)
+    response = webservice.get_egrid().json
+    Draft4Validator.check_schema(schema_json_extract)
+    validator = Draft4Validator(schema_json_extract)
+    validator.validate(response)
+    assert isinstance(response, dict)
+    assert response.get('GetEGRIDResponse') is not None
+    assert response.get('GetEGRIDResponse')[0].get('egrid') == u'TEST'
+    assert response.get('GetEGRIDResponse')[0].get('number') == u'1000'
+    assert response.get('GetEGRIDResponse')[0].get('identDN') == u'BLTEST'
+
+
+def test_get_egrid_response(pyramid_test_config):
+    del pyramid_test_config
+
+    request = MockRequest(current_route_url='http://example.com/oereb/getegrid/json/')
+    # Add params to matchdict as the view will do it for /getegrid/{format}/
+    request.matchdict.update({
+        'format': u'json'
+    })
+
+    view_service = ViewServiceRecord({'de': 'test'},
+                                     1,
+                                     1.0,
+                                     None)
+    record = RealEstateRecord('Liegenschaft', 'BL', 'test', 1, 100,
+                              MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]), view_service,
+                              number='number', identdn='identdn', egrid='egrid')
+    params = Parameter('json')
+    response = PlrWebservice(request).__get_egrid_response__([record], params).json
+    assert response == {
+        'GetEGRIDResponse': [{
+            'egrid': 'egrid',
+            'number': 'number',
+            'identDN': 'identdn',
+            'type': 'Liegenschaft'
+        }]
+    }
+
+
+def test_get_egrid_response_no_content(pyramid_test_config):
+    request = MockRequest(current_route_url='http://example.com/oereb/getegrid/json/')
+
+    # Add params to matchdict as the view will do it for /getegrid/{format}/
+    request.matchdict.update({
+        'format': u'json'
+    })
+
+    params = Parameter('json')
+    response = PlrWebservice(request).__get_egrid_response__([], params)
+    assert isinstance(response, HTTPNoContent)
 
 
 @pytest.mark.parametrize('src,dst,buffer_dist', [

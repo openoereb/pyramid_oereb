@@ -83,8 +83,8 @@ def test_get_egrid_coord(pyramid_test_config, params):
         'LanG': 'dE'
     }
 ])
-def test_get_extract_by_id(params):
-    with pyramid_oereb_test_config() as pyramid_config:
+def test_get_extract_by_id(pyramid_test_config, params):
+    with pyramid_test_config as pyramid_config:
         pyramid_config.add_renderer('pyramid_oereb_extract_json',
                                     'pyramid_oereb.core.renderer.extract.json_.Renderer')
         request = MockRequest()
