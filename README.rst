@@ -65,7 +65,7 @@ Local testing for versions V1
 Run dev server
 --------------
 
-Following packages are required: ``python3-dev`` ``libgeos-dev`` ``python3-venv`` ``postgresql-client`` ``libpq-dev``
+Following packages are required: ``python3-dev`` ``libgeos-dev`` ``python3-venv`` ``postgresql-client`` ``libpq-dev`` ``xsltproc``
 
 Clone project:
 
