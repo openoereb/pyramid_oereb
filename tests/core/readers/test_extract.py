@@ -58,7 +58,7 @@ def test_init(plr_sources, plr_cadastre_authority):
 
 @pytest.mark.run(order=2)
 def test_read(land_use_plans, test_data_contaminated_sites, plr_sources, plr_cadastre_authority,
-                real_estate, municipality):
+              real_estate, municipality):
     from pyramid_oereb.core.readers.extract import ExtractReader
 
     del land_use_plans, test_data_contaminated_sites

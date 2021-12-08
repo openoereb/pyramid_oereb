@@ -14,9 +14,14 @@ file_adapter = FileAdapter()
 @pytest.fixture
 def wms_url_contaminated_sites():
     return {
-        "de": "https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=740&HEIGHT=500&FORMAT=image/png&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb",
-        "fr": "https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=740&HEIGHT=500&FORMAT=image/png&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb",
-        }
+        'de': 'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&'
+              'CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=740&HEIGHT=500&FORMAT=image/png'
+              '&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb',
+        'fr': 'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&'
+              'CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=740&HEIGHT=500&FORMAT=image/png'
+              '&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
+            }
+
 
 @pytest.fixture
 def land_use_plans(pyramid_oereb_test_config, dbsession, transact, wms_url_contaminated_sites):

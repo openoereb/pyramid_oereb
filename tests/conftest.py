@@ -9,7 +9,6 @@ from shapely.geometry import MultiPolygon, Polygon
 from sqlalchemy import create_engine, orm
 
 from pyramid_oereb.core.config import Config
-from pyramid_oereb.core.adapter import DatabaseAdapter
 from pyramid_oereb.core.records.disclaimer import DisclaimerRecord
 from pyramid_oereb.core.records.extract import ExtractRecord
 from pyramid_oereb.core.records.glossary import GlossaryRecord
