@@ -10,7 +10,6 @@ def test_init(pyramid_oereb_test_config):
     from pyramid_oereb.contrib.data_sources.standard.sources.real_estate import DatabaseSource
     from pyramid_oereb.core.adapter import DatabaseAdapter
 
-    print(pyramid_oereb_test_config.get_config())
     source = DatabaseSource(**pyramid_oereb_test_config.get_real_estate_config().get('source').get('params'))
     assert isinstance(source._adapter_, DatabaseAdapter)
     assert source._model_ == RealEstate
