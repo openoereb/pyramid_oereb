@@ -67,9 +67,6 @@ def test_read(land_use_plans, test_data_contaminated_sites, plr_sources, plr_cad
     assert isinstance(extract, ExtractRecord)
     plrs = extract.real_estate.public_law_restrictions
     assert isinstance(plrs, list)
-    print(plrs)
-    print([plr.theme.code for plr in plrs])
-    print(extract.real_estate.limit)
     assert isinstance(plrs[0], PlrRecord)
     assert plrs[3].theme.code == 'ch.BelasteteStandorte'
     assert plrs[3].law_status.code == 'inForce'

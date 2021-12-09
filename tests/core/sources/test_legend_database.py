@@ -16,7 +16,6 @@ def test_init(pyramid_oereb_test_config, model):
     source = DatabaseSource(**{'db_connection': db_url, 'model': model})
     assert isinstance(source._adapter_, DatabaseAdapter)
     assert source._model_ == model
-    print(model)
     assert False
 
 
