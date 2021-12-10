@@ -10,6 +10,7 @@ from pyramid.testing import DummyRequest
 from pyramid_oereb import Config, route_prefix
 from pyramid_oereb.core import get_multilingual_element
 from pyramid_oereb.core.records.documents import DocumentRecord
+from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.sources.plr import PlrRecord
 
 from pyramid_oereb.core.renderer import Base
@@ -275,7 +276,7 @@ class Renderer(Base):
             if isinstance(plr, PlrRecord):
                 plr_dict = {
                     'LegendText': self.get_multilingual_text(plr.legend_text),
-                    'Theme': self.format_theme(plr.theme),
+                    'Theme': self.format_theme(plr.theme, plr.sub_theme),
                     'Lawstatus': {
                         'Code': plr.law_status.code,
                         'Text': self.get_multilingual_text(plr.law_status.title)
@@ -301,8 +302,6 @@ class Renderer(Base):
                     plr_dict['LengthShare'] = plr.length_share
                 if plr.nr_of_points is not None:
                     plr_dict['NrOfPoints'] = plr.nr_of_points
-                if plr.sub_theme is not None:
-                    plr_dict['SubTheme'] = self.format_theme(plr.sub_theme)
                 if plr.type_code is not None:
                     plr_dict['TypeCode'] = plr.type_code
                 if plr.type_code_list is not None:
@@ -451,14 +450,15 @@ class Renderer(Base):
             office_dict['City'] = office.city
         return office_dict
 
-    def format_theme(self, theme):
+    def format_theme(self, theme, sub_theme=None):
         """
         Formats a theme record for rendering according to the federal specification.
 
         Args:
             theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme record to be
                 formatted.
-
+            sub_theme (pyramid_oereb.lib.records.theme.ThemeRecord): The optional sub
+                theme record.
         Returns:
             dict: The formatted dictionary for rendering.
         """
@@ -466,8 +466,11 @@ class Renderer(Base):
             'Code': theme.code,
             'Text': [self.get_localized_text(theme.title)]
         }
-        if theme.sub_code:  # only for sub-themes
-            theme_dict.update({'Sub_Code': theme.sub_code})
+        if isinstance(sub_theme, ThemeRecord):  # only for sub-themes
+            theme_dict.update({
+                'SubCode': sub_theme.sub_code,
+                'Text': [self.get_localized_text(sub_theme.title)]
+            })
 
         return theme_dict
 
@@ -521,7 +524,7 @@ class Renderer(Base):
             'LegendText': self.get_multilingual_text(legend_entry.legend_text),
             'TypeCode': legend_entry.type_code,
             'TypeCodelist': legend_entry.type_code_list,
-            'Theme': self.format_theme(legend_entry.theme)
+            'Theme': self.format_theme(legend_entry.theme, legend_entry.sub_theme)
         }
 
         if self._params.images:
