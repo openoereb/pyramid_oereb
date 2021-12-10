@@ -118,11 +118,15 @@ def test_db_engine(base_engine, test_db_name, test_db_url, config_path):
 
     yield engine
 
-    # do cleanup: disconnect users and DROP DB
-    base_connection.execute('SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE '
-                            f'pg_stat_activity.datname = \'{test_db_name}\' AND pid <> pg_backend_pid();')
-    base_connection.execute('COMMIT')
-    base_connection.execute(f"DROP DATABASE if EXISTS {test_db_name}")
+    # currently there is a problem with teardown of the DB and sessions:
+    # DROP DATABASE may be called while a connection is still alive, this may lead to error messages
+    # therefore, the DB will temporarily be dropped at the beginning of the test instead of a final
+    # cleanup (see above)
+    # # do cleanup: disconnect users and DROP DB
+    # base_connection.execute('SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE '
+    #                         f'pg_stat_activity.datname = \'{test_db_name}\' AND pid <> pg_backend_pid();')
+    # base_connection.execute('COMMIT')
+    # base_connection.execute(f"DROP DATABASE if EXISTS {test_db_name}")
 
 
 @pytest.fixture(scope='session')
