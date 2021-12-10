@@ -14,16 +14,16 @@ def test_mandatory_fields():
         DocumentRecord('AenderungMitVorwirkung', datetime.date(1985, 8, 29))
 
 
-def test_init():
+def test_init(law_test_data, pyramid_oereb_test_config):
     office_record = OfficeRecord({'en': 'name'})
-    law_status = Config.get_law_status_by_law_status_code(u'inKraft')
+    law_status = Config.get_law_status_by_code(u'inKraft')
     record = DocumentRecord(
         DocumentTypeRecord('GesetzlicheGrundlage', {'de': 'Gesetzliche Grundlage'}),
         1, law_status, {'en': 'title'},
         office_record, datetime.date(1985, 8, 29),
         text_at_web={'en': 'http://my.document.com'}
     )
-    assert isinstance(record.document_type, str)
+    assert isinstance(record.document_type, DocumentTypeRecord)
     assert isinstance(record.index, int)
     assert isinstance(record.law_status, LawStatusRecord)
     assert isinstance(record.published_from, datetime.date)
@@ -45,9 +45,9 @@ def test_invalid_document_type():
                        datetime.date(1985, 8, 29))
 
 
-def test_future_document():
+def test_future_document(law_test_data):
     office_record = OfficeRecord({'en': 'name'})
-    law_status = Config.get_law_status_by_law_status_code(u'inKraft')
+    law_status = Config.get_law_status_by_code(u'inKraft')
     record = DocumentRecord(
         DocumentTypeRecord('Hinweis', {'de': 'Hinweis'}),
         1, law_status, {'en': 'title'}, office_record,
@@ -57,9 +57,9 @@ def test_future_document():
     assert not record.published
 
 
-def test_past_document():
+def test_past_document(law_test_data):
     office_record = OfficeRecord({'en': 'name'})
-    law_status = Config.get_law_status_by_law_status_code(u'inKraft')
+    law_status = Config.get_law_status_by_code(u'inKraft')
     record = DocumentRecord(
         DocumentTypeRecord('Hinweis', {'de': 'Hinweis'}),
         1, law_status, {'en': 'title'}, office_record,
@@ -70,13 +70,13 @@ def test_past_document():
     assert not record.published
 
 
-def test_legal_provision():
+def test_legal_provision(law_test_data):
     office_record = OfficeRecord({'en': 'name'})
-    law_status = Config.get_law_status_by_law_status_code(u'inKraft')
+    law_status = Config.get_law_status_by_code(u'inKraft')
     legal_provision = DocumentRecord(
         DocumentTypeRecord('Rechtsvorschrift', {'de': 'Rechtsvorschrift'}),
         1, law_status, {'de': 'title'},
         office_record, datetime.date(1985, 8, 29)
     )
-    assert isinstance(legal_provision.document_type, str)
-    assert legal_provision.document_type == 'Rechtsvorschrift'
+    assert isinstance(legal_provision.document_type, DocumentTypeRecord)
+    assert legal_provision.document_type.code == 'Rechtsvorschrift'

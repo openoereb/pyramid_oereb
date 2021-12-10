@@ -21,7 +21,7 @@ def test_mandatory_fields():
 def create_dummy_plr():
     office = OfficeRecord({'en': 'Office'})
     view_service = ViewServiceRecord({'de': 'http://my.wms.com'}, 1, 1.0)
-    law_status = Config.get_law_status_by_law_status_code(u'inKraft')
+    law_status = Config.get_law_status_by_code(u'inKraft')
     geometry = GeometryRecord(law_status, datetime.date.today(), None, Point(1, 1))
     record = PlrRecord(
         ThemeRecord('code', dict(), 100),
@@ -41,7 +41,7 @@ def create_dummy_plr():
     return record
 
 
-def test_init():
+def test_init(law_test_data):
     record = create_dummy_plr()
     assert record.legend_text == {'en': 'Content'}
     assert record.sub_theme is None
@@ -58,8 +58,8 @@ def test_init():
     (date.today() + timedelta(days=0), None, True),
     (date.today() + timedelta(days=1), None, False)]
 )
-def test_published(published_from, published_until, published):
-    law_status = Config.get_law_status_by_law_status_code(u'inKraft')
+def test_published(published_from, published_until, published, law_test_data):
+    law_status = Config.get_law_status_by_code(u'inKraft')
     theme = ThemeRecord('code', dict(), 100)
     plr_record = PlrRecord(
         theme,
