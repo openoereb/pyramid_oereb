@@ -80,9 +80,8 @@ def base_engine(pyramid_oereb_test_base_config):
 
 
 @pytest.fixture(scope='session')
-def test_db_name(pyramid_oereb_test_base_config):
-    base_db_url = pyramid_oereb_test_base_config.get('app_schema').get('db_connection')
-    split_url = urlsplit(base_db_url)
+def test_db_name(test_db_url):
+    split_url = urlsplit(test_db_url)
     yield split_url.path.strip('/')
 
 
@@ -114,11 +113,6 @@ def test_db_engine(base_engine, test_db_name, test_db_url, config_path):
     # initialize the DB with standard tables via a temp string buffer to hold SQL commands
     sql_file = StringIO()
     create_tables_from_standard_configuration(config_path, sql_file=sql_file)
-    for theme_config in Config.get('plrs'):
-        # force load non standard tables for special tests
-        if not theme_config.get('standard'):
-            theme_config['standard'] = True
-            create_theme_tables_(theme_config, sql_file=sql_file)
     sql_file.seek(0)
     engine.execute(sql_file.read())
 
