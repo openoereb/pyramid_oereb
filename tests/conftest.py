@@ -17,10 +17,7 @@ from pyramid_oereb.core.records.glossary import GlossaryRecord
 from pyramid_oereb.core.records.office import OfficeRecord
 from pyramid_oereb.core.records.real_estate import RealEstateRecord
 from pyramid_oereb.core.records.view_service import ViewServiceRecord
-from pyramid_oereb.contrib.data_sources.create_tables import (
-    create_tables_from_standard_configuration,
-    create_theme_tables_
-)
+from pyramid_oereb.contrib.data_sources.create_tables import create_tables_from_standard_configuration
 
 SCHEMA_JSON_EXTRACT_PATH = './tests/resources/schema/20210415/extract.json'
 SCHEMA_JSON_VERSIONS_PATH = './tests/resources/schema/20210415/versioning.json'
