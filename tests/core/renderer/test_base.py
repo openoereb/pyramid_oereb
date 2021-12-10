@@ -17,7 +17,7 @@ from pyramid_oereb.core.renderer.extract.json_ import Renderer
 from tests.mockrequest import MockRequest
 
 
-def test_call(DummyRenderInfo):
+def test_call(DummyRenderInfo, pyramid_oereb_test_config):
     renderer = Base(DummyRenderInfo())
     assert isinstance(renderer.info, DummyRenderInfo)
     assert renderer.info.name == 'test'
@@ -184,7 +184,7 @@ def test_sort_by_localized_text(DummyRenderInfo):
     u'ch.BelasteteStandorte',
     u'NotExistingTheme',
 ])
-def test_get_symbol_ref(theme_code):
+def test_get_symbol_ref(theme_code, pyramid_test_config):
     request = MockRequest()
     record = LegendEntryRecord(
         ImageRecord(FileAdapter().read('tests/resources/python.svg')),

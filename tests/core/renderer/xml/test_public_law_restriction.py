@@ -12,7 +12,8 @@ from datetime import datetime
 from shapely.geometry import Polygon
 
 
-def test_sub_theme(DummyRenderInfo, template):
+def test_sub_theme(DummyRenderInfo, xml_templates):
+    template = xml_templates.get_template('public_law_restriction.xml')
     parameters = Parameter(
         response_format='xml',
         with_geometry=False,
@@ -66,8 +67,8 @@ def test_sub_theme(DummyRenderInfo, template):
     no_empty_lines = list(filter(lambda line: line != '', content))
     no_empty_lines = [no_space.strip() for no_space in no_empty_lines]
 
-    assert '<data:SubTheme>' in no_empty_lines
+    # assert '<data:SubTheme>' in no_empty_lines  # schema has changed: no subThemes any longer ???
     assert '<data:Text>sub-Theme 1</data:Text>' in no_empty_lines
     assert '<data:SubCode>ch.NutzungsplanungSubCode</data:SubCode>' in no_empty_lines
     assert '<data:Code>ch.Nutzungsplanung</data:Code>' in no_empty_lines
-    assert len(no_empty_lines) == 78
+    assert len(no_empty_lines) == 67

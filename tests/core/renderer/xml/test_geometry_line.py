@@ -20,11 +20,14 @@ def test_line(template, parameters):
     }).decode('utf-8').split('\n')
     expected_content = """
 
-    <gml:LineString gml:id="gml1">
-        <gml:posList>
-            0.0 0.0 1.0 1.0
-        </gml:posList>
-    </gml:LineString>
+    <geometry:coord>
+
+        <geometry:c1>0.0</geometry:c1><geometry:c2>0.0</geometry:c2>
+    </geometry:coord>
+    <geometry:coord>
+
+        <geometry:c1>1.0</geometry:c1><geometry:c2>1.0</geometry:c2>
+    </geometry:coord>
     """.split('\n')
     expected_lines = []
     for line in expected_content:
