@@ -4,7 +4,7 @@ pyramid_oereb:
     name: pyramid_oereb_main
     models: pyramid_oereb.contrib.data_sources.standard.models.main
     db_connection: &main_db_connection
-      postgresql://postgres:postgres@localhost:5432/pyramid_oereb_test
+      postgresql://postgres:postgres@localhost:5432/oereb_test_db
 
     law_status_lookup:
       - data_code: inKraft
@@ -65,6 +65,7 @@ pyramid_oereb:
         - data_code: inKraft
           transfer_code: inKraft
           extract_code: inForce
+      standard: true
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:
@@ -99,6 +100,7 @@ pyramid_oereb:
         - data_code: inKraft
           transfer_code: inKraft
           extract_code: inForce
+      standard: true
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:
@@ -122,6 +124,7 @@ pyramid_oereb:
         - data_code: Hinweis
           transfer_code: Hinweis
           extract_code: Hint
+      standard: true
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:

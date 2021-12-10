@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import pytest
 import json
+from io import StringIO
+from urllib.parse import urlsplit, urlunsplit
 from unittest.mock import patch
 
 from pyramid.testing import testConfig
@@ -15,6 +17,7 @@ from pyramid_oereb.core.records.glossary import GlossaryRecord
 from pyramid_oereb.core.records.office import OfficeRecord
 from pyramid_oereb.core.records.real_estate import RealEstateRecord
 from pyramid_oereb.core.records.view_service import ViewServiceRecord
+from pyramid_oereb.contrib.data_sources.create_tables import create_tables_from_standard_configuration
 
 SCHEMA_JSON_EXTRACT_PATH = './tests/resources/schema/20210415/extract.json'
 SCHEMA_JSON_VERSIONS_PATH = './tests/resources/schema/20210415/versioning.json'
@@ -38,9 +41,9 @@ def pyramid_test_config():
 
 @pytest.fixture(scope='session')
 @pytest.mark.usefixtures('config_path')
-def pyramid_oereb_test_config(config_path):
-    # Load the standard test configuration
-    Config.init(config_path, configsection='pyramid_oereb', init_data=True)
+def pyramid_oereb_test_base_config(config_path):
+    # Load an empty standard test configuration just to be able to retrieve the db connection url
+    Config.init(config_path, configsection='pyramid_oereb', init_data=False)
     return Config
 
 
@@ -62,11 +65,79 @@ def schema_xml_versions():
         return json.load(f)
 
 
+@pytest.fixture(scope='session')
+def base_engine(pyramid_oereb_test_base_config):
+    db_url = pyramid_oereb_test_base_config.get('app_schema').get('db_connection')
+    split_url = urlsplit(db_url)
+    base_db_url = urlunsplit(
+        (split_url.scheme, split_url.netloc, "template1", split_url.query, split_url.fragment)
+    )
+    engine = create_engine(base_db_url)
+    yield engine
+
+
+@pytest.fixture(scope='session')
+def test_db_name(test_db_url):
+    split_url = urlsplit(test_db_url)
+    yield split_url.path.strip('/')
+
+
+@pytest.fixture(scope='session')
+def test_db_url(pyramid_oereb_test_base_config):
+    yield pyramid_oereb_test_base_config.get('app_schema').get('db_connection')
+
+
+@pytest.fixture(scope='session')
+def test_db_engine(base_engine, test_db_name, test_db_url, config_path):
+    """
+    create a new test DB called test_db_name and its engine
+    """
+
+    base_connection = base_engine.connect()
+    # terminate existing connections to be able to DROP the DB
+    base_connection.execute('SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE '
+                            f'pg_stat_activity.datname = \'{test_db_name}\' AND pid <> pg_backend_pid();')
+    # sqlalchemy uses transactions by default, COMMIT end the current transaction and allows
+    # creation and destruction of DB
+    base_connection.execute('COMMIT')
+    base_connection.execute(f"DROP DATABASE if EXISTS {test_db_name}")
+    base_connection.execute('COMMIT')
+    base_connection.execute(f"CREATE DATABASE {test_db_name}")
+
+    engine = create_engine(test_db_url)
+    engine.execute("CREATE EXTENSION POSTGIS")
+
+    # initialize the DB with standard tables via a temp string buffer to hold SQL commands
+    sql_file = StringIO()
+    create_tables_from_standard_configuration(config_path, sql_file=sql_file)
+    sql_file.seek(0)
+    engine.execute(sql_file.read())
+
+    yield engine
+
+    # currently there is a problem with teardown of the DB and sessions:
+    # DROP DATABASE may be called while a connection is still alive, this may lead to error messages
+    # therefore, the DB will temporarily be dropped at the beginning of the test instead of a final
+    # cleanup (see above)
+    # # do cleanup: disconnect users and DROP DB
+    # base_connection.execute('SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE '
+    #                         f'pg_stat_activity.datname = \'{test_db_name}\' AND pid <> pg_backend_pid();')
+    # base_connection.execute('COMMIT')
+    # base_connection.execute(f"DROP DATABASE if EXISTS {test_db_name}")
+
+
+@pytest.fixture(scope='session')
+@pytest.mark.usefixtures('config_path')
+def pyramid_oereb_test_config(config_path, test_db_engine):
+    # Reload the standard test configuration and now initialize it
+    Config._config = None  # needed to force reload due to internal assertion
+    Config.init(config_path, configsection='pyramid_oereb', init_data=True)
+    return Config
+
+
 @pytest.fixture
-def dbsession(pyramid_oereb_test_config):
-    db_url = pyramid_oereb_test_config.get('app_schema').get('db_connection')
-    engine = create_engine(db_url)
-    session = orm.sessionmaker(bind=engine)()
+def dbsession(test_db_engine):
+    session = orm.sessionmaker(bind=test_db_engine)()
     with patch(
         'pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=session
     ), patch.object(
