@@ -18,5 +18,3 @@ def law_test_data(pyramid_oereb_test_config):
             }
     )]):
         yield pyramid_oereb_test_config
-
-

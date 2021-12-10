@@ -67,7 +67,8 @@ def glossary_expected():
     (None, [], None),
     (None, None, None)
 ])
-def test_render(pyramid_oereb_test_config, pyramid_test_config, DummyRenderInfo, parameter, glossaries_input, glossaries_expected, real_estate_test_data):
+def test_render(pyramid_oereb_test_config, pyramid_test_config, DummyRenderInfo,
+                parameter, glossaries_input, glossaries_expected, real_estate_test_data):
     view_service = ViewServiceRecord({'de': u'http://geowms.bl.ch'},
                                      1,
                                      1.0,

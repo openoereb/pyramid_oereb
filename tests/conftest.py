@@ -7,18 +7,10 @@ from urllib.parse import urlsplit, urlunsplit
 from unittest.mock import patch
 
 from pyramid.testing import testConfig
-from pyramid.path import DottedNameResolver
-from shapely.geometry import MultiPolygon, Polygon
 from sqlalchemy import create_engine, orm
 
 import pyramid_oereb
 from pyramid_oereb.core.config import Config
-from pyramid_oereb.core.records.disclaimer import DisclaimerRecord
-from pyramid_oereb.core.records.extract import ExtractRecord
-from pyramid_oereb.core.records.glossary import GlossaryRecord
-from pyramid_oereb.core.records.office import OfficeRecord
-from pyramid_oereb.core.records.real_estate import RealEstateRecord
-from pyramid_oereb.core.records.view_service import ViewServiceRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.document_types import DocumentTypeRecord
 from pyramid_oereb.core.records.law_status import LawStatusRecord
