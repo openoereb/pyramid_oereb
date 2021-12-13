@@ -23,7 +23,8 @@ setup(
     version='2.0.0.b7',
     description='pyramid_oereb, extension for pyramid web frame work to provide '
             'a basic server part for the oereb project',
-    long_description='{readme}\n\n{changes}'.format(readme=README, changes=CHANGES),
+    long_description='FIXME',
+    # long_description='{readme}\n\n{changes}'.format(readme=README, changes=CHANGES),
     long_description_content_type='text/x-rst',
     classifiers=[
         "Development Status :: 5 - Production/Stable",
