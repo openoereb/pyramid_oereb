@@ -95,20 +95,6 @@ pyramid_oereb:
       - data_code: Hinweis
         transfer_code: Hinweis
         extract_code: Hint
-    - code: ch.ProjektierungszonenNationalstrassen
-      law_status_lookup:
-        - data_code: inKraft
-          transfer_code: inKraft
-          extract_code: inForce
-      standard: true
-      source:
-        class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
-        params:
-          db_connection: *main_db_connection
-          # model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_integer_pk
-          # uncomment line above and comment line below to use integer type for primary keys
-          model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
-          schema_name: motorways_project_planing_zones
     - code: ch.BelasteteStandorte
       law_status_lookup:
         - data_code: inKraft
