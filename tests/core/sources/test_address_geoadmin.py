@@ -34,7 +34,7 @@ def test_init(i, cfg):
 
 
 @pytest.mark.parametrize('status_code', [200, 400])
-def test_read(status_code):
+def test_read(pyramid_oereb_test_config, status_code):
     response = {
         'results': [
             {
