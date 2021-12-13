@@ -6,7 +6,8 @@ from shapely.geometry import Polygon
 
 
 @pytest.mark.parametrize('parameters', params)  # noqa
-def test_polygon(template, parameters):
+def test_polygon(xml_templates, parameters):
+    template = xml_templates.get_template('geometry/polygon.xml')
     polygon = Polygon(
         ((0, 0), (0, 1), (1, 1), (1, 0), (0, 0)),
         [((0.25, 0.25), (0.25, 0.75), (0.75, 0.75), (0.75, 0.25), (0.25, 0.25))]
@@ -22,23 +23,60 @@ def test_polygon(template, parameters):
         'get_gml_id': get_gml_id
     }).decode('utf-8').split('\n')
     expected_content = """
+    <geometry:exterior>
+      <geometry:polyline>
 
-    <gml:Polygon gml:id="gml1">
-        <gml:exterior>
-            <gml:LinearRing>
-                <gml:posList>
-                    0.0 0.0 0.0 1.0 1.0 1.0 1.0 0.0 0.0 0.0
-                </gml:posList>
-            </gml:LinearRing>
-        </gml:exterior>
-        <gml:interior>
-            <gml:LinearRing>
-                <gml:posList>
-                    0.25 0.25 0.25 0.75 0.75 0.75 0.75 0.25 0.25 0.25
-                </gml:posList>
-            </gml:LinearRing>
-        </gml:interior>
-    </gml:Polygon>
+
+        <geometry:coord>
+
+        <geometry:c1>0.0</geometry:c1><geometry:c2>0.0</geometry:c2>
+        </geometry:coord>
+        <geometry:coord>
+
+        <geometry:c1>0.0</geometry:c1><geometry:c2>1.0</geometry:c2>
+        </geometry:coord>
+        <geometry:coord>
+
+        <geometry:c1>1.0</geometry:c1><geometry:c2>1.0</geometry:c2>
+        </geometry:coord>
+        <geometry:coord>
+
+        <geometry:c1>1.0</geometry:c1><geometry:c2>0.0</geometry:c2>
+        </geometry:coord>
+        <geometry:coord>
+
+        <geometry:c1>0.0</geometry:c1><geometry:c2>0.0</geometry:c2>
+        </geometry:coord>
+
+      </geometry:polyline>
+    </geometry:exterior>
+    <geometry:interior>
+      <geometry:polyline>
+
+
+        <geometry:coord>
+
+        <geometry:c1>0.25</geometry:c1><geometry:c2>0.25</geometry:c2>
+        </geometry:coord>
+        <geometry:coord>
+
+        <geometry:c1>0.25</geometry:c1><geometry:c2>0.75</geometry:c2>
+        </geometry:coord>
+        <geometry:coord>
+
+        <geometry:c1>0.75</geometry:c1><geometry:c2>0.75</geometry:c2>
+        </geometry:coord>
+        <geometry:coord>
+
+        <geometry:c1>0.75</geometry:c1><geometry:c2>0.25</geometry:c2>
+        </geometry:coord>
+        <geometry:coord>
+
+        <geometry:c1>0.25</geometry:c1><geometry:c2>0.25</geometry:c2>
+        </geometry:coord>
+
+        </geometry:polyline>
+        </geometry:interior>
     """.split('\n')
     expected_lines = []
     for line in expected_content:

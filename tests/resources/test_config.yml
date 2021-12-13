@@ -4,7 +4,7 @@ pyramid_oereb:
     name: pyramid_oereb_main
     models: pyramid_oereb.contrib.data_sources.standard.models.main
     db_connection: &main_db_connection
-      postgresql://postgres:postgres@localhost:5432/oereb_test_db
+      postgresql://postgres:postgres@localhost:5433/oereb_test_db
 
     law_status_lookup:
       - data_code: inKraft
@@ -119,6 +119,9 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: contaminated_sites
+      hooks:
+        get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
       thresholds:
         length:
           limit: 1.0
@@ -197,6 +200,13 @@ pyramid_oereb:
     Bergwerk: "Bergwerk"
 
   real_estate_type:
+    lookup:
+      - data_code: Liegenschaft
+        transfer_code: Liegenschaft
+        extract_code: RealEstate
+      - data_code: SelbstRecht.Baurecht
+        transfer_code: SelbstRecht.Baurecht
+        extract_code: Distinct_and_permanent_rights.BuildingRight
     source:
       class: pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource
       params:
