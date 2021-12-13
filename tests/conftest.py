@@ -18,6 +18,10 @@ from pyramid_oereb.core.records.glossary import GlossaryRecord
 from pyramid_oereb.core.records.office import OfficeRecord
 from pyramid_oereb.core.records.real_estate import RealEstateRecord
 from pyramid_oereb.core.records.view_service import ViewServiceRecord
+from pyramid_oereb.core.records.theme import ThemeRecord
+from pyramid_oereb.core.records.document_types import DocumentTypeRecord
+from pyramid_oereb.core.records.law_status import LawStatusRecord
+from pyramid_oereb.core.records.logo import LogoRecord
 from pyramid_oereb.contrib.data_sources.create_tables import create_tables_from_standard_configuration
 
 SCHEMA_JSON_EXTRACT_PATH = './tests/resources/schema/20210415/extract.json'
@@ -59,6 +63,30 @@ def schema_xml_versions():
 
 
 @pytest.fixture(scope='session')
+def theme_test_data():
+    with open('dev/sample_data/dev.themes.json') as f:
+        return [ThemeRecord(**theme) for theme in json.load(f)]
+
+
+@pytest.fixture(scope='session')
+def law_status_test_data():
+    with open('dev/sample_data/dev.law_status.json') as f:
+        return [LawStatusRecord(**status) for status in json.load(f)]
+
+
+@pytest.fixture(scope='session')
+def document_type_test_data():
+    with open('dev/sample_data/dev.document_type.json') as f:
+        return [DocumentTypeRecord(**doc_type) for doc_type in json.load(f)]
+
+
+@pytest.fixture(scope='session')
+def logo_test_data():
+    with open('dev/sample_data/dev.logo.json') as f:
+        return [LogoRecord(logo['code'], logo['logo']) for logo in json.load(f)]
+
+
+@pytest.fixture(scope='session')
 def base_engine(test_db_url):
     split_url = urlsplit(test_db_url)
     base_db_url = urlunsplit(
@@ -75,6 +103,7 @@ def test_db_name(test_db_url):
 
 
 @pytest.fixture(scope='session')
+@pytest.mark.usefixtures('config_path')
 def test_db_url(config_path):
     with open(config_path, encoding='utf-8') as f:
         content = yaml.safe_load(f.read())
@@ -130,7 +159,7 @@ def pyramid_oereb_test_config(config_path, dbsession):
     return Config
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def dbsession(test_db_engine):
     session = orm.sessionmaker(bind=test_db_engine)()
     with patch(

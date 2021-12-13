@@ -1,28 +1,27 @@
 [
     {
-        "id": "ch.Nutzungsplanungch.SubTheme",
         "code": "ch.Nutzungsplanung",
-        "sub_code": "ch.SubTheme",
+        "sub_code": null,
         "title": {
-            "de": "SubTheme",
-            "fr": "SubTheme",
-            "it": "SubTheme",
-            "rm": "SubTheme",
-            "en": "SubTheme"
+            "de": "Nutzungsplanung (kantonal/kommunal)",
+            "fr": "Plans d’affectation (cantonaux/communaux)",
+            "it": "Piani di utilizzazione (cantonali/comunali)",
+            "rm": "Planisaziun d’utilisaziun (chantunal/communal)",
+            "en": "Land use plans (cantonal/municipal)"
         },
-        "extract_index": 22
+        "extract_index": 1
     },
     {
-        "id": "ch.Nutzungsplanungch.Baulinien",
-        "code": "ch.Nutzungsplanung",
-        "sub_code": "ch.Baulinien",
+        "code": "ch.BelasteteStandorte",
+        "sub_code": null,
         "title": {
-            "de": "Baulinien",
-            "fr": "Alignements",
-            "it": "Allineamenti",
-            "rm": "Lingias da construcziun",
-            "en": "Building lines"
+            "de": "Kataster der belasteten Standorte",
+            "fr": "Cadastre des sites pollués",
+            "it": "Catasto dei siti inquinati",
+            "rm": "Cataster dals lieus contaminads",
+            "en": "Cadastre of contaminated sites"
         },
-        "extract_index": 21
+        "extract_index": 200,
+        "document_records": []
     }
 ]
