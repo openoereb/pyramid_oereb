@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.0.0.b7
+--------
+- Fix sub-theme generation
+
 2.0.0.b6
 --------
 - Improvements in error logging
