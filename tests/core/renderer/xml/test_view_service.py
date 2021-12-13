@@ -11,7 +11,7 @@ def view_template(xml_templates):
     return xml_templates.get_template('view_service.xml')
 
 
-def test_empty(view_template):
+def test_empty(view_template, pyramid_oereb_test_config):
     map = ViewServiceRecord(
         reference_wms=dict(),
         layer_index=0,
@@ -27,7 +27,7 @@ def test_empty(view_template):
     assert len(content) == 4
 
 
-def test_reference_wms(DummyRenderInfo, view_template):
+def test_reference_wms(DummyRenderInfo, view_template, pyramid_oereb_test_config):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = 'de'
     map = ViewServiceRecord(

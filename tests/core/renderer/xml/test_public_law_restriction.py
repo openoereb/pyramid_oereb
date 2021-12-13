@@ -12,7 +12,7 @@ from datetime import datetime
 from shapely.geometry import Polygon
 
 
-def test_sub_theme(DummyRenderInfo, xml_templates):
+def test_sub_theme(DummyRenderInfo, xml_templates, pyramid_oereb_test_config):
     template = xml_templates.get_template('public_law_restriction.xml')
     parameters = Parameter(
         response_format='xml',

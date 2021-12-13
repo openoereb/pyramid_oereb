@@ -6,7 +6,7 @@ from pyramid_oereb.core.views.webservice import Parameter
 from tests.mockrequest import MockRequest
 
 
-def test_sub_theme(DummyRenderInfo, xml_templates):
+def test_sub_theme(DummyRenderInfo, xml_templates, pyramid_oereb_test_config):
     template = xml_templates.get_template('legend_entry.xml')
     parameters = Parameter(
         response_format='xml',

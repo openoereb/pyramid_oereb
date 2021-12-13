@@ -244,7 +244,7 @@ def test_extract_collection(input_geom, result, extracted):
         )
     ]
 )
-def test_calculate(geometry, real_estate_geometry, length_limit, area_limit, length_share, area_share,
+def test_calculate(pyramid_oereb_test_config, geometry, real_estate_geometry, length_limit, area_limit, length_share, area_share,
                    nr_of_points, test):
     law_status_record = LawStatusRecord("AenderungMitVorwirkung", {u'de': u'BlaBla'})
     geometry_record = GeometryRecord(

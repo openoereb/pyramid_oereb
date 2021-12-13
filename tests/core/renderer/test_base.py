@@ -68,7 +68,7 @@ def test_get_localized_text_from_string(DummyRenderInfo):
     ('en', u'This is a test'),
     ('fr', u'Dies ist ein Test')  # fr not available; use default language (de)
 ])
-def test_get_localized_text_from_dict(DummyRenderInfo, language, result):
+def test_get_localized_text_from_dict(DummyRenderInfo, language, result, pyramid_oereb_test_config):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = language
     multilingual_text = {
@@ -112,7 +112,7 @@ def test_get_localized_text_from_dict_no_default(DummyRenderInfo, language, resu
     ('en', u'This is a test'),
     ('fr', u'Dies ist ein Test')  # fr not available; use default language (de)
 ])
-def test_get_multilingual_text_from_dict(DummyRenderInfo, language, result):
+def test_get_multilingual_text_from_dict(DummyRenderInfo, language, result, pyramid_oereb_test_config):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = language
     multilingual_text = {
@@ -184,7 +184,7 @@ def test_sort_by_localized_text(DummyRenderInfo):
     u'ch.BelasteteStandorte',
     u'NotExistingTheme',
 ])
-def test_get_symbol_ref(theme_code, pyramid_test_config):
+def test_get_symbol_ref(theme_code, pyramid_test_config, pyramid_oereb_test_config):
     request = MockRequest()
     record = LegendEntryRecord(
         ImageRecord(FileAdapter().read('tests/resources/python.svg')),
