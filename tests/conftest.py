@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 import json
+import yaml
 from io import StringIO
 from urllib.parse import urlsplit, urlunsplit
 from unittest.mock import patch
@@ -39,14 +40,6 @@ def pyramid_test_config():
         return pyramid_config
 
 
-@pytest.fixture(scope='session')
-@pytest.mark.usefixtures('config_path')
-def pyramid_oereb_test_base_config(config_path):
-    # Load an empty standard test configuration just to be able to retrieve the db connection url
-    Config.init(config_path, configsection='pyramid_oereb', init_data=False)
-    return Config
-
-
 @pytest.fixture(scope='function')
 def schema_json_extract():
     with open(SCHEMA_JSON_EXTRACT_PATH) as f:
@@ -66,9 +59,8 @@ def schema_xml_versions():
 
 
 @pytest.fixture(scope='session')
-def base_engine(pyramid_oereb_test_base_config):
-    db_url = pyramid_oereb_test_base_config.get('app_schema').get('db_connection')
-    split_url = urlsplit(db_url)
+def base_engine(test_db_url):
+    split_url = urlsplit(test_db_url)
     base_db_url = urlunsplit(
         (split_url.scheme, split_url.netloc, "template1", split_url.query, split_url.fragment)
     )
@@ -83,8 +75,10 @@ def test_db_name(test_db_url):
 
 
 @pytest.fixture(scope='session')
-def test_db_url(pyramid_oereb_test_base_config):
-    yield pyramid_oereb_test_base_config.get('app_schema').get('db_connection')
+def test_db_url(config_path):
+    with open(config_path, encoding='utf-8') as f:
+        content = yaml.safe_load(f.read())
+    yield content.get('pyramid_oereb').get('app_schema').get('db_connection')
 
 
 @pytest.fixture(scope='session')
@@ -128,7 +122,8 @@ def test_db_engine(base_engine, test_db_name, test_db_url, config_path):
 
 @pytest.fixture(scope='session')
 @pytest.mark.usefixtures('config_path')
-def pyramid_oereb_test_config(config_path, test_db_engine):
+def pyramid_oereb_test_config(config_path, dbsession):
+    del dbsession
     # Reload the standard test configuration and now initialize it
     Config._config = None  # needed to force reload due to internal assertion
     Config.init(config_path, configsection='pyramid_oereb', init_data=True)
