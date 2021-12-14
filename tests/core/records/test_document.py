@@ -53,17 +53,25 @@ def test_invalid_document_type():
 
 
 @pytest.mark.parametrize(
-    'published_from,published_until, result',[
-        # tests based on a date
-        ((datetime.datetime.now().date() + datetime.timedelta(days=7)), None, False), # future document date
-        ((datetime.datetime.now().date() - datetime.timedelta(days=7)), (datetime.datetime.now().date() - datetime.timedelta(days=6)), False), # past document date
-        ((datetime.datetime.now().date() - datetime.timedelta(days=7)), None, True), # published document date
-        ((datetime.datetime.now().date() - datetime.timedelta(days=7)), (datetime.datetime.now().date() + datetime.timedelta(days=6)), True), # published document date
-        # tests based on a datetime
-        ((datetime.datetime.now() + datetime.timedelta(days=7)), None, False), # future document date
-        ((datetime.datetime.now() - datetime.timedelta(days=7)), (datetime.datetime.now() - datetime.timedelta(days=6)), False), # past document date
-        ((datetime.datetime.now() - datetime.timedelta(days=7)), None, True), # published document date
-        ((datetime.datetime.now() - datetime.timedelta(days=7)), (datetime.datetime.now() + datetime.timedelta(days=6)), True), # published document date
+    'published_from,published_until, result', [
+        #  tests based on a date
+        #  future document date
+        ((datetime.datetime.now().date() + datetime.timedelta(days=7)), None, False),  # noqa: E501
+        #  past document date
+        ((datetime.datetime.now().date() - datetime.timedelta(days=7)), (datetime.datetime.now().date() - datetime.timedelta(days=6)), False),  # noqa: E501
+        #  published document date
+        ((datetime.datetime.now().date() - datetime.timedelta(days=7)), None, True),  # noqa: E501
+        #  published document date
+        ((datetime.datetime.now().date() - datetime.timedelta(days=7)), (datetime.datetime.now().date() + datetime.timedelta(days=6)), True),  # noqa: E501
+        #  tests based on a datetime
+        #  future document date
+        ((datetime.datetime.now() + datetime.timedelta(days=7)), None, False),  # noqa: E501
+        #  past document date
+        ((datetime.datetime.now() - datetime.timedelta(days=7)), (datetime.datetime.now() - datetime.timedelta(days=6)), False),  # noqa: E501
+        #  published document date
+        ((datetime.datetime.now() - datetime.timedelta(days=7)), None, True),  # noqa: E501
+        #  published document date
+        ((datetime.datetime.now() - datetime.timedelta(days=7)), (datetime.datetime.now() + datetime.timedelta(days=6)), True)  # noqa: E501
     ]
 )
 def test_published(published_from, published_until, result):
@@ -78,7 +86,7 @@ def test_published(published_from, published_until, result):
         }
     )
     record = DocumentRecord(
-        DocumentTypeRecord('Hinweis',{'de': 'Hinweis'}),
+        DocumentTypeRecord('Hinweis', {'de': 'Hinweis'}),
         1, law_status, {'en': 'title'}, office_record,
         published_from,
         published_until=published_until,
@@ -105,6 +113,7 @@ def test_legal_provision(law_test_data):
     )
     assert isinstance(legal_provision.document_type, DocumentTypeRecord)
     assert legal_provision.document_type.code == 'Rechtsvorschrift'
+
 
 def test_wrong_types():
     record = DocumentRecord(
@@ -170,6 +179,7 @@ def testarticle_numbers_init():
     )
     assert len(record.article_numbers) == 1
 
+
 def test_serialize():
     record = DocumentRecord(
         DocumentTypeRecord('Rechtsvorschrift', {'de': 'Rechtsvorschrift'}),
@@ -187,6 +197,7 @@ def test_serialize():
         1
     )
     assert isinstance(record.__str__(), str)
+
 
 def test_copy():
     record = DocumentRecord(

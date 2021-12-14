@@ -1847,8 +1847,8 @@ class Config(object):
         Calculates the image size for the map if extract_format is "pdf" or returns configured size.
 
         Args:
-            extract_format (str): The format which is requested. If it is pdf some special handling takes place to
-                provide a HIDPI image.
+            extract_format (str): The format which is requested. If it is pdf some special
+                handling takes place to provide a HIDPI image.
         Returns:
             list of int: The size wrapped in a list of the form [width, height] in pixels.
         """

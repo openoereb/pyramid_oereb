@@ -146,8 +146,18 @@ class Processor(object):
         language = language or Config.get('default_language')
         map_size = Config.get_map_size(extract_format)
         bbox = Config.get_bbox(real_estate.limit)
-        real_estate.plan_for_land_register.get_full_wms_url(language, map_size[0], map_size[1], bbox)
-        real_estate.plan_for_land_register_main_page.get_full_wms_url(language, map_size[0], map_size[1], bbox)
+        real_estate.plan_for_land_register.get_full_wms_url(
+            language,
+            map_size[0],
+            map_size[1],
+            bbox
+        )
+        real_estate.plan_for_land_register_main_page.get_full_wms_url(
+            language,
+            map_size[0],
+            map_size[1],
+            bbox
+        )
         if images:
             real_estate.plan_for_land_register.download_wms_content(language)
             real_estate.plan_for_land_register_main_page.download_wms_content(language)

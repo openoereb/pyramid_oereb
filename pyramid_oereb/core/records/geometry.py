@@ -125,8 +125,8 @@ class GeometryRecord(object):
             min_area (float): The threshold to consider or not a surface element.
             length_unit (unicode): The thresholds unit for area calculation.
             area_unit (unicode): The thresholds unit for area calculation.
-            geometry_types (dict): The allowed geometry types for the to match the simple feature types point, line,
-                polygon
+            geometry_types (dict): The allowed geometry types for the to match the simple feature
+                types point, line, polygon
 
         Returns:
             bool: True if intersection fits the limits.

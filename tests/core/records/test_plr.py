@@ -31,6 +31,7 @@ law_status = LawStatusRecord(
         }
     )
 
+
 def test_mandatory_fields():
     with pytest.raises(TypeError):
         PlrRecord()
@@ -95,6 +96,7 @@ def test_published(published_from, published_until, published):
         ViewServiceRecord({'de': 'http://my.wms.com'}, 1, 1.0, 'de', 2056, None, None),
         [GeometryRecord(law_status, datetime.date.today(), None, Point(1, 1))])
     assert plr_record.published == published
+
 
 def test_wrong_legend_entry_text_type():
     theme = ThemeRecord('code', dict(), 100)
@@ -165,18 +167,21 @@ def test_serialization():
     )
     assert isinstance(plr_record.__str__(), str)
 
+
 @pytest.mark.parametrize(
     'geometry_record,test,method', [
-        (GeometryRecord(law_status, datetime.date.today(), None, Point(0.5, 0.5)), 1, '_sum_points'),
-        (GeometryRecord(law_status, datetime.date.today(), None, LineString([(0, 0), (0, 1)])), 1, '_sum_length'),
-        (GeometryRecord(law_status, datetime.date.today(), None, Polygon([(0, 0), (1, 1), (1, 0)])), 0.5, '_sum_area')
+        (GeometryRecord(law_status, datetime.date.today(), None, Point(0.5, 0.5)), 1, '_sum_points'),  # noqa: E501
+        (GeometryRecord(law_status, datetime.date.today(), None, LineString([(0, 0), (0, 1)])), 1, '_sum_length'),  # noqa: E501
+        (GeometryRecord(law_status, datetime.date.today(), None, Polygon([(0, 0), (1, 1), (1, 0)])), 0.5, '_sum_area')  # noqa: E501
     ]
 )
 def test_sum_points(geometry_record, test, method):
 
     theme = ThemeRecord('code', dict(), 100)
-    real_estate_record = RealEstateRecord('test_type', 'BL', 'Nusshof', 1, 100,
-                              loads('POLYGON((0 0, 0 10, 10 10, 10 0, 0 0))'))
+    real_estate_record = RealEstateRecord(
+        'test_type', 'BL', 'Nusshof', 1, 100,
+        loads('POLYGON((0 0, 0 10, 10 10, 10 0, 0 0))')
+    )
     geometry_record.calculate(real_estate_record, 0.1, 0.1, 'm', 'm2', geometry_types)
     plr_record = PlrRecord(
         theme,
@@ -197,4 +202,4 @@ def test_sum_points(geometry_record, test, method):
         [geometry_record],
         documents=[]
     )
-    assert getattr(plr_record,method)() == test
+    assert getattr(plr_record, method)() == test

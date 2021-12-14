@@ -26,6 +26,7 @@ def test_init():
     assert isinstance(record.title, dict)
     assert isinstance(record.content, dict)
 
+
 def test_wrong_types():
     record = DisclaimerRecord('titel', 'content')
     assert isinstance(record.title, str)

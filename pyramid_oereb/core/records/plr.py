@@ -176,8 +176,8 @@ class PlrRecord(EmptyPlrRecord):
 
         Args:
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate record.
-            geometry_types (dict): The allowed geometry types for the to match the simple feature types point, line,
-                polygon
+            geometry_types (dict): The allowed geometry types for the to match the simple
+            feature types point, line, polygon
 
         Returns:
             bool: True if intersection fits the limits.

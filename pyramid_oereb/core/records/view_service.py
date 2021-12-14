@@ -55,7 +55,8 @@ class ViewServiceRecord(object):
     A view service contains a valid WMS URL with a defined set of layers.
     """
 
-    def __init__(self, reference_wms, layer_index, layer_opacity, default_language, srid, proxies=None, legends=None):
+    def __init__(self, reference_wms, layer_index, layer_opacity, default_language,
+                 srid, proxies=None, legends=None):
         """
 
         Args:

@@ -19,6 +19,7 @@ def test_init():
     assert isinstance(record.document_id, str)
     assert isinstance(record.article_numbers, list)
 
+
 def test_serialization():
     record = ThemeDocumentRecord(
         'theme_id',

@@ -38,7 +38,7 @@ def create_dummy_extract():
     ))
     plr_office = OfficeRecord({u'en': u'PLR Authority'})
     resolver = DottedNameResolver()
-    date_method_string = 'pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_update_date'
+    date_method_string = 'pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_update_date'  # noqa: E501
     date_method = resolver.resolve(date_method_string)
     update_date_os = date_method(real_estate)
     record = ExtractRecord(
@@ -73,6 +73,7 @@ def test_init(pyramid_oereb_test_config):
     assert isinstance(record.glossaries, list)
     assert isinstance(record.plr_cadastre_authority, OfficeRecord)
     assert isinstance(record.update_date_os, datetime.datetime)
+
 
 def test_wrong_types():
     record = ExtractRecord(

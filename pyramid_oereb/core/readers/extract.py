@@ -8,7 +8,6 @@ from timeit import default_timer as timer
 from pyramid_oereb.core.config import Config
 from pyramid_oereb.core.records.extract import ExtractRecord
 from pyramid_oereb.core.records.plr import PlrRecord, EmptyPlrRecord
-from pyramid_oereb.core.records.view_service import ViewServiceRecord
 
 log = logging.getLogger(__name__)
 
