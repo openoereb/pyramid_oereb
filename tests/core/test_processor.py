@@ -2,6 +2,7 @@
 import datetime
 import pytest
 from shapely.geometry import Point
+from unittest.mock import patch
 
 from pyramid_oereb.core.processor import Processor, create_processor
 from pyramid_oereb.core.records.extract import ExtractRecord
@@ -12,6 +13,7 @@ from pyramid_oereb.core.records.plr import PlrRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.law_status import LawStatusRecord
 from pyramid_oereb.core.records.view_service import ViewServiceRecord, LegendEntryRecord
+from pyramid_oereb.core.records.municipality import MunicipalityRecord
 from pyramid_oereb.core.readers.disclaimer import DisclaimerReader
 from pyramid_oereb.core.readers.extract import ExtractReader
 from pyramid_oereb.core.readers.glossary import GlossaryReader
@@ -31,8 +33,35 @@ request_params = {
     'EGRID': 'TEST'
 }
 
+@pytest.fixture
+def real_estate_data(dbsession, transact):
+    from pyramid_oereb.contrib.data_sources.standard.models.main import RealEstate
+    del transact
+    real_estates = [
+        RealEstate(**{
+            'id': '1',
+            'egrid': u'TEST',
+            'number': u'1000',
+            'identdn': u'BLTEST',
+            'type': u'RealEstate',
+            'canton': u'BL',
+            'municipality': u'Liestal',
+            'fosnr': 1234,
+            'land_registry_area': 4,
+            'limit': 'SRID=2056;MULTIPOLYGON(((0 0, 0 2, 2 2, 2 0, 0 0)))'
+        })
+    ]
+    dbsession.add_all(real_estates)
+    dbsession.flush()
+    yield real_estates
 
-pytestmark = pytest.mark.skip
+
+@pytest.fixture
+def processor_data(pyramid_oereb_test_config, main_schema):
+    with patch(
+        'pyramid_oereb.core.readers.municipality.MunicipalityReader.read', return_value=[MunicipalityRecord(1234, 'test', True)]
+    ):
+        yield pyramid_oereb_test_config
 
 
 def test_missing_params():
@@ -40,7 +69,7 @@ def test_missing_params():
         Processor()
 
 
-def test_properties():
+def test_properties(pyramid_oereb_test_config):
     processor = create_processor()
     assert isinstance(processor.extract_reader, ExtractReader)
     assert isinstance(processor.municipality_reader, MunicipalityReader)
@@ -50,7 +79,7 @@ def test_properties():
     assert isinstance(processor.real_estate_reader, RealEstateReader)
 
 
-def test_process():
+def test_process(processor_data, real_estate_data):
     request = MockRequest()
     request.matchdict.update(request_matchdict)
     request.params.update(request_params)
@@ -62,7 +91,7 @@ def test_process():
     assert isinstance(extract, ExtractRecord)
 
 
-def test_process_geometry_testing():
+def test_process_geometry_testing(processor_data, real_estate_data, land_use_plans):
     request = MockRequest()
     request.matchdict.update(request_matchdict)
     request.params.update(request_params)
@@ -71,12 +100,14 @@ def test_process_geometry_testing():
     params = webservice.__validate_extract_params__()
     real_estate = processor.real_estate_reader.read(params, egrid=u'TEST')
     extract = processor.process(real_estate[0], params, 'http://test.ch')
-    for plr in extract.real_estate.public_law_restrictions:
+    plrs = extract.real_estate.public_law_restrictions
+    assert len(plrs) == 1
+    for plr in plrs:
         for g in plr.geometries:
             assert g._test_passed
 
 
-def test_filter_published_documents():
+def test_filter_published_documents(processor_data, real_estate_data, main_schema, land_use_plans):
     request = MockRequest()
     request.matchdict.update(request_matchdict)
     request.params.update(request_params)
@@ -85,12 +116,14 @@ def test_filter_published_documents():
     params = webservice.__validate_extract_params__()
     real_estate = processor.real_estate_reader.read(params, egrid=u'TEST')
     extract = processor.process(real_estate[0], params, 'http://test.ch')
-    for plr in extract.real_estate.public_law_restrictions:
-        if plr.theme.code == u'ch.BaulinienNationalstrassen':
-            assert len(plr.documents) == 2
+    plrs = extract.real_estate.public_law_restrictions
+    assert len(plrs) == 1
+    for plr in plrs:
+        if plr.theme.code == u'ch.Nutzungsplanung':
+            assert len(plr.documents) == 1
 
 
-def test_processor_with_images():
+def test_processor_with_images(processor_data, real_estate_data):
     request = MockRequest()
     request.matchdict.update(request_matchdict)
     request.params.update(request_params)
@@ -108,7 +141,7 @@ def test_processor_with_images():
         assert plr.view_service.image != {}
 
 
-def test_processor_without_images():
+def test_processor_without_images(processor_data, real_estate_data):
     request = MockRequest()
     request.matchdict.update(request_matchdict)
     request.params.update(request_params)
@@ -125,7 +158,7 @@ def test_processor_without_images():
         assert plr.view_service.image == {}
 
 
-def test_processor_get_legend_entries():
+def test_processor_get_legend_entries(processor_data, real_estate_data):
     theme1 = ThemeRecord(u'TEST', {'de': 'Theme 1'}, 100)
     theme2 = ThemeRecord(u'TEST', {'de': 'Theme 2'}, 200)
     office = OfficeRecord({'de': 'Test Office'})
@@ -263,7 +296,7 @@ def test_processor_get_legend_entries():
     assert len(after_process) == 1
 
 
-def test_processor_sort_by_law_status():
+def test_processor_sort_by_law_status(processor_data, real_estate_data):
     request = MockRequest()
     request.matchdict.update(request_matchdict)
     request.params.update(request_params)

@@ -60,7 +60,6 @@ def legend_entry_data(pyramid_oereb_test_config, dbsession, transact, file_adapt
     yield legend_entries
 
 
-pytestmark = pytest.mark.skip
 def test_get_symbol_invalid_theme_code(pyramid_oereb_test_config):
     request = DummyRequest()
     request.matchdict.update({

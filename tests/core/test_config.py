@@ -8,9 +8,6 @@ from pyramid_oereb.core.config import Config
 from pyramid_oereb.core.records.office import OfficeRecord
 
 
-pytestmark = pytest.mark.skip
-
-
 # order=-1 to run them after all and don't screw the configuration in Config
 @pytest.mark.run(order=-1)
 def test_missing_configuration_file():
@@ -83,7 +80,7 @@ def test_get_all_federal(config_path):
     Config.init(config_path, 'pyramid_oereb')
     all_federal = Config.get_all_federal()
     assert isinstance(all_federal, list)
-    assert len(all_federal) == 1
+    assert len(all_federal) == 2
     assert 'ch.BelasteteStandorte' in all_federal
 
 
