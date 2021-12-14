@@ -6,11 +6,11 @@ from shapely.geometry import Point
 
 from pyramid_oereb.core.records.geometry import GeometryRecord
 from pyramid_oereb.core.records.image import ImageRecord
+from pyramid_oereb.core.records.law_status import LawStatusRecord
 from pyramid_oereb.core.records.office import OfficeRecord
 from pyramid_oereb.core.records.plr import PlrRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.view_service import ViewServiceRecord, LegendEntryRecord
-from pyramid_oereb.core.config import Config
 
 
 def test_mandatory_fields():
@@ -20,8 +20,16 @@ def test_mandatory_fields():
 
 def create_dummy_plr():
     office = OfficeRecord({'en': 'Office'})
-    view_service = ViewServiceRecord({'de': 'http://my.wms.com'}, 1, 1.0)
-    law_status = Config.get_law_status_by_code(u'inKraft')
+    view_service = ViewServiceRecord({'de': 'http://my.wms.com'}, 1, 1.0, 'de', 2056, None, None)
+    law_status = LawStatusRecord(
+        'inKraft', {
+            "de": "Rechtskräftig",
+            "fr": "En vigueur",
+            "it": "In vigore",
+            "rm": "En vigur",
+            "en": "In force"
+        }
+    )
     geometry = GeometryRecord(law_status, datetime.date.today(), None, Point(1, 1))
     record = PlrRecord(
         ThemeRecord('code', dict(), 100),
@@ -41,7 +49,7 @@ def create_dummy_plr():
     return record
 
 
-def test_init(law_test_data):
+def test_init():
     record = create_dummy_plr()
     assert record.legend_text == {'en': 'Content'}
     assert record.sub_theme is None
@@ -58,8 +66,16 @@ def test_init(law_test_data):
     (date.today() + timedelta(days=0), None, True),
     (date.today() + timedelta(days=1), None, False)]
 )
-def test_published(published_from, published_until, published, law_test_data):
-    law_status = Config.get_law_status_by_code(u'inKraft')
+def test_published(published_from, published_until, published):
+    law_status = LawStatusRecord(
+        'inKraft', {
+            "de": "Rechtskräftig",
+            "fr": "En vigueur",
+            "it": "In vigore",
+            "rm": "En vigur",
+            "en": "In force"
+        }
+    )
     theme = ThemeRecord('code', dict(), 100)
     plr_record = PlrRecord(
         theme,
@@ -76,6 +92,6 @@ def test_published(published_from, published_until, published, law_test_data):
         published_until,
         OfficeRecord({'en': 'Office'}),
         ImageRecord('1'.encode('utf-8')),
-        ViewServiceRecord({'de': 'http://my.wms.com'}, 1, 1.0),
+        ViewServiceRecord({'de': 'http://my.wms.com'}, 1, 1.0, 'de', 2056, None, None),
         [GeometryRecord(law_status, datetime.date.today(), None, Point(1, 1))])
     assert plr_record.published == published
