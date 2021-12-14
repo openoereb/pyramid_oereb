@@ -141,7 +141,7 @@ class Config(object):
                 if len(theme_documents) > 0:
                     theme.document_records = theme_documents
         else:
-            log.info('No global documents, related to themes were provided!')
+            log.info('No global documents related to themes were provided!')
 
     @staticmethod
     def _read_themes():
