@@ -55,7 +55,7 @@ pyramid_oereb:
     city: Wabern
 
   oereblex:
-    host: http://models.example.com
+    host: http://oereblex.example.com
     language: de
     proxy:
       http: http://my.proxy.org
@@ -142,6 +142,7 @@ pyramid_oereb:
           precision: 2
         percentage:
           precision: 1
+      federal: true
 
   real_estate:
     plan_for_land_register:
