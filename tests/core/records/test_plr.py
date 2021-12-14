@@ -22,25 +22,14 @@ geometry_types = {
 }
 
 law_status = LawStatusRecord(
-        'inKraft', {
-            "de": "Rechtskräftig",
-            "fr": "En vigueur",
-            "it": "In vigore",
-            "rm": "En vigur",
-            "en": "In force"
-        }
-    )
-
-law_status = LawStatusRecord(
-        'inKraft', {
-            "de": "Rechtskräftig",
-            "fr": "En vigueur",
-            "it": "In vigore",
-            "rm": "En vigur",
-            "en": "In force"
-        }
-    )sts for plr record, remove config dependency)
-
+    'inKraft', {
+        "de": "Rechtskräftig",
+        "fr": "En vigueur",
+        "it": "In vigore",
+        "rm": "En vigur",
+        "en": "In force"
+    }
+)
 
 def test_mandatory_fields():
     with pytest.raises(TypeError):
@@ -176,6 +165,7 @@ def test_serialization():
         documents=[]
     )
     assert isinstance(str(plr_record), str)
+
 
 
 @pytest.mark.parametrize(
