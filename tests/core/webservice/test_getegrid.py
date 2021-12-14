@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import json
 import math
 
 from jsonschema import Draft4Validator

@@ -7,7 +7,9 @@ from jsonschema import Draft4Validator
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNoContent
 
 from tests.mockrequest import MockRequest
-from tests.core.readers.conftest import main_schema, land_use_plans, contaminated_sites, wms_url_contaminated_sites, file_adapter
+from tests.core.readers.conftest import (  # noqa. F401
+    main_schema, land_use_plans, contaminated_sites, wms_url_contaminated_sites, file_adapter
+)
 import pyramid_oereb.core.views.webservice
 from pyramid_oereb.core.views.webservice import PlrWebservice
 
@@ -152,9 +154,7 @@ def test_return_no_content():
 def test_return_json(pyramid_oereb_test_config, pyramid_test_config, schema_json_extract,
                      egrid, topics,
                      real_estate, municipalities, themes, real_estate_types_test_data,
-                     main_schema, land_use_plans, contaminated_sites):
-
-                     # land_use_plans_plrs, motorways_building_lines_plrs, contaminated_sites_plrs):
+                     main_schema, land_use_plans, contaminated_sites):  # noqa. F811
     pyramid_test_config.add_renderer('pyramid_oereb_extract_json',
                                      'pyramid_oereb.core.renderer.extract.json_.Renderer')
     request = MockRequest()

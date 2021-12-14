@@ -1,9 +1,9 @@
 import pytest
 from unittest.mock import patch
-from pyramid_oereb.core import b64
+# from pyramid_oereb.core import b64
 from pyramid_oereb.core.adapter import FileAdapter
 
-from datetime import date, timedelta
+# from datetime import date, timedelta
 
 from pyramid_oereb.core.config import Config
 from pyramid_oereb.core.records.theme import ThemeRecord

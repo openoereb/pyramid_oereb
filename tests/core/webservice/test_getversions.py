@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import json
-
 from jsonschema import Draft4Validator
 from tests.mockrequest import MockRequest
 from pyramid_oereb.core.views.webservice import PlrWebservice
