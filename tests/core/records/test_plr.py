@@ -14,6 +14,22 @@ from pyramid_oereb.core.records.real_estate import RealEstateRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.view_service import ViewServiceRecord, LegendEntryRecord
 
+geometry_types = {
+    'point': {'types': ['Point', 'MultiPoint']},
+    'line': {'types': ['LineString', 'LinearRing', 'MultiLineString']},
+    'polygon': {'types': ['Polygon', 'MultiPolygon']},
+    'collection': {'types': ['GeometryCollection']}
+}
+
+law_status = LawStatusRecord(
+        'inKraft', {
+            "de": "Rechtskräftig",
+            "fr": "En vigueur",
+            "it": "In vigore",
+            "rm": "En vigur",
+            "en": "In force"
+        }
+    )
 
 law_status = LawStatusRecord(
         'inKraft', {
@@ -33,7 +49,7 @@ def test_mandatory_fields():
 
 def create_dummy_plr():
     office = OfficeRecord({'en': 'Office'})
-    view_service = ViewServiceRecord({'de': 'http://my.wms.com'}, 1, 1.0, 'de', 2056, None, None)tests for plr record, remove config dependency)
+    view_service = ViewServiceRecord({'de': 'http://my.wms.com'}, 1, 1.0, 'de', 2056, None, None)
     geometry = GeometryRecord(law_status, datetime.date.today(), None, Point(1, 1))
     record = PlrRecord(
         ThemeRecord('code', dict(), 100),
