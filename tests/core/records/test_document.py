@@ -10,7 +10,7 @@ from pyramid_oereb.core.records.office import OfficeRecord
 
 def test_mandatory_fields():
     with pytest.raises(TypeError):
-        DocumentRecord('AenderungMitVorwirkung', datetime.date(1985, 8, 29))
+        DocumentRecord('AenderungMitVorwirkung', datetime.date(1985, 8, 29),)
 
 
 def test_init(law_test_data, pyramid_oereb_test_config):
@@ -52,7 +52,21 @@ def test_invalid_document_type():
                        datetime.date(1985, 8, 29))
 
 
-def test_future_document(law_test_data):
+@pytest.mark.parametrize(
+    'published_from,published_until, result',[
+        # tests based on a date
+        ((datetime.datetime.now().date() + datetime.timedelta(days=7)), None, False), # future document date
+        ((datetime.datetime.now().date() - datetime.timedelta(days=7)), (datetime.datetime.now().date() - datetime.timedelta(days=6)), False), # past document date
+        ((datetime.datetime.now().date() - datetime.timedelta(days=7)), None, True), # published document date
+        ((datetime.datetime.now().date() - datetime.timedelta(days=7)), (datetime.datetime.now().date() + datetime.timedelta(days=6)), True), # published document date
+        # tests based on a datetime
+        ((datetime.datetime.now() + datetime.timedelta(days=7)), None, False), # future document date
+        ((datetime.datetime.now() - datetime.timedelta(days=7)), (datetime.datetime.now() - datetime.timedelta(days=6)), False), # past document date
+        ((datetime.datetime.now() - datetime.timedelta(days=7)), None, True), # published document date
+        ((datetime.datetime.now() - datetime.timedelta(days=7)), (datetime.datetime.now() + datetime.timedelta(days=6)), True), # published document date
+    ]
+)
+def test_published(published_from, published_until, result):
     office_record = OfficeRecord({'en': 'name'})
     law_status = LawStatusRecord(
         'inKraft', {
@@ -64,33 +78,13 @@ def test_future_document(law_test_data):
         }
     )
     record = DocumentRecord(
-        DocumentTypeRecord('Hinweis', {'de': 'Hinweis'}),
+        DocumentTypeRecord('Hinweis',{'de': 'Hinweis'}),
         1, law_status, {'en': 'title'}, office_record,
-        (datetime.datetime.now().date() + datetime.timedelta(days=7)),
+        published_from,
+        published_until=published_until,
         text_at_web={'en': 'http://my.document.com'}
     )
-    assert not record.published
-
-
-def test_past_document(law_test_data):
-    office_record = OfficeRecord({'en': 'name'})
-    law_status = LawStatusRecord(
-        'inKraft', {
-            "de": "Rechtskräftig",
-            "fr": "En vigueur",
-            "it": "In vigore",
-            "rm": "En vigur",
-            "en": "In force"
-        }
-    )
-    record = DocumentRecord(
-        DocumentTypeRecord('Hinweis', {'de': 'Hinweis'}),
-        1, law_status, {'en': 'title'}, office_record,
-        (datetime.datetime.now().date() - datetime.timedelta(days=7)),
-        published_until=(datetime.datetime.now().date() - datetime.timedelta(days=6)),
-        text_at_web={'en': 'http://my.document.com'}
-    )
-    assert not record.published
+    assert record.published == result
 
 
 def test_legal_provision(law_test_data):
@@ -111,3 +105,116 @@ def test_legal_provision(law_test_data):
     )
     assert isinstance(legal_provision.document_type, DocumentTypeRecord)
     assert legal_provision.document_type.code == 'Rechtsvorschrift'
+
+def test_wrong_types():
+    record = DocumentRecord(
+        DocumentTypeRecord('Rechtsvorschrift', {'de': 'Rechtsvorschrift'}),
+        'wrong_type',
+        'law_status',
+        'wrong_title',
+        'office_record',
+        'date_from',
+        'date_until',
+        'text_at_web',
+        'abbreviation',
+        'official_number',
+        'only_in_municipality',
+        'article_numbers',
+        1
+    )
+    assert isinstance(record.title, str)
+    assert isinstance(record.index, str)
+    assert isinstance(record.responsible_office, str)
+    assert isinstance(record.abbreviation, str)
+    assert isinstance(record.official_number, str)
+    assert isinstance(record.only_in_municipality, str)
+    assert isinstance(record.text_at_web, str)
+    assert isinstance(record.law_status, str)
+    assert isinstance(record.published_from, str)
+    assert isinstance(record.published_until, str)
+    assert isinstance(record.article_numbers, list)
+    assert isinstance(record.file, int)
+
+
+def testarticle_numbers_init():
+    record = DocumentRecord(
+        DocumentTypeRecord('Rechtsvorschrift', {'de': 'Rechtsvorschrift'}),
+        'wrong_type',
+        'law_status',
+        'wrong_title',
+        'office_record',
+        'date_from',
+        'date_until',
+        'text_at_web',
+        'abbreviation',
+        'official_number',
+        'only_in_municipality',
+        'article_numbers',
+        1
+    )
+    assert len(record.article_numbers) == 0
+    record = DocumentRecord(
+        DocumentTypeRecord('Rechtsvorschrift', {'de': 'Rechtsvorschrift'}),
+        'wrong_type',
+        'law_status',
+        'wrong_title',
+        'office_record',
+        'date_from',
+        'date_until',
+        'text_at_web',
+        'abbreviation',
+        'official_number',
+        'only_in_municipality',
+        [1],
+        1
+    )
+    assert len(record.article_numbers) == 1
+
+def test_serialize():
+    record = DocumentRecord(
+        DocumentTypeRecord('Rechtsvorschrift', {'de': 'Rechtsvorschrift'}),
+        'wrong_type',
+        'law_status',
+        'wrong_title',
+        'office_record',
+        'date_from',
+        'date_until',
+        'text_at_web',
+        'abbreviation',
+        'official_number',
+        'only_in_municipality',
+        'article_numbers',
+        1
+    )
+    assert isinstance(record.__str__(), str)
+
+def test_copy():
+    record = DocumentRecord(
+        DocumentTypeRecord('Rechtsvorschrift', {'de': 'Rechtsvorschrift'}),
+        'wrong_type',
+        'law_status',
+        'wrong_title',
+        'office_record',
+        'date_from',
+        'date_until',
+        'text_at_web',
+        'abbreviation',
+        'official_number',
+        'only_in_municipality',
+        'article_numbers',
+        1
+    )
+    copy = record.copy()
+    assert isinstance(copy.document_type, DocumentTypeRecord)
+    assert isinstance(copy.title, str)
+    assert isinstance(copy.index, str)
+    assert isinstance(copy.responsible_office, str)
+    assert isinstance(copy.abbreviation, str)
+    assert isinstance(copy.official_number, str)
+    assert isinstance(copy.only_in_municipality, str)
+    assert isinstance(copy.text_at_web, str)
+    assert isinstance(copy.law_status, str)
+    assert isinstance(copy.published_from, str)
+    assert isinstance(copy.published_until, str)
+    assert isinstance(copy.article_numbers, list)
+    assert isinstance(copy.file, int)
