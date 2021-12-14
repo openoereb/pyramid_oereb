@@ -71,7 +71,7 @@ class ExtractReader(object):
         """
         log.debug("read() start")
 
-        bbox = ViewServiceRecord.get_bbox(real_estate.limit)
+        bbox = Config.get_bbox(real_estate.limit)
         bbox = box(bbox[0], bbox[1], bbox[2], bbox[3])
 
         concerned_themes = list()

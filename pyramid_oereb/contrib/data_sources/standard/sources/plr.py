@@ -158,6 +158,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             view_service_from_db.reference_wms,
             view_service_from_db.layer_index,
             view_service_from_db.layer_opacity,
+            Config.get('default_language'),
+            Config.get('srid'),
+            Config.get('proxies'),
             legends=legend_entry_records
         )
         return view_service_record

@@ -18,6 +18,13 @@ from pyramid_oereb.core.records.real_estate import RealEstateRecord
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
+geometry_types = {
+    'point': {'types': ['Point', 'MultiPoint']},
+    'line': {'types': ['LineString', 'LinearRing', 'MultiLineString']},
+    'polygon': {'types': ['Polygon', 'MultiPolygon']},
+    'collection': {'types': ['GeometryCollection']}
+}
+
 
 def test_mandatory_fields():
     with pytest.raises(TypeError):
@@ -262,7 +269,7 @@ def test_calculate(pyramid_oereb_test_config, geometry, real_estate_geometry,
         round(real_estate_geometry.area),
         real_estate_geometry
     )
-    geometry_record.calculate(real_estate, length_limit, area_limit, 'm', 'm2')
+    geometry_record.calculate(real_estate, length_limit, area_limit, 'm', 'm2', geometry_types)
     assert geometry_record._test_passed == test
     assert geometry_record._length_share == length_share
     assert geometry_record._area_share == area_share

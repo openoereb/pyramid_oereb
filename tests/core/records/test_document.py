@@ -6,7 +6,6 @@ from pyramid_oereb.core.records.law_status import LawStatusRecord
 from pyramid_oereb.core.records.documents import DocumentRecord
 from pyramid_oereb.core.records.document_types import DocumentTypeRecord
 from pyramid_oereb.core.records.office import OfficeRecord
-from pyramid_oereb.core.config import Config
 
 
 def test_mandatory_fields():
@@ -16,7 +15,15 @@ def test_mandatory_fields():
 
 def test_init(law_test_data, pyramid_oereb_test_config):
     office_record = OfficeRecord({'en': 'name'})
-    law_status = Config.get_law_status_by_code(u'inKraft')
+    law_status = LawStatusRecord(
+        'inKraft', {
+            "de": "Rechtskräftig",
+            "fr": "En vigueur",
+            "it": "In vigore",
+            "rm": "En vigur",
+            "en": "In force"
+        }
+    )
     record = DocumentRecord(
         DocumentTypeRecord('GesetzlicheGrundlage', {'de': 'Gesetzliche Grundlage'}),
         1, law_status, {'en': 'title'},
@@ -47,7 +54,15 @@ def test_invalid_document_type():
 
 def test_future_document(law_test_data):
     office_record = OfficeRecord({'en': 'name'})
-    law_status = Config.get_law_status_by_code(u'inKraft')
+    law_status = LawStatusRecord(
+        'inKraft', {
+            "de": "Rechtskräftig",
+            "fr": "En vigueur",
+            "it": "In vigore",
+            "rm": "En vigur",
+            "en": "In force"
+        }
+    )
     record = DocumentRecord(
         DocumentTypeRecord('Hinweis', {'de': 'Hinweis'}),
         1, law_status, {'en': 'title'}, office_record,
@@ -59,7 +74,15 @@ def test_future_document(law_test_data):
 
 def test_past_document(law_test_data):
     office_record = OfficeRecord({'en': 'name'})
-    law_status = Config.get_law_status_by_code(u'inKraft')
+    law_status = LawStatusRecord(
+        'inKraft', {
+            "de": "Rechtskräftig",
+            "fr": "En vigueur",
+            "it": "In vigore",
+            "rm": "En vigur",
+            "en": "In force"
+        }
+    )
     record = DocumentRecord(
         DocumentTypeRecord('Hinweis', {'de': 'Hinweis'}),
         1, law_status, {'en': 'title'}, office_record,
@@ -72,7 +95,15 @@ def test_past_document(law_test_data):
 
 def test_legal_provision(law_test_data):
     office_record = OfficeRecord({'en': 'name'})
-    law_status = Config.get_law_status_by_code(u'inKraft')
+    law_status = LawStatusRecord(
+        'inKraft', {
+            "de": "Rechtskräftig",
+            "fr": "En vigueur",
+            "it": "In vigore",
+            "rm": "En vigur",
+            "en": "In force"
+        }
+    )
     legal_provision = DocumentRecord(
         DocumentTypeRecord('Rechtsvorschrift', {'de': 'Rechtsvorschrift'}),
         1, law_status, {'de': 'title'},

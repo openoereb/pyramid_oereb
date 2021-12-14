@@ -172,14 +172,27 @@ class PlrRecord(EmptyPlrRecord):
         """float or None: Returns the number of points of all related geometry records of this PLR."""
         return self._nr_of_points
 
-    def calculate(self, real_estate):
+    def calculate(self, real_estate, geometry_types):
+        """
+        Entry method for calculation. It checks if the geometry type of this instance is a geometry
+        collection which has to be unpacked first in case of collection.
+
+        Args:
+            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate record.
+            geometry_types (dict): The allowed geometry types for the to match the simple feature types point, line,
+                polygon
+
+        Returns:
+            bool: True if intersection fits the limits.
+        """
         tested_geometries = []
         inside = False
         for geometry in self.geometries:
             if geometry.published and geometry.calculate(
                     real_estate,
                     self.min_length, self.min_area,
-                    self.length_unit, self.area_unit
+                    self.length_unit, self.area_unit,
+                    geometry_types
             ):
                 tested_geometries.append(geometry)
                 inside = True

@@ -3,7 +3,6 @@ import datetime
 import pytest
 from pyramid.path import DottedNameResolver
 
-from pyramid_oereb import Config
 from pyramid_oereb.core.records.logo import LogoRecord
 from pyramid_oereb.core.records.office import OfficeRecord
 from pyramid_oereb.core.records.real_estate import RealEstateRecord
@@ -32,10 +31,14 @@ def create_dummy_extract():
         {'de': 'test_link'},
         1,
         1.0,
+        'de',
+        2056,
+        None,
+        None
     ))
     plr_office = OfficeRecord({u'en': u'PLR Authority'})
     resolver = DottedNameResolver()
-    date_method_string = Config.get('extract').get('base_data').get('methods').get('date')
+    date_method_string = 'pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_update_date'
     date_method = resolver.resolve(date_method_string)
     update_date_os = date_method(real_estate)
     record = ExtractRecord(
