@@ -895,7 +895,7 @@ class Config(object):
         """
         assert Config._config is not None
 
-        return Config._config.get('models')
+        return Config._config.get('oereblex')
 
     @staticmethod
     def get(key, default=None):
