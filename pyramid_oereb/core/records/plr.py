@@ -80,10 +80,7 @@ class PlrRecord(EmptyPlrRecord):
             self.documents = []
         else:
             self.documents = documents
-        if geometries is None:
-            self.geometries = []
-        else:
-            self.geometries = geometries
+        self.geometries = geometries
         self.sub_theme = sub_theme
         self.info = info
         self.has_data = True
