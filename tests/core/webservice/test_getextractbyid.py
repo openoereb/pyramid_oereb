@@ -2,10 +2,13 @@
 import json
 import logging
 import pytest
+from unittest.mock import patch
 from jsonschema import Draft4Validator
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNoContent
 
 from tests.mockrequest import MockRequest
+from tests.core.readers.conftest import main_schema, land_use_plans, contaminated_sites, wms_url_contaminated_sites, file_adapter
+import pyramid_oereb.core.views.webservice
 from pyramid_oereb.core.views.webservice import PlrWebservice
 
 log = logging.getLogger('pyramid_oereb')
@@ -71,7 +74,7 @@ def test_invalid_params(matchdict, params):
         }
     )
 ])
-def test_matchdict(matchdict, expected):
+def test_matchdict(pyramid_oereb_test_config, matchdict, expected):
     request = MockRequest()
     request.matchdict.update(matchdict)
     request.params.update({
@@ -139,13 +142,19 @@ def test_return_no_content():
     assert isinstance(response, HTTPNoContent)
 
 
+@patch.object(pyramid_oereb.core.views.webservice, 'route_prefix', 'oereb')
 @pytest.mark.parametrize('egrid,topics', [
     ('TEST', 'ALL'),
     ('TEST', 'ALL_FEDERAL'),
     ('TEST', 'ch.BelasteteStandorte,ch.ProjektierungszonenEisenbahnanlagen'),
     ('TEST3', 'ALL')
 ])
-def test_return_json(pyramid_test_config, schema_json_extract, egrid, topics):
+def test_return_json(pyramid_oereb_test_config, pyramid_test_config, schema_json_extract,
+                     egrid, topics,
+                     real_estate, municipalities, themes, real_estate_types_test_data,
+                     main_schema, land_use_plans, contaminated_sites):
+
+                     # land_use_plans_plrs, motorways_building_lines_plrs, contaminated_sites_plrs):
     pyramid_test_config.add_renderer('pyramid_oereb_extract_json',
                                      'pyramid_oereb.core.renderer.extract.json_.Renderer')
     request = MockRequest()
@@ -160,6 +169,9 @@ def test_return_json(pyramid_test_config, schema_json_extract, egrid, topics):
     service = PlrWebservice(request)
     response = service.get_extract_by_id()
 
+    if topics == 'ALL' and egrid == 'TEST3':
+        assert isinstance(response, HTTPNoContent)
+        return
     Draft4Validator.check_schema(schema_json_extract)
     validator = Draft4Validator(schema_json_extract)
     response = json.loads(response.body.decode('utf-8'))
@@ -172,42 +184,27 @@ def test_return_json(pyramid_test_config, schema_json_extract, egrid, topics):
 
     assert isinstance(real_estate, dict)
     if topics == 'ALL' and egrid == 'TEST':
-        assert len(real_estate.get('RestrictionOnLandownership')) == 3
-        assert len(extract.get('ConcernedTheme')) == 3
-        assert len(extract.get('NotConcernedTheme')) == 14
+        assert len(real_estate.get('RestrictionOnLandownership')) == 2
+        assert len(extract.get('ConcernedTheme')) == 2
+        assert len(extract.get('NotConcernedTheme')) == 0
         assert len(extract.get('ThemeWithoutData')) == 0
         restrictions = real_estate.get('RestrictionOnLandownership')
         assert restrictions[0]['Theme']['Code'] == 'ch.Nutzungsplanung'
-        assert restrictions[1]['Theme']['Code'] == 'ch.BaulinienNationalstrassen'
-        assert restrictions[2]['Theme']['Code'] == 'ch.BelasteteStandorte'
-        # Check consistency of ordering (according to config) for not concerned themes
-        assert extract.get('NotConcernedTheme')[0]['Code'] == 'ch.ProjektierungszonenNationalstrassen'
-        assert extract.get('NotConcernedTheme')[1]['Code'] == 'ch.ProjektierungszonenEisenbahnanlagen'
-        assert extract.get('NotConcernedTheme')[2]['Code'] == 'ch.BaulinienEisenbahnanlagen'
-        assert extract.get('NotConcernedTheme')[3]['Code'] == 'ch.ProjektierungszonenFlughafenanlagen'
-        assert extract.get('NotConcernedTheme')[4]['Code'] == 'ch.BaulinienFlughafenanlagen'
-        assert extract.get('NotConcernedTheme')[5]['Code'] == 'ch.Sicherheitszonenplan'
-        assert extract.get('NotConcernedTheme')[6]['Code'] == 'ch.BelasteteStandorteMilitaer'
-        assert extract.get('NotConcernedTheme')[7]['Code'] == 'ch.BelasteteStandorteZivileFlugplaetze'
-        assert extract.get('NotConcernedTheme')[8]['Code'] == 'ch.BelasteteStandorteOeffentlicherVerkehr'
-        assert extract.get('NotConcernedTheme')[9]['Code'] == 'ch.Grundwasserschutzzonen'
-        assert extract.get('NotConcernedTheme')[10]['Code'] == 'ch.Grundwasserschutzareale'
-        assert extract.get('NotConcernedTheme')[11]['Code'] == 'ch.Laermempfindlichkeitsstufen'
-        assert extract.get('NotConcernedTheme')[12]['Code'] == 'ch.StatischeWaldgrenzen'
-        assert extract.get('NotConcernedTheme')[13]['Code'] == 'ch.Waldabstandslinien'
+        assert restrictions[1]['Theme']['Code'] == 'ch.BelasteteStandorte'
+        # simplified dataset, containing only two restrictions insetead of previously 14
 
     if topics == 'ALL_FEDERAL':
         assert len(real_estate.get('RestrictionOnLandownership')) == 1
         assert len(extract.get('ConcernedTheme')) == 1
-        assert len(extract.get('NotConcernedTheme')) == 9
+        assert len(extract.get('NotConcernedTheme')) == 0
         assert len(extract.get('ThemeWithoutData')) == 0
         restrictions = real_estate.get('RestrictionOnLandownership')
-        assert restrictions[0]['Theme']['Code'] == 'ch.BaulinienNationalstrassen'
+        assert restrictions[0]['Theme']['Code'] == 'ch.Nutzungsplanung'
 
     if topics == 'ch.BelasteteStandorte,ch.ProjektierungszonenEisenbahnanlagen':
         assert len(real_estate.get('RestrictionOnLandownership')) == 1
         assert len(extract.get('ConcernedTheme')) == 1
-        assert len(extract.get('NotConcernedTheme')) == 1
+        assert len(extract.get('NotConcernedTheme')) == 0
         assert len(extract.get('ThemeWithoutData')) == 0
         restrictions = real_estate.get('RestrictionOnLandownership')
         assert restrictions[0]['Theme']['Code'] == 'ch.BelasteteStandorte'
@@ -224,7 +221,7 @@ def test_return_json(pyramid_test_config, schema_json_extract, egrid, topics):
         assert restrictions[2]['Lawstatus']['Code'] == 'inForce'
 
 
-def test_format_url():
+def test_format_url(real_estate):
     request = MockRequest()
     request.matchdict.update({
         'format': 'URL'

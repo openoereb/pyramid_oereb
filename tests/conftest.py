@@ -39,6 +39,12 @@ def pyramid_test_config():
 
 
 @pytest.fixture(scope='function')
+def schema_json_versions():
+    with open(SCHEMA_JSON_VERSIONS_PATH) as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope='function')
 def schema_json_extract():
     with open(SCHEMA_JSON_EXTRACT_PATH) as f:
         return json.load(f)

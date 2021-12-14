@@ -18,20 +18,19 @@ from tests.mockrequest import MockRequest
         'En': '32.1244978460310,-19.917989937473'
     }
 ])
-def test_get_egrid_coord(pyramid_test_config, params):
-    with pyramid_test_config():
-        request = MockRequest(
-            current_route_url='http://example.com/oereb/getegrid/json'
-        )
+def test_get_egrid_coord(pyramid_oereb_test_config, params):
+    request = MockRequest(
+        current_route_url='http://example.com/oereb/getegrid/json'
+    )
 
-        # Add params to matchdict as the view will do it for /getegrid/{format}/
-        request.matchdict.update({
-          'format': u'json'
-        })
+    # Add params to matchdict as the view will do it for /getegrid/{format}/
+    request.matchdict.update({
+        'format': u'json'
+    })
 
-        request.params.update(params)
-        webservice = PlrWebservice(request)
-        webservice.get_egrid()
+    request.params.update(params)
+    webservice = PlrWebservice(request)
+    webservice.get_egrid()
 
 
 @pytest.mark.parametrize('params', [
