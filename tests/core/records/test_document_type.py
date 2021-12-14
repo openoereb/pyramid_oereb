@@ -8,3 +8,8 @@ def test_document_type_init():
     assert record.title == {
         u'de': u'Gesetzliche Grundlage'
     }
+
+def test_wrong_types():
+    record = DocumentTypeRecord({'de': 'titel'}, 'content')
+    assert isinstance(record.code, dict)
+    assert isinstance(record.title, str)
