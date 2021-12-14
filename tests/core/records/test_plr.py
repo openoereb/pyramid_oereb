@@ -23,7 +23,7 @@ law_status = LawStatusRecord(
             "rm": "En vigur",
             "en": "In force"
         }
-    )
+    )sts for plr record, remove config dependency)
 
 
 def test_mandatory_fields():
@@ -33,7 +33,7 @@ def test_mandatory_fields():
 
 def create_dummy_plr():
     office = OfficeRecord({'en': 'Office'})
-    view_service = ViewServiceRecord({'de': 'http://my.wms.com'}, 1, 1.0, 'de', 2056, None, None)
+    view_service = ViewServiceRecord({'de': 'http://my.wms.com'}, 1, 1.0, 'de', 2056, None, None)tests for plr record, remove config dependency)
     geometry = GeometryRecord(law_status, datetime.date.today(), None, Point(1, 1))
     record = PlrRecord(
         ThemeRecord('code', dict(), 100),
