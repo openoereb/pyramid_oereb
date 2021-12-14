@@ -112,7 +112,7 @@ def test_published(published_from, published_until, result, law_status_record, o
     assert record.published == result
 
 
-def test_legal_provision(law_test_data, law_status_record, office_record, document_type_record):r core records)
+def test_legal_provision(law_test_data, law_status_record, office_record, document_type_record):
     legal_provision = DocumentRecord(
         document_type_record,
         1,
