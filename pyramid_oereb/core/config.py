@@ -128,17 +128,20 @@ class Config(object):
 
     @staticmethod
     def assemble_relation_themes_documents():
-        for theme in Config.themes:
-            theme_documents = []
-            for theme_document in Config.theme_document:
-                if theme_document.theme_id == theme.identifier:
-                    for document in Config.documents:
-                        if theme_document.document_id == document.identifier:
-                            document_copy = document.copy()
-                            document_copy.article_numbers = theme_document.article_numbers
-                            theme_documents.append(document_copy)
-            if len(theme_documents) > 0:
-                theme.document_records = theme_documents
+        if Config.theme_document is not None:
+            for theme in Config.themes:
+                theme_documents = []
+                for theme_document in Config.theme_document:
+                    if theme_document.theme_id == theme.identifier:
+                        for document in Config.documents:
+                            if theme_document.document_id == document.identifier:
+                                document_copy = document.copy()
+                                document_copy.article_numbers = theme_document.article_numbers
+                                theme_documents.append(document_copy)
+                if len(theme_documents) > 0:
+                    theme.document_records = theme_documents
+        else:
+            log.info('No global documents related to themes were provided!')
 
     @staticmethod
     def _read_themes():
