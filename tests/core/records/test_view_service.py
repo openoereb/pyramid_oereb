@@ -11,7 +11,6 @@ def test_mandatory_fields():
     with pytest.raises(TypeError):
         ViewServiceRecord()
 
-
 def test_init():
     record = ViewServiceRecord(
         {'de': 'http://www.test.url.ch'},
