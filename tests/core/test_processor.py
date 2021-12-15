@@ -58,7 +58,7 @@ def test_properties(pyramid_oereb_test_config):
     assert isinstance(processor.real_estate_reader, RealEstateReader)
 
 
-def test_process(processor_data, real_estate_data, municipalities):
+def test_process(processor_data, real_estate_data):
     request = MockRequest()
     request.matchdict.update(request_matchdict)
     request.params.update(request_params)
@@ -275,7 +275,7 @@ def test_processor_get_legend_entries(processor_data, real_estate_data):
     assert len(after_process) == 1
 
 
-def test_processor_sort_by_law_status(processor_data, real_estate_data, municipalities,
+def test_processor_sort_by_law_status(processor_data, real_estate_data,
                                       main_schema, land_use_plans, contaminated_sites):
 
     request = MockRequest()

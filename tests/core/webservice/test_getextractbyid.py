@@ -153,8 +153,7 @@ def test_return_no_content():
     ('TEST3', 'ALL')
 ])
 def test_return_json(pyramid_oereb_test_config, pyramid_test_config, schema_json_extract,
-                     egrid, topics,
-                     real_estate_data, municipalities, themes, real_estate_types_test_data,
+                     egrid, topics, extract_real_estate_data,
                      main_schema, land_use_plans, contaminated_sites):
     pyramid_test_config.add_renderer('pyramid_oereb_extract_json',
                                      'pyramid_oereb.core.renderer.extract.json_.Renderer')
