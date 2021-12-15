@@ -52,13 +52,13 @@ jobs:
           # - python3.8
     steps:
       - uses: actions/checkout@v2
-      # - run: sudo rm /etc/apt/sources.list.d/*.list
-      # - run: sudo apt update
-      # - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
+      - run: sudo rm /etc/apt/sources.list.d/*.list
+      - run: sudo apt update
+      - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
       - name: Run checks for Python ${{ matrix.python-version }}
         env:
           PYTHON_TEST_VERSION: ${{ matrix.python-version }}
-        run: make test-postgres
+        run: make test-core
 
   # build-and-publish:
   #   name: Build and publish Python 🐍 distributions 📦 to PyPI
