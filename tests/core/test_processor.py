@@ -21,6 +21,7 @@ from pyramid_oereb.core.readers.municipality import MunicipalityReader
 from pyramid_oereb.core.readers.real_estate import RealEstateReader
 from pyramid_oereb.core.views.webservice import PlrWebservice
 from tests.mockrequest import MockRequest
+from tests.core.webservice.conftest import real_estate as r_e, municipalities, real_estate_types_test_data  # noqa. F401
 
 
 import logging
@@ -32,6 +33,7 @@ request_matchdict = {
 request_params = {
     'EGRID': 'TEST'
 }
+
 
 @pytest.fixture
 def real_estate_data(dbsession, transact):
@@ -59,7 +61,8 @@ def real_estate_data(dbsession, transact):
 @pytest.fixture
 def processor_data(pyramid_oereb_test_config, main_schema):
     with patch(
-        'pyramid_oereb.core.readers.municipality.MunicipalityReader.read', return_value=[MunicipalityRecord(1234, 'test', True)]
+        'pyramid_oereb.core.readers.municipality.MunicipalityReader.read',
+            return_value=[MunicipalityRecord(1234, 'test', True)]
     ):
         yield pyramid_oereb_test_config
 
@@ -79,7 +82,7 @@ def test_properties(pyramid_oereb_test_config):
     assert isinstance(processor.real_estate_reader, RealEstateReader)
 
 
-def test_process(processor_data, real_estate_data):
+def test_process(processor_data, r_e, municipalities, real_estate_types_test_data):  # noqa. F811
     request = MockRequest()
     request.matchdict.update(request_matchdict)
     request.params.update(request_params)
@@ -296,18 +299,21 @@ def test_processor_get_legend_entries(processor_data, real_estate_data):
     assert len(after_process) == 1
 
 
-def test_processor_sort_by_law_status(processor_data, real_estate_data):
+def test_processor_sort_by_law_status(processor_data,
+                                      r_e, municipalities, real_estate_types_test_data,  # noqa. F811
+                                      main_schema, land_use_plans, contaminated_sites):  # noqa. F811
+
     request = MockRequest()
     request.matchdict.update(request_matchdict)
     request.params.update(request_params)
     processor = create_processor()
     webservice = PlrWebservice(request)
     params = webservice.__validate_extract_params__()
-    real_estate = processor.real_estate_reader.read(params, egrid=u'TEST3')
+    real_estate = processor.real_estate_reader.read(params, egrid=u'TEST2')
     extract = processor.process(real_estate[0], params, 'http://test.ch')
     plrs = extract.real_estate.public_law_restrictions
-    assert len(plrs) == 4
-    assert plrs[1].theme.code == 'ch.BaulinienNationalstrassen'
-    assert plrs[1].law_status.code == 'changeWithoutPreEffect'
-    assert plrs[2].theme.code == 'ch.BaulinienNationalstrassen'
-    assert plrs[2].law_status.code == 'inForce'
+    assert len(plrs) == 2
+    assert plrs[0].theme.code == 'ch.Nutzungsplanung'
+    assert plrs[0].law_status.code == 'inForce'
+    assert plrs[1].theme.code == 'ch.BelasteteStandorte'
+    assert plrs[1].law_status.code == 'inForce'

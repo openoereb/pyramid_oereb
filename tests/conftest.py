@@ -429,7 +429,7 @@ def contaminated_sites(pyramid_oereb_test_config, dbsession, transact, wms_url_c
         'legend_entry1': models.LegendEntry(**{
             'id': 1,
             'symbol': b64.encode(file_adapter.read('tests/resources/symbol.png')),
-            'legend_text': 'Test',
+            'legend_text': {'de': 'Test'},
             'type_code': 'StaoTyp1',
             'type_code_list': 'https://models.geo.admin.ch/BAFU/KbS_Codetexte_V1_4.xml',
             'theme': 'ch.BelasteteStandorte',

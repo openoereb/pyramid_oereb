@@ -47,7 +47,7 @@ def legend_entry_data(pyramid_oereb_test_config, dbsession, transact, file_adapt
         models.LegendEntry(**{
             'id': '1',
             'symbol': b64.encode(file_adapter.read('tests/resources/symbol.png')),
-            'legend_text': 'Test',
+            'legend_text': {'de': 'Test'},
             'type_code': 'CodeA',
             'type_code_list': 'type_code_list',
             'theme': 'ch.BelasteteStandorte',
