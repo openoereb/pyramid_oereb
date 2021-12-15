@@ -274,7 +274,7 @@ test-postgres:
 	psql postgresql://postgres:postgres@localhost:5432 -t -c "select 'test postgres';"
 
 .PHONY: test-postgis
-test-postgres:
+test-postgis:
 	psql postgresql://postgres:postgres@localhost:5432 -t -c "select 'test postgres';"
 
 .PHONY: test-core

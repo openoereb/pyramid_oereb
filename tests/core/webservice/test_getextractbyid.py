@@ -7,10 +7,9 @@ from jsonschema import Draft4Validator
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNoContent
 
 from tests.mockrequest import MockRequest
-from tests.core.readers.conftest import (  # noqa. F401
-    main_schema, land_use_plans, contaminated_sites, wms_url_contaminated_sites, file_adapter
-)
 import pyramid_oereb.core.views.webservice
+import pyramid_oereb.contrib.data_sources.standard.hook_methods
+import pyramid_oereb.core.renderer.extract.json_
 from pyramid_oereb.core.views.webservice import PlrWebservice
 
 log = logging.getLogger('pyramid_oereb')
@@ -154,9 +153,8 @@ def test_return_no_content():
     ('TEST3', 'ALL')
 ])
 def test_return_json(pyramid_oereb_test_config, pyramid_test_config, schema_json_extract,
-                     egrid, topics,
-                     real_estate, municipalities, themes, real_estate_types_test_data,
-                     main_schema, land_use_plans, contaminated_sites):  # noqa. F811
+                     egrid, topics, extract_real_estate_data,
+                     main_schema, land_use_plans, contaminated_sites):
     pyramid_test_config.add_renderer('pyramid_oereb_extract_json',
                                      'pyramid_oereb.core.renderer.extract.json_.Renderer')
     request = MockRequest()
@@ -196,12 +194,13 @@ def test_return_json(pyramid_oereb_test_config, pyramid_test_config, schema_json
         # simplified dataset, containing only two restrictions insetead of previously 14
 
     if topics == 'ALL_FEDERAL':
-        assert len(real_estate.get('RestrictionOnLandownership')) == 1
-        assert len(extract.get('ConcernedTheme')) == 1
+        assert len(real_estate.get('RestrictionOnLandownership')) == 2
+        assert len(extract.get('ConcernedTheme')) == 2
         assert len(extract.get('NotConcernedTheme')) == 0
         assert len(extract.get('ThemeWithoutData')) == 0
         restrictions = real_estate.get('RestrictionOnLandownership')
         assert restrictions[0]['Theme']['Code'] == 'ch.Nutzungsplanung'
+        assert restrictions[1]['Theme']['Code'] == 'ch.BelasteteStandorte'
 
     if topics == 'ch.BelasteteStandorte,ch.ProjektierungszonenEisenbahnanlagen':
         assert len(real_estate.get('RestrictionOnLandownership')) == 1
@@ -223,7 +222,7 @@ def test_return_json(pyramid_oereb_test_config, pyramid_test_config, schema_json
         assert restrictions[2]['Lawstatus']['Code'] == 'inForce'
 
 
-def test_format_url(real_estate):
+def test_format_url(real_estate_data):
     request = MockRequest()
     request.matchdict.update({
         'format': 'URL'

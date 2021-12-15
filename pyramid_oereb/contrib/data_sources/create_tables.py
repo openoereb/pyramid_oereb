@@ -12,7 +12,7 @@ logging.basicConfig()
 log = logging.getLogger(__name__)
 
 
-def create_theme_tables_(theme_config, tables_only=False, sql_file=None):
+def create_theme_tables_(theme_config, tables_only=False, sql_file=None, if_not_exists=False):
     """
     Create the tables for a specific theme.
 
@@ -27,16 +27,16 @@ def create_theme_tables_(theme_config, tables_only=False, sql_file=None):
         theme_schema_name = models.schema_name
         theme_tables = tables(models.Base)
         if tables_only:
-            sql = create_tables_sql(theme_tables)
+            sql = create_tables_sql(theme_tables, if_not_exists)
         else:
-            sql = create_sql(theme_schema_name, theme_tables)
+            sql = create_sql(theme_schema_name, theme_tables, if_not_exists)
 
         sql_file.write(sql)
 
 
 def create_tables_from_standard_configuration(
         configuration_yaml_path, section='pyramid_oereb', c2ctemplate_style=False, tables_only=False,
-        sql_file=None):
+        sql_file=None, if_not_exists=False):
     """
     Creates all schemas which are defined in the passed yaml file: <section>.<plrs>.[<plr>.<code>]. The code
     must be camel case. It will be transformed to snake case and used as schema name.
@@ -61,15 +61,16 @@ def create_tables_from_standard_configuration(
     main_schema_name = Config.get('app_schema').get('name')
     main_tables = tables(main_base_class)
     if tables_only:
-        sql = create_tables_sql(main_tables)
+        sql = create_tables_sql(main_tables, if_not_exists)
     else:
-        sql = create_sql(main_schema_name, main_tables)
+        sql = create_sql(main_schema_name, main_tables, if_not_exists)
 
     sql_file.write(sql)
 
     for theme_config in Config.get('plrs'):
         if theme_config.get('standard'):
-            create_theme_tables_(theme_config, tables_only=tables_only, sql_file=sql_file)
+            create_theme_tables_(theme_config, tables_only=tables_only, sql_file=sql_file,
+                                 if_not_exists=if_not_exists)
 
 
 def create_standard_tables():
