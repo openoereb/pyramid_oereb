@@ -9,6 +9,7 @@ from pyramid_oereb.core.records.office import OfficeRecord
 
 pytestmark = pytest.mark.skip
 
+
 # order=-1 to run them after all and don't screw the configuration in Config
 @pytest.mark.run(order=-1)
 def test_missing_configuration_file():
