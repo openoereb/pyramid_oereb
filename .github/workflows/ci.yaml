@@ -32,7 +32,7 @@ jobs:
       # Label used to access the service container
       postgres:
         # Docker Hub image
-        image: postgres
+        image: postgis/postgis
         # Provide the password for postgres
         ports:
           - 5432:5432
