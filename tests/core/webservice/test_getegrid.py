@@ -27,7 +27,7 @@ def test_getegrid_coord_missing_parameter():
 
 
 @pytest.mark.parametrize('geometry', [False, True])
-def test_getegrid_ident(pyramid_oereb_test_config, schema_json_extract, geometry, real_estate):
+def test_getegrid_ident(pyramid_oereb_test_config, schema_json_extract, geometry, real_estate_data):
     request = MockRequest(current_route_url='http://example.com/oereb/getegrid/json/BLTEST/1000')
 
     # Add params to matchdict as the view will do it for /getegrid/{format}/{identdn}/{number}
@@ -62,7 +62,7 @@ def test_getegrid_ident(pyramid_oereb_test_config, schema_json_extract, geometry
         assert 'coordinates' in real_estates[0]['limit']
 
 
-def test_getegrid_en(pyramid_oereb_test_config, schema_json_extract, real_estate):
+def test_getegrid_en(pyramid_oereb_test_config, schema_json_extract, real_estate_data):
     del pyramid_oereb_test_config
 
     url = 'http://example.com/oereb/getegrid/json/?EN=2,0'
@@ -91,7 +91,7 @@ def test_getegrid_en(pyramid_oereb_test_config, schema_json_extract, real_estate
     assert real_estates[0]['identDN'] == u'BLTEST'
 
 
-def test_getegrid_gnss(pyramid_oereb_test_config, schema_json_extract, real_estate):
+def test_getegrid_gnss(pyramid_oereb_test_config, schema_json_extract, real_estate_data):
     del pyramid_oereb_test_config
 
     request = MockRequest(
@@ -119,7 +119,7 @@ def test_getegrid_gnss(pyramid_oereb_test_config, schema_json_extract, real_esta
     assert real_estates[0]['identDN'] == u'BLTEST'
 
 
-def test_getegrid_address(pyramid_oereb_test_config, schema_json_extract, real_estate, address):
+def test_getegrid_address(pyramid_oereb_test_config, schema_json_extract, real_estate_data, address):
     del pyramid_oereb_test_config
 
     request = MockRequest(

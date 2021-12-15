@@ -154,7 +154,7 @@ def test_return_no_content():
 ])
 def test_return_json(pyramid_oereb_test_config, pyramid_test_config, schema_json_extract,
                      egrid, topics,
-                     real_estate, municipalities, themes, real_estate_types_test_data,
+                     real_estate_data, municipalities, themes, real_estate_types_test_data,
                      main_schema, land_use_plans, contaminated_sites):
     pyramid_test_config.add_renderer('pyramid_oereb_extract_json',
                                      'pyramid_oereb.core.renderer.extract.json_.Renderer')
@@ -223,7 +223,7 @@ def test_return_json(pyramid_oereb_test_config, pyramid_test_config, schema_json
         assert restrictions[2]['Lawstatus']['Code'] == 'inForce'
 
 
-def test_format_url(real_estate):
+def test_format_url(real_estate_data):
     request = MockRequest()
     request.matchdict.update({
         'format': 'URL'

@@ -16,54 +16,6 @@ file_adapter = FileAdapter()
 
 
 @pytest.fixture
-def municipalities(pyramid_oereb_test_config, dbsession, transact):
-    del transact
-
-    from pyramid_oereb.contrib.data_sources.standard.models import main
-
-    # Add dummy municipality
-    municipalities = [main.Municipality(**{
-        'fosnr': 1234,
-        'name': u'Test',
-        'published': True,
-        'geom': 'SRID=2056;MULTIPOLYGON(((0 0, 0 10, 10 10, 10 0, 0 0)))'
-    })]
-    dbsession.add_all(municipalities)
-
-
-@pytest.fixture
-def real_estate(pyramid_oereb_test_config, dbsession, transact):
-    del transact
-
-    from pyramid_oereb.contrib.data_sources.standard.models import main
-
-    real_estates = [main.RealEstate(**{
-        'id': '1',
-        'egrid': u'TEST',
-        'number': u'1000',
-        'identdn': u'BLTEST',
-        'type': u'Liegenschaft',
-        'canton': u'BL',
-        'municipality': u'Liestal',
-        'fosnr': 1234,
-        'land_registry_area': 4,
-        'limit': 'SRID=2056;MULTIPOLYGON(((0 0, 0 2, 2 2, 2 0, 0 0)))'
-    }), main.RealEstate(**{
-        'id': '2',
-        'egrid': u'TEST2',
-        'number': u'9999',
-        'identdn': u'BLTEST',
-        'type': u'RealEstate',
-        'canton': u'BL',
-        'municipality': u'Liestal',
-        'fosnr': 1234,
-        'land_registry_area': 9,
-        'limit': 'SRID=2056;MULTIPOLYGON(((2 0, 2 3, 5 3, 5 0, 2 0)))'
-    })]
-    dbsession.add_all(real_estates)
-
-
-@pytest.fixture
 def address(pyramid_oereb_test_config, dbsession, transact):
     del transact
 
