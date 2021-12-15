@@ -228,6 +228,7 @@ def test_format_real_estate(DummyRenderInfo, real_estate_test_data):
     }
 
 
+@patch.object(pyramid_oereb.contrib.data_sources.standard.hook_methods, 'route_prefix', 'oereb')
 @pytest.mark.parametrize('parameter', [
     default_param(),
     Parameter('json', False, True, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
@@ -248,10 +249,11 @@ def test_format_plr(DummyRenderInfo, parameter):
     )
     documents = [document]
     theme = ThemeRecord(u'ch.BelasteteStandorte', {u'de': u'Test theme'}, 410)
-    subTheme = ThemeRecord(
-        u'ch.BelasteteStandorte',
-        {u'de': u'SubTheme'}, 411, u'SubCodech.BelasteteStandorte'
-    )
+    subTheme = None
+    # subTheme = ThemeRecord(
+    #     u'ch.BelasteteStandorte',
+    #     {u'de': u'SubTheme'}, 411, u'SubCodech.BelasteteStandorte'
+    # )
     office = OfficeRecord({'de': 'Test Office'})
     legend_entry = LegendEntryRecord(
         ImageRecord(FileAdapter().read('tests/resources/python.svg')),
@@ -293,14 +295,6 @@ def test_format_plr(DummyRenderInfo, parameter):
         },
         'ResponsibleOffice': renderer.format_office(plr.responsible_office),
         'Map': renderer.format_map(plr.view_service),
-        'SubTheme': {
-            'Code': 'ch.BelasteteStandorte',
-            'Text': {
-                'Language': 'de',
-                'Text': 'SubTheme'
-            },
-            'Sub_Code': 'SubCodech.BelasteteStandorte'
-        },
         'TypeCode': 'CodeA',
         'TypeCodelist': 'TypeCodeList',
         'LegalProvisions': [renderer.format_document(document)],
@@ -324,7 +318,6 @@ def test_format_plr(DummyRenderInfo, parameter):
             },
             'ResponsibleOffice': renderer.format_office(plr.responsible_office),
             'Map': renderer.format_map(plr.view_service),
-            'SubTheme': renderer.format_theme(plr.sub_theme),
             'TypeCode': 'CodeA',
             'TypeCodelist': 'TypeCodeList',
             'LegalProvisions': [renderer.format_document(document)],
@@ -511,6 +504,7 @@ def test_format_theme(DummyRenderInfo, params):
     }
 
 
+@patch.object(pyramid_oereb.contrib.data_sources.standard.hook_methods, 'route_prefix', 'oereb')
 @pytest.mark.parametrize('parameter', [
     default_param(),
     Parameter('json', 'reduced', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de')
