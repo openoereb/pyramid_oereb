@@ -7,7 +7,6 @@ from pyramid.config import ConfigurationError
 from pyramid_oereb.core.config import Config
 from pyramid_oereb.core.records.office import OfficeRecord
 
-pytestmark = pytest.mark.skip
 
 
 # order=-1 to run them after all and don't screw the configuration in Config
@@ -120,7 +119,10 @@ def test_get_real_estate_main_page_config(config_path):
     Config.init(config_path, 'pyramid_oereb')
     lang = Config.get('default_language')
     plan_for_land_register_main_page_config = Config.get_plan_for_land_register_main_page_config()
-    assert plan_for_land_register_main_page_config.get('reference_wms')[lang] == \
-        'https://wms.ch/?BBOX=2475000,1065000,2850000,1300000'
+    assert plan_for_land_register_main_page_config.get('reference_wms')[lang] == (
+        'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&'
+        'STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&'
+        'WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung'
+    )
     assert plan_for_land_register_main_page_config.get('layer_index') == 2
     assert plan_for_land_register_main_page_config.get('layer_opacity') == 0.5
