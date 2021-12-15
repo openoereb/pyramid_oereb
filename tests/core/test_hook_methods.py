@@ -22,6 +22,9 @@ except ImportError:
     from urlparse import urlparse
 
 
+pytestmark = pytest.mark.skip
+
+
 def test_get_symbol_invalid_theme_code():
     request = DummyRequest()
     request.matchdict.update({
