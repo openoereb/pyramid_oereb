@@ -62,25 +62,25 @@ def schema_xml_versions():
 
 @pytest.fixture(scope='session')
 def theme_test_data():
-    with open('dev/sample_data/dev.themes.json') as f:
+    with open('tests/resources/sample_data/themes.json ') as f:
         return [ThemeRecord(**theme) for theme in json.load(f)]
 
 
 @pytest.fixture(scope='session')
 def law_status_test_data():
-    with open('dev/sample_data/dev.law_status.json') as f:
+    with open('tests/resources/sample_data/law_status.json') as f:
         return [LawStatusRecord(**status) for status in json.load(f)]
 
 
 @pytest.fixture(scope='session')
 def document_type_test_data():
-    with open('dev/sample_data/dev.document_type.json') as f:
+    with open('tests/resources/sample_data/document_type.json') as f:
         return [DocumentTypeRecord(**doc_type) for doc_type in json.load(f)]
 
 
 @pytest.fixture(scope='session')
 def logo_test_data():
-    with open('dev/sample_data/dev.logo.json') as f:
+    with open('tests/resources/sample_data/logo.json') as f:
         return [LogoRecord(logo['code'], logo['logo']) for logo in json.load(f)]
 
 
