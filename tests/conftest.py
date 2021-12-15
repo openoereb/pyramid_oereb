@@ -62,7 +62,7 @@ def schema_xml_versions():
 
 @pytest.fixture(scope='session')
 def theme_test_data():
-    with open('tests/resources/sample_data/themes.json ') as f:
+    with open('tests/resources/sample_data/themes.json') as f:
         return [ThemeRecord(**theme) for theme in json.load(f)]
 
 
