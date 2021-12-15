@@ -269,6 +269,10 @@ git-attributes:
 lint: .venv/requirements-timestamp
 	$(VENV_BIN)/flake8
 
+.PHONY: test-postgres
+test-postgres:
+	psql postgresql://postgres:postgres@localhost:5432 -t -c "select 'test postgres';"
+
 .PHONY: test-core
 test-core: .venv/requirements-timestamp
 	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc --cov $(PACKAGE) --cov-report term-missing:skip-covered --ignore tests/core/sources tests/core
