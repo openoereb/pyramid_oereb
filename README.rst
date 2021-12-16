@@ -17,7 +17,7 @@ Running ``docker-compose up`` will start the DB (it will automatically import th
 a running instance of the pyramid_oereb DEV server connected to the DB. The project folder is mounted
 to it. So changes take effect.
 
-To run the tests locally (unix machine):
+To run the tests locally (unix machine, windows users should go with the docker way described below):
 
 1. Run ``make build`` (this will install the virtual environment on your machine if it's not already installed)
 2. Start the dev database with ``docker-compose up -d oereb-db`` (with the default config, this uses the default Postgres port on your machine)
