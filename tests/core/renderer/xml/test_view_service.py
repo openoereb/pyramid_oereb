@@ -1,16 +1,23 @@
 # -*- coding: utf-8 -*-
 
+import pytest
+
 from pyramid_oereb.core.renderer.extract.xml_ import Renderer
 from pyramid_oereb.core.records.view_service import ViewServiceRecord
 
 
-def test_empty(template):
+@pytest.fixture
+def view_template(xml_templates):
+    return xml_templates.get_template('view_service.xml')
+
+
+def test_empty(view_template, pyramid_oereb_test_config):
     map = ViewServiceRecord(
         reference_wms=dict(),
         layer_index=0,
         layer_opacity=1.0
     )
-    content = template.render(**{
+    content = view_template.render(**{
         'map': map
     }).decode('utf-8').split('\n')
     assert content[0] == ''  # empty filler line
@@ -20,7 +27,7 @@ def test_empty(template):
     assert len(content) == 4
 
 
-def test_reference_wms(DummyRenderInfo, template):
+def test_reference_wms(DummyRenderInfo, view_template, pyramid_oereb_test_config):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = 'de'
     map = ViewServiceRecord(
@@ -28,7 +35,7 @@ def test_reference_wms(DummyRenderInfo, template):
         layer_index=0,
         layer_opacity=1.0
     )
-    content = template.render(**{
+    content = view_template.render(**{
         'map': map,
         'multilingual': renderer.get_multilingual_text
     }).decode('utf-8').split('\n')

@@ -14,7 +14,7 @@ def test_mandatory_fields():
         ViewServiceRecord()
 
 
-def test_init():
+def test_init(pyramid_oereb_test_config):
     record = ViewServiceRecord({'de': 'http://www.test.url.ch'},
                                1,
                                1.0,
@@ -25,7 +25,7 @@ def test_init():
     assert isinstance(record.legends, list)
 
 
-def test_init_with_relation():
+def test_init_with_relation(pyramid_oereb_test_config):
     legend_records = [LegendEntryRecord(
         ImageRecord('100'.encode('utf-8')),
         {'en': 'test'},
@@ -43,7 +43,7 @@ def test_init_with_relation():
     assert isinstance(record.layer_opacity, float)
 
 
-def test_invalid_layer_index_arguments():
+def test_invalid_layer_index_arguments(pyramid_oereb_test_config):
     with pytest.raises(AttributeError):
         ViewServiceRecord({'de': 'http://example.com'}, -1001, 1)
     with pytest.raises(AttributeError):
@@ -52,7 +52,7 @@ def test_invalid_layer_index_arguments():
         ViewServiceRecord({'de': 'http://example.com'}, 1.0, 1)
 
 
-def test_invalid_layer_layer_opacity():
+def test_invalid_layer_layer_opacity(pyramid_oereb_test_config):
     with pytest.raises(AttributeError):
         ViewServiceRecord({'de': 'http://example.com'}, 1, 2.0)
     with pytest.raises(AttributeError):
@@ -100,7 +100,7 @@ def test_get_bbox_from_url():
     assert p4 is None
 
 
-def test_view_service_correct_init_ns():
+def test_view_service_correct_init_ns(pyramid_oereb_test_config):
     with_bbox = {'de': 'https://host/?&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&'
                  'WIDTH=493&HEIGHT=280&FORMAT=image/png'}
     test_view_service = ViewServiceRecord(with_bbox, 1, 1.0, None)
@@ -125,7 +125,7 @@ def get_height_from_bbox(bbox):
     return bbox[3] - bbox[1]
 
 
-def test_get_bbox_without_buffer():
+def test_get_bbox_without_buffer(pyramid_oereb_test_config):
     initial_buffer = Config._config.get('print').get('buffer')
     initial_basic_map_size = Config._config.get('print').get('basic_map_size')
 
@@ -158,7 +158,7 @@ def test_get_bbox_without_buffer():
     Config._config['print']['basic_map_size'] = initial_basic_map_size
 
 
-def test_get_bbox_with_buffer():
+def test_get_bbox_with_buffer(pyramid_oereb_test_config):
     initial_buffer = Config._config.get('print').get('buffer')
     initial_basic_map_size = Config._config.get('print').get('basic_map_size')
 

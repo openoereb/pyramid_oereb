@@ -4,7 +4,7 @@ pyramid_oereb:
     name: pyramid_oereb_main
     models: pyramid_oereb.contrib.data_sources.standard.models.main
     db_connection: &main_db_connection
-      postgresql://postgres:postgres@localhost:5432/pyramid_oereb_test
+      postgresql://postgres:postgres@localhost:5432/oereb_test_db
 
     law_status_lookup:
       - data_code: inKraft
@@ -31,8 +31,13 @@ pyramid_oereb:
     - de
     - fr
     - it
+    - rm
 
   default_language: de
+
+  flavour:
+    - REDUCED
+    - SIGNED
 
   logo_lookups:
     confederation: ch
@@ -50,7 +55,7 @@ pyramid_oereb:
     city: Wabern
 
   oereblex:
-    host: http://models.example.com
+    host: http://oereblex.example.com
     language: de
     proxy:
       http: http://my.proxy.org
@@ -65,6 +70,8 @@ pyramid_oereb:
         - data_code: inKraft
           transfer_code: inKraft
           extract_code: inForce
+      standard: true
+      federal: true
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:
@@ -73,24 +80,46 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: land_use_plans
-    - code: ch.ProjektierungszonenNationalstrassen
-      law_status_lookup:
-        - data_code: inKraft
-          transfer_code: inKraft
-          extract_code: inForce
-      source:
-        class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
-        params:
-          db_connection: *main_db_connection
-          # model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_integer_pk
-          # uncomment line above and comment line below to use integer type for primary keys
-          model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
-          schema_name: motorways_project_planing_zones
+      hooks:
+        get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      document_types_lookup:
+      - data_code: Rechtsvorschrift
+        transfer_code: Rechtsvorschrift
+        extract_code: LegalProvision
+      - data_code: GesetzlicheGrundlage
+        transfer_code: GesetzlicheGrundlage
+        extract_code: Law
+      - data_code: Hinweis
+        transfer_code: Hinweis
+        extract_code: Hint
     - code: ch.BelasteteStandorte
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft
           extract_code: inForce
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          transfer_code: Rechtsvorschrift
+          extract_code: LegalProvision
+        - data_code: GesetzlicheGrundlage
+          transfer_code: GesetzlicheGrundlage
+          extract_code: Law
+        - data_code: Hinweis
+          transfer_code: Hinweis
+          extract_code: Hint
+      standard: true
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:
@@ -99,16 +128,31 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: contaminated_sites
+      hooks:
+        get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      federal: true
 
   real_estate:
     plan_for_land_register:
       reference_wms:
-        de: https://wms.ch/?BBOX=2475000,1065000,2850000,1300000
+        de: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
       layer_index: 1
       layer_opacity: 0.25
     plan_for_land_register_main_page:
       reference_wms:
-        de: https://wms.ch/?BBOX=2475000,1065000,2850000,1300000
+        de: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
       layer_index: 2
       layer_opacity: 0.5
     source:
@@ -127,6 +171,7 @@ pyramid_oereb:
       inKraft: inKraft
       AenderungMitVorwirkung: AenderungMitVorwirkung
       AenderungOhneVorwirkung: AenderungOhneVorwirkung
+    standard: true
 
   logos:
     source:
@@ -165,6 +210,13 @@ pyramid_oereb:
     Bergwerk: "Bergwerk"
 
   real_estate_type:
+    lookup:
+      - data_code: Liegenschaft
+        transfer_code: Liegenschaft
+        extract_code: RealEstate
+      - data_code: SelbstRecht.Baurecht
+        transfer_code: SelbstRecht.Baurecht
+        extract_code: Distinct_and_permanent_rights.BuildingRight
     source:
       class: pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource
       params:
@@ -257,6 +309,7 @@ pyramid_oereb:
       methods:
         date: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_update_date
         provider:  pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_provider
+    redirect: https://geoview.bl.ch/oereb/?egrid={egrid}
 
   glossary:
     source:

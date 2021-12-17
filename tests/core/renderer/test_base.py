@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pytest
+from unittest.mock import patch
 import datetime
 
 from pyramid.httpexceptions import HTTPServerError, HTTPInternalServerError
@@ -14,10 +15,11 @@ from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.view_service import LegendEntryRecord
 from pyramid_oereb.core.renderer import Base
 from pyramid_oereb.core.renderer.extract.json_ import Renderer
+import pyramid_oereb.contrib.data_sources.standard.hook_methods
 from tests.mockrequest import MockRequest
 
 
-def test_call(DummyRenderInfo):
+def test_call(DummyRenderInfo, pyramid_oereb_test_config):
     renderer = Base(DummyRenderInfo())
     assert isinstance(renderer.info, DummyRenderInfo)
     assert renderer.info.name == 'test'
@@ -68,7 +70,7 @@ def test_get_localized_text_from_string(DummyRenderInfo):
     ('en', u'This is a test'),
     ('fr', u'Dies ist ein Test')  # fr not available; use default language (de)
 ])
-def test_get_localized_text_from_dict(DummyRenderInfo, language, result):
+def test_get_localized_text_from_dict(DummyRenderInfo, language, result, pyramid_oereb_test_config):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = language
     multilingual_text = {
@@ -112,7 +114,7 @@ def test_get_localized_text_from_dict_no_default(DummyRenderInfo, language, resu
     ('en', u'This is a test'),
     ('fr', u'Dies ist ein Test')  # fr not available; use default language (de)
 ])
-def test_get_multilingual_text_from_dict(DummyRenderInfo, language, result):
+def test_get_multilingual_text_from_dict(DummyRenderInfo, language, result, pyramid_oereb_test_config):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = language
     multilingual_text = {
@@ -180,11 +182,12 @@ def test_sort_by_localized_text(DummyRenderInfo):
     assert sorted_multilingual_elements[2]['content']['fr'] == u'Content-Ofo'
 
 
+@patch.object(pyramid_oereb.contrib.data_sources.standard.hook_methods, 'route_prefix', 'oereb')
 @pytest.mark.parametrize('theme_code', [
     u'ch.BelasteteStandorte',
     u'NotExistingTheme',
 ])
-def test_get_symbol_ref(theme_code):
+def test_get_symbol_ref(theme_code, pyramid_test_config, pyramid_oereb_test_config):
     request = MockRequest()
     record = LegendEntryRecord(
         ImageRecord(FileAdapter().read('tests/resources/python.svg')),

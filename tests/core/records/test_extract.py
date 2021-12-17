@@ -54,7 +54,7 @@ def create_dummy_extract():
     return record
 
 
-def test_init():
+def test_init(pyramid_oereb_test_config):
     record = create_dummy_extract()
     assert isinstance(record.extract_identifier, str)
     assert isinstance(record.real_estate, RealEstateRecord)
