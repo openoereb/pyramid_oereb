@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import json
 import math
 
 from jsonschema import Draft4Validator
@@ -28,44 +27,43 @@ def test_getegrid_coord_missing_parameter():
 
 
 @pytest.mark.parametrize('geometry', [False, True])
-def test_getegrid_ident(pyramid_test_config, schema_json_extract, geometry):
-    with pyramid_test_config():
-        request = MockRequest(current_route_url='http://example.com/oereb/getegrid/json/BLTEST/1000')
+def test_getegrid_ident(pyramid_oereb_test_config, schema_json_extract, geometry, real_estate_data):
+    request = MockRequest(current_route_url='http://example.com/oereb/getegrid/json/BLTEST/1000')
 
-        # Add params to matchdict as the view will do it for /getegrid/{format}/{identdn}/{number}
-        request.matchdict.update({
-            'format': u'json'
-        })
+    # Add params to matchdict as the view will do it for /getegrid/{format}/{identdn}/{number}
+    request.matchdict.update({
+        'format': u'json'
+    })
+    request.params.update({
+        'IDENTDN': u'BLTEST',
+        'NUMBER': u'1000'
+    })
+    if geometry:
         request.params.update({
-            'IDENTDN': u'BLTEST',
-            'NUMBER': u'1000'
+            'GEOMETRY': u'true'
         })
-        if geometry:
-            request.params.update({
-                'GEOMETRY': u'true'
-            })
 
-        webservice = PlrWebservice(request)
-        response = webservice.get_egrid().json
-        Draft4Validator.check_schema(schema_json_extract)
-        validator = Draft4Validator(schema_json_extract)
-        validator.validate(response)
-        assert isinstance(response, dict)
-        real_estates = response.get('GetEGRIDResponse')
-        assert isinstance(real_estates, list)
-        assert len(real_estates) == 1
-        assert real_estates[0]['egrid'] == u'TEST'
-        assert real_estates[0]['number'] == u'1000'
-        assert real_estates[0]['identDN'] == u'BLTEST'
-        assert real_estates[0]['type'] == u'Liegenschaft'
-        if geometry:
-            assert 'limit' in real_estates[0]
-            assert 'crs' in real_estates[0]['limit']
-            assert 'coordinates' in real_estates[0]['limit']
+    webservice = PlrWebservice(request)
+    response = webservice.get_egrid().json
+    Draft4Validator.check_schema(schema_json_extract)
+    validator = Draft4Validator(schema_json_extract)
+    validator.validate(response)
+    assert isinstance(response, dict)
+    real_estates = response.get('GetEGRIDResponse')
+    assert isinstance(real_estates, list)
+    assert len(real_estates) == 1
+    assert real_estates[0]['egrid'] == u'TEST'
+    assert real_estates[0]['number'] == u'1000'
+    assert real_estates[0]['identDN'] == u'BLTEST'
+    assert real_estates[0]['type'] == u'Liegenschaft'
+    if geometry:
+        assert 'limit' in real_estates[0]
+        assert 'crs' in real_estates[0]['limit']
+        assert 'coordinates' in real_estates[0]['limit']
 
 
-def test_getegrid_en(pyramid_test_config, schema_json_extract):
-    del pyramid_test_config
+def test_getegrid_en(pyramid_oereb_test_config, schema_json_extract, real_estate_data):
+    del pyramid_oereb_test_config
 
     url = 'http://example.com/oereb/getegrid/json/?EN=2,0'
     request = MockRequest(
@@ -93,8 +91,8 @@ def test_getegrid_en(pyramid_test_config, schema_json_extract):
     assert real_estates[0]['identDN'] == u'BLTEST'
 
 
-def test_getegrid_gnss(pyramid_test_config, schema_json_extract):
-    del pyramid_test_config
+def test_getegrid_gnss(pyramid_oereb_test_config, schema_json_extract, real_estate_data):
+    del pyramid_oereb_test_config
 
     request = MockRequest(
         current_route_url='http://example.com/oereb/getegrid/json/?GNSS=32.1244978460310,-19.917989937473'
@@ -109,10 +107,8 @@ def test_getegrid_gnss(pyramid_test_config, schema_json_extract):
     })
     webservice = PlrWebservice(request)
     response = webservice.get_egrid().json
-    with open(schema_json_extract) as f:
-        schema = json.loads(f.read())
-    Draft4Validator.check_schema(schema)
-    validator = Draft4Validator(schema)
+    Draft4Validator.check_schema(schema_json_extract)
+    validator = Draft4Validator(schema_json_extract)
     validator.validate(response)
     assert isinstance(response, dict)
     real_estates = response.get('GetEGRIDResponse')
@@ -123,8 +119,8 @@ def test_getegrid_gnss(pyramid_test_config, schema_json_extract):
     assert real_estates[0]['identDN'] == u'BLTEST'
 
 
-def test_getegrid_address(pyramid_test_config, schema_json_extract):
-    del pyramid_test_config
+def test_getegrid_address(pyramid_oereb_test_config, schema_json_extract, real_estate_data, address):
+    del pyramid_oereb_test_config
 
     request = MockRequest(
         current_route_url='http://example.com/oereb/getegrid/json/4410/test/10'

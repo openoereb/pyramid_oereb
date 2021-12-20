@@ -979,7 +979,7 @@ class Config(object):
             if lookup[key] == code:
                 return lookup
         raise ConfigurationError(
-            'Document type lookup for theme {} with key "{}" and code "{}" is not '
+            'Law status lookup for theme {} with key "{}" and code "{}" is not '
             'defined in configuration!'.format(theme_code, key, code)
         )
 

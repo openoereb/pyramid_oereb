@@ -218,7 +218,7 @@ def test_extract_collection(input_geom, result, extracted):
                 open(
                     os.path.join(__location__, "interlis-valid-ogc-invalid-geometry.txt")
                 ).read()
-            ),
+            ).buffer(0),  # does not work any longer without repairing the geometry
             Polygon([(2698200, 1208800), (2698400, 1208800), (2698400, 1209000), (2698200, 1209000)]),
             1,
             1,
@@ -233,7 +233,7 @@ def test_extract_collection(input_geom, result, extracted):
                 open(
                     os.path.join(__location__, "interlis-valid-ogc-invalid-geometry.txt")
                 ).read()
-            ),
+            ).buffer(0),  # does not work any longer without repairing the geometry,
             Polygon([(2696500, 1208800), (2696700, 1208800), (2696700, 1209000), (2696500, 1209000)]),
             1,
             1,
@@ -244,8 +244,8 @@ def test_extract_collection(input_geom, result, extracted):
         )
     ]
 )
-def test_calculate(geometry, real_estate_geometry, length_limit, area_limit, length_share, area_share,
-                   nr_of_points, test):
+def test_calculate(pyramid_oereb_test_config, geometry, real_estate_geometry,
+                   length_limit, area_limit, length_share, area_share, nr_of_points, test):
     law_status_record = LawStatusRecord("AenderungMitVorwirkung", {u'de': u'BlaBla'})
     geometry_record = GeometryRecord(
         law_status_record,

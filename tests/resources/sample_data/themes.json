@@ -1,0 +1,27 @@
+[
+    {
+        "code": "ch.Nutzungsplanung",
+        "sub_code": null,
+        "title": {
+            "de": "Nutzungsplanung (kantonal/kommunal)",
+            "fr": "Plans d’affectation (cantonaux/communaux)",
+            "it": "Piani di utilizzazione (cantonali/comunali)",
+            "rm": "Planisaziun d’utilisaziun (chantunal/communal)",
+            "en": "Land use plans (cantonal/municipal)"
+        },
+        "extract_index": 1
+    },
+    {
+        "code": "ch.BelasteteStandorte",
+        "sub_code": null,
+        "title": {
+            "de": "Kataster der belasteten Standorte",
+            "fr": "Cadastre des sites pollués",
+            "it": "Catasto dei siti inquinati",
+            "rm": "Cataster dals lieus contaminads",
+            "en": "Cadastre of contaminated sites"
+        },
+        "extract_index": 200,
+        "document_records": []
+    }
+]

@@ -1,19 +1,25 @@
 # -*- coding: utf-8 -*-
 import pytest
 import json
+import yaml
+from io import StringIO
+from urllib.parse import urlsplit, urlunsplit
+from unittest.mock import patch
+from datetime import date, timedelta
 
 from pyramid.testing import testConfig
-from pyramid.path import DottedNameResolver
-from shapely.geometry import MultiPolygon, Polygon
+from sqlalchemy import create_engine, orm
 
+import pyramid_oereb
+from pyramid_oereb.core import b64
+from pyramid_oereb.core.adapter import FileAdapter
 from pyramid_oereb.core.config import Config
-from pyramid_oereb.core.adapter import DatabaseAdapter
-from pyramid_oereb.core.records.disclaimer import DisclaimerRecord
-from pyramid_oereb.core.records.extract import ExtractRecord
-from pyramid_oereb.core.records.glossary import GlossaryRecord
-from pyramid_oereb.core.records.office import OfficeRecord
-from pyramid_oereb.core.records.real_estate import RealEstateRecord
-from pyramid_oereb.core.records.view_service import ViewServiceRecord
+from pyramid_oereb.core.records.theme import ThemeRecord
+from pyramid_oereb.core.records.document_types import DocumentTypeRecord
+from pyramid_oereb.core.records.law_status import LawStatusRecord
+from pyramid_oereb.core.records.logo import LogoRecord
+from pyramid_oereb.contrib.data_sources.create_tables import create_tables_from_standard_configuration
+from pyramid_oereb.contrib.data_sources.standard.sources.plr import StandardThemeConfigParser
 
 SCHEMA_JSON_EXTRACT_PATH = './tests/resources/schema/20210415/extract.json'
 SCHEMA_JSON_VERSIONS_PATH = './tests/resources/schema/20210415/versioning.json'
@@ -31,16 +37,20 @@ def config_path():
 @pytest.fixture(scope='session')
 def pyramid_test_config():
     with testConfig() as pyramid_config:
-        pyramid_config.include('pyramid_oereb.routes')
-        return pyramid_config
+        with patch.object(pyramid_oereb, 'route_prefix', 'oereb'):
+            pyramid_config.include('pyramid_oereb.core.routes')
+            yield pyramid_config
 
 
-@pytest.fixture(scope='session')
-@pytest.mark.usefixtures('config_path')
-def pyramid_oereb_test_config(config_path):
-    # Load the standard test configuration
-    Config.init(config_path, configsection='pyramid_oereb', init_data=True)
-    return Config
+@pytest.fixture
+def file_adapter():
+    return FileAdapter()
+
+
+@pytest.fixture(scope='function')
+def schema_json_versions():
+    with open(SCHEMA_JSON_VERSIONS_PATH) as f:
+        return json.load(f)
 
 
 @pytest.fixture(scope='function')
@@ -51,23 +61,143 @@ def schema_json_extract():
 
 @pytest.fixture(scope='function')
 def schema_xml_extract():
-    with open(SCHEMA_XML_EXTRACT_PATH) as f:
-        return json.load(f)
+    return SCHEMA_XML_EXTRACT_PATH
 
 
 @pytest.fixture(scope='function')
 def schema_xml_versions():
-    with open(SCHEMA_XML_VERSIONS_PATH) as f:
-        return json.load(f)
+    return SCHEMA_XML_VERSIONS_PATH
 
 
 @pytest.fixture(scope='session')
-@pytest.mark.usefixtures('pyramid_oereb_test_config')
-def dbsession(pyramid_oereb_test_config):
-    db_url = pyramid_oereb_test_config.get('app_schema').get('db_connection')
-    adapter = DatabaseAdapter()
-    adapter.add_connection(db_url)
-    return adapter.get_session(db_url)
+def theme_test_data():
+    with open('tests/resources/sample_data/themes.json') as f:
+        return [ThemeRecord(**theme) for theme in json.load(f)]
+
+
+@pytest.fixture(scope='session')
+def law_status_test_data():
+    with open('tests/resources/sample_data/law_status.json') as f:
+        return [LawStatusRecord(**status) for status in json.load(f)]
+
+
+@pytest.fixture(scope='session')
+def document_type_test_data():
+    with open('tests/resources/sample_data/document_type.json') as f:
+        return [DocumentTypeRecord(**doc_type) for doc_type in json.load(f)]
+
+
+@pytest.fixture(scope='session')
+def logo_test_data():
+    with open('tests/resources/sample_data/logo.json') as f:
+        return [LogoRecord(logo['code'], logo['logo']) for logo in json.load(f)]
+
+
+@pytest.fixture(scope='session')
+def base_engine(test_db_url):
+    split_url = urlsplit(test_db_url)
+    base_db_url = urlunsplit(
+        (split_url.scheme, split_url.netloc, "template1", split_url.query, split_url.fragment)
+    )
+    engine = create_engine(base_db_url)
+    yield engine
+
+
+@pytest.fixture(scope='session')
+def test_db_name(test_db_url):
+    split_url = urlsplit(test_db_url)
+    yield split_url.path.strip('/')
+
+
+@pytest.fixture(scope='session')
+@pytest.mark.usefixtures('config_path')
+def test_db_url(config_path):
+    with open(config_path, encoding='utf-8') as f:
+        content = yaml.safe_load(f.read())
+    yield content.get('pyramid_oereb').get('app_schema').get('db_connection')
+
+
+@pytest.fixture(scope='session')
+def test_db_engine(base_engine, test_db_name, test_db_url, config_path):
+    """
+    create a new test DB called test_db_name and its engine
+    """
+
+    base_connection = base_engine.connect()
+    # terminate existing connections to be able to DROP the DB
+    base_connection.execute('SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE '
+                            f'pg_stat_activity.datname = \'{test_db_name}\' AND pid <> pg_backend_pid();')
+    # sqlalchemy uses transactions by default, COMMIT end the current transaction and allows
+    # creation and destruction of DB
+    base_connection.execute('COMMIT')
+    base_connection.execute(f"DROP DATABASE if EXISTS {test_db_name}")
+    base_connection.execute('COMMIT')
+    base_connection.execute(f"CREATE DATABASE {test_db_name}")
+
+    engine = create_engine(test_db_url)
+    engine.execute("CREATE EXTENSION POSTGIS")
+
+    # initialize the DB with standard tables via a temp string buffer to hold SQL commands
+    sql_file = StringIO()
+    create_tables_from_standard_configuration(config_path, sql_file=sql_file)
+    sql_file.seek(0)
+    engine.execute(sql_file.read())
+
+    yield engine
+
+    # currently there is a problem with teardown of the DB and sessions:
+    # DROP DATABASE may be called while a connection is still alive, this may lead to error messages
+    # therefore, the DB will temporarily be dropped at the beginning of the test instead of a final
+    # cleanup (see above)
+    # # do cleanup: disconnect users and DROP DB
+    # base_connection.execute('SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE '
+    #                         f'pg_stat_activity.datname = \'{test_db_name}\' AND pid <> pg_backend_pid();')
+    # base_connection.execute('COMMIT')
+    # base_connection.execute(f"DROP DATABASE if EXISTS {test_db_name}")
+
+
+@pytest.fixture(scope='session')
+@pytest.mark.usefixtures('config_path')
+def pyramid_oereb_test_config(config_path, dbsession):
+    del dbsession
+    # Reload the standard test configuration and now initialize it
+    Config._config = None  # needed to force reload due to internal assertion
+    Config.init(config_path, configsection='pyramid_oereb', init_data=True)
+    return Config
+
+
+@pytest.fixture(scope='session')
+def dbsession(test_db_engine):
+    session = orm.sessionmaker(bind=test_db_engine)()
+    with patch(
+        'pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=session
+    ), patch.object(
+        session, "close"
+    ):
+        yield session
+
+
+@pytest.fixture
+def transact(dbsession):
+    transact = dbsession.begin_nested()
+    yield transact
+    transact.rollback()
+    dbsession.expire_all()
+
+
+@pytest.fixture
+def main_schema(pyramid_oereb_test_config, theme_test_data, law_status_test_data,
+                document_type_test_data, logo_test_data):
+
+    with patch.object(
+      Config, 'themes', theme_test_data
+    ), patch.object(
+      Config, 'law_status', law_status_test_data
+    ), patch.object(
+      Config, 'document_types', document_type_test_data
+    ), patch.object(
+      Config, 'logos', logo_test_data):
+        yield pyramid_oereb_test_config
 
 
 @pytest.fixture
@@ -78,62 +208,346 @@ def DummyRenderInfo():
 
 
 @pytest.fixture
-@pytest.mark.usefixture('pyramid_oereb_test_config')
-def _get_test_extract(pyramid_oereb_test_config, glossary):
-    with pyramid_oereb_test_config():
-        view_service = ViewServiceRecord({'de': u'http://geowms.bl.ch'},
-                                         1,
-                                         1.0,
-                                         None)
-        real_estate = RealEstateRecord(u'Liegenschaft', u'BL', u'Liestal', 2829, 11395,
-                                       MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
-                                       u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712')
-        real_estate.set_view_service(view_service)
-        real_estate.set_main_page_view_service(view_service)
-        office_record = OfficeRecord({'de': u'AGI'}, office_at_web={
-            'de': 'https://www.bav.admin.ch/bav/de/home.html'
+def wms_url_contaminated_sites():
+    return {
+        'de': 'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&'
+              'CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=740&HEIGHT=500&FORMAT=image/png'
+              '&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb',
+        'fr': 'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&'
+              'CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=740&HEIGHT=500&FORMAT=image/png'
+              '&LAYERS=ch.bav.kataster-belasteter-standorte-oev.oereb'
+            }
+
+
+@pytest.fixture
+def real_estate_data(pyramid_oereb_test_config, dbsession, transact):
+    del transact
+
+    from pyramid_oereb.contrib.data_sources.standard.models import main
+
+    real_estates = [main.RealEstate(**{
+        'id': '1',
+        'egrid': u'TEST',
+        'number': u'1000',
+        'identdn': u'BLTEST',
+        'type': u'Liegenschaft',
+        'canton': u'BL',
+        'municipality': u'Liestal',
+        'fosnr': 1234,
+        'land_registry_area': 4,
+        'limit': 'SRID=2056;MULTIPOLYGON(((0 0, 0 2, 2 2, 2 0, 0 0)))'
+    }), main.RealEstate(**{
+        'id': '2',
+        'egrid': u'TEST2',
+        'number': u'9999',
+        'identdn': u'BLTEST',
+        'type': u'RealEstate',
+        'canton': u'BL',
+        'municipality': u'Liestal',
+        'fosnr': 1234,
+        'land_registry_area': 9,
+        'limit': 'SRID=2056;MULTIPOLYGON(((2 0, 2 3, 5 3, 5 0, 2 0)))'
+    })]
+    dbsession.add_all(real_estates)
+
+
+@pytest.fixture
+def land_use_plans(pyramid_oereb_test_config, dbsession, transact, wms_url_contaminated_sites, file_adapter):
+    del transact
+
+    theme_config = pyramid_oereb_test_config.get_theme_config_by_code('ch.Nutzungsplanung')
+    config_parser = StandardThemeConfigParser(**theme_config)
+    models = config_parser.get_models()
+
+    view_services = {
+        models.ViewService(**{
+            'id': 1,
+            'reference_wms': wms_url_contaminated_sites,
+            'layer_index': 1,
+            'layer_opacity': 1.0,
         })
-        resolver = DottedNameResolver()
-        date_method_string = (pyramid_oereb_test_config
-                              .get('extract')
-                              .get('base_data')
-                              .get('methods')
-                              .get('date'))
-        date_method = resolver.resolve(date_method_string)
-        update_date_os = date_method(real_estate)
-        extract = ExtractRecord(
-            real_estate,
-            pyramid_oereb_test_config.get_oereb_logo(),
-            pyramid_oereb_test_config.get_conferderation_logo(),
-            pyramid_oereb_test_config.get_canton_logo(),
-            pyramid_oereb_test_config.get_municipality_logo(1234),
-            office_record,
-            update_date_os,
-            disclaimers=[
-                DisclaimerRecord({'de': u'Haftungsausschluss'}, {'de': u'Test'})
-            ],
-            glossaries=glossary,
-            general_information=pyramid_oereb_test_config.get_general_information()
-        )
-        # extract.qr_code = 'VGhpcyBpcyBub3QgYSBRUiBjb2Rl'.encode('utf-8') TODO:
-        #    qr_code Must be an image ('base64Binary'), but even with images xml validation
-        #    fails on it.
-        # extract.electronic_signature = 'Signature'  # TODO: fix signature rendering first
-        return extract
+    }
+    dbsession.add_all(view_services)
+
+    offices = {
+        models.Office(**{
+            'id': 1,
+            'name': 'Test office',
+        })
+    }
+    dbsession.add_all(offices)
+
+    legend_entries = {
+        models.LegendEntry(**{
+            'id': 1,
+            'symbol': b64.encode(file_adapter.read('tests/resources/symbol.png')),
+            'legend_text': {
+                'de': u'Test'
+            },
+            'type_code': u'CodeA',
+            'type_code_list': u'type_code_list',
+            'theme': 'ch.Nutzungsplanung',
+            'sub_theme': None,
+            'view_service_id': 1,
+        })
+    }
+    dbsession.add_all(legend_entries)
+
+    plrs = [
+        models.PublicLawRestriction(**{
+            'id': 1,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'view_service_id': 1,
+            'legend_entry_id': 1,
+            'office_id': 1,
+        }),
+        models.PublicLawRestriction(**{
+            'id': 2,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=00)).isoformat(),
+            'view_service_id': 1,
+            'legend_entry_id': 1,
+            'office_id': 1,
+        }),
+        models.PublicLawRestriction(**{
+            'id': 3,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'view_service_id': 1,
+            'legend_entry_id': 1,
+            'office_id': 1,
+        }),
+        models.PublicLawRestriction(**{
+            'id': 4,
+            'law_status': 'inKraft',
+            'published_from': (date.today() + timedelta(days=7)).isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'view_service_id': 1,
+            'legend_entry_id': 1,
+            'office_id': 1,
+        }),
+        ]
+    dbsession.add_all(plrs)
+
+    geometries = {
+        models.Geometry(**{
+            'id': 1,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'geo_metadata': 'Large polygon PLR',
+            'public_law_restriction_id': 1,
+            'geom': 'SRID=2056;GEOMETRYCOLLECTION('
+                    'POLYGON((1 -1, 9 -1, 9 7, 1 7, 1 8, 10 8, 10 -2, 1 -2, 1 -1)))',
+        }),
+        models.Geometry(**{
+            'id': 2,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'geo_metadata': 'Small polygon PLR',
+            'public_law_restriction_id': 1,
+            'geom': 'SRID=2056;GEOMETRYCOLLECTION(POLYGON((0 0, 0 1.5, 1.5 1.5, 1.5 0, 0 0)))',
+        }),
+        models.Geometry(**{
+            'id': 3,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'geo_metadata': 'Double intersection polygon PLR',
+            'public_law_restriction_id': 1,
+            'geom': 'SRID=2056;GEOMETRYCOLLECTION('
+                    'POLYGON((3 2.5, 3 5, 7 5, 7 0, 3 0, 3 1, 6 1, 6 4, 4 2.5, 3 2.5)))'
+        }),
+        models.Geometry(**{
+            'id': 4,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'geo_metadata': 'Future PLR',
+            'public_law_restriction_id': 1,
+            'geom': 'SRID=2056;GEOMETRYCOLLECTION(POLYGON((1.5 1.5, 1.5 2, 2 2, 2 1.5, 1.5 1.5)))',
+        }),
+        models.Geometry(**{
+            'id': 5,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'geo_metadata': 'Future PLR',
+            'public_law_restriction_id': 1,
+            'geom': 'SRID=2056;GEOMETRYCOLLECTION(POINT(1 2))',
+        }),
+    }
+    dbsession.add_all(geometries)
+
+    documents = {
+        models.Document(**{
+            'id': 1,
+            'document_type': 'GesetzlicheGrundlage',
+            'index': 1,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'title': {'de': 'First level document'},
+            'office_id': 1,
+            'text_at_web': {'de': 'http://www.admin.ch/ch/d/sr/c814_01.html'},
+            'abbreviation': {'de': 'USG', 'fr': 'LPE', 'it': 'LPAmb', 'en': 'EPA'},
+            'official_number': {'de': 'SR 814.01'},
+        }),
+        models.Document(**{
+            'id': 2,
+            'document_type': 'GesetzlicheGrundlage',
+            'index': 1,
+            'law_status': 'inKraft',
+            'published_from': (date.today() + timedelta(days=7)).isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'title': {'de': 'First level document'},
+            'office_id': 1,
+            'text_at_web': {'de': 'http://www.admin.ch/ch/d/sr/c814_01.html'},
+            'abbreviation': {'de': 'USG', 'fr': 'LPE', 'it': 'LPAmb', 'en': 'EPA'},
+            'official_number': {'de': 'SR 814.01'},
+        })
+    }
+    dbsession.add_all(documents)
+
+    plr_documents = {
+        models.PublicLawRestrictionDocument(**{
+            'id': 1,
+            'public_law_restriction_id': 1,
+            'document_id': 1,
+        }),
+        models.PublicLawRestrictionDocument(**{
+            'id': 2,
+            'public_law_restriction_id': 1,
+            'document_id': 2,
+        })
+    }
+    dbsession.add_all(plr_documents)
+    dbsession.flush()
 
 
 @pytest.fixture
-@pytest.mark.usefixtures('_get_test_extract')
-def get_default_extract(_get_test_extract):
-    glossary = [GlossaryRecord({'de': u'Glossar'}, {'de': u'Test'})]
-    return _get_test_extract(glossary)
+def contaminated_sites(pyramid_oereb_test_config, dbsession, transact, wms_url_contaminated_sites,
+                       file_adapter):
+    del transact
 
+    theme_config = pyramid_oereb_test_config.get_theme_config_by_code('ch.BelasteteStandorte')
+    config_parser = StandardThemeConfigParser(**theme_config)
+    models = config_parser.get_models()
 
-@pytest.fixture
-def get_empty_glossary_extract():
-    return _get_test_extract([])
+    view_services = {
+        models.ViewService(**{
+            'id': 1,
+            'reference_wms': wms_url_contaminated_sites,
+            'layer_index': 1,
+            'layer_opacity': .75,
+        })
+        }
+    dbsession.add_all(view_services)
 
+    offices = {
+        'office1': models.Office(**{
+            'id': 1,
+            'name': 'Test office',
+        })
+        }
+    dbsession.add_all(offices.values())
 
-@pytest.fixture
-def get_none_glossary_extract():
-    return _get_test_extract(None)
+    legend_entries = {
+        'legend_entry1': models.LegendEntry(**{
+            'id': 1,
+            'symbol': b64.encode(file_adapter.read('tests/resources/symbol.png')),
+            'legend_text': {'de': 'Test'},
+            'type_code': 'StaoTyp1',
+            'type_code_list': 'https://models.geo.admin.ch/BAFU/KbS_Codetexte_V1_4.xml',
+            'theme': 'ch.BelasteteStandorte',
+            'view_service_id': 1,
+        })
+        }
+    dbsession.add_all(legend_entries.values())
+
+    plrs = {
+        'plr1': models.PublicLawRestriction(**{
+            'id': 1,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'view_service_id': 1,
+            'legend_entry_id': 1,
+            'office_id': 1,
+        }),
+        'plr2': models.PublicLawRestriction(**{
+            'id': 2,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'view_service_id': 1,
+            'legend_entry_id': 1,
+            'office_id': 1,
+        }),
+        'plr3': models.PublicLawRestriction(**{
+            'id': 3,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'view_service_id': 1,
+            'legend_entry_id': 1,
+            'office_id': 1,
+        }),
+        'plr4': models.PublicLawRestriction(**{
+            'id': 4,
+            'law_status': 'inKraft',
+            'published_from': (date.today() + timedelta(days=7)).isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'view_service_id': 1,
+            'legend_entry_id': 1,
+            'office_id': 1,
+        }),
+        }
+    dbsession.add_all(plrs.values())
+
+    geometries = {
+        models.Geometry(**{
+            'id': 1,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'geo_metadata': 'Large polygon PLR',
+            'public_law_restriction_id': 1,
+            'geom': 'SRID=2056;GEOMETRYCOLLECTION(POLYGON((0 0, 0 1.5, 1.5 1.5, 1.5 0, 0 0)))',
+        }),
+        models.Geometry(**{
+            'id': 2,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'geo_metadata': 'Small polygon PLR',
+            'public_law_restriction_id': 2,
+            'geom': 'SRID=2056;GEOMETRYCOLLECTION(POLYGON((1.5 1.5, 1.5 2, 2 2, 2 1.5, 1.5 1.5)))',
+        }),
+        models.Geometry(**{
+            'id': 3,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'geo_metadata': 'Double intersection polygon PLR',
+            'public_law_restriction_id': 3,
+            'geom': 'SRID=2056;GEOMETRYCOLLECTION('
+                    'POLYGON((3 2.5, 3 5, 7 5, 7 0, 3 0, 3 1, 6 1, 6 4, 4 2.5, 3 2.5)))'
+        }),
+        models.Geometry(**{
+            'id': 4,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'geo_metadata': 'Future PLR',
+            'public_law_restriction_id': 4,
+            'geom': 'SRID=2056;GEOMETRYCOLLECTION(POLYGON((0 0, 0 2, 2 2, 2 0, 0 0)))',
+        }),
+        }
+    dbsession.add_all(geometries)
+    dbsession.flush()

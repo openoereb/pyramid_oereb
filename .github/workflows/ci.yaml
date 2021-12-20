@@ -25,6 +25,44 @@ jobs:
       - name: Run make git-attributes
         run: make git-attributes
 
+  test-py:
+    name: Test Python
+    runs-on: ubuntu-20.04
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgis/postgis
+        # Provide the password for postgres
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    strategy:
+      matrix:
+        python-version:
+          - python3.6
+          - python3.7
+          - python3.8
+          - python3.9
+          - python3.10
+          - python3.11
+    steps:
+      - uses: actions/checkout@v2
+      - run: sudo rm /etc/apt/sources.list.d/*.list
+      - run: sudo apt update
+      - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
+      - name: Run checks for Python ${{ matrix.python-version }}
+        env:
+          PYTHON_TEST_VERSION: ${{ matrix.python-version }}
+        run: make test-core
+
   build-and-publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI
     runs-on: ubuntu-20.04

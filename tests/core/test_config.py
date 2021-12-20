@@ -24,10 +24,10 @@ def test_missing_configuration_section():
 
 
 @pytest.mark.run(order=-1)
-def test_wrong_configuration_section():
+def test_wrong_configuration_section(config_path):
     Config._config = None
     with pytest.raises(ConfigurationError):
-        Config.init('./tests/resources/test_config.yml', 'invalidsection')
+        Config.init(config_path, 'invalidsection')
 
 
 @pytest.mark.run(order=-1)
@@ -39,9 +39,9 @@ def test_configuration_file_not_found():
 
 
 @pytest.mark.run(order=-1)
-def test_parse_configuration():
+def test_parse_configuration(config_path):
     Config._config = None
-    Config.init('./tests/resources/test_config.yml', 'section2')
+    Config.init(config_path, 'section2')
     assert Config.get('param1') == 1
     assert len(Config.get('param2')) == 2
     assert Config.get('param2')[0] == 'first'
@@ -49,17 +49,17 @@ def test_parse_configuration():
 
 
 @pytest.mark.run(order=-1)
-def test_get_plr_cadastre_authority():
+def test_get_plr_cadastre_authority(config_path):
     Config._config = None
-    Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
+    Config.init(config_path, 'pyramid_oereb')
     plr_cadastre_authority = Config.get_plr_cadastre_authority()
     assert isinstance(plr_cadastre_authority, OfficeRecord)
 
 
 @pytest.mark.run(order=-1)
-def test_get_logo_config():
+def test_get_logo_config(config_path):
     Config._config = None
-    Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
+    Config.init(config_path, 'pyramid_oereb')
     logo_config = Config.get_logo_config()
     assert isinstance(logo_config, dict)
     source = logo_config.get('source')
@@ -75,19 +75,19 @@ def test_get_logo_config():
 
 
 @pytest.mark.run(order=-1)
-def test_get_all_federal():
+def test_get_all_federal(config_path):
     Config._config = None
-    Config.init('./pyramid_oereb/standard/pyramid_oereb.yml', 'pyramid_oereb')
+    Config.init(config_path, 'pyramid_oereb')
     all_federal = Config.get_all_federal()
     assert isinstance(all_federal, list)
-    assert len(all_federal) == 10
-    assert 'ch.ProjektierungszonenEisenbahnanlagen' in all_federal
+    assert len(all_federal) == 2
+    assert 'ch.BelasteteStandorte' in all_federal
 
 
 @pytest.mark.run(order=-1)
-def test_get_oereblex_config():
+def test_get_oereblex_config(config_path):
     Config._config = None
-    Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
+    Config.init(config_path, 'pyramid_oereb')
     cfg = Config.get_oereblex_config()
     assert isinstance(cfg, dict)
     assert cfg == {
@@ -101,24 +101,27 @@ def test_get_oereblex_config():
 
 
 @pytest.mark.run(order=-1)
-def test_get_layer_config():
+def test_get_layer_config(config_path):
     Config._config = None
-    Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
+    Config.init(config_path, 'pyramid_oereb')
     layer_index, layer_opacity = Config.get_layer_config('ch.Nutzungsplanung')
     assert layer_index == 1
     assert layer_opacity == 0.25
-    layer_index, layer_opacity = Config.get_layer_config('ch.ProjektierungszonenNationalstrassen')
+    layer_index, layer_opacity = Config.get_layer_config('ch.BelasteteStandorte')
     assert layer_index is None
     assert layer_opacity is None
 
 
 @pytest.mark.run(order=-1)
-def test_get_real_estate_main_page_config():
+def test_get_real_estate_main_page_config(config_path):
     Config._config = None
-    Config.init('./tests/resources/test_config.yml', 'pyramid_oereb')
+    Config.init(config_path, 'pyramid_oereb')
     lang = Config.get('default_language')
     plan_for_land_register_main_page_config = Config.get_plan_for_land_register_main_page_config()
-    assert plan_for_land_register_main_page_config.get('reference_wms')[lang] == \
-        'https://wms.ch/?BBOX=2475000,1065000,2850000,1300000'
+    assert plan_for_land_register_main_page_config.get('reference_wms')[lang] == (
+        'https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&'
+        'STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&'
+        'WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung'
+    )
     assert plan_for_land_register_main_page_config.get('layer_index') == 2
     assert plan_for_land_register_main_page_config.get('layer_opacity') == 0.5

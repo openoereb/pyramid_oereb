@@ -3,14 +3,64 @@
 import datetime
 
 import pytest
+import yaml
 import requests_mock
+from unittest.mock import patch
 from geolink_formatter.entity import Document, File
 from requests.auth import HTTPBasicAuth
 
 from pyramid_oereb.contrib.data_sources.oereblex.sources.document import OEREBlexSource
+from pyramid_oereb.core.records.document_types import DocumentTypeRecord
 from pyramid_oereb.core.records.documents import DocumentRecord
 from pyramid_oereb.core.records.office import OfficeRecord
+from pyramid_oereb.core.config import Config
+from pyramid.config import ConfigurationError
 from tests.mockrequest import MockParameter
+
+
+@pytest.fixture
+def forest_perimeters_config():
+    yield yaml.safe_load('''
+      code: ch.Waldabstandslinien
+      source:
+        class: pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource
+        params:
+          db_connection: main_db_connection
+          model_factory: pyramid_oereb.contrib.data_sources.oereblex.models.theme.model_factory_string_pk
+          schema_name: forest_perimeters
+      document_types_lookup:
+        - data_code: decree
+          transfer_code: Rechtsvorschrift
+          extract_code: LegalProvision
+        - data_code: edict
+          transfer_code: GesetzlicheGrundlage
+          extract_code: Law
+        - data_code: notice
+          transfer_code: Hinweis
+          extract_code: Hint
+      law_status_lookup:
+        - data_code: inKraft
+          transfer_code: inKraft
+          extract_code: inForce
+        - data_code: AenderungMitVorwirkung
+          transfer_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+        - data_code: AenderungOhneVorwirkung
+          transfer_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+          ''')
+
+
+@pytest.fixture
+def oereblex_test_config(pyramid_oereb_test_config, law_status_test_data, document_type_test_data,
+                         forest_perimeters_config):
+    with patch(
+        'pyramid_oereb.core.config.Config.get_theme_config_by_code', return_value=forest_perimeters_config
+    ), patch.object(
+      Config, 'law_status', law_status_test_data
+    ), patch.object(
+      Config, 'document_types', document_type_test_data):
+        yield pyramid_oereb_test_config
 
 
 @pytest.mark.parametrize('valid,cfg', [
@@ -117,12 +167,15 @@ def test_get_mapped_value(key, language, result):
         enactment_date=datetime.date.today()
     ))
 ])
-def test_get_document_records(i, document):
+def test_get_document_records(oereblex_test_config, i, document):
+    del oereblex_test_config
+
     language = 'de'
-    source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL')
+    source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
+                            code='ch.Waldabstandslinien')
 
     if i == 3:
-        with pytest.raises(TypeError):
+        with pytest.raises(ConfigurationError):
             source._get_document_records(document, language)
     elif i == 4:
         assert source._get_document_records(document, language) == []
@@ -144,7 +197,9 @@ def test_get_document_records(i, document):
             assert record.text_at_web == {'de': '/api/attachments/{fid}'.format(fid=i + idx)}
 
 
-def test_read():
+def test_read(oereblex_test_config):
+    del oereblex_test_config
+
     with requests_mock.mock() as m:
         with open('./tests/resources/geolink_v1.2.2.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
@@ -152,7 +207,8 @@ def test_read():
             host='http://oereblex.example.com',
             language='de',
             canton='BL',
-            version='1.2.2'
+            version='1.2.2',
+            code='ch.Waldabstandslinien',
         )
         source.read(MockParameter(), 100)
         assert len(source.records) == 9
@@ -166,7 +222,9 @@ def test_read():
         assert document.index == 30
 
 
-def test_read_related_decree_as_main():
+def test_read_related_decree_as_main(oereblex_test_config):
+    del oereblex_test_config
+
     with requests_mock.mock() as m:
         with open('./tests/resources/geolink_v1.2.2.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
@@ -175,7 +233,8 @@ def test_read_related_decree_as_main():
             language='de',
             canton='BL',
             version='1.2.2',
-            related_decree_as_main=True
+            related_decree_as_main=True,
+            code='ch.Waldabstandslinien',
         )
         source.read(MockParameter(), 100)
         assert len(source.records) == 9
@@ -189,7 +248,9 @@ def test_read_related_decree_as_main():
         assert document.index == 30
 
 
-def test_read_related_notice_as_main():
+def test_read_related_notice_as_main(oereblex_test_config):
+    del oereblex_test_config
+
     with requests_mock.mock() as m:
         with open('./tests/resources/geolink_v1.2.2.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
@@ -198,13 +259,15 @@ def test_read_related_notice_as_main():
             language='de',
             canton='BL',
             version='1.2.2',
-            related_notice_as_main=True
+            related_notice_as_main=True,
+            code='ch.Waldabstandslinien',
         )
         source.read(MockParameter(), 100)
         assert len(source.records) == 9
         document = source.records[8]
         assert isinstance(document, DocumentRecord)
-        assert document.document_type == 'Hinweis'
+        assert isinstance(document.document_type, DocumentTypeRecord)
+        assert document.document_type.code == 'Hint'
         assert isinstance(document.responsible_office, OfficeRecord)
         assert document.responsible_office.name == {'de': '-'}
         assert document.responsible_office.office_at_web is None
@@ -212,7 +275,9 @@ def test_read_related_notice_as_main():
         assert document.index == 40
 
 
-def test_read_with_version_in_url():
+def test_read_with_version_in_url(oereblex_test_config):
+    del oereblex_test_config
+
     with requests_mock.mock() as m:
         with open('./tests/resources/geolink_v1.2.2.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/1.2.2/geolinks/100.xml', content=f.read())
@@ -221,13 +286,16 @@ def test_read_with_version_in_url():
             language='de',
             canton='BL',
             version='1.2.2',
-            pass_version=True
+            pass_version=True,
+            code='ch.Waldabstandslinien',
         )
         source.read(MockParameter(), 100)
         assert len(source.records) == 9
 
 
-def test_read_with_specified_version():
+def test_read_with_specified_version(oereblex_test_config):
+    del oereblex_test_config
+
     with requests_mock.mock() as m:
         with open('./tests/resources/geolink_v1.2.2.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/1.2.2/geolinks/100.xml', content=f.read())
@@ -236,13 +304,14 @@ def test_read_with_specified_version():
             language='de',
             canton='BL',
             version='1.2.2',
-            pass_version=True
+            pass_version=True,
+            code='ch.Waldabstandslinien',
         )
         source.read(MockParameter(), 100)
         assert len(source.records) == 9
 
 
-def test_read_with_specified_language():
+def test_read_with_specified_language(oereblex_test_config):
     with requests_mock.mock() as m:
         with open('./tests/resources/geolink_v1.2.2.xml', 'rb') as f:
             m.get('http://oereblex.example.com/api/geolinks/100.xml?locale=fr', content=f.read())
@@ -250,7 +319,8 @@ def test_read_with_specified_language():
             host='http://oereblex.example.com',
             language='de',
             canton='BL',
-            version='1.2.2'
+            version='1.2.2',
+            code='ch.Waldabstandslinien',
         )
         params = MockParameter()
         params.set_language('fr')
@@ -269,7 +339,8 @@ def test_authentication():
         'username': 'test',
         'password': 'test'
     }
-    source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL', auth=auth)
+    source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL', auth=auth,
+                            code='ch.Waldabstandslinien')
     assert isinstance(source._auth, HTTPBasicAuth)
 
 

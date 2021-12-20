@@ -6,15 +6,16 @@ from shapely.geometry import Point
 
 
 @pytest.mark.parametrize('parameters', params)  # noqa
-def test_point(template, parameters):
+def test_point(xml_templates, parameters):
+    template = xml_templates.get_template('geometry/point.xml')
     point = Point((0, 0))
     content = template.render(**{
         'params': parameters,
         'default_language': 'de',
-        'point': point
+        'coords': point.coords[0]
     }).decode('utf-8').split('\n')
     expected_content = """
-    <gml:pos>0.0 0.0</gml:pos>""".split('\n')
+    <geometry:c1>0.0</geometry:c1><geometry:c2>0.0</geometry:c2>""".split('\n')
     expected_lines = []
     for line in expected_content:
         expected_lines.append(line.strip())
