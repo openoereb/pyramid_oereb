@@ -51,9 +51,9 @@ def test_sub_theme(DummyRenderInfo, xml_templates, pyramid_oereb_test_config):
         responsible_office=office,
         symbol=ImageRecord('1'.encode('utf-8')),
         view_service=ViewServiceRecord(
-            reference_wms=dict(),
-            layer_index=0,
-            layer_opacity=1.0),
+            {'de': 'http://example.com?SERVICE=WMS&REQUEST=GetMap&FORMAT=image/png&SRS=epsg:2056'},
+            1, 1.0, 'de', 2056, None, None
+        ),
         geometries=[geometry],
         sub_theme=subtheme
     )
@@ -71,4 +71,4 @@ def test_sub_theme(DummyRenderInfo, xml_templates, pyramid_oereb_test_config):
     assert '<data:Text>sub-Theme 1</data:Text>' in no_empty_lines
     assert '<data:SubCode>ch.NutzungsplanungSubCode</data:SubCode>' in no_empty_lines
     assert '<data:Code>ch.Nutzungsplanung</data:Code>' in no_empty_lines
-    assert len(no_empty_lines) == 67
+    assert len(no_empty_lines) == 74
