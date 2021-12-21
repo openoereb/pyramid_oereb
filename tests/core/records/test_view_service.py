@@ -12,7 +12,6 @@ def test_mandatory_fields():
         ViewServiceRecord()
 
 
-
 def test_init():
     record = ViewServiceRecord(
         {'de': 'http://www.test.url.ch'},
