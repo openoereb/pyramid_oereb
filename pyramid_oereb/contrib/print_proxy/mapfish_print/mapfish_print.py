@@ -225,12 +225,6 @@ class Renderer(JsonRenderer):
         self._multilingual_text(extract_dict, 'PLRCadastreAuthority_OfficeAtWeb')
         self._flatten_object(extract_dict, 'RealEstate')
 
-        # TODO temporary fix to get static extract. JSON Attributes were renamed
-        # RealEstate.MunicipalityName instead RealEstate.Municipality and
-        # RealEstate.MunicipalityCode instead RealEsteta.FosNr
-        extract_dict['RealEstate_Municipality'] = extract_dict['RealEstate_MunicipalityName']
-        extract_dict['RealEstate_FosNr'] = extract_dict['RealEstate_MunicipalityCode']
-
         self._multilingual_text(extract_dict['RealEstate_Type'], 'Text')
         self._flatten_object(extract_dict, 'RealEstate_Type')
         if 'Image' in extract_dict.get('RealEstate_Highlight', {}):
