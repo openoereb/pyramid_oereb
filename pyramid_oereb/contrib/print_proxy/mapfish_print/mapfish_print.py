@@ -268,11 +268,10 @@ class Renderer(JsonRenderer):
         for item in extract_dict['GeneralInformation']:
             lang_obj = dict([(e['Language'], e['Text']) for e in item])
             if self._language in lang_obj.keys():
-                flattened_general_info.append(lang_obj[self._language])
+                flattened_general_info.append({'Info': lang_obj[self._language]})
             else:
-                flattened_general_info.append(lang_obj[self._fallback_language])
-        # TODO handle multiple general information corretly, it can be an array now!
-        extract_dict['GeneralInformation'] = flattened_general_info[0]
+                flattened_general_info.append({'Info': lang_obj[self._fallback_language]})
+        extract_dict['GeneralInformation'] = flattened_general_info
         update_date_os = datetime.strptime(extract_dict['UpdateDateCS'], '%Y-%m-%dT%H:%M:%S')
         extract_dict['UpdateDateOS'] = update_date_os.strftime('%d.%m.%Y')
         self._multilingual_m_text(extract_dict, 'Certification')
@@ -530,7 +529,7 @@ class Renderer(JsonRenderer):
 
         extract_dict['PrintCantonLogo'] = Config.get('print', {}).get('print_canton_logo', True)
 
-        log.debug("After transformation, extract_dict is {}".format(extract_dict))
+        log.debug("After transformation, extract_dict is {}".format(json.dumps(extract_dict, indent=4)))
         return extract_dict
 
     @staticmethod
