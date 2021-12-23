@@ -27,6 +27,7 @@ def test_document_primary_key(pk_type, base):
     assert inspector.attrs.responsible_office.entity.entity == office_class
     assert inspector.c.id.primary_key
 
+
 @pytest.mark.parametrize('column_name,column_type,nullable,length', [
     ("document_type", String, False, None),
     ("index", Integer, False, None),
@@ -41,7 +42,7 @@ def test_document_primary_key(pk_type, base):
     ("only_in_municipality", Integer, True, None),
     ("file", String, True, None)
 ])
-def test_document_column_values(column_name,column_type,nullable,length):
+def test_document_column_values(column_name, column_type, nullable, length):
     base = declarative_base()
     office_class = get_office(base, schema_name, String)
     document_class = get_document(base, schema_name, String, office_class)

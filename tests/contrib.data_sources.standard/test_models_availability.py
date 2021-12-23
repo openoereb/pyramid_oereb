@@ -36,4 +36,3 @@ def test_availability_column_values(column_name, column_type, nullable, length):
     assert getattr(inspector.c, column_name).nullable == nullable
     if length:
         assert getattr(inspector.c, column_name).type.length == length
-

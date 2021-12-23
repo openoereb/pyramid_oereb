@@ -35,7 +35,7 @@ def test_office_primary_key(pk_type, base):
     ("postal_code", Integer, True, None),
     ("city", String, True, None)
 ])
-def test_document_column_values(column_name,column_type,nullable,length):
+def test_document_column_values(column_name, column_type, nullable, length):
     base = declarative_base()
     office_class = get_office(base, schema_name, String)
     inspector = inspect(office_class)

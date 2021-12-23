@@ -1,13 +1,15 @@
 import pytest
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import String, DateTime, Column
-from pyramid_oereb.contrib.data_sources.standard import create_schema_sql, tables, create_tables_sql, create_sql
+from pyramid_oereb.contrib.data_sources.standard import create_schema_sql, tables, create_tables_sql,\
+    create_sql
 
 
 @pytest.fixture
 def simple_table_base():
     base = declarative_base()
     schema_name = 'test'
+
     class Test(base):
         __table_args__ = {'schema': schema_name}
         __tablename__ = 'test_table'
@@ -19,6 +21,7 @@ def simple_table_base():
 def datetime_table_base():
     base = declarative_base()
     schema_name = 'test'
+
     class Test(base):
         __table_args__ = {'schema': schema_name}
         __tablename__ = 'test_table'
@@ -33,17 +36,17 @@ def test_create_schema_sql():
 
 def test_create_tables_sql(simple_table_base):
     sql = create_tables_sql(tables(simple_table_base[0]))
-    expected_sql = 'CREATE TABLE test.test_table (test_column VARCHAR NOT NULL, PRIMARY KEY (test_column));'
-    assert sql.replace('\n', '').replace('\t','') == expected_sql
+    expected_sql = 'CREATE TABLE test.test_table (test_column VARCHAR NOT NULL, PRIMARY KEY (test_column));'  # noqa: E501
+    assert sql.replace('\n', '').replace('\t', '') == expected_sql
 
 
 def test_create_tables_sql_date(datetime_table_base):
     sql = create_tables_sql(tables(datetime_table_base[0]))
-    expected_sql = 'CREATE TABLE test.test_table (test_column TIMESTAMP WITHOUT TIME ZONE NOT NULL, PRIMARY KEY (test_column));'
-    assert sql.replace('\n', '').replace('\t','') == expected_sql
+    expected_sql = 'CREATE TABLE test.test_table (test_column TIMESTAMP WITHOUT TIME ZONE NOT NULL, PRIMARY KEY (test_column));'  # noqa: E501
+    assert sql.replace('\n', '').replace('\t', '') == expected_sql
 
 
 def test_create_sql(simple_table_base):
     sql = create_sql(simple_table_base[2], tables(simple_table_base[0]))
-    expected_sql = 'CREATE SCHEMA IF NOT EXISTS test;CREATE TABLE test.test_table (test_column VARCHAR NOT NULL, PRIMARY KEY (test_column));'
+    expected_sql = 'CREATE SCHEMA IF NOT EXISTS test;CREATE TABLE test.test_table (test_column VARCHAR NOT NULL, PRIMARY KEY (test_column));'  # noqa: E501
     assert sql.replace('\n', '').replace('\t', '') == expected_sql
