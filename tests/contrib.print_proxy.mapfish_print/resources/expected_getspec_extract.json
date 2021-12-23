@@ -1,27 +1,31 @@
 {
   "Certification": "Referenz zur kantonsspezifischen Gesetzesgrundlage bezüglich Beglaubigungen.",
   "CertificationAtWeb": "https://oereb.bl.ch/certification/de",
-    "GeneralInformation": [{"Info": "Der Inhalt des ÖREB-Katasters wird als bekannt vorausgesetzt. Der Kanton Basel-Landschaft ist für die Genauigkeit und Verlässlichkeit der gesetzgebenden Dokumente in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begründet insbesondere keine Rechte und Pflichten. Rechtsverbindlich sind diejenigen Dokumente, welche rechtskräftig verabschiedet oder veröffentlicht worden sind. Mit der Beglaubigung des Auszugs wird die Übereinstimmung des Auszugs mit dem ÖREB-Kataster zum Zeitpunkt der Auszugserstellung bestätigt."}],
+  "GeneralInformation": [
+    {
+      "Info": "Der Inhalt des ÖREB-Katasters wird als bekannt vorausgesetzt. Der Kanton Basel-Landschaft ist für die Genauigkeit und Verlässlichkeit der gesetzgebenden Dokumente in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begründet insbesondere keine Rechte und Pflichten. Rechtsverbindlich sind diejenigen Dokumente, welche rechtskräftig verabschiedet oder veröffentlicht worden sind. Mit der Beglaubigung des Auszugs wird die Übereinstimmung des Auszugs mit dem ÖREB-Kataster zum Zeitpunkt der Auszugserstellung bestätigt."
+    }
+  ],
   "CreationDate": "16.02.2018",
   "ConcernedTheme": [
     {
-      "Code": "ch.Nutzungsplanung",
+      "Code": "ch.Nutzungsplanungch.BaulinieninKraft",
       "Text": "Nutzungsplanung: 02.73A.Grundnutzung"
     },
     {
-      "Code": "LandUsePlansch.BaulinieninKraft",
+      "Code": "ch.Nutzungsplanungch.BaulinieninKraft",
       "Text": "Nutzungsplanung: 02.73A.Grundnutzung"
     },
     {
-      "Code": "LandUsePlansch.BaulinieninKraft",
+      "Code": "ch.Nutzungsplanungch.BaulinieninKraft",
       "Text": "Nutzungsplanung: 02.73A.Grundnutzung"
     },
     {
-      "Code": "LandUsePlansch.BaulinieninKraft",
+      "Code": "ch.Nutzungsplanungch.BaulinieninKraft",
       "Text": "Nutzungsplanung: 02.73A.Grundnutzung"
     },
     {
-      "Code": "LandUsePlansch.UeberlagerunginKraft",
+      "Code": "ch.Nutzungsplanungch.UeberlagerunginKraft",
       "Text": "Nutzungsplanung: 08.73B.Ueberlagerung_Flaeche"
     },
     {
@@ -362,76 +366,6 @@
       ],
       "LegalProvisions": [
         {
-          "OfficialNumber": "700",
-          "Title": "Bundesgesetz über die Raumplanung (Raumplanungsgesetz, RPG)",
-          "Abbreviation": "Raumplanungsgesetz, RPG",
-          "Canton": "BL",
-          "TextAtWeb": [
-            {
-              "URL": "http://www.lexfind.ch/dtah/155346/2"
-            }
-          ],
-          "DocumentType": {
-            "Code": "Rechtsvorschrift",
-            "Text": [
-              {
-                "Language": "de",
-                "Text": "Rechtsvorschrift"
-              }
-            ]
-          },
-          "Lawstatus_Code": "inKraft",
-          "Lawstatus_Text": "Rechtskräftig",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
-          "ResponsibleOffice_Name": "Bundeskanzlei"
-        },
-        {
-          "OfficialNumber": "1484",
-          "Title": "RRB Nr. 1484 vom 23.09.2003",
-          "Canton": "BL",
-          "TextAtWeb": [
-            {
-              "URL": "https://oereblex.bl.ch/api/attachments/2916"
-            }
-          ],
-          "DocumentType": {
-            "Code": "Rechtsvorschrift",
-            "Text": [
-              {
-                "Language": "de",
-                "Text": "Rechtsvorschrift"
-              }
-            ]
-          },
-          "Lawstatus_Text": "Rechtskräftig",
-          "Lawstatus_Code": "inKraft",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
-          "ResponsibleOffice_Name": "Landeskanzlei"
-        },
-        {
-          "OfficialNumber": "1484",
-          "Title": "RRB Nr. 1484 vom 23.09.2003",
-          "Canton": "BL",
-          "TextAtWeb": [
-            {
-              "URL": "https://oereblex.bl.ch/api/attachments/403"
-            }
-          ],
-          "DocumentType": {
-            "Code": "Rechtsvorschrift",
-            "Text": [
-              {
-                "Language": "de",
-                "Text": "Rechtsvorschrift"
-              }
-            ]
-          },
-          "Lawstatus_Text": "Rechtskräftig",
-          "Lawstatus_Code": "inKraft",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
-          "ResponsibleOffice_Name": "Landeskanzlei"
-        },
-        {
           "OfficialNumber": "400",
           "Title": "Raumplanungs- und Baugesetz (RBG)",
           "Abbreviation": "RBG",
@@ -441,7 +375,7 @@
               "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1964?locale=de"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -465,7 +399,7 @@
               "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/2032?locale=de"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -476,6 +410,76 @@
           },
           "Lawstatus_Code": "inKraft",
           "Lawstatus_Text": "Rechtskräftig",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+          "ResponsibleOffice_Name": "Landeskanzlei"
+        },
+        {
+          "OfficialNumber": "700",
+          "Title": "Bundesgesetz über die Raumplanung (Raumplanungsgesetz, RPG)",
+          "Abbreviation": "Raumplanungsgesetz, RPG",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "http://www.lexfind.ch/dtah/155346/2"
+            }
+          ],
+          "Type": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Code": "inKraft",
+          "Lawstatus_Text": "Rechtskräftig",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+          "ResponsibleOffice_Name": "Bundeskanzlei"
+        },
+        {
+          "OfficialNumber": "1484",
+          "Title": "RRB Nr. 1484 vom 23.09.2003",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "https://oereblex.bl.ch/api/attachments/2916"
+            }
+          ],
+          "Type": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Text": "Rechtskräftig",
+          "Lawstatus_Code": "inKraft",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
+          "ResponsibleOffice_Name": "Landeskanzlei"
+        },
+        {
+          "OfficialNumber": "1484",
+          "Title": "RRB Nr. 1484 vom 23.09.2003",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "https://oereblex.bl.ch/api/attachments/403"
+            }
+          ],
+          "Type": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Text": "Rechtskräftig",
+          "Lawstatus_Code": "inKraft",
           "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.baselland.ch%2Fpolitik-und-behorden%2Fbesondere-behorden%2Flandeskanzlei",
           "ResponsibleOffice_Name": "Landeskanzlei"
         }
@@ -653,53 +657,6 @@
       ],
       "LegalProvisions": [
         {
-          "OfficialNumber": "700",
-          "Title": "Bundesgesetz über die Raumplanung (Raumplanungsgesetz, RPG)",
-          "Abbreviation": "Raumplanungsgesetz, RPG",
-          "Canton": "BL",
-          "TextAtWeb": [
-            {
-              "URL": "http://www.lexfind.ch/dtah/155346/2"
-            }
-          ],
-          "DocumentType": {
-            "Code": "Rechtsvorschrift",
-            "Text": [
-              {
-                "Language": "de",
-                "Text": "Rechtsvorschrift"
-              }
-            ]
-          },
-          "Lawstatus_Code": "inKraft",
-          "Lawstatus_Text": "Rechtskräftig",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
-          "ResponsibleOffice_Name": "Bundeskanzlei"
-        },
-        {
-          "OfficialNumber": "429",
-          "Title": "RRB Nr. 429 vom 01.04.2008",
-          "Canton": "BL",
-          "TextAtWeb": [
-            {
-              "URL": "https://oereblex.bl.ch/api/attachments/2537"
-            }
-          ],
-          "DocumentType": {
-            "Code": "Rechtsvorschrift",
-            "Text": [
-              {
-                "Language": "de",
-                "Text": "Rechtsvorschrift"
-              }
-            ]
-          },
-          "Lawstatus_Text": "Rechtskräftig",
-          "Lawstatus_Code": "inKraft",
-          "ResponsibleOffice_OfficeAtWeb": "www.birsfelden.ch",
-          "ResponsibleOffice_Name": "Gemeindeverwaltung"
-        },
-        {
           "OfficialNumber": "400",
           "Title": "Raumplanungs- und Baugesetz (RBG)",
           "Abbreviation": "RBG",
@@ -709,7 +666,7 @@
               "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1964?locale=de"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -733,7 +690,7 @@
               "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/2032?locale=de"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -748,6 +705,53 @@
           "ResponsibleOffice_Name": "Landeskanzlei"
         },
         {
+          "OfficialNumber": "700",
+          "Title": "Bundesgesetz über die Raumplanung (Raumplanungsgesetz, RPG)",
+          "Abbreviation": "Raumplanungsgesetz, RPG",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "http://www.lexfind.ch/dtah/155346/2"
+            }
+          ],
+          "Type": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Code": "inKraft",
+          "Lawstatus_Text": "Rechtskräftig",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+          "ResponsibleOffice_Name": "Bundeskanzlei"
+        },
+        {
+          "OfficialNumber": "429",
+          "Title": "RRB Nr. 429 vom 01.04.2008",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "https://oereblex.bl.ch/api/attachments/2537"
+            }
+          ],
+          "Type": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Text": "Rechtskräftig",
+          "Lawstatus_Code": "inKraft",
+          "ResponsibleOffice_OfficeAtWeb": "www.birsfelden.ch",
+          "ResponsibleOffice_Name": "Gemeindeverwaltung"
+        },
+        {
           "OfficialNumber": "12/ZRS/2/1",
           "Title": "Zonenreglement Siedlung (Stand 30.03.2010)",
           "Canton": "BL",
@@ -756,7 +760,7 @@
               "URL": "https://oereblex.bl.ch/api/attachments/1471"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -853,72 +857,6 @@
       ],
       "LegalProvisions": [
         {
-          "OfficialNumber": "814.01",
-          "Title": "Bundesgesetz über den Umweltschutz (Umweltschutzgesetz, USG)",
-          "Abbreviation": "Umweltschutzgesetz, USG",
-          "Canton": "BL",
-          "TextAtWeb": [
-            {
-              "URL": "http://www.lexfind.ch/dtah/155395/2"
-            }
-          ],
-          "DocumentType": {
-            "Code": "Rechtsvorschrift",
-            "Text": [
-              {
-                "Language": "de",
-                "Text": "Rechtsvorschrift"
-              }
-            ]
-          },
-          "Lawstatus_Code": "inKraft",
-          "Lawstatus_Text": "Rechtskräftig",
-          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
-          "ResponsibleOffice_Name": "Bundeskanzlei"
-        },
-        {
-          "DocumentType": {
-            "Code": "Rechtsvorschrift",
-            "Text": [
-              {
-                "Language": "de",
-                "Text": "Rechtsvorschrift"
-              }
-            ]
-          },
-          "TextAtWeb": [
-            {
-              "URL": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster"
-            }
-          ],
-          "Title": "Ersteintrag in den KbS: 09.12.2016",
-          "Lawstatus_Text": "Rechtskräftig",
-          "Lawstatus_Code": "inKraft",
-          "ResponsibleOffice_OfficeAtWeb": "http://www.aue.bl.ch",
-          "ResponsibleOffice_Name": "Amt für Umweltschutz und Energie BL"
-        },
-        {
-          "DocumentType": {
-            "Code": "Rechtsvorschrift",
-            "Text": [
-              {
-                "Language": "de",
-                "Text": "Rechtsvorschrift"
-              }
-            ]
-          },
-          "TextAtWeb": [
-            {
-              "URL": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster"
-            }
-          ],
-          "Title": "Ersteintrag in den KbS: 16.04.2015",
-          "Lawstatus_Text": "Rechtskräftig",
-          "Lawstatus_Code": "inKraft",
-          "ResponsibleOffice_OfficeAtWeb": "http://www.aue.bl.ch",
-          "ResponsibleOffice_Name": "Amt für Umweltschutz und Energie BL"
-        },
-        {
           "OfficialNumber": "780",
           "Title": "Umweltschutzgesetz Basel-Landschaft (USG BL)",
           "Abbreviation": "USG BL",
@@ -928,7 +866,7 @@
               "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1337?locale=de"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -952,7 +890,7 @@
               "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/273?locale=de"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -967,16 +905,16 @@
           "ResponsibleOffice_Name": "Landeskanzlei"
         },
         {
-          "OfficialNumber": "814.680",
-          "Title": "Verordnung über die Sanierung von belasteten Standorten (Altlasten-Verordnung, AltlV)",
-          "Abbreviation": "Altlasten-Verordnung, AltlV",
+          "OfficialNumber": "814.01",
+          "Title": "Bundesgesetz über den Umweltschutz (Umweltschutzgesetz, USG)",
+          "Abbreviation": "Umweltschutzgesetz, USG",
           "Canton": "BL",
           "TextAtWeb": [
             {
-              "URL": "http://www.lexfind.ch/dtah/147568/2"
+              "URL": "http://www.lexfind.ch/dtah/155395/2"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -989,6 +927,72 @@
           "Lawstatus_Text": "Rechtskräftig",
           "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
           "ResponsibleOffice_Name": "Bundeskanzlei"
+        },
+        {
+          "OfficialNumber": "814.680",
+          "Title": "Verordnung über die Sanierung von belasteten Standorten (Altlasten-Verordnung, AltlV)",
+          "Abbreviation": "Altlasten-Verordnung, AltlV",
+          "Canton": "BL",
+          "TextAtWeb": [
+            {
+              "URL": "http://www.lexfind.ch/dtah/147568/2"
+            }
+          ],
+          "Type": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Lawstatus_Code": "inKraft",
+          "Lawstatus_Text": "Rechtskräftig",
+          "ResponsibleOffice_OfficeAtWeb": "https%3A%2F%2Fwww.bk.admin.ch%2F",
+          "ResponsibleOffice_Name": "Bundeskanzlei"
+        },
+        {
+          "Type": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "TextAtWeb": [
+            {
+              "URL": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster"
+            }
+          ],
+          "Title": "Ersteintrag in den KbS: 09.12.2016",
+          "Lawstatus_Text": "Rechtskräftig",
+          "Lawstatus_Code": "inKraft",
+          "ResponsibleOffice_OfficeAtWeb": "http://www.aue.bl.ch",
+          "ResponsibleOffice_Name": "Amt für Umweltschutz und Energie BL"
+        },
+        {
+          "Type": {
+            "Code": "Rechtsvorschrift",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "TextAtWeb": [
+            {
+              "URL": "https://www.baselland.ch/politik-und-behorden/direktionen/bau-und-umweltschutzdirektion/umweltschutz-energie/altlasten/kataster"
+            }
+          ],
+          "Title": "Ersteintrag in den KbS: 16.04.2015",
+          "Lawstatus_Text": "Rechtskräftig",
+          "Lawstatus_Code": "inKraft",
+          "ResponsibleOffice_OfficeAtWeb": "http://www.aue.bl.ch",
+          "ResponsibleOffice_Name": "Amt für Umweltschutz und Energie BL"
         }
       ],
       "Laws": [],
@@ -1096,7 +1100,7 @@
               "URL": "http://www.lexfind.ch/dtah/147569/2"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -1119,7 +1123,7 @@
               "URL": "https://oereblex.bl.ch/api/attachments/2798"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -1143,7 +1147,7 @@
               "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1337?locale=de"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {

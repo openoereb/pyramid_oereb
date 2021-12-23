@@ -121,11 +121,9 @@ def test_mapfish_print_entire_extract(extract, geometry, expected_printable_extr
     renderer = Renderer(DummyRenderInfo())
     renderer.convert_to_printable_extract(extract, geometry)
     # Uncomment to print the result
-    # f = open('/workspace/printable_extract.json', 'w')
-    # f.write(json.dumps(printable_extract))
-    # f.close()
+    # with open('./printable_extract.json', 'w') as f:
+    #     json.dump(extract, f, indent=2, ensure_ascii=False)
 
-    assert extract['RealEstate_RestrictionOnLandownership'][0] == expected_printable_extract['RealEstate_RestrictionOnLandownership'][0]
     assert extract == expected_printable_extract
     assert deepCompare(extract, expected_printable_extract)
     # Do it twice, to test all keys in each reports
