@@ -17,8 +17,8 @@ def test_get_availability_mandatory_parameters():
     (Integer, declarative_base())
 ])
 def test_availability_primary_key(pk_type, base):
-    office_class = get_availability(base, schema_name, pk_type)
-    inspector = inspect(office_class)
+    availability_class = get_availability(base, schema_name, pk_type)
+    inspector = inspect(availability_class)
 
     assert isinstance(inspector.c.fosnr.type, pk_type)
     assert inspector.c.fosnr.primary_key
@@ -29,8 +29,8 @@ def test_availability_primary_key(pk_type, base):
 ])
 def test_availability_column_values(column_name, column_type, nullable, length):
     base = declarative_base()
-    office_class = get_availability(base, schema_name, String)
-    inspector = inspect(office_class)
+    availability_class = get_availability(base, schema_name, String)
+    inspector = inspect(availability_class)
 
     assert isinstance(getattr(inspector.c, column_name).type, column_type)
     assert getattr(inspector.c, column_name).nullable == nullable
