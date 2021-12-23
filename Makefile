@@ -284,7 +284,7 @@ test-core: .venv/requirements-timestamp
 .PHONY: test-contrib
 test-contrib: .venv/requirements-timestamp
 	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc --pdb --cov $(PACKAGE) --cov-report term-missing:skip-covered tests/contrib.print_proxy.mapfish_print
-	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc --cov $(PACKAGE) --cov-report term-missing:skip-covered tests/contrib.print_proxy.xml_2_pdf
+	# $(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc --cov $(PACKAGE) --cov-report term-missing:skip-covered tests/contrib.print_proxy.xml_2_pdf
 
 .PHONY: tests
 tests: .venv/requirements-timestamp
