@@ -1,6 +1,6 @@
 import pytest
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Boolean, String, Integer, Float, DateTime, Date, inspect
+from sqlalchemy import String, Integer, inspect
 from sqlalchemy_utils import JSONType
 from pyramid_oereb.contrib.data_sources.standard.models import get_office
 
@@ -10,9 +10,11 @@ schema_name = 'test'
 def test_get_office_mandatory_parameters():
     with pytest.raises(TypeError):
         get_office()
+
+
 @pytest.mark.parametrize('pk_type,base', [
     (String, declarative_base()),
-    (Integer,declarative_base())
+    (Integer, declarative_base())
 ])
 def test_office_primary_key(pk_type, base):
     office_class = get_office(base, schema_name, pk_type)
@@ -20,6 +22,7 @@ def test_office_primary_key(pk_type, base):
 
     assert isinstance(inspector.c.id.type, pk_type)
     assert inspector.c.id.primary_key
+
 
 def test_office_column_values():
     office_class = get_office(declarative_base(), schema_name, String)
