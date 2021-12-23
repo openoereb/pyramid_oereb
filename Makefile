@@ -279,7 +279,7 @@ test-postgis:
 
 .PHONY: test-core
 test-core: .venv/requirements-timestamp
-	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc --cov $(PACKAGE) --cov-report term-missing:skip-covered tests/core
+	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc --cov $(PACKAGE) --cov-report=xml tests/core
 
 .PHONY: tests
 tests: .venv/requirements-timestamp
