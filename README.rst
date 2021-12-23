@@ -44,7 +44,9 @@ To run the tests locally but inside Docker:
 
 |Build Status| |Requirements Status|
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/21fa99ffc6524c029f74d6ee04434535)](https://www.codacy.com/gh/openoereb/pyramid_oereb/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=openoereb/pyramid_oereb&amp;utm_campaign=Badge_Grade)
+.. image:: https://api.codacy.com/project/badge/Grade/cf50094a4e84434d837babf1106f9fcb
+   :alt: Codacy Badge
+   :target: https://app.codacy.com/gh/openoereb/pyramid_oereb?utm_source=github.com&utm_medium=referral&utm_content=openoereb/pyramid_oereb&utm_campaign=Badge_Grade_Settings
 
 ``pyramid_oereb`` is an open-source implementation of the server side part for the swiss `"Cadastre of
 Public-law Restrictions on landownership" (PLR-cadastre) <https://www.cadastre.ch/en/oereb.html>`__.
@@ -259,8 +261,3 @@ The Docker network ``print-network`` is also required and can be created with:
   docker network create print-network
 
 The sample static extract should then be available at http://localhost:6543/oereb/extract/pdf?EGRID=CH113928077734
-
-
-.. image:: https://api.codacy.com/project/badge/Grade/cf50094a4e84434d837babf1106f9fcb
-   :alt: Codacy Badge
-   :target: https://app.codacy.com/gh/openoereb/pyramid_oereb?utm_source=github.com&utm_medium=referral&utm_content=openoereb/pyramid_oereb&utm_campaign=Badge_Grade_Settings
