@@ -52,7 +52,8 @@ class Config(object):
         Args:
             config_file (str): The configuration yaml file.
             configsection (str): The section within the yaml file.
-            c2ctemplate_style (bool): If set to true, c2c.template library will be used to load config file (Default: False).
+            c2ctemplate_style (bool): If set to true, c2c.template library will be used
+                to load config file (Default: False).
             init_data (bool): Indicates wheather or not data should be initiated (Default: False).
         """
 
@@ -202,7 +203,7 @@ class Config(object):
             list of pyramid_oereb.core.records.theme.ThemeRecord:
                 The list of found records. Since these are not filtered by any criteria the list simply
                 contains all records delivered by the source.
-        
+
         Raises:
             ConfigurationError
         """
@@ -225,7 +226,7 @@ class Config(object):
         list of pyramid_oereb.core.records.theme_document.ThemeDocumentRecord:
             The list of found records. Since these are not filtered by any criteria the list simply
             contains all records delivered by the source.
-            
+
         Raises:
             ConfigurationError
         """
@@ -248,7 +249,7 @@ class Config(object):
         list of pyramid_oereb.core.records.general_information.GeneralInformationRecord:
             The list of found records. Since these are not filtered by any criteria the list simply
             contains all records delivered by the source.
-            
+
         Raises:
             ConfigurationError
         """
@@ -271,7 +272,7 @@ class Config(object):
         list of pyramid_oereb.core.records.lawstatus.LawStatusRecord:
             The list of found records. Since these are not filtered by any criteria the list simply
             contains all records delivered by the source.
-            
+
         Raises:
             ConfigurationError
         """
@@ -294,7 +295,7 @@ class Config(object):
         list of pyramid_oereb.core.records.documents.DocumentRecord:
             The list of found records. Since these are not filtered by any criteria the list simply
             contains all records delivered by the source.
-            
+
         Raises:
             ConfigurationError
         """
@@ -317,7 +318,7 @@ class Config(object):
             list of pyramid_oereb.core.records.office.OfficeRecord:
                 The list of found records. Since these are not filtered by any criteria the list simply
                 contains all records delivered by the source.
-                
+
         Raises:
             ConfigurationError
         """
@@ -380,7 +381,7 @@ class Config(object):
         Returns:
             pyramid_oereb.core.records.theme.ThemeRecord or None: The theme with the specified
             code.
-            
+
         Raises:
             ConfigurationError
         """
@@ -419,7 +420,7 @@ class Config(object):
             list of pyramid_oereb.core.records.logo.LogoRecord:
                 The list of found records. Since these are not filtered by any criteria the list simply
                 contains all records delivered by the source.
-                
+
         Raises:
             ConfigurationError
         """
@@ -621,7 +622,7 @@ class Config(object):
             list of pyramid_oereb.core.records.document_types.DocumentTypeRecord:
                 The list of found records. Since these are not filtered by any criteria the list simply
                 contains all records delivered by the source.
-                
+
         Raises:
             ConfigurationError
         """
@@ -672,7 +673,7 @@ class Config(object):
             list of pyramid_oereb.core.records.realestatetype.RealEstateTypeRecord:
                 The list of found records. Since these are not filtered by any criteria the list simply
                 contains all records delivered by the source.
-                
+
         Raises:
             ConfigurationError
         """
@@ -723,7 +724,7 @@ class Config(object):
             list of pyramid_oereb.core.records.map_layering.MapLayeringRecord:
                 The list of found records. Since these are not filtered by any criteria the list simply
                 contains all records delivered by the source.
-                
+
         Raises:
             ConfigurationError
         """
@@ -853,7 +854,8 @@ class Config(object):
             data_code (str): key of lookup pair.
 
         Returns:
-            pyramid_oereb.core.records.document_types.DocumentTypeRecord or None: document types record of theme and data_code.
+            pyramid_oereb.core.records.document_types.DocumentTypeRecord or None:
+                document types record of theme and data_code.
         """
 
         lookup = Config.get_document_type_lookup_by_data_code(theme_code, data_code)
@@ -936,7 +938,8 @@ class Config(object):
             data_code (str): key of lookup pair.
 
         Returns:
-            pyramid_oereb.core.records.document_types.DocumentTypeRecord or None: document types record of data_code.
+            pyramid_oereb.core.records.document_types.DocumentTypeRecord or None:
+                document types record of data_code.
         """
 
         lookup = Config.get_main_document_type_lookup_by_data_code(data_code)
@@ -980,7 +983,7 @@ class Config(object):
 
         Args:
             code (str): The theme's code.
-        
+
         Returns:
             dict or None: The geometric tolerances for this theme.
         """
@@ -1325,7 +1328,7 @@ class Config(object):
         Returns:
             dict: The configured OEREBlex settings.
         """
-        
+
         assert Config._config is not None
 
         return Config._config.get('oereblex')
@@ -1381,7 +1384,7 @@ class Config(object):
             path (list): List of path entries to the desired object.
             default (dict): Default dictionary values of the object. Defaults to {}.
             required (list): The list of required sub values in the object. Defaults to [].
-        
+
         Returns:
             *: The specified configuration object.
 
@@ -1782,7 +1785,8 @@ def _parse(cfg_file, cfg_section, c2ctemplate_style=False):
     Args:
         cfg_file (str): The YAML file to be parsed.
         cfg_section (str): The section to be returned.
-        c2ctemplate_style (bool): If set to true, c2c.template library will be used to load config file (Default: False).
+        c2ctemplate_style (bool): If set to true, c2c.template library
+            will be used to load config file (Default: False).
 
     Returns:
         dict: The parsed section as dictionary.
