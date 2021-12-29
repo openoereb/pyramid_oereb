@@ -54,7 +54,7 @@ class Config(object):
             configsection (str): The section within the yaml file.
             c2ctemplate_style (bool): If set to true, c2c.template library will be used
                 to load config file (Default: False).
-            init_data (bool): Indicates wheather or not data should be initiated (Default: False).
+            init_data (bool): Indicates wheather or not data should be initialized (Default: False).
         """
 
         assert Config._config is None
@@ -87,17 +87,17 @@ class Config(object):
     @staticmethod
     def update_settings(settings):
         """
-        Updates the current configuration settings.
+        Updates the current pyramid configuration settings.
 
         Args:
-        settings (dict): Dictionary with the current pyramid settings.
+            settings (dict): Dictionary with the current pyramid settings.
         """
         settings.update(Config._config)
 
     @staticmethod
     def init_themes():
         """
-        Initiates all themes configured in config file.
+        Initializes all themes configured in config file.
 
         Raises:
             ProgrammingError
@@ -111,7 +111,7 @@ class Config(object):
     @staticmethod
     def init_theme_document():
         """
-        Initiates all theme documents object configured in config file.
+        Initializes all theme documents object configured in config file.
 
         Raises:
             ProgrammingError
@@ -124,7 +124,7 @@ class Config(object):
     @staticmethod
     def init_general_information():
         """
-        Initiates general information object configured in config file.
+        Initializes general information object configured in config file.
 
         Raises:
             ProgrammingError
@@ -137,7 +137,7 @@ class Config(object):
     @staticmethod
     def init_law_status():
         """
-        Initiates law status object configured in config file.
+        Initializes law status object configured in config file.
 
         Raises:
             ProgrammingError
@@ -150,7 +150,7 @@ class Config(object):
     @staticmethod
     def init_documents():
         """
-        Initiates documents object configured in config file.
+        Initializes documents object configured in config file.
 
         Raises:
             ProgrammingError
@@ -163,7 +163,7 @@ class Config(object):
     @staticmethod
     def init_offices():
         """
-        Initiates offices object configured in config file.
+        Initializes offices object configured in config file.
 
         Raises:
             ProgrammingError
@@ -399,7 +399,7 @@ class Config(object):
     @staticmethod
     def init_logos():
         """
-        Initiates logos object list configured in config file.
+        Initializes logos object list configured in config file.
 
         Raises:
             ProgrammingError
@@ -652,7 +652,7 @@ class Config(object):
     @staticmethod
     def init_real_estate_types():
         """
-        Initiates all real estate types configured in the config file.
+        Initializes all real estate types configured in the config file.
 
         Raises:
             ProgrammingError
@@ -703,7 +703,7 @@ class Config(object):
     @staticmethod
     def init_map_layering():
         """
-        Initiates map layering as configured in the config file.
+        Initializes map layering as configured in the config file.
 
         Raises:
             ProgrammingError
