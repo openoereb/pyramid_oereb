@@ -51,8 +51,12 @@ class Config(object):
 
         Args:
             config_file (str): The configuration yaml file.
-            config_section (str): The section within the yaml file.
+            configsection (str): The section within the yaml file.
+            c2ctemplate_style (bool): If set to true, c2c.template library will be used
+                to load config file (Default: False).
+            init_data (bool): Indicates wheather or not data should be initialized (Default: False).
         """
+
         assert Config._config is None
 
         Config._config = _parse(configfile, configsection, c2ctemplate_style)
@@ -72,19 +76,32 @@ class Config(object):
     @staticmethod
     def get_config():
         """
-        Returns the current configuration
+        Returns the current configuration.
 
         Returns:
-            Dict: The current config or None.
+            dict: The current config or None.
         """
+
         return Config._config
 
     @staticmethod
     def update_settings(settings):
+        """
+        Updates the current pyramid configuration settings.
+
+        Args:
+            settings (dict): Dictionary with the current pyramid settings.
+        """
         settings.update(Config._config)
 
     @staticmethod
     def init_themes():
+        """
+        Initializes all themes configured in config file.
+
+        Raises:
+            ProgrammingError
+        """
         try:
             Config.themes = Config._read_themes()
         # When initializing the database (create_tables), the table 'theme' does not exist yet
@@ -93,6 +110,12 @@ class Config(object):
 
     @staticmethod
     def init_theme_document():
+        """
+        Initializes all theme documents object configured in config file.
+
+        Raises:
+            ProgrammingError
+        """
         try:
             Config.theme_document = Config._read_theme_document()
         except ProgrammingError:
@@ -100,6 +123,12 @@ class Config(object):
 
     @staticmethod
     def init_general_information():
+        """
+        Initializes general information object configured in config file.
+
+        Raises:
+            ProgrammingError
+        """
         try:
             Config.general_information = Config._read_general_information()
         except ProgrammingError:
@@ -107,6 +136,12 @@ class Config(object):
 
     @staticmethod
     def init_law_status():
+        """
+        Initializes law status object configured in config file.
+
+        Raises:
+            ProgrammingError
+        """
         try:
             Config.law_status = Config._read_law_status()
         except ProgrammingError:
@@ -114,6 +149,12 @@ class Config(object):
 
     @staticmethod
     def init_documents():
+        """
+        Initializes documents object configured in config file.
+
+        Raises:
+            ProgrammingError
+        """
         try:
             Config.documents = Config._read_documents()
         except ProgrammingError:
@@ -121,6 +162,12 @@ class Config(object):
 
     @staticmethod
     def init_offices():
+        """
+        Initializes offices object configured in config file.
+
+        Raises:
+            ProgrammingError
+        """
         try:
             Config.offices = Config._read_offices()
         except ProgrammingError:
@@ -128,6 +175,10 @@ class Config(object):
 
     @staticmethod
     def assemble_relation_themes_documents():
+        """
+        Loads theme document records based on Config.themes, Config.theme_document and Config.documents.
+        """
+
         if Config.theme_document is not None:
             for theme in Config.themes:
                 theme_documents = []
@@ -145,6 +196,18 @@ class Config(object):
 
     @staticmethod
     def _read_themes():
+        """
+        Reads the theme settings from config and initiates the relevant reader.
+
+        Returns:
+            list of pyramid_oereb.core.records.theme.ThemeRecord:
+                The list of found records. Since these are not filtered by any criteria the list simply
+                contains all records delivered by the source.
+
+        Raises:
+            ConfigurationError
+        """
+
         theme_config = Config.get_theme_config()
         if theme_config is None:
             raise ConfigurationError("Missing configuration for themes")
@@ -156,6 +219,18 @@ class Config(object):
 
     @staticmethod
     def _read_theme_document():
+        """
+        Reads the theme document settings from config and initiates the relevant reader.
+
+        Returns:
+        list of pyramid_oereb.core.records.theme_document.ThemeDocumentRecord:
+            The list of found records. Since these are not filtered by any criteria the list simply
+            contains all records delivered by the source.
+
+        Raises:
+            ConfigurationError
+        """
+
         theme_document_config = Config.get_theme_document_config()
         if theme_document_config is None:
             raise ConfigurationError("Missing configuration for theme document")
@@ -167,6 +242,18 @@ class Config(object):
 
     @staticmethod
     def _read_general_information():
+        """
+        Reads settings of general infomation from config an intiates the relevant reader.
+
+        Returns:
+        list of pyramid_oereb.core.records.general_information.GeneralInformationRecord:
+            The list of found records. Since these are not filtered by any criteria the list simply
+            contains all records delivered by the source.
+
+        Raises:
+            ConfigurationError
+        """
+
         info_config = Config.get_info_config()
         if info_config is None:
             raise ConfigurationError("Missing configuration for general information")
@@ -178,6 +265,18 @@ class Config(object):
 
     @staticmethod
     def _read_law_status():
+        """
+        Reads settings of law status from config an intiates the relevant reader.
+
+        Returns:
+        list of pyramid_oereb.core.records.lawstatus.LawStatusRecord:
+            The list of found records. Since these are not filtered by any criteria the list simply
+            contains all records delivered by the source.
+
+        Raises:
+            ConfigurationError
+        """
+
         law_status_config = Config.get_law_status_config()
         if law_status_config is None:
             raise ConfigurationError("Missing configuration for law status source config")
@@ -189,6 +288,18 @@ class Config(object):
 
     @staticmethod
     def _read_documents():
+        """
+        Reads settings of documents from config an intiates the relevant reader.
+
+        Returns:
+        list of pyramid_oereb.core.records.documents.DocumentRecord:
+            The list of found records. Since these are not filtered by any criteria the list simply
+            contains all records delivered by the source.
+
+        Raises:
+            ConfigurationError
+        """
+
         document_config = Config.get_document_config()
         if document_config is None:
             raise ConfigurationError("Missing configuration for document source config")
@@ -200,6 +311,18 @@ class Config(object):
 
     @staticmethod
     def _read_offices():
+        """
+        Reads settings of offices from config an intiates the relevant reader.
+
+        Returns:
+            list of pyramid_oereb.core.records.office.OfficeRecord:
+                The list of found records. Since these are not filtered by any criteria the list simply
+                contains all records delivered by the source.
+
+        Raises:
+            ConfigurationError
+        """
+
         office_config = Config.get_office_config()
         if office_config is None:
             raise ConfigurationError("Missing configuration for office source config")
@@ -218,6 +341,7 @@ class Config(object):
             list of pyramid_oereb.core.records.theme.GeneralInformationRecord: The available general
             information entries.
         """
+
         assert Config._config is not None
         return Config.general_information
 
@@ -229,6 +353,7 @@ class Config(object):
         Returns:
             list of unicode: The available law status codes.
         """
+
         assert Config._config is not None
         return [law_status.code for law_status in Config.law_status]
 
@@ -240,6 +365,7 @@ class Config(object):
         Returns:
             list of pyramid_oereb.core.records.theme.ThemeRecord: The available themes.
         """
+
         assert Config._config is not None
         return Config.themes
 
@@ -249,12 +375,17 @@ class Config(object):
         Returns the theme or sub-theme which matches the code.
 
         Args:
-            code (str): The theme's code or sub-code.
+            code (str): The theme's code.
+            sub_code (str): The theme's sub code (Default: None).
 
         Returns:
             pyramid_oereb.core.records.theme.ThemeRecord or None: The theme with the specified
             code.
+
+        Raises:
+            ConfigurationError
         """
+
         if Config.themes is None:
             raise ConfigurationError("Themes have not been initialized")
         theme_result = [theme for theme in Config.themes if theme.sub_code == sub_code and theme.code == code]
@@ -267,6 +398,13 @@ class Config(object):
 
     @staticmethod
     def init_logos():
+        """
+        Initializes logos object list configured in config file.
+
+        Raises:
+            ProgrammingError
+        """
+
         try:
             Config.logos = Config._read_logos()
         # When initializing the database (create_tables), the table 'logo' does not exist yet
@@ -275,6 +413,18 @@ class Config(object):
 
     @staticmethod
     def _read_logos():
+        """
+        Reads settings of logos from config an intiates the relevant reader.
+
+        Returns:
+            list of pyramid_oereb.core.records.logo.LogoRecord:
+                The list of found records. Since these are not filtered by any criteria the list simply
+                contains all records delivered by the source.
+
+        Raises:
+            ConfigurationError
+        """
+
         logo_config = Config.get_logo_config()
         if logo_config is None:
             raise ConfigurationError("Missing configuration for logos")
@@ -293,6 +443,7 @@ class Config(object):
             list of pyramid_oereb.core.records.logo.LogoRecord: All the logo entries needed to
             generate an plr data-extract (plr-logo, confederation, canton, municipality).
         """
+
         assert Config._config is not None
         if len(Config.logos) < 1:
             raise ConfigurationError("At least one entry for the plr-logo is required")
@@ -302,12 +453,18 @@ class Config(object):
     def get_logo_by_code(code):
         """
         Returns the image for a logo called by its code.
+
         Args:
             code (str): The identifier for the logo.
+
         Returns:
             pyramid_oereb.core.records.logo.LogoRecord or None: The logo image
             for the specified code.
+
+        Raises:
+            ConfigurationError
         """
+
         if Config.logos is None:
             raise ConfigurationError("The logo images have not been initialized")
         for logo in Config.logos:
@@ -320,14 +477,39 @@ class Config(object):
 
     @staticmethod
     def get_conferderation_logo():
+        """
+        Returns the image of confederation logo.
+
+        Returns:
+            pyramid_oereb.core.records.logo.LogoRecord or None: The logo image.
+
+        """
+
         return Config.get_logo_by_code(Config.get_logo_lookup_confederation())
 
     @staticmethod
     def get_canton_logo():
+        """
+        Returns the image of canton logo.
+
+        Returns:
+            pyramid_oereb.core.records.logo.LogoRecord or None: The logo image.
+        """
+
         return Config.get_logo_by_code(Config.get_logo_lookup_canton())
 
     @staticmethod
     def get_municipality_logo(fosnr):
+        """
+        Returns the image of municipality logo by fosnr.
+
+        Args:
+            fosnr (int): id of municipality.
+
+        Returns:
+            pyramid_oereb.core.records.logo.LogoRecord or None: The logo image.
+        """
+
         return Config.get_logo_by_code('{}.{}'.format(
             Config.get_logo_lookup_confederation(),
             str(fosnr))
@@ -335,10 +517,27 @@ class Config(object):
 
     @staticmethod
     def get_oereb_logo():
+        """
+        Returns the image of oereb logo.
+
+        Returns:
+            pyramid_oereb.core.records.logo.LogoRecord or None: The logo image.
+        """
+
         return Config.get_logo_by_code(Config.get_logo_lookup_oereb())
 
     @staticmethod
     def get_logo_lookups():
+        """
+        Reads logo config settings.
+
+        Returns:
+            Dict of logo lookup settings.
+
+        Raises:
+            ConfigurationError
+        """
+
         logo_lookups = Config.get('logo_lookups')
         if logo_lookups:
             return logo_lookups
@@ -347,6 +546,19 @@ class Config(object):
 
     @staticmethod
     def get_logo_lookup(key):
+        """
+        Reads logo config settings by its key.
+
+        Args:
+            key (str): the key of the logo to look for in config file.
+
+        Returns:
+            str: Code of logo provided in config for the specified key.
+
+        Raises:
+            ConfigurationError
+        """
+
         code = Config.get_logo_lookups()[key]
         if code:
             return code
@@ -355,18 +567,46 @@ class Config(object):
 
     @staticmethod
     def get_logo_lookup_oereb():
+        """
+        Returns the oereb logo code specified in config file.
+
+        Returns:
+            str: Code of oereb logo provided in config file.
+        """
+
         return Config.get_logo_lookup('oereb')
 
     @staticmethod
     def get_logo_lookup_canton():
+        """
+        Returns the canton logo code specified in config file.
+
+        Returns:
+            str: Code of canton logo provided in config file.
+        """
+
         return Config.get_logo_lookup('canton')
 
     @staticmethod
     def get_logo_lookup_confederation():
+        """
+        Returns the confederation logo code specified in config file.
+
+        Returns:
+            str: Code of confedertaion logo provided in config.
+        """
+
         return Config.get_logo_lookup('confederation')
 
     @staticmethod
     def init_document_types():
+        """
+        Initiates all document types configured in the config file.
+
+        Raises:
+            ProgrammingError
+        """
+
         try:
             Config.document_types = Config._read_document_types()
         # When initializing the database (create_tables), the table 'document_types' does not exist yet
@@ -375,6 +615,18 @@ class Config(object):
 
     @staticmethod
     def _read_document_types():
+        """
+        Reads settings of document types from config an intiates the relevant reader.
+
+        Returns:
+            list of pyramid_oereb.core.records.document_types.DocumentTypeRecord:
+                The list of found records. Since these are not filtered by any criteria the list simply
+                contains all records delivered by the source.
+
+        Raises:
+            ConfigurationError
+        """
+
         document_types_config = Config.get_document_types_config()
         if document_types_config is None:
             raise ConfigurationError("Missing configuration for document types")
@@ -393,11 +645,19 @@ class Config(object):
             list of pyramid_oereb.core.records.document_types.DocumentTypeRecord: The available
             document types.
         """
+
         assert Config._config is not None
         return Config.document_types
 
     @staticmethod
     def init_real_estate_types():
+        """
+        Initializes all real estate types configured in the config file.
+
+        Raises:
+            ProgrammingError
+        """
+
         try:
             Config.real_estate_types = Config._read_real_estate_types()
         # When initializing the database (create_tables), the table 'real_estate_type' does not exist yet
@@ -406,6 +666,18 @@ class Config(object):
 
     @staticmethod
     def _read_real_estate_types():
+        """
+        Reads settings of real estate types from config an intiates the relevant reader.
+
+        Returns:
+            list of pyramid_oereb.core.records.realestatetype.RealEstateTypeRecord:
+                The list of found records. Since these are not filtered by any criteria the list simply
+                contains all records delivered by the source.
+
+        Raises:
+            ConfigurationError
+        """
+
         real_estate_types_config = Config.get('real_estate_type')
         if real_estate_types_config is None:
             raise ConfigurationError("Missing configuration for real estate type source config")
@@ -424,11 +696,19 @@ class Config(object):
             list of pyramid_oereb.core.records.real_estate_type.RealEstateTypeRecord: The available
             real estate types.
         """
+
         assert Config._config is not None
         return Config.real_estate_types
 
     @staticmethod
     def init_map_layering():
+        """
+        Initializes map layering as configured in the config file.
+
+        Raises:
+            ProgrammingError
+        """
+
         try:
             Config.map_layering = Config._read_map_layering()
         # When initializing the database (create_tables), the table 'map_layering' does not exist yet
@@ -437,6 +717,18 @@ class Config(object):
 
     @staticmethod
     def _read_map_layering():
+        """
+        Reads settings of map layering from config an intiates the relevant reader.
+
+        Returns:
+            list of pyramid_oereb.core.records.map_layering.MapLayeringRecord:
+                The list of found records. Since these are not filtered by any criteria the list simply
+                contains all records delivered by the source.
+
+        Raises:
+            ConfigurationError
+        """
+
         map_layering_config = Config.get('map_layering')
         if map_layering_config is None:
             raise ConfigurationError("Missing configuration for map layering source config")
@@ -455,6 +747,7 @@ class Config(object):
             list of pyramid_oereb.core.records.map_layering.MapLayeringRecord: The available
             map layering.
         """
+
         assert Config._config is not None
         return Config.map_layering
 
@@ -470,6 +763,7 @@ class Config(object):
             pyramid_oereb.standard.models.main.MapLayering.layer_index or 1 (default value),
             pyramid_oereb.standard.models.main.MapLayering.layer_opacity or 0.75 (default value)
         """
+
         default_index = 1
         default_opacity = 0.75
         if Config.map_layering is None:
@@ -485,6 +779,19 @@ class Config(object):
 
     @staticmethod
     def get_document_types_lookups(theme_code):
+        """
+        Returns the document types config specified in config file for given theme.
+
+        Args:
+            theme_code (str): theme code to get lookups for from config file.
+
+        Returns:
+            dict: config settings of document types
+
+        Raises:
+            ConfigurationError
+        """
+
         lookups = Config.get_theme_config_by_code(theme_code).get('document_types_lookup')
         if lookups is None:
             raise ConfigurationError(
@@ -494,6 +801,21 @@ class Config(object):
 
     @staticmethod
     def get_document_type_lookup_by_theme_code_key_code(theme_code, key, code):
+        """
+        Returns the document types config specified in config file for given theme and key.
+
+        Args:
+            theme_code (str): theme code to get lookups for from config file.
+            key (str): key of lookup pair
+            code (str): value of lookup pair
+
+        Returns:
+            dict: config settings of document types
+
+        Raises:
+            ConfigurationError
+        """
+
         lookups = Config.get_document_types_lookups(theme_code)
         for lookup in lookups:
             if lookup[key] == code:
@@ -505,6 +827,17 @@ class Config(object):
 
     @staticmethod
     def get_document_type_lookup_by_data_code(theme_code, data_code):
+        """
+        Returns the document types config specified in config file for given theme data_code.
+
+        Args:
+            theme_code (str): theme code to get lookups for from config file.
+            data_code (str): key of lookup pair
+
+        Returns:
+            dict: config settings of document types
+        """
+
         return Config.get_document_type_lookup_by_theme_code_key_code(
             theme_code,
             'data_code',
@@ -513,6 +846,18 @@ class Config(object):
 
     @staticmethod
     def get_document_type_by_data_code(theme_code, data_code):
+        """
+        Returns the document type record for given theme data_code.
+
+        Args:
+            theme_code (str): theme code to get lookups for from config file.
+            data_code (str): key of lookup pair.
+
+        Returns:
+            pyramid_oereb.core.records.document_types.DocumentTypeRecord or None:
+                document types record of theme and data_code.
+        """
+
         lookup = Config.get_document_type_lookup_by_data_code(theme_code, data_code)
         record = Config.get_document_type_by_code(lookup['transfer_code'])
         log.debug(
@@ -525,6 +870,16 @@ class Config(object):
 
     @staticmethod
     def get_main_document_types_lookups():
+        """
+        Returns the document types config specified in config file in app_schema.
+
+        Returns:
+            dict: config settings of document types.
+
+        Raises:
+            ConfigurationError
+        """
+
         lookups = Config._config.get('app_schema').get('document_types_lookup')
         if lookups is None:
             raise ConfigurationError(
@@ -534,6 +889,20 @@ class Config(object):
 
     @staticmethod
     def get_main_document_type_lookup_by_key_code(key, code):
+        """
+        Returns the document types config specified in config file in app_schema.
+
+        Args:
+            key (str): key of lookup pair.
+            code (str): value of lookup pair.
+
+        Returns:
+            dict: config settings of document types.
+
+        Raises:
+            ConfigurationError
+        """
+
         lookups = Config.get_main_document_types_lookups()
         for lookup in lookups:
             if lookup[key] == code:
@@ -545,6 +914,16 @@ class Config(object):
 
     @staticmethod
     def get_main_document_type_lookup_by_data_code(data_code):
+        """
+        Returns the document type record for given data_code.
+
+        Args:
+            data_code (str): key of lookup pair.
+
+        Returns:
+            dict: config settings of document types.
+        """
+
         return Config.get_main_document_type_lookup_by_key_code(
             'data_code',
             data_code
@@ -552,6 +931,17 @@ class Config(object):
 
     @staticmethod
     def get_main_document_type_by_data_code(data_code):
+        """
+        Returns the document type record for given data_code.
+
+        Args:
+            data_code (str): key of lookup pair.
+
+        Returns:
+            pyramid_oereb.core.records.document_types.DocumentTypeRecord or None:
+                document types record of data_code.
+        """
+
         lookup = Config.get_main_document_type_lookup_by_data_code(data_code)
         record = Config.get_document_type_by_code(lookup['transfer_code'])
         log.debug(
@@ -566,12 +956,18 @@ class Config(object):
     def get_document_type_by_code(code):
         """
         Returns the label for the document type by code.
+
         Args:
             code (str): The document type code.
+
         Returns:
             pyramid_oereb.core.records.document_types.DocumentTypeRecord or None: The document
             type for the specified code.
+
+        Raises:
+            ConfigurationError
         """
+
         if Config.document_types is None:
             raise ConfigurationError("The document types have not been initialized")
 
@@ -585,10 +981,11 @@ class Config(object):
         """
         Returns the limits for the geometries of the theme with the specified code.
 
-        :param code: The theme's code.
-        :type code: str
-        :return: The geometric tolerances for this theme.
-        :rtype: dict
+        Args:
+            code (str): The theme's code.
+
+        Returns:
+            dict or None: The geometric tolerances for this theme.
         """
         assert Config._config is not None
 
@@ -604,9 +1001,10 @@ class Config(object):
         """
         Returns a list of all federal topic codes.
 
-        :return: All federal topic codes.
-        :rtype: list of str
+        Returns:
+            list (str): All federal topic codes.
         """
+
         assert Config._config is not None
         federal = []
         plrs = Config.get('plrs')
@@ -622,8 +1020,9 @@ class Config(object):
         Returns a unicode string of configured crs.
 
         Returns:
-            unicode: The available crs.
+            unicode (str): The available crs.
         """
+
         assert Config._config is not None
         srid = Config._config.get('srid')
         return u'epsg:{}'.format(srid)
@@ -634,8 +1033,9 @@ class Config(object):
         Returns a list of available languages.
 
         Returns:
-            list: The available languages.
+            list (str): The available languages.
         """
+
         assert Config._config is not None
 
         result = []
@@ -650,8 +1050,9 @@ class Config(object):
         Returns a list of available flavours.
 
         Returns:
-            list: The available flavours.
+            list (str): The available flavours.
         """
+
         assert Config._config is not None
 
         result = []
@@ -665,9 +1066,10 @@ class Config(object):
         """
         Returns a list of available geometry_types.
 
-        :return: The available geometry types.
-        :rtype: list
+        Returns:
+            list (str): The available geometry types.
         """
+
         assert Config._config is not None
 
         result = []
@@ -684,6 +1086,7 @@ class Config(object):
         Returns:
             dict: The configured real estate settings.
         """
+
         assert Config._config is not None
 
         return Config._config.get('real_estate')
@@ -691,22 +1094,37 @@ class Config(object):
     @staticmethod
     def get_real_estate_type_config():
         """
-        Returns a dictionary of the configured real estate settings.
+        Returns a dictionary of the configured real estate type settings.
 
         Returns:
-            dict: The configured real estate settings.
+            dict: The configured real estate type settings.
         """
+
         assert Config._config is not None
 
         return Config._config.get('real_estate_type')
 
     @staticmethod
     def get_plan_for_land_register_main_page_config():
+        """
+        Returns dictionary of plan for land register for the main page from the config file.
+
+        Returns:
+            dict: The config of the main page for the plan for land register.
+        """
+
         assert Config._config is not None
         return Config._config.get('real_estate', {}).get('plan_for_land_register_main_page')
 
     @staticmethod
     def get_plan_for_land_register_config():
+        """
+        Returns dictionary of plan for land register from the config file.
+
+        Returns:
+            dict: The config for the plan for land register.
+        """
+
         assert Config._config is not None
         return Config._config.get('real_estate', {}).get('plan_for_land_register')
 
@@ -718,6 +1136,7 @@ class Config(object):
         Returns:
             dict: The configured address settings.
         """
+
         assert Config._config is not None
 
         return Config._config.get('address')
@@ -730,6 +1149,7 @@ class Config(object):
         Returns:
             dict: The configured theme settings.
         """
+
         assert Config._config is not None
 
         return Config._config.get('theme')
@@ -742,6 +1162,7 @@ class Config(object):
         Returns:
             dict: The configured theme document settings.
         """
+
         assert Config._config is not None
 
         return Config._config.get('theme_document')
@@ -754,6 +1175,7 @@ class Config(object):
         Returns:
             dict: The configured document types settings.
         """
+
         assert Config._config is not None
 
         return Config._config.get('document_types')
@@ -766,6 +1188,7 @@ class Config(object):
         Returns:
             dict: The configured glossary settings.
         """
+
         assert Config._config is not None
         return Config._config.get('glossary')
 
@@ -777,6 +1200,7 @@ class Config(object):
         Returns:
             dict: The configured disclaimer settings.
         """
+
         assert Config._config is not None
 
         return Config._config.get('disclaimer')
@@ -789,6 +1213,7 @@ class Config(object):
         Returns:
             dict: The configured general information settings.
         """
+
         assert Config._config is not None
 
         return Config._config.get('general_information')
@@ -801,6 +1226,7 @@ class Config(object):
         Returns:
             dict: The configured paths to the logos wrapped in a dictionary.
         """
+
         assert Config._config is not None
 
         return Config._config.get('logos')
@@ -812,6 +1238,7 @@ class Config(object):
         Returns:
             dict: The configured general law status sources.
         """
+
         assert Config._config is not None
 
         return Config._config.get('law_status_labels')
@@ -824,6 +1251,7 @@ class Config(object):
         Returns:
             dict: The configured documents sources.
         """
+
         assert Config._config is not None
 
         return Config._config.get('documents')
@@ -836,6 +1264,7 @@ class Config(object):
         Returns:
             dict: The configured office sources.
         """
+
         assert Config._config is not None
 
         return Config._config.get('offices')
@@ -848,6 +1277,7 @@ class Config(object):
         Returns:
             dict: The configured municipality settings.
         """
+
         assert Config._config is not None
 
         return Config._config.get('municipality')
@@ -860,6 +1290,7 @@ class Config(object):
         Returns:
             dict: The configured extract settings.
         """
+
         assert Config._config is not None
 
         return Config._config.get('extract')
@@ -873,6 +1304,7 @@ class Config(object):
             pyramid_oereb.lib.records.office.OfficeRecord: The configured PLR cadastre
             authority.
         """
+
         assert Config._config is not None
 
         cfg = Config._config.get('plr_cadastre_authority')
@@ -896,6 +1328,7 @@ class Config(object):
         Returns:
             dict: The configured OEREBlex settings.
         """
+
         assert Config._config is not None
 
         return Config._config.get('oereblex')
@@ -913,6 +1346,7 @@ class Config(object):
         Returns:
             *: The specified configuration or default value
         """
+
         assert Config._config is not None
 
         return Config._config.get(key, default)
@@ -926,7 +1360,7 @@ class Config(object):
         get_object_path('app.print', {'dpi': 300}, ['map_size'])
 
         Args:
-            path (str): Dot separated path of the wonted object.
+            path (str): Dot separated path of the wanted object.
             default (dict): Default dictionary values of the object. Defaults to {}.
             required (list): The list of required sub values in the object. Defaults to [].
 
@@ -941,6 +1375,23 @@ class Config(object):
 
     @staticmethod
     def _get_object_path(current_path, current_object, path, default, required):
+        """
+        Iterates through the given path list to return a valid dictionary of of the wanted object.
+
+        Args:
+            current_path (list): Path of current object.
+            current_object (dict): Dictionary of current object.
+            path (list): List of path entries to the desired object.
+            default (dict): Default dictionary values of the object. Defaults to {}.
+            required (list): The list of required sub values in the object. Defaults to [].
+
+        Returns:
+            *: The specified configuration object.
+
+        Raises:
+            ConfigurationError
+        """
+
         if len(path) == 0:
             result = dict(default)
             result.update(current_object)
@@ -965,6 +1416,19 @@ class Config(object):
 
     @staticmethod
     def get_law_status_lookups(theme_code):
+        """
+        Returns the law status config specified in config file.
+
+        Args:
+            theme_code (str): Theme code to retrieve lookups for.
+
+        Returns:
+            dict: config settings of law status.
+
+        Raises:
+            ConfigurationError
+        """
+
         lookups = Config.get_theme_config_by_code(theme_code).get('law_status_lookup')
         if lookups is None:
             raise ConfigurationError(
@@ -974,6 +1438,21 @@ class Config(object):
 
     @staticmethod
     def get_law_status_lookup_by_theme_code_key_code(theme_code, key, code):
+        """
+        Returns the law status config specified in config file for the specified theme and key.
+
+        Args:
+            theme_code (str): Theme code to retrieve lookups for.
+            key (str): Key to retrieve lookups for.
+            code (str): Value of the desired law status code.
+
+        Returns:
+            dict: config settings of law status.
+
+        Raises:
+            ConfigurationError
+        """
+
         lookups = Config.get_law_status_lookups(theme_code)
         for lookup in lookups:
             if lookup[key] == code:
@@ -985,6 +1464,16 @@ class Config(object):
 
     @staticmethod
     def get_law_status_lookup_by_data_code(theme_code, data_code):
+        """
+        Returns the law status config specified in config file.
+
+        Args:
+            theme_code (str): Theme code to retrieve lookups for.
+            data_code (str): Value of the desired law status code.
+
+        Returns:
+            dict: config settings of law status.
+        """
         return Config.get_law_status_lookup_by_theme_code_key_code(
             theme_code,
             'data_code',
@@ -993,6 +1482,17 @@ class Config(object):
 
     @staticmethod
     def get_law_status_by_data_code(theme_code, data_code):
+        """
+        Returns the law status record.
+
+        Args:
+            theme_code (str): Theme code to retrieve lookups for.
+            data_code (str): Value of the desired law status code.
+
+        Returns:
+            pyramid_oereb.core.records.lawstatus.LawStatusRecord: The law status record.
+
+        """
         lookup = Config.get_law_status_lookup_by_data_code(theme_code, data_code)
         record = Config.get_law_status_by_code(lookup['transfer_code'])
         log.debug(
@@ -1005,6 +1505,15 @@ class Config(object):
 
     @staticmethod
     def get_main_law_status_lookups():
+        """
+        Returns the main law status config specified in config file.
+
+        Returns:
+            dict: config settings of main law status.
+
+        Raises:
+            ConfigurationError
+        """
         lookups = Config._config.get('app_schema').get('law_status_lookup')
         if lookups is None:
             raise ConfigurationError(
@@ -1014,6 +1523,20 @@ class Config(object):
 
     @staticmethod
     def get_main_law_status_lookup_by_key_code(key, code):
+        """
+        Returns the main law status config specified in config file by key and code.
+
+        Args:
+            key (str): Key to retrieve lookups for.
+            code (str): Value of the desired main law status code.
+
+        Returns:
+            dict: config settings of main law status.
+
+        Raises:
+            ConfigurationError
+        """
+
         lookups = Config.get_main_law_status_lookups()
         for lookup in lookups:
             if lookup[key] == code:
@@ -1025,6 +1548,16 @@ class Config(object):
 
     @staticmethod
     def get_main_law_status_lookup_by_data_code(data_code):
+        """
+        Returns the main law status config specified in config file by data_code.
+
+        Args:
+            data_code (str): Value of the desired main law status code.
+
+        Returns:
+            dict: config settings of main law status.
+        """
+
         return Config.get_main_law_status_lookup_by_key_code(
             'data_code',
             data_code
@@ -1032,6 +1565,16 @@ class Config(object):
 
     @staticmethod
     def get_main_law_status_by_data_code(data_code):
+        """
+        Returns the main law status record by data_code.
+
+        Args:
+            data_code (str): Value of the desired main law status code.
+
+        Returns:
+            pyramid_oereb.core.records.lawstatus.LawStatusRecord: The main law status record.
+        """
+
         lookup = Config.get_main_law_status_lookup_by_data_code(data_code)
         record = Config.get_law_status_by_code(lookup['transfer_code'])
         log.debug(
@@ -1045,7 +1588,7 @@ class Config(object):
     @staticmethod
     def get_law_status_by_code(law_status_code):
         """
-         Returns a dictionary of the configured law status settings.
+         Returns the law status record by law status code.
 
         Args:
             law_status_code (str): The law status code.
@@ -1053,6 +1596,7 @@ class Config(object):
         Returns:
             pyramid_oereb.lib.records.law_status.LawStatusRecord: The found record.
         """
+
         if Config.law_status is None:
             raise ConfigurationError("The law status have not been initialized")
 
@@ -1064,7 +1608,7 @@ class Config(object):
     @staticmethod
     def get_theme_config_by_code(theme_code):
         """
-        Obtaining the theme configuration from config.
+        Obtaining the theme configuration from the config file.
 
         Args:
             theme_code (str): The theme code.
@@ -1072,6 +1616,7 @@ class Config(object):
         Returns:
             dict: theme settings from config.
         """
+
         assert Config._config is not None
         themes = Config._config.get('plrs')
         if themes and isinstance(themes, list):
@@ -1113,6 +1658,16 @@ class Config(object):
 
     @staticmethod
     def get_real_estate_type_lookups():
+        """
+        Returns the real estate type config specified in config file.
+
+        Returns:
+            dict: config settings of main law status.
+
+        Raises:
+            ConfigurationError
+        """
+
         lookups = Config.get_real_estate_type_config().get('lookup')
         if lookups is None:
             raise ConfigurationError(
@@ -1122,6 +1677,20 @@ class Config(object):
 
     @staticmethod
     def get_real_estate_type_lookup_by_key_code(key, code):
+        """
+        Returns the real estate type lookup specified in config file by key and code.
+
+        Args:
+            key (str): Key to retrieve lookups for.
+            code (str): Value of the desired real restate type code.
+
+        Returns:
+            dict: config settings of real restate type.
+
+        Raises:
+            ConfigurationError
+        """
+
         lookups = Config.get_real_estate_type_lookups()
         for lookup in lookups:
             if lookup[key] == code:
@@ -1133,10 +1702,29 @@ class Config(object):
 
     @staticmethod
     def get_real_estate_type_lookup_by_data_code(data_code):
+        """
+        Returns the real estate type lookup specified in config file by data_code.
+
+        Args:
+            data_code (str): Value of the desired real estate type code.
+
+        Returns:
+            dict: config settings of real restate type.
+        """
+
         return Config.get_real_estate_type_lookup_by_key_code('data_code', data_code)
 
     @staticmethod
     def get_real_estate_type_by_data_code(data_code):
+        """
+        Returns the real estate type file by data_code.
+
+        Args:
+            data_code (str): Value of the desired real estate type code.
+
+        Returns:
+            pyramid_oereb.core.records.realestatetype.RealEstateTypeRecord: The real estate type record.
+        """
         lookup = Config.get_real_estate_type_lookup_by_data_code(data_code)
         record = Config.get_real_estate_type_by_code(lookup['transfer_code'])
         log.debug(
@@ -1150,13 +1738,16 @@ class Config(object):
     @staticmethod
     def get_real_estate_type_by_code(code):
         """
-         Returns a dictionary of the configured law status settings.
+         Returns the record of the real estate types of the given code.
 
         Args:
             code (str): The real estate type code.
 
         Returns:
             pyramid_oereb.lib.records.real_estate_type.RealEstateTypeRecord: The found record.
+
+        Raises:
+            ConfigurationError
         """
         if Config.real_estate_types is None:
             raise ConfigurationError("The real estate types have not been initialized")
@@ -1168,6 +1759,16 @@ class Config(object):
 
     @staticmethod
     def extract_module_function(dotted_function_path):
+        """
+        Returns a dictionary of the given function and its module path.
+
+        Args:
+            dotted_function_path (str): Path to functin in dot syntax.
+
+        Returns:
+            dict: given function and its module path.
+        """
+
         elements = dotted_function_path.split('.')
         function_name = elements[-1]
         module_path = '.'.join(elements[:-1])
@@ -1184,10 +1785,19 @@ def _parse(cfg_file, cfg_section, c2ctemplate_style=False):
     Args:
         cfg_file (str): The YAML file to be parsed.
         cfg_section (str): The section to be returned.
+        c2ctemplate_style (bool): If set to true, c2c.template library
+            will be used to load config file (Default: False).
 
     Returns:
         dict: The parsed section as dictionary.
+
+    Raises:
+        ConfigurationError
+
+    Throws:
+        IOError
     """
+
     if cfg_file is None:
         raise ConfigurationError(
             'Missing configuration parameter "pyramid_oereb.cfg.file" or '
