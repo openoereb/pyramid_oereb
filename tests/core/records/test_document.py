@@ -8,14 +8,9 @@ from pyramid_oereb.core.records.document_types import DocumentTypeRecord
 from pyramid_oereb.core.records.office import OfficeRecord
 
 
-def test_mandatory_fields():
-    with pytest.raises(TypeError):
-        DocumentRecord('AenderungMitVorwirkung', datetime.date(1985, 8, 29),)
-
-
-def test_init(law_test_data, pyramid_oereb_test_config):
-    office_record = OfficeRecord({'en': 'name'})
-    law_status = LawStatusRecord(
+@pytest.fixture
+def law_status_record():
+    yield LawStatusRecord(
         'inKraft', {
             "de": "Rechtskräftig",
             "fr": "En vigueur",
@@ -24,10 +19,34 @@ def test_init(law_test_data, pyramid_oereb_test_config):
             "en": "In force"
         }
     )
+
+
+@pytest.fixture
+def document_type_record():
+    yield DocumentTypeRecord(
+        'GesetzlicheGrundlage',
+        {'de': 'Gesetzliche Grundlage'}
+    )
+
+
+@pytest.fixture
+def office_record():
+    yield OfficeRecord({'en': 'name'})
+
+
+def test_mandatory_fields():
+    with pytest.raises(TypeError):
+        DocumentRecord('AenderungMitVorwirkung', datetime.date(1985, 8, 29),)
+
+
+def test_init(law_status_record, office_record, document_type_record):
     record = DocumentRecord(
-        DocumentTypeRecord('GesetzlicheGrundlage', {'de': 'Gesetzliche Grundlage'}),
-        1, law_status, {'en': 'title'},
-        office_record, datetime.date(1985, 8, 29),
+        document_type_record,
+        1,
+        law_status_record,
+        {'en': 'title'},
+        office_record,
+        datetime.date(1985, 8, 29),
         text_at_web={'en': 'http://my.document.com'}
     )
     assert isinstance(record.document_type, DocumentTypeRecord)
@@ -45,11 +64,16 @@ def test_init(law_test_data, pyramid_oereb_test_config):
     assert record.published
 
 
-def test_invalid_document_type():
-    office_record = OfficeRecord({'en': 'name'})
+def test_invalid_document_type(office_record):
     with pytest.raises(AttributeError):
-        DocumentRecord('invalid', 1, 'AenderungMitVorwirkung', {'en': 'title'}, office_record,
-                       datetime.date(1985, 8, 29))
+        DocumentRecord(
+            'invalid',
+            1,
+            'AenderungMitVorwirkung',
+            {'en': 'title'},
+            office_record,
+            datetime.date(1985, 8, 29)
+        )
 
 
 @pytest.mark.parametrize(
@@ -74,20 +98,13 @@ def test_invalid_document_type():
         ((datetime.datetime.now() - datetime.timedelta(days=7)), (datetime.datetime.now() + datetime.timedelta(days=6)), True)  # noqa: E501
     ]
 )
-def test_published(published_from, published_until, result):
-    office_record = OfficeRecord({'en': 'name'})
-    law_status = LawStatusRecord(
-        'inKraft', {
-            "de": "Rechtskräftig",
-            "fr": "En vigueur",
-            "it": "In vigore",
-            "rm": "En vigur",
-            "en": "In force"
-        }
-    )
+def test_published(published_from, published_until, result, law_status_record, office_record, document_type_record):  # noqa: E501
     record = DocumentRecord(
-        DocumentTypeRecord('Hinweis', {'de': 'Hinweis'}),
-        1, law_status, {'en': 'title'}, office_record,
+        document_type_record,
+        1,
+        law_status_record,
+        {'en': 'title'},
+        office_record,
         published_from,
         published_until=published_until,
         text_at_web={'en': 'http://my.document.com'}
@@ -95,29 +112,22 @@ def test_published(published_from, published_until, result):
     assert record.published == result
 
 
-def test_legal_provision(law_test_data):
-    office_record = OfficeRecord({'en': 'name'})
-    law_status = LawStatusRecord(
-        'inKraft', {
-            "de": "Rechtskräftig",
-            "fr": "En vigueur",
-            "it": "In vigore",
-            "rm": "En vigur",
-            "en": "In force"
-        }
-    )
+def test_legal_provision(law_test_data, law_status_record, office_record, document_type_record):
     legal_provision = DocumentRecord(
-        DocumentTypeRecord('Rechtsvorschrift', {'de': 'Rechtsvorschrift'}),
-        1, law_status, {'de': 'title'},
-        office_record, datetime.date(1985, 8, 29)
+        document_type_record,
+        1,
+        law_status_record,
+        {'de': 'title'},
+        office_record,
+        datetime.date(1985, 8, 29)
     )
     assert isinstance(legal_provision.document_type, DocumentTypeRecord)
-    assert legal_provision.document_type.code == 'Rechtsvorschrift'
+    assert legal_provision.document_type.code == 'GesetzlicheGrundlage'
 
 
-def test_wrong_types():
+def test_wrong_types(document_type_record):
     record = DocumentRecord(
-        DocumentTypeRecord('Rechtsvorschrift', {'de': 'Rechtsvorschrift'}),
+        document_type_record,
         'wrong_type',
         'law_status',
         'wrong_title',
@@ -145,9 +155,9 @@ def test_wrong_types():
     assert isinstance(record.file, int)
 
 
-def testarticle_numbers_init():
+def testarticle_numbers_init(document_type_record):
     record = DocumentRecord(
-        DocumentTypeRecord('Rechtsvorschrift', {'de': 'Rechtsvorschrift'}),
+        document_type_record,
         'wrong_type',
         'law_status',
         'wrong_title',
@@ -163,7 +173,7 @@ def testarticle_numbers_init():
     )
     assert len(record.article_numbers) == 0
     record = DocumentRecord(
-        DocumentTypeRecord('Rechtsvorschrift', {'de': 'Rechtsvorschrift'}),
+        document_type_record,
         'wrong_type',
         'law_status',
         'wrong_title',
@@ -180,9 +190,9 @@ def testarticle_numbers_init():
     assert len(record.article_numbers) == 1
 
 
-def test_serialize():
+def test_serialize(document_type_record):
     record = DocumentRecord(
-        DocumentTypeRecord('Rechtsvorschrift', {'de': 'Rechtsvorschrift'}),
+        document_type_record,
         'wrong_type',
         'law_status',
         'wrong_title',
@@ -199,9 +209,9 @@ def test_serialize():
     assert isinstance(record.__str__(), str)
 
 
-def test_copy():
+def test_copy(document_type_record):
     record = DocumentRecord(
-        DocumentTypeRecord('Rechtsvorschrift', {'de': 'Rechtsvorschrift'}),
+        document_type_record,
         'wrong_type',
         'law_status',
         'wrong_title',

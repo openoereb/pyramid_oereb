@@ -9,8 +9,9 @@ def test_mandatory_fields():
         DisclaimerRecord()
 
 
-def test_init():
-    record = DisclaimerRecord({
+@pytest.fixture
+def record_correct():
+    yield DisclaimerRecord({
       "de": "Eigentumsbeschränkungen im Grundbuch",
       "fr": "Restrictions de propriété dans le registre foncier",
       "it": "Restrizioni della proprietà nel re-gistro fondiario",
@@ -23,11 +24,18 @@ def test_init():
       "rm": "Supplementarmain a las indicaziuns en quest extract pon r...",
       "en": "In addition to the information contained in this extract,..."
     })
-    assert isinstance(record.title, dict)
-    assert isinstance(record.content, dict)
 
 
-def test_wrong_types():
-    record = DisclaimerRecord('titel', 'content')
-    assert isinstance(record.title, str)
-    assert isinstance(record.content, str)
+@pytest.fixture
+def record_incorrect():
+    yield DisclaimerRecord('titel', 'content')
+
+
+def test_init(record_correct):
+    assert isinstance(record_correct.title, dict)
+    assert isinstance(record_correct.content, dict)
+
+
+def test_wrong_types(record_incorrect):
+    assert isinstance(record_incorrect.title, str)
+    assert isinstance(record_incorrect.content, str)

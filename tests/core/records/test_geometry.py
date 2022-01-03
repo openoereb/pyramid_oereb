@@ -18,13 +18,6 @@ from pyramid_oereb.core.records.real_estate import RealEstateRecord
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
-geometry_types = {
-    'point': {'types': ['Point', 'MultiPoint']},
-    'line': {'types': ['LineString', 'LinearRing', 'MultiLineString']},
-    'polygon': {'types': ['Polygon', 'MultiPolygon']},
-    'collection': {'types': ['GeometryCollection']}
-}
-
 
 def test_mandatory_fields():
     with pytest.raises(TypeError):
@@ -252,7 +245,7 @@ def test_extract_collection(input_geom, result, extracted):
     ]
 )
 def test_calculate(pyramid_oereb_test_config, geometry, real_estate_geometry,
-                   length_limit, area_limit, length_share, area_share, nr_of_points, test):
+                   length_limit, area_limit, length_share, area_share, nr_of_points, test, geometry_types):
     law_status_record = LawStatusRecord("AenderungMitVorwirkung", {u'de': u'BlaBla'})
     geometry_record = GeometryRecord(
         law_status_record,

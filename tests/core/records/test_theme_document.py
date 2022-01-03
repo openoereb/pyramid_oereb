@@ -26,4 +26,4 @@ def test_serialization():
         'document_id',
         ['article_numbers']
     )
-    assert isinstance(record.__str__(), str)
+    assert isinstance(str(record), str)
