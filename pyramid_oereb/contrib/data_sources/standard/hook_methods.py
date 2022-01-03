@@ -43,7 +43,6 @@ def get_symbol(theme_code, sub_theme_code, view_service_id, type_code, theme_con
     )
 
     try:
-
         models = config_parser.get_models()
         model = models.LegendEntry
         legend_entry = session.query(model).filter(

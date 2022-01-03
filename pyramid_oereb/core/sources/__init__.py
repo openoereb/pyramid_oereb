@@ -76,6 +76,9 @@ class BaseDatabaseSource(Base):
                 self._key_
             ))
 
+    def get_session(self):
+        return self._adapter_.get_session(self._key_)
+
     def health_check(self):
         session = self._adapter_.get_session(self._key_)
         try:

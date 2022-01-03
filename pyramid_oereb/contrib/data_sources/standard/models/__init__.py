@@ -5,7 +5,7 @@ mandatory topics the federation asks for.
 """
 
 
-from sqlalchemy import Column, ForeignKey
+from sqlalchemy import Column, ForeignKey, UniqueConstraint
 from sqlalchemy import Boolean, String, Integer, Float, DateTime, Date
 from geoalchemy2.types import Geometry as GeoAlchemyGeometry
 from sqlalchemy.orm import relationship
@@ -281,7 +281,10 @@ def get_legend_entry(base, schema_name, pk_type, ViewService):
             view_service (ViewService):
                 The dedicated relation to the view service instance from database.
         """
-        __table_args__ = {'schema': schema_name}
+        __table_args__ = (
+            UniqueConstraint("type_code", "theme", "sub_theme", "view_service_id"),
+            {'schema': schema_name}
+        )
         __tablename__ = 'legend_entry'
         id = Column(pk_type, primary_key=True, autoincrement=False)
         symbol = Column(String, nullable=False)
