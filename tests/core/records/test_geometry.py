@@ -18,13 +18,6 @@ from pyramid_oereb.core.records.real_estate import RealEstateRecord
 
 __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
-geometry_types = {
-    'point': {'types': ['Point', 'MultiPoint']},
-    'line': {'types': ['LineString', 'LinearRing', 'MultiLineString']},
-    'polygon': {'types': ['Polygon', 'MultiPolygon']},
-    'collection': {'types': ['GeometryCollection']}
-}
-
 
 def test_mandatory_fields():
     with pytest.raises(TypeError):

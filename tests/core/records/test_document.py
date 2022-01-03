@@ -39,7 +39,7 @@ def test_mandatory_fields():
         DocumentRecord('AenderungMitVorwirkung', datetime.date(1985, 8, 29),)
 
 
-def test_init(law_status_record, office_record, document_type_record):records)
+def test_init(law_status_record, office_record, document_type_record):
     record = DocumentRecord(
         document_type_record,
         1,
@@ -98,7 +98,7 @@ def test_invalid_document_type(office_record):
         ((datetime.datetime.now() - datetime.timedelta(days=7)), (datetime.datetime.now() + datetime.timedelta(days=6)), True)  # noqa: E501
     ]
 )
-def test_published(published_from, published_until, result, law_status_record, office_record, document_type_record):  # noqa: E501records)
+def test_published(published_from, published_until, result, law_status_record, office_record, document_type_record):  # noqa: E501
     record = DocumentRecord(
         document_type_record,
         1,

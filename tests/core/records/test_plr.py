@@ -14,12 +14,6 @@ from pyramid_oereb.core.records.real_estate import RealEstateRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.view_service import ViewServiceRecord, LegendEntryRecord
 
-geometry_types = {
-    'point': {'types': ['Point', 'MultiPoint']},
-    'line': {'types': ['LineString', 'LinearRing', 'MultiLineString']},
-    'polygon': {'types': ['Polygon', 'MultiPolygon']},
-    'collection': {'types': ['GeometryCollection']}
-}
 
 law_status = LawStatusRecord(
     'inKraft', {
@@ -165,7 +159,6 @@ def test_serialization():
         documents=[]
     )
     assert isinstance(str(plr_record), str)
-
 
 
 @pytest.mark.parametrize(
