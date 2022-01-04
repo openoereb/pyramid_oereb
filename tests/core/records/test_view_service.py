@@ -26,17 +26,22 @@ def test_init():
     assert isinstance(record.layer_index, int)
     assert isinstance(record.layer_opacity, float)
     assert isinstance(record.legends, list)
+    assert record.default_language == 'de'
+    assert record.srid == 2056
+    assert record.proxies is None
+    assert len(record.legends) == 0
 
 
 def test_init_with_relation(pyramid_oereb_test_config):
-    legend_records = [LegendEntryRecord(
+    legend_entry_record = LegendEntryRecord(
         ImageRecord('100'.encode('utf-8')),
         {'en': 'test'},
         'test_code',
         'test',
         ThemeRecord('test', {'de': 'Test'}, 100),
         view_service_id=1
-    )]
+    )
+    legend_records = [legend_entry_record]
     record = ViewServiceRecord(
         {'de': 'http://www.test.url.ch'},
         1,
@@ -49,6 +54,11 @@ def test_init_with_relation(pyramid_oereb_test_config):
     assert isinstance(record.reference_wms, dict)
     assert isinstance(record.layer_index, int)
     assert isinstance(record.layer_opacity, float)
+    assert record.default_language == 'de'
+    assert record.srid == 2056
+    assert record.proxies is None
+    assert len(record.legends) == 1
+    assert record.legends[0] == legend_entry_record
 
 
 def test_invalid_layer_index_arguments(pyramid_oereb_test_config):
