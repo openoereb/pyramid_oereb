@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import re
 import json
 import codecs
 import pytest
@@ -641,36 +642,36 @@ def mock_responses(dummy_pdf):
     """
     rsps = responses.RequestsMock(assert_all_requests_are_fired=False)
 
-    rsps.add(
+    def generate_pdf(request):
+        with open('./tests/contrib.print_proxy.mapfish_print/resources/mfp_print_request.json') as f:
+            expected_data = json.load(f)
+            expected_data["attributes"].pop("ExtractIdentifier")  # randomly generated entity
+            expected_data["attributes"].pop("Footer")             # depending on date
+            generated_data = json.loads(request.body)
+            identifier = generated_data["attributes"].pop("ExtractIdentifier")
+            footer = generated_data["attributes"].pop("Footer")
+            (ft_date, ft_time, ft_id) = footer.split('   ')
+            assert identifier == ft_id
+            # check uuid format
+            assert re.match(r'^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$',
+                            identifier,
+                            re.IGNORECASE)
+            # check date format  (may depend on localisation ?)
+            assert re.match(r'[0-9]{2}\.[0-9]{2}\.[0-9]{4}', ft_date)
+            # check time format  (may depend on localisation ?)
+            assert re.match(r'[0-9]{2}:[0-9]{2}:[0-9]{2}', ft_time)
+            assert expected_data == generated_data
+        return (
+            200,  # status
+            [],  # headers
+            dummy_pdf,  # body
+        )
+
+    rsps.add_callback(
         responses.POST,
         "http://oereb-print:8080/print/oereb/buildreport.pdf",
-        body=dummy_pdf,
-        # body=(  # minimal pdf file
-        #     b"%PDF-1.0\n"
-        #     b"1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj 2 0 "
-        #     b"obj<</Type/Pages/Kids[3 0 R]/Count 1>>endobj 3 0 "
-        #     b"obj<</Type/Page/MediaBox[0 0 3 3]>>endobj\n"
-        #     b"xref\n"
-        #     b"0 4\n"
-        #     b"0000000000 65535 f\n"
-        #     b"0000000010 00000 n\n"
-        #     b"0000000053 00000 n\n"
-        #     b"0000000102 00000 n\n"
-        #     b"trailer<</Size 4/Root 1 0 R>>\n"
-        #     b"startxref\n"
-        #     b"149\n"
-        #     b"%EOF"
-        #     #
-        #     b"%PDF-1.2 \n"
-        #     b"9 0 obj\n<<\n>>\nstream\nBT/ 32 Tf(  DUMMY PDF   )' ET\nendstream\nendobj\n"
-        #     b"4 0 obj\n<<\n/Type /Page\n/Parent 5 0 R\n/Contents 9 0 R\n>>\nendobj\n"
-        #     b"5 0 obj\n<<\n/Kids [4 0 R ]\n/Count 1\n/Type /Pages\n/MediaBox [ 0 0 250 50 ]\n>>\nendobj\n"
-        #     b"3 0 obj\n<<\n/Pages 5 0 R\n/Type /Catalog\n>>\nendobj\n"
-        #     b"trailer\n<<\n/Root 3 0 R\n>>\n"
-        #     b"%%EOF"
-        # ),
-        content_type="application/pdf",
-        status=200,
+        callback=generate_pdf,
+        content_type='application/json',
     )
 
     with rsps:
