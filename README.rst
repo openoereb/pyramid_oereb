@@ -44,6 +44,12 @@ To run the tests locally but inside Docker:
 
 |Build Status| |Requirements Status|
 
+
+.. image:: https://api.codacy.com/project/badge/Grade/cf50094a4e84434d837babf1106f9fcb
+   :alt: Codacy Badge
+   :target: https://app.codacy.com/gh/openoereb/pyramid_oereb?utm_source=github.com&utm_medium=referral&utm_content=openoereb/pyramid_oereb&utm_campaign=Badge_Grade_Settings
+
+
 ``pyramid_oereb`` is an open-source implementation of the server side part for the swiss `"Cadastre of
 Public-law Restrictions on landownership" (PLR-cadastre) <https://www.cadastre.ch/en/oereb.html>`__.
 

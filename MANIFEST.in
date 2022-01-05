@@ -1,9 +1,7 @@
 include README.rst CHANGES.rst requirements.txt
 recursive-include pyramid_oereb/standard *.mako
-recursive-include pyramid_oereb/standard *.png
-recursive-include pyramid_oereb/standard *.jpg
 recursive-include pyramid_oereb/standard *.xml
-recursive-include pyramid_oereb/lib/renderer *.xml
-recursive-include pyramid_oereb/contrib/templates *.mako
+recursive-include pyramid_oereb/core/renderer *.xml
+recursive-include pyramid_oereb/contrib/data_sources/standard/templates *.mako
 recursive-include pyramid_oereb/contrib/stats/scripts *.*
 recursive-exclude tests *.*
