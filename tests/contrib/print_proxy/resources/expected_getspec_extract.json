@@ -1,27 +1,31 @@
 {
   "Certification": "Referenz zur kantonsspezifischen Gesetzesgrundlage bezüglich Beglaubigungen.",
   "CertificationAtWeb": "https://oereb.bl.ch/certification/de",
-  "GeneralInformation": "Der Inhalt des ÖREB-Katasters wird als bekannt vorausgesetzt. Der Kanton Basel-Landschaft ist für die Genauigkeit und Verlässlichkeit der gesetzgebenden Dokumente in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begründet insbesondere keine Rechte und Pflichten. Rechtsverbindlich sind diejenigen Dokumente, welche rechtskräftig verabschiedet oder veröffentlicht worden sind. Mit der Beglaubigung des Auszugs wird die Übereinstimmung des Auszugs mit dem ÖREB-Kataster zum Zeitpunkt der Auszugserstellung bestätigt.",
+  "GeneralInformation": [
+    {
+      "Info": "Der Inhalt des ÖREB-Katasters wird als bekannt vorausgesetzt. Der Kanton Basel-Landschaft ist für die Genauigkeit und Verlässlichkeit der gesetzgebenden Dokumente in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begründet insbesondere keine Rechte und Pflichten. Rechtsverbindlich sind diejenigen Dokumente, welche rechtskräftig verabschiedet oder veröffentlicht worden sind. Mit der Beglaubigung des Auszugs wird die Übereinstimmung des Auszugs mit dem ÖREB-Kataster zum Zeitpunkt der Auszugserstellung bestätigt."
+    }
+  ],
   "CreationDate": "16.02.2018",
   "ConcernedTheme": [
     {
-      "Code": "ch.Nutzungsplanung",
+      "Code": "ch.Nutzungsplanungch.BaulinieninKraft",
       "Text": "Nutzungsplanung: 02.73A.Grundnutzung"
     },
     {
-      "Code": "LandUsePlansch.BaulinieninKraft",
+      "Code": "ch.Nutzungsplanungch.BaulinieninKraft",
       "Text": "Nutzungsplanung: 02.73A.Grundnutzung"
     },
     {
-      "Code": "LandUsePlansch.BaulinieninKraft",
+      "Code": "ch.Nutzungsplanungch.BaulinieninKraft",
       "Text": "Nutzungsplanung: 02.73A.Grundnutzung"
     },
     {
-      "Code": "LandUsePlansch.BaulinieninKraft",
+      "Code": "ch.Nutzungsplanungch.BaulinieninKraft",
       "Text": "Nutzungsplanung: 02.73A.Grundnutzung"
     },
     {
-      "Code": "LandUsePlansch.UeberlagerunginKraft",
+      "Code": "ch.Nutzungsplanungch.UeberlagerunginKraft",
       "Text": "Nutzungsplanung: 08.73B.Ueberlagerung_Flaeche"
     },
     {
@@ -194,7 +198,7 @@
       "Code": "ch.Waldabstandslinien"
     }
   ],
-  "UpdateDateOS": "27.01.2018",
+  "UpdateDateCS": "27.01.2018",
   "Footer": "16.02.2018   11:54:24   e2ec795b-91f8-4827-8549-808ca7f25251",
   "PLRCadastreAuthority_City": "Liestal",
   "PLRCadastreAuthority_Name": "Amt für Geoinformation",
@@ -371,7 +375,7 @@
               "URL": "http://www.lexfind.ch/dtah/155346/2"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -394,7 +398,7 @@
               "URL": "https://oereblex.bl.ch/api/attachments/2916"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -417,7 +421,7 @@
               "URL": "https://oereblex.bl.ch/api/attachments/403"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -441,7 +445,7 @@
               "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1964?locale=de"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -465,7 +469,7 @@
               "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/2032?locale=de"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -662,7 +666,7 @@
               "URL": "http://www.lexfind.ch/dtah/155346/2"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -685,7 +689,7 @@
               "URL": "https://oereblex.bl.ch/api/attachments/2537"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -709,7 +713,7 @@
               "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1964?locale=de"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -733,7 +737,7 @@
               "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/2032?locale=de"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -756,7 +760,7 @@
               "URL": "https://oereblex.bl.ch/api/attachments/1471"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -862,7 +866,7 @@
               "URL": "http://www.lexfind.ch/dtah/155395/2"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -877,7 +881,7 @@
           "ResponsibleOffice_Name": "Bundeskanzlei"
         },
         {
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -898,7 +902,7 @@
           "ResponsibleOffice_Name": "Amt für Umweltschutz und Energie BL"
         },
         {
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -928,7 +932,7 @@
               "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1337?locale=de"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -952,7 +956,7 @@
               "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/273?locale=de"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -976,7 +980,7 @@
               "URL": "http://www.lexfind.ch/dtah/147568/2"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -1096,7 +1100,7 @@
               "URL": "http://www.lexfind.ch/dtah/147569/2"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -1119,7 +1123,7 @@
               "URL": "https://oereblex.bl.ch/api/attachments/2798"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
@@ -1143,7 +1147,7 @@
               "URL": "http://bl.clex.ch/frontend/versions/pdf_file_with_annex/1337?locale=de"
             }
           ],
-          "DocumentType": {
+          "Type": {
             "Code": "Rechtsvorschrift",
             "Text": [
               {
