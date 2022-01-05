@@ -3,8 +3,17 @@ import os
 import json
 import codecs
 import pytest
+import responses
+from tests.mockrequest import MockRequest
+from unittest.mock import patch
+import pyramid_oereb
+from pyramid_oereb.core.config import Config
+from pyramid_oereb.core.records.real_estate_type import RealEstateTypeRecord
+from pyramid_oereb.core.records.logo import LogoRecord
+from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print import Renderer
 from pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages import TocPages
+from pyramid_oereb.core.views.webservice import PlrWebservice
 
 
 @pytest.fixture
@@ -623,3 +632,182 @@ def test_archive_pdf(DummyRenderInfo):
     extract = {'RealEstate_EGRID': 'CH113928077734'}
     path_and_filename = renderer.archive_pdf_file('/tmp', bytes(), extract)
     assert os.path.isfile(path_and_filename)
+
+
+@pytest.fixture
+def mock_responses(dummy_pdf):
+    """
+    Activate responses only if API is True.
+    """
+    rsps = responses.RequestsMock(assert_all_requests_are_fired=False)
+
+    rsps.add(
+        responses.POST,
+        "http://oereb-print:8080/print/oereb/buildreport.pdf",
+        body=dummy_pdf,
+        # body=(  # minimal pdf file
+        #     b"%PDF-1.0\n"
+        #     b"1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj 2 0 "
+        #     b"obj<</Type/Pages/Kids[3 0 R]/Count 1>>endobj 3 0 "
+        #     b"obj<</Type/Page/MediaBox[0 0 3 3]>>endobj\n"
+        #     b"xref\n"
+        #     b"0 4\n"
+        #     b"0000000000 65535 f\n"
+        #     b"0000000010 00000 n\n"
+        #     b"0000000053 00000 n\n"
+        #     b"0000000102 00000 n\n"
+        #     b"trailer<</Size 4/Root 1 0 R>>\n"
+        #     b"startxref\n"
+        #     b"149\n"
+        #     b"%EOF"
+        #     #
+        #     b"%PDF-1.2 \n"
+        #     b"9 0 obj\n<<\n>>\nstream\nBT/ 32 Tf(  DUMMY PDF   )' ET\nendstream\nendobj\n"
+        #     b"4 0 obj\n<<\n/Type /Page\n/Parent 5 0 R\n/Contents 9 0 R\n>>\nendobj\n"
+        #     b"5 0 obj\n<<\n/Kids [4 0 R ]\n/Count 1\n/Type /Pages\n/MediaBox [ 0 0 250 50 ]\n>>\nendobj\n"
+        #     b"3 0 obj\n<<\n/Pages 5 0 R\n/Type /Catalog\n>>\nendobj\n"
+        #     b"trailer\n<<\n/Root 3 0 R\n>>\n"
+        #     b"%%EOF"
+        # ),
+        content_type="application/pdf",
+        status=200,
+    )
+
+    with rsps:
+        yield rsps
+
+
+@pytest.fixture
+def municipalities(pyramid_oereb_test_config, dbsession, transact):
+    del transact
+
+    from pyramid_oereb.contrib.data_sources.standard.models import main
+
+    # Add dummy municipality
+    municipalities = [main.Municipality(**{
+        'fosnr': 1234,
+        'name': u'Test',
+        'published': True,
+        'geom': 'SRID=2056;MULTIPOLYGON(((0 0, 0 10, 10 10, 10 0, 0 0)))'
+    })]
+    dbsession.add_all(municipalities)
+
+
+@pytest.fixture
+def address(pyramid_oereb_test_config, dbsession, transact):
+    del transact
+
+    from pyramid_oereb.contrib.data_sources.standard.models import main
+
+    # Add dummy address
+    addresses = [main.Address(**{
+        'street_name': u'test',
+        'street_number': u'10',
+        'zip_code': 4410,
+        'geom': 'SRID=2056;POINT(1 1)'
+    })]
+    dbsession.add_all(addresses)
+
+
+@pytest.fixture
+def real_estate_types_test_data(pyramid_oereb_test_config):
+    with patch.object(Config, 'real_estate_types', [RealEstateTypeRecord(
+            'Liegenschaft',
+            {
+                "de": "Liegenschaft",
+                "fr": "Bien-fonds",
+                "it": "Bene immobile",
+                "rm": "Bain immobigliar",
+                "en": "Property"
+            }
+    )]):
+        yield pyramid_oereb_test_config
+
+
+@pytest.fixture
+def logos(pyramid_oereb_test_config):
+    with patch.object(Config, 'logos', [
+            LogoRecord('ch', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd3EQ \
+            BvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+            LogoRecord('ch.plr', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd3EQ \
+            BvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+            LogoRecord('ne', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd3EQ \
+            BvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+            LogoRecord('ch.1234', {'de': 'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAPCAIAAAB82OjLAAAAL0lEQVQ4jWNMTd3EQ \
+            BvAwsDAkFPnS3VzpzRtZqK6oXAwavSo0aNGjwCjGWlX8gEAFAQGFyQKGL4AAAAASUVORK5CYII='}),
+    ]):
+        yield pyramid_oereb_test_config
+
+
+@pytest.fixture
+def themes(pyramid_oereb_test_config):
+    with patch.object(Config, 'themes', [
+            ThemeRecord(**{
+                'code': 'ch.Nutzungsplanung',
+                'sub_code': None,
+                'title': {"de": "Nutzungsplanung (kantonal/kommunal)",
+                          "fr": "Plans d’affectation (cantonaux/communaux)",
+                          "it": "Piani di utilizzazione (cantonali/comunali)",
+                          "rm": "Planisaziun d''utilisaziun (chantunal/communal)",
+                          "en": "Land use plans (cantonal/municipal)"},
+                'extract_index': 20
+            }),
+            ThemeRecord(**{
+                'code': 'ch.StatischeWaldgrenzen',
+                'title': {"de": "Statische Waldgrenzen",
+                          "fr": "Limites forestières statiques",
+                          "it": "Margini statici della foresta",
+                          "rm": "Cunfins statics dal guaud",
+                          "en": "Static forest perimeters"},
+                'extract_index': 710
+            }),
+            ThemeRecord(**{
+                'code': 'ch.ProjektierungszonenNationalstrassen',
+                'title': {"de": "Projektierungszonen Nationalstrassen",
+                          "fr": "Zones réservées des routes nationales",
+                          "it": "Zone riservate per le strade nazionali",
+                          "rm": "Zonas da projectaziun da las vias naziunalas",
+                          "en": "Reserved zones for motorways"},
+                'extract_index': 110
+            }),
+            ThemeRecord(**{
+                'code': 'ch.BelasteteStandorte',
+                'title': {"de": "Kataster der belasteten Standorte",
+                          "fr": "Cadastre des sites pollués",
+                          "it": "Catasto dei siti inquinati",
+                          "rm": "Cataster dals lieus contaminads",
+                          "en": "Cadastre of contaminated sites"},
+                'extract_index': 410
+            }),
+    ]):
+        yield pyramid_oereb_test_config
+
+
+@pytest.fixture
+def dummy_pdf():
+    with open('./tests/contrib.print_proxy.mapfish_print/resources/dummy.pdf', 'rb') as f:
+        return f.read()
+
+
+@patch.object(pyramid_oereb.core.views.webservice, 'route_prefix', 'oereb')
+@patch.object(pyramid_oereb.core.renderer.extract.json_, 'route_prefix', 'oereb')
+def test_mfp_service(mock_responses, pyramid_test_config,
+                     real_estate_data,
+                     municipalities, themes, real_estate_types_test_data, logos,
+                     general_information
+                     ):
+    request = MockRequest()
+    request.matchdict.update({
+        'format': 'PDF'
+    })
+    request.params.update({
+        # 'GEOMETRY': 'true',
+        'EGRID': 'TEST',
+        # 'TOPICS': topics
+    })
+    from pyramid_oereb.core.config import Config
+    pyramid_test_config.add_renderer('pyramid_oereb_extract_print',
+                                     Config.get('print').get('renderer'))
+    service = PlrWebservice(request)
+    response = service.get_extract_by_id()
+    assert response.status_code == 200

@@ -63,7 +63,7 @@ class Renderer(JsonRenderer):
         self._request = self.get_request(system)
 
         # Create a lower case GET dict to be able to accept all cases of upper and lower case writing
-        self._lowercase_GET_dict = dict((k.lower(), v.lower()) for k, v in self._request.GET.iteritems())
+        self._lowercase_GET_dict = dict((k.lower(), v.lower()) for k, v in self._request.GET.items())
 
         # If a language is specified in the request, use it. Otherwise, use the language from base class
         self._fallback_language = Config.get('default_language')
@@ -265,7 +265,7 @@ class Renderer(JsonRenderer):
         del extract_dict['RealEstate_PlanForLandRegister']  # /definitions/Map
 
         flattened_general_info = []
-        for item in extract_dict['GeneralInformation']:
+        for item in extract_dict.get('GeneralInformation', []):
             lang_obj = dict([(e['Language'], e['Text']) for e in item])
             if self._language in lang_obj.keys():
                 flattened_general_info.append({'Info': lang_obj[self._language]})
@@ -466,7 +466,7 @@ class Renderer(JsonRenderer):
                     restriction_on_landownership[element] = \
                         self.group_legal_provisions(restriction_on_landownership[element])
 
-        self.sort_restriction_on_landownership_documents(restriction_on_landownership)
+            self.sort_restriction_on_landownership_documents(restriction_on_landownership)
 
         restrictions = list(theme_restriction.values())
         for restriction in restrictions:
@@ -490,14 +490,16 @@ class Renderer(JsonRenderer):
         extract_dict['RealEstate_RestrictionOnLandownership'] = restrictions
         # End one restriction entry per theme
 
-        for item in extract_dict.get('Disclaimer', []):
+        for i, item in enumerate(extract_dict.get('Disclaimer', [])):
             self._multilingual_text(item, 'Title')
             self._multilingual_text(item, 'Content')
 
-        extract_dict['DisclaimerLandRegister'] = extract_dict['Disclaimer'][0]
-        extract_dict['DisclaimerPollutedSites'] = extract_dict['Disclaimer'][1]
-        self._flatten_object(extract_dict, 'DisclaimerLandRegister')
-        self._flatten_object(extract_dict, 'DisclaimerPollutedSites')
+            if i == 0:
+                extract_dict['DisclaimerLandRegister'] = item
+                self._flatten_object(extract_dict, 'DisclaimerLandRegister')
+            if i == 1:
+                extract_dict['DisclaimerPollutedSites'] = item
+                self._flatten_object(extract_dict, 'DisclaimerPollutedSites')
 
         extract_dict['features'] = {
             'features': {

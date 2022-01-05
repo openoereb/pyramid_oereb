@@ -551,3 +551,24 @@ def contaminated_sites(pyramid_oereb_test_config, dbsession, transact, wms_url_c
         }
     dbsession.add_all(geometries)
     dbsession.flush()
+
+
+@pytest.fixture
+def general_information(pyramid_oereb_test_config, dbsession, transact):
+    del transact
+
+    from pyramid_oereb.contrib.data_sources.standard.models.main import GeneralInformation
+    general_information = [
+        GeneralInformation(
+            id='2be3cd8e-b218-49f8-9e4c-c07e8f9a2326',
+            title={"de": "Allgemeine Information",
+                   "fr": "Informations générales",
+                   "it": "Informazioni generali",
+                   "rm": "Infurmaziun generala"},
+            content={"de": "Der Inhalt des ÖREB-Katasters wird als bekannt vorausgesetzt.",
+                     "fr": "Le contenu du cadastre RD"}
+        )
+    ]
+    dbsession.add_all(general_information)
+
+    dbsession.flush()
