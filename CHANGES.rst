@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.0.0.b8
+--------
+- Fix XML templates
+
 2.0.0.b7
 --------
 - Fix sub-theme generation
