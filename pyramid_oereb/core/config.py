@@ -1785,7 +1785,7 @@ class Config(object):
          and the border of the map).
 
         Args:
-            geometry (list): The geometry (bbox) of the feature to center the map on.
+            geometry (shapely.geometry.base.BaseGeometry): The geometry to calculate the bbox for.
 
         Returns:
             list: The bbox (meters) for the print.
@@ -1806,11 +1806,11 @@ class Config(object):
         geom_width = float(geom_bounds[2] - geom_bounds[0])
         geom_height = float(geom_bounds[3] - geom_bounds[1])
 
-        geom_ration = geom_width / geom_height
-        map_ration = map_width / map_height
+        geom_ratio = geom_width / geom_height
+        map_ratio = map_width / map_height
 
         # If the format of the map is naturally adapted to the format of the geometry
-        is_format_adapted = geom_ration > map_ration
+        is_format_adapted = geom_ratio > map_ratio
 
         if is_format_adapted:
             # Part (percent) of the margin compared to the map width.
