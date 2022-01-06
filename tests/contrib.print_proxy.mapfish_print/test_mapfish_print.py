@@ -647,9 +647,13 @@ def mock_responses(dummy_pdf):
             expected_data = json.load(f)
             expected_data["attributes"].pop("ExtractIdentifier")  # randomly generated entity
             expected_data["attributes"].pop("Footer")             # depending on date
+            expected_data["attributes"].pop("CreationDate")       # variable value
+            expected_data["attributes"].pop("UpdateDateCS")       # variable value
             generated_data = json.loads(request.body)
             identifier = generated_data["attributes"].pop("ExtractIdentifier")
             footer = generated_data["attributes"].pop("Footer")
+            attr_date = generated_data["attributes"].pop("CreationDate")
+            update_date = generated_data["attributes"].pop("UpdateDateCS")
             (ft_date, ft_time, ft_id) = footer.split('   ')
             assert identifier == ft_id
             # check uuid format
@@ -657,6 +661,8 @@ def mock_responses(dummy_pdf):
                             identifier,
                             re.IGNORECASE)
             # check date format  (may depend on localisation ?)
+            assert re.match(r'[0-9]{2}\.[0-9]{2}\.[0-9]{4}', attr_date)
+            assert re.match(r'[0-9]{2}\.[0-9]{2}\.[0-9]{4}', update_date)
             assert re.match(r'[0-9]{2}\.[0-9]{2}\.[0-9]{4}', ft_date)
             # check time format  (may depend on localisation ?)
             assert re.match(r'[0-9]{2}:[0-9]{2}:[0-9]{2}', ft_time)
