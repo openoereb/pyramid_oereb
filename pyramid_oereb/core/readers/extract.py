@@ -8,7 +8,6 @@ from timeit import default_timer as timer
 from pyramid_oereb.core.config import Config
 from pyramid_oereb.core.records.extract import ExtractRecord
 from pyramid_oereb.core.records.plr import PlrRecord, EmptyPlrRecord
-from pyramid_oereb.core.records.view_service import ViewServiceRecord
 
 log = logging.getLogger(__name__)
 
@@ -71,7 +70,7 @@ class ExtractReader(object):
         """
         log.debug("read() start")
 
-        bbox = ViewServiceRecord.get_bbox(real_estate.limit)
+        bbox = Config.get_bbox(real_estate.limit)
         bbox = box(bbox[0], bbox[1], bbox[2], bbox[3])
 
         concerned_themes = list()

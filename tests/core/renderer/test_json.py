@@ -69,10 +69,10 @@ def glossary_expected():
 ])
 def test_render(pyramid_oereb_test_config, pyramid_test_config, DummyRenderInfo,
                 parameter, glossaries_input, glossaries_expected, real_estate_test_data):
-    view_service = ViewServiceRecord({'de': u'http://geowms.bl.ch'},
-                                     1,
-                                     1.0,
-                                     None)
+    view_service = ViewServiceRecord(
+        {'de': u'http://geowms.bl.ch'},
+        1, 1.0, 'de', 2056, None, None
+    )
     real_estate = RealEstateRecord(u'Liegenschaft', u'BL', u'Liestal', 2829, 11395,
                                    MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
                                    u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712')
@@ -187,10 +187,10 @@ def test_format_real_estate(DummyRenderInfo, real_estate_test_data):
         'json', 'reduced', True, False, 'BL0200002829', '1000', 'CH775979211712', 'de'
     )
     geometry = MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])])
-    view_service = ViewServiceRecord({'de': u'http://geowms.bl.ch'},
-                                     1,
-                                     1.0,
-                                     None)
+    view_service = ViewServiceRecord(
+        {'de': u'http://geowms.bl.ch'},
+        1, 1.0, 'de', 2056, None, None
+    )
     document = DocumentRecord(
         document_type=DocumentTypeRecord('GesetzlicheGrundlage', {'de': 'Gesetzliche Grundlage'}),
         index=1,
@@ -259,10 +259,10 @@ def test_format_plr(DummyRenderInfo, parameter):
         ImageRecord(FileAdapter().read('tests/resources/python.svg')),
         {'de': 'Test'}, 'CodeA', 'TypeCodeList', theme,
         view_service_id=1)
-    view_service = ViewServiceRecord({'de': 'http://geowms.bl.ch'},
-                                     1,
-                                     1.0,
-                                     [legend_entry])
+    view_service = ViewServiceRecord(
+        {'de': 'http://geowms.bl.ch'},
+        1, 1.0, 'de', 2056, None, [legend_entry]
+    )
     geometry = GeometryRecord(law_status(), datetime.date.today(), None, Point(1, 1))
     plr = PlrRecord(
         theme,

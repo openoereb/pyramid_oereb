@@ -89,7 +89,7 @@ class Processor(object):
         for public_law_restriction in real_estate.public_law_restrictions:
             if isinstance(public_law_restriction, PlrRecord) and public_law_restriction.published:
                 # Test if the geometries list is now empty - if so remove plr from plr list
-                if public_law_restriction.calculate(real_estate):
+                if public_law_restriction.calculate(real_estate, Config.get('geometry_types')):
                     log.debug("plr_tolerance_check: keeping as potentially concerned plr {}".
                               format(public_law_restriction))
                     inside_plrs.append(self.filter_published_documents(public_law_restriction))
@@ -126,7 +126,7 @@ class Processor(object):
         return extract
 
     @staticmethod
-    def view_service_handling(real_estate, images, format, language):
+    def view_service_handling(real_estate, images, extract_format, language):
         """
         Handles all view service related stuff. In the moment this is:
             * construction of the correct url (reference_wms, multilingual) depending on the real estate
@@ -136,7 +136,7 @@ class Processor(object):
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord):
                 The real estate record to be updated.
             images (bool): Switch whether the images should be downloaded or not.
-            format (string): The format currently used. For 'pdf' format,
+            extract_format (string): The format currently used. For 'pdf' format,
                 the used map size will be adapted to the pdf format.
             language (string or None): Which language of the reference WMS should be used
 
@@ -144,14 +144,26 @@ class Processor(object):
             pyramid_oereb.lib.records.real_estate.RealEstateRecord: The updated extract.
         """
         language = language or Config.get('default_language')
-        real_estate.plan_for_land_register.get_full_wms_url(real_estate, format, language)
-        real_estate.plan_for_land_register_main_page.get_full_wms_url(real_estate, format, language)
+        map_size = Config.get_map_size(extract_format)
+        bbox = Config.get_bbox(real_estate.limit)
+        real_estate.plan_for_land_register.get_full_wms_url(
+            language,
+            map_size[0],
+            map_size[1],
+            bbox
+        )
+        real_estate.plan_for_land_register_main_page.get_full_wms_url(
+            language,
+            map_size[0],
+            map_size[1],
+            bbox
+        )
         if images:
             real_estate.plan_for_land_register.download_wms_content(language)
             real_estate.plan_for_land_register_main_page.download_wms_content(language)
 
         for public_law_restriction in real_estate.public_law_restrictions:
-            public_law_restriction.view_service.get_full_wms_url(real_estate, format, language)
+            public_law_restriction.view_service.get_full_wms_url(language, map_size[0], map_size[1], bbox)
             if images:
                 public_law_restriction.view_service.download_wms_content(language)
         return real_estate

@@ -177,14 +177,12 @@ def test_processor_get_legend_entries(processor_data, real_estate_data):
     )
     view_service1 = ViewServiceRecord(
         {'de': 'http://www.test1.url.ch'},
-        1,
-        1.0,
+        1, 1.0, 'de', 2056, None,
         legends=[legend1, legend2]
     )
     view_service2 = ViewServiceRecord(
         {'de': 'http://www.test2.url.ch'},
-        1,
-        1.0,
+        1, 1.0, 'de', 2056, None,
         legends=[legend3, legend4]
     )
     image = ImageRecord('1'.encode('utf-8'))

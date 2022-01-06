@@ -48,10 +48,10 @@ def test_version_against_schema(logo_test_data, schema_xml_versions, DummyRender
 
 
 def _get_test_extract(config, glossary):
-    view_service = ViewServiceRecord({'de': u'http://geowms.bl.ch'},
-                                     1,
-                                     1.0,
-                                     None)
+    view_service = ViewServiceRecord(
+        {'de': u'http://geowms.bl.ch'},
+        1, 1.0, 'de', 2056, None, None
+    )
     real_estate = RealEstateRecord(u'Liegenschaft', u'BL', u'Liestal', 2829, 11395,
                                    MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]),
                                    u'http://www.geocat.ch', u'1000', u'BL0200002829', u'CH775979211712')

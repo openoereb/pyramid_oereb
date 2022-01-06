@@ -3,11 +3,9 @@ import warnings
 import logging
 import requests
 
-from pyramid.config import ConfigurationError
 from pyramid_oereb.core.records.image import ImageRecord
 from pyramid_oereb.core.url import add_url_params, parse_url
 from pyramid_oereb.core.url import uri_validator
-from pyramid_oereb.core.config import Config
 from shapely.geometry.point import Point
 from pyramid_oereb.core import get_multilingual_element
 
@@ -57,14 +55,18 @@ class ViewServiceRecord(object):
     A view service contains a valid WMS URL with a defined set of layers.
     """
 
-    def __init__(self, reference_wms, layer_index, layer_opacity, legends=None):
+    def __init__(self, reference_wms, layer_index, layer_opacity, default_language,
+                 srid, proxies=None, legends=None):
         """
 
         Args:
             reference_wms (dict): Multilingual dict with URLs to the actual service (WMS)
             layer_index (int): Layer index. Value from -1000 to +1000.
             layer_opacity (float): Opacity of layer. Value from 0.0 to 1.0.
-            legends (list of LegendEntry): A list of all relevant legend entries.
+            default_language (str): The default language which should be used for url selection.
+            srid (int): The SRID which is used for the WMS.
+            proxies (dict or None): The proxies which may be used
+            legends (list of LegendEntry or None): A list of all relevant legend entries.
 
         Attributes:
         image (dict): multilingual dictionary containing the binary image
@@ -79,8 +81,11 @@ class ViewServiceRecord(object):
 
         self.min = None
         self.max = None
-        self.calculate_ns(Config.get('default_language'))
+        self.calculate_ns()
         self.check_min_max_attributes(self.min, 'min', self.max, 'max')
+        self.default_language = default_language
+        self.srid = srid
+        self.proxies = proxies
 
         if legends is None:
             self.legends = []
@@ -130,115 +135,34 @@ class ViewServiceRecord(object):
                                                                                      max_name=max_name)
             raise AttributeError(error_msg)
 
-    @staticmethod
-    def get_map_size(format):
-        print_conf = Config.get_object_path('print', required=['basic_map_size',
-                                            'pdf_dpi', 'pdf_map_size_millimeters'])
-        if format != 'pdf':
-            return print_conf['basic_map_size']
-        else:
-            pixel_size = print_conf['pdf_dpi'] / 25.4
-            map_size_mm = print_conf['pdf_map_size_millimeters']
-            return [pixel_size * map_size_mm[0], pixel_size * map_size_mm[1]]
-
-    @staticmethod
-    def get_bbox(geometry):
-        """
-        Return a bbox adapted for the map size specified in the print configuration
-         and based on the geometry and a buffer (margin to add between the geometry
-         and the border of the map).
-
-        Args:
-            geometry (list): The geometry (bbox) of the feature to center the map on.
-
-        Returns:
-            list: The bbox (meters) for the print.
-        """
-        print_conf = Config.get_object_path('print', required=['basic_map_size', 'buffer'])
-        print_buffer = print_conf['buffer']
-        map_size = print_conf['basic_map_size']
-        map_width = float(map_size[0])
-        map_height = float(map_size[1])
-
-        if print_buffer * 2 >= min(map_width, map_height):
-            error_msg_txt = 'Your print buffer ({}px)'.format(print_buffer)
-            error_msg_txt += ' applied on each side of the feature exceed the smaller'
-            error_msg_txt += ' side of your map {}px.'.format(min(map_width, map_height))
-            raise ConfigurationError(error_msg_txt)
-
-        geom_bounds = geometry.bounds
-        geom_width = float(geom_bounds[2] - geom_bounds[0])
-        geom_height = float(geom_bounds[3] - geom_bounds[1])
-
-        geom_ration = geom_width / geom_height
-        map_ration = map_width / map_height
-
-        # If the format of the map is naturally adapted to the format of the geometry
-        is_format_adapted = geom_ration > map_ration
-
-        if is_format_adapted:
-            # Part (percent) of the margin compared to the map width.
-            margin_in_percent = 2 * print_buffer / map_width
-            # Size of the margin in geom units.
-            geom_margin = geom_width * margin_in_percent
-            # Geom width with the margins (right and left).
-            adapted_geom_width = geom_width + (2 * geom_margin)
-            # Adapted geom height to the map height
-            adapted_geom_height = (adapted_geom_width / map_width) * map_height
-        else:
-            # Part (percent) of the margin compared to the map height.
-            margin_in_percent = 2 * print_buffer / map_height
-            # Size of the margin in geom units.
-            geom_margin = geom_height * margin_in_percent
-            # Geom height with the buffer (top and bottom).
-            adapted_geom_height = geom_height + (2 * geom_margin)
-            # Adapted geom width to the map width
-            adapted_geom_width = (adapted_geom_height / map_height) * map_width
-
-        height_to_add = (adapted_geom_height - geom_height) / 2
-        width_to_add = (adapted_geom_width - geom_width) / 2
-
-        return [
-            geom_bounds[0] - width_to_add,
-            geom_bounds[1] - height_to_add,
-            geom_bounds[2] + width_to_add,
-            geom_bounds[3] + height_to_add,
-        ]
-
-    def get_full_wms_url(self, real_estate, image_format, language):
+    def get_full_wms_url(self, language, map_width, map_height, bbox):
         """
         Returns the WMS URL to get the image.
 
         Args:
-            real_estate (pyramid_oereb.lob.records.real_estate.RealEstateRecord): The Real
-                Estate record.
-            image_format (string): The format currently used. For 'pdf' format,
-                the used map size will be adapted to the pdf format.
-            language (string): which language of the reference WMS should be used
+            language (string): which language of the reference WMS should be used.
+            map_width (int): Width of map in pixels.
+            map_height (int): Height of map in pixels.
+            bbox (list of float): Bounding box which defines the maps view.
 
         Returns:
             str: The url used to query the WMS server.
         """
 
-        assert real_estate.limit is not None
-
-        map_size = self.get_map_size(image_format)
-        bbox = self.get_bbox(real_estate.limit)
-
         if language not in self.reference_wms:
             msg = f"No WMS reference found for the requested language ({language}), using default language"
             log.info(msg)
-            language = Config.get('default_language')
+            language = self.default_language
 
         self.reference_wms[language] = add_url_params(
             get_multilingual_element(self.reference_wms, language), {
                 "BBOX": ",".join([str(e) for e in bbox]),
-                "SRS": 'EPSG:{0}'.format(Config.get('srid')),
-                "WIDTH": int(map_size[0]),
-                "HEIGHT": int(map_size[1])
+                "SRS": 'EPSG:{0}'.format(self.srid),
+                "WIDTH": map_width,
+                "HEIGHT": map_height
             }
         )
-        self.calculate_ns(language)
+        self.calculate_ns()
 
         return self.reference_wms
 
@@ -260,14 +184,14 @@ class ViewServiceRecord(object):
         if language not in self.reference_wms:
             msg = f"No WMS reference found for the requested language ({language}), using default language"
             log.info(msg)
-            language = Config.get('default_language')
+            language = self.default_language
 
         wms = self.reference_wms.get(language)
 
         if uri_validator(wms):
             log.debug(f"Downloading image, url: {wms}")
             try:
-                response = requests.get(wms, proxies=Config.get('proxies'))
+                response = requests.get(wms, proxies=self.proxies)
             except Exception as ex:
                 dedicated_msg = f"An image could not be downloaded. URL was: {wms}, error was {ex}"
                 log.error(dedicated_msg)
@@ -288,8 +212,8 @@ class ViewServiceRecord(object):
             log.error(dedicated_msg)
             raise AttributeError(dedicated_msg)
 
-    def calculate_ns(self, language):
-        self.min, self.max = self.get_bbox_from_url(self.reference_wms.get(language))
+    def calculate_ns(self):
+        self.min, self.max = self.get_bbox_from_url(self.reference_wms[list(self.reference_wms.keys())[0]])
 
     @staticmethod
     def get_bbox_from_url(wms_url):

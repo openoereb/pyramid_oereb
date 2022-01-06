@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from pyramid_oereb import Config
 from pyramid_oereb.core.records.image import ImageRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.view_service import ViewServiceRecord, LegendEntryRecord
-from shapely.geometry import box
 from shapely.geometry.point import Point
 
 
@@ -14,51 +12,71 @@ def test_mandatory_fields():
         ViewServiceRecord()
 
 
-def test_init(pyramid_oereb_test_config):
-    record = ViewServiceRecord({'de': 'http://www.test.url.ch'},
-                               1,
-                               1.0,
-                               None)
+def test_init():
+    record = ViewServiceRecord(
+        {'de': 'http://www.test.url.ch'},
+        1,
+        1.0,
+        'de',
+        2056,
+        None,
+        None
+    )
     assert isinstance(record.reference_wms, dict)
     assert isinstance(record.layer_index, int)
     assert isinstance(record.layer_opacity, float)
     assert isinstance(record.legends, list)
+    assert record.default_language == 'de'
+    assert record.srid == 2056
+    assert record.proxies is None
+    assert len(record.legends) == 0
 
 
 def test_init_with_relation(pyramid_oereb_test_config):
-    legend_records = [LegendEntryRecord(
+    legend_entry_record = LegendEntryRecord(
         ImageRecord('100'.encode('utf-8')),
         {'en': 'test'},
         'test_code',
         'test',
         ThemeRecord('test', {'de': 'Test'}, 100),
         view_service_id=1
-    )]
-    record = ViewServiceRecord({'de': 'http://www.test.url.ch'},
-                               1,
-                               1.0,
-                               legend_records)
+    )
+    legend_records = [legend_entry_record]
+    record = ViewServiceRecord(
+        {'de': 'http://www.test.url.ch'},
+        1,
+        1.0,
+        'de',
+        2056,
+        None,
+        legend_records
+    )
     assert isinstance(record.reference_wms, dict)
     assert isinstance(record.layer_index, int)
     assert isinstance(record.layer_opacity, float)
+    assert record.default_language == 'de'
+    assert record.srid == 2056
+    assert record.proxies is None
+    assert len(record.legends) == 1
+    assert record.legends[0] == legend_entry_record
 
 
 def test_invalid_layer_index_arguments(pyramid_oereb_test_config):
     with pytest.raises(AttributeError):
-        ViewServiceRecord({'de': 'http://example.com'}, -1001, 1)
+        ViewServiceRecord({'de': 'http://example.com'}, -1001, 1, 'de', 2056, None, None)
     with pytest.raises(AttributeError):
-        ViewServiceRecord({'de': 'http://example.com'}, 1001, 1)
+        ViewServiceRecord({'de': 'http://example.com'}, 1001, 1, 'de', 2056, None, None)
     with pytest.warns(UserWarning, match='Type of "layer_index" should be "int"'):
-        ViewServiceRecord({'de': 'http://example.com'}, 1.0, 1)
+        ViewServiceRecord({'de': 'http://example.com'}, 1.0, 1, 'de', 2056, None, None)
 
 
 def test_invalid_layer_layer_opacity(pyramid_oereb_test_config):
     with pytest.raises(AttributeError):
-        ViewServiceRecord({'de': 'http://example.com'}, 1, 2.0)
+        ViewServiceRecord({'de': 'http://example.com'}, 1, 2.0, 'de', 2056, None, None)
     with pytest.raises(AttributeError):
-        ViewServiceRecord({'de': 'http://example.com'}, 1, -1.1)
+        ViewServiceRecord({'de': 'http://example.com'}, 1, -1.1, 'de', 2056, None, None)
     with pytest.warns(UserWarning, match='Type of "layer_opacity" should be "float"'):
-        ViewServiceRecord({'de': 'http://example.com'}, 1, 1)
+        ViewServiceRecord({'de': 'http://example.com'}, 1, 1, 'de', 2056, None, None)
 
 
 def test_check_min_max_attributes():
@@ -103,7 +121,7 @@ def test_get_bbox_from_url():
 def test_view_service_correct_init_ns(pyramid_oereb_test_config):
     with_bbox = {'de': 'https://host/?&SRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&'
                  'WIDTH=493&HEIGHT=280&FORMAT=image/png'}
-    test_view_service = ViewServiceRecord(with_bbox, 1, 1.0, None)
+    test_view_service = ViewServiceRecord(with_bbox, 1, 1.0, 'de', 2056, None, None)
     assert isinstance(test_view_service.min, Point)
     assert test_view_service.min.x == 2475000.0
     assert test_view_service.min.y == 1065000.0
@@ -112,7 +130,7 @@ def test_view_service_correct_init_ns(pyramid_oereb_test_config):
     assert test_view_service.max.y == 1300000.0
 
     no_bbox = {'de': 'https://host/?&SRS=EPSG:2056WIDTH=493&HEIGHT=280&FORMAT=image/png'}
-    test_view_service_no_bbox = ViewServiceRecord(no_bbox, 1, 1.0, None)
+    test_view_service_no_bbox = ViewServiceRecord(no_bbox, 1, 1.0, 'de', 2056, None, None)
     assert test_view_service_no_bbox.min is None
     assert test_view_service_no_bbox.max is None
 
@@ -123,64 +141,3 @@ def get_width_from_bbox(bbox):
 
 def get_height_from_bbox(bbox):
     return bbox[3] - bbox[1]
-
-
-def test_get_bbox_without_buffer(pyramid_oereb_test_config):
-    initial_buffer = Config._config.get('print').get('buffer')
-    initial_basic_map_size = Config._config.get('print').get('basic_map_size')
-
-    # No buffer, landscape feature in a landscape map.
-    Config._config['print']['buffer'] = 0
-    Config._config['print']['basic_map_size'] = [493, 280]
-    geometry = box(0, 1000, 493, 1100)  # 493m width, 100m height
-    # Should adapt height to fit the map size
-    print_bbox = ViewServiceRecord.get_bbox(geometry)
-    assert get_width_from_bbox(print_bbox) == 493
-    assert get_height_from_bbox(print_bbox) == 280
-
-    # No buffer, portrait feature in a landscape map.
-    geometry = box(0, 1000, 100, 1280)  # 100m width, 280m height
-    # Should adapt width to fit the map size
-    print_bbox = ViewServiceRecord.get_bbox(geometry)
-    assert get_width_from_bbox(print_bbox) == 493
-    assert get_height_from_bbox(print_bbox) == 280
-
-    # No buffer, portrait feature in a portrait map.
-    Config._config['print']['basic_map_size'] = [280, 493]
-    geometry = box(0, 1000, 100, 1493)  # 100m width, 493m height
-    # Should adapt width to fit the map size
-    print_bbox = ViewServiceRecord.get_bbox(geometry)
-    assert get_width_from_bbox(print_bbox) == 280
-    assert get_height_from_bbox(print_bbox) == 493
-
-    # Reset config for further tests.
-    Config._config['print']['buffer'] = initial_buffer
-    Config._config['print']['basic_map_size'] = initial_basic_map_size
-
-
-def test_get_bbox_with_buffer(pyramid_oereb_test_config):
-    initial_buffer = Config._config.get('print').get('buffer')
-    initial_basic_map_size = Config._config.get('print').get('basic_map_size')
-
-    # Buffer 123.25, landscape feature in a landscape map.
-    # Buffer 123.25 is quarter of 493, so the final view is 50% margin, 50% feature.
-    Config._config['print']['basic_map_size'] = [493, 280]
-    Config._config['print']['buffer'] = 123.25
-    geometry = box(0, 1000, 493, 1100)  # 493m width, 100m height
-    # Should add buffer (right and left) then adapt height to fit the map size
-    print_bbox = ViewServiceRecord.get_bbox(geometry)
-    assert get_width_from_bbox(print_bbox) == 986
-    assert get_height_from_bbox(print_bbox) == 560
-
-    # Buffer 70, portrait feature in a landscape map.
-    # Buffer 70 is quarter of 280, so the final view is 50% margin, 50% feature.
-    Config._config['print']['buffer'] = 70
-    geometry = box(0, 1000, 100, 1280)  # 100m width, 280m height
-    # Should add buffer (top and bottom) then adapt width to fit the map size
-    print_bbox = ViewServiceRecord.get_bbox(geometry)
-    assert get_width_from_bbox(print_bbox) == 986
-    assert get_height_from_bbox(print_bbox) == 560
-
-    # Reset config for further tests.
-    Config._config['print']['buffer'] = initial_buffer
-    Config._config['print']['basic_map_size'] = initial_basic_map_size
