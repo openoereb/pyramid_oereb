@@ -26,7 +26,6 @@ def get_symbol(theme_code, sub_theme_code, view_service_id, type_code, theme_con
     """
     raise NotImplementedError('Method has to be implemented.')
 
-
 def get_symbol_ref(request, record):
     """
     Returns the link to the symbol of the specified public law restriction.

@@ -25,6 +25,7 @@ law_status = LawStatusRecord(
     }
 )
 
+
 def test_mandatory_fields():
     with pytest.raises(TypeError):
         PlrRecord()
