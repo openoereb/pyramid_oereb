@@ -1,6 +1,0 @@
-pyramid_oereb:
-
-  print:
-    wms_url_params:
-            - TRANSPARENT: 'true'
-            - OTHERCUSTOM: 'myvalue'
