@@ -272,8 +272,8 @@ class Renderer(JsonRenderer):
             else:
                 flattened_general_info.append({'Info': lang_obj[self._fallback_language]})
         extract_dict['GeneralInformation'] = flattened_general_info
-        update_date_os = datetime.strptime(extract_dict['UpdateDateCS'], '%Y-%m-%dT%H:%M:%S')
-        extract_dict['UpdateDateCS'] = update_date_os.strftime('%d.%m.%Y')
+        update_date_cs = datetime.strptime(extract_dict['UpdateDateCS'], '%Y-%m-%dT%H:%M:%S')
+        extract_dict['UpdateDateCS'] = update_date_cs.strftime('%d.%m.%Y')
         self._multilingual_m_text(extract_dict, 'Certification')
         self._multilingual_m_text(extract_dict, 'CertificationAtWeb')
 
