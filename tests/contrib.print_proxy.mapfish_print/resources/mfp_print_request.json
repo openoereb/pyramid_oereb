@@ -1,0 +1,126 @@
+{
+  "attributes": {
+    "CantonalLogoRef": "http://example.com/image/logo/canton/de.png",
+    "ConcernedTheme": [],
+    "CreationDate": "05.01.2022",
+    "Display_Certification": false,
+    "Display_RealEstate_SubunitOfLandRegister": true,
+    "ExtractIdentifier": "7201ed8f-c03a-4ede-8c63-315da317eb21",
+    "FederalLogoRef": "http://example.com/image/logo/confederation/de.png",
+    "Footer": "05.01.2022   11:53:31   7201ed8f-c03a-4ede-8c63-315da317eb21",
+    "GeneralInformation": [],
+    "LogoPLRCadastreRef": "http://example.com/image/logo/oereb/de.png",
+    "MunicipalityLogoRef": "http://example.com/image/logo/municipality/de.png?fosnr=1234",
+    "NotConcernedTheme": [
+      {
+        "Code": "ch.Nutzungsplanung",
+        "Text": "Nutzungsplanung (kantonal/kommunal)"
+      },
+      {
+        "Code": "ch.BelasteteStandorte",
+        "Text": "Kataster der belasteten Standorte"
+      }
+    ],
+    "PLRCadastreAuthority_City": "Wabern",
+    "PLRCadastreAuthority_Name": "\u00d6REB-Katasteraufsichtsbeh\u00f6rde",
+    "PLRCadastreAuthority_Number": "264",
+    "PLRCadastreAuthority_OfficeAtWeb": "https://www.cadastre.ch/en/oereb.html",
+    "PLRCadastreAuthority_PostalCode": "3084",
+    "PLRCadastreAuthority_Street": "Seftigenstrasse",
+    "PrintCantonLogo": true,
+    "RealEstate_Canton": "BL",
+    "RealEstate_EGRID": "TEST",
+    "RealEstate_IdentDN": "BLTEST",
+    "RealEstate_LandRegistryArea": "4 m\u00b2",
+    "RealEstate_MunicipalityCode": 1234,
+    "RealEstate_MunicipalityName": "Liestal",
+    "RealEstate_Number": "1000",
+    "RealEstate_PlanForLandRegisterMainPage": {
+      "ReferenceWMS": "https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG%3A2056&BBOX=-1.0122448979591834%2C-0.1428571428571428%2C3.0122448979591834%2C2.142857142857143&WIDTH=2055&HEIGHT=1169&FORMAT=image%2Fpng&LAYERS=ch.swisstopo-vd.amtliche-vermessung&SRS=EPSG%3A2056",
+      "layerIndex": 2,
+      "layerOpacity": 0.5,
+      "max": {
+        "coordinates": [
+          3.0122448979591834,
+          2.142857142857143
+        ],
+        "crs": "EPSG:2056",
+        "type": "Point"
+      },
+      "min": {
+        "coordinates": [
+          -1.0122448979591834,
+          -0.1428571428571428
+        ],
+        "crs": "EPSG:2056",
+        "type": "Point"
+      }
+    },
+    "RealEstate_RestrictionOnLandownership": [],
+    "RealEstate_Type_Code": "RealEstate",
+    "RealEstate_Type_Text": "Liegenschaft",
+    "ThemeWithoutData": [],
+    "UpdateDateCS": "05.01.2022",
+    "baseLayers": {
+      "layers": [
+        {
+          "baseURL": "https://wms.geo.admin.ch/",
+          "customParams": {
+            "TRANSPARENT": "true"
+          },
+          "imageFormat": "image/png",
+          "layers": [
+            "ch.swisstopo-vd.amtliche-vermessung"
+          ],
+          "opacity": 0.5,
+          "styles": "default",
+          "type": "wms"
+        }
+      ]
+    },
+    "features": {
+      "features": {
+        "features": [
+          {
+            "geometry": {
+              "coordinates": [
+                [
+                  [
+                    [
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      2.0
+                    ],
+                    [
+                      2.0,
+                      2.0
+                    ],
+                    [
+                      2.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0
+                    ]
+                  ]
+                ]
+              ],
+              "type": "MultiPolygon"
+            },
+            "properties": {},
+            "type": "Feature"
+          }
+        ],
+        "type": "FeatureCollection"
+      }
+    },
+    "nbTocPages": 1
+  },
+  "lang": "de",
+  "layout": "A4 portrait",
+  "outputFormat": "pdf"
+}

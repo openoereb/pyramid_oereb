@@ -62,7 +62,7 @@ class TocPages():
         content_min_size = 10 + 10 + 5 + 10 + 10  # spacing between paragraphs
         total_size = 39
         paragraph_space = 11
-        for i in self.extract['GeneralInformation']:
+        for i in self.extract.get('GeneralInformation', []):
             total_size += paragraph_space
             total_size += self.compute_length_of_wrapped_text(i[0]['Text'],
                                                               78,
@@ -84,7 +84,7 @@ class TocPages():
         space_title_content = 2
         content_min_size = 23
         total_size = 0
-        for i in self.extract['Disclaimer']:
+        for i in self.extract.get('Disclaimer', []):
             total_size += space_above
             total_size += self.compute_length_of_wrapped_text(i['Title'][0]['Text'],
                                                               65,
