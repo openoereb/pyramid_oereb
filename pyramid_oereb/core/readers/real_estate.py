@@ -59,14 +59,20 @@ class RealEstateReader(object):
         real_estate_view_service = ViewServiceRecord(
             plan_for_land_register_config.get('reference_wms'),
             plan_for_land_register_config.get('layer_index'),
-            plan_for_land_register_config.get('layer_opacity')
+            plan_for_land_register_config.get('layer_opacity'),
+            Config.get('default_language'),
+            Config.get('srid'),
+            Config.get('proxies')
         )
 
         plan_for_land_register_main_page_config = Config.get_plan_for_land_register_main_page_config()
         real_estate_main_page_view_service = ViewServiceRecord(
             plan_for_land_register_main_page_config.get('reference_wms'),
             plan_for_land_register_main_page_config.get('layer_index'),
-            plan_for_land_register_main_page_config.get('layer_opacity')
+            plan_for_land_register_main_page_config.get('layer_opacity'),
+            Config.get('default_language'),
+            Config.get('srid'),
+            Config.get('proxies')
         )
 
         self._source_.read(params, nb_ident=nb_ident, number=number, egrid=egrid, geometry=geometry)

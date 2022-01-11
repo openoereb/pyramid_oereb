@@ -29,13 +29,14 @@ def plr_sources(pyramid_oereb_test_config):
 
 @pytest.fixture
 def real_estate():
-    yield RealEstateRecord(u'test', u'BL', u'Laufen', 2770, 1000,
-                           MultiPolygon([Polygon([(0, 0), (4, 4), (4, 0)])]),
-                           ViewServiceRecord(
-                            {'de': 'test_link'},
-                            1,
-                            1.0,
-                            ))
+    yield RealEstateRecord(
+        u'test', u'BL', u'Laufen', 2770, 1000,
+        MultiPolygon([Polygon([(0, 0), (4, 4), (4, 0)])]),
+        ViewServiceRecord(
+            {'de': 'test_link'},
+            1, 1.0, 'de', 2056, None, None,
+        )
+    )
 
 
 @pytest.fixture

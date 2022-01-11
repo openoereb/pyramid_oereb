@@ -1777,6 +1777,90 @@ class Config(object):
             'function_name': function_name
         }
 
+    @staticmethod
+    def get_bbox(geometry):
+        """
+        Return a bbox adapted for the map size specified in the print configuration
+         and based on the geometry and a buffer (margin to add between the geometry
+         and the border of the map).
+
+        Args:
+            geometry (shapely.geometry.base.BaseGeometry): The geometry to calculate the bbox for.
+
+        Returns:
+            list: The bbox (meters) for the print.
+        """
+        print_conf = Config.get_object_path('print', required=['basic_map_size', 'buffer'])
+        print_buffer = print_conf['buffer']
+        map_size = print_conf['basic_map_size']
+        map_width = float(map_size[0])
+        map_height = float(map_size[1])
+
+        if print_buffer * 2 >= min(map_width, map_height):
+            error_msg_txt = 'Your print buffer ({}px)'.format(print_buffer)
+            error_msg_txt += ' applied on each side of the feature exceed the smaller'
+            error_msg_txt += ' side of your map {}px.'.format(min(map_width, map_height))
+            raise ConfigurationError(error_msg_txt)
+
+        geom_bounds = geometry.bounds
+        geom_width = float(geom_bounds[2] - geom_bounds[0])
+        geom_height = float(geom_bounds[3] - geom_bounds[1])
+
+        geom_ratio = geom_width / geom_height
+        map_ratio = map_width / map_height
+
+        # If the format of the map is naturally adapted to the format of the geometry
+        is_format_adapted = geom_ratio > map_ratio
+
+        if is_format_adapted:
+            # Part (percent) of the margin compared to the map width.
+            margin_in_percent = 2 * print_buffer / map_width
+            # Size of the margin in geom units.
+            geom_margin = geom_width * margin_in_percent
+            # Geom width with the margins (right and left).
+            adapted_geom_width = geom_width + (2 * geom_margin)
+            # Adapted geom height to the map height
+            adapted_geom_height = (adapted_geom_width / map_width) * map_height
+        else:
+            # Part (percent) of the margin compared to the map height.
+            margin_in_percent = 2 * print_buffer / map_height
+            # Size of the margin in geom units.
+            geom_margin = geom_height * margin_in_percent
+            # Geom height with the buffer (top and bottom).
+            adapted_geom_height = geom_height + (2 * geom_margin)
+            # Adapted geom width to the map width
+            adapted_geom_width = (adapted_geom_height / map_height) * map_width
+
+        height_to_add = (adapted_geom_height - geom_height) / 2
+        width_to_add = (adapted_geom_width - geom_width) / 2
+
+        return [
+            geom_bounds[0] - width_to_add,
+            geom_bounds[1] - height_to_add,
+            geom_bounds[2] + width_to_add,
+            geom_bounds[3] + height_to_add,
+        ]
+
+    @staticmethod
+    def get_map_size(extract_format):
+        """
+        Calculates the image size for the map if extract_format is "pdf" or returns configured size.
+
+        Args:
+            extract_format (str): The format which is requested. If it is pdf some special
+                handling takes place to provide a HIDPI image.
+        Returns:
+            list of int: The size wrapped in a list of the form [width, height] in pixels.
+        """
+        print_conf = Config.get_object_path('print', required=['basic_map_size',
+                                                               'pdf_dpi', 'pdf_map_size_millimeters'])
+        if extract_format != 'pdf':
+            return [int(print_conf['basic_map_size'][0]), int(print_conf['basic_map_size'][1])]
+        else:
+            pixel_size = print_conf['pdf_dpi'] / 25.4
+            map_size_mm = print_conf['pdf_map_size_millimeters']
+            return [int(pixel_size * map_size_mm[0]), int(pixel_size * map_size_mm[1])]
+
 
 def _parse(cfg_file, cfg_section, c2ctemplate_style=False):
     """

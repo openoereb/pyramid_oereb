@@ -174,6 +174,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             multilingual_uri,
             layer_index,
             layer_opacity,
+            Config.get('default_language'),
+            Config.get('srid'),
+            Config.get('proxies'),
             legends=legend_entry_records
         )
         return view_service_record

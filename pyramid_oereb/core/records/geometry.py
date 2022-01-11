@@ -4,7 +4,6 @@ from datetime import datetime
 
 from shapely.ops import linemerge, cascaded_union
 
-from pyramid_oereb.core.config import Config
 from shapely.geometry import Point, MultiPoint, LineString, Polygon, GeometryCollection, MultiLineString, \
     MultiPolygon
 
@@ -115,7 +114,7 @@ class GeometryRecord(object):
         else:
             return result
 
-    def calculate(self, real_estate, min_length, min_area, length_unit, area_unit):
+    def calculate(self, real_estate, min_length, min_area, length_unit, area_unit, geometry_types):
         """
         Entry method for calculation. It checks if the geometry type of this instance is a geometry
         collection which has to be unpacked first in case of collection.
@@ -126,11 +125,12 @@ class GeometryRecord(object):
             min_area (float): The threshold to consider or not a surface element.
             length_unit (unicode): The thresholds unit for area calculation.
             area_unit (unicode): The thresholds unit for area calculation.
+            geometry_types (dict): The allowed geometry types for the to match the simple feature
+                types point, line, polygon
 
         Returns:
             bool: True if intersection fits the limits.
         """
-        geometry_types = Config.get('geometry_types')
         line_types = geometry_types.get('line').get('types')
         polygon_types = geometry_types.get('polygon').get('types')
         point_types = geometry_types.get('point').get('types')

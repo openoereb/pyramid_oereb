@@ -157,10 +157,15 @@ def test_get_egrid_response(pyramid_test_config):
         'format': u'json'
     })
 
-    view_service = ViewServiceRecord({'de': 'test'},
-                                     1,
-                                     1.0,
-                                     None)
+    view_service = ViewServiceRecord(
+        {'de': 'test'},
+        1,
+        1.0,
+        'de',
+        2056,
+        None,
+        None
+    )
     record = RealEstateRecord('Liegenschaft', 'BL', 'test', 1, 100,
                               MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]), view_service,
                               number='number', identdn='identdn', egrid='egrid')
