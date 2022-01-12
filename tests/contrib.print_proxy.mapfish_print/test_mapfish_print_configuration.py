@@ -6,7 +6,7 @@ from pyramid_oereb.core.config import Config
 
 def test_config_wms_url_params(config_path, DummyRenderInfo):
     Config._config = None
-    Config.init('./tests/contrib/print_proxy/resources/test_config.yml', 'pyramid_oereb')
+    Config.init('./tests/contrib.print_proxy.mapfish_print/resources/test_config.yml', 'pyramid_oereb')
     renderer = Renderer(DummyRenderInfo())
     config = renderer.get_wms_url_params()
     # Restore normal config
@@ -18,7 +18,7 @@ def test_config_wms_url_params(config_path, DummyRenderInfo):
 
 def test_bad_config_wms_url_params(config_path, DummyRenderInfo):
     Config._config = None
-    Config.init('./tests/contrib/print_proxy/resources/test_bad_config.yml', 'pyramid_oereb')
+    Config.init('./tests/contrib.print_proxy.mapfish_print/resources/test_bad_config.yml', 'pyramid_oereb')
     renderer = Renderer(DummyRenderInfo())
     config = renderer.get_wms_url_params()
     # Restore normal config
@@ -30,7 +30,7 @@ def test_bad_config_wms_url_params(config_path, DummyRenderInfo):
 
 def test_get_custom_wms_params_false(config_path, DummyRenderInfo):
     Config._config = None
-    Config.init('./tests/contrib/print_proxy/resources/test_config.yml', 'pyramid_oereb')
+    Config.init('./tests/contrib.print_proxy.mapfish_print/resources/test_config.yml', 'pyramid_oereb')
     renderer = Renderer(DummyRenderInfo())
     params = {
         'TRANSPARENT': ['true'],
@@ -51,7 +51,7 @@ def test_get_custom_wms_params_false(config_path, DummyRenderInfo):
 
 def test_get_custom_wms_params_true(config_path, DummyRenderInfo):
     Config._config = None
-    Config.init('./tests/contrib/print_proxy/resources/test_custom_config.yml', 'pyramid_oereb')
+    Config.init('./tests/contrib.print_proxy.mapfish_print/resources/test_custom_config.yml', 'pyramid_oereb')
     renderer = Renderer(DummyRenderInfo())
     # Define different test cases
     params1 = {

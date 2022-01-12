@@ -58,10 +58,14 @@ jobs:
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
       - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
-      - name: Run checks for Python ${{ matrix.python-version }}
+      - name: Run core tests for Python ${{ matrix.python-version }}
         env:
           PYTHON_TEST_VERSION: ${{ matrix.python-version }}
         run: make test-core
+      - name: Run contrib tests for Python ${{ matrix.python-version }}
+        env:
+          PYTHON_TEST_VERSION: ${{ matrix.python-version }}
+        run: make test-contrib
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
@@ -69,7 +73,7 @@ jobs:
           directory: ./coverage/reports/
           env_vars: OS,PYTHON
           fail_ci_if_error: true
-          files: ./coverage.xml
+          files: ./coverage.xml,./cov_contrib.xml
           flags: unittests
           name: codecov-umbrella
           path_to_write_report: ./coverage/codecov_report.txt
