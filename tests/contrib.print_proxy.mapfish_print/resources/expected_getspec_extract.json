@@ -230,7 +230,7 @@
       "Theme_Text": "Nutzungsplanung: 02.73A.Grundnutzung",
       "Theme_Code": "ch.Nutzungsplanung",
       "SubTheme_Code": "ch.Nutzungsplanung",
-      "SubTheme_Sub_Code": "ch.Baulinien",
+      "Theme_SubCode": "ch.Baulinien",
       "SubTheme_Text": "02.73A.Grundnutzung",
       "baseLayers": {
         "layers": [
@@ -521,7 +521,7 @@
       "Theme_Text": "Nutzungsplanung: 08.73B.Ueberlagerung_Flaeche",
       "Theme_Code": "ch.Nutzungsplanung",
       "SubTheme_Code": "ch.Nutzungsplanung",
-      "SubTheme_Sub_Code": "ch.Ueberlagerung",
+      "Theme_SubCode": "ch.Ueberlagerung",
       "SubTheme_Text": "08.73B.Ueberlagerung_Flaeche",
       "baseLayers": {
         "layers": [
