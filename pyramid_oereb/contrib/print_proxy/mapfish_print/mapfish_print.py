@@ -369,11 +369,7 @@ class Renderer(JsonRenderer):
         ]
         for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
 
-            theme_text = restriction_on_landownership['Theme_Text']
-            sub_theme_text = restriction_on_landownership.get('SubTheme_Text')
-            theme_text = f"{theme_text}: {sub_theme_text}" if sub_theme_text else theme_text
-
-            restriction_on_landownership['Theme_Text'] = f"{theme_text}"
+            restriction_on_landownership['Theme_Text'] = restriction_on_landownership['Theme_Text']
 
             sub_theme_code = restriction_on_landownership.get('Theme_SubCode', '')
             theme = restriction_on_landownership['Theme_Code'] + \
