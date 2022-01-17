@@ -907,7 +907,7 @@
           ],
           "Theme": {
             "Text": [{
-              "Text": "Nutzungsplanung: 02.73A.Grundnutzung",
+              "Text": "02.73A.Grundnutzung",
               "Language": "de"
             }],
             "Code": "ch.Nutzungsplanung",
@@ -1788,7 +1788,7 @@
           ],
           "Theme": {
             "Text": [{
-              "Text": "Nutzungsplanung: 02.73A.Grundnutzung",
+              "Text": "02.73A.Grundnutzung",
               "Language": "de"
             }],
             "Code": "ch.Nutzungsplanung",
@@ -2669,7 +2669,7 @@
           ],
           "Theme": {
             "Text": [{
-              "Text": "Nutzungsplanung: 02.73A.Grundnutzung",
+              "Text": "02.73A.Grundnutzung",
               "Language": "de"
             }],
             "Code": "ch.Nutzungsplanung",
@@ -3550,7 +3550,7 @@
           ],
           "Theme": {
             "Text": [{
-              "Text": "Nutzungsplanung: 02.73A.Grundnutzung",
+              "Text": "02.73A.Grundnutzung",
               "Language": "de"
             }],
             "Code": "ch.Nutzungsplanung",
@@ -4431,7 +4431,7 @@
           ],
           "Theme": {
             "Text": [{
-              "Text": "Nutzungsplanung: 08.73B.Ueberlagerung_Flaeche",
+              "Text": "08.73B.Ueberlagerung_Flaeche",
               "Language": "de"
             }],
             "Code": "ch.Nutzungsplanung",
