@@ -586,16 +586,16 @@ class Renderer(JsonRenderer):
                         ": {}".format(document)
             log.error(error_msg)
             raise AttributeError(error_msg)
-
-        if documentType == 'Rechtsvorschrift':
+        # TODO: We should check if this has potential relation to the configurable translations.
+        if documentType == 'LegalProvision':
             legal_provisions[uid] = document
-        elif documentType == 'GesetzlicheGrundlage':
+        elif documentType == 'Law':
             laws[uid] = document
-        elif documentType == 'Hinweis':
+        elif documentType == 'Hint':
             hints[uid] = document
         else:
             log.warning(f"Wrong document type {documentType}")
-            log.warning("(expected 'Rechtsvorschrift', 'GesetzlicheGrundlage' or 'Hinweis')")
+            log.warning("(expected 'LegalProvision', 'Law' or 'Hint')")
 
     @staticmethod
     def _get_element_of_legal_provision_maybe_uid(element):
