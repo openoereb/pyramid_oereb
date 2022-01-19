@@ -498,7 +498,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -557,7 +557,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -616,7 +616,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -663,7 +663,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -730,7 +730,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -789,7 +789,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -848,7 +848,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -895,7 +895,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -1379,7 +1379,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -1438,7 +1438,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -1497,7 +1497,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -1544,7 +1544,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -1611,7 +1611,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -1670,7 +1670,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -1729,7 +1729,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -1776,7 +1776,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -2260,7 +2260,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -2319,7 +2319,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -2378,7 +2378,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -2425,7 +2425,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -2492,7 +2492,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -2551,7 +2551,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -2610,7 +2610,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -2657,7 +2657,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -3141,7 +3141,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -3200,7 +3200,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -3259,7 +3259,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -3306,7 +3306,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -3373,7 +3373,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -3432,7 +3432,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -3491,7 +3491,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -3538,7 +3538,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -4022,7 +4022,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -4081,7 +4081,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -4140,7 +4140,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -4187,7 +4187,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -4254,7 +4254,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -4313,7 +4313,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -4372,7 +4372,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -4419,7 +4419,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -4961,7 +4961,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -5026,7 +5026,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -5085,7 +5085,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -5144,7 +5144,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -5203,7 +5203,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -5373,7 +5373,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -5438,7 +5438,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -5497,7 +5497,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -5556,7 +5556,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -5615,7 +5615,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -5785,7 +5785,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -5850,7 +5850,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -5909,7 +5909,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -5968,7 +5968,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -6027,7 +6027,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -6197,7 +6197,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -6262,7 +6262,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -6321,7 +6321,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -6380,7 +6380,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -6439,7 +6439,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -6609,7 +6609,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -6674,7 +6674,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -6733,7 +6733,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -6792,7 +6792,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -6851,7 +6851,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -7018,7 +7018,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -7077,7 +7077,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -7124,7 +7124,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -7283,7 +7283,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -7342,7 +7342,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -7389,7 +7389,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -7548,7 +7548,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -7607,7 +7607,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -7654,7 +7654,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
