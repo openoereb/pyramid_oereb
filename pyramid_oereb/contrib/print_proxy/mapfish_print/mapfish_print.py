@@ -586,7 +586,7 @@ class Renderer(JsonRenderer):
                         ": {}".format(document)
             log.error(error_msg)
             raise AttributeError(error_msg)
-
+        # TODO: We should check if this has potential relation to the configurable translations.
         if documentType == 'LegalProvision':
             legal_provisions[uid] = document
         elif documentType == 'Law':
