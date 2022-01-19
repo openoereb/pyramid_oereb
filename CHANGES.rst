@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.0.0.b10
+---------
+- Fixes for static extract
+
 2.0.0.b9
 --------
 - Fixes in configuration (#1445)
