@@ -34,6 +34,7 @@ def source_params():
         "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Document"
     }
 
+
 @pytest.fixture
 def office_records():
     yield [
@@ -53,6 +54,7 @@ def office_records():
         )
     ]
 
+
 @pytest.fixture
 def document():
     Base = declarative_base()
@@ -64,6 +66,7 @@ def document():
 @pytest.fixture
 def date_today():
     yield datetime.date.today()
+
 
 @pytest.fixture
 def all_result_session(session, query, document, date_today, png_binary):
@@ -99,7 +102,9 @@ def all_result_session(session, query, document, date_today, png_binary):
                     'file': png_binary
                 })
             ]
+
     class Session(session):
+
         def query(self, term):
             return Query()
 
@@ -114,7 +119,9 @@ def mock_config_get_main_document_type_by_data_code(app_config):
         if doc_type == 'Gesetz':
             return DocumentTypeRecord('Gesetz', {'de': 'Gesetz'})
 
-    with patch('pyramid_oereb.core.config.Config.get_main_document_type_by_data_code', mock_get_main_document_type_by_data_code):
+    with patch(
+            'pyramid_oereb.core.config.Config.get_main_document_type_by_data_code',
+            mock_get_main_document_type_by_data_code):
         yield
 
 
@@ -123,7 +130,9 @@ def mock_config_get_main_law_status_by_data_code(app_config):
     def mock_get_main_law_status_by_data_code(law_status):
         return DocumentTypeRecord('inKraft', {'de': 'In Kraft'})
 
-    with patch('pyramid_oereb.core.config.Config.get_main_law_status_by_data_code', mock_get_main_law_status_by_data_code):
+    with patch(
+            'pyramid_oereb.core.config.Config.get_main_law_status_by_data_code',
+            mock_get_main_law_status_by_data_code):
         yield
 
 

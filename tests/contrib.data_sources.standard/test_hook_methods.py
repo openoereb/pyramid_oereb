@@ -164,6 +164,7 @@ def one_result_wrong_content_session(legend_entry, session, query):
 
 @pytest.fixture
 def one_result_b64_session(legend_entry, png_binary, session, query):
+
     class Query(query):
         def one(self):
             return legend_entry(**{
@@ -176,6 +177,7 @@ def one_result_b64_session(legend_entry, png_binary, session, query):
                 'sub_theme': 'ch.SubTestThema',
                 'view_service_id': 1
             })
+
     class Session(session):
         def query(self, term):
             return Query()

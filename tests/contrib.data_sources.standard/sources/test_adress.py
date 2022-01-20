@@ -21,10 +21,13 @@ def source_params():
 def wkb_point():
     yield WKTElement('SRID=2056;POINT(1 1)', extended=True)
 
+
 @pytest.fixture
 def one_result_session(session, query, wkb_point):
     from pyramid_oereb.contrib.data_sources.standard.models.main import Address
+
     class Query(query):
+
         def one(self):
             return Address(**{
                 'street_name': 'teststreet',
@@ -32,7 +35,9 @@ def one_result_session(session, query, wkb_point):
                 'zip_code': 4050,
                 'geom': wkb_point
             })
+
     class Session(session):
+
         def query(self, term):
             return Query()
 
@@ -41,10 +46,14 @@ def one_result_session(session, query, wkb_point):
 
 @pytest.fixture
 def no_result_session(session, query, wkb_point):
+
     class Query(query):
+
         def one(self):
             raise NoResultFound
+
     class Session(session):
+
         def query(self, term):
             return Query()
 

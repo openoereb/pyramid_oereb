@@ -6,19 +6,24 @@ from unittest.mock import patch
 def session():
 
     class Session:
+
         def query(self, model):
             return
+
         def close(self):
             return
 
     yield Session
 
+
 @pytest.fixture
 def query():
 
     class Query:
+
         def filter(self, term):
             return self
+
         def one(self):
             return
 

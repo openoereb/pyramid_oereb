@@ -17,7 +17,9 @@ def source_params():
 @pytest.fixture
 def all_result_session(session, query):
     from pyramid_oereb.contrib.data_sources.standard.models.main import Disclaimer
+
     class Query(query):
+
         def all(self):
             return [
                 Disclaimer(**{
@@ -31,7 +33,9 @@ def all_result_session(session, query):
                     'content': {'de': 'Inhalt2'}
                 })
             ]
+
     class Session(session):
+
         def query(self, term):
             return Query()
 
