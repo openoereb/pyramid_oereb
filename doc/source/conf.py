@@ -16,17 +16,17 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import glob
-import inspect
 import os
 from mako.template import Template
 import sys
 # sys.path.insert(0, os.path.abspath('.'))
 import re
-import six
 import subprocess
 import sphinx_rtd_theme
 from pyramid_oereb.core.config import Config
+from pyramid_oereb.contrib.data_sources.standard.sources.plr import StandardThemeConfigParser
+import pyramid_oereb.contrib.data_sources.standard
+import types
 
 Config._config = {'srid': -1, 'app_schema': {'name': 'pyramid_oereb_main'}}
 
@@ -88,7 +88,6 @@ module_file_names = []
 
 module_file_names.append('pyramid_oereb_contrib_data_sources_standard_models_main')
 
-from pyramid_oereb.contrib.data_sources.standard.sources.plr import StandardThemeConfigParser
 conf_parser = StandardThemeConfigParser(source={
     "class": 'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource',
     "params": {
@@ -98,12 +97,9 @@ conf_parser = StandardThemeConfigParser(source={
 })
 
 models = conf_parser.get_models()
-modelnames = [modelname for modelname in dir(models) if modelname[0].isupper()and modelname != 'Base']
+modelnames = [modelname for modelname in dir(models) if modelname[0].isupper() and modelname != 'Base']
 
 # create fake python module pyramid_oereb.contrib.data_sources.standard.factory_models
-import pyramid_oereb.contrib.data_sources.standard
-import types
-import sys
 factory_models = types.ModuleType('FactoryModels', 'Virtual module for factory generated classes')
 factory_models.__name__ = 'factory_models'
 factory_models.__mro__ = []
