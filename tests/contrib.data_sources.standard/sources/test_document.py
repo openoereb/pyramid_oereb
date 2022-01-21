@@ -1,10 +1,7 @@
-import io
-
 import pytest
 import datetime
 from unittest.mock import patch
 
-from PIL import Image
 from sqlalchemy import String
 from sqlalchemy.orm import declarative_base
 
@@ -15,16 +12,7 @@ from pyramid_oereb.core.records.office import OfficeRecord
 from pyramid_oereb.core.records.document_types import DocumentTypeRecord
 
 
-@pytest.fixture
-def png_image():
-    yield Image.new("RGB", (72, 36), (128, 128, 128))
 
-
-@pytest.fixture
-def png_binary(png_image):
-    output = io.BytesIO()
-    png_image.save(output, format='PNG')
-    yield output.getvalue()
 
 
 @pytest.fixture
