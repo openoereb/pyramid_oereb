@@ -19,16 +19,17 @@
 import os
 from mako.template import Template
 import sys
+import inspect
 # sys.path.insert(0, os.path.abspath('.'))
 import re
+import types
 import subprocess
 import sphinx_rtd_theme
 from pyramid_oereb.core.config import Config
-from pyramid_oereb.contrib.data_sources.standard.sources.plr import StandardThemeConfigParser
-import pyramid_oereb.contrib.data_sources.standard
-import types
-
 Config._config = {'srid': -1, 'app_schema': {'name': 'pyramid_oereb_main'}}
+from pyramid_oereb.contrib.data_sources.standard.sources.plr import StandardThemeConfigParser  # noqa E402
+import pyramid_oereb.contrib.data_sources.standard  # noqa E402
+import pyramid_oereb.contrib.data_sources.standard.models.main  # noqa E402
 
 
 # -- General configuration ------------------------------------------------
@@ -85,8 +86,16 @@ with open('contrib/stats.rst', 'w') as sources:
         'contrib/stats.rst.mako']).decode('utf-8'))
 
 module_file_names = []
-
-module_file_names.append('pyramid_oereb_contrib_data_sources_standard_models_main')
+module_name = 'pyramid_oereb.contrib.data_sources.standard.models.main'
+file_name = 'pyramid_oereb_contrib_data_sources_standard_models_main'
+module_file_names.append(file_name)
+main_classes = []
+for name, obj in inspect.getmembers(pyramid_oereb.contrib.data_sources.standard.models.main):
+    if inspect.isclass(obj) and obj.__module__ == module_name:
+        main_classes.append(name)
+with open('standard/models/{name}.rst'.format(name=file_name), 'w') as sources:
+    template = Template(filename='standard/models/models.rst.mako')
+    sources.write(template.render(**{'module_name': module_name, 'classes': main_classes}))
 
 conf_parser = StandardThemeConfigParser(source={
     "class": 'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource',
@@ -117,7 +126,7 @@ module_name = 'pyramid_oereb.contrib.data_sources.standard.factory_models'
 file_name = module_name.replace('.', '_').lower()
 module_file_names.append(file_name)
 with open('standard/models/{name}.rst'.format(name=file_name), 'w') as sources:
-    template = Template(filename='standard/models/models.rst.mako')
+    template = Template(filename='standard/models/factory_models.rst.mako')
     sources.write(template.render(**{'module_name': module_name, 'classes': modelnames}))
 
 with open('standard/models/index.rst', 'w') as sources:
