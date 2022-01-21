@@ -81,7 +81,7 @@ jobs:
 
   doc:
     name: Make and deploy documentation
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/1410_fix_doc'
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
