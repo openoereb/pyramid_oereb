@@ -79,6 +79,26 @@ jobs:
           path_to_write_report: ./coverage/codecov_report.txt
           verbose: true
 
+  doc:
+    name: Make and deploy documentation
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/1410_fix_doc'
+    runs-on: ubuntu-20.04
+    needs: deploy-dev
+    steps:
+      - uses: actions/checkout@v2
+      - name: Make documentation
+        run: |
+          sudo rm /etc/apt/sources.list.d/*.list
+          sudo apt update
+          sudo apt-get install virtualenv libpq-dev libgeos-dev
+          make doc-html
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: doc/build/html # The folder the action should deploy.
+
+
   build-and-publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI
     runs-on: ubuntu-20.04

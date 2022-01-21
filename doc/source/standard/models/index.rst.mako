@@ -3,7 +3,7 @@
 Models
 ======
 
-.. automodule:: pyramid_oereb.standard.models
+.. automodule:: pyramid_oereb.contrib.data_sources.standard.models
 
 
 .. toctree::

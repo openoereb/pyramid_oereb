@@ -65,9 +65,10 @@ class RealEstate(Base):
             based on which is  delivering a machine readable response format (XML).
         land_registry_area (str): The amount of the area of this real estate as it is declared in
             the land  registers information.
+
         limit (geoalchemy2.types.Geometry): The geometry of real estates border. For type
-            information see geoalchemy2_.  .. _geoalchemy2:
-            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the
+            information see `geoalchemy2 <https://geoalchemy-2.readthedocs.io/en/0.8.4/types.html>`_
+            docs dependent on the
             configured type.  This concrete one is MULTIPOLYGON
     """
     __table_args__ = {'schema': app_schema_name}
@@ -100,8 +101,8 @@ class Municipality(Base):
         published (bool): Switch whether a municipality is published or not. This has direct
             influence on extract  generation.
         geom (geoalchemy2.types.Geometry): The geometry of municipality borders. For type
-            information see geoalchemy2_.  .. _geoalchemy2:
-            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the
+            information see `geoalchemy2 <https://geoalchemy-2.readthedocs.io/en/0.8.4/types.html>`_
+            docs dependent on the
             configured type.  This concrete one is MULTIPOLYGON
     """
     __table_args__ = {'schema': app_schema_name}
@@ -123,8 +124,8 @@ class Address(Base):
         street_number (str): The house number of this address.
         zip_code (int): The ZIP code for this address.
         geom (geoalchemy2.types.Geometry): The geometry of real estates border. For type information
-            see geoalchemy2_.  .. _geoalchemy2:
-            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the
+            see `geoalchemy2 <https://geoalchemy-2.readthedocs.io/en/0.8.4/types.html>`_
+            docs dependent on the
             configured type.  This concrete one is POINT
     """
     __table_args__ = (

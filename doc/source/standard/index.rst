@@ -17,38 +17,15 @@ layer.
 Functions for creating standard environment
 -------------------------------------------
 
-.. _api-pyramid_oereb-standard:
-
-.. automodule:: pyramid_oereb.standard
-   :members:
-      create_tables_from_standard_configuration,
-      drop_tables_from_standard_configuration,
-      _create_standard_yaml_config_
-
 .. _api-pyramid_oereb-standard-create_tables:
 
-.. automodule:: pyramid_oereb.standard.create_tables
+.. automodule:: pyramid_oereb.contrib.data_sources.create_tables
    :members:
-      _create_theme_tables
-
-Functions for filling standard environment with data
-----------------------------------------------------
-
-.. _api-pyramid_oereb-standard-load_sample_data:
-
-.. automodule:: pyramid_oereb.standard.load_sample_data
-   :members:
-      SampleData
-
-.. _api-pyramid_oereb-standard-import_federal_topic:
-
-.. automodule:: pyramid_oereb.standard.import_federal_topic
-   :members:
-      FederalTopic
+      create_tables_from_standard_configuration
 
 .. _api-pyramid_oereb-standard-load_legend_entries:
 
-.. automodule:: pyramid_oereb.standard.load_legend_entries
+.. automodule:: pyramid_oereb.contrib.data_sources.standard.load_legend_entries
    :members:
       create_legend_entries_in_standard_db
 
@@ -57,5 +34,5 @@ Functions used as configurable hooks
 
 .. _api-pyramid_oereb-standard-hook_methods:
 
-.. automodule:: pyramid_oereb.standard.hook_methods
+.. automodule:: pyramid_oereb.contrib.data_sources.standard.hook_methods
    :members:
