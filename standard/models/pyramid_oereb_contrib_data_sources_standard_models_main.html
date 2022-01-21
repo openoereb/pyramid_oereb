@@ -1,0 +1,847 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Main &mdash; pyramid_oereb  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'',
+              LANGUAGE:'en',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Factory Models" href="pyramid_oereb_contrib_data_sources_standard_factory_models.html" />
+    <link rel="prev" title="Models" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pyramid_oereb
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changes/Hints for migration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Standard</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../sources.html">Sources</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Models</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#"><em>Main</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#address">Address</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#disclaimer">Disclaimer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#documenttypetext">DocumentTypeText</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generalinformation">GeneralInformation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#glossary">Glossary</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lawstatus">LawStatus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#logo">Logo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#maplayering">MapLayering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#municipality">Municipality</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#realestate">RealEstate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#realestatetype">RealEstateType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#theme">Theme</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#themedocument">ThemeDocument</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pyramid_oereb_contrib_data_sources_standard_factory_models.html"><em>Factory Models</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#exemplary-schema-of-a-standard-database">Exemplary schema of a standard database</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#functions-for-creating-standard-environment">Functions for creating standard environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#functions-used-as-configurable-hooks">Functions used as configurable hooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contrib/index.html">Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyramid_oereb</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Standard</a> &raquo;</li>
+        
+          <li><a href="index.html">Models</a> &raquo;</li>
+        
+      <li><em>Main</em></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pyramid_oereb.contrib.data_sources.standard.models.main">
+<span id="main"></span><span id="api-pyramid-oereb-contrib-data-sources-standard-models-main"></span><h1><em>Main</em><a class="headerlink" href="#module-pyramid_oereb.contrib.data_sources.standard.models.main" title="Permalink to this headline">¶</a></h1>
+<p>This is representing the applications working data schema. It provides buckets for general data you will need
+to run this application in standard mode.
+The buckets are:</p>
+<ul class="simple">
+<li>Municipality</li>
+<li>Real Estate</li>
+<li>Address</li>
+<li>Glossary</li>
+<li>Exclusion of liability</li>
+</ul>
+<p>The geographical projection system which is used out of the box is LV95 aka EPSG:2056. Of course you can
+configure a different one.
+The name of the schema will be:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pyramid_oereb_main</span>
+</pre></div>
+</div>
+<p>But you can change it also via configuration.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Whenever you configure your own sqlalchemy ORM&#8217;s to use them in this application you must imitate
+the behaviour of the ORM&#8217;s here. This means the names class variables as well as the types of these
+variables.</p>
+</div>
+</div></blockquote>
+<div class="section" id="address">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-address"></span><h2>Address<a class="headerlink" href="#address" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Address">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.models.main.</code><code class="descname">Address</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#Address"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Address" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket you can throw all addresses in the application should be able to use for the get egrid
+webservice. This is a bypass for the moment. In the end it seems ways more flexible to bind
+a service here but if you like you can use it.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Address.street_name">
+<code class="descname">street_name</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Address.street_name" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The street name for this address.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Address.street_number">
+<code class="descname">street_number</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Address.street_number" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The house number of this address.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Address.zip_code">
+<code class="descname">zip_code</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Address.zip_code" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The ZIP code for this address.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Address.geom">
+<code class="descname">geom</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Address.geom" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>geoalchemy2.types.Geometry</em> &#8211; The geometry of real estates border. For type information
+see <a class="reference external" href="https://geoalchemy-2.readthedocs.io/en/0.8.4/types.html">geoalchemy2</a>
+docs dependent on the
+configured type.  This concrete one is POINT</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Address.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Address.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple constructor that allows initialization from kwargs.</p>
+<p>Sets attributes on the constructed instance using the names and
+values in <code class="docutils literal"><span class="pre">kwargs</span></code>.</p>
+<p>Only keys that are present as
+attributes of the instance&#8217;s class are allowed. These could be,
+for example, any mapped columns or relationships.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="disclaimer">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-disclaimer"></span><h2>Disclaimer<a class="headerlink" href="#disclaimer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.models.main.</code><code class="descname">Disclaimer</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#Disclaimer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket you can throw all disclaimers in the application should be able to use.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer.title">
+<code class="descname">title</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer.title" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The title which the disclaimer item has.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer.content">
+<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer.content" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The content which the disclaimer item has.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple constructor that allows initialization from kwargs.</p>
+<p>Sets attributes on the constructed instance using the names and
+values in <code class="docutils literal"><span class="pre">kwargs</span></code>.</p>
+<p>Only keys that are present as
+attributes of the instance&#8217;s class are allowed. These could be,
+for example, any mapped columns or relationships.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="documenttypetext">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-documenttypetext"></span><h2>DocumentTypeText<a class="headerlink" href="#documenttypetext" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.models.main.</code><code class="descname">DocumentTypeText</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#DocumentTypeText"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText" title="Permalink to this definition">¶</a></dt>
+<dd><p>The element holding the different document types and their translations.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText.code">
+<code class="descname">code</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText.code" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The identifier given by a code</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText.title">
+<code class="descname">title</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText.title" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The display name for the document type</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple constructor that allows initialization from kwargs.</p>
+<p>Sets attributes on the constructed instance using the names and
+values in <code class="docutils literal"><span class="pre">kwargs</span></code>.</p>
+<p>Only keys that are present as
+attributes of the instance&#8217;s class are allowed. These could be,
+for example, any mapped columns or relationships.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="generalinformation">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-generalinformation"></span><h2>GeneralInformation<a class="headerlink" href="#generalinformation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.models.main.</code><code class="descname">GeneralInformation</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#GeneralInformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to store the general information about the OEREB cadastre</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation.title">
+<code class="descname">title</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation.title" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; The title of the general information (multilingual)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation.content">
+<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation.content" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; The actual information (multilingual)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple constructor that allows initialization from kwargs.</p>
+<p>Sets attributes on the constructed instance using the names and
+values in <code class="docutils literal"><span class="pre">kwargs</span></code>.</p>
+<p>Only keys that are present as
+attributes of the instance&#8217;s class are allowed. These could be,
+for example, any mapped columns or relationships.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="glossary">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-glossary"></span><h2>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Glossary">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.models.main.</code><code class="descname">Glossary</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#Glossary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Glossary" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket you can throw all items you want to have in the extracts glossary as reading help.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Glossary.title">
+<code class="descname">title</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Glossary.title" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The title or abbreviation of a glossary item.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Glossary.content">
+<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Glossary.content" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The description or definition of a glossary item.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Glossary.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Glossary.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple constructor that allows initialization from kwargs.</p>
+<p>Sets attributes on the constructed instance using the names and
+values in <code class="docutils literal"><span class="pre">kwargs</span></code>.</p>
+<p>Only keys that are present as
+attributes of the instance&#8217;s class are allowed. These could be,
+for example, any mapped columns or relationships.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="lawstatus">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-lawstatus"></span><h2>LawStatus<a class="headerlink" href="#lawstatus" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.models.main.</code><code class="descname">LawStatus</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#LawStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>The container where you can throw in all the law status texts this application
+should have access to, for creating extracts.
+.. attribute:: code</p>
+<blockquote>
+<div><em>str</em> &#8211; The identifier on federal level.</div></blockquote>
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus.title">
+<code class="descname">title</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus.title" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>JSONType</em> &#8211; The text for the multilingual text.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple constructor that allows initialization from kwargs.</p>
+<p>Sets attributes on the constructed instance using the names and
+values in <code class="docutils literal"><span class="pre">kwargs</span></code>.</p>
+<p>Only keys that are present as
+attributes of the instance&#8217;s class are allowed. These could be,
+for example, any mapped columns or relationships.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="logo">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-logo"></span><h2>Logo<a class="headerlink" href="#logo" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Logo">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.models.main.</code><code class="descname">Logo</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#Logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Logo" title="Permalink to this definition">¶</a></dt>
+<dd><p>The container for all logos and municipality coat of arms</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Logo.code">
+<code class="descname">code</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Logo.code" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The identifier given by a code</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Logo.logo">
+<code class="descname">logo</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Logo.logo" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; The image encoded in base64</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Logo.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Logo.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple constructor that allows initialization from kwargs.</p>
+<p>Sets attributes on the constructed instance using the names and
+values in <code class="docutils literal"><span class="pre">kwargs</span></code>.</p>
+<p>Only keys that are present as
+attributes of the instance&#8217;s class are allowed. These could be,
+for example, any mapped columns or relationships.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="maplayering">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-maplayering"></span><h2>MapLayering<a class="headerlink" href="#maplayering" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.models.main.</code><code class="descname">MapLayering</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#MapLayering"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering.view_service">
+<code class="descname">view_service</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering.view_service" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; Darstellungsdienst</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering.layer_index">
+<code class="descname">layer_index</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering.layer_index" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; Index for sorting the layering of the view services for a theme</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering.layer_opacity">
+<code class="descname">layer_opacity</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering.layer_opacity" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> &#8211; Opacity of a view service</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple constructor that allows initialization from kwargs.</p>
+<p>Sets attributes on the constructed instance using the names and
+values in <code class="docutils literal"><span class="pre">kwargs</span></code>.</p>
+<p>Only keys that are present as
+attributes of the instance&#8217;s class are allowed. These could be,
+for example, any mapped columns or relationships.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="municipality">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-municipality"></span><h2>Municipality<a class="headerlink" href="#municipality" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Municipality">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.models.main.</code><code class="descname">Municipality</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#Municipality"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Municipality" title="Permalink to this definition">¶</a></dt>
+<dd><p>The municipality is the place where you hold the information about all the municipalities
+you are having in your canton. This is used also in the applications process to check whether
+a municipality is published or not.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Municipality.fosnr">
+<code class="descname">fosnr</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Municipality.fosnr" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier of the municipality. It is the commonly known id_bfs or as or
+nofs in the  french part.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Municipality.name">
+<code class="descname">name</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Municipality.name" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The Name of the municipality.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Municipality.published">
+<code class="descname">published</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Municipality.published" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>bool</em> &#8211; Switch whether a municipality is published or not. This has direct
+influence on extract  generation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Municipality.geom">
+<code class="descname">geom</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Municipality.geom" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>geoalchemy2.types.Geometry</em> &#8211; The geometry of municipality borders. For type
+information see <a class="reference external" href="https://geoalchemy-2.readthedocs.io/en/0.8.4/types.html">geoalchemy2</a>
+docs dependent on the
+configured type.  This concrete one is MULTIPOLYGON</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Municipality.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Municipality.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple constructor that allows initialization from kwargs.</p>
+<p>Sets attributes on the constructed instance using the names and
+values in <code class="docutils literal"><span class="pre">kwargs</span></code>.</p>
+<p>Only keys that are present as
+attributes of the instance&#8217;s class are allowed. These could be,
+for example, any mapped columns or relationships.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="realestate">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-realestate"></span><h2>RealEstate<a class="headerlink" href="#realestate" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.models.main.</code><code class="descname">RealEstate</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#RealEstate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate" title="Permalink to this definition">¶</a></dt>
+<dd><p>The container where you can throw in all the real estates this application should have access to, for
+creating extracts.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.identdn">
+<code class="descname">identdn</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.identdn" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The identifier on cantonal level.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.number">
+<code class="descname">number</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.number" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The identifier on municipality level.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.egrid">
+<code class="descname">egrid</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.egrid" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The identifier on federal level (the all unique one...)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.type">
+<code class="descname">type</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.type" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The type of the real estate (This must base on DM01)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.canton">
+<code class="descname">canton</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.canton" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; Which canton this real estate is situated in (use official shortened Version
+here. e.g. &#8216;BE&#8217;)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.municipality">
+<code class="descname">municipality</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.municipality" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The name of the municipality this real estate is situated in.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.subunit_of_land_register">
+<code class="descname">subunit_of_land_register</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.subunit_of_land_register" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The name of the maybe existing sub unit of land register if
+municipality in  combination with number does not offer a unique constraint.
+Else you can skip that.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.subunit_of_land_register_designation">
+<code class="descname">subunit_of_land_register_designation</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.subunit_of_land_register_designation" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The maybe existing cantonal description
+of the subunit_of_land_register e.g. «Grundbuchkreis», «Sektion», «Fraktion» etc.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.fosnr">
+<code class="descname">fosnr</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.fosnr" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier of the municipality. It is the commonly known id_bfs.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.metadata_of_geographical_base_data">
+<code class="descname">metadata_of_geographical_base_data</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.metadata_of_geographical_base_data" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; A link to the metadata which this geometry is
+based on which is  delivering a machine readable response format (XML).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.land_registry_area">
+<code class="descname">land_registry_area</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.land_registry_area" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The amount of the area of this real estate as it is declared in
+the land  registers information.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.limit">
+<code class="descname">limit</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.limit" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>geoalchemy2.types.Geometry</em> &#8211; The geometry of real estates border. For type
+information see <a class="reference external" href="https://geoalchemy-2.readthedocs.io/en/0.8.4/types.html">geoalchemy2</a>
+docs dependent on the
+configured type.  This concrete one is MULTIPOLYGON</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple constructor that allows initialization from kwargs.</p>
+<p>Sets attributes on the constructed instance using the names and
+values in <code class="docutils literal"><span class="pre">kwargs</span></code>.</p>
+<p>Only keys that are present as
+attributes of the instance&#8217;s class are allowed. These could be,
+for example, any mapped columns or relationships.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="realestatetype">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-realestatetype"></span><h2>RealEstateType<a class="headerlink" href="#realestatetype" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.models.main.</code><code class="descname">RealEstateType</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#RealEstateType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The container where you can throw in all the real estates type texts this application
+should have access to, for creating extracts.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType.code">
+<code class="descname">code</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType.code" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The identifier on federal level.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType.text">
+<code class="descname">text</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType.text" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The text for the multilingual text.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple constructor that allows initialization from kwargs.</p>
+<p>Sets attributes on the constructed instance using the names and
+values in <code class="docutils literal"><span class="pre">kwargs</span></code>.</p>
+<p>Only keys that are present as
+attributes of the instance&#8217;s class are allowed. These could be,
+for example, any mapped columns or relationships.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="theme">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-theme"></span><h2>Theme<a class="headerlink" href="#theme" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Theme">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.models.main.</code><code class="descname">Theme</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#Theme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Theme" title="Permalink to this definition">¶</a></dt>
+<dd><p>The OEREB themes of the application</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Theme.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Theme.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; identifier, used in the database only</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Theme.code">
+<code class="descname">code</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Theme.code" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; OEREB code of the theme - unique and used to link each PublicLawRestriction
+with the corresponding theme</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Theme.sub_code">
+<code class="descname">sub_code</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Theme.sub_code" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; OEREB sub_code of the sub-theme: only available for sub themes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Theme.title">
+<code class="descname">title</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Theme.title" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; the title of the theme as a multilingual dictionary</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Theme.extract_index">
+<code class="descname">extract_index</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Theme.extract_index" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; index to sort the themes in the extract, defined in the specification</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Theme.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Theme.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple constructor that allows initialization from kwargs.</p>
+<p>Sets attributes on the constructed instance using the names and
+values in <code class="docutils literal"><span class="pre">kwargs</span></code>.</p>
+<p>Only keys that are present as
+attributes of the instance&#8217;s class are allowed. These could be,
+for example, any mapped columns or relationships.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="themedocument">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-themedocument"></span><h2>ThemeDocument<a class="headerlink" href="#themedocument" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.models.main.</code><code class="descname">ThemeDocument</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#ThemeDocument"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Meta bucket (join table) for the relationship between theme and documents.
+.. attribute:: theme_id</p>
+<blockquote>
+<div><em>str</em> &#8211; The foreign key to the theme which has
+relation to  a document.</div></blockquote>
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument.document_id">
+<code class="descname">document_id</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument.document_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The foreign key to the document which has relation to the public law
+restriction.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument.theme">
+<code class="descname">theme</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument.theme" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Theme</em> &#8211; The dedicated relation to the theme instance from database.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument.document">
+<code class="descname">document</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument.document" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Document</em> &#8211; The dedicated relation to the document instance from database.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument.article_numbers">
+<code class="descname">article_numbers</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument.article_numbers" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; relevant articles for the theme document relation</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple constructor that allows initialization from kwargs.</p>
+<p>Sets attributes on the constructed instance using the names and
+values in <code class="docutils literal"><span class="pre">kwargs</span></code>.</p>
+<p>Only keys that are present as
+attributes of the instance&#8217;s class are allowed. These could be,
+for example, any mapped columns or relationships.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="pyramid_oereb_contrib_data_sources_standard_factory_models.html" class="btn btn-neutral float-right" title="Factory Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017-2022, openoereb community.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
