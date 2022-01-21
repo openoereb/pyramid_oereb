@@ -6,100 +6,260 @@ Readers
 
 
 
-.. _api-pyramid_oereb-lib-readers:
+.. _api-pyramid_oereb-core-readers:
 
-.. automodule:: pyramid_oereb.lib.readers
+.. automodule:: pyramid_oereb.core.readers
 
-.. _api-pyramid_oereb-lib-readers-address:
+.. _api-pyramid_oereb-core-readers-address:
 
-.. automodule:: pyramid_oereb.lib.readers.address
+.. automodule:: pyramid_oereb.core.readers.address
 
-.. _api-pyramid_oereb-lib-readers-address-addressreader:
+.. _api-pyramid_oereb-core-readers-address-addressreader:
 
 *AddressReader*
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.readers.address.AddressReader
+.. autoclass:: pyramid_oereb.core.readers.address.AddressReader
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-readers-exclusion_of_liability:
+.. _api-pyramid_oereb-core-readers-disclaimer:
 
-.. automodule:: pyramid_oereb.lib.readers.exclusion_of_liability
+.. automodule:: pyramid_oereb.core.readers.disclaimer
 
-.. _api-pyramid_oereb-lib-readers-exclusion_of_liability-exclusionofliabilityreader:
+.. _api-pyramid_oereb-core-readers-disclaimer-disclaimerreader:
 
-*ExclusionOfLiabilityReader*
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+*DisclaimerReader*
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.readers.exclusion_of_liability.ExclusionOfLiabilityReader
+.. autoclass:: pyramid_oereb.core.readers.disclaimer.DisclaimerReader
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-readers-extract:
+.. _api-pyramid_oereb-core-readers-document:
 
-.. automodule:: pyramid_oereb.lib.readers.extract
+.. automodule:: pyramid_oereb.core.readers.document
 
-.. _api-pyramid_oereb-lib-readers-extract-extractreader:
+.. _api-pyramid_oereb-core-readers-document-documentreader:
+
+*DocumentReader*
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.readers.document.DocumentReader
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-readers-document_types:
+
+.. automodule:: pyramid_oereb.core.readers.document_types
+
+.. _api-pyramid_oereb-core-readers-document_types-documenttypereader:
+
+*DocumentTypeReader*
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.readers.document_types.DocumentTypeReader
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-readers-extract:
+
+.. automodule:: pyramid_oereb.core.readers.extract
+
+.. _api-pyramid_oereb-core-readers-extract-extractreader:
 
 *ExtractReader*
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.readers.extract.ExtractReader
+.. autoclass:: pyramid_oereb.core.readers.extract.ExtractReader
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-readers-glossary:
+.. _api-pyramid_oereb-core-readers-general_information:
 
-.. automodule:: pyramid_oereb.lib.readers.glossary
+.. automodule:: pyramid_oereb.core.readers.general_information
 
-.. _api-pyramid_oereb-lib-readers-glossary-glossaryreader:
+.. _api-pyramid_oereb-core-readers-general_information-generalinformationreader:
+
+*GeneralInformationReader*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.readers.general_information.GeneralInformationReader
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-readers-glossary:
+
+.. automodule:: pyramid_oereb.core.readers.glossary
+
+.. _api-pyramid_oereb-core-readers-glossary-glossaryreader:
 
 *GlossaryReader*
 ^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.readers.glossary.GlossaryReader
+.. autoclass:: pyramid_oereb.core.readers.glossary.GlossaryReader
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-readers-municipality:
+.. _api-pyramid_oereb-core-readers-law_status:
 
-.. automodule:: pyramid_oereb.lib.readers.municipality
+.. automodule:: pyramid_oereb.core.readers.law_status
 
-.. _api-pyramid_oereb-lib-readers-municipality-municipalityreader:
+.. _api-pyramid_oereb-core-readers-law_status-lawstatusreader:
+
+*LawStatusReader*
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.readers.law_status.LawStatusReader
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-readers-logo:
+
+.. automodule:: pyramid_oereb.core.readers.logo
+
+.. _api-pyramid_oereb-core-readers-logo-logoreader:
+
+*LogoReader*
+^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.readers.logo.LogoReader
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-readers-map_layering:
+
+.. automodule:: pyramid_oereb.core.readers.map_layering
+
+.. _api-pyramid_oereb-core-readers-map_layering-maplayeringreader:
+
+*MapLayeringReader*
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.readers.map_layering.MapLayeringReader
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-readers-municipality:
+
+.. automodule:: pyramid_oereb.core.readers.municipality
+
+.. _api-pyramid_oereb-core-readers-municipality-municipalityreader:
 
 *MunicipalityReader*
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.readers.municipality.MunicipalityReader
+.. autoclass:: pyramid_oereb.core.readers.municipality.MunicipalityReader
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-readers-real_estate:
+.. _api-pyramid_oereb-core-readers-office:
 
-.. automodule:: pyramid_oereb.lib.readers.real_estate
+.. automodule:: pyramid_oereb.core.readers.office
 
-.. _api-pyramid_oereb-lib-readers-real_estate-realestatereader:
+.. _api-pyramid_oereb-core-readers-office-officereader:
+
+*OfficeReader*
+^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.readers.office.OfficeReader
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-readers-real_estate:
+
+.. automodule:: pyramid_oereb.core.readers.real_estate
+
+.. _api-pyramid_oereb-core-readers-real_estate-realestatereader:
 
 *RealEstateReader*
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.readers.real_estate.RealEstateReader
+.. autoclass:: pyramid_oereb.core.readers.real_estate.RealEstateReader
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-readers-real_estate_type:
+
+.. automodule:: pyramid_oereb.core.readers.real_estate_type
+
+.. _api-pyramid_oereb-core-readers-real_estate_type-realestatetypereader:
+
+*RealEstateTypeReader*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.readers.real_estate_type.RealEstateTypeReader
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-readers-theme:
+
+.. automodule:: pyramid_oereb.core.readers.theme
+
+.. _api-pyramid_oereb-core-readers-theme-themereader:
+
+*ThemeReader*
+^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.readers.theme.ThemeReader
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-readers-theme_document:
+
+.. automodule:: pyramid_oereb.core.readers.theme_document
+
+.. _api-pyramid_oereb-core-readers-theme_document-themedocumentreader:
+
+*ThemeDocumentReader*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.readers.theme_document.ThemeDocumentReader
    :members:
    :inherited-members:
    :show-inheritance:

@@ -55,31 +55,30 @@ this:
 
 .. code-block:: yaml
 
-   - name: plr88
-       code: MotorwaysBuildingLines
-       geometry_type: LINESTRING
-       thresholds:
-         length:
-           limit: 1.0
-           unit: 'm'
-           precision: 2
-         area:
-           limit: 1.0
-           unit: 'm2'
-           precision: 2
-         percentage:
-           precision: 1
-       text:
-         de: Baulinien Nationalstrassen
-       language: de
-       federal: true
-       standard: true
-       source:
-         class: pyramid_oereb.lib.sources.plr.DatabaseSource
-         params:
-           db_connection: postgresql://postgres:password@localhost:5432/pyramid_oereb
-           models: pyramid_oereb.standard.models.motorways_building_lines
-       get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+   - code: ch.BaulinienNationalstrassen
+     geometry_type: LINESTRING
+     thresholds:
+       length:
+         limit: 1.0
+         unit: 'm'
+         precision: 2
+       area:
+         limit: 1.0
+         unit: 'm2'
+         precision: 2
+       percentage:
+         precision: 1
+     text:
+       de: Baulinien Nationalstrassen
+     language: de
+     federal: true
+     standard: true
+     source:
+       class: pyramid_oereb.lib.sources.plr.DatabaseSource
+       params:
+         db_connection: postgresql://postgres:password@localhost:5432/pyramid_oereb
+         models: pyramid_oereb.standard.models.motorways_building_lines
+     get_symbol_method: pyramid_oereb.standard.methods.get_symbol
 
 
 Apply the necessary modifications for the new topic. This should at least be the the name, code and text
@@ -158,7 +157,7 @@ source.
 .. code-block:: yaml
 
    - name: plr88
-       code: MotorwaysBuildingLines
+       code: ch.BaulinienNationalstrassen
        (...)
        source:
          class: pyramid_oereb.lib.sources.plr.DatabaseSource

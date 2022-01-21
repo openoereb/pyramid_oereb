@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf &mdash; pyramid_oereb  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../../../',
+              VERSION:'',
+              LANGUAGE:'en',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> pyramid_oereb
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../changes.html">Changes/Hints for migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../contrib/index.html">Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">pyramid_oereb</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">pyramid.exceptions</span> <span class="kn">import</span> <span class="n">ConfigurationError</span>
+<span class="kn">from</span> <span class="nn">pyramid.httpexceptions</span> <span class="kn">import</span> <span class="n">HTTPBadRequest</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="kn">import</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.core.renderer.extract.xml_</span> <span class="kn">import</span> <span class="n">Renderer</span> <span class="k">as</span> <span class="n">XmlRenderer</span>
+
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Renderer"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer">[docs]</a><span class="k">class</span> <span class="nc">Renderer</span><span class="p">(</span><span class="n">XmlRenderer</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Implements a subclass of pyramid_oereb.core.renderer.extract.json_.Renderer to create a print result</span>
+<span class="sd">        out of a json. The json extract is reformatted to fit the structure of mapfish print.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value (tuple): A tuple containing the generated extract record and the params</span>
+<span class="sd">                dictionary.</span>
+<span class="sd">            system (dict): The available system properties.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            buffer: The pdf content as received from configured mapfish print instance url.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">print_config</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">print_config</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;No print config section in config file was found.&#39;</span><span class="p">)</span>
+        <span class="n">print_service_url</span> <span class="o">=</span> <span class="n">print_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;base_url&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">print_service_url</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;No print service url (&quot;base_url&quot;) was found in the config.&#39;</span><span class="p">)</span>
+        <span class="n">print_service_token</span> <span class="o">=</span> <span class="n">print_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">print_service_token</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;No print service token (&quot;token&quot;) was found in the config.&#39;</span><span class="p">)</span>
+        <span class="n">verify_certificate</span> <span class="o">=</span> <span class="n">print_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;verify_certificate&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;token&#39;</span><span class="p">:</span> <span class="n">print_service_token</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;validate&#39;</span><span class="p">:</span> <span class="n">print_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;validate&#39;</span><span class="p">,</span> <span class="s1">&#39;false&#39;</span><span class="p">),</span>
+            <span class="s1">&#39;usewms&#39;</span><span class="p">:</span> <span class="n">print_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;use_wms&#39;</span><span class="p">,</span> <span class="s1">&#39;false&#39;</span><span class="p">),</span>
+        <span class="p">}</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Parameter webservice is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+        <span class="k">if</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">images</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">HTTPBadRequest</span><span class="p">(</span><span class="s1">&#39;With image is not allowed in the print&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_request</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
+        <span class="c1"># If language present in request, use that. Otherwise, keep language from base class</span>
+        <span class="k">if</span> <span class="s1">&#39;lang&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">GET</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_language</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lang&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;language&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;flavour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">matchdict</span><span class="p">[</span><span class="s1">&#39;flavour&#39;</span><span class="p">]</span>
+
+        <span class="c1"># Based on extract record and webservice parameter, render the extract data as JSON</span>
+        <span class="n">extract_record</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">extract_as_xml</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_render</span><span class="p">(</span><span class="n">extract_record</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_response</span><span class="p">(</span><span class="n">system</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;getspec&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">&#39;no&#39;</span><span class="p">:</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;application/xml; charset=UTF-8&#39;</span>
+            <span class="k">return</span> <span class="n">extract_as_xml</span>
+
+        <span class="n">prepared_extraxt_as_xml</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_xml</span><span class="p">(</span><span class="n">extract_as_xml</span><span class="p">)</span>
+        <span class="n">print_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_pdf</span><span class="p">(</span>
+            <span class="n">print_service_url</span><span class="p">,</span>
+            <span class="n">prepared_extraxt_as_xml</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span>
+            <span class="n">verify_certificate</span>
+        <span class="p">)</span>
+
+        <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">=</span> <span class="n">print_result</span><span class="o">.</span><span class="n">status_code</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="n">print_result</span><span class="o">.</span><span class="n">headers</span>
+        <span class="k">if</span> <span class="s1">&#39;Transfer-Encoding&#39;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Transfer-Encoding&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;Connection&#39;</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Connection&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">print_result</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">request_pdf</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data_extract</span><span class="p">,</span> <span class="n">headers</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">verify_certificate</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">backend_answer</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+                <span class="n">url</span><span class="p">,</span>
+                <span class="n">verify</span><span class="o">=</span><span class="n">verify_certificate</span><span class="p">,</span>
+                <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+                <span class="n">files</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;xml&#39;</span><span class="p">,</span> <span class="n">data_extract</span><span class="p">,</span> <span class="s1">&#39;text/xml&#39;</span><span class="p">)},</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>
+                <span class="n">proxies</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;proxies&#39;</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">backend_answer</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="n">requests</span><span class="o">.</span><span class="n">codes</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;request_pdf failed for url </span><span class="si">{}</span><span class="s2">, data_extract was </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data_extract</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">backend_answer</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;request_pdf failed for url </span><span class="si">{}</span><span class="s2">, data_extract was </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data_extract</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">e</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">prepare_xml</span><span class="p">(</span><span class="n">extract_as_xml</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">extract_as_xml</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017-2022, openoereb community.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

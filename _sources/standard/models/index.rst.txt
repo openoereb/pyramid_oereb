@@ -3,29 +3,14 @@
 Models
 ======
 
-.. automodule:: pyramid_oereb.standard.models
+.. automodule:: pyramid_oereb.contrib.data_sources.standard.models
 
 
 .. toctree::
    :hidden:
 
-   pyramid_oereb_standard_models_airports_building_lines
-   pyramid_oereb_standard_models_airports_project_planning_zones
-   pyramid_oereb_standard_models_airports_security_zone_plans
-   pyramid_oereb_standard_models_contaminated_civil_aviation_sites
-   pyramid_oereb_standard_models_contaminated_military_sites
-   pyramid_oereb_standard_models_contaminated_public_transport_sites
-   pyramid_oereb_standard_models_contaminated_sites
-   pyramid_oereb_standard_models_forest_distance_lines
-   pyramid_oereb_standard_models_forest_perimeters
-   pyramid_oereb_standard_models_groundwater_protection_sites
-   pyramid_oereb_standard_models_groundwater_protection_zones
-   pyramid_oereb_standard_models_land_use_plans
-   pyramid_oereb_standard_models_motorways_building_lines
-   pyramid_oereb_standard_models_motorways_project_planing_zones
-   pyramid_oereb_standard_models_noise_sensitivity_levels
-   pyramid_oereb_standard_models_railways_building_lines
-   pyramid_oereb_standard_models_railways_project_planning_zones
+   pyramid_oereb_contrib_data_sources_standard_models_main
+   pyramid_oereb_contrib_data_sources_standard_factory_models
 
 Exemplary schema of a standard database
 ---------------------------------------

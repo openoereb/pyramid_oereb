@@ -6,38 +6,38 @@ Print Proxy
 
 
 
-.. _api-pyramid_oereb-contrib-print_proxy:
-
-.. automodule:: pyramid_oereb.contrib.print_proxy
-
-
 .. _api-pyramid_oereb-contrib-print_proxy-mapfish_print:
 
 .. automodule:: pyramid_oereb.contrib.print_proxy.mapfish_print
 
 
-.. _api-pyramid_oereb-contrib-print_proxy-mapfish_print-renderer:
+.. _api-pyramid_oereb-contrib-print_proxy-mapfish_print-mapfish_print:
+
+.. automodule:: pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print
+
+
+.. _api-pyramid_oereb-contrib-print_proxy-mapfish_print-mapfish_print-renderer:
 
 *Mapfish Print Renderer*
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.contrib.print_proxy.mapfish_print.Renderer
+.. autoclass:: pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer
    :members:
    :inherited-members:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-contrib-print_proxy-toc_pages:
+.. _api-pyramid_oereb-contrib-print_proxy-mapfish_print-toc_pages:
 
-.. automodule:: pyramid_oereb.contrib.print_proxy.toc_pages
+.. automodule:: pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages
 
 
-.. _api-pyramid_oereb-contrib-print_proxy-toc_pages-tocpages:
+.. _api-pyramid_oereb-contrib-print_proxy-mapfish_print-toc_pages-tocpages:
 
 *Toc Pages TocPages*
 ^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.contrib.print_proxy.toc_pages.TocPages
+.. autoclass:: pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages
    :members:
    :inherited-members:
 
@@ -48,12 +48,17 @@ Print Proxy
 .. automodule:: pyramid_oereb.contrib.print_proxy.xml_2_pdf
 
 
-.. _api-pyramid_oereb-contrib-print_proxy-xml_2_pdf-renderer:
+.. _api-pyramid_oereb-contrib-print_proxy-xml_2_pdf-xml_2_pdf:
+
+.. automodule:: pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf
+
+
+.. _api-pyramid_oereb-contrib-print_proxy-xml_2_pdf-xml_2_pdf-renderer:
 
 *Xml 2 Pdf Renderer*
 ^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer
+.. autoclass:: pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer
    :members:
    :inherited-members:
 

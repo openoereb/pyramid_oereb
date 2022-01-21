@@ -1,0 +1,762 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Factory Models &mdash; pyramid_oereb  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'',
+              LANGUAGE:'en',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Contribution" href="../../contrib/index.html" />
+    <link rel="prev" title="Models" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pyramid_oereb
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changes.html">Changes/Hints for migration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Standard</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../sources.html">Sources</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Models</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#"><em>Factory Models</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#availability">Availability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dataintegration">DataIntegration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#document">Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geometry">Geometry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#legendentry">LegendEntry</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#office">Office</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#publiclawrestriction">PublicLawRestriction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#publiclawrestrictiondocument">PublicLawRestrictionDocument</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#viewservice">ViewService</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index.html#exemplary-schema-of-a-standard-database">Exemplary schema of a standard database</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#functions-for-creating-standard-environment">Functions for creating standard environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#functions-used-as-configurable-hooks">Functions used as configurable hooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contrib/index.html">Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyramid_oereb</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Standard</a> &raquo;</li>
+        
+          <li><a href="index.html">Models</a> &raquo;</li>
+        
+      <li><em>Factory Models</em></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="factory-models">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-factory-models"></span><h1><em>Factory Models</em><a class="headerlink" href="#factory-models" title="Permalink to this headline">¶</a></h1>
+<p>TODO: improve explication of how generic classes adapt to themes</p>
+<p>The classes below are generated through a class builder factory and are customized for the different themes (TODO: insert link) which make up the app.</p>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.factory_models">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.</code><code class="descname">factory_models</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.factory_models" title="Permalink to this definition">¶</a></dt>
+<dd><p>Virtual module for factory generated classes</p>
+</dd></dl>
+
+<div class="section" id="availability">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-factory-models-availability"></span><h2>Availability<a class="headerlink" href="#availability" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.factory_models.Availability">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.factory_models.</code><code class="descname">Availability</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.factory_models.Availability" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple bucket for achieving a switch per municipality. Here you can configure via the
+imported data if a public law restriction is available or not. You need to fill it with
+the data you provided in the app schemas municipality table (fosnr).</p>
+<dl class="attribute">
+<dt id="Availability.fosnr">
+<code class="descname">fosnr</code><a class="headerlink" href="#Availability.fosnr" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The identifier of the municipality in your system (id_bfs = fosnr)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Availability.available">
+<code class="descname">available</code><a class="headerlink" href="#Availability.available" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>bool</em> &#8211; The switch field to configure if this plr is available for the
+municipality or not.  This field has direct influence on the applications
+behaviour. See documentation for more info.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="dataintegration">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-factory-models-dataintegration"></span><h2>DataIntegration<a class="headerlink" href="#dataintegration" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.factory_models.DataIntegration">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.factory_models.</code><code class="descname">DataIntegration</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.factory_models.DataIntegration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to fill in the date when this whole schema was updated. It has a relation to the
+office to be able to find out who was the delivering instance.</p>
+<dl class="attribute">
+<dt id="DataIntegration.id">
+<code class="descname">id</code><a class="headerlink" href="#DataIntegration.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="DataIntegration.date">
+<code class="descname">date</code><a class="headerlink" href="#DataIntegration.date" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when this data set was delivered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="DataIntegration.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; A foreign key which points to the actual office instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="DataIntegration.office">
+<code class="descname">office</code><a class="headerlink" href="#DataIntegration.office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.airports_building_lines.Office</em> &#8211; The actual office instance which the id points to.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="document">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-factory-models-document"></span><h2>Document<a class="headerlink" href="#document" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.factory_models.Document">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.factory_models.</code><code class="descname">Document</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.factory_models.Document" title="Permalink to this definition">¶</a></dt>
+<dd><p>THE DOCUMENT
+This represents the main document in the whole system.
+.. attribute:: id</p>
+<blockquote>
+<div><em>int</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</div></blockquote>
+<dl class="attribute">
+<dt id="Document.document_type">
+<code class="descname">document_type</code><a class="headerlink" href="#Document.document_type" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The document type. It must be &#8220;Rechtsvorschrift&#8221;, &#8220;GesetzlicheGrundlage&#8221;
+or &#8220;Hinweis&#8221;.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Document.index">
+<code class="descname">index</code><a class="headerlink" href="#Document.index" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; An index used to sort the documents.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Document.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#Document.law_status" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Document.title">
+<code class="descname">title</code><a class="headerlink" href="#Document.title" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; The multilingual title or if existing the short title ot his document.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Document.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#Document.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The foreign key to the office which is in charge for this document.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Document.responsible_office">
+<code class="descname">responsible_office</code><a class="headerlink" href="#Document.responsible_office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.railways_project_planning_zones.Office</em> &#8211; The dedicated relation to the office instance from database.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Document.published_from">
+<code class="descname">published_from</code><a class="headerlink" href="#Document.published_from" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date from when the document should be available for
+publishing in extracts. This  directly affects the behaviour of extract
+generation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Document.published_until">
+<code class="descname">published_until</code><a class="headerlink" href="#Document.published_until" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date until when the document should be available for
+publishing on extracts. This  directly affects the behaviour of extract
+generation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Document.text_at_web">
+<code class="descname">text_at_web</code><a class="headerlink" href="#Document.text_at_web" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; A multilingual link which leads to the documents content in the web.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Document.abbreviation">
+<code class="descname">abbreviation</code><a class="headerlink" href="#Document.abbreviation" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; The multilingual shortened version of the documents title.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Document.official_number">
+<code class="descname">official_number</code><a class="headerlink" href="#Document.official_number" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; The multilingual official number which uniquely identifies this document.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Document.only_in_municipality">
+<code class="descname">only_in_municipality</code><a class="headerlink" href="#Document.only_in_municipality" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The fosnr (=id bfs) of the municipality. If this is None it is assumed
+the document is  related to the whole canton or even the confederation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Document.file">
+<code class="descname">file</code><a class="headerlink" href="#Document.file" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The document itself as a binary representation (PDF). It is string but
+BaseCode64 encoded.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="geometry">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-factory-models-geometry"></span><h2>Geometry<a class="headerlink" href="#geometry" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.factory_models.Geometry">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.factory_models.</code><code class="descname">Geometry</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.factory_models.Geometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>The dedicated model for all geometries in relation to their public law restriction.
+.. attribute:: id</p>
+<blockquote>
+<div><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</div></blockquote>
+<dl class="attribute">
+<dt id="Geometry.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#Geometry.law_status" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Geometry.published_from">
+<code class="descname">published_from</code><a class="headerlink" href="#Geometry.published_from" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when the geometry should be available for
+publishing on extracts. This directly affects the behaviour of extract
+generation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Geometry.published_until">
+<code class="descname">published_until</code><a class="headerlink" href="#Geometry.published_until" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date from when the geometry should not be available
+anymore for publishing on extracts. This directly affects the behaviour of extract
+generation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Geometry.geo_metadata">
+<code class="descname">geo_metadata</code><a class="headerlink" href="#Geometry.geo_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; A link to the metadata which this geometry is based on which delivers
+machine  readable response format (XML).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Geometry.public_law_restriction_id">
+<code class="descname">public_law_restriction_id</code><a class="headerlink" href="#Geometry.public_law_restriction_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The foreign key to the public law restriction this geometry
+is  related to.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Geometry.public_law_restriction">
+<code class="descname">public_law_restriction</code><a class="headerlink" href="#Geometry.public_law_restriction" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>PublicLawRestriction</em> &#8211; The dedicated relation to the public law
+restriction instance from database.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Geometry.geom">
+<code class="descname">geom</code><a class="headerlink" href="#Geometry.geom" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>geoalchemy2.types.Geometry</em> &#8211; The geometry it&#8217;s self. For type information see
+geoalchemy docs (<a class="reference external" href="https://geoalchemy-2.readthedocs.io/en/0.4.2/types.html">https://geoalchemy-2.readthedocs.io/en/0.4.2/types.html</a>) dependent on the
+configured type.  This concrete one is LINESTRING</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="legendentry">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-factory-models-legendentry"></span><h2>LegendEntry<a class="headerlink" href="#legendentry" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.factory_models.LegendEntry">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.factory_models.</code><code class="descname">LegendEntry</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.factory_models.LegendEntry" title="Permalink to this definition">¶</a></dt>
+<dd><p>A class based legend system which is directly related to <code class="xref py py-class docutils literal"><span class="pre">ViewService</span></code>.
+.. attribute:: id</p>
+<blockquote>
+<div><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</div></blockquote>
+<dl class="attribute">
+<dt id="LegendEntry.symbol">
+<code class="descname">symbol</code><a class="headerlink" href="#LegendEntry.symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; An image with represents the legend entry. This can be png or svg. It is string
+but BaseCode64  encoded.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="LegendEntry.legend_text">
+<code class="descname">legend_text</code><a class="headerlink" href="#LegendEntry.legend_text" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; Multilingual text to describe this legend entry.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="LegendEntry.type_code">
+<code class="descname">type_code</code><a class="headerlink" href="#LegendEntry.type_code" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; Type code of the public law restriction which is represented by this legend
+entry.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="LegendEntry.type_code_list">
+<code class="descname">type_code_list</code><a class="headerlink" href="#LegendEntry.type_code_list" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; List of all public law restrictions which are described through this
+legend  entry.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="LegendEntry.theme">
+<code class="descname">theme</code><a class="headerlink" href="#LegendEntry.theme" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; Theme code to link this legend entry with the correct public law restriction.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="LegendEntry.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#LegendEntry.sub_theme" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; Sub-theme code to link this legend entry with the sub-theme of the public
+law restriction if there is a sub-theme.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="LegendEntry.view_service_id">
+<code class="descname">view_service_id</code><a class="headerlink" href="#LegendEntry.view_service_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The foreign key to the view service this legend entry is related to.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="LegendEntry.view_service">
+<code class="descname">view_service</code><a class="headerlink" href="#LegendEntry.view_service" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>ViewService</em> &#8211; The dedicated relation to the view service instance from database.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="office">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-factory-models-office"></span><h2>Office<a class="headerlink" href="#office" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.factory_models.Office">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.factory_models.</code><code class="descname">Office</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.factory_models.Office" title="Permalink to this definition">¶</a></dt>
+<dd><p>The bucket to fill in all the offices you need to reference from public law restriction, document,
+geometry.</p>
+<dl class="attribute">
+<dt id="Office.id">
+<code class="descname">id</code><a class="headerlink" href="#Office.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Office.name">
+<code class="descname">name</code><a class="headerlink" href="#Office.name" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; The multilingual name of the office.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Office.office_at_web">
+<code class="descname">office_at_web</code><a class="headerlink" href="#Office.office_at_web" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; A web accessible url to a presentation of this office (multilingual).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Office.uid">
+<code class="descname">uid</code><a class="headerlink" href="#Office.uid" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The uid of this office from https</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Office.line1">
+<code class="descname">line1</code><a class="headerlink" href="#Office.line1" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The first address line for this office.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Office.line2">
+<code class="descname">line2</code><a class="headerlink" href="#Office.line2" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The second address line for this office.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Office.street">
+<code class="descname">street</code><a class="headerlink" href="#Office.street" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The streets name of the offices address.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Office.number">
+<code class="descname">number</code><a class="headerlink" href="#Office.number" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The number on street.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Office.postal_code">
+<code class="descname">postal_code</code><a class="headerlink" href="#Office.postal_code" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The ZIP-code.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Office.city">
+<code class="descname">city</code><a class="headerlink" href="#Office.city" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The name of the city.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="publiclawrestriction">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-factory-models-publiclawrestriction"></span><h2>PublicLawRestriction<a class="headerlink" href="#publiclawrestriction" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.factory_models.PublicLawRestriction">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.factory_models.</code><code class="descname">PublicLawRestriction</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.factory_models.PublicLawRestriction" title="Permalink to this definition">¶</a></dt>
+<dd><p>The container where you can fill in all your public law restrictions to the topic.
+.. attribute:: id</p>
+<blockquote>
+<div><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</div></blockquote>
+<dl class="attribute">
+<dt id="PublicLawRestriction.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#PublicLawRestriction.law_status" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The status switch if the document is legally approved or not.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PublicLawRestriction.published_from">
+<code class="descname">published_from</code><a class="headerlink" href="#PublicLawRestriction.published_from" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date when the document should be available for
+publishing on extracts. This  directly affects the behaviour of extract
+generation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PublicLawRestriction.published_until">
+<code class="descname">published_until</code><a class="headerlink" href="#PublicLawRestriction.published_until" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; The date starting from which the document should not be
+published anymore on extracts. This directly affects the behaviour of extract generation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PublicLawRestriction.view_service_id">
+<code class="descname">view_service_id</code><a class="headerlink" href="#PublicLawRestriction.view_service_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The foreign key to the view service this public law restriction is
+related to.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PublicLawRestriction.view_service">
+<code class="descname">view_service</code><a class="headerlink" href="#PublicLawRestriction.view_service" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>ViewService</em> &#8211; The dedicated relation to the view service instance from database.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PublicLawRestriction.office_id">
+<code class="descname">office_id</code><a class="headerlink" href="#PublicLawRestriction.office_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The foreign key to the office which is responsible to this public law
+restriction.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PublicLawRestriction.responsible_office">
+<code class="descname">responsible_office</code><a class="headerlink" href="#PublicLawRestriction.responsible_office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Office</em> &#8211; The dedicated relation to the office instance from database.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PublicLawRestriction.legend_entry_id">
+<code class="descname">legend_entry_id</code><a class="headerlink" href="#PublicLawRestriction.legend_entry_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The foreign key to the legend entry this public law restriction is
+related to.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PublicLawRestriction.legend_entry">
+<code class="descname">legend_entry</code><a class="headerlink" href="#PublicLawRestriction.legend_entry" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.standard.models.airports_building_lines.LegendEntry</em> &#8211; The dedicated relation to the legend entry instance from database.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="publiclawrestrictiondocument">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-factory-models-publiclawrestrictiondocument"></span><h2>PublicLawRestrictionDocument<a class="headerlink" href="#publiclawrestrictiondocument" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.factory_models.PublicLawRestrictionDocument">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.factory_models.</code><code class="descname">PublicLawRestrictionDocument</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.factory_models.PublicLawRestrictionDocument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Meta bucket (join table) for the relationship between public law restrictions and documents.
+.. attribute:: id</p>
+<blockquote>
+<div><em>str</em> &#8211; The identifier. This is used in the database only and must not be set manually. If
+you  don&#8217;t like it - don&#8217;t care about.</div></blockquote>
+<dl class="attribute">
+<dt id="PublicLawRestrictionDocument.public_law_restriction_id">
+<code class="descname">public_law_restriction_id</code><a class="headerlink" href="#PublicLawRestrictionDocument.public_law_restriction_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The foreign key to the public law restriction which has
+relation to  a document.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PublicLawRestrictionDocument.document_id">
+<code class="descname">document_id</code><a class="headerlink" href="#PublicLawRestrictionDocument.document_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The foreign key to the document which has relation to the public law
+restriction.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PublicLawRestrictionDocument.plr">
+<code class="descname">plr</code><a class="headerlink" href="#PublicLawRestrictionDocument.plr" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>PublicLawRestriction</em> &#8211; The dedicated relation to the public law restriction instance from database.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="PublicLawRestrictionDocument.document">
+<code class="descname">document</code><a class="headerlink" href="#PublicLawRestrictionDocument.document" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Document</em> &#8211; The dedicated relation to the document instance from database.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="viewservice">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-factory-models-viewservice"></span><h2>ViewService<a class="headerlink" href="#viewservice" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyramid_oereb.contrib.data_sources.standard.factory_models.ViewService">
+<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.factory_models.</code><code class="descname">ViewService</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.factory_models.ViewService" title="Permalink to this definition">¶</a></dt>
+<dd><p>A view service aka WM(T)S which can deliver a cartographic representation via web.</p>
+<dl class="attribute">
+<dt id="ViewService.id">
+<code class="descname">id</code><a class="headerlink" href="#ViewService.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The identifier. This is used in the database only and must not be set
+manually. If you  don&#8217;t like it - don&#8217;t care about.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ViewService.reference_wms">
+<code class="descname">reference_wms</code><a class="headerlink" href="#ViewService.reference_wms" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of str</em> &#8211; The actual url which leads to the desired cartographic
+representation (multilingual).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ViewService.layer_index">
+<code class="descname">layer_index</code><a class="headerlink" href="#ViewService.layer_index" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; Index for sorting the layering of the view services for a theme</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ViewService.layer_opacity">
+<code class="descname">layer_opacity</code><a class="headerlink" href="#ViewService.layer_opacity" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> &#8211; Opacity of a view service</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../contrib/index.html" class="btn btn-neutral float-right" title="Contribution" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017-2022, openoereb community.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

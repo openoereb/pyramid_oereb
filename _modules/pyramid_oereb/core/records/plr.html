@@ -1,0 +1,441 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>pyramid_oereb.core.records.plr &mdash; pyramid_oereb  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../../',
+              VERSION:'',
+              LANGUAGE:'en',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> pyramid_oereb
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html">Changes/Hints for migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contrib/index.html">Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pyramid_oereb</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyramid_oereb.core.records.plr</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyramid_oereb.core.records.plr</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="EmptyPlrRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.plr.EmptyPlrRecord">[docs]</a><span class="k">class</span> <span class="nc">EmptyPlrRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="EmptyPlrRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.plr.EmptyPlrRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">has_data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Record for empty topics.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR belongs to.</span>
+<span class="sd">            has_data (bool): True if the topic contains data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="n">theme</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">has_data</span> <span class="o">=</span> <span class="n">has_data</span></div></div>
+
+
+<div class="viewcode-block" id="PlrRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.plr.PlrRecord">[docs]</a><span class="k">class</span> <span class="nc">PlrRecord</span><span class="p">(</span><span class="n">EmptyPlrRecord</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Public law restriction record.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="PlrRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.plr.PlrRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">legend_entry</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">published_until</span><span class="p">,</span> <span class="n">responsible_office</span><span class="p">,</span>
+                 <span class="n">symbol</span><span class="p">,</span> <span class="n">view_service</span><span class="p">,</span> <span class="n">geometries</span><span class="p">,</span> <span class="n">sub_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">type_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">type_code_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">documents</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                 <span class="n">min_area</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">length_unit</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">area_unit</span><span class="o">=</span><span class="sa">u</span><span class="s1">&#39;m2&#39;</span><span class="p">,</span> <span class="n">view_service_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR belongs to.</span>
+<span class="sd">            legend_entry (pyramid_oereb.lib.records.view_service.LegendEntryRecord): The PLR record&#39;s</span>
+<span class="sd">                corresponding legend record.</span>
+<span class="sd">            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.</span>
+<span class="sd">            published_from (datetime.date): Date from/since when the PLR record is published.</span>
+<span class="sd">            published_until (datetime.date): Date from when the PLR record is not published anymore.</span>
+<span class="sd">            responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is responsible</span>
+<span class="sd">                for this PLR.</span>
+<span class="sd">            symbol (pyramid_oereb.lib.records.image.ImageRecord): Symbol of the restriction defined for the</span>
+<span class="sd">                legend entry</span>
+<span class="sd">            view_service (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view service instance</span>
+<span class="sd">                associated with this record.</span>
+<span class="sd">            geometries (list of pyramid_oereb.lib.records.geometry.GeometryRecord): List of geometry records</span>
+<span class="sd">                associated with this record.</span>
+<span class="sd">            sub_theme (pyramid_oereb.lib.records.theme.ThemeRecord or None): Optional subtopic.</span>
+<span class="sd">            type_code (unicode): The PLR record&#39;s type code (also used by view service).</span>
+<span class="sd">            type_code_list (unicode): URL to the PLR&#39;s list of type codes.</span>
+<span class="sd">            documents (list of pyramid_oereb.core.records.documents.DocumentBaseRecord): List of documents</span>
+<span class="sd">                associated with this record.</span>
+<span class="sd">            info (dict or None): The information read from the config.</span>
+<span class="sd">            min_length (float): The threshold for area calculation.</span>
+<span class="sd">            min_area (float): The threshold for area calculation.</span>
+<span class="sd">            length_unit (unicode): The threshold for area calculation.</span>
+<span class="sd">            area_unit (unicode): The threshold for area calculation.</span>
+<span class="sd">            view_service_id (int): The id to the connected view service. This is very important to be able to</span>
+<span class="sd">            solve bug https://github.com/openoereb/pyramid_oereb/issues/521</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PlrRecord</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">legend_entry</span><span class="o">.</span><span class="n">legend_text</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;legend_text&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geometries</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">geometries</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">legend_entry</span> <span class="o">=</span> <span class="n">legend_entry</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">law_status</span> <span class="o">=</span> <span class="n">law_status</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">=</span> <span class="n">published_from</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">published_until</span> <span class="o">=</span> <span class="n">published_until</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">responsible_office</span> <span class="o">=</span> <span class="n">responsible_office</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type_code</span> <span class="o">=</span> <span class="n">type_code</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type_code_list</span> <span class="o">=</span> <span class="n">type_code_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view_service</span> <span class="o">=</span> <span class="n">view_service</span>
+        <span class="k">if</span> <span class="n">documents</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">documents</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">documents</span> <span class="o">=</span> <span class="n">documents</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geometries</span> <span class="o">=</span> <span class="n">geometries</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub_theme</span> <span class="o">=</span> <span class="n">sub_theme</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">info</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">has_data</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_length</span> <span class="o">=</span> <span class="n">min_length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_area</span> <span class="o">=</span> <span class="n">min_area</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">area_unit</span> <span class="o">=</span> <span class="n">area_unit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">length_unit</span> <span class="o">=</span> <span class="n">length_unit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_area_share</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_part_in_percent</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_length_share</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_nr_of_points</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view_service_id</span> <span class="o">=</span> <span class="n">view_service_id</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">legend_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend_entry</span><span class="o">.</span><span class="n">legend_text</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">published</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;bool: True if PLR is published.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_until</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">&lt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">&lt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span> \
+                   <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_until</span> <span class="o">&gt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_sum_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            float: The summed length.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lengths_to_sum</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">geometry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">geometries</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">length_share</span><span class="p">:</span>
+                <span class="n">lengths_to_sum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">length_share</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">lengths_to_sum</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lengths_to_sum</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_sum_area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            float: The summed area.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">areas_to_sum</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">geometry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">geometries</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">area_share</span><span class="p">:</span>
+                <span class="n">areas_to_sum</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">area_share</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">areas_to_sum</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">areas_to_sum</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_sum_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            int: The summed number of points of these geometry records.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">points_to_sum</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">geometry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">geometries</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">nr_of_points</span><span class="p">:</span>
+                <span class="n">points_to_sum</span> <span class="o">+=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">nr_of_points</span>
+        <span class="k">return</span> <span class="n">points_to_sum</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">area_share</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;float or None: Returns the summed area of all related geometry records of this PLR.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_area_share</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">part_in_percent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;decimal or None: (decimal): Part of the property area touched by the restriction in percent.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_part_in_percent</span>
+
+    <span class="nd">@part_in_percent</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">part_in_percent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            value (decimal): Part of the property area touched by the restriction in percent.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_part_in_percent</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">length_share</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;float or None: Returns the summed length of all related geometry records of this PLR.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length_share</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">nr_of_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;float or None: Returns the number of points of all related geometry records of this PLR.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nr_of_points</span>
+
+<div class="viewcode-block" id="PlrRecord.calculate"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.plr.PlrRecord.calculate">[docs]</a>    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">geometry_types</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Entry method for calculation. It checks if the geometry type of this instance is a geometry</span>
+<span class="sd">        collection which has to be unpacked first in case of collection.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate record.</span>
+<span class="sd">            geometry_types (dict): The allowed geometry types for the to match the simple</span>
+<span class="sd">            feature types point, line, polygon</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if intersection fits the limits.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tested_geometries</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">inside</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">geometry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">geometries</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">published</span> <span class="ow">and</span> <span class="n">geometry</span><span class="o">.</span><span class="n">calculate</span><span class="p">(</span>
+                    <span class="n">real_estate</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">min_length</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_area</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">length_unit</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">area_unit</span><span class="p">,</span>
+                    <span class="n">geometry_types</span>
+            <span class="p">):</span>
+                <span class="n">tested_geometries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometry</span><span class="p">)</span>
+                <span class="n">inside</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">geometries</span> <span class="o">=</span> <span class="n">tested_geometries</span>
+
+        <span class="c1"># Points</span>
+        <span class="n">nr_of_points</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sum_points</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_nr_of_points</span> <span class="o">=</span> <span class="n">nr_of_points</span> <span class="k">if</span> <span class="n">nr_of_points</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="c1"># Lines</span>
+        <span class="n">length_share</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sum_length</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">length_share</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_length_share</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_length_share</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">length_share</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="c1"># Areas</span>
+        <span class="n">area_share</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sum_area</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">area_share</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_area_share</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_part_in_percent</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_area_share</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">area_share</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_part_in_percent</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span>
+                <span class="p">((</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_area_share</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">land_registry_area</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span>
+                <span class="mi">1</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">inside</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">legend_text</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend_text</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend_text</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">legend_text</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend_text</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="n">tpl</span> <span class="o">=</span> <span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1"> -- type_code: </span><span class="si">{}</span><span class="s1"> theme: </span><span class="si">{}</span><span class="s1"> legend_text: </span><span class="si">{}</span><span class="s1"> (further attributes not shown)&gt;&#39;</span>
+        <span class="k">return</span> <span class="n">tpl</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="n">legend_text</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017-2022, openoereb community.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

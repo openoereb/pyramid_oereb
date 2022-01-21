@@ -1,0 +1,543 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>pyramid_oereb.contrib.data_sources.standard.load_legend_entries &mdash; pyramid_oereb  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../../../',
+              VERSION:'',
+              LANGUAGE:'en',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../../index.html" class="icon icon-home"> pyramid_oereb
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../changes.html">Changes/Hints for migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../contrib/index.html">Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">pyramid_oereb</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../standard.html">pyramid_oereb.contrib.data_sources.standard</a> &raquo;</li>
+        
+      <li>pyramid_oereb.contrib.data_sources.standard.load_legend_entries</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyramid_oereb.contrib.data_sources.standard.load_legend_entries</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">optparse</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">pyconizer</span> <span class="kn">import</span> <span class="n">create_icons_from_scratch</span><span class="p">,</span> <span class="n">get_icon</span>
+<span class="kn">from</span> <span class="nn">pyconizer.lib.url</span> <span class="kn">import</span> <span class="n">parse_url</span>
+<span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="kn">import</span> <span class="n">DottedNameResolver</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.core.config</span> <span class="kn">import</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">orm</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlunsplit</span>
+
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">()</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="create_legend_entries_in_standard_db"><a class="viewcode-back" href="../../../../../standard/index.html#pyramid_oereb.contrib.data_sources.standard.load_legend_entries.create_legend_entries_in_standard_db">[docs]</a><span class="k">def</span> <span class="nf">create_legend_entries_in_standard_db</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">topic_code</span><span class="p">,</span> <span class="n">temp_creation_path</span><span class="o">=</span><span class="s1">&#39;/tmp/pyconizer&#39;</span><span class="p">,</span>
+                                         <span class="n">language</span><span class="o">=</span><span class="s1">&#39;de&#39;</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">c2ctemplate_style</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                         <span class="n">image_format</span><span class="o">=</span><span class="s1">&#39;image/png&#39;</span><span class="p">,</span> <span class="n">image_height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">image_width</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span>
+                                         <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">replace_host</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">replace_layer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                         <span class="n">string_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">by_type_code</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Uses the pyconizer core to create images out of the OEREB server configuration. It is creating symbols for</span>
+<span class="sd">    a dedicated topic. This function will clean all previously created icons from database.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        config (str): The path to the used OEREB server configuration YAML file.</span>
+<span class="sd">        topic_code (str): The topic code for which the symbols should be created. It must be configured in</span>
+<span class="sd">            the passed yml.</span>
+<span class="sd">        temp_creation_path: The path where the images are created in.</span>
+<span class="sd">        language: The language which is used to produce the WMS rules. This is a tricky part. You must</span>
+<span class="sd">            provide the language your WMS is using.</span>
+<span class="sd">        section: The section which the config can be found in the yml.</span>
+<span class="sd">        c2ctemplate_style (bool): True if the yaml use a c2c template style (vars.[section]).</span>
+<span class="sd">            Default is False.</span>
+<span class="sd">        image_format: The image format. This is passed throug to the WMS request. You need to provide a</span>
+<span class="sd">            format your WMS is supporting here.</span>
+<span class="sd">        image_height: The height of the produced image.</span>
+<span class="sd">        image_width: The width of the produced image.</span>
+<span class="sd">        encoding (str or unicode): The encoding which is used to encode the XML. Standard is None. This means</span>
+<span class="sd">            the encoding is taken from the XML content itself. Only use this parameter if your XML content</span>
+<span class="sd">            has no encoding set.</span>
+<span class="sd">        replace_host (str or None): The host which should be used instead of the one which is in the data.</span>
+<span class="sd">            This is only recommended on deploy process when your WMS might be already available on a DEV</span>
+<span class="sd">            instance but not on the production system which is linked in the data. Then you can create legend</span>
+<span class="sd">            entries by obtaining them from this DEV instance.</span>
+<span class="sd">        replace_layer (str or None): The layer which should be used instead of the one which is in the data.</span>
+<span class="sd">            This is only recommended on deploy process when your WMS might be already available on a DEV</span>
+<span class="sd">            instance serving a special legend layer but not on the production system which is linked in</span>
+<span class="sd">            the data. Then you can create legend entries by obtaining them from this DEV instances special</span>
+<span class="sd">            legend layer.</span>
+<span class="sd">        string_keys (bool): Switch for setting primary key for legend entries whether to string or integer</span>
+<span class="sd">        by_type_code (bool): If set the process will use the type_code instead of name for obtaining the</span>
+<span class="sd">            legend icons. This needs a WMS layer to be configured with the type_code in its name property. It</span>
+<span class="sd">            prevents the legend entry creation process to be broken for case sensitive class names in</span>
+<span class="sd">            MAPSERVER. Because the &quot;RULE&quot; parameter of the GetLegendGraphics request on MAPSERVER seems to be</span>
+<span class="sd">            case insensitive.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># config object parsed from oereb configuration yml</span>
+    <span class="n">Config</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">c2ctemplate_style</span><span class="p">)</span>
+    <span class="n">db_connection</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># try to find the topic in config and create the orm models for further processing</span>
+    <span class="k">for</span> <span class="n">topic</span> <span class="ow">in</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">topic</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">topic_code</span><span class="p">:</span>
+            <span class="n">db_connection</span> <span class="o">=</span> <span class="n">topic</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">)</span>
+            <span class="n">Plr</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">maybe_resolve</span><span class="p">(</span>
+                <span class="s1">&#39;</span><span class="si">{models_path}</span><span class="s1">.PublicLawRestriction&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">models_path</span><span class="o">=</span><span class="n">topic</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;models&#39;</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">LegendEntry</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">maybe_resolve</span><span class="p">(</span>
+                <span class="s1">&#39;</span><span class="si">{models_path}</span><span class="s1">.LegendEntry&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">models_path</span><span class="o">=</span><span class="n">topic</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;models&#39;</span><span class="p">))</span>
+            <span class="p">)</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">break</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+        <span class="c1"># at this point it was not possible to find the topic in configuration</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;The topic with code &quot;</span><span class="si">{0}</span><span class="s1">&quot; was not found in passed configuration!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">topic_code</span><span class="p">))</span>
+        <span class="k">return</span>
+
+    <span class="c1"># we can start process now...</span>
+    <span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="n">db_connection</span><span class="p">,</span> <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">Session</span> <span class="o">=</span> <span class="n">orm</span><span class="o">.</span><span class="n">scoped_session</span><span class="p">(</span><span class="n">orm</span><span class="o">.</span><span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">))</span>
+    <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
+
+    <span class="c1"># clean up table first</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;TRUNCATE TABLE </span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1"> RESTART IDENTITY&#39;&#39;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">schema</span><span class="o">=</span><span class="n">LegendEntry</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
+        <span class="n">table</span><span class="o">=</span><span class="n">LegendEntry</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
+    <span class="p">))</span>
+
+    <span class="c1"># select all plrs from distinct on information, view_service_id and type_code</span>
+    <span class="n">unique_plrs</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">Plr</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">(</span>
+        <span class="n">Plr</span><span class="o">.</span><span class="n">view_service_id</span><span class="p">,</span>
+        <span class="n">Plr</span><span class="o">.</span><span class="n">type_code</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">pyconizer_config</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">type_code_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># first create the configuration for the pyconizer package</span>
+    <span class="k">for</span> <span class="n">unique_plr</span> <span class="ow">in</span> <span class="n">unique_plrs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">unique_plr</span><span class="o">.</span><span class="n">type_code</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">type_code_list</span><span class="p">:</span>
+            <span class="n">type_code_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">unique_plr</span><span class="o">.</span><span class="n">type_code</span><span class="p">)</span>
+        <span class="n">url</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">parse_url</span><span class="p">(</span><span class="n">unique_plr</span><span class="o">.</span><span class="n">view_service</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">)</span>
+        <span class="n">layer_existent</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">service_url</span> <span class="o">=</span> <span class="n">urlunsplit</span><span class="p">((</span><span class="n">url</span><span class="o">.</span><span class="n">scheme</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">netloc</span><span class="p">,</span> <span class="n">url</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span> \
+            <span class="k">if</span> <span class="n">replace_host</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">replace_host</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;LAYERS&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">replace_layer</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">replace_layer</span>
+        <span class="k">for</span> <span class="n">layer_config</span> <span class="ow">in</span> <span class="n">pyconizer_config</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">layer_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">service_url</span> <span class="ow">and</span> \
+                    <span class="n">layer_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;layer&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">layer</span><span class="p">:</span>
+                <span class="n">layer_existent</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">layer_existent</span><span class="p">:</span>
+            <span class="n">pyconizer_config</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="n">service_url</span><span class="p">,</span>
+                <span class="s1">&#39;layer&#39;</span><span class="p">:</span> <span class="n">layer</span><span class="p">,</span>
+                <span class="s1">&#39;get_styles&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;request&#39;</span><span class="p">:</span> <span class="s1">&#39;GetStyles&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;service&#39;</span><span class="p">:</span> <span class="s1">&#39;WMS&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;srs&#39;</span><span class="p">:</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;SRS&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;VERSION&#39;</span><span class="p">)</span>
+                <span class="p">},</span>
+                <span class="s1">&#39;get_legend&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;image_format&#39;</span><span class="p">:</span> <span class="n">image_format</span><span class="p">,</span>
+                    <span class="s1">&#39;request&#39;</span><span class="p">:</span> <span class="s1">&#39;GetLegendGraphic&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;service&#39;</span><span class="p">:</span> <span class="s1">&#39;WMS&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;VERSION&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">image_width</span><span class="p">,</span>
+                    <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="n">image_height</span>
+                <span class="p">}</span>
+            <span class="p">})</span>
+
+    <span class="c1"># create the icons with pyconizer package</span>
+    <span class="n">create_icons_from_scratch</span><span class="p">(</span><span class="n">pyconizer_config</span><span class="p">,</span> <span class="n">temp_creation_path</span><span class="p">,</span> <span class="n">images</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span>
+
+    <span class="c1"># reuse plr legend text to build legend entries and assign the symbol</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">unique_plr</span> <span class="ow">in</span> <span class="n">unique_plrs</span><span class="p">:</span>
+        <span class="n">url</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">parse_url</span><span class="p">(</span><span class="n">unique_plr</span><span class="o">.</span><span class="n">view_service</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">)</span>
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;LAYERS&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">replace_layer</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">replace_layer</span>
+
+        <span class="c1"># obtain symbol from pyconizer structure.</span>
+        <span class="k">if</span> <span class="n">by_type_code</span><span class="p">:</span>
+            <span class="n">class_name</span> <span class="o">=</span> <span class="n">unique_plr</span><span class="o">.</span><span class="n">type_code</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">unique_plr</span><span class="o">.</span><span class="n">legend_text</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">class_name</span> <span class="o">=</span> <span class="n">unique_plr</span><span class="o">.</span><span class="n">legend_text</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">language</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">class_name</span> <span class="o">=</span> <span class="n">unique_plr</span><span class="o">.</span><span class="n">legend_text</span>
+        <span class="n">symbol</span> <span class="o">=</span> <span class="n">get_icon</span><span class="p">(</span>
+            <span class="n">temp_creation_path</span><span class="p">,</span>
+            <span class="n">layer</span><span class="p">,</span>
+            <span class="n">class_name</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">symbol</span><span class="p">:</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">LegendEntry</span><span class="p">(</span>
+                <span class="nb">id</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">if</span> <span class="n">string_keys</span> <span class="k">else</span> <span class="n">i</span><span class="p">,</span>
+                <span class="n">symbol</span><span class="o">=</span><span class="n">symbol</span><span class="p">,</span>
+                <span class="n">legend_text</span><span class="o">=</span><span class="n">unique_plr</span><span class="o">.</span><span class="n">legend_text</span><span class="p">,</span>
+                <span class="n">type_code</span><span class="o">=</span><span class="n">unique_plr</span><span class="o">.</span><span class="n">type_code</span><span class="p">,</span>
+                <span class="n">topic</span><span class="o">=</span><span class="n">unique_plr</span><span class="o">.</span><span class="n">topic</span><span class="p">,</span>
+                <span class="n">type_code_list</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">type_code_list</span><span class="p">),</span>
+                <span class="n">view_service_id</span><span class="o">=</span><span class="n">unique_plr</span><span class="o">.</span><span class="n">view_service_id</span>
+            <span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;It was not possible to find a symbol for the class: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">class_name</span><span class="p">))</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">optparse</span><span class="o">.</span><span class="n">OptionParser</span><span class="p">(</span>
+        <span class="n">usage</span><span class="o">=</span><span class="s1">&#39;usage: %prog [options]&#39;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Create and insert legend entries for the specified theme.&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;--configuration&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;config&#39;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;YAML&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The absolute path to the configuration yaml file.&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="s1">&#39;--section&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;section&#39;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;SECTION&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The section which contains configuration (default is: pyramid_oereb).&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="s1">&#39;--theme&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;topic_code&#39;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;THEME_CODE&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The theme code. Has to be available in configuration!&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;-p&#39;</span><span class="p">,</span> <span class="s1">&#39;--path&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;temp_creation_path&#39;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;TEMP_PATH&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s1">&#39;/tmp/pyconizer&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Temporary working directory (default is: /tmp/pyconizer).&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="s1">&#39;--lang&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;language&#39;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;LANGUAGE&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s1">&#39;de&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The language to use for multilingual data (default is: de).&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;--format&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;image_format&#39;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;IMAGE_FORMAT&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s1">&#39;image/png&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The format of the symbols to be created (default is: image/png).&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;-H&#39;</span><span class="p">,</span> <span class="s1">&#39;--height&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;image_height&#39;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;HEIGHT&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The height in pixels of the symbols to be created (default is: 36).&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;-W&#39;</span><span class="p">,</span> <span class="s1">&#39;--width&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;image_width&#39;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;WIDTH&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The width in pixels of the symbols to be created (default is: 72).&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;-e&#39;</span><span class="p">,</span> <span class="s1">&#39;--encoding&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;encoding&#39;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;ENCODING&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The encoding which is used to encode the XML. Standard is None. This means the encoding is &#39;</span>
+             <span class="s1">&#39;taken from the XML content itself. Only use this parameter if your XML content has no encoding &#39;</span>
+             <span class="s1">&#39;set.&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="s1">&#39;--replacehost&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;replace_host&#39;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;REPLACEHOST&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;The host which should be used instead of the one which is in the data. This is only &#39;</span>
+             <span class="s1">&#39;recommended on deploy process when your WMS might be already available on a DEV instance but &#39;</span>
+             <span class="s1">&#39;not on the production system which is linked in the data. Then you can create legend entries &#39;</span>
+             <span class="s1">&#39;by obtaining them from this DEV instance.&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;-L&#39;</span><span class="p">,</span> <span class="s1">&#39;--replacelayer&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;replace_layer&#39;</span><span class="p">,</span>
+        <span class="n">metavar</span><span class="o">=</span><span class="s1">&#39;REPLACELAYER&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;str&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;The layer which should be used instead of the one which is in the data.</span>
+<span class="s1">            This is only recommended on deploy process when your WMS might be already available on a DEV</span>
+<span class="s1">            instance serving a special legend layer but not on the production system which is linked in</span>
+<span class="s1">            the data. Then you can create legend entries by obtaining them from this DEV instances special</span>
+<span class="s1">            legend layer.&#39;&#39;&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;-S&#39;</span><span class="p">,</span> <span class="s1">&#39;--stringkeys&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;string_keys&#39;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;Switch for setting primary key for legend entries whether to string or integer.&#39;&#39;&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;-T&#39;</span><span class="p">,</span> <span class="s1">&#39;--bytypecode&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;by_type_code&#39;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;If set the process will use the type_code instead of name for obtaining the</span>
+<span class="s1">            legend icons. This needs a WMS layer to be configured with the type_code in its name property. It</span>
+<span class="s1">            prevents the legend entry creation process to be broken for case sensitive class names in</span>
+<span class="s1">            MAPSERVER. Because the &quot;RULE&quot; parameter of the GetLegendGraphics request on MAPSERVER seems to be</span>
+<span class="s1">            case insensitive.&#39;&#39;&#39;</span>
+    <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;--c2ctemplate-style&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;c2ctemplate_style&#39;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Is the yaml file using a c2ctemplate style (starting with vars)&#39;</span>
+    <span class="p">)</span>
+    <span class="n">options</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">config</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No configuration file set.&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">topic_code</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No theme code defined.&#39;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">create_legend_entries_in_standard_db</span><span class="p">(</span>
+            <span class="n">options</span><span class="o">.</span><span class="n">config</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">.</span><span class="n">topic_code</span><span class="p">,</span>
+            <span class="n">temp_creation_path</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">temp_creation_path</span><span class="p">,</span>
+            <span class="n">language</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">language</span><span class="p">,</span>
+            <span class="n">section</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+            <span class="n">c2ctemplate_style</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">c2ctemplate_style</span><span class="p">,</span>
+            <span class="n">image_format</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">image_format</span><span class="p">,</span>
+            <span class="n">image_height</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">image_height</span><span class="p">,</span>
+            <span class="n">image_width</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">image_width</span><span class="p">,</span>
+            <span class="n">encoding</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span>
+            <span class="n">replace_host</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">replace_host</span><span class="p">,</span>
+            <span class="n">replace_layer</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">replace_layer</span><span class="p">,</span>
+            <span class="n">string_keys</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">string_keys</span><span class="p">,</span>
+            <span class="n">by_type_code</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">by_type_code</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017-2022, openoereb community.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

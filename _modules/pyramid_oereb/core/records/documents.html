@@ -1,0 +1,374 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>pyramid_oereb.core.records.documents &mdash; pyramid_oereb  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../../',
+              VERSION:'',
+              LANGUAGE:'en',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> pyramid_oereb
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html">Changes/Hints for migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contrib/index.html">Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pyramid_oereb</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyramid_oereb.core.records.documents</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyramid_oereb.core.records.documents</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.law_status</span> <span class="kn">import</span> <span class="n">LawStatusRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.office</span> <span class="kn">import</span> <span class="n">OfficeRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.document_types</span> <span class="kn">import</span> <span class="n">DocumentTypeRecord</span>
+
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="DocumentRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.documents.DocumentRecord">[docs]</a><span class="k">class</span> <span class="nc">DocumentRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    More specific document class representing real documents.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        document_type (pyramid_oereb.lib.records.document_types.DocumentTypeRecord): The document type.</span>
+<span class="sd">        index (int): An index used to sort the documents.</span>
+<span class="sd">        law_status (dict):  Multilingual label of the law status.</span>
+<span class="sd">        title (dict of unicode): The multilingual title of the document. It might be shortened one.</span>
+<span class="sd">        responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is</span>
+<span class="sd">            responsible for this document.</span>
+<span class="sd">        published_from (datetime.date): Date from when this document is published.</span>
+<span class="sd">        published_until (datetime.date): Date until when this document is published.</span>
+<span class="sd">        text_at_web (dict of uri): The multilingual URI to the documents content.</span>
+<span class="sd">        abbreviation (dict of unicode): Short term for this document (multilingual).</span>
+<span class="sd">        official_number (dict of unicode): The official number for identification of this document.</span>
+<span class="sd">        only_in_municipality (int): Restrict document to a specific municipality by code.</span>
+<span class="sd">        article_numbers (list of unicode): Pointers to specific articles.</span>
+<span class="sd">        file (bytes): The binary content of the document.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="DocumentRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.documents.DocumentRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document_type</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">responsible_office</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span>
+                 <span class="n">published_until</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">text_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">abbreviation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">official_number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">only_in_municipality</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">article_numbers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">identifier</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            document_type (pyramid_oereb.lib.records.document_types.DocumentTypeRecord): The document type.</span>
+<span class="sd">            index (int): An index used to sort the documents.</span>
+<span class="sd">            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.</span>
+<span class="sd">            title (dict of unicode): The multilingual title of the document. It might be shortened one.</span>
+<span class="sd">            responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is</span>
+<span class="sd">                responsible for this document.</span>
+<span class="sd">            published_from (datetime.date): Date from when this document is published.</span>
+<span class="sd">            published_until (datetime.date): Date until when this document is published.</span>
+<span class="sd">            text_at_web (dict of uri): The multilingual URI to the documents content.</span>
+<span class="sd">            abbreviation (dict of unicode): Short term for this document (multilingual).</span>
+<span class="sd">            official_number (dict of unicode): The official number for identification of this document.</span>
+<span class="sd">            only_in_municipality (int): Restrict document to a specific municipality by code.</span>
+<span class="sd">            article_numbers (list of unicode): Pointers to specific articles.</span>
+<span class="sd">            file (bytes): The binary content of the document.</span>
+<span class="sd">            identifier (str): The identifier of the document which might be used for linking to</span>
+<span class="sd">                other elements.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">document_type</span><span class="p">,</span> <span class="n">DocumentTypeRecord</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;Type of &quot;document_type&quot; must be &#39;</span>
+                                 <span class="s1">&#39;pyramid_oereb.core.records.document_types.DocumentTypeRecord &#39;</span>
+                                 <span class="s1">&#39;but was </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">document_type</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;index&quot; should be &quot;int&quot;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">law_status</span><span class="p">,</span> <span class="n">LawStatusRecord</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;law_status&quot; should be &#39;</span>
+                          <span class="s1">&#39;&quot;pyramid_oereb.core.records.law_status.LawStatusRecord&quot;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;title&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">responsible_office</span><span class="p">,</span> <span class="n">OfficeRecord</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;responsible_office&quot; should be &#39;</span>
+                          <span class="s1">&#39;&quot;pyramid_oereb.core.records.office.OfficeRecord&quot;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">published_from</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;published_from&quot; should be &quot;datetime.date&quot;, not &#39;</span>
+                          <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">published_from</span><span class="p">)))</span>
+
+        <span class="k">if</span> <span class="n">published_until</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">published_until</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;published_from&quot; should be &quot;datetime.date&quot;, not &#39;</span>
+                          <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">published_until</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">text_at_web</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text_at_web</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;text_at_web&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">abbreviation</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">abbreviation</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;abbreviation&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">official_number</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">official_number</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;official_number&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">only_in_municipality</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">only_in_municipality</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;only_in_municipality&quot; should be &quot;int&quot;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">article_numbers</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">article_numbers</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;article_numbers&quot; should be &quot;list&quot;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">file</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;file&quot; should be &quot;bytes&quot;&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">document_type</span> <span class="o">=</span> <span class="n">document_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">responsible_office</span> <span class="o">=</span> <span class="n">responsible_office</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">abbreviation</span> <span class="o">=</span> <span class="n">abbreviation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">official_number</span> <span class="o">=</span> <span class="n">official_number</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">only_in_municipality</span> <span class="o">=</span> <span class="n">only_in_municipality</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_at_web</span> <span class="o">=</span> <span class="n">text_at_web</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">law_status</span> <span class="o">=</span> <span class="n">law_status</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">=</span> <span class="n">published_from</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">published_until</span> <span class="o">=</span> <span class="n">published_until</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">article_numbers</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">article_numbers</span> <span class="o">=</span> <span class="n">article_numbers</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">article_numbers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span> <span class="o">=</span> <span class="n">identifier</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">published</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns true if its not a future or past document.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if document is published.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Check for published_from</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">published_from</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">published_from</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Check for published_until</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">published_until</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_until</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">published_until</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_until</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;DocumentRecord.published() returning </span><span class="si">{}</span><span class="s2"> for document </span><span class="si">{}</span><span class="s2">&quot;</span>
+                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_at_web</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">DocumentRecord</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">document_type</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">law_status</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">responsible_office</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span><span class="p">,</span>
+            <span class="n">published_until</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">published_until</span><span class="p">,</span>
+            <span class="n">text_at_web</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">text_at_web</span><span class="p">,</span>
+            <span class="n">abbreviation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">abbreviation</span><span class="p">,</span>
+            <span class="n">official_number</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">official_number</span><span class="p">,</span>
+            <span class="n">only_in_municipality</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">only_in_municipality</span><span class="p">,</span>
+            <span class="n">article_numbers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">article_numbers</span><span class="p">,</span>
+            <span class="n">file</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span>
+            <span class="n">identifier</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span>
+        <span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017-2022, openoereb community.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

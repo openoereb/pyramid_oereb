@@ -6,118 +6,300 @@ Sources
 
 
 
-.. _api-pyramid_oereb-standard-sources:
+.. _api-pyramid_oereb-core-sources:
 
-.. automodule:: pyramid_oereb.standard.sources
-
-
-.. _api-pyramid_oereb-standard-sources-address:
-
-.. automodule:: pyramid_oereb.standard.sources.address
+.. automodule:: pyramid_oereb.core.sources
 
 
-.. _api-pyramid_oereb-standard-sources-address-databasesource:
+.. _api-pyramid_oereb-core-sources-base:
 
-*Address DatabaseSource*
-^^^^^^^^^^^^^^^^^^^^^^^^
+*Sources Base*
+^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.standard.sources.address.DatabaseSource
+.. autoclass:: pyramid_oereb.core.sources.Base
    :members:
    :inherited-members:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-standard-sources-exclusion_of_liability:
+.. _api-pyramid_oereb-core-sources-basedatabasesource:
 
-.. automodule:: pyramid_oereb.standard.sources.exclusion_of_liability
-
-
-.. _api-pyramid_oereb-standard-sources-exclusion_of_liability-databasesource:
-
-*Exclusion Of Liability DatabaseSource*
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. autoclass:: pyramid_oereb.standard.sources.exclusion_of_liability.DatabaseSource
-   :members:
-   :inherited-members:
-
-   .. automethod:: __init__
-
-.. _api-pyramid_oereb-standard-sources-glossary:
-
-.. automodule:: pyramid_oereb.standard.sources.glossary
-
-
-.. _api-pyramid_oereb-standard-sources-glossary-databasesource:
-
-*Glossary DatabaseSource*
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. autoclass:: pyramid_oereb.standard.sources.glossary.DatabaseSource
-   :members:
-   :inherited-members:
-
-   .. automethod:: __init__
-
-.. _api-pyramid_oereb-standard-sources-legend:
-
-.. automodule:: pyramid_oereb.standard.sources.legend
-
-
-.. _api-pyramid_oereb-standard-sources-legend-databasesource:
-
-*Legend DatabaseSource*
-^^^^^^^^^^^^^^^^^^^^^^^
-
-.. autoclass:: pyramid_oereb.standard.sources.legend.DatabaseSource
-   :members:
-   :inherited-members:
-
-   .. automethod:: __init__
-
-.. _api-pyramid_oereb-standard-sources-municipality:
-
-.. automodule:: pyramid_oereb.standard.sources.municipality
-
-
-.. _api-pyramid_oereb-standard-sources-municipality-databasesource:
-
-*Municipality DatabaseSource*
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. autoclass:: pyramid_oereb.standard.sources.municipality.DatabaseSource
-   :members:
-   :inherited-members:
-
-   .. automethod:: __init__
-
-.. _api-pyramid_oereb-standard-sources-plr:
-
-.. automodule:: pyramid_oereb.standard.sources.plr
-
-
-.. _api-pyramid_oereb-standard-sources-plr-databasesource:
-
-*Plr DatabaseSource*
-^^^^^^^^^^^^^^^^^^^^
-
-.. autoclass:: pyramid_oereb.standard.sources.plr.DatabaseSource
-   :members:
-   :inherited-members:
-
-   .. automethod:: __init__
-
-.. _api-pyramid_oereb-standard-sources-real_estate:
-
-.. automodule:: pyramid_oereb.standard.sources.real_estate
-
-
-.. _api-pyramid_oereb-standard-sources-real_estate-databasesource:
-
-*Real Estate DatabaseSource*
+*Sources BaseDatabaseSource*
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.standard.sources.real_estate.DatabaseSource
+.. autoclass:: pyramid_oereb.core.sources.BaseDatabaseSource
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-sources-address:
+
+.. automodule:: pyramid_oereb.core.sources.address
+
+
+.. _api-pyramid_oereb-core-sources-address-addressbasesource:
+
+*Address AddressBaseSource*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.sources.address.AddressBaseSource
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-sources-disclaimer:
+
+.. automodule:: pyramid_oereb.core.sources.disclaimer
+
+
+.. _api-pyramid_oereb-core-sources-disclaimer-disclaimerbasesource:
+
+*Disclaimer DisclaimerBaseSource*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.sources.disclaimer.DisclaimerBaseSource
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-sources-document:
+
+.. automodule:: pyramid_oereb.core.sources.document
+
+
+.. _api-pyramid_oereb-core-sources-document-documentbasesource:
+
+*Document DocumentBaseSource*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.sources.document.DocumentBaseSource
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-sources-document_types:
+
+.. automodule:: pyramid_oereb.core.sources.document_types
+
+
+.. _api-pyramid_oereb-core-sources-document_types-documenttypesbasesource:
+
+*Document Types DocumentTypesBaseSource*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.sources.document_types.DocumentTypesBaseSource
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-sources-general_information:
+
+.. automodule:: pyramid_oereb.core.sources.general_information
+
+
+.. _api-pyramid_oereb-core-sources-general_information-generalinformationbasesource:
+
+*General Information GeneralInformationBaseSource*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-sources-glossary:
+
+.. automodule:: pyramid_oereb.core.sources.glossary
+
+
+.. _api-pyramid_oereb-core-sources-glossary-glossarybasesource:
+
+*Glossary GlossaryBaseSource*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.sources.glossary.GlossaryBaseSource
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-sources-law_status:
+
+.. automodule:: pyramid_oereb.core.sources.law_status
+
+
+.. _api-pyramid_oereb-core-sources-law_status-lawstatusbasesource:
+
+*Law Status LawStatusBaseSource*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.sources.law_status.LawStatusBaseSource
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-sources-legend:
+
+.. automodule:: pyramid_oereb.core.sources.legend
+
+
+.. _api-pyramid_oereb-core-sources-legend-legendbasesource:
+
+*Legend LegendBaseSource*
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.sources.legend.LegendBaseSource
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-sources-logo:
+
+.. automodule:: pyramid_oereb.core.sources.logo
+
+
+.. _api-pyramid_oereb-core-sources-logo-logobasesource:
+
+*Logo LogoBaseSource*
+^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.sources.logo.LogoBaseSource
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-sources-map_layering:
+
+.. automodule:: pyramid_oereb.core.sources.map_layering
+
+
+.. _api-pyramid_oereb-core-sources-map_layering-maplayeringbasesource:
+
+*Map Layering MapLayeringBaseSource*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.sources.map_layering.MapLayeringBaseSource
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-sources-municipality:
+
+.. automodule:: pyramid_oereb.core.sources.municipality
+
+
+.. _api-pyramid_oereb-core-sources-municipality-municipalitybasesource:
+
+*Municipality MunicipalityBaseSource*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.sources.municipality.MunicipalityBaseSource
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-sources-office:
+
+.. automodule:: pyramid_oereb.core.sources.office
+
+
+.. _api-pyramid_oereb-core-sources-office-officebasesource:
+
+*Office OfficeBaseSource*
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.sources.office.OfficeBaseSource
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-sources-plr:
+
+.. automodule:: pyramid_oereb.core.sources.plr
+
+
+.. _api-pyramid_oereb-core-sources-plr-plrbasesource:
+
+*Plr PlrBaseSource*
+^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.sources.plr.PlrBaseSource
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-sources-real_estate:
+
+.. automodule:: pyramid_oereb.core.sources.real_estate
+
+
+.. _api-pyramid_oereb-core-sources-real_estate-realestatebasesource:
+
+*Real Estate RealEstateBaseSource*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.sources.real_estate.RealEstateBaseSource
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-sources-real_estate_type:
+
+.. automodule:: pyramid_oereb.core.sources.real_estate_type
+
+
+.. _api-pyramid_oereb-core-sources-real_estate_type-realestatetypebasesource:
+
+*Real Estate Type RealEstateTypeBaseSource*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.sources.real_estate_type.RealEstateTypeBaseSource
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-sources-theme:
+
+.. automodule:: pyramid_oereb.core.sources.theme
+
+
+.. _api-pyramid_oereb-core-sources-theme-themebasesource:
+
+*Theme ThemeBaseSource*
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.sources.theme.ThemeBaseSource
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-sources-theme_document:
+
+.. automodule:: pyramid_oereb.core.sources.theme_document
+
+
+.. _api-pyramid_oereb-core-sources-theme_document-themedocumentbasesource:
+
+*Theme Document ThemeDocumentBaseSource*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.sources.theme_document.ThemeDocumentBaseSource
    :members:
    :inherited-members:
 

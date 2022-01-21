@@ -1,0 +1,448 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>pyramid_oereb.core.records.view_service &mdash; pyramid_oereb  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../../../',
+              VERSION:'',
+              LANGUAGE:'en',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> pyramid_oereb
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changes.html">Changes/Hints for migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contrib/index.html">Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">pyramid_oereb</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyramid_oereb.core.records.view_service</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyramid_oereb.core.records.view_service</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.image</span> <span class="kn">import</span> <span class="n">ImageRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.core.url</span> <span class="kn">import</span> <span class="n">add_url_params</span><span class="p">,</span> <span class="n">parse_url</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.core.url</span> <span class="kn">import</span> <span class="n">uri_validator</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry.point</span> <span class="kn">import</span> <span class="n">Point</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.core</span> <span class="kn">import</span> <span class="n">get_multilingual_element</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="LegendEntryRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.LegendEntryRecord">[docs]</a><span class="k">class</span> <span class="nc">LegendEntryRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a legend entry with it&#39;s text as well as it&#39;s image.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        symbol (pyramid_oereb.lib.records.image.ImageRecord): The binary content of the legend symbol.</span>
+<span class="sd">        legend_text (dict of unicode): The multilingual description text for the legend entry.</span>
+<span class="sd">        type_code (unicode): The class of the legend entry corresponding to the plrs classes.</span>
+<span class="sd">        type_code_list (unicode): An URL to the type code list.</span>
+<span class="sd">        theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the legend entry</span>
+<span class="sd">            belongs.</span>
+<span class="sd">        view_service_id (int): The id to the connected view service. This is very important to be able to</span>
+<span class="sd">            solve bug https://github.com/openoereb/pyramid_oereb/issues/521</span>
+<span class="sd">        sub_theme (pyramid_oereb.lib.records.theme.ThemeRecord): The optional sub theme to which the</span>
+<span class="sd">            legend entry belongs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LegendEntryRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.LegendEntryRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">legend_text</span><span class="p">,</span> <span class="n">type_code</span><span class="p">,</span> <span class="n">type_code_list</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span>
+                 <span class="n">view_service_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sub_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">legend_text</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;legend_text&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">symbol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">legend_text</span> <span class="o">=</span> <span class="n">legend_text</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type_code</span> <span class="o">=</span> <span class="n">type_code</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type_code_list</span> <span class="o">=</span> <span class="n">type_code_list</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="n">theme</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">view_service_id</span> <span class="o">=</span> <span class="n">view_service_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub_theme</span> <span class="o">=</span> <span class="n">sub_theme</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1"> -- symbol: </span><span class="si">{}</span><span class="s1"> legend_text: </span><span class="si">{}</span><span class="s1"> type_code: </span><span class="si">{}</span><span class="s1"> type_code_list: </span><span class="si">{}</span><span class="s1">&#39;</span>\
+                    <span class="s1">&#39; theme: </span><span class="si">{}</span><span class="s1">&#39;</span>\
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend_text</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">type_code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_code_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">theme</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ViewServiceRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord">[docs]</a><span class="k">class</span> <span class="nc">ViewServiceRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A view service contains a valid WMS URL with a defined set of layers.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ViewServiceRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference_wms</span><span class="p">,</span> <span class="n">layer_index</span><span class="p">,</span> <span class="n">layer_opacity</span><span class="p">,</span> <span class="n">default_language</span><span class="p">,</span>
+                 <span class="n">srid</span><span class="p">,</span> <span class="n">proxies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legends</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            reference_wms (dict): Multilingual dict with URLs to the actual service (WMS)</span>
+<span class="sd">            layer_index (int): Layer index. Value from -1000 to +1000.</span>
+<span class="sd">            layer_opacity (float): Opacity of layer. Value from 0.0 to 1.0.</span>
+<span class="sd">            default_language (str): The default language which should be used for url selection.</span>
+<span class="sd">            srid (int): The SRID which is used for the WMS.</span>
+<span class="sd">            proxies (dict or None): The proxies which may be used</span>
+<span class="sd">            legends (list of LegendEntry or None): A list of all relevant legend entries.</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">            image (dict): multilingual dictionary containing the binary image</span>
+<span class="sd">                (pyramid_oereb.core.records.image.ImageRecord) downloaded from WMS link for the</span>
+<span class="sd">                requested (if any) or default language. Empty for an extract without images</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span> <span class="o">=</span> <span class="n">reference_wms</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>  <span class="c1"># multilingual dict with binary map images resulting from calling the wms link</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sanitize_layer_index</span><span class="p">(</span><span class="n">layer_index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layer_opacity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sanitize_layer_opacity</span><span class="p">(</span><span class="n">layer_opacity</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calculate_ns</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_min_max_attributes</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_language</span> <span class="o">=</span> <span class="n">default_language</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">srid</span> <span class="o">=</span> <span class="n">srid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proxies</span> <span class="o">=</span> <span class="n">proxies</span>
+
+        <span class="k">if</span> <span class="n">legends</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">legends</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">legend</span> <span class="ow">in</span> <span class="n">legends</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">legend</span><span class="o">.</span><span class="n">symbol</span><span class="p">,</span> <span class="n">ImageRecord</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">legends</span> <span class="o">=</span> <span class="n">legends</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">sanitize_layer_index</span><span class="p">(</span><span class="n">layer_index</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">layer_index</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer_index</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;layer_index&quot; should be &quot;int&quot;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">layer_index</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">1000</span> <span class="ow">or</span> <span class="n">layer_index</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">:</span>
+            <span class="n">error_msg</span> <span class="o">=</span> <span class="s2">&quot;layer_index should be &gt;= -1000 and &lt;= 1000, &quot;</span> \
+                        <span class="s2">&quot;was: </span><span class="si">{layer_index}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">layer_index</span><span class="o">=</span><span class="n">layer_index</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">layer_index</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">sanitize_layer_opacity</span><span class="p">(</span><span class="n">layer_opacity</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">layer_opacity</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer_opacity</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;layer_opacity&quot; should be &quot;float&quot;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">layer_opacity</span> <span class="o">&lt;</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="n">layer_opacity</span> <span class="o">&gt;</span> <span class="mf">1.0</span><span class="p">:</span>
+            <span class="n">error_msg</span> <span class="o">=</span> <span class="s2">&quot;layer_opacity should be &gt;= 0.0 and &lt;= 1.0, &quot;</span> \
+                        <span class="s2">&quot;was: </span><span class="si">{layer_opacity}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">layer_opacity</span><span class="o">=</span><span class="n">layer_opacity</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">layer_opacity</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">check_min_max_attributes</span><span class="p">(</span><span class="n">min_point</span><span class="p">,</span> <span class="n">min_name</span><span class="p">,</span> <span class="n">max_point</span><span class="p">,</span> <span class="n">max_name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">min_point</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">max_point</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">min_point</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">max_point</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;Both </span><span class="si">{min_name}</span><span class="s1"> and </span><span class="si">{max_name}</span><span class="s1"> have to be defined&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">min_name</span><span class="o">=</span><span class="n">min_name</span><span class="p">,</span>
+                                                                                   <span class="n">max_name</span><span class="o">=</span><span class="n">max_name</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">min_point</span><span class="p">,</span> <span class="n">Point</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;Type of &quot;</span><span class="si">{min_name}</span><span class="s1">&quot; should be &quot;shapely.geometry.point.Point&quot;&#39;</span>
+                                 <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">min_name</span><span class="o">=</span><span class="n">min_name</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">max_point</span><span class="p">,</span> <span class="n">Point</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;Type of &quot;</span><span class="si">{max_name}</span><span class="s1">&quot; should be &quot;shapely.geometry.point.Point&quot;&#39;</span>
+                                 <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">max_name</span><span class="o">=</span><span class="n">max_name</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">min_point</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">max_point</span><span class="o">.</span><span class="n">x</span> <span class="ow">or</span> <span class="n">min_point</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="n">max_point</span><span class="o">.</span><span class="n">y</span><span class="p">:</span>
+            <span class="n">error_msg</span> <span class="o">=</span> <span class="s1">&#39;Some value of </span><span class="si">{min_name}</span><span class="s1"> are larger than </span><span class="si">{max_name}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">min_name</span><span class="o">=</span><span class="n">min_name</span><span class="p">,</span>
+                                                                                     <span class="n">max_name</span><span class="o">=</span><span class="n">max_name</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ViewServiceRecord.get_full_wms_url"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord.get_full_wms_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_full_wms_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">language</span><span class="p">,</span> <span class="n">map_width</span><span class="p">,</span> <span class="n">map_height</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the WMS URL to get the image.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            language (string): which language of the reference WMS should be used.</span>
+<span class="sd">            map_width (int): Width of map in pixels.</span>
+<span class="sd">            map_height (int): Height of map in pixels.</span>
+<span class="sd">            bbox (list of float): Bounding box which defines the maps view.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The url used to query the WMS server.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">language</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;No WMS reference found for the requested language (</span><span class="si">{</span><span class="n">language</span><span class="si">}</span><span class="s2">), using default language&quot;</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="n">language</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_language</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">[</span><span class="n">language</span><span class="p">]</span> <span class="o">=</span> <span class="n">add_url_params</span><span class="p">(</span>
+            <span class="n">get_multilingual_element</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">,</span> <span class="n">language</span><span class="p">),</span> <span class="p">{</span>
+                <span class="s2">&quot;BBOX&quot;</span><span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">bbox</span><span class="p">]),</span>
+                <span class="s2">&quot;SRS&quot;</span><span class="p">:</span> <span class="s1">&#39;EPSG:</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">srid</span><span class="p">),</span>
+                <span class="s2">&quot;WIDTH&quot;</span><span class="p">:</span> <span class="n">map_width</span><span class="p">,</span>
+                <span class="s2">&quot;HEIGHT&quot;</span><span class="p">:</span> <span class="n">map_height</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calculate_ns</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span></div>
+
+<div class="viewcode-block" id="ViewServiceRecord.download_wms_content"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord.download_wms_content">[docs]</a>    <span class="k">def</span> <span class="nf">download_wms_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">language</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Downloads the image found behind the URL stored in the instance attribute &quot;reference_wms&quot;</span>
+<span class="sd">        for the requested language</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            language (string): the language for which the image should be downloaded</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            LookupError: Raised if the response is not code 200 or content-type</span>
+<span class="sd">                doesn&#39;t contains type &quot;image&quot;.</span>
+<span class="sd">            AttributeError: Raised if the URL itself isn&#39;t valid at all.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">main_msg</span> <span class="o">=</span> <span class="s2">&quot;Image for WMS couldn&#39;t be retrieved.&quot;</span>
+
+        <span class="k">if</span> <span class="n">language</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;No WMS reference found for the requested language (</span><span class="si">{</span><span class="n">language</span><span class="si">}</span><span class="s2">), using default language&quot;</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="n">language</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_language</span>
+
+        <span class="n">wms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">language</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">uri_validator</span><span class="p">(</span><span class="n">wms</span><span class="p">):</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Downloading image, url: </span><span class="si">{</span><span class="n">wms</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">wms</span><span class="p">,</span> <span class="n">proxies</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">proxies</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+                <span class="n">dedicated_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;An image could not be downloaded. URL was: </span><span class="si">{</span><span class="n">wms</span><span class="si">}</span><span class="s2">, error was </span><span class="si">{</span><span class="n">ex</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span>
+
+            <span class="n">content_type</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;content-type&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span> <span class="ow">and</span> <span class="n">content_type</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;image&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">[</span><span class="n">language</span><span class="p">]</span> <span class="o">=</span> <span class="n">ImageRecord</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dedicated_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;The image could not be downloaded. URL was: </span><span class="si">{</span><span class="n">wms</span><span class="si">}</span><span class="s2">, &quot;</span> \
+                    <span class="sa">f</span><span class="s2">&quot;Response was </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">main_msg</span><span class="p">)</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">LookupError</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dedicated_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;URL seems to be not valid. URL was: </span><span class="si">{</span><span class="n">wms</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">main_msg</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">calculate_ns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_bbox_from_url</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]])</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="ViewServiceRecord.get_bbox_from_url"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord.get_bbox_from_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_bbox_from_url</span><span class="p">(</span><span class="n">wms_url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parses wms url for BBOX parameter an returns these points as suitable values for ViewServiceRecord.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            wms_url (str): wms url which includes a BBOX parameter to parse.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            set of two shapely.geometry.point.Point: min and max coordinates of bounding box.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">parse_url</span><span class="p">(</span><span class="n">wms_url</span><span class="p">)</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;BBOX&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">bbox</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">))</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="n">Point</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017-2022, openoereb community.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

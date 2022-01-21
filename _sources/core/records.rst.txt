@@ -6,356 +6,392 @@ Records
 
 
 
-.. _api-pyramid_oereb-lib-records:
+.. _api-pyramid_oereb-core-records:
 
-.. automodule:: pyramid_oereb.lib.records
+.. automodule:: pyramid_oereb.core.records
 
-.. _api-pyramid_oereb-lib-records-address:
+.. _api-pyramid_oereb-core-records-address:
 
-.. automodule:: pyramid_oereb.lib.records.address
+.. automodule:: pyramid_oereb.core.records.address
 
-.. _api-pyramid_oereb-lib-records-address-addressrecord:
+.. _api-pyramid_oereb-core-records-address-addressrecord:
 
 *AddressRecord*
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.address.AddressRecord
+.. autoclass:: pyramid_oereb.core.records.address.AddressRecord
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-records-availability:
+.. _api-pyramid_oereb-core-records-availability:
 
-.. automodule:: pyramid_oereb.lib.records.availability
+.. automodule:: pyramid_oereb.core.records.availability
 
-.. _api-pyramid_oereb-lib-records-availability-availabilityrecord:
+.. _api-pyramid_oereb-core-records-availability-availabilityrecord:
 
 *AvailabilityRecord*
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.availability.AvailabilityRecord
+.. autoclass:: pyramid_oereb.core.records.availability.AvailabilityRecord
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-records-documents:
+.. _api-pyramid_oereb-core-records-disclaimer:
 
-.. automodule:: pyramid_oereb.lib.records.documents
+.. automodule:: pyramid_oereb.core.records.disclaimer
 
-.. _api-pyramid_oereb-lib-records-documents-articlerecord:
+.. _api-pyramid_oereb-core-records-disclaimer-disclaimerrecord:
 
-*ArticleRecord*
-^^^^^^^^^^^^^^^^^^^^^
+*DisclaimerRecord*
+^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.documents.ArticleRecord
+.. autoclass:: pyramid_oereb.core.records.disclaimer.DisclaimerRecord
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-records-documents-documentbaserecord:
+.. _api-pyramid_oereb-core-records-document_types:
 
-*DocumentBaseRecord*
+.. automodule:: pyramid_oereb.core.records.document_types
+
+.. _api-pyramid_oereb-core-records-document_types-documenttyperecord:
+
+*DocumentTypeRecord*
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.documents.DocumentBaseRecord
+.. autoclass:: pyramid_oereb.core.records.document_types.DocumentTypeRecord
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-records-documents-documentrecord:
+.. _api-pyramid_oereb-core-records-documents:
+
+.. automodule:: pyramid_oereb.core.records.documents
+
+.. _api-pyramid_oereb-core-records-documents-documentrecord:
 
 *DocumentRecord*
 ^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.documents.DocumentRecord
+.. autoclass:: pyramid_oereb.core.records.documents.DocumentRecord
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-records-documents-hintrecord:
+.. _api-pyramid_oereb-core-records-embeddable:
 
-*HintRecord*
-^^^^^^^^^^^^^^^^^^
+.. automodule:: pyramid_oereb.core.records.embeddable
 
-.. autoclass:: pyramid_oereb.lib.records.documents.HintRecord
-   :members:
-   :inherited-members:
-   :show-inheritance:
-
-   .. automethod:: __init__
-
-.. _api-pyramid_oereb-lib-records-documents-lawrecord:
-
-*LawRecord*
-^^^^^^^^^^^^^^^^^
-
-.. autoclass:: pyramid_oereb.lib.records.documents.LawRecord
-   :members:
-   :inherited-members:
-   :show-inheritance:
-
-   .. automethod:: __init__
-
-.. _api-pyramid_oereb-lib-records-documents-legalprovisionrecord:
-
-*LegalProvisionRecord*
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. autoclass:: pyramid_oereb.lib.records.documents.LegalProvisionRecord
-   :members:
-   :inherited-members:
-   :show-inheritance:
-
-   .. automethod:: __init__
-
-.. _api-pyramid_oereb-lib-records-embeddable:
-
-.. automodule:: pyramid_oereb.lib.records.embeddable
-
-.. _api-pyramid_oereb-lib-records-embeddable-datasourcerecord:
+.. _api-pyramid_oereb-core-records-embeddable-datasourcerecord:
 
 *DatasourceRecord*
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.embeddable.DatasourceRecord
+.. autoclass:: pyramid_oereb.core.records.embeddable.DatasourceRecord
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-records-embeddable-embeddablerecord:
+.. _api-pyramid_oereb-core-records-embeddable-embeddablerecord:
 
 *EmbeddableRecord*
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.embeddable.EmbeddableRecord
+.. autoclass:: pyramid_oereb.core.records.embeddable.EmbeddableRecord
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-records-exclusion_of_liability:
+.. _api-pyramid_oereb-core-records-extract:
 
-.. automodule:: pyramid_oereb.lib.records.exclusion_of_liability
+.. automodule:: pyramid_oereb.core.records.extract
 
-.. _api-pyramid_oereb-lib-records-exclusion_of_liability-exclusionofliabilityrecord:
-
-*ExclusionOfLiabilityRecord*
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. autoclass:: pyramid_oereb.lib.records.exclusion_of_liability.ExclusionOfLiabilityRecord
-   :members:
-   :inherited-members:
-   :show-inheritance:
-
-   .. automethod:: __init__
-
-.. _api-pyramid_oereb-lib-records-extract:
-
-.. automodule:: pyramid_oereb.lib.records.extract
-
-.. _api-pyramid_oereb-lib-records-extract-extractrecord:
+.. _api-pyramid_oereb-core-records-extract-extractrecord:
 
 *ExtractRecord*
 ^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.extract.ExtractRecord
+.. autoclass:: pyramid_oereb.core.records.extract.ExtractRecord
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-records-geometry:
+.. _api-pyramid_oereb-core-records-general_information:
 
-.. automodule:: pyramid_oereb.lib.records.geometry
+.. automodule:: pyramid_oereb.core.records.general_information
 
-.. _api-pyramid_oereb-lib-records-geometry-geometryrecord:
+.. _api-pyramid_oereb-core-records-general_information-generalinformationrecord:
+
+*GeneralInformationRecord*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.records.general_information.GeneralInformationRecord
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-records-geometry:
+
+.. automodule:: pyramid_oereb.core.records.geometry
+
+.. _api-pyramid_oereb-core-records-geometry-geometryrecord:
 
 *GeometryRecord*
 ^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.geometry.GeometryRecord
+.. autoclass:: pyramid_oereb.core.records.geometry.GeometryRecord
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-records-glossary:
+.. _api-pyramid_oereb-core-records-glossary:
 
-.. automodule:: pyramid_oereb.lib.records.glossary
+.. automodule:: pyramid_oereb.core.records.glossary
 
-.. _api-pyramid_oereb-lib-records-glossary-glossaryrecord:
+.. _api-pyramid_oereb-core-records-glossary-glossaryrecord:
 
 *GlossaryRecord*
 ^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.glossary.GlossaryRecord
+.. autoclass:: pyramid_oereb.core.records.glossary.GlossaryRecord
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-records-image:
+.. _api-pyramid_oereb-core-records-image:
 
-.. automodule:: pyramid_oereb.lib.records.image
+.. automodule:: pyramid_oereb.core.records.image
 
-.. _api-pyramid_oereb-lib-records-image-imagerecord:
+.. _api-pyramid_oereb-core-records-image-imagerecord:
 
 *ImageRecord*
 ^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.image.ImageRecord
+.. autoclass:: pyramid_oereb.core.records.image.ImageRecord
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-records-law_status:
+.. _api-pyramid_oereb-core-records-law_status:
 
-.. automodule:: pyramid_oereb.lib.records.law_status
+.. automodule:: pyramid_oereb.core.records.law_status
 
-.. _api-pyramid_oereb-lib-records-law_status-lawstatusrecord:
+.. _api-pyramid_oereb-core-records-law_status-lawstatusrecord:
 
 *LawStatusRecord*
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.law_status.LawStatusRecord
+.. autoclass:: pyramid_oereb.core.records.law_status.LawStatusRecord
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-records-municipality:
+.. _api-pyramid_oereb-core-records-logo:
 
-.. automodule:: pyramid_oereb.lib.records.municipality
+.. automodule:: pyramid_oereb.core.records.logo
 
-.. _api-pyramid_oereb-lib-records-municipality-municipalityrecord:
+.. _api-pyramid_oereb-core-records-logo-logorecord:
+
+*LogoRecord*
+^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.records.logo.LogoRecord
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-records-map_layering:
+
+.. automodule:: pyramid_oereb.core.records.map_layering
+
+.. _api-pyramid_oereb-core-records-map_layering-maplayeringrecord:
+
+*MapLayeringRecord*
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.records.map_layering.MapLayeringRecord
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-records-municipality:
+
+.. automodule:: pyramid_oereb.core.records.municipality
+
+.. _api-pyramid_oereb-core-records-municipality-municipalityrecord:
 
 *MunicipalityRecord*
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.municipality.MunicipalityRecord
+.. autoclass:: pyramid_oereb.core.records.municipality.MunicipalityRecord
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-records-office:
+.. _api-pyramid_oereb-core-records-office:
 
-.. automodule:: pyramid_oereb.lib.records.office
+.. automodule:: pyramid_oereb.core.records.office
 
-.. _api-pyramid_oereb-lib-records-office-officerecord:
+.. _api-pyramid_oereb-core-records-office-officerecord:
 
 *OfficeRecord*
 ^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.office.OfficeRecord
+.. autoclass:: pyramid_oereb.core.records.office.OfficeRecord
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-records-plr:
+.. _api-pyramid_oereb-core-records-plr:
 
-.. automodule:: pyramid_oereb.lib.records.plr
+.. automodule:: pyramid_oereb.core.records.plr
 
-.. _api-pyramid_oereb-lib-records-plr-emptyplrrecord:
+.. _api-pyramid_oereb-core-records-plr-emptyplrrecord:
 
 *EmptyPlrRecord*
 ^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.plr.EmptyPlrRecord
+.. autoclass:: pyramid_oereb.core.records.plr.EmptyPlrRecord
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-records-plr-plrrecord:
+.. _api-pyramid_oereb-core-records-plr-plrrecord:
 
 *PlrRecord*
 ^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.plr.PlrRecord
+.. autoclass:: pyramid_oereb.core.records.plr.PlrRecord
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-records-real_estate:
+.. _api-pyramid_oereb-core-records-real_estate:
 
-.. automodule:: pyramid_oereb.lib.records.real_estate
+.. automodule:: pyramid_oereb.core.records.real_estate
 
-.. _api-pyramid_oereb-lib-records-real_estate-realestaterecord:
+.. _api-pyramid_oereb-core-records-real_estate-realestaterecord:
 
 *RealEstateRecord*
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.real_estate.RealEstateRecord
+.. autoclass:: pyramid_oereb.core.records.real_estate.RealEstateRecord
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-records-theme:
+.. _api-pyramid_oereb-core-records-real_estate_type:
 
-.. automodule:: pyramid_oereb.lib.records.theme
+.. automodule:: pyramid_oereb.core.records.real_estate_type
 
-.. _api-pyramid_oereb-lib-records-theme-themerecord:
+.. _api-pyramid_oereb-core-records-real_estate_type-realestatetyperecord:
+
+*RealEstateTypeRecord*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.records.real_estate_type.RealEstateTypeRecord
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-records-theme:
+
+.. automodule:: pyramid_oereb.core.records.theme
+
+.. _api-pyramid_oereb-core-records-theme-themerecord:
 
 *ThemeRecord*
 ^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.theme.ThemeRecord
+.. autoclass:: pyramid_oereb.core.records.theme.ThemeRecord
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-records-view_service:
+.. _api-pyramid_oereb-core-records-theme_document:
 
-.. automodule:: pyramid_oereb.lib.records.view_service
+.. automodule:: pyramid_oereb.core.records.theme_document
 
-.. _api-pyramid_oereb-lib-records-view_service-legendentryrecord:
+.. _api-pyramid_oereb-core-records-theme_document-themedocumentrecord:
+
+*ThemeDocumentRecord*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.records.theme_document.ThemeDocumentRecord
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-core-records-view_service:
+
+.. automodule:: pyramid_oereb.core.records.view_service
+
+.. _api-pyramid_oereb-core-records-view_service-legendentryrecord:
 
 *LegendEntryRecord*
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.view_service.LegendEntryRecord
+.. autoclass:: pyramid_oereb.core.records.view_service.LegendEntryRecord
    :members:
    :inherited-members:
    :show-inheritance:
 
    .. automethod:: __init__
 
-.. _api-pyramid_oereb-lib-records-view_service-viewservicerecord:
+.. _api-pyramid_oereb-core-records-view_service-viewservicerecord:
 
 *ViewServiceRecord*
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.lib.records.view_service.ViewServiceRecord
+.. autoclass:: pyramid_oereb.core.records.view_service.ViewServiceRecord
    :members:
    :inherited-members:
    :show-inheritance:

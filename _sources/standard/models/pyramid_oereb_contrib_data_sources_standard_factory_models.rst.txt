@@ -1,0 +1,85 @@
+
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-factory_models:
+
+*Factory Models*
+^^^^^^^^^^^^^^^^
+
+TODO: improve explication of how generic classes adapt to themes
+
+The classes below are generated through a class builder factory and are customized for the different themes (TODO: insert link) which make up the app.
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.factory_models
+
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-factory_models-availability:
+
+Availability
+~~~~~~~~~~~~
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.factory_models.Availability
+
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-factory_models-dataintegration:
+
+DataIntegration
+~~~~~~~~~~~~~~~
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.factory_models.DataIntegration
+
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-factory_models-document:
+
+Document
+~~~~~~~~
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.factory_models.Document
+
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-factory_models-geometry:
+
+Geometry
+~~~~~~~~
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.factory_models.Geometry
+
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-factory_models-legendentry:
+
+LegendEntry
+~~~~~~~~~~~
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.factory_models.LegendEntry
+
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-factory_models-office:
+
+Office
+~~~~~~
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.factory_models.Office
+
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-factory_models-publiclawrestriction:
+
+PublicLawRestriction
+~~~~~~~~~~~~~~~~~~~~
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.factory_models.PublicLawRestriction
+
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-factory_models-publiclawrestrictiondocument:
+
+PublicLawRestrictionDocument
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.factory_models.PublicLawRestrictionDocument
+
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-factory_models-viewservice:
+
+ViewService
+~~~~~~~~~~~
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.factory_models.ViewService
+

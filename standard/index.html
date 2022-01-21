@@ -103,7 +103,6 @@
 <li class="toctree-l2"><a class="reference internal" href="sources.html">Sources</a></li>
 <li class="toctree-l2"><a class="reference internal" href="models/index.html">Models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#functions-for-creating-standard-environment">Functions for creating standard environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#functions-for-filling-standard-environment-with-data">Functions for filling standard environment with data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#functions-used-as-configurable-hooks">Functions used as configurable hooks</a></li>
 </ul>
 </li>
@@ -186,9 +185,9 @@ layer.</p>
 </div>
 <div class="section" id="functions-for-creating-standard-environment">
 <h2>Functions for creating standard environment<a class="headerlink" href="#functions-for-creating-standard-environment" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-pyramid_oereb.standard"><span id="api-pyramid-oereb-standard"></span></span><dl class="function">
-<dt id="pyramid_oereb.standard.create_tables_from_standard_configuration">
-<code class="descclassname">pyramid_oereb.standard.</code><code class="descname">create_tables_from_standard_configuration</code><span class="sig-paren">(</span><em>configuration_yaml_path</em>, <em>section='pyramid_oereb'</em>, <em>c2ctemplate_style=False</em>, <em>tables_only=False</em>, <em>sql_file=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard.html#create_tables_from_standard_configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.create_tables_from_standard_configuration" title="Permalink to this definition">¶</a></dt>
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.create_tables"><span id="api-pyramid-oereb-standard-create-tables"></span></span><dl class="function">
+<dt id="pyramid_oereb.contrib.data_sources.create_tables.create_tables_from_standard_configuration">
+<code class="descclassname">pyramid_oereb.contrib.data_sources.create_tables.</code><code class="descname">create_tables_from_standard_configuration</code><span class="sig-paren">(</span><em>configuration_yaml_path</em>, <em>section='pyramid_oereb'</em>, <em>c2ctemplate_style=False</em>, <em>tables_only=False</em>, <em>sql_file=None</em>, <em>if_not_exists=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/create_tables.html#create_tables_from_standard_configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.create_tables.create_tables_from_standard_configuration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates all schemas which are defined in the passed yaml file: &lt;section&gt;.&lt;plrs&gt;.[&lt;plr&gt;.&lt;code&gt;]. The code
 must be camel case. It will be transformed to snake case and used as schema name.
 Creates all tables inside the created schemas. This only affects the sqlalchemy models which are defined
@@ -204,7 +203,7 @@ definitions.</li>
 <li><strong>c2ctemplate_style</strong> (<em>bool</em>) &#8211; True if the yaml use a c2c template style (vars.[section]).
 Default is False.</li>
 <li><strong>tables_only</strong> (<em>bool</em>) &#8211; True to skip creation of schema. Default is False.</li>
-<li><strong>sql_file</strong> (<a class="reference internal" href="../core/records.html#pyramid_oereb.lib.records.documents.DocumentRecord.file" title="pyramid_oereb.lib.records.documents.DocumentRecord.file"><em>file</em></a>) &#8211; the file to generate. Default is None (in the database).</li>
+<li><strong>sql_file</strong> (<a class="reference internal" href="../core/records.html#pyramid_oereb.core.records.documents.DocumentRecord.file" title="pyramid_oereb.core.records.documents.DocumentRecord.file"><em>file</em></a>) &#8211; the file to generate. Default is None (in the database).</li>
 </ul>
 </td>
 </tr>
@@ -212,145 +211,10 @@ Default is False.</li>
 </table>
 </dd></dl>
 
-<dl class="function">
-<dt id="pyramid_oereb.standard.drop_tables_from_standard_configuration">
-<code class="descclassname">pyramid_oereb.standard.</code><code class="descname">drop_tables_from_standard_configuration</code><span class="sig-paren">(</span><em>configuration_yaml_path</em>, <em>section='pyramid_oereb'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard.html#drop_tables_from_standard_configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.drop_tables_from_standard_configuration" title="Permalink to this definition">¶</a></dt>
-<dd><p>Drops all schemas which are defined in the passed yaml file: &lt;section&gt;.&lt;plrs&gt;.[&lt;plr&gt;.&lt;code&gt;]. The code
-must be camel case. It will be transformed to snake case and used as schema name.
-Drops all tables inside the created schemas.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>configuration_yaml_path</strong> (<em>str</em>) &#8211; The absolute path to the yaml file which contains the plr
-definitions.</li>
-<li><strong>section</strong> (<em>str</em>) &#8211; The section in yaml file where the plrs are configured in. Default is &#8216;pyramid_oereb&#8217;.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyramid_oereb.standard._create_standard_yaml_config_">
-<code class="descclassname">pyramid_oereb.standard.</code><code class="descname">_create_standard_yaml_config_</code><span class="sig-paren">(</span><em>name='pyramid_oereb_standard.yml'</em>, <em>database='postgresql://postgres:password&#64;localhost/pyramid_oereb'</em>, <em>print_backend='MapFishPrint'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard.html#_create_standard_yaml_config_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard._create_standard_yaml_config_" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates the specified YAML file using a template. This YAML file contains the standard
-configuration to run a oereb server out of the box.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>(</strong><strong>str</strong><strong>)</strong> &#8211; The name of the new file. Default</li>
-<li><strong>database</strong> (<em>str</em>) &#8211; The database connection string.Default:
-&#8216;postgresql://postgres:password&#64;localhost/pyramid_oereb&#8217;</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<span class="target" id="module-pyramid_oereb.standard.create_tables"><span id="api-pyramid-oereb-standard-create-tables"></span></span><dl class="function">
-<dt id="pyramid_oereb.standard.create_tables._create_theme_tables">
-<code class="descclassname">pyramid_oereb.standard.create_tables.</code><code class="descname">_create_theme_tables</code><span class="sig-paren">(</span><em>configuration_yaml_path</em>, <em>theme</em>, <em>section='pyramid_oereb'</em>, <em>c2ctemplate_style=False</em>, <em>tables_only=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/create_tables.html#_create_theme_tables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.create_tables._create_theme_tables" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create all tables defined in the specified module.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>configuration_yaml_path</strong> (<em>str</em>) &#8211; Path to the configuration file.</li>
-<li><strong>theme</strong> (<em>str</em>) &#8211; Code of the theme to create the tables for.</li>
-<li><strong>section</strong> (<em>str</em>) &#8211; Section within the specified configuration file used for pyramid_oereb. Default is
-&#8216;pyramid_oereb&#8217;.</li>
-<li><strong>c2ctemplate_style</strong> (<em>bool</em>) &#8211; True if the yaml use a c2c template style (vars.[section]).
-Default is False.</li>
-<li><strong>tables_only</strong> (<em>bool</em>) &#8211; True to skip creation of schema. Default is False.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</div>
-<div class="section" id="functions-for-filling-standard-environment-with-data">
-<h2>Functions for filling standard environment with data<a class="headerlink" href="#functions-for-filling-standard-environment-with-data" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-pyramid_oereb.standard.load_sample_data"><span id="api-pyramid-oereb-standard-load-sample-data"></span></span><dl class="class">
-<dt id="pyramid_oereb.standard.load_sample_data.SampleData">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.load_sample_data.</code><code class="descname">SampleData</code><span class="sig-paren">(</span><em>configuration</em>, <em>section='pyramid_oereb'</em>, <em>c2ctemplate_style=False</em>, <em>directory='sample_data'</em>, <em>sql_file=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/load_sample_data.html#SampleData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.load_sample_data.SampleData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class for sample data handling.</p>
-<dl class="method">
-<dt id="pyramid_oereb.standard.load_sample_data.SampleData.load">
-<code class="descname">load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/load_sample_data.html#SampleData.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.load_sample_data.SampleData.load" title="Permalink to this definition">¶</a></dt>
-<dd><p>Performs the database operations to load the sample data.</p>
-</dd></dl>
-
-</dd></dl>
-
-<span class="target" id="module-pyramid_oereb.standard.import_federal_topic"><span id="api-pyramid-oereb-standard-import-federal-topic"></span></span><dl class="class">
-<dt id="pyramid_oereb.standard.import_federal_topic.FederalTopic">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.standard.import_federal_topic.</code><code class="descname">FederalTopic</code><span class="sig-paren">(</span><em>configuration_file</em>, <em>topic_code</em>, <em>section='pyramid_oereb'</em>, <em>c2ctemplate_style=False</em>, <em>arc_max_diff=0.001</em>, <em>arc_precision=3</em>, <em>tmp_dir='.'</em>, <em>srid=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/xtf_import.html#FederalTopic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.import_federal_topic.FederalTopic" title="Permalink to this definition">¶</a></dt>
-<dd><p>Download and import data for a specified federal topic.</p>
-<dl class="method">
-<dt id="pyramid_oereb.standard.import_federal_topic.FederalTopic.cleanup_files">
-<code class="descname">cleanup_files</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/xtf_import.html#FederalTopic.cleanup_files"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.import_federal_topic.FederalTopic.cleanup_files" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes the temporary files and directory.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyramid_oereb.standard.import_federal_topic.FederalTopic.collect_files">
-<code class="descname">collect_files</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/xtf_import.html#FederalTopic.collect_files"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.import_federal_topic.FederalTopic.collect_files" title="Permalink to this definition">¶</a></dt>
-<dd><p>Collects the extracted files for the data import.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyramid_oereb.standard.import_federal_topic.FederalTopic.download_data">
-<code class="descname">download_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/xtf_import.html#FederalTopic.download_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.import_federal_topic.FederalTopic.download_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Downloads the federal data for the specified topic.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyramid_oereb.standard.import_federal_topic.FederalTopic.load">
-<code class="descname">load</code><span class="sig-paren">(</span><em>xtf_files</em>, <em>force=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/xtf_import.html#FederalTopic.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.import_federal_topic.FederalTopic.load" title="Permalink to this definition">¶</a></dt>
-<dd><p>Updates the data for a certain federal topic.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>xtf_files</strong> (<em>list of str</em>) &#8211; Files to be parsed. The first one should be the XML file containing the
-federal laws, the second one the XTF file with the PLR data.</li>
-<li><strong>force</strong> (<em>bool</em>) &#8211; Set to <cite>True</cite> to ignore the result of the checksum comparison and update the data
-anyway.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyramid_oereb.standard.import_federal_topic.FederalTopic.read_checksum">
-<code class="descname">read_checksum</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/xtf_import.html#FederalTopic.read_checksum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.import_federal_topic.FederalTopic.read_checksum" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads the data&#8217;s checksum from the extracted files.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyramid_oereb.standard.import_federal_topic.FederalTopic.unzip_data">
-<code class="descname">unzip_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/xtf_import.html#FederalTopic.unzip_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.import_federal_topic.FederalTopic.unzip_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extracts the downloaded data into a temporary directory.</p>
-</dd></dl>
-
-</dd></dl>
-
-<span class="target" id="module-pyramid_oereb.standard.load_legend_entries"><span id="api-pyramid-oereb-standard-load-legend-entries"></span></span><dl class="function">
-<dt id="pyramid_oereb.standard.load_legend_entries.create_legend_entries_in_standard_db">
-<code class="descclassname">pyramid_oereb.standard.load_legend_entries.</code><code class="descname">create_legend_entries_in_standard_db</code><span class="sig-paren">(</span><em>config</em>, <em>topic_code</em>, <em>temp_creation_path='/tmp/pyconizer'</em>, <em>language='de'</em>, <em>section='pyramid_oereb'</em>, <em>c2ctemplate_style=False</em>, <em>image_format='image/png'</em>, <em>image_height=36</em>, <em>image_width=72</em>, <em>encoding=None</em>, <em>replace_host=None</em>, <em>replace_layer=None</em>, <em>string_keys=False</em>, <em>by_type_code=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/load_legend_entries.html#create_legend_entries_in_standard_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.load_legend_entries.create_legend_entries_in_standard_db" title="Permalink to this definition">¶</a></dt>
-<dd><p>Uses the pyconizer lib to create images out of the OEREB server configuration. It is creating symbols for
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.load_legend_entries"><span id="api-pyramid-oereb-standard-load-legend-entries"></span></span><dl class="function">
+<dt id="pyramid_oereb.contrib.data_sources.standard.load_legend_entries.create_legend_entries_in_standard_db">
+<code class="descclassname">pyramid_oereb.contrib.data_sources.standard.load_legend_entries.</code><code class="descname">create_legend_entries_in_standard_db</code><span class="sig-paren">(</span><em>config</em>, <em>topic_code</em>, <em>temp_creation_path='/tmp/pyconizer'</em>, <em>language='de'</em>, <em>section='pyramid_oereb'</em>, <em>c2ctemplate_style=False</em>, <em>image_format='image/png'</em>, <em>image_height=36</em>, <em>image_width=72</em>, <em>encoding=None</em>, <em>replace_host=None</em>, <em>replace_layer=None</em>, <em>string_keys=False</em>, <em>by_type_code=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/standard/load_legend_entries.html#create_legend_entries_in_standard_db"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.load_legend_entries.create_legend_entries_in_standard_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses the pyconizer core to create images out of the OEREB server configuration. It is creating symbols for
 a dedicated topic. This function will clean all previously created icons from database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -398,50 +262,14 @@ case insensitive.</li>
 </div>
 <div class="section" id="functions-used-as-configurable-hooks">
 <h2>Functions used as configurable hooks<a class="headerlink" href="#functions-used-as-configurable-hooks" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-pyramid_oereb.standard.hook_methods"><span id="api-pyramid-oereb-standard-hook-methods"></span></span><dl class="function">
-<dt id="pyramid_oereb.standard.hook_methods.get_logo">
-<code class="descclassname">pyramid_oereb.standard.hook_methods.</code><code class="descname">get_logo</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/hook_methods.html#get_logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.hook_methods.get_logo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the requested logo.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>pyramid.request.Request</em>) &#8211; The request containing the logo key matchdict parameter.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The generated response object.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyramid_oereb.standard.hook_methods.get_municipality">
-<code class="descclassname">pyramid_oereb.standard.hook_methods.</code><code class="descname">get_municipality</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/hook_methods.html#get_municipality"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.hook_methods.get_municipality" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the requested municipality logo from database.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>pyramid.request.Request</em>) &#8211; The request containing the fosnr as matchdict parameter.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The generated response object.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyramid_oereb.standard.hook_methods.get_surveying_data_provider">
-<code class="descclassname">pyramid_oereb.standard.hook_methods.</code><code class="descname">get_surveying_data_provider</code><span class="sig-paren">(</span><em>real_estate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/hook_methods.html#get_surveying_data_provider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.hook_methods.get_surveying_data_provider" title="Permalink to this definition">¶</a></dt>
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.hook_methods"><span id="api-pyramid-oereb-standard-hook-methods"></span></span><dl class="function">
+<dt id="pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_provider">
+<code class="descclassname">pyramid_oereb.contrib.data_sources.standard.hook_methods.</code><code class="descname">get_surveying_data_provider</code><span class="sig-paren">(</span><em>real_estate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/standard/hook_methods.html#get_surveying_data_provider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_provider" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>real_estate</strong> (<a class="reference internal" href="../core/records.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real estate for which the
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>real_estate</strong> (<em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em>) &#8211; The real estate for which the
 provider of the surveying data should be delivered.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
@@ -450,15 +278,15 @@ provider of the surveying data should be delivered.</td>
 </dl>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">provider (<a class="reference internal" href="../core/records.html#pyramid_oereb.lib.records.office.OfficeRecord" title="pyramid_oereb.lib.records.office.OfficeRecord">pyramid_oereb.lib.records.office.OfficeRecord</a>)</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">provider (<a class="reference internal" href="../core/records.html#pyramid_oereb.core.records.office.OfficeRecord" title="pyramid_oereb.core.records.office.OfficeRecord">pyramid_oereb.core.records.office.OfficeRecord</a>)</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyramid_oereb.standard.hook_methods.get_surveying_data_update_date">
-<code class="descclassname">pyramid_oereb.standard.hook_methods.</code><code class="descname">get_surveying_data_update_date</code><span class="sig-paren">(</span><em>real_estate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/hook_methods.html#get_surveying_data_update_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.hook_methods.get_surveying_data_update_date" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_update_date">
+<code class="descclassname">pyramid_oereb.contrib.data_sources.standard.hook_methods.</code><code class="descname">get_surveying_data_update_date</code><span class="sig-paren">(</span><em>real_estate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/standard/hook_methods.html#get_surveying_data_update_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_update_date" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the date of the latest update of the used survey data data for the
 situation map. The method you find here is only matching the standard configuration. But you can provide
 your own one if your configuration is different. The only thing you need to take into account is that the
@@ -468,7 +296,7 @@ datetime.date object.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>real_estate</strong> (<a class="reference internal" href="../core/records.html#pyramid_oereb.lib.records.real_estate.RealEstateRecord" title="pyramid_oereb.lib.records.real_estate.RealEstateRecord"><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em></a>) &#8211; The real
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>real_estate</strong> (<em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em>) &#8211; The real
 estate for which the last update date of the base data should be indicated</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The date of the last update of the cadastral base data</td>
@@ -480,8 +308,8 @@ estate for which the last update date of the base data should be indicated</td>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyramid_oereb.standard.hook_methods.get_symbol">
-<code class="descclassname">pyramid_oereb.standard.hook_methods.</code><code class="descname">get_symbol</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/hook_methods.html#get_symbol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.hook_methods.get_symbol" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol">
+<code class="descclassname">pyramid_oereb.contrib.data_sources.standard.hook_methods.</code><code class="descname">get_symbol</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/standard/hook_methods.html#get_symbol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the symbol for the requested theme and type code from database.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -498,8 +326,8 @@ estate for which the last update date of the base data should be indicated</td>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyramid_oereb.standard.hook_methods.get_symbol_ref">
-<code class="descclassname">pyramid_oereb.standard.hook_methods.</code><code class="descname">get_symbol_ref</code><span class="sig-paren">(</span><em>request</em>, <em>record</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/hook_methods.html#get_symbol_ref"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.hook_methods.get_symbol_ref" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref">
+<code class="descclassname">pyramid_oereb.contrib.data_sources.standard.hook_methods.</code><code class="descname">get_symbol_ref</code><span class="sig-paren">(</span><em>request</em>, <em>record</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/standard/hook_methods.html#get_symbol_ref"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the link to the symbol of the specified public law restriction.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -507,7 +335,7 @@ estate for which the last update date of the base data should be indicated</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>request</strong> (<em>pyramid.request.Request</em>) &#8211; The current request instance.</li>
-<li><strong>(</strong><strong>pyramid_oereb.lib.records.plr.PlrRecord or</strong> (<em>record</em>) &#8211; pyramid_oereb.lib.records.view_service.LegendEntryRecord): The record of the public law
+<li><strong>(</strong><strong>pyramid_oereb.core.records.plr.PlrRecord or</strong> (<em>record</em>) &#8211; pyramid_oereb.core.records.view_service.LegendEntryRecord): The record of the public law
 restriction to get the symbol reference for.</li>
 </ul>
 </td>
@@ -523,8 +351,8 @@ restriction to get the symbol reference for.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyramid_oereb.standard.hook_methods.plr_sort_within_themes">
-<code class="descclassname">pyramid_oereb.standard.hook_methods.</code><code class="descname">plr_sort_within_themes</code><span class="sig-paren">(</span><em>extract</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/hook_methods.html#plr_sort_within_themes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.hook_methods.plr_sort_within_themes" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.contrib.data_sources.standard.hook_methods.plr_sort_within_themes">
+<code class="descclassname">pyramid_oereb.contrib.data_sources.standard.hook_methods.</code><code class="descname">plr_sort_within_themes</code><span class="sig-paren">(</span><em>extract</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/standard/hook_methods.html#plr_sort_within_themes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.hook_methods.plr_sort_within_themes" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the standard hook method to sort a plr list (while respecting the theme order).
 This standard hook does no sorting, you can set your configuration to a different method if you need a
 specific sorting.</p>
@@ -532,19 +360,19 @@ specific sorting.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>extract</strong> (<a class="reference internal" href="../core/records.html#pyramid_oereb.lib.records.extract.ExtractRecord" title="pyramid_oereb.lib.records.extract.ExtractRecord"><em>pyramid_oereb.lib.records.extract.ExtractRecord</em></a>) &#8211; The unsorted extract</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>extract</strong> (<em>pyramid_oereb.lib.records.extract.ExtractRecord</em>) &#8211; The unsorted extract</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Returns the updated extract</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="../core/records.html#pyramid_oereb.lib.records.extract.ExtractRecord" title="pyramid_oereb.lib.records.extract.ExtractRecord">pyramid_oereb.lib.records.extract.ExtractRecord</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid_oereb.lib.records.extract.ExtractRecord</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyramid_oereb.standard.hook_methods.produce_sld_content">
-<code class="descclassname">pyramid_oereb.standard.hook_methods.</code><code class="descname">produce_sld_content</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/standard/hook_methods.html#produce_sld_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.standard.hook_methods.produce_sld_content" title="Permalink to this definition">¶</a></dt>
+<dt id="pyramid_oereb.contrib.data_sources.standard.hook_methods.produce_sld_content">
+<code class="descclassname">pyramid_oereb.contrib.data_sources.standard.hook_methods.</code><code class="descname">produce_sld_content</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/standard/hook_methods.html#produce_sld_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.hook_methods.produce_sld_content" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the standard hook method to provide the sld content. Of course you can set it to another one. For
 instance to use another template. Or to use other parameters to provide the correctly constructed SLD.</p>
 <div class="admonition note">
@@ -584,7 +412,7 @@ deliver a valid SLD wrapped in a pyramid response instance as output. It is in y
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2017-2020, openoereb community.
+        &#169; Copyright 2017-2022, openoereb community.
 
     </p>
   </div>
