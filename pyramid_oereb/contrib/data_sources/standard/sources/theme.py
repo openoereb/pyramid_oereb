@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*- ==
 from pyramid_oereb.core.sources import BaseDatabaseSource
 from pyramid_oereb.core.sources.theme import ThemeBaseSource
 
