@@ -28,7 +28,7 @@ def all_result_session(session, query):
                     'content': {'de': 'Inhalt1'}
                 }),
                 Disclaimer(**{
-                    'id': 1,
+                    'id': 2,
                     'title': {'de': 'Titel2'},
                     'content': {'de': 'Inhalt2'}
                 })
@@ -42,7 +42,7 @@ def all_result_session(session, query):
     yield Session
 
 
-def test_read_one(source_params, all_result_session):
+def test_read_all(source_params, all_result_session):
     source = DatabaseSource(**source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_result_session()):
         source.read(Parameter('xml'))
