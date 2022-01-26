@@ -16,19 +16,20 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import glob
-import inspect
 import os
 from mako.template import Template
 import sys
+import inspect
 # sys.path.insert(0, os.path.abspath('.'))
 import re
-import six
+import types
 import subprocess
 import sphinx_rtd_theme
 from pyramid_oereb.core.config import Config
-
-Config._config = {'srid': -1}
+Config._config = {'srid': -1, 'app_schema': {'name': 'pyramid_oereb_main'}}
+from pyramid_oereb.contrib.data_sources.standard.sources.plr import StandardThemeConfigParser  # noqa E402
+import pyramid_oereb.contrib.data_sources.standard  # noqa E402
+import pyramid_oereb.contrib.data_sources.standard.models.main  # noqa E402
 
 
 # -- General configuration ------------------------------------------------
@@ -84,28 +85,50 @@ with open('contrib/stats.rst', 'w') as sources:
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
         'contrib/stats.rst.mako']).decode('utf-8'))
 
-files = glob.glob('../../pyramid_oereb/contrib/data_sources/standard/models/*.py')
-modules = [
-    re.sub(r'\.__init__', '', f[6:-3].replace("/", ".")) for f in files
-    if not f.startswith("../../pyramid_oereb/standard/models/main.py") and
-    not f.startswith("../../pyramid_oereb/standard/models/__init__.py")
-]
-modules.sort()
-for module in modules:
-    __import__(module)
-classes = {}
-for module in modules:
-    classes[module] = []
-    for name, obj in inspect.getmembers(sys.modules[module]):
-        if inspect.isclass(obj) and obj.__module__ == module:
-            classes[module].append(name)
 module_file_names = []
-for module_name, classes in six.iteritems(classes):
-    file_name = module_name.replace('.', '_').lower()
-    module_file_names.append(file_name)
-    with open('standard/models/{name}.rst'.format(name=file_name), 'w') as sources:
-        template = Template(filename='standard/models/models.rst.mako')
-        sources.write(template.render(**{'module_name': module_name, 'classes': classes}))
+module_name = 'pyramid_oereb.contrib.data_sources.standard.models.main'
+file_name = 'pyramid_oereb_contrib_data_sources_standard_models_main'
+module_file_names.append(file_name)
+main_classes = []
+for name, obj in inspect.getmembers(pyramid_oereb.contrib.data_sources.standard.models.main):
+    if inspect.isclass(obj) and obj.__module__ == module_name:
+        main_classes.append(name)
+with open('standard/models/{name}.rst'.format(name=file_name), 'w') as sources:
+    template = Template(filename='standard/models/models.rst.mako')
+    sources.write(template.render(**{'module_name': module_name, 'classes': main_classes}))
+
+conf_parser = StandardThemeConfigParser(source={
+    "class": 'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource',
+    "params": {
+        "model_factory": "pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk",
+        "schema_name": "land_use_plans"
+    }
+})
+
+models = conf_parser.get_models()
+modelnames = [modelname for modelname in dir(models) if modelname[0].isupper() and modelname != 'Base']
+
+# create fake python module pyramid_oereb.contrib.data_sources.standard.factory_models
+factory_models = types.ModuleType('FactoryModels', 'Virtual module for factory generated classes')
+factory_models.__name__ = 'factory_models'
+factory_models.__mro__ = []
+factory_models.__module__ = 'pyramid_oereb.contrib.data_sources.standard'
+for modelname in modelnames:
+    model = models.__getattribute__(modelname)
+    model.__name__ = modelname
+    model.__module__ = 'pyramid_oereb.contrib.data_sources.standard.factory_models'
+    factory_models.__dict__.update({modelname: model})
+
+pyramid_oereb.contrib.data_sources.standard.__dict__.update({'factory_models': factory_models})
+sys.modules['pyramid_oereb.contrib.data_sources.standard.factory_models'] = factory_models
+
+module_name = 'pyramid_oereb.contrib.data_sources.standard.factory_models'
+file_name = module_name.replace('.', '_').lower()
+module_file_names.append(file_name)
+with open('standard/models/{name}.rst'.format(name=file_name), 'w') as sources:
+    template = Template(filename='standard/models/factory_models.rst.mako')
+    sources.write(template.render(**{'module_name': module_name, 'classes': modelnames}))
+
 with open('standard/models/index.rst', 'w') as sources:
     template = Template(filename='standard/models/index.rst.mako')
     sources.write(template.render(**{'module_file_names': module_file_names}))
@@ -124,7 +147,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'pyramid_oereb'
-copyright = u'2017-2020, openoereb community'
+copyright = u'2017-2022, openoereb community'  # pylint: disable=W0622
 author = u'openoereb community'
 
 # The version info for the project you're documenting, acts as replacement for

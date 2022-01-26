@@ -3,5 +3,7 @@ flake8==3.9.2
 pycodestyle==2.7.0
 psycopg2==2.9.1
 McCabe==0.6.1
+Sphinx<1.6
+sphinx_rtd_theme
 c2c.template==2.0.9  # rq.filter: <= 2.1
 -e .
