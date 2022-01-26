@@ -58,7 +58,7 @@ setup(
             'create_example_yaml = dev.config.create_yaml:create_yaml',
             'create_theme_tables = pyramid_oereb.contrib.data_sources.create_tables:create_theme_tables',
             'create_legend_entries = pyramid_oereb.contrib.data_sources.standard.load_legend_entries:run',
-            'create_stats_tables = pyramid_oereb.contrib.data_sources.contrib.stats.scripts.create_stats_tables:create_stats_tables'  # noqa: E501
+            'create_stats_tables = pyramid_oereb.contrib.stats.scripts.create_stats_tables:create_stats_tables'  # noqa: E501
         ]
     }
 )
