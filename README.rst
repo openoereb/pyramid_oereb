@@ -42,12 +42,32 @@ To run the tests locally but inside Docker:
 3. change line 7 in tests/resources/test_config.yml from ``postgresql://postgres:postgres@localhost:5432/oereb_test_db`` to ``postgresql://postgres:postgres@oereb-db:5432/oereb_test_db``
 4. ``docker-compose exec oereb-server make test-core``
 
+CI Status
+=========
 |Build Status| |Requirements Status|
+Master CI status:
 
+.. image:: https://github.com/openoereb/pyramid_oereb/actions/workflows/ci.yaml/badge.svg
+   :alt: Master CI status
+   :target: https://github.com/openoereb/pyramid_oereb/actions/workflows/ci.yaml
+
+Daily build status:
+
+.. image:: https://github.com/openoereb/pyramid_oereb/actions/workflows/daily_build.yaml/badge.svg
+   :alt: Daily build status
+   :target: https://github.com/openoereb/pyramid_oereb/actions/workflows/daily_build.yaml
+
+Code Quality Status:
 
 .. image:: https://api.codacy.com/project/badge/Grade/cf50094a4e84434d837babf1106f9fcb
    :alt: Codacy Badge
    :target: https://app.codacy.com/gh/openoereb/pyramid_oereb?utm_source=github.com&utm_medium=referral&utm_content=openoereb/pyramid_oereb&utm_campaign=Badge_Grade_Settings
+
+Requirement status:
+
+.. |Requirements Status| image:: https://requires.io/github/openoereb/pyramid_oereb/requirements.svg?branch=master
+   :target: https://requires.io/github/openoereb/pyramid_oereb/requirements/?branch=master
+   :alt: Requirements Status
 
 
 ``pyramid_oereb`` is an open-source implementation of the server side part for the swiss `"Cadastre of
@@ -62,14 +82,6 @@ information and instructions for installation and configuration.
 
 If you are interested in contributing or extending the project, take a look at the
 `contribution page <https://openoereb.github.io/pyramid_oereb/doc/contrib/>`__.
-
-.. |Build Status| image:: https://github.com/openoereb/pyramid_oereb/actions/workflows/ci.yaml/badge.svg
-   :target: https://github.com/openoereb/pyramid_oereb/actions/workflows/ci.yaml
-   :alt: Build Status
-
-.. |Requirements Status| image:: https://requires.io/github/openoereb/pyramid_oereb/requirements.svg?branch=master
-   :target: https://requires.io/github/openoereb/pyramid_oereb/requirements/?branch=master
-   :alt: Requirements Status
 
 Local testing for versions V1
 =============================
