@@ -44,18 +44,18 @@ To run the tests locally but inside Docker:
 
 CI Status
 =========
-|Build Status| |Requirements Status|
-Master CI status:
+
+CI status on master branch:
 
 .. image:: https://github.com/openoereb/pyramid_oereb/actions/workflows/ci.yaml/badge.svg
    :alt: Master CI status
    :target: https://github.com/openoereb/pyramid_oereb/actions/workflows/ci.yaml
 
-Daily build status:
+Daily check status:
 
-.. image:: https://github.com/openoereb/pyramid_oereb/actions/workflows/daily_build.yaml/badge.svg
-   :alt: Daily build status
-   :target: https://github.com/openoereb/pyramid_oereb/actions/workflows/daily_build.yaml
+.. image:: https://github.com/openoereb/pyramid_oereb/actions/workflows/daily_check.yaml/badge.svg
+   :alt: Daily check status
+   :target: https://github.com/openoereb/pyramid_oereb/actions/workflows/daily_check.yaml
 
 Code Quality Status:
 
@@ -65,10 +65,12 @@ Code Quality Status:
 
 Requirement status:
 
-.. |Requirements Status| image:: https://requires.io/github/openoereb/pyramid_oereb/requirements.svg?branch=master
+.. image:: https://requires.io/github/openoereb/pyramid_oereb/requirements.svg?branch=master
    :target: https://requires.io/github/openoereb/pyramid_oereb/requirements/?branch=master
    :alt: Requirements Status
 
+Project description
+===================
 
 ``pyramid_oereb`` is an open-source implementation of the server side part for the swiss `"Cadastre of
 Public-law Restrictions on landownership" (PLR-cadastre) <https://www.cadastre.ch/en/oereb.html>`__.
