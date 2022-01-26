@@ -147,7 +147,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'pyramid_oereb'
-copyright = u'2017-2022, openoereb community'
+copyright = u'2017-2022, openoereb community'  # pylint: disable=W0622
 author = u'openoereb community'
 
 # The version info for the project you're documenting, acts as replacement for
