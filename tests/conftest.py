@@ -102,7 +102,7 @@ def base_engine(test_db_url):
         test_db_url.password,
         test_db_url.host,
         test_db_url.port,
-        database="template1"
+        database="postgres"
     )
     engine = create_engine(base_db_url)
     yield engine
