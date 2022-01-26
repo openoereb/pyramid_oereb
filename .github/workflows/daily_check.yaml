@@ -1,7 +1,7 @@
 name: daily check
 on:
   schedule:
-    - cron: "30 * * * *"
+    - cron: "30 04 * * *"
 
 jobs:
   test-py:
