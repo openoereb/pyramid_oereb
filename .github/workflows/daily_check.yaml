@@ -1,10 +1,10 @@
 name: daily check
 on:
   schedule:
-    - cron: "45 13 * * *"
+    - cron: "15 14 * * *"
 
 jobs:
-test-py:
+  test-py:
     name: Test Python
     runs-on: ubuntu-20.04
     services:
