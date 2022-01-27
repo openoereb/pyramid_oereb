@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.0.0.b12
+---------
+- Reactivate statistics functionality from V1 (#1480)
+- Additional fix for static extract (#1478)
+
 2.0.0.b11
 ---------
 - Additional fix for static extract
