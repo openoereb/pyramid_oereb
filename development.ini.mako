@@ -30,10 +30,10 @@ port = ${pyramid_oereb_port}
 ###
 
 [loggers]
-keys = root, pyramid_oereb, sqlalchemy
+keys = root, pyramid_oereb, sqlalchemy, json
 
 [handlers]
-keys = console
+keys = console, sqlalchemylogger
 
 [formatters]
 keys = generic
@@ -55,11 +55,24 @@ qualname = sqlalchemy.engine
 # "level = DEBUG" logs SQL queries and results.
 # "level = WARN" logs neither.  (Recommended for production systems.)
 
+[logger_json]
+level = INFO
+handlers = console, sqlalchemylogger
+qualname = JSON
+propagate = 0
+
 [handler_console]
 class = StreamHandler
 args = (sys.stderr,)
 level = NOTSET
 formatter = generic
+
+[handler_sqlalchemylogger]
+class = c2cwsgiutils.sqlalchemylogger.handlers.SQLAlchemyHandler
+args = ({'url':'postgresql://postgres:postgres@oereb-db:5432/oereb_stats','tablename':'logs','tableargs': {'schema':'oereb_logs'}},'healthcheck')
+level = NOTSET
+formatter = generic
+propagate = 0
 
 [formatter_generic]
 format = %(asctime)s %(levelname)-5.5s [%(name)s:%(lineno)s][%(threadName)s] %(message)s
