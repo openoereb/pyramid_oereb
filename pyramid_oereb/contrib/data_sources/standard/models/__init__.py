@@ -31,7 +31,7 @@ def get_office(base, schema_name, pk_type):
         pk_type (sqlalchemy.sql.type_api.TypeEngine): The type of the primary column. E.g.
             sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
             needs
-    Retruns:
+    Returns:
         sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
     """
 
@@ -80,7 +80,7 @@ def get_document(base, schema_name, pk_type, Office):
             sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
             needs
         Office (sqlalchemy.orm.decl_api.DeclarativeMeta): The office model.
-    Retruns:
+    Returns:
         sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
     """
 
@@ -136,7 +136,7 @@ def get_document(base, schema_name, pk_type, Office):
     return Document
 
 
-def get_availablility(base, schema_name, pk_type):
+def get_availability(base, schema_name, pk_type):
     """
     Factory to produce a generic availability model.
 
@@ -146,7 +146,7 @@ def get_availablility(base, schema_name, pk_type):
         pk_type (sqlalchemy.sql.type_api.TypeEngine): The type of the primary column. E.g.
             sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
             needs
-    Retruns:
+    Returns:
         sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
     """
 
@@ -181,7 +181,7 @@ def get_data_integration(base, schema_name, pk_type, Office):
             sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
             needs
         Office (sqlalchemy.orm.decl_api.DeclarativeMeta): The office model.
-    Retruns:
+    Returns:
         sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
     """
 
@@ -197,6 +197,7 @@ def get_data_integration(base, schema_name, pk_type, Office):
             office_id (str): A foreign key which points to the actual office instance.
             office (pyramid_oereb.standard.models.airports_building_lines.Office):
                 The actual office instance which the id points to.
+            checksum (str):
         """
         __table_args__ = {'schema': schema_name}
         __tablename__ = 'data_integration'
@@ -219,7 +220,7 @@ def get_view_service(base, schema_name, pk_type):
         pk_type (sqlalchemy.sql.type_api.TypeEngine): The type of the primary column. E.g.
             sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
             needs
-    Retruns:
+    Returns:
         sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
     """
 
@@ -256,7 +257,7 @@ def get_legend_entry(base, schema_name, pk_type, ViewService):
             sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
             needs
         ViewService (sqlalchemy.orm.decl_api.DeclarativeMeta): The view service model.
-    Retruns:
+    Returns:
         sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
     """
 
@@ -311,7 +312,7 @@ def get_public_law_restriction(base, schema_name, pk_type, Office, ViewService, 
         Office (sqlalchemy.orm.decl_api.DeclarativeMeta): The office model.
         ViewService (sqlalchemy.orm.decl_api.DeclarativeMeta): The view service model.
         LegendEntry (sqlalchemy.orm.decl_api.DeclarativeMeta): The legend entry model.
-    Retruns:
+    Returns:
         sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
     """
 
@@ -381,7 +382,7 @@ def get_geometry(base, schema_name, pk_type, geometry_type, srid, PublicLawRestr
         geometry_type (str): The geoalchemy geometry type defined as well known string.
         srid (int): The SRID defining the projection of the geometries stored in standard db schema.
         PublicLawRestriction (sqlalchemy.orm.decl_api.DeclarativeMeta): The public law restriction model.
-    Retruns:
+    Returns:
         sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
     """
 
@@ -440,7 +441,7 @@ def get_public_law_restriction_document(base, schema_name, pk_type, PublicLawRes
             needs
         PublicLawRestriction (sqlalchemy.orm.decl_api.DeclarativeMeta): The public law restriction model.
         Document (sqlalchemy.orm.decl_api.DeclarativeMeta): The document model.
-    Retruns:
+    Returns:
         sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
     """
 
