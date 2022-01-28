@@ -493,11 +493,10 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         # Check if the plr is marked as available
         if self._is_available(real_estate):
             session = self.get_session()
-            empty_records = [EmptyPlrRecord(Config.get_theme_by_code_sub_code(self._plr_info['code']))]
             try:
                 if session.query(self._model_).count() == 0:
                     # We can stop here already because there are no items in the database
-                    self.records = empty_records
+                    self.records = [EmptyPlrRecord(Config.get_theme_by_code_sub_code(self._plr_info['code']))]
                 else:
                     # We need to investigate more in detail
 
@@ -508,7 +507,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     if len(geometry_results) == 0:
                         # We checked if there are spatially related elements in database. But there is none.
                         # So we can stop here.
-                        self.records = empty_records
+                        self.records = [EmptyPlrRecord(
+                            Config.get_theme_by_code_sub_code(self._plr_info['code'])
+                        )]
                     else:
                         # We found spatially related elements. This means we need to extract the actual plr
                         # information related to the found geometries.
