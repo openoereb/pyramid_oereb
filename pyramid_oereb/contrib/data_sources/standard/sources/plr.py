@@ -161,6 +161,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 )
 
         return legend_entry_records
+
     def from_db_to_view_service_record(self, view_service_from_db, legend_entry_records):
         view_service_record = self._view_service_record_class(
             view_service_from_db.reference_wms,
@@ -321,7 +322,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         legend_entry_record = self.from_db_to_legend_entry_record(
             public_law_restriction_from_db.legend_entry
         )
-         # this list holds all records which are belonging to the dedicated
+
+        # this list holds all records which are belonging to the dedicated
         # PLR (it is decided by the PLR's theme and sub_theme).
         legend_entry_records = self.from_db_to_legend_entry_records(
             legend_entries_from_db,
