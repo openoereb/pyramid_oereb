@@ -5,20 +5,6 @@
       "de": "Belastet, untersuchungsbedürftig",
       "it": "Inquinato, è necessario procedere a un?indagine"
     },
-    "type_code": "StaoTyp1",
-    "id": 1,
-    "type_code_list": "https://models.geo.admin.ch/BAFU/KbS_Codetexte_V1_4.xml",
-    "view_service_id": 1,
-    "symbol": "iVBORw0KGgoAAAANSUhEUgAAAEgAAAAkAgMAAABXtZT1AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAADFBMVEWpy/5Tlv4AZv////8CA41OAAAAAWJLR0QDEQxM8gAAAAd0SU1FB+MEHQwcJNiZquYAAAAcSURBVCjPYxANRQMhDFmr0MDKUaFRIXoLYSZMAIgsmUho/kyPAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5LTA0LTI5VDE0OjI4OjM2KzAyOjAwZWYGcwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0wNC0yOVQxNDoyODozNiswMjowMBQ7vs8AAAAASUVORK5CYII=",
-    "theme": "ch.Nutzungsplanung",
-    "sub_theme": "ch.Baulinien"
-  },
-  {
-    "legend_text": {
-      "fr": "Pollué, investigation nécessaire",
-      "de": "Belastet, untersuchungsbedürftig",
-      "it": "Inquinato, è necessario procedere a un?indagine"
-    },
     "type_code": "StaoTyp2",
     "id": 2,
     "type_code_list": "https://models.geo.admin.ch/BAFU/KbS_Codetexte_V1_4.xml",
@@ -26,19 +12,6 @@
     "symbol": "iVBORw0KGgoAAAANSUhEUgAAAEgAAAAkAgMAAABXtZT1AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAADFBMVEWpy/5Tlv4AZv////8CA41OAAAAAWJLR0QDEQxM8gAAAAd0SU1FB+MEHQwcJNiZquYAAAAcSURBVCjPYxANRQMhDFmr0MDKUaFRIXoLYSZMAIgsmUho/kyPAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5LTA0LTI5VDE0OjI4OjM2KzAyOjAwZWYGcwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0wNC0yOVQxNDoyODozNiswMjowMBQ7vs8AAAAASUVORK5CYII=",
     "theme": "ch.Nutzungsplanung",
     "sub_theme": "ch.SubTheme"
-  },
-  {
-    "legend_text": {
-      "fr": "Pollué, investigation nécessaire",
-      "de": "Belastet, untersuchungsbedürftig",
-      "it": "Inquinato, è necessario procedere a un?indagine"
-    },
-    "type_code": "StaoTyp3",
-    "id": 3,
-    "type_code_list": "https://models.geo.admin.ch/BAFU/KbS_Codetexte_V1_4.xml",
-    "view_service_id": 1,
-    "symbol": "iVBORw0KGgoAAAANSUhEUgAAAEgAAAAkAgMAAABXtZT1AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAADFBMVEWpy/5Tlv4AZv////8CA41OAAAAAWJLR0QDEQxM8gAAAAd0SU1FB+MEHQwcJNiZquYAAAAcSURBVCjPYxANRQMhDFmr0MDKUaFRIXoLYSZMAIgsmUho/kyPAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5LTA0LTI5VDE0OjI4OjM2KzAyOjAwZWYGcwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0wNC0yOVQxNDoyODozNiswMjowMBQ7vs8AAAAASUVORK5CYII=",
-    "theme": "ch.Nutzungsplanung"
   },
   {
     "legend_text": {
@@ -95,58 +68,6 @@
     "symbol": "iVBORw0KGgoAAAANSUhEUgAAAEgAAAAkAgMAAABXtZT1AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAADFBMVEX+qan+U1P/AAD///808j2TAAAAAWJLR0QDEQxM8gAAAAd0SU1FB+MEHQwdJbaFqzEAAAAcSURBVCjPYxANRQMhDFmr0MDKUaFRIXoLYSZMAIgsmUho/kyPAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5LTA0LTI5VDE0OjI5OjM3KzAyOjAwLNNm+QAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0wNC0yOVQxNDoyOTozNyswMjowMF2O3kUAAAAASUVORK5CYII=",
     "theme": "ch.Nutzungsplanung",
     "sub_theme": "ch.Baulinien"
-  },
-  {
-    "legend_text": {
-      "fr": "Pollué, nécessite un assainissement",
-      "de": "Belastet, sanierungsbedürftig",
-      "it": "Inquinato, deve essere risanato"
-    },
-    "type_code": "StaoTyp2",
-    "id": 8,
-    "type_code_list": "https://models.geo.admin.ch/BAFU/KbS_Codetexte_V1_4.xml",
-    "view_service_id": 1,
-    "symbol": "iVBORw0KGgoAAAANSUhEUgAAAEgAAAAkAgMAAABXtZT1AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAADFBMVEX+qan+U1P/AAD///808j2TAAAAAWJLR0QDEQxM8gAAAAd0SU1FB+MEHQwdJbaFqzEAAAAcSURBVCjPYxANRQMhDFmr0MDKUaFRIXoLYSZMAIgsmUho/kyPAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5LTA0LTI5VDE0OjI5OjM3KzAyOjAwLNNm+QAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0wNC0yOVQxNDoyOTozNyswMjowMF2O3kUAAAAASUVORK5CYII=",
-    "theme": "ch.Nutzungsplanung"
-  },
-  {
-    "legend_text": {
-      "fr": "Pollué, nécessite une surveillance",
-      "de": "Belastet, überwachungsbedürftig",
-      "it": "Inquinato, deve essere sorvegliato"
-    },
-    "type_code": "StaoTyp1",
-    "id": 9,
-    "type_code_list": "https://models.geo.admin.ch/BAFU/KbS_Codetexte_V1_4.xml",
-    "view_service_id": 1,
-    "symbol": "iVBORw0KGgoAAAANSUhEUgAAAEgAAAAkAgMAAABXtZT1AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAADFBMVEX+y6r+llb/ZgX///+Wr71CAAAAAWJLR0QDEQxM8gAAAAd0SU1FB+MEHQweFiJ4meQAAAAcSURBVCjPYxANRQMhDFmr0MDKUaFRIXoLYSZMAIgsmUho/kyPAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5LTA0LTI5VDE0OjMwOjIyKzAyOjAwj9q9ygAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0wNC0yOVQxNDozMDoyMiswMjowMP6HBXYAAAAASUVORK5CYII=",
-    "theme": "ch.Nutzungsplanung"
-  },
-  {
-    "legend_text": {
-      "fr": "Pollué, nécessite une surveillance",
-      "de": "Belastet, überwachungsbedürftig",
-      "it": "Inquinato, deve essere sorvegliato"
-    },
-    "type_code": "StaoTyp2",
-    "id": 10,
-    "type_code_list": "https://models.geo.admin.ch/BAFU/KbS_Codetexte_V1_4.xml",
-    "view_service_id": 1,
-    "symbol": "iVBORw0KGgoAAAANSUhEUgAAAEgAAAAkAgMAAABXtZT1AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAADFBMVEX+y6r+llb/ZgX///+Wr71CAAAAAWJLR0QDEQxM8gAAAAd0SU1FB+MEHQweFiJ4meQAAAAcSURBVCjPYxANRQMhDFmr0MDKUaFRIXoLYSZMAIgsmUho/kyPAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5LTA0LTI5VDE0OjMwOjIyKzAyOjAwj9q9ygAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0wNC0yOVQxNDozMDoyMiswMjowMP6HBXYAAAAASUVORK5CYII=",
-    "theme": "ch.Nutzungsplanung"
-  },
-  {
-    "legend_text": {
-      "fr": "Pollué, nécessite une surveillance",
-      "de": "Belastet, überwachungsbedürftig",
-      "it": "Inquinato, deve essere sorvegliato"
-    },
-    "type_code": "StaoTyp3",
-    "id": 11,
-    "type_code_list": "https://models.geo.admin.ch/BAFU/KbS_Codetexte_V1_4.xml",
-    "view_service_id": 1,
-    "symbol": "iVBORw0KGgoAAAANSUhEUgAAAEgAAAAkAgMAAABXtZT1AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAADFBMVEX+y6r+llb/ZgX///+Wr71CAAAAAWJLR0QDEQxM8gAAAAd0SU1FB+MEHQweFiJ4meQAAAAcSURBVCjPYxANRQMhDFmr0MDKUaFRIXoLYSZMAIgsmUho/kyPAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5LTA0LTI5VDE0OjMwOjIyKzAyOjAwj9q9ygAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0wNC0yOVQxNDozMDoyMiswMjowMP6HBXYAAAAASUVORK5CYII=",
-    "theme": "ch.Nutzungsplanung"
   },
   {
     "legend_text": {

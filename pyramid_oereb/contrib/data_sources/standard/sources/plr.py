@@ -472,15 +472,12 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         Returns:
             list: The result of the related geometries unique by the public law restriction id
         """
-        distinct_legend_entry_ids = []
-        geometries = self.handle_collection(session, bbox).distinct(
-            self._model_.public_law_restriction_id
-        ).all()
 
+        distinct_legend_entry_ids = []
+        geometries = self.handle_collection(session, bbox).all()
         for geometry in geometries:
             if geometry.public_law_restriction.legend_entry_id not in distinct_legend_entry_ids:
                 distinct_legend_entry_ids.append(geometry.public_law_restriction.legend_entry_id)
-
         return session.query(self.legend_entry_model).filter(
             self.legend_entry_model.id.in_((distinct_legend_entry_ids))).all()
 

@@ -10,8 +10,7 @@
     "type_code_list": "https://models.geo.admin.ch/BAFU/KbS_Codetexte_V1_4.xml",
     "view_service_id": 1,
     "symbol": "iVBORw0KGgoAAAANSUhEUgAAAEgAAAAkAgMAAABXtZT1AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAADFBMVEWpy/5Tlv4AZv////8CA41OAAAAAWJLR0QDEQxM8gAAAAd0SU1FB+MEHQwnDaaZ3bIAAAAcSURBVCjPYxANRQMhDFmr0MDKUaFRIXoLYSZMAIgsmUho/kyPAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5LTA0LTI5VDE0OjM5OjEzKzAyOjAwWzeaVwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0wNC0yOVQxNDozOToxMyswMjowMCpqIusAAAAASUVORK5CYII=",
-    "theme": "ch.StatischeWaldgrenzen",
-    "sub_theme": null
+    "theme": "ch.StatischeWaldgrenzen"
   },
   {
     "legend_text": {
@@ -24,7 +23,6 @@
     "type_code_list": "https://models.geo.admin.ch/BAFU/KbS_Codetexte_V1_4.xml",
     "view_service_id": 1,
     "symbol": "iVBORw0KGgoAAAANSUhEUgAAAEgAAAAkAgMAAABXtZT1AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAADFBMVEX+7an+3FP/zAD////0ncVSAAAAAWJLR0QDEQxM8gAAAAd0SU1FB+MEHQwdC2pTpv4AAAAcSURBVCjPYxANRQMhDFmr0MDKUaFRIXoLYSZMAIgsmUho/kyPAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5LTA0LTI5VDE0OjI5OjExKzAyOjAwDSZUvgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0wNC0yOVQxNDoyOToxMSswMjowMHx77AIAAAAASUVORK5CYII=",
-    "theme": "ch.StatischeWaldgrenzen",
-    "sub_theme": null
+    "theme": "ch.StatischeWaldgrenzen"
   }
 ]
