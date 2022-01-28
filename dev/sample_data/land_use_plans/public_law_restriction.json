@@ -14,7 +14,7 @@
     "id": 397,
     "law_status": "inKraft",
     "view_service_id": 1,
-    "legend_entry_id": 2
+    "legend_entry_id": 4
   }, {
     "office_id": 1,
     "published_from": "2016-02-25",
@@ -22,7 +22,7 @@
     "id": 398,
     "law_status": "AenderungMitVorwirkung",
     "view_service_id": 1,
-    "legend_entry_id": 3
+    "legend_entry_id": 5
   }, {
     "office_id": 1,
     "published_from": "2016-02-25",
@@ -30,7 +30,7 @@
     "id": 399,
     "law_status": "AenderungOhneVorwirkung",
     "view_service_id": 1,
-    "legend_entry_id": 3
+    "legend_entry_id": 7
   }, {
     "office_id": 1,
     "published_from": "2016-02-25",
@@ -38,7 +38,7 @@
     "id": 400,
     "law_status": "inKraft",
     "view_service_id": 1,
-    "legend_entry_id": 1
+    "legend_entry_id": 7
   }, {
     "office_id": 1,
     "published_from": "2016-02-25",
@@ -46,6 +46,6 @@
     "id": 401,
     "law_status": "inKraft",
     "view_service_id": 1,
-    "legend_entry_id": 1
+    "legend_entry_id": 6
   }
 ]
