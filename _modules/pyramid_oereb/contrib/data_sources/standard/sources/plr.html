@@ -299,7 +299,14 @@
             <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">from_db_to_legend_entry_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legend_entry_from_db</span><span class="p">):</span>
-        <span class="n">theme</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span><span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">sub_theme</span><span class="p">)</span>
+        <span class="n">theme</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span><span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">theme</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">sub_theme</span><span class="p">:</span>
+            <span class="n">sub_theme</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span>
+                <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span>
+                <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">sub_theme</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sub_theme</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">legend_entry_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_legend_entry_record_class</span><span class="p">(</span>
             <span class="n">ImageRecord</span><span class="p">(</span><span class="n">b64</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">symbol</span><span class="p">)),</span>
             <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">legend_text</span><span class="p">,</span>
@@ -307,17 +314,19 @@
             <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">type_code_list</span><span class="p">,</span>
             <span class="n">theme</span><span class="p">,</span>
             <span class="n">view_service_id</span><span class="o">=</span><span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">view_service_id</span><span class="p">,</span>
+            <span class="n">sub_theme</span><span class="o">=</span><span class="n">sub_theme</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">legend_entry_record</span>
 
-    <span class="k">def</span> <span class="nf">from_db_to_legend_entry_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legend_entries_from_db</span><span class="p">,</span> <span class="n">sub_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">from_db_to_legend_entry_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legend_entries_from_db</span><span class="p">,</span> <span class="n">plr_legend_entry</span><span class="p">):</span>
         <span class="n">legend_entry_records</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">if</span> <span class="n">sub_theme</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">legend_entry_from_db</span> <span class="ow">in</span> <span class="n">legend_entries_from_db</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">sub_theme</span> <span class="o">==</span> <span class="n">sub_theme</span><span class="p">:</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_legend_entry_record</span><span class="p">(</span><span class="n">legend_entry_from_db</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">legend_entry_from_db</span> <span class="ow">in</span> <span class="n">legend_entries_from_db</span><span class="p">:</span>
+        <span class="n">theme_code</span> <span class="o">=</span> <span class="n">plr_legend_entry</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span>
+        <span class="n">sub_theme_code</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">plr_legend_entry</span><span class="o">.</span><span class="n">sub_theme</span><span class="p">:</span>
+            <span class="n">sub_theme_code</span> <span class="o">=</span> <span class="n">plr_legend_entry</span><span class="o">.</span><span class="n">sub_theme</span><span class="o">.</span><span class="n">sub_code</span>
+
+        <span class="k">for</span> <span class="n">legend_entry_from_db</span> <span class="ow">in</span> <span class="n">legend_entries_from_db</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">sub_theme</span> <span class="o">==</span> <span class="n">sub_theme_code</span> <span class="ow">and</span> <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">theme</span> <span class="o">==</span> <span class="n">theme_code</span><span class="p">:</span>
                 <span class="n">legend_entry_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_legend_entry_record</span><span class="p">(</span><span class="n">legend_entry_from_db</span><span class="p">)</span>
                 <span class="p">)</span>
@@ -484,20 +493,20 @@
         <span class="n">legend_entry_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_legend_entry_record</span><span class="p">(</span>
             <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">legend_entry</span>
         <span class="p">)</span>
+
+        <span class="c1"># this list holds all records which are belonging to the dedicated</span>
+        <span class="c1"># PLR (it is decided by the PLR&#39;s theme and sub_theme).</span>
         <span class="n">legend_entry_records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_legend_entry_records</span><span class="p">(</span>
             <span class="n">legend_entries_from_db</span><span class="p">,</span>
-            <span class="n">legend_entry_record</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">sub_code</span>
+            <span class="n">legend_entry_record</span>
         <span class="p">)</span>
         <span class="n">symbol</span> <span class="o">=</span> <span class="n">ImageRecord</span><span class="p">(</span><span class="n">b64</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">legend_entry</span><span class="o">.</span><span class="n">symbol</span><span class="p">))</span>
         <span class="n">view_service_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_view_service_record</span><span class="p">(</span>
             <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">view_service</span><span class="p">,</span>
             <span class="n">legend_entry_records</span>
         <span class="p">)</span>
-        <span class="n">theme</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span>
-            <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">legend_entry</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span>
-            <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">legend_entry</span><span class="o">.</span><span class="n">sub_theme</span><span class="p">)</span>
         <span class="n">document_records</span> <span class="o">=</span> <span class="n">eliminate_duplicated_document_records</span><span class="p">(</span>
-            <span class="n">theme</span><span class="o">.</span><span class="n">document_records</span><span class="p">,</span>
+            <span class="n">legend_entry_record</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">document_records</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">get_document_records</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">public_law_restriction_from_db</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="n">geometry_records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_geometry_records</span><span class="p">(</span><span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">geometries</span><span class="p">)</span>
@@ -505,10 +514,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span>
             <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">law_status</span>
         <span class="p">)</span>
-        <span class="n">sub_theme_legend_entry_record</span> <span class="o">=</span> \
-            <span class="n">legend_entry_record</span><span class="o">.</span><span class="n">theme</span> <span class="k">if</span> <span class="n">legend_entry_record</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">sub_code</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="n">plr_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_record_class</span><span class="p">(</span>
-            <span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span><span class="n">legend_entry_record</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">code</span><span class="p">),</span>
+            <span class="n">legend_entry_record</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span>
             <span class="n">legend_entry_record</span><span class="p">,</span>
             <span class="n">law_status</span><span class="p">,</span>
             <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">published_from</span><span class="p">,</span>
@@ -517,7 +524,7 @@
             <span class="n">symbol</span><span class="p">,</span>
             <span class="n">view_service_record</span><span class="p">,</span>
             <span class="n">geometry_records</span><span class="p">,</span>
-            <span class="n">sub_theme</span><span class="o">=</span><span class="n">sub_theme_legend_entry_record</span><span class="p">,</span>
+            <span class="n">sub_theme</span><span class="o">=</span><span class="n">legend_entry_record</span><span class="o">.</span><span class="n">sub_theme</span><span class="p">,</span>
             <span class="n">type_code</span><span class="o">=</span><span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">legend_entry</span><span class="o">.</span><span class="n">type_code</span><span class="p">,</span>
             <span class="n">type_code_list</span><span class="o">=</span><span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">legend_entry</span><span class="o">.</span><span class="n">type_code_list</span><span class="p">,</span>
             <span class="n">documents</span><span class="o">=</span><span class="n">document_records</span><span class="p">,</span>
@@ -636,15 +643,12 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            list: The result of the related geometries unique by the public law restriction id</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">distinct_legend_entry_ids</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">geometries</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_collection</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">public_law_restriction_id</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 
+        <span class="n">distinct_legend_entry_ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">geometries</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_collection</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">geometry</span> <span class="ow">in</span> <span class="n">geometries</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">public_law_restriction</span><span class="o">.</span><span class="n">legend_entry_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">distinct_legend_entry_ids</span><span class="p">:</span>
                 <span class="n">distinct_legend_entry_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">public_law_restriction</span><span class="o">.</span><span class="n">legend_entry_id</span><span class="p">)</span>
-
         <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_entry_model</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">legend_entry_model</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">in_</span><span class="p">((</span><span class="n">distinct_legend_entry_ids</span><span class="p">)))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 
