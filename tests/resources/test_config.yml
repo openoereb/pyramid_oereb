@@ -82,7 +82,7 @@ pyramid_oereb:
           schema_name: land_use_plans
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       thresholds:
         length:
           limit: 1.0
@@ -130,7 +130,7 @@ pyramid_oereb:
           schema_name: contaminated_sites
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       thresholds:
         length:
           limit: 1.0
@@ -307,8 +307,8 @@ pyramid_oereb:
   extract:
     base_data:
       methods:
-        date: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_update_date
-        provider:  pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_provider
+        date: pyramid_oereb.core.hook_methods.get_surveying_data_update_date
+        provider:  pyramid_oereb.core.hook_methods.get_surveying_data_provider
     redirect: https://geoview.bl.ch/oereb/?egrid={egrid}
 
   glossary:

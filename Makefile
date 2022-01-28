@@ -254,6 +254,9 @@ build: install $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CONFIGURATION_YML) create_dev_d
 .PHONY: clean
 clean: clean_fed_data clean_dev_db_scripts
 	rm -f $(DEV_CONFIGURATION_YML)
+	rm -f core.xml
+	rm -f contrib-print_proxy-mapfish_print.xml
+	rm -f contrib-data_sources-standard.xml
 
 .PHONY: clean-all
 clean-all: clean
@@ -279,16 +282,19 @@ test-postgis:
 
 .PHONY: test-core
 test-core: .venv/requirements-timestamp
-	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc --cov $(PACKAGE) --cov-report=xml tests/core
+	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.core --cov $(PACKAGE)/core --cov-report=term-missing --cov-report=xml:coverage.core.xml tests/core
 
-.PHONY: test-contrib
-test-contrib: .venv/requirements-timestamp
-	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc --cov $(PACKAGE) --cov-report xml:cov_contrib.xml tests/contrib.print_proxy.mapfish_print
+.PHONY: test-contrib-print_proxy-mapfish_print
+test-contrib-print_proxy-mapfish_print: .venv/requirements-timestamp
+	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-print_proxy-mapfish_print --cov $(PACKAGE) --cov-report xml:coverage.contrib-print_proxy-mapfish_print.xml tests/contrib.print_proxy.mapfish_print
 	# $(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc --cov $(PACKAGE) --cov-report term-missing:skip-covered tests/contrib.print_proxy.xml_2_pdf
 
+.PHONY: test-contrib-data_sources-standard
+test-contrib-data_sources-standard: .venv/requirements-timestamp
+	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-data_sources-standard --cov $(PACKAGE)/contrib/data_sources/standard --cov-report=term-missing:skip-covered --cov-report=xml:coverage.contrib-data_sources-standard.xml tests/contrib.data_sources.standard
+
 .PHONY: tests
-tests: .venv/requirements-timestamp
-	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc --cov $(PACKAGE) --cov-report term-missing:skip-covered tests/$(PYTEST_PATH)
+tests: .venv/requirements-timestamp test-core test-contrib-data_sources-standard test-contrib-print_proxy-mapfish_print
 
 .PHONY: check
 check: git-attributes lint test

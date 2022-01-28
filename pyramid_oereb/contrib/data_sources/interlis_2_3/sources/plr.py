@@ -41,7 +41,7 @@ class StandardThemeConfigParser(object):
 
     @property
     def srid(self):
-        return Config._config.get('srid')
+        return Config.get_srid()
 
     @property
     def db_connection(self):

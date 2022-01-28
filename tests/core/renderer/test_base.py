@@ -15,7 +15,7 @@ from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.view_service import LegendEntryRecord
 from pyramid_oereb.core.renderer import Base
 from pyramid_oereb.core.renderer.extract.json_ import Renderer
-import pyramid_oereb.contrib.data_sources.standard.hook_methods
+import pyramid_oereb.core.hook_methods
 from tests.mockrequest import MockRequest
 
 
@@ -182,7 +182,7 @@ def test_sort_by_localized_text(DummyRenderInfo):
     assert sorted_multilingual_elements[2]['content']['fr'] == u'Content-Ofo'
 
 
-@patch.object(pyramid_oereb.contrib.data_sources.standard.hook_methods, 'route_prefix', 'oereb')
+@patch.object(pyramid_oereb.core.hook_methods, 'route_prefix', 'oereb')
 @pytest.mark.parametrize('theme_code', [
     u'ch.BelasteteStandorte',
     u'NotExistingTheme',

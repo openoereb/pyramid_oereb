@@ -38,7 +38,7 @@ def create_dummy_extract():
     ))
     plr_office = OfficeRecord({u'en': u'PLR Authority'})
     resolver = DottedNameResolver()
-    date_method_string = 'pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_update_date'  # noqa: E501
+    date_method_string = 'pyramid_oereb.core.hook_methods.get_surveying_data_update_date'  # noqa: E501
     date_method = resolver.resolve(date_method_string)
     update_date_os = date_method(real_estate)
     record = ExtractRecord(

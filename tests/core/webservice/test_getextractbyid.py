@@ -7,10 +7,11 @@ from jsonschema import Draft4Validator
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNoContent
 
 from tests.mockrequest import MockRequest
-import pyramid_oereb.core.views.webservice
-import pyramid_oereb.contrib.data_sources.standard.hook_methods
-import pyramid_oereb.core.renderer.extract.json_
 from pyramid_oereb.core.views.webservice import PlrWebservice
+
+import pyramid_oereb.core.renderer.extract.json_
+import pyramid_oereb.core.views.webservice
+import pyramid_oereb.core.hook_methods
 
 log = logging.getLogger('pyramid_oereb')
 
@@ -143,7 +144,7 @@ def test_return_no_content():
     assert isinstance(response, HTTPNoContent)
 
 
-@patch.object(pyramid_oereb.contrib.data_sources.standard.hook_methods, 'route_prefix', 'oereb')
+@patch.object(pyramid_oereb.core.hook_methods, 'route_prefix', 'oereb')
 @patch.object(pyramid_oereb.core.renderer.extract.json_, 'route_prefix', 'oereb')
 @patch.object(pyramid_oereb.core.views.webservice, 'route_prefix', 'oereb')
 @pytest.mark.parametrize('egrid,topics', [
