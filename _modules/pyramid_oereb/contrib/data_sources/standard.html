@@ -169,19 +169,8 @@
   <h1>Source code for pyramid_oereb.contrib.data_sources.standard</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.schema</span> <span class="kn">import</span> <span class="n">CreateTable</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.dialects</span> <span class="kn">import</span> <span class="n">postgresql</span>
-
-
-<span class="k">def</span> <span class="nf">convert_camel_case_to_snake_case</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-    <span class="n">s1</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;(.)([A-Z][a-z]+)&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\1_\2&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;([a-z0-9])([A-Z])&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\1_\2&#39;</span><span class="p">,</span> <span class="n">s1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-
-
-<span class="k">def</span> <span class="nf">convert_camel_case_to_text_form</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-    <span class="n">s1</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;(.)([A-Z][a-z]+)&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\1 \2&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;([a-z0-9])([A-Z])&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;\1 \2&#39;</span><span class="p">,</span> <span class="n">s1</span><span class="p">)</span>
 
 
 <span class="k">def</span> <span class="nf">tables</span><span class="p">(</span><span class="n">base</span><span class="p">):</span>
