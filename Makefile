@@ -254,9 +254,9 @@ build: install $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CONFIGURATION_YML) create_dev_d
 .PHONY: clean
 clean: clean_fed_data clean_dev_db_scripts
 	rm -f $(DEV_CONFIGURATION_YML)
-	rm -f core.xml
-	rm -f contrib-print_proxy-mapfish_print.xml
-	rm -f contrib-data_sources-standard.xml
+	rm -f coverage.core.xml
+	rm -f coverage.contrib-data_sources-standard.xml
+	rm -f coverage.contrib-print_proxy-mapfish_print.xml
 
 .PHONY: clean-all
 clean-all: clean

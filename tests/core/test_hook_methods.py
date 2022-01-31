@@ -59,9 +59,8 @@ def legend_entry_data(pyramid_oereb_test_config, dbsession, transact, file_adapt
 
 
 def test_get_symbol():
-    binary_image, content_type = get_symbol('ch.BelasteteStandorte', None, '1', 'type', {})
-    assert isinstance(binary_image, bytes)
-    assert content_type == 'image/png'
+    with pytest.raises(NotImplementedError):
+        binary_image, content_type = get_symbol('ch.BelasteteStandorte', None, '1', 'type', {})
 
 
 @patch.object(pyramid_oereb.core.hook_methods, 'route_prefix', 'oereb')

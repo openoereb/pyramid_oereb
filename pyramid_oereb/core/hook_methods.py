@@ -1,6 +1,4 @@
 import datetime
-import io
-from PIL import Image
 from mako.template import Template
 from pyramid.path import AssetResolver
 
@@ -10,8 +8,10 @@ from pyramid_oereb.core.records.office import OfficeRecord
 
 def get_symbol(theme_code, sub_theme_code, view_service_id, type_code, theme_config):
     """
-    Returns the symbol for the requested theme and type code from database. It queries the model
-    for the legend entry pyramid_oereb.contrib.data_sources.standard.models.get_legend_entry
+    This is a dummy method only to define what is expected by the real implementation.
+
+    It is expected that this method delivers the actual binary content of the found image
+    and the mime type fitting to the image content.
 
     Args:
         theme_code (str): The theme code.
@@ -23,11 +23,7 @@ def get_symbol(theme_code, sub_theme_code, view_service_id, type_code, theme_con
     Returns:
         bytearray, str: The image content and the mimetype of image.
     """
-    # produces a dummy image of the correct dimension grey filled
-    image = Image.new("RGB", (72, 36), (128, 128, 128))
-    output = io.BytesIO()
-    image.save(output, format='PNG')
-    return output.getvalue(), 'image/png'
+    raise NotImplementedError('Method has to be implemented.')
 
 
 def get_symbol_ref(request, record):
