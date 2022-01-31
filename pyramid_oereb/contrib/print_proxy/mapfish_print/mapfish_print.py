@@ -217,10 +217,15 @@ class Renderer(JsonRenderer):
         ])
         extract_dict['CreationDate'] = creation_date.strftime('%d.%m.%Y')
 
-        extract_dict['ConcernedTheme'] = []
-        for attr_name in ['NotConcernedTheme', 'ThemeWithoutData']:
+        for attr_name in ['ConcernedTheme', 'NotConcernedTheme', 'ThemeWithoutData']:
             for theme in extract_dict[attr_name]:
                 self._multilingual_text(theme, 'Text')
+
+        # extract theme titles for later use before resetting "ConcernedTheme"
+        themeTitles = {theme["Code"]: theme["Text"]
+                       for theme in (extract_dict.get("ConcernedTheme", [])
+                                     + extract_dict.get("NotConcernedTheme", []))}
+        extract_dict['ConcernedTheme'] = []
         self._flatten_object(extract_dict, 'PLRCadastreAuthority')
         self._multilingual_text(extract_dict, 'PLRCadastreAuthority_OfficeAtWeb')
         self._flatten_object(extract_dict, 'RealEstate')
@@ -370,12 +375,14 @@ class Renderer(JsonRenderer):
         for restriction_on_landownership in extract_dict.get('RealEstate_RestrictionOnLandownership', []):
 
             theme_text = restriction_on_landownership['Theme_Text']
-            sub_theme_text = restriction_on_landownership.get('SubTheme_Text')
-            theme_text = f"{theme_text}: {sub_theme_text}" if sub_theme_text else theme_text
+            if 'Theme_SubCode' in restriction_on_landownership:
+                main_theme_text = themeTitles.get(restriction_on_landownership['Theme_Code'])
+                if main_theme_text is not None:
+                    theme_text = f"{main_theme_text}: {theme_text}"
 
-            restriction_on_landownership['Theme_Text'] = f"{theme_text}"
+            restriction_on_landownership['Theme_Text'] = theme_text
 
-            sub_theme_code = restriction_on_landownership.get('SubTheme_Sub_Code', '')
+            sub_theme_code = restriction_on_landownership.get('Theme_SubCode', '')
             theme = restriction_on_landownership['Theme_Code'] + \
                 sub_theme_code+restriction_on_landownership['Lawstatus_Code']
 
@@ -579,16 +586,16 @@ class Renderer(JsonRenderer):
                         ": {}".format(document)
             log.error(error_msg)
             raise AttributeError(error_msg)
-
-        if documentType == 'Rechtsvorschrift':
+        # TODO: We should check if this has potential relation to the configurable translations.
+        if documentType == 'LegalProvision':
             legal_provisions[uid] = document
-        elif documentType == 'GesetzlicheGrundlage':
+        elif documentType == 'Law':
             laws[uid] = document
-        elif documentType == 'Hinweis':
+        elif documentType == 'Hint':
             hints[uid] = document
         else:
             log.warning(f"Wrong document type {documentType}")
-            log.warning("(expected 'Rechtsvorschrift', 'GesetzlicheGrundlage' or 'Hinweis')")
+            log.warning("(expected 'LegalProvision', 'Law' or 'Hint')")
 
     @staticmethod
     def _get_element_of_legal_provision_maybe_uid(element):

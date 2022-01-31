@@ -3,3 +3,4 @@ pytest-cov==2.12.1
 pytest-ordering==0.6
 requests-mock==1.9.3
 responses==0.13.3
+webtest

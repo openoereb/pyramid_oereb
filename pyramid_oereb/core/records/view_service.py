@@ -69,9 +69,9 @@ class ViewServiceRecord(object):
             legends (list of LegendEntry or None): A list of all relevant legend entries.
 
         Attributes:
-        image (dict): multilingual dictionary containing the binary image
-            (pyramid_oereb.core.records.image.ImageRecord) downloaded from WMS link for the
-            requested (if any) or default language. Empty for an extract without images
+            image (dict): multilingual dictionary containing the binary image
+                (pyramid_oereb.core.records.image.ImageRecord) downloaded from WMS link for the
+                requested (if any) or default language. Empty for an extract without images
         """
         self.reference_wms = reference_wms
         self.image = dict()  # multilingual dict with binary map images resulting from calling the wms link

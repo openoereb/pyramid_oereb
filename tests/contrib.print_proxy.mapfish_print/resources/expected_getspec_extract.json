@@ -229,9 +229,7 @@
       "Lawstatus_Code": "inKraft",
       "Theme_Text": "Nutzungsplanung: 02.73A.Grundnutzung",
       "Theme_Code": "ch.Nutzungsplanung",
-      "SubTheme_Code": "ch.Nutzungsplanung",
-      "SubTheme_Sub_Code": "ch.Baulinien",
-      "SubTheme_Text": "02.73A.Grundnutzung",
+      "Theme_SubCode": "ch.Baulinien",
       "baseLayers": {
         "layers": [
           {
@@ -376,7 +374,7 @@
             }
           ],
           "Type": {
-            "Code": "Rechtsvorschrift",
+            "Code": "LegalProvision",
             "Text": [
               {
                 "Language": "de",
@@ -399,7 +397,7 @@
             }
           ],
           "Type": {
-            "Code": "Rechtsvorschrift",
+            "Code": "LegalProvision",
             "Text": [
               {
                 "Language": "de",
@@ -422,7 +420,7 @@
             }
           ],
           "Type": {
-            "Code": "Rechtsvorschrift",
+            "Code": "LegalProvision",
             "Text": [
               {
                 "Language": "de",
@@ -446,7 +444,7 @@
             }
           ],
           "Type": {
-            "Code": "Rechtsvorschrift",
+            "Code": "LegalProvision",
             "Text": [
               {
                 "Language": "de",
@@ -470,7 +468,7 @@
             }
           ],
           "Type": {
-            "Code": "Rechtsvorschrift",
+            "Code": "LegalProvision",
             "Text": [
               {
                 "Language": "de",
@@ -520,9 +518,7 @@
       "Lawstatus_Code": "inKraft",
       "Theme_Text": "Nutzungsplanung: 08.73B.Ueberlagerung_Flaeche",
       "Theme_Code": "ch.Nutzungsplanung",
-      "SubTheme_Code": "ch.Nutzungsplanung",
-      "SubTheme_Sub_Code": "ch.Ueberlagerung",
-      "SubTheme_Text": "08.73B.Ueberlagerung_Flaeche",
+      "Theme_SubCode": "ch.Ueberlagerung",
       "baseLayers": {
         "layers": [
           {
@@ -667,7 +663,7 @@
             }
           ],
           "Type": {
-            "Code": "Rechtsvorschrift",
+            "Code": "LegalProvision",
             "Text": [
               {
                 "Language": "de",
@@ -690,7 +686,7 @@
             }
           ],
           "Type": {
-            "Code": "Rechtsvorschrift",
+            "Code": "LegalProvision",
             "Text": [
               {
                 "Language": "de",
@@ -714,7 +710,7 @@
             }
           ],
           "Type": {
-            "Code": "Rechtsvorschrift",
+            "Code": "LegalProvision",
             "Text": [
               {
                 "Language": "de",
@@ -738,7 +734,7 @@
             }
           ],
           "Type": {
-            "Code": "Rechtsvorschrift",
+            "Code": "LegalProvision",
             "Text": [
               {
                 "Language": "de",
@@ -761,7 +757,7 @@
             }
           ],
           "Type": {
-            "Code": "Rechtsvorschrift",
+            "Code": "LegalProvision",
             "Text": [
               {
                 "Language": "de",
@@ -867,7 +863,7 @@
             }
           ],
           "Type": {
-            "Code": "Rechtsvorschrift",
+            "Code": "LegalProvision",
             "Text": [
               {
                 "Language": "de",
@@ -882,7 +878,7 @@
         },
         {
           "Type": {
-            "Code": "Rechtsvorschrift",
+            "Code": "LegalProvision",
             "Text": [
               {
                 "Language": "de",
@@ -903,7 +899,7 @@
         },
         {
           "Type": {
-            "Code": "Rechtsvorschrift",
+            "Code": "LegalProvision",
             "Text": [
               {
                 "Language": "de",
@@ -933,7 +929,7 @@
             }
           ],
           "Type": {
-            "Code": "Rechtsvorschrift",
+            "Code": "LegalProvision",
             "Text": [
               {
                 "Language": "de",
@@ -957,7 +953,7 @@
             }
           ],
           "Type": {
-            "Code": "Rechtsvorschrift",
+            "Code": "LegalProvision",
             "Text": [
               {
                 "Language": "de",
@@ -981,7 +977,7 @@
             }
           ],
           "Type": {
-            "Code": "Rechtsvorschrift",
+            "Code": "LegalProvision",
             "Text": [
               {
                 "Language": "de",
@@ -1101,7 +1097,7 @@
             }
           ],
           "Type": {
-            "Code": "Rechtsvorschrift",
+            "Code": "LegalProvision",
             "Text": [
               {
                 "Language": "de",
@@ -1124,7 +1120,7 @@
             }
           ],
           "Type": {
-            "Code": "Rechtsvorschrift",
+            "Code": "LegalProvision",
             "Text": [
               {
                 "Language": "de",
@@ -1148,7 +1144,7 @@
             }
           ],
           "Type": {
-            "Code": "Rechtsvorschrift",
+            "Code": "LegalProvision",
             "Text": [
               {
                 "Language": "de",

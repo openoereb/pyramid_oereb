@@ -498,7 +498,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -557,7 +557,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -616,7 +616,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -663,7 +663,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -730,7 +730,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -789,7 +789,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -848,7 +848,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -895,7 +895,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -905,20 +905,13 @@
               }
             }
           ],
-          "SubTheme": {
-            "Code": "ch.Nutzungsplanung",
-            "Sub_Code": "ch.Baulinien",
+          "Theme": {
             "Text": [{
               "Text": "02.73A.Grundnutzung",
               "Language": "de"
-            }]
-          },
-          "Theme": {
-            "Text": [{
-              "Text": "Nutzungsplanung",
-              "Language": "de"
             }],
-            "Code": "ch.Nutzungsplanung"
+            "Code": "ch.Nutzungsplanung",
+            "SubCode": "ch.Baulinien"
           },
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/108000",
           "Map": {
@@ -1386,7 +1379,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -1445,7 +1438,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -1504,7 +1497,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -1551,7 +1544,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -1618,7 +1611,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -1677,7 +1670,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -1736,7 +1729,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -1783,7 +1776,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -1793,20 +1786,13 @@
               }
             }
           ],
-          "SubTheme": {
-            "Code": "ch.Nutzungsplanung",
-            "Sub_Code": "ch.Baulinien",
+          "Theme": {
             "Text": [{
               "Text": "02.73A.Grundnutzung",
               "Language": "de"
-            }]
-          },
-          "Theme": {
-            "Text": [{
-              "Text": "Nutzungsplanung",
-              "Language": "de"
             }],
-            "Code": "ch.Nutzungsplanung"
+            "Code": "ch.Nutzungsplanung",
+            "SubCode": "ch.Baulinien"
           },
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/108000",
           "Map": {
@@ -2274,7 +2260,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -2333,7 +2319,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -2392,7 +2378,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -2439,7 +2425,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -2506,7 +2492,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -2565,7 +2551,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -2624,7 +2610,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -2671,7 +2657,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -2681,20 +2667,13 @@
               }
             }
           ],
-          "SubTheme": {
-            "Code": "ch.Nutzungsplanung",
-            "Sub_Code": "ch.Baulinien",
+          "Theme": {
             "Text": [{
               "Text": "02.73A.Grundnutzung",
               "Language": "de"
-            }]
-          },
-          "Theme": {
-            "Text": [{
-              "Text": "Nutzungsplanung",
-              "Language": "de"
             }],
-            "Code": "ch.Nutzungsplanung"
+            "Code": "ch.Nutzungsplanung",
+            "SubCode": "ch.Baulinien"
           },
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/108000",
           "Map": {
@@ -3162,7 +3141,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -3221,7 +3200,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -3280,7 +3259,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -3327,7 +3306,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -3394,7 +3373,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -3453,7 +3432,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -3512,7 +3491,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -3559,7 +3538,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -3569,20 +3548,13 @@
               }
             }
           ],
-          "SubTheme": {
-            "Code": "ch.Nutzungsplanung",
-            "Sub_Code": "ch.Baulinien",
+          "Theme": {
             "Text": [{
               "Text": "02.73A.Grundnutzung",
               "Language": "de"
-            }]
-          },
-          "Theme": {
-            "Text": [{
-              "Text": "Nutzungsplanung",
-              "Language": "de"
             }],
-            "Code": "ch.Nutzungsplanung"
+            "Code": "ch.Nutzungsplanung",
+            "SubCode": "ch.Baulinien"
           },
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/130004",
           "Map": {
@@ -4050,7 +4022,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -4109,7 +4081,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -4168,7 +4140,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -4215,7 +4187,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -4282,7 +4254,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -4341,7 +4313,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -4400,7 +4372,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -4447,7 +4419,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -4457,20 +4429,13 @@
               }
             }
           ],
-          "SubTheme": {
-            "Code": "ch.Nutzungsplanung",
-            "Sub_Code": "ch.Ueberlagerung",
+          "Theme": {
             "Text": [{
               "Text": "08.73B.Ueberlagerung_Flaeche",
               "Language": "de"
-            }]
-          },
-          "Theme": {
-            "Text": [{
-              "Text": "Nutzungsplanung",
-              "Language": "de"
             }],
-            "Code": "ch.Nutzungsplanung"
+            "Code": "ch.Nutzungsplanung",
+            "SubCode": "ch.Ueberlagerung"
           },
           "SymbolRef": "http://dev2.geoview.bl.ch/vvmruder/oereb/image/symbol/ch.Nutzungsplanung/219106",
           "Map": {
@@ -4996,7 +4961,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -5061,7 +5026,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -5120,7 +5085,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -5179,7 +5144,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -5238,7 +5203,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -5408,7 +5373,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -5473,7 +5438,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -5532,7 +5497,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -5591,7 +5556,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -5650,7 +5615,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -5820,7 +5785,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -5885,7 +5850,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -5944,7 +5909,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -6003,7 +5968,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -6062,7 +6027,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -6232,7 +6197,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -6297,7 +6262,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -6356,7 +6321,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -6415,7 +6380,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -6474,7 +6439,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -6644,7 +6609,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -6709,7 +6674,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -6768,7 +6733,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -6827,7 +6792,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -6886,7 +6851,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -7053,7 +7018,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -7112,7 +7077,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -7159,7 +7124,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -7318,7 +7283,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -7377,7 +7342,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -7424,7 +7389,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",
@@ -7583,7 +7548,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -7642,7 +7607,7 @@
                     ]
                   },
                   "Type": {
-                    "Code": "Rechtsvorschrift",
+                    "Code": "LegalProvision",
                     "Text": [
                       {
                         "Language": "de",
@@ -7689,7 +7654,7 @@
                 "Code": "inKraft"
               },
               "Type": {
-                "Code": "Rechtsvorschrift",
+                "Code": "LegalProvision",
                 "Text": [
                   {
                     "Language": "de",

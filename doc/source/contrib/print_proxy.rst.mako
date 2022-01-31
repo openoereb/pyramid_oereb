@@ -6,7 +6,8 @@ Print Proxy
 <%! import glob, inspect, re, sys %>
 <%
 modules = [m for m in sys.modules.keys() if m.startswith('pyramid_oereb')]
-files = glob.glob('../../pyramid_oereb/contrib/print_proxy/*.py')
+files = glob.glob('../../pyramid_oereb/contrib/print_proxy/mapfish_print/*.py')
+files += glob.glob('../../pyramid_oereb/contrib/print_proxy/xml_2_pdf/*.py')
 modules = [
     re.sub(r'\.__init__', '', f[6:-3].replace("/", ".")) for f in files
 ]

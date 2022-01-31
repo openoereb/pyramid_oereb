@@ -3,12 +3,13 @@ import pytest
 import json
 import yaml
 from io import StringIO
-from urllib.parse import urlsplit, urlunsplit
 from unittest.mock import patch
 from datetime import date, timedelta
 
 from pyramid.testing import testConfig
 from sqlalchemy import create_engine, orm
+from sqlalchemy.engine.url import URL, make_url
+from sqlalchemy.exc import OperationalError
 
 import pyramid_oereb
 from pyramid_oereb.core import b64
@@ -95,18 +96,34 @@ def logo_test_data():
 
 @pytest.fixture(scope='session')
 def base_engine(test_db_url):
-    split_url = urlsplit(test_db_url)
-    base_db_url = urlunsplit(
-        (split_url.scheme, split_url.netloc, "template1", split_url.query, split_url.fragment)
+    base_db_url = URL.create(
+        test_db_url.get_backend_name(),
+        test_db_url.username,
+        test_db_url.password,
+        test_db_url.host,
+        test_db_url.port,
+        database="postgres"
     )
     engine = create_engine(base_db_url)
     yield engine
 
 
 @pytest.fixture(scope='session')
+def stats_db_url(test_db_url):
+    base_db_url = URL.create(
+        test_db_url.get_backend_name(),
+        test_db_url.username,
+        test_db_url.password,
+        test_db_url.host,
+        test_db_url.port,
+        database="oereb_stats_test"
+    )
+    yield base_db_url
+
+
+@pytest.fixture(scope='session')
 def test_db_name(test_db_url):
-    split_url = urlsplit(test_db_url)
-    yield split_url.path.strip('/')
+    yield test_db_url.database
 
 
 @pytest.fixture(scope='session')
@@ -114,11 +131,35 @@ def test_db_name(test_db_url):
 def test_db_url(config_path):
     with open(config_path, encoding='utf-8') as f:
         content = yaml.safe_load(f.read())
-    yield content.get('pyramid_oereb').get('app_schema').get('db_connection')
+    yield make_url(content.get('pyramid_oereb').get('app_schema').get('db_connection'))
 
 
 @pytest.fixture(scope='session')
-def test_db_engine(base_engine, test_db_name, test_db_url, config_path):
+def clear_stats_db_engine(stats_db_url):
+    try:
+        stats_connection = create_engine(stats_db_url).connect()
+        stats_connection.execute('DELETE FROM oereb_logs.logs')
+        stats_connection.execute('COMMIT')
+        stats_connection.close()
+    except OperationalError:
+        pass  # if DB does not exist yet, it shall not be cleared
+
+
+@pytest.fixture(scope='session')
+def drop_stats_db_engine(base_engine):
+    base_connection = base_engine.connect()
+    # terminate existing connections to be able to DROP the DB
+    base_connection.execute('SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE '
+                            'pg_stat_activity.datname = \'oereb_stats_test\' AND pid <> pg_backend_pid();')
+    # sqlalchemy uses transactions by default, COMMIT end the current transaction and allows
+    # creation and destruction of DB
+    base_connection.execute('COMMIT')
+    base_connection.execute("DROP DATABASE if EXISTS oereb_stats_test")
+    base_connection.execute('COMMIT')
+
+
+@pytest.fixture(scope='session')
+def test_db_engine(base_engine, test_db_name, config_path):
     """
     create a new test DB called test_db_name and its engine
     """
@@ -134,6 +175,14 @@ def test_db_engine(base_engine, test_db_name, test_db_url, config_path):
     base_connection.execute('COMMIT')
     base_connection.execute(f"CREATE DATABASE {test_db_name}")
 
+    test_db_url = URL.create(
+        base_engine.url.get_backend_name(),
+        base_engine.url.username,
+        base_engine.url.password,
+        base_engine.url.host,
+        base_engine.url.port,
+        database=test_db_name
+    )
     engine = create_engine(test_db_url)
     engine.execute("CREATE EXTENSION POSTGIS")
 
@@ -143,7 +192,7 @@ def test_db_engine(base_engine, test_db_name, test_db_url, config_path):
     sql_file.seek(0)
     engine.execute(sql_file.read())
 
-    yield engine
+    return engine
 
     # currently there is a problem with teardown of the DB and sessions:
     # DROP DATABASE may be called while a connection is still alive, this may lead to error messages

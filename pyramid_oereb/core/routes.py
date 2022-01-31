@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from pyramid_oereb import route_prefix
 from pyramid_oereb.core.views.webservice import PlrWebservice, Symbol, Logo, Sld
-# from pyramid_oereb.contrib.stats.decorators import log_response
+from pyramid_oereb.contrib.stats.decorators import log_response
 
 
 def includeme(config):  # pragma: no cover
@@ -16,36 +16,22 @@ def includeme(config):  # pragma: no cover
     config.add_route('{0}/image/logo'.format(route_prefix),
                      '/image/logo/{logo}/{language}.{extension}')
     config.add_view(Logo, attr='get_image', route_name='{0}/image/logo'.format(route_prefix),
-                    request_method='GET'
-                    )
-    # TODO after fix of issue #1293, replace previous statement with this one
-    # config.add_view(Logo, attr='get_image', route_name='{0}/image/logo'.format(route_prefix),
-    #                 request_method='GET',
-    #                  decorator=log_response
-    #                )
+                    request_method='GET',
+                    decorator=log_response)
 
     # Service for symbol images
     config.add_route('{0}/image/symbol'.format(route_prefix),
                      '/image/symbol/{theme_code}/{view_service_id}/{type_code}.{extension}')
 
     config.add_view(Symbol, attr='get_image', route_name='{0}/image/symbol'.format(route_prefix),
-                    request_method='GET'
-                    )
-    # TODO after fix of issue #1293, replace previous statement with this one
-    # config.add_view(Symbol, attr='get_image', route_name='{0}/image/symbol'.format(route_prefix),
-    #                 request_method='GET',
-    #                 decorator=log_response
-    #                 )
+                    request_method='GET',
+                    decorator=log_response)
 
     # Service for sld creation on egrid input
     config.add_route('{0}/sld'.format(route_prefix), '/sld')
     config.add_view(Sld, attr='get_sld', route_name='{0}/sld'.format(route_prefix),
-                    request_method='GET'
-                    )
-    # TODO after fix of issue #1293, replace previous statement with this one
-    # config.add_view(Sld, attr='get_sld', route_name='{0}/sld'.format(route_prefix), request_method='GET',
-    #                 decorator=log_response
-    #                 )
+                    request_method='GET',
+                    decorator=log_response)
 
     # Get versions
     config.add_route('{0}/versions'.format(route_prefix), '/versions/{format}')
@@ -53,16 +39,16 @@ def includeme(config):  # pragma: no cover
         PlrWebservice,
         attr='get_versions',
         route_name='{0}/versions'.format(route_prefix),
-        request_method='GET'
-        # TODO reactivate after fix of issue #1293: , decorator=log_response
+        request_method='GET',
+        decorator=log_response
     )
     config.add_route('{0}/versions/'.format(route_prefix), '/versions/{format}/')
     config.add_view(
         PlrWebservice,
         attr='get_versions',
         route_name='{0}/versions/'.format(route_prefix),
-        request_method='GET'
-        # TODO reactivate after fix of issue #1293: , decorator=log_response
+        request_method='GET',
+        decorator=log_response
     )
 
     # Get capabilities
@@ -71,16 +57,16 @@ def includeme(config):  # pragma: no cover
         PlrWebservice,
         attr='get_capabilities',
         route_name='{0}/capabilities'.format(route_prefix),
-        request_method='GET'
-        # TODO reactivate after fix of issue #1293: , decorator=log_response
+        request_method='GET',
+        decorator=log_response
     )
     config.add_route('{0}/capabilities/'.format(route_prefix), '/capabilities/{format}/')
     config.add_view(
         PlrWebservice,
         attr='get_capabilities',
         route_name='{0}/capabilities/'.format(route_prefix),
-        request_method='GET'
-        # TODO reactivate after fix of issue #1293: , decorator=log_response
+        request_method='GET',
+        decorator=log_response
     )
 
     # Get egrid
@@ -90,8 +76,8 @@ def includeme(config):  # pragma: no cover
         PlrWebservice,
         attr='get_egrid',
         route_name='{0}/getegrid'.format(route_prefix),
-        request_method='GET'
-        # TODO reactivate after fix of issue #1293: , decorator=log_response
+        request_method='GET',
+        decorator=log_response
     )
     config.add_route('{0}/getegrid/'.format(route_prefix),
                      '/getegrid/{format}/')
@@ -99,8 +85,8 @@ def includeme(config):  # pragma: no cover
         PlrWebservice,
         attr='get_egrid',
         route_name='{0}/getegrid/'.format(route_prefix),
-        request_method='GET'
-        # TODO reactivate after fix of issue #1293: , decorator=log_response
+        request_method='GET',
+        decorator=log_response
     )
 
     # Get extract by id
@@ -110,8 +96,8 @@ def includeme(config):  # pragma: no cover
         PlrWebservice,
         attr='get_extract_by_id',
         route_name='{0}/extract'.format(route_prefix),
-        request_method='GET'
-        # TODO reactivate after fix of issue #1293: , decorator=log_response
+        request_method='GET',
+        decorator=log_response
     )
     config.add_route('{0}/extract/'.format(route_prefix),
                      '/extract/{format}/')
@@ -119,8 +105,8 @@ def includeme(config):  # pragma: no cover
         PlrWebservice,
         attr='get_extract_by_id',
         route_name='{0}/extract/'.format(route_prefix),
-        request_method='GET'
-        # TODO reactivate after fix of issue #1293: , decorator=log_response
+        request_method='GET',
+        decorator=log_response
     )
 
     # Commit config

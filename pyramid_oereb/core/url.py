@@ -5,7 +5,7 @@ from urllib.parse import urlencode, urlsplit, urlunsplit, parse_qs, urlparse
 from urllib.request import urlopen
 
 
-def parse_url(url):
+def parse_url(url, force_uppercase_keys=True):
     """
     Parse an URL
 
@@ -17,6 +17,8 @@ def parse_url(url):
     """
     url = urlsplit(url)
     params = parse_qs(url.query)
+    if force_uppercase_keys:
+        params = {k.upper(): v for k, v in params.items()}
     return url, params
 
 

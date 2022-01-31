@@ -6,7 +6,7 @@ Sources
 <%! import glob, inspect, re, sys %>
 <%
 modules = [m for m in sys.modules.keys() if m.startswith('pyramid_oereb')]
-files = glob.glob('../../pyramid_oereb/lib/sources/*.py')
+files = glob.glob('../../pyramid_oereb/core/sources/*.py')
 modules = [
     re.sub(r'\.__init__', '', f[6:-3].replace("/", ".")) for f in files
 ]

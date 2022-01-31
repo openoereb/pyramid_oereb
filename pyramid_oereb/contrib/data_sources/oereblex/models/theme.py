@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship
 
 from pyramid_oereb.contrib.data_sources.standard.models import (
     get_office,
-    get_availablility,
+    get_availability,
     get_data_integration,
     get_view_service,
     get_legend_entry,
@@ -45,7 +45,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
     """
     Base = declarative_base()
 
-    Availability = get_availablility(Base, schema_name, pk_type)
+    Availability = get_availability(Base, schema_name, pk_type)
     Office = get_office(Base, schema_name, pk_type)
     DataIntegration = get_data_integration(Base, schema_name, pk_type, Office)
     ViewService = get_view_service(Base, schema_name, pk_type)
