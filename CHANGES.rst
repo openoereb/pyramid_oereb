@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.0.0.b13
+---------
+- Fix collection of legend entries (#1482)
+
 2.0.0.b12
 ---------
 - Reactivate statistics functionality from V1 (#1480)
