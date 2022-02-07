@@ -7,7 +7,9 @@ from pyramid_oereb.core.records.office import OfficeRecord
 
 
 def get_symbol(theme_code, sub_theme_code, view_service_id, type_code, theme_config):
+    
     """
+    
     This is a dummy method only to define what is expected by the real implementation.
 
     It is expected that this method delivers the actual binary content of the found image
@@ -109,11 +111,11 @@ def produce_sld_content(params, real_estate_config):
         output_encoding='utf-8'
     )
     template_params = {
-        'layer_name': real_estate_config['visualisation']['layer']['name'],
-        'identifier': params['egrid'],
-        'stroke_opacity': real_estate_config['visualisation']['style']['stroke_opacity'],
-        'stroke_color': real_estate_config['visualisation']['style']['stroke_color'],
-        'stroke_width': real_estate_config['visualisation']['style']['stroke_width']
+        'layer_name': re.sub('<.*?>', '', real_estate_config['visualisation']['layer']['name'], flags=re.DOTALL),
+        'identifier': re.sub('<.*?>', '', params['egrid'], flags=re.DOTALL),
+        'stroke_opacity': re.sub('<.*?>', '', real_estate_config['visualisation']['style']['stroke_opacity'], flags=re.DOTALL),
+        'stroke_color': re.sub('<.*?>', '', real_estate_config['visualisation']['style']['stroke_color'], flags=re.DOTALL),
+        'stroke_width': re.sub('<.*?>', '', real_estate_config['visualisation']['style']['stroke_width'], flags=re.DOTALL)
     }
     return template.render(**template_params)
 
