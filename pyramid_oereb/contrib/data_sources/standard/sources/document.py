@@ -18,7 +18,7 @@ class DatabaseSource(BaseDatabaseSource, DocumentBaseSource):
                 office_record_match = None
                 for office_record in office_records:
                     if office_record.identifier == result.office_id:
-                        office_record_match = office_record_match
+                        office_record_match = office_record
                         break
                 self.records.append(
                     self._record_class_(
@@ -30,7 +30,7 @@ class DatabaseSource(BaseDatabaseSource, DocumentBaseSource):
                             result.law_status
                         ),
                         title=result.title,
-                        responsible_office=office_record,
+                        responsible_office=office_record_match,
                         published_from=result.published_from,
                         published_until=result.published_until,
                         text_at_web=result.text_at_web,
