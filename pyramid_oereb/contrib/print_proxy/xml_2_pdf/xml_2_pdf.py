@@ -15,8 +15,8 @@ class Renderer(XmlRenderer):
 
     def __call__(self, value, system):
         """
-        Implements a subclass of pyramid_oereb.core.renderer.extract.json_.Renderer to create a print result
-        out of a json. The json extract is reformatted to fit the structure of mapfish print.
+        Implements a subclass of pyramid_oereb.core.renderer.extract.xml_.Renderer to create a print result
+        out of a xml. The xml extract is reformatted to fit the structure of mapfish print.
 
         Args:
             value (tuple): A tuple containing the generated extract record and the params
@@ -25,6 +25,9 @@ class Renderer(XmlRenderer):
 
         Returns:
             buffer: The pdf content as received from configured mapfish print instance url.
+        
+        Raises:
+            ConfigurationError
         """
         print_config = Config.get('print', {})
         if not print_config:
@@ -87,6 +90,22 @@ class Renderer(XmlRenderer):
 
     @staticmethod
     def request_pdf(url, data_extract, headers, parameters, verify_certificate):
+        """
+        Posts the print request to the configured print server to return the pdf extract.
+        
+        Args:
+            url (str): URl to the print webservice.
+            data_extract (xml): The rendered xml extract.
+            headers (dict): Request headers for print request.
+            parameters (dict): Additional print parameters, such as language or flavour.
+            verify_certificate (boolean): Define if certificate should be verified.
+
+        Returns:
+            file: The pdf file as received from configured mapfish print instance url.
+        
+        Raises:
+            Exception: Request failed.
+        """
         try:
             backend_answer = requests.post(
                 url,
