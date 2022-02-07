@@ -15,6 +15,7 @@ def source_params():
         "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Municipality"
     }
 
+
 @pytest.fixture
 def wkb_multipolygon():
     yield WKTElement(
@@ -49,6 +50,7 @@ def municipalities(wkb_multipolygon):
         })
     ]
 
+
 @pytest.fixture
 def all_result_session(session, query, municipalities):
 
@@ -63,6 +65,7 @@ def all_result_session(session, query, municipalities):
             return Query()
 
     yield Session
+
 
 @pytest.fixture
 def all_filtered_result_session(session, query, municipalities):
@@ -99,6 +102,6 @@ def test_read_all(source_params, all_result_session, wkb_multipolygon):
 
 def test_read_all_filterd(source_params, all_filtered_result_session):
     source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_filtered_result_session()):
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_filtered_result_session()):  # noqa: E501
         source.read(Parameter('xml'), fosnr=2771)
         assert len(source.records) == 1

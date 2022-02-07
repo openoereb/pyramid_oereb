@@ -27,5 +27,3 @@ def health_check():
         return True
     with patch('pyramid_oereb.core.sources.BaseDatabaseSource.health_check', mock_check):
         yield
-
-

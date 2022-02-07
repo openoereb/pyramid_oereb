@@ -12,9 +12,6 @@ from pyramid_oereb.core.records.office import OfficeRecord
 from pyramid_oereb.core.records.document_types import DocumentTypeRecord
 
 
-
-
-
 @pytest.fixture
 def source_params():
     yield {

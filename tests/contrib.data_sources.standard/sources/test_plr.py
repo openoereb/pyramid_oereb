@@ -16,7 +16,7 @@ def source_params():
     yield {
         "code": "ch.Nutzungsplanung",
         "geometry_type": "GEOMETRYCOLLECTION",
-        "thresholds":{
+        "thresholds": {
             "length": {
                 "limit": 1.0,
                 "unit": 'm',
@@ -42,7 +42,7 @@ def source_params():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource",
             "params": {
                 "db_connection": "postgresql://postgres:postgres@123.123.123.123:5432/oereb_test_db",
-                "model_factory": "pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk",
+                "model_factory": "pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk",  # noqa: E501
                 "schema_name": "land_use_plans"
             }
         },
@@ -119,6 +119,7 @@ def legend_entry_model_class():
     ViewService = get_view_service(Base, 'test', String)
     yield get_legend_entry(Base, 'test', String, ViewService)
 
+
 @pytest.mark.parametrize('legend_entry_params', [{
         'id': '1',
         'legend_text': {'de': 'testlegende'},
@@ -136,7 +137,7 @@ def legend_entry_model_class():
         'sub_theme': "ch.Subcode",
         'view_service_id': '1'
     }])
-def test_from_db_to_legend_entry_record(source_params, all_result_session, legend_entry_model_class, png_binary, legend_entry_params):
+def test_from_db_to_legend_entry_record(source_params, all_result_session, legend_entry_model_class, png_binary, legend_entry_params):  # noqa: E501
     legend_entry_params.update({'symbol': b64.encode(png_binary)})
     legend_entry_from_db = legend_entry_model_class(**legend_entry_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_result_session()):

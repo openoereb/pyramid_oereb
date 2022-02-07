@@ -1,7 +1,6 @@
 import pytest
 from unittest.mock import patch
 
-from pyramid_oereb.core import b64
 from pyramid_oereb.contrib.data_sources.standard.sources.map_layering import DatabaseSource
 from pyramid_oereb.core.records.map_layering import MapLayeringRecord
 
@@ -12,6 +11,7 @@ def source_params():
         "db_connection": "postgresql://postgres:postgres@123.123.123.123:5432/oereb_test_db",
         "model": "pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering"
     }
+
 
 @pytest.fixture
 def view_service_url():
@@ -26,6 +26,7 @@ def view_service_url():
           "width=740&" \
           "height=500&" \
           "format=image/png"
+
 
 @pytest.fixture
 def all_result_session(session, query, view_service_url):

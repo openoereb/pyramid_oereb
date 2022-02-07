@@ -15,6 +15,7 @@ def source_params():
         "model": "pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate"
     }
 
+
 @pytest.fixture
 def wkb_multipolygons():
     yield [WKTElement(
@@ -114,6 +115,7 @@ def all_filtered_by_geometry_session(session, query, real_estates):
 
     yield Session
 
+
 @pytest.fixture
 def all_filtered_by_egrid_session(session, query, real_estates):
 
@@ -182,20 +184,20 @@ def test_read_all(source_params, all_result_session, wkb_multipolygons):
 
 def test_read_all_filtered_by_egrid(source_params, all_filtered_by_egrid_session):
     source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_filtered_by_egrid_session()):
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_filtered_by_egrid_session()):  # noqa: E501
         source.read(Parameter('xml'), egrid='CH113928077734')
         assert len(source.records) == 1
 
 
 def test_read_all_filtered_by_nbident_and_number(source_params, all_filtered_by_nbident_and_number_session):
     source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_filtered_by_nbident_and_number_session()):
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_filtered_by_nbident_and_number_session()):  # noqa: E501
         source.read(Parameter('xml'), nb_ident=1, number='71')
         assert len(source.records) == 1
 
 
 def test_read_all_missing_param(source_params, all_result_session):
     source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_result_session()):
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_result_session()):  # noqa: E501
         with pytest.raises(AttributeError):
             source.read(Parameter('xml'))

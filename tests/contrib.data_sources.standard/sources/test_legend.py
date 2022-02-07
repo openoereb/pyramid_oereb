@@ -29,7 +29,6 @@ def source_params(legend_entry_model_class):
 @pytest.fixture
 def all_result_session(session, query, legend_entry_model_class, png_binary):
 
-
     class Query(query):
 
         def all(self):
