@@ -1,4 +1,5 @@
 import datetime
+import re
 from mako.template import Template
 from pyramid.path import AssetResolver
 
