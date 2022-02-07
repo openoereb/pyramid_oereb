@@ -27,4 +27,4 @@ tqdm==4.62.1
 numpy==1.21.0 # rq.filter: <1.20.0
 defusedxml==0.7.1
 c2cwsgiutils==3.*
-pillow==8.4.0
+pillow==9.0.0
