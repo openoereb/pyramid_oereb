@@ -37,6 +37,7 @@ class Renderer(Base):
         Returns:
             str: The XML encoded versions response.
         """
+        self._request = self.get_request(system)
         response = self.get_response(system)
         if isinstance(response, Response) and response.content_type == response.default_content_type:
             response.content_type = 'application/xml'
@@ -58,20 +59,13 @@ class Renderer(Base):
             content = template.render(**{
                 'data': value[0],
                 'params': self._params_,
-                'get_gml_id': self._get_gml_id,
+                'sort_by_localized_text': self.sort_by_localized_text,
+                'localized': self.get_localized_text,
+                'multilingual': self.get_multilingual_text,
+                'get_localized_image': self.get_localized_image,
+                'request': self._request
             })
             return content
         except Exception:
             response.content_type = 'text/html'
             return exceptions.html_error_template().render()
-
-    def _get_gml_id(self):
-        """
-        Returns the next GML ID.
-
-        Returns:
-             int: The next GML ID.
-
-        """
-        self._gml_id += 1
-        return 'gml{0}'.format(self._gml_id)

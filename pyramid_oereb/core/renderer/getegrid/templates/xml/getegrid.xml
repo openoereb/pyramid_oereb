@@ -1,4 +1,6 @@
-## -*- coding: utf-8 -*-
+<%
+    from pyramid_oereb import Config
+%>
 <?xml version="1.0" encoding="UTF-8" ?>
 <extract:GetEGRIDResponse
                         xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -12,7 +14,9 @@
     <extract:egrid>${item['egrid']}</extract:egrid>
     <extract:number>${item['number']}</extract:number>
     <extract:identDN>${item['identDN']}</extract:identDN>
-    <extract:type>${item['type']}</extract:type>
+    <data:type>
+        <%include file="real_estate_type.xml" args="real_estate_type=Config.get_real_estate_type_by_data_code(item['type'])"/>
+    </data:type>
     %if params.with_geometry:
     <extract:limit>
         <geometry:surface>
