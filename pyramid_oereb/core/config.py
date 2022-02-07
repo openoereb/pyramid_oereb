@@ -333,6 +333,17 @@ class Config(object):
         return office_reader.read()
 
     @staticmethod
+    def get_srid():
+        """
+        Returns the srid.
+
+        Returns:
+            int: The srid if it was set.
+        """
+        assert Config._config is not None
+        return Config._config.get('srid')
+
+    @staticmethod
     def get_general_information():
         """
         Returns the general information.

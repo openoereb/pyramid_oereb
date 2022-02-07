@@ -80,3 +80,8 @@ DataExtract.json
 /dev/sample_data/ch.real_estate_type.json
 /dev/sample_data/ch.themes.json
 /dev/sample_data/ch.themes_docs.json
+
+/coverage.contrib-data_sources-standard.xml
+/coverage.contrib-print_proxy-mapfish_print.xml
+/coverage.core.xml
+/coverage.xml
