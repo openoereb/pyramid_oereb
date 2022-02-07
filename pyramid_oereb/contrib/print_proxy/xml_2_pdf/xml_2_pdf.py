@@ -25,7 +25,7 @@ class Renderer(XmlRenderer):
 
         Returns:
             buffer: The pdf content as received from configured mapfish print instance url.
-        
+
         Raises:
             ConfigurationError
         """
@@ -92,7 +92,7 @@ class Renderer(XmlRenderer):
     def request_pdf(url, data_extract, headers, parameters, verify_certificate):
         """
         Posts the print request to the configured print server to return the pdf extract.
-        
+
         Args:
             url (str): URl to the print webservice.
             data_extract (xml): The rendered xml extract.
@@ -102,7 +102,7 @@ class Renderer(XmlRenderer):
 
         Returns:
             file: The pdf file as received from configured mapfish print instance url.
-        
+
         Raises:
             Exception: Request failed.
         """
