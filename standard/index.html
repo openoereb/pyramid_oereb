@@ -263,133 +263,34 @@ case insensitive.</li>
 <div class="section" id="functions-used-as-configurable-hooks">
 <h2>Functions used as configurable hooks<a class="headerlink" href="#functions-used-as-configurable-hooks" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.hook_methods"><span id="api-pyramid-oereb-standard-hook-methods"></span></span><dl class="function">
-<dt id="pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_provider">
-<code class="descclassname">pyramid_oereb.contrib.data_sources.standard.hook_methods.</code><code class="descname">get_surveying_data_provider</code><span class="sig-paren">(</span><em>real_estate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/standard/hook_methods.html#get_surveying_data_provider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_provider" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>real_estate</strong> (<em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em>) &#8211; The real estate for which the
-provider of the surveying data should be delivered.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="docutils">
-<dt>The provider who produced the used</dt>
-<dd>surveying data.</dd>
-</dl>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">provider (<a class="reference internal" href="../core/records.html#pyramid_oereb.core.records.office.OfficeRecord" title="pyramid_oereb.core.records.office.OfficeRecord">pyramid_oereb.core.records.office.OfficeRecord</a>)</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_update_date">
-<code class="descclassname">pyramid_oereb.contrib.data_sources.standard.hook_methods.</code><code class="descname">get_surveying_data_update_date</code><span class="sig-paren">(</span><em>real_estate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/standard/hook_methods.html#get_surveying_data_update_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_update_date" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the date of the latest update of the used survey data data for the
-situation map. The method you find here is only matching the standard configuration. But you can provide
-your own one if your configuration is different. The only thing you need to take into account is that the
-input of this method is always and only a real estate record. And the output of this method must be a
-datetime.date object.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>real_estate</strong> (<em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em>) &#8211; The real
-estate for which the last update date of the base data should be indicated</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The date of the last update of the cadastral base data</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">update_date (datetime.datetime)</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
 <dt id="pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol">
-<code class="descclassname">pyramid_oereb.contrib.data_sources.standard.hook_methods.</code><code class="descname">get_symbol</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/standard/hook_methods.html#get_symbol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the symbol for the requested theme and type code from database.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>pyramid.request.Request</em>) &#8211; The request containing the codes as matchdict parameters.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The generated response object.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref">
-<code class="descclassname">pyramid_oereb.contrib.data_sources.standard.hook_methods.</code><code class="descname">get_symbol_ref</code><span class="sig-paren">(</span><em>request</em>, <em>record</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/standard/hook_methods.html#get_symbol_ref"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the link to the symbol of the specified public law restriction.</p>
+<code class="descclassname">pyramid_oereb.contrib.data_sources.standard.hook_methods.</code><code class="descname">get_symbol</code><span class="sig-paren">(</span><em>theme_code</em>, <em>sub_theme_code</em>, <em>view_service_id</em>, <em>type_code</em>, <em>theme_config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/standard/hook_methods.html#get_symbol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the symbol for the requested theme and type code from database. It queries the model
+for the legend entry pyramid_oereb.contrib.data_sources.standard.models.get_legend_entry</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>request</strong> (<em>pyramid.request.Request</em>) &#8211; The current request instance.</li>
-<li><strong>(</strong><strong>pyramid_oereb.core.records.plr.PlrRecord or</strong> (<em>record</em>) &#8211; pyramid_oereb.core.records.view_service.LegendEntryRecord): The record of the public law
-restriction to get the symbol reference for.</li>
+<li><strong>theme_code</strong> (<em>str</em>) &#8211; The theme code.</li>
+<li><strong>sub_theme_code</strong> (<em>str</em><em> or </em><em>None</em>) &#8211; The sub_theme code.</li>
+<li><strong>view_service_id</strong> (<em>str</em>) &#8211; The ID linking to the view service.</li>
+<li><strong>type_code</strong> (<em>str</em>) &#8211; The type_code.</li>
+<li><strong>theme_config</strong> (<em>dict</em>) &#8211; The configuration of the theme how it was set up in the YAML.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The link to the symbol for the specified public law restriction.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The image content and the mimetype of image.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">uri</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">bytearray, str</p>
 </td>
 </tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyramid_oereb.contrib.data_sources.standard.hook_methods.plr_sort_within_themes">
-<code class="descclassname">pyramid_oereb.contrib.data_sources.standard.hook_methods.</code><code class="descname">plr_sort_within_themes</code><span class="sig-paren">(</span><em>extract</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/standard/hook_methods.html#plr_sort_within_themes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.hook_methods.plr_sort_within_themes" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is the standard hook method to sort a plr list (while respecting the theme order).
-This standard hook does no sorting, you can set your configuration to a different method if you need a
-specific sorting.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>extract</strong> (<em>pyramid_oereb.lib.records.extract.ExtractRecord</em>) &#8211; The unsorted extract</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Returns the updated extract</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid_oereb.lib.records.extract.ExtractRecord</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyramid_oereb.contrib.data_sources.standard.hook_methods.produce_sld_content">
-<code class="descclassname">pyramid_oereb.contrib.data_sources.standard.hook_methods.</code><code class="descname">produce_sld_content</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/standard/hook_methods.html#produce_sld_content"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.hook_methods.produce_sld_content" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is the standard hook method to provide the sld content. Of course you can set it to another one. For
-instance to use another template. Or to use other parameters to provide the correctly constructed SLD.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">What to know about this Method: REQUEST-Method: GET, parameters only as url parameters</p>
-</div>
-<p>When you are replacing this method take care that it has to accept a pyramid request as input and must
-deliver a valid SLD wrapped in a pyramid response instance as output. It is in your responsibility.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>request</strong> (<em>pyramid.request.Request</em>) &#8211; The request from the pyramid application.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response</td>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><code class="xref py py-exc docutils literal"><span class="pre">HTTPNotFound</span></code></li>
+<li><code class="xref py py-exc docutils literal"><span class="pre">HTTPServerError</span></code></li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
