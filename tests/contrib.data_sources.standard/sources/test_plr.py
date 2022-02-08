@@ -45,8 +45,7 @@ def plr_source_params(db_connection):
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource",
             "params": {
                 "db_connection": db_connection,
-                "model_factory": "pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk",
-                # noqa: E501
+                "model_factory": "pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk",  # noqa: E501
                 "schema_name": "land_use_plans"
             }
         },
@@ -213,8 +212,9 @@ def legend_entry_records(png_binary):
         )
     ]
 
+
 def test_from_db_to_legend_entry_record_with_subtheme(plr_source_params, all_plr_result_session, legend_entries_from_db, png_binary):  # noqa: E501
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):  # noqa: E501
         source = DatabaseSource(**plr_source_params)
         legend_entry_record = source.from_db_to_legend_entry_record(legend_entries_from_db[1])
         assert isinstance(legend_entry_record, LegendEntryRecord)
@@ -229,7 +229,7 @@ def test_from_db_to_legend_entry_record_with_subtheme(plr_source_params, all_plr
 
 
 def test_from_db_to_legend_entry_record_without_subtheme(plr_source_params, all_plr_result_session, legend_entries_from_db, png_binary):  # noqa: E501
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):  # noqa: E501
         source = DatabaseSource(**plr_source_params)
         legend_entry_record = source.from_db_to_legend_entry_record(legend_entries_from_db[0])
         assert isinstance(legend_entry_record, LegendEntryRecord)
@@ -243,26 +243,26 @@ def test_from_db_to_legend_entry_record_without_subtheme(plr_source_params, all_
         assert legend_entry_record.sub_theme is None
 
 
-def test_from_db_to_legend_entry_records_with_subtheme(plr_source_params, all_plr_result_session, legend_entries_from_db, legend_entry_records):
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):
+def test_from_db_to_legend_entry_records_with_subtheme(plr_source_params, all_plr_result_session, legend_entries_from_db, legend_entry_records):  # noqa: E501
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):  # noqa: E501
         source = DatabaseSource(**plr_source_params)
-        legend_entry_records = source.from_db_to_legend_entry_records(legend_entries_from_db, legend_entry_records[0])
+        legend_entry_records = source.from_db_to_legend_entry_records(legend_entries_from_db, legend_entry_records[0])  # noqa: E501
         assert len(legend_entry_records) == 1
         assert legend_entry_records[0].legend_text == {'de': 'testlegende with sub theme'}
 
 
-def test_from_db_to_legend_entry_records_without_subtheme(plr_source_params, all_plr_result_session, legend_entries_from_db, legend_entry_records):
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):
+def test_from_db_to_legend_entry_records_without_subtheme(plr_source_params, all_plr_result_session, legend_entries_from_db, legend_entry_records):  # noqa: E501
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):  # noqa: E501
         source = DatabaseSource(**plr_source_params)
-        legend_entry_records = source.from_db_to_legend_entry_records(legend_entries_from_db, legend_entry_records[1])
+        legend_entry_records = source.from_db_to_legend_entry_records(legend_entries_from_db, legend_entry_records[1])  # noqa: E501
         assert len(legend_entry_records) == 1
         assert legend_entry_records[0].legend_text == {'de': 'testlegende without sub theme'}
 
 
-def test_from_db_to_view_service_record(plr_source_params, all_plr_result_session, legend_entry_records, view_service_from_db):
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):
+def test_from_db_to_view_service_record(plr_source_params, all_plr_result_session, legend_entry_records, view_service_from_db):  # noqa: E501
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):  # noqa: E501
         source = DatabaseSource(**plr_source_params)
-        view_service_record = source.from_db_to_view_service_record(view_service_from_db, legend_entry_records)
+        view_service_record = source.from_db_to_view_service_record(view_service_from_db, legend_entry_records)  # noqa: E501
         assert isinstance(view_service_record, ViewServiceRecord)
 
 
