@@ -12,7 +12,7 @@ SQLAlchemy==1.4.23 # rq.filter: >= 1.4
 sqlalchemy-utils==0.37.8
 transaction==3.0.1
 urllib3[secure]==1.26.6
-cryptography==3.3.2 # rq.filter: <3.4
+cryptography==36.0.1
 waitress==2.0.0
 jsonschema==3.2.0
 pyproj==3.2.0
