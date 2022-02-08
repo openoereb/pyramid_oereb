@@ -294,7 +294,7 @@ test-contrib-data_sources-standard: .venv/requirements-timestamp
 	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-data_sources-standard --cov $(PACKAGE)/contrib/data_sources/standard --cov-report=term-missing:skip-covered --cov-report=xml:coverage.contrib-data_sources-standard.xml tests/contrib.data_sources.standard
 
 .PHONY: tests
-tests: .venv/requirements-timestamp test-core test-contrib-data_sources-standard test-contrib-print_proxy-mapfish_print
+tests: .venv/requirements-timestamp test-core test-contrib-data_sources-standard test-contrib-print_proxy-mapfish_print test-contrib-data_sources-standard
 
 .PHONY: check
 check: git-attributes lint test
