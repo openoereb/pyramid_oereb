@@ -9,9 +9,9 @@ from pyramid_oereb.core.views.webservice import Parameter
 
 
 @pytest.fixture
-def source_params():
+def real_estate_source_params(db_connection):
     yield {
-        "db_connection": "postgresql://postgres:postgres@123.123.123.123:5432/oereb_test_db",
+        "db_connection": db_connection,
         "model": "pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate"
     }
 
@@ -81,7 +81,7 @@ def real_estates(wkb_multipolygons):
 
 
 @pytest.fixture
-def all_result_session(session, query, real_estates):
+def all_real_estate_result_session(session, query, real_estates):
 
     class Query(query):
 
@@ -97,7 +97,7 @@ def all_result_session(session, query, real_estates):
 
 
 @pytest.fixture
-def all_filtered_by_geometry_session(session, query, real_estates):
+def all_real_estate_filtered_by_geometry_session(session, query, real_estates):
 
     class Query(query):
 
@@ -117,7 +117,7 @@ def all_filtered_by_geometry_session(session, query, real_estates):
 
 
 @pytest.fixture
-def all_filtered_by_egrid_session(session, query, real_estates):
+def all_real_estate_filtered_by_egrid_session(session, query, real_estates):
 
     class Query(query):
 
@@ -137,7 +137,7 @@ def all_filtered_by_egrid_session(session, query, real_estates):
 
 
 @pytest.fixture
-def all_filtered_by_nbident_and_number_session(session, query, real_estates):
+def all_real_estate_filtered_by_nbident_and_number_session(session, query, real_estates):
 
     class Query(query):
 
@@ -157,9 +157,9 @@ def all_filtered_by_nbident_and_number_session(session, query, real_estates):
     yield Session
 
 
-def test_read_all(source_params, all_result_session, wkb_multipolygons):
-    source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_result_session()):
+def test_read_all(real_estate_source_params, all_real_estate_result_session, wkb_multipolygons):
+    source = DatabaseSource(**real_estate_source_params)
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_real_estate_result_session()):  # noqa: E501
         source.read(
             Parameter('xml'),
             geometry="SRID=2056;MULTIPOLYGON(2608901.529 1261990.655,2608898.665 1261991.598)"
@@ -182,22 +182,22 @@ def test_read_all(source_params, all_result_session, wkb_multipolygons):
         assert record.subunit_of_land_register_designation == 'TEST'
 
 
-def test_read_all_filtered_by_egrid(source_params, all_filtered_by_egrid_session):
-    source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_filtered_by_egrid_session()):  # noqa: E501
+def test_read_all_filtered_by_egrid(real_estate_source_params, all_real_estate_filtered_by_egrid_session):
+    source = DatabaseSource(**real_estate_source_params)
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_real_estate_filtered_by_egrid_session()):  # noqa: E501
         source.read(Parameter('xml'), egrid='CH113928077734')
         assert len(source.records) == 1
 
 
-def test_read_all_filtered_by_nbident_and_number(source_params, all_filtered_by_nbident_and_number_session):
-    source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_filtered_by_nbident_and_number_session()):  # noqa: E501
+def test_read_all_filtered_by_nbident_and_number(real_estate_source_params, all_real_estate_filtered_by_nbident_and_number_session):  # noqa: E501
+    source = DatabaseSource(**real_estate_source_params)
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_real_estate_filtered_by_nbident_and_number_session()):  # noqa: E501
         source.read(Parameter('xml'), nb_ident=1, number='71')
         assert len(source.records) == 1
 
 
-def test_read_all_missing_param(source_params, all_result_session):
-    source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_result_session()):  # noqa: E501
+def test_read_all_missing_param(real_estate_source_params, all_real_estate_result_session):
+    source = DatabaseSource(**real_estate_source_params)
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_real_estate_result_session()):  # noqa: E501
         with pytest.raises(AttributeError):
             source.read(Parameter('xml'))

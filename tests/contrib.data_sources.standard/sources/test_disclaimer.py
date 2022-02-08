@@ -7,15 +7,15 @@ from pyramid_oereb.core.records.disclaimer import DisclaimerRecord
 
 
 @pytest.fixture
-def source_params():
+def disclaimer_source_params(db_connection):
     yield {
-        "db_connection": "postgresql://postgres:postgres@123.123.123.123:5432/oereb_test_db",
+        "db_connection": db_connection,
         "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer"
     }
 
 
 @pytest.fixture
-def all_result_session(session, query):
+def all_disclaimer_result_session(session, query):
     from pyramid_oereb.contrib.data_sources.standard.models.main import Disclaimer
 
     class Query(query):
@@ -42,9 +42,9 @@ def all_result_session(session, query):
     yield Session
 
 
-def test_read_all(source_params, all_result_session):
-    source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_result_session()):
+def test_read_all(disclaimer_source_params, all_disclaimer_result_session):
+    source = DatabaseSource(**disclaimer_source_params)
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_disclaimer_result_session()):  # noqa: E501
         source.read(Parameter('xml'))
         assert len(source.records) == 2
         assert isinstance(source.records[0], DisclaimerRecord)

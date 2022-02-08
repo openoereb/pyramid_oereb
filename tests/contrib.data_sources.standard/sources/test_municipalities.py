@@ -9,9 +9,9 @@ from pyramid_oereb.core.views.webservice import Parameter
 
 
 @pytest.fixture
-def source_params():
+def municipalities_source_params(db_connection):
     yield {
-        "db_connection": "postgresql://postgres:postgres@123.123.123.123:5432/oereb_test_db",
+        "db_connection": db_connection,
         "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Municipality"
     }
 
@@ -52,7 +52,7 @@ def municipalities(wkb_multipolygon):
 
 
 @pytest.fixture
-def all_result_session(session, query, municipalities):
+def all_municipalities_result_session(session, query, municipalities):
 
     class Query(query):
 
@@ -68,7 +68,7 @@ def all_result_session(session, query, municipalities):
 
 
 @pytest.fixture
-def all_filtered_result_session(session, query, municipalities):
+def all_municipalities_filtered_result_session(session, query, municipalities):
 
     class Query(query):
 
@@ -76,7 +76,7 @@ def all_filtered_result_session(session, query, municipalities):
             return [municipalities[0]]
 
         def filter(self, term):
-            assert term.right.value == 2771
+            assert str(term) == 'test.municipality.fosnr = :fosnr_1'
             return self
 
     class Session(session):
@@ -87,9 +87,9 @@ def all_filtered_result_session(session, query, municipalities):
     yield Session
 
 
-def test_read_all(source_params, all_result_session, wkb_multipolygon):
-    source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_result_session()):
+def test_read_all(municipalities_source_params, all_municipalities_result_session, wkb_multipolygon):
+    source = DatabaseSource(**municipalities_source_params)
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_municipalities_result_session()):  # noqa: E501
         source.read(Parameter('xml'))
         assert len(source.records) == 2
         assert isinstance(source.records[0], MunicipalityRecord)
@@ -100,8 +100,8 @@ def test_read_all(source_params, all_result_session, wkb_multipolygon):
         assert source.records[0].published
 
 
-def test_read_all_filterd(source_params, all_filtered_result_session):
-    source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_filtered_result_session()):  # noqa: E501
+def test_read_all_filtered(municipalities_source_params, all_municipalities_filtered_result_session):
+    source = DatabaseSource(**municipalities_source_params)
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_municipalities_filtered_result_session()):  # noqa: E501
         source.read(Parameter('xml'), fosnr=2771)
         assert len(source.records) == 1

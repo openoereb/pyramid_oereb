@@ -8,15 +8,15 @@ from pyramid_oereb.core.records.logo import LogoRecord
 
 
 @pytest.fixture
-def source_params():
+def logo_source_params(db_connection):
     yield {
-        "db_connection": "postgresql://postgres:postgres@123.123.123.123:5432/oereb_test_db",
+        "db_connection": db_connection,
         "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Logo"
     }
 
 
 @pytest.fixture
-def all_result_session(session, query, png_binary):
+def all_logo_result_session(session, query, png_binary):
     from pyramid_oereb.contrib.data_sources.standard.models.main import Logo
 
     class Query(query):
@@ -48,9 +48,9 @@ def all_result_session(session, query, png_binary):
     yield Session
 
 
-def test_read_one(source_params, all_result_session):
-    source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_result_session()):
+def test_read_all(logo_source_params, all_logo_result_session):
+    source = DatabaseSource(**logo_source_params)
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_logo_result_session()):  # noqa: E501
         source.read()
         assert len(source.records) == 3
         assert isinstance(source.records[0], LogoRecord)

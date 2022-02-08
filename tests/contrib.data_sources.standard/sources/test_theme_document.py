@@ -6,9 +6,9 @@ from pyramid_oereb.core.records.theme_document import ThemeDocumentRecord
 
 
 @pytest.fixture
-def source_params():
+def source_params(db_connection):
     yield {
-        "db_connection": "postgresql://postgres:postgres@123.123.123.123:5432/oereb_test_db",
+        "db_connection": db_connection,
         "model": "pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument"
     }
 

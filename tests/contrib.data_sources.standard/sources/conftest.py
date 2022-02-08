@@ -27,3 +27,8 @@ def health_check():
         return True
     with patch('pyramid_oereb.core.sources.BaseDatabaseSource.health_check', mock_check):
         yield
+
+
+@pytest.fixture
+def db_connection():
+    yield "postgresql://mock_user:pass@123.123.123.123:5432/oereb_mock_db"

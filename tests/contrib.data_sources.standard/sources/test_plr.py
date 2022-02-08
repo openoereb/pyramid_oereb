@@ -12,7 +12,7 @@ from pyramid_oereb.core.records.view_service import LegendEntryRecord
 
 
 @pytest.fixture
-def source_params():
+def source_params(db_connection):
     yield {
         "code": "ch.Nutzungsplanung",
         "geometry_type": "GEOMETRYCOLLECTION",
@@ -41,7 +41,7 @@ def source_params():
         "source": {
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource",
             "params": {
-                "db_connection": "postgresql://postgres:postgres@123.123.123.123:5432/oereb_test_db",
+                "db_connection": db_connection,
                 "model_factory": "pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk",  # noqa: E501
                 "schema_name": "land_use_plans"
             }

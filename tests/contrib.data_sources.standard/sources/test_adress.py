@@ -10,9 +10,9 @@ from pyramid_oereb.core.records.address import AddressRecord
 
 
 @pytest.fixture
-def source_params():
+def address_source_params(db_connection):
     yield {
-        "db_connection": "postgresql://postgres:postgres@123.123.123.123:5432/oereb_test_db",
+        "db_connection": db_connection,
         "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Address"
     }
 
@@ -23,7 +23,7 @@ def wkb_point():
 
 
 @pytest.fixture
-def one_result_session(session, query, wkb_point):
+def one_address_result_session(session, query, wkb_point):
     from pyramid_oereb.contrib.data_sources.standard.models.main import Address
 
     class Query(query):
@@ -60,9 +60,9 @@ def no_result_session(session, query, wkb_point):
     yield Session
 
 
-def test_read_one(source_params, one_result_session):
-    source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=one_result_session()):
+def test_read_one(address_source_params, one_address_result_session):
+    source = DatabaseSource(**address_source_params)
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=one_address_result_session()):  # noqa: E501
         source.read(Parameter('xml'), 'teststreet', 4050, '99a')
         assert len(source.records) == 1
         assert isinstance(source.records[0], AddressRecord)
@@ -72,8 +72,8 @@ def test_read_one(source_params, one_result_session):
         assert source.records[0].geom.coords[0] == (1.0, 1.0)
 
 
-def test_read_none_found(source_params, no_result_session):
-    source = DatabaseSource(**source_params)
+def test_read_none_found(address_source_params, no_result_session):
+    source = DatabaseSource(**address_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=no_result_session()):
         source.read(Parameter('xml'), 'teststreet', 4050, '99a')
         assert len(source.records) == 0

@@ -7,15 +7,15 @@ from pyramid_oereb.core.records.law_status import LawStatusRecord
 
 
 @pytest.fixture
-def source_params():
+def law_status_source_params(db_connection):
     yield {
-        "db_connection": "postgresql://postgres:postgres@123.123.123.123:5432/oereb_test_db",
+        "db_connection": db_connection,
         "model": "pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus"
     }
 
 
 @pytest.fixture
-def all_result_session(session, query):
+def all_law_status_result_session(session, query):
     from pyramid_oereb.contrib.data_sources.standard.models.main import LawStatus
 
     class Query(query):
@@ -44,9 +44,9 @@ def all_result_session(session, query):
     yield Session
 
 
-def test_read_one(source_params, all_result_session):
-    source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_result_session()):
+def test_read_all(law_status_source_params, all_law_status_result_session):
+    source = DatabaseSource(**law_status_source_params)
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_law_status_result_session()):  # noqa: E501
         source.read(Parameter('xml'))
         assert len(source.records) == 3
         assert isinstance(source.records[0], LawStatusRecord)

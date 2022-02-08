@@ -19,15 +19,15 @@ def legend_entry_model_class():
 
 
 @pytest.fixture
-def source_params(legend_entry_model_class):
+def legend_entry_source_params(legend_entry_model_class, db_connection):
     yield {
-        "db_connection": "postgresql://postgres:postgres@123.123.123.123:5432/oereb_test_db",
+        "db_connection": db_connection,
         "model": legend_entry_model_class
     }
 
 
 @pytest.fixture
-def all_result_session(session, query, legend_entry_model_class, png_binary):
+def legend_entry_all_result_session(session, query, legend_entry_model_class, png_binary):
 
     class Query(query):
 
@@ -53,9 +53,9 @@ def all_result_session(session, query, legend_entry_model_class, png_binary):
     yield Session
 
 
-def test_read_all(source_params, all_result_session, png_binary):
-    source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_result_session()):
+def test_read_all(legend_entry_source_params, legend_entry_all_result_session, png_binary):
+    source = DatabaseSource(**legend_entry_source_params)
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=legend_entry_all_result_session()):  # noqa: E501
         source.read(Parameter('xml'), type_code='testCode')
         assert len(source.records) == 1
         assert isinstance(source.records[0], LegendEntryRecord)
@@ -68,8 +68,8 @@ def test_read_all(source_params, all_result_session, png_binary):
         assert source.records[0].view_service_id == '1'
 
 
-def test_read_all_missing_type_code(source_params, all_result_session):
-    source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_result_session()):
+def test_read_all_missing_type_code(legend_entry_source_params, legend_entry_all_result_session):
+    source = DatabaseSource(**legend_entry_source_params)
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=legend_entry_all_result_session()):  # noqa: E501
         with pytest.raises(AttributeError):
             source.read(Parameter('xml'))

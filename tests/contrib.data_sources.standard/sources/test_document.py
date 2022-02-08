@@ -13,9 +13,9 @@ from pyramid_oereb.core.records.document_types import DocumentTypeRecord
 
 
 @pytest.fixture
-def source_params():
+def document_source_params(db_connection):
     yield {
-        "db_connection": "postgresql://postgres:postgres@123.123.123.123:5432/oereb_test_db",
+        "db_connection": db_connection,
         "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Document"
     }
 
@@ -54,7 +54,7 @@ def date_today():
 
 
 @pytest.fixture
-def all_result_session(session, query, document, date_today, png_binary):
+def all_document_result_session(session, query, document, date_today, png_binary):
     class Query(query):
         def all(self):
             return [
@@ -121,10 +121,24 @@ def mock_config_get_main_law_status_by_data_code(app_config):
         yield
 
 
-def test_read_one(source_params, all_result_session, office_records):
-    source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_result_session()):
+def test_read_all(document_source_params, all_document_result_session, office_records, png_binary, date_today):  # noqa: E501
+    source = DatabaseSource(**document_source_params)
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_document_result_session()):  # noqa: E501
         source.read(office_records)
         assert len(source.records) == 2
         assert isinstance(source.records[0], DocumentRecord)
         assert isinstance(source.records[1], DocumentRecord)
+        test_document = source.records[0]
+        assert test_document.identifier == 1
+        assert isinstance(test_document.document_type, DocumentTypeRecord)
+        assert test_document.index == 1
+        assert isinstance(test_document.law_status, DocumentTypeRecord)
+        assert test_document.title == {'de', 'Titel1'}
+        assert isinstance(test_document.responsible_office, OfficeRecord)
+        assert test_document.published_from == date_today - datetime.timedelta(days=5)
+        assert test_document.published_until == date_today + datetime.timedelta(days=5)
+        assert test_document.published
+        assert test_document.text_at_web == {'de': 'https://test1.abcd'}
+        assert test_document.abbreviation == {'de': 'abkrz'}
+        assert test_document.official_number == {'de': 'ch.abc.d123'}
+        assert test_document.file == png_binary

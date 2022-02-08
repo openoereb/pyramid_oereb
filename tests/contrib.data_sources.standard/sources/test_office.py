@@ -10,9 +10,9 @@ from pyramid_oereb.core.records.office import OfficeRecord
 
 
 @pytest.fixture
-def source_params():
+def office_source_params(db_connection):
     yield {
-        "db_connection": "postgresql://postgres:postgres@123.123.123.123:5432/oereb_test_db",
+        "db_connection": db_connection,
         "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Office"
     }
 
@@ -25,7 +25,7 @@ def office_model_class():
 
 
 @pytest.fixture
-def all_result_session(session, query, office_model_class):
+def all_office_result_session(session, query, office_model_class):
 
     class Query(query):
 
@@ -65,9 +65,9 @@ def all_result_session(session, query, office_model_class):
     yield Session
 
 
-def test_read_all(source_params, all_result_session):
-    source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_result_session()):
+def test_read_all(office_source_params, all_office_result_session):
+    source = DatabaseSource(**office_source_params)
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_office_result_session()):  # noqa: E501
         source.read()
         assert len(source.records) == 2
         assert isinstance(source.records[0], OfficeRecord)

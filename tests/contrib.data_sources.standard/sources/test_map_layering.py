@@ -6,9 +6,9 @@ from pyramid_oereb.core.records.map_layering import MapLayeringRecord
 
 
 @pytest.fixture
-def source_params():
+def map_layering_source_params(db_connection):
     yield {
-        "db_connection": "postgresql://postgres:postgres@123.123.123.123:5432/oereb_test_db",
+        "db_connection": db_connection,
         "model": "pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering"
     }
 
@@ -29,7 +29,7 @@ def view_service_url():
 
 
 @pytest.fixture
-def all_result_session(session, query, view_service_url):
+def all_map_layering_result_session(session, query, view_service_url):
     from pyramid_oereb.contrib.data_sources.standard.models.main import MapLayering
 
     class Query(query):
@@ -52,9 +52,9 @@ def all_result_session(session, query, view_service_url):
     yield Session
 
 
-def test_read_one(source_params, all_result_session, view_service_url):
-    source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_result_session()):
+def test_read_all(map_layering_source_params, all_map_layering_result_session, view_service_url):
+    source = DatabaseSource(**map_layering_source_params)
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_map_layering_result_session()):  # noqa: E501
         source.read()
         assert len(source.records) == 1
         assert isinstance(source.records[0], MapLayeringRecord)

@@ -7,15 +7,15 @@ from pyramid_oereb.core.records.real_estate_type import RealEstateTypeRecord
 
 
 @pytest.fixture
-def source_params():
+def real_estate_type_source_params(db_connection):
     yield {
-        "db_connection": "postgresql://postgres:postgres@123.123.123.123:5432/oereb_test_db",
+        "db_connection": db_connection,
         "model": "pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType"
     }
 
 
 @pytest.fixture
-def all_result_session(session, query):
+def all_real_estate_type_result_session(session, query):
     from pyramid_oereb.contrib.data_sources.standard.models.main import RealEstateType
 
     class Query(query):
@@ -98,9 +98,9 @@ def all_result_session(session, query):
     yield Session
 
 
-def test_read_all(source_params, all_result_session):
-    source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_result_session()):
+def test_read_all(real_estate_type_source_params, all_real_estate_type_result_session):
+    source = DatabaseSource(**real_estate_type_source_params)
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_real_estate_type_result_session()):  # noqa: E501
         source.read(Parameter('xml'))
         assert len(source.records) == 6
         assert isinstance(source.records[0], RealEstateTypeRecord)

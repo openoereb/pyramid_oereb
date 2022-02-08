@@ -6,15 +6,15 @@ from pyramid_oereb.core.records.document_types import DocumentTypeRecord
 
 
 @pytest.fixture
-def source_params():
+def document_types_source_params(db_connection):
     yield {
-        "db_connection": "postgresql://postgres:postgres@123.123.123.123:5432/oereb_test_db",
+        "db_connection": db_connection,
         "model": "pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText"
     }
 
 
 @pytest.fixture
-def all_result_session(session, query):
+def all_document_types_result_session(session, query):
     from pyramid_oereb.contrib.data_sources.standard.models.main import DocumentTypeText
 
     class Query(query):
@@ -43,9 +43,9 @@ def all_result_session(session, query):
     yield Session
 
 
-def test_read_one(source_params, all_result_session):
-    source = DatabaseSource(**source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_result_session()):
+def test_read_all(document_types_source_params, all_document_types_result_session):
+    source = DatabaseSource(**document_types_source_params)
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_document_types_result_session()):  # noqa: E501
         source.read()
         assert len(source.records) == 3
         assert isinstance(source.records[0], DocumentTypeRecord)
