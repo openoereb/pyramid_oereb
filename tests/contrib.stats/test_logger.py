@@ -12,7 +12,7 @@ from pyramid_oereb.contrib.stats.scripts.create_stats_tables import _create_view
 
 
 @pytest.fixture(scope="session")
-def webtestapp():
+def webtestapp(test_db_engine):
     Config._config = None
     setup_logging('tests/resources/test.ini#main')
     app = get_app('tests/resources/test.ini#main')
