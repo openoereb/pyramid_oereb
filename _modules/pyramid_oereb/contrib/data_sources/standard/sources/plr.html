@@ -285,7 +285,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">availabilities</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_session</span><span class="p">()</span>
 
         <span class="k">try</span><span class="p">:</span>
 
@@ -493,7 +493,6 @@
         <span class="n">legend_entry_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_legend_entry_record</span><span class="p">(</span>
             <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">legend_entry</span>
         <span class="p">)</span>
-
         <span class="c1"># this list holds all records which are belonging to the dedicated</span>
         <span class="c1"># PLR (it is decided by the PLR&#39;s theme and sub_theme).</span>
         <span class="n">legend_entry_records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_legend_entry_records</span><span class="p">(</span>
@@ -654,7 +653,7 @@
 
     <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>  <span class="c1"># pylint: disable=W:0221</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        The read point which creates a extract, depending on a passed real estate.</span>
+<span class="sd">        The read point which creates an extract, depending on a passed real estate.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.</span>
@@ -664,7 +663,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Check if the plr is marked as available</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_available</span><span class="p">(</span><span class="n">real_estate</span><span class="p">):</span>
-            <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
+            <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_session</span><span class="p">()</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="c1"># We can stop here already because there are no items in the database</span>
