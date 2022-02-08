@@ -35,9 +35,9 @@ def query():
 
 @pytest.fixture(autouse=True)
 def srid():
-    def mock_srid():
+    def srid():
         return 2056
-    with patch('pyramid_oereb.core.config.Config.get_srid', mock_srid):
+    with patch('pyramid_oereb.core.config.Config.get_srid', srid):
         yield
 
 
