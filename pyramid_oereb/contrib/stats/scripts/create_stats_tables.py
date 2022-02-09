@@ -46,7 +46,7 @@ def create_stats_tables():
 def _create_views(config_file,
                   config_section='handler_sqlalchemylogger',
                   config_sql_args='args'):
-    config = configparser.ConfigParser()
+    config = configparser.ConfigParser(os.environ)
     config.read(config_file)
     schema_name = ast.literal_eval(config[config_section][config_sql_args])[0]['tableargs']['schema']
     tablename = ast.literal_eval(config[config_section][config_sql_args])[0]['tablename']

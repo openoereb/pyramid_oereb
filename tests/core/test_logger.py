@@ -1,3 +1,5 @@
+import os
+
 import pytest
 import time
 import json
@@ -14,8 +16,8 @@ from pyramid_oereb.contrib.stats.scripts.create_stats_tables import _create_view
 @pytest.fixture(scope="session")
 def webtestapp():
     Config._config = None
-    setup_logging('tests/resources/test.ini#main')
-    app = get_app('tests/resources/test.ini#main')
+    setup_logging('tests/resources/test.ini#main', global_conf=os.environ)
+    app = get_app('tests/resources/test.ini#main', options=os.environ)
     test_app = TestApp(app)
     return test_app
 
