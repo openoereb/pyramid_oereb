@@ -4,3 +4,4 @@ pytest-ordering==0.6
 requests-mock==1.9.3
 responses==0.13.3
 webtest
+pillow==9.0.0
