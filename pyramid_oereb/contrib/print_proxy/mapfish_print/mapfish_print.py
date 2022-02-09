@@ -685,8 +685,13 @@ class Renderer(JsonRenderer):
         """
 
         sort_title = elem['Title'] if 'Title' in elem else ''
-        sort_number = elem['OfficialNumber'] if 'OfficialNumber' in elem else None
-        return sort_title, sort_number
+        if 'OfficialNumber' in elem and elem['OfficialNumber']:
+            sort_number_id = 0
+            sort_number = elem['OfficialNumber']
+        else:
+            sort_number_id = 1
+            sort_number = ''
+        return sort_title, sort_number_id, sort_number
 
     @staticmethod
     def sort_hints_laws(elem):

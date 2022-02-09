@@ -266,6 +266,37 @@ def test_get_sorted_legal_provisions(DummyRenderInfo):
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
             "Lawstatus_Text": "Rechtskräftig",
+            "OfficialNumber": "3891.100",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/197"}],
+            "Title": "Baugesetz2"
+        }, {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inKraft",
+            "Lawstatus_Text": "Rechtskräftig",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/197"}],
+            "Title": "Baugesetz2"
+        }, {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inKraft",
+            "Lawstatus_Text": "Rechtskräftig",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/197"}],
+            "Title": "Baugesetz3"
+        }, {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inKraft",
+            "Lawstatus_Text": "Rechtskräftig",
             "OfficialNumber": "07.447",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -287,6 +318,16 @@ def test_get_sorted_legal_provisions(DummyRenderInfo):
     ]
     test_legal_provisions = [
         {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inKraft",
+            "Lawstatus_Text": "Rechtskräftig",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/197"}],
+            "Title": "Baugesetz2"
+        }, {
            "Canton": "BL",
            "DocumentType": "LegalProvision",
            "Lawstatus_Code": "inKraft",
@@ -329,6 +370,27 @@ def test_get_sorted_legal_provisions(DummyRenderInfo):
                 "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
             "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
             "Title": "Baugesetz"
+        }, {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inKraft",
+            "Lawstatus_Text": "Rechtskräftig",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/197"}],
+            "Title": "Baugesetz3"
+        }, {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inKraft",
+            "Lawstatus_Text": "Rechtskräftig",
+            "OfficialNumber": "3891.100",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/197"}],
+            "Title": "Baugesetz2"
         }
     ]
     assert expected_result == renderer.sort_dict_list(test_legal_provisions, renderer.sort_legal_provision)
