@@ -125,4 +125,13 @@ class Renderer(XmlRenderer):
 
     @staticmethod
     def prepare_xml(extract_as_xml):
+        """
+        Hook method in order to manipulate xml that is sent to print webservice.
+
+        Args:
+            extract_as_xml(xml): Variable containing the xml content for print werbservice.
+
+        Returns:
+            xml: Data of extract.
+        """
         return extract_as_xml
