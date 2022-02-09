@@ -101,7 +101,7 @@ class PlrWebservice(object):
         processor = create_processor()
         capabilities = {
             u'GetCapabilitiesResponse': {
-                u'topic': themes,
+                u'topic': Config.get_themes() if output_format == 'xml' else themes,
                 u'municipality': [record.fosnr for record in processor.municipality_reader.read(params)],
                 u'flavour': Config.get_flavour(),
                 u'language': supported_languages,

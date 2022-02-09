@@ -16,14 +16,14 @@ from pyramid_oereb.core.records.view_service import ViewServiceRecord, LegendEnt
 
 
 law_status = LawStatusRecord(
-        'inKraft', {
-            "de": "Rechtskräftig",
-            "fr": "En vigueur",
-            "it": "In vigore",
-            "rm": "En vigur",
-            "en": "In force"
-        }
-    )
+    'inKraft', {
+        "de": "Rechtskräftig",
+        "fr": "En vigueur",
+        "it": "In vigore",
+        "rm": "En vigur",
+        "en": "In force"
+    }
+)
 
 
 def test_mandatory_fields():

@@ -2,6 +2,7 @@
 from pyramid_oereb.core.sources import BaseDatabaseSource
 from pyramid_oereb.core.records.view_service import LegendEntryRecord
 from pyramid_oereb.core.sources.legend import LegendBaseSource
+from pyramid_oereb.core.records.image import ImageRecord
 
 
 class DatabaseSource(BaseDatabaseSource, LegendBaseSource):
@@ -27,12 +28,13 @@ class DatabaseSource(BaseDatabaseSource, LegendBaseSource):
             self.records = list()
             for result in results:
                 self.records.append(LegendEntryRecord(
-                    result.symbol,
+                    ImageRecord(result.symbol),
                     result.legend_text,
                     result.type_code,
                     result.type_code_list,
                     result.theme,
-                    result.sub_theme
+                    sub_theme=result.sub_theme,
+                    view_service_id=result.view_service_id
                 ))
         finally:
             session.close()

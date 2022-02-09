@@ -1632,7 +1632,7 @@ class Config(object):
         themes = Config._config.get('plrs')
         if themes and isinstance(themes, list):
             for theme in themes:
-                if theme.get('code') == theme_code:
+                if theme.get('code').lower() == theme_code.lower():
                     return theme
         return None
 

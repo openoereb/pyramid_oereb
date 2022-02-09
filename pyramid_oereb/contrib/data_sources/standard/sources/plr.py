@@ -114,7 +114,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         self.availabilities = []
 
-        session = self._adapter_.get_session(self._key_)
+        session = self.get_session()
 
         try:
 
@@ -322,7 +322,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         legend_entry_record = self.from_db_to_legend_entry_record(
             public_law_restriction_from_db.legend_entry
         )
-
         # this list holds all records which are belonging to the dedicated
         # PLR (it is decided by the PLR's theme and sub_theme).
         legend_entry_records = self.from_db_to_legend_entry_records(
@@ -483,7 +482,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
     def read(self, params, real_estate, bbox):  # pylint: disable=W:0221
         """
-        The read point which creates a extract, depending on a passed real estate.
+        The read point which creates an extract, depending on a passed real estate.
 
         Args:
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
@@ -493,7 +492,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         """
         # Check if the plr is marked as available
         if self._is_available(real_estate):
-            session = self._adapter_.get_session(self._key_)
+            session = self.get_session()
             try:
                 if session.query(self._model_).count() == 0:
                     # We can stop here already because there are no items in the database
