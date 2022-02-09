@@ -62,14 +62,17 @@ jobs:
       - name: Run core tests for Python ${{ matrix.python-version }}
         env:
           PYTHON_TEST_VERSION: ${{ matrix.python-version }}
+          PGHOST: localhost
         run: make test-core
       - name: Run contrib-print_proxy-mapfish_print tests for Python ${{ matrix.python-version }}
         env:
           PYTHON_TEST_VERSION: ${{ matrix.python-version }}
+          PGHOST: localhost
         run: make test-contrib-print_proxy-mapfish_print
       - name: Run contrib-data_sources-standard tests for Python ${{ matrix.python-version }}
         env:
           PYTHON_TEST_VERSION: ${{ matrix.python-version }}
+          PGHOST: localhost
         run: make test-contrib-data_sources-standard
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2

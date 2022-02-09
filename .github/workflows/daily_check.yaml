@@ -41,10 +41,12 @@ jobs:
       - name: Run core tests for Python ${{ matrix.python-version }}
         env:
           PYTHON_TEST_VERSION: ${{ matrix.python-version }}
+          PGHOST: localhost
         run: make test-core
       - name: Run contrib tests for Python ${{ matrix.python-version }}
         env:
           PYTHON_TEST_VERSION: ${{ matrix.python-version }}
+          PGHOST: localhost
         run: make test-contrib
       - name: Set up Python 3.7
         uses: actions/setup-python@v1
