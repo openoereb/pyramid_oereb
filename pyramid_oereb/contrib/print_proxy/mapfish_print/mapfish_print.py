@@ -652,7 +652,7 @@ class Renderer(JsonRenderer):
         for element in ['LegalProvisions', 'Laws', 'Hints']:
             restriction_on_landownership[element] = Renderer.sort_dict_list(
                 restriction_on_landownership[element],
-                Renderer.sort_legal_provision
+                Renderer.sort_hints_laws
             )
 
     @staticmethod
