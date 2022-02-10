@@ -699,7 +699,7 @@ class Renderer(JsonRenderer):
         Returns:
             sort key (tuple)
         """
-        return elem.get('index', 1000)
+        return elem.get('Index', 1000)
 
     @staticmethod
     def sort_legend_elem(elem):
