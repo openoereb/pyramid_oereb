@@ -287,6 +287,18 @@ def test_get_sorted_legal_provisions(DummyRenderInfo):
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
             "Lawstatus_Text": "Rechtskräftig",
+            "OfficialNumber": "3891.100",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/197"}],
+            "Title": "Baugesetz3"
+        }, {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inKraft",
+            "Lawstatus_Text": "Rechtskräftig",
+            "OfficialNumber": "",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
                 "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
@@ -327,6 +339,17 @@ def test_get_sorted_legal_provisions(DummyRenderInfo):
                 "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
             "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/197"}],
             "Title": "Baugesetz2"
+        }, {
+            "Canton": "BL",
+            "DocumentType": "LegalProvision",
+            "Lawstatus_Code": "inKraft",
+            "Lawstatus_Text": "Rechtskräftig",
+            "OfficialNumber": "",
+            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+            "ResponsibleOffice_OfficeAtWeb":
+                "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+            "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/197"}],
+            "Title": "Baugesetz3"
         }, {
            "Canton": "BL",
            "DocumentType": "LegalProvision",
@@ -375,6 +398,7 @@ def test_get_sorted_legal_provisions(DummyRenderInfo):
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
             "Lawstatus_Text": "Rechtskräftig",
+            "OfficialNumber": "3891.100",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
                 "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",

@@ -686,14 +686,12 @@ class Renderer(JsonRenderer):
             sort key (tuple)
         """
 
-        sort_title = elem['Title'] if 'Title' in elem else ''
-        if 'OfficialNumber' in elem and elem['OfficialNumber']:
-            sort_number_type = 0
-            sort_number = elem['OfficialNumber']
-        else:
-            sort_number_type = 1
-            sort_number = ''
-        return sort_title, sort_number_type, sort_number
+        sort_title = elem.get('Title', '')
+        sort_number = elem.get('OfficialNumber', '')
+        # the additional sorting key below must be produced so that records without OfficialNumber
+        # are sorted after records with OfficialNumber
+        sort_empty_official_number_last = (len(sort_number) == 0)
+        return sort_title, sort_empty_official_number_last, sort_number
 
     @staticmethod
     def sort_hints_laws(elem):
