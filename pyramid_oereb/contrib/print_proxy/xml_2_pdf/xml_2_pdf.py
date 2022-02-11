@@ -16,7 +16,7 @@ class Renderer(XmlRenderer):
     def __call__(self, value, system):
         """
         Implements a subclass of pyramid_oereb.core.renderer.extract.xml_.Renderer to create a print result
-        out of a xml. The xml extract is reformatted to fit the structure of mapfish print.
+        out of a xml. The xml extract is reformatted to fit the structure of xml2pdf.
 
         Args:
             value (tuple): A tuple containing the generated extract record and the params
@@ -24,7 +24,7 @@ class Renderer(XmlRenderer):
             system (dict): The available system properties.
 
         Returns:
-            buffer: The pdf content as received from configured mapfish print instance url.
+            pyramid.response.Response: The pdf content as received from configured mapfish print instance url.
 
         Raises:
             ConfigurationError
@@ -132,6 +132,6 @@ class Renderer(XmlRenderer):
             extract_as_xml(xml): Variable containing the xml content for print werbservice.
 
         Returns:
-            xml: Data of extract.
+            str: Data of extract.
         """
         return extract_as_xml
