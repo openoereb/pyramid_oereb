@@ -71,11 +71,14 @@ def test_get_image_invalid(mock_symbol_fail):
 def mock_get_theme_config_by_code():
 
     def get_theme_config_by_code(code):
-        return {'hooks': {'get_symbol': 'pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol'}}
+        return {
+            'hooks': {
+                'get_symbol': 'pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol'
+            }
+        }
     yield get_theme_config_by_code
 
 
 def test_get_method(mock_get_theme_config_by_code):
     with patch('pyramid_oereb.core.config.Config.get_theme_config_by_code', mock_get_theme_config_by_code):
         assert Symbol.get_method('abc.xyz') == get_symbol
-
