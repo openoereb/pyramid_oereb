@@ -189,7 +189,7 @@ def test_get_symbol_binary_content(theme_config, one_result_binary_session, png_
     with patch(
             'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
             return_value=one_result_binary_session()):
-        body, content_type = get_symbol("ch.Nutzungsplanung", None, '1', 'StaoTyp1', theme_config)
+        body, content_type = get_symbol({'identifier': "1"}, theme_config)
         assert content_type == 'image/png'
         assert body == b64.decode(binascii.b2a_base64(png_binary).decode('ascii'))
 
@@ -199,7 +199,7 @@ def test_get_symbol_no_symbol_content(theme_config, one_result_no_symbol_session
             'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
             return_value=one_result_no_symbol_session()):
         with pytest.raises(HTTPServerError):
-            get_symbol("ch.Nutzungsplanung", None, '1', 'StaoTyp1', theme_config)
+            get_symbol({'identifier': "1"}, theme_config)
 
 
 def test_get_symbol_no_legend_entry(theme_config, no_result_session):
@@ -207,19 +207,19 @@ def test_get_symbol_no_legend_entry(theme_config, no_result_session):
             'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
             return_value=no_result_session()):
         with pytest.raises(HTTPNotFound):
-            get_symbol("ch.Nutzungsplanung", None, '1', 'StaoTyp1', theme_config)
+            get_symbol({'identifier': "2"}, theme_config)
 
 
 def test_get_symbol_wrong_content(theme_config, one_result_wrong_content_session):
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
                return_value=one_result_wrong_content_session()):
         with pytest.raises(HTTPServerError):
-            get_symbol("ch.Nutzungsplanung", None, '1', 'StaoTyp1', theme_config)
+            get_symbol({'identifier': "1"}, theme_config)
 
 
 def test_get_symbol_b64_content(theme_config, one_result_b64_session, png_binary):
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
                return_value=one_result_b64_session()):
-        body, content_type = get_symbol("ch.Nutzungsplanung", None, '1', 'StaoTyp1', theme_config)
+        body, content_type = get_symbol({'identifier': "1"}, theme_config)
         assert content_type == 'image/png'
         assert body == b64.decode(binascii.b2a_base64(png_binary).decode('ascii'))
