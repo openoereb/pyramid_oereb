@@ -3,7 +3,6 @@ import logging
 import binascii
 
 from pyramid.httpexceptions import HTTPNotFound, HTTPServerError
-from sqlalchemy import cast, Text
 
 from pyramid_oereb.contrib.data_sources.standard.sources.plr import StandardThemeConfigParser
 from pyramid_oereb import database_adapter
@@ -31,7 +30,7 @@ def get_symbol(params, theme_config):
     """
     try:
         identifier = params['identifier']
-    except KeyError as e:
+    except KeyError:
         log.error(
             f'No useful params for HookMethod was delivered. '
             f'Expected "identifier" in params. Sent params are:  {params}'
