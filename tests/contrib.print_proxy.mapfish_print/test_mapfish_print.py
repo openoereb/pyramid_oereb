@@ -370,22 +370,22 @@ def test_get_sorted_hints(DummyRenderInfo):
         "DocumentType": "Hint",
         "Lawstatus_Code": "inKraft",
         "Lawstatus_Text": "Rechtskräftig",
-        "Index": 1,
-        "OfficialNumber": "3891.100",
-        "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
-        "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-        "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
-    }, {
-        "Canton": "BL",
-        "DocumentType": "Hint",
-        "Lawstatus_Code": "inKraft",
-        "Lawstatus_Text": "Rechtskräftig",
         "Index": 2,
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
         "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
         "Title": "Baugesetz"
+    }, {
+        "Canton": "BL",
+        "DocumentType": "Hint",
+        "Lawstatus_Code": "inKraft",
+        "Lawstatus_Text": "Rechtskräftig",
+        "Index": 1,
+        "OfficialNumber": "3891.100",
+        "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+        "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+        "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
     }]
 
     expected_result = [{
@@ -432,7 +432,7 @@ def test_get_sorted_hints(DummyRenderInfo):
         "Title": "Baugesetz"
     }]
 
-    assert expected_result == renderer.sort_dict_list(test_hints, renderer.sort_hints_laws)
+    assert expected_result == renderer.sort_dict_list(test_hints, renderer.sort_by_index)
 
 
 def test_get_sorted_law(DummyRenderInfo):
@@ -570,7 +570,7 @@ def test_get_sorted_law(DummyRenderInfo):
                 'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2934?locale=de'
         }
     ]
-    assert expected_result == renderer.sort_dict_list(test_law, renderer.sort_hints_laws)
+    assert expected_result == renderer.sort_dict_list(test_law, renderer.sort_by_index)
 
 
 def test_group_legal_provisions(DummyRenderInfo):
