@@ -7,7 +7,7 @@ from pyramid_oereb import route_prefix
 from pyramid_oereb.core.records.office import OfficeRecord
 
 
-def get_symbol(theme_code, sub_theme_code, view_service_id, type_code, theme_config):
+def get_symbol(params, theme_config):
     """
     This is a dummy method only to define what is expected by the real implementation.
 
@@ -15,10 +15,7 @@ def get_symbol(theme_code, sub_theme_code, view_service_id, type_code, theme_con
     and the mime type fitting to the image content.
 
     Args:
-        theme_code (str): The theme code.
-        sub_theme_code (str or None): The sub_theme code.
-        view_service_id (str): The ID linking to the view service.
-        type_code (str): The type_code.
+        params (dict): The URL parameters which were handed over via request.
         theme_config (dict): The configuration of the theme how it was set up in the YAML.
 
     Returns:
@@ -39,14 +36,12 @@ def get_symbol_ref(request, record):
     Returns:
         uri: The link to the symbol for the specified public law restriction.
     """
-    query = None
-    if record.sub_theme:
-        query = {'sub_theme_code': record.sub_theme.sub_code}
+    query = {
+        'identifier': record.identifier
+    }
     return request.route_url(
         '{0}/image/symbol'.format(route_prefix),
         theme_code=record.theme.code,
-        view_service_id=record.view_service_id,
-        type_code=record.type_code,
         extension=record.symbol.extension,
         _query=query
     )

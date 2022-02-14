@@ -27,10 +27,12 @@ class LegendEntryRecord(object):
             solve bug https://github.com/openoereb/pyramid_oereb/issues/521
         sub_theme (pyramid_oereb.lib.records.theme.ThemeRecord): The optional sub theme to which the
             legend entry belongs.
+        identifier (str): The identifier of the legend entry which might be used for linking to
+                other elements.
     """
 
     def __init__(self, symbol, legend_text, type_code, type_code_list, theme,
-                 view_service_id=None, sub_theme=None):
+                 view_service_id=None, sub_theme=None, identifier=None):
 
         if not isinstance(legend_text, dict):
             warnings.warn('Type of "legend_text" should be "dict"')
@@ -42,12 +44,14 @@ class LegendEntryRecord(object):
         self.theme = theme
         self.view_service_id = view_service_id
         self.sub_theme = sub_theme
+        self.identifier = identifier
 
     def __str__(self):
         return '<{} -- symbol: {} legend_text: {} type_code: {} type_code_list: {}'\
-                    ' theme: {}'\
+                    ' theme: {} sub_theme: {} view_service_id: {} identifier: {}'\
                     .format(self.__class__.__name__, self.symbol, self.legend_text,
-                            self.type_code, self.type_code_list, self.theme)
+                            self.type_code, self.type_code_list, self.theme, self.sub_theme,
+                            self.view_service_id, self.identifier)
 
 
 class ViewServiceRecord(object):

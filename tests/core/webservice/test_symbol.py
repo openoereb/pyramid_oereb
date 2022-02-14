@@ -24,7 +24,7 @@ def png_binary(png_image):
 
 @pytest.fixture
 def mock_symbol(png_binary):
-    def mock_get_symbol(theme_code, sub_theme_code, view_service_id, type_code, theme_config):
+    def mock_get_symbol(identifier, theme_config):
         content_type = ImageRecord.get_mimetype(bytearray(png_binary))
         return png_binary, content_type
 
@@ -45,9 +45,7 @@ def mock_symbol_fail():
 def test_get_image(pyramid_oereb_test_config, contaminated_sites, mock_symbol, png_binary):
     request = MockRequest()
     request.matchdict.update({
-        'theme_code': 'ch.BelasteteStandorte',
-        'view_service_id': '1',
-        'type_code': 'StaoTyp1'
+        'theme_code': 'ch.BelasteteStandorte'
     })
     webservice = mock_symbol(request)
     result = webservice.get_image()
@@ -60,9 +58,7 @@ def test_get_image(pyramid_oereb_test_config, contaminated_sites, mock_symbol, p
 def test_get_image_invalid(mock_symbol_fail):
     request = MockRequest()
     request.matchdict.update({
-        'theme_code': 'ch.BelasteteStandorte',
-        'view_service_id': '1',
-        'type_code': 'notExisting'
+        'theme_code': 'ch.BelasteteStandorte'
     })
     webservice = mock_symbol_fail(request)
     with pytest.raises(HTTPNotFound):

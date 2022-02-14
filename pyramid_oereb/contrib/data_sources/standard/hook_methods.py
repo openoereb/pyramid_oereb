@@ -14,16 +14,13 @@ from pyramid_oereb.core.records.image import ImageRecord
 log = logging.getLogger(__name__)
 
 
-def get_symbol(theme_code, sub_theme_code, view_service_id, type_code, theme_config):
+def get_symbol(params, theme_config):
     """
     Returns the symbol for the requested theme and type code from database. It queries the model
     for the legend entry pyramid_oereb.contrib.data_sources.standard.models.get_legend_entry
 
     Args:
-        theme_code (str): The theme code.
-        sub_theme_code (str or None): The sub_theme code.
-        view_service_id (str): The ID linking to the view service.
-        type_code (str): The type_code.
+        params (dict): The URL parameters which were handed over via request.
         theme_config (dict): The configuration of the theme how it was set up in the YAML.
 
     Returns:
@@ -32,25 +29,27 @@ def get_symbol(theme_code, sub_theme_code, view_service_id, type_code, theme_con
         HTTPNotFound
         HTTPServerError
     """
+    try:
+        identifier = params['identifier']
+    except KeyError as e:
+        log.error(
+            f'No useful params for HookMethod was delivered. '
+            f'Expected "identifier" in params. Sent params are:  {params}'
+        )
+        raise HTTPServerError
+
     config_parser = StandardThemeConfigParser(**theme_config)
     session = database_adapter.get_session(config_parser.db_connection)
 
-    log_string = 'theme_code: {}, sub_theme_code: {}, view_service_id: {}, type_code: {}'.format(
-        theme_code,
-        sub_theme_code,
-        view_service_id,
-        type_code
+    log_string = 'identifier: {}'.format(
+        identifier
     )
 
     try:
         models = config_parser.get_models()
         model = models.LegendEntry
         legend_entry = session.query(model).filter(
-            cast(model.type_code, Text) == cast(type_code, Text)
-        ).filter(
-            model.sub_theme == sub_theme_code
-        ).filter(
-            model.view_service_id == view_service_id
+            model.id == identifier
         ).one()
         if legend_entry:
             symbol = getattr(legend_entry, 'symbol', None)
