@@ -968,6 +968,54 @@ restriction to get the symbol reference for.</li>
 <dd><p><em>pyramid.interfaces.IRendererInfo</em> &#8211; The passed renderer info object.</p>
 </dd></dl>
 
+<dl class="staticmethod">
+<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.prepare_xml">
+<em class="property">static </em><code class="descname">prepare_xml</code><span class="sig-paren">(</span><em>extract_as_xml</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/xml_2_pdf/xml_2_pdf.html#Renderer.prepare_xml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.prepare_xml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method in order to manipulate xml that is sent to print webservice.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>extract_as_xml</strong> (<em>xml</em>) &#8211; Variable containing the xml content for print werbservice.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Data of extract.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.request_pdf">
+<em class="property">static </em><code class="descname">request_pdf</code><span class="sig-paren">(</span><em>url</em>, <em>data_extract</em>, <em>headers</em>, <em>parameters</em>, <em>verify_certificate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/xml_2_pdf/xml_2_pdf.html#Renderer.request_pdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.request_pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Posts the print request to the configured print server to return the pdf extract.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>url</strong> (<em>str</em>) &#8211; URl to the print webservice.</li>
+<li><strong>data_extract</strong> (<em>xml</em>) &#8211; The rendered xml extract.</li>
+<li><strong>headers</strong> (<em>dict</em>) &#8211; Request headers for print request.</li>
+<li><strong>parameters</strong> (<em>dict</em>) &#8211; Additional print parameters, such as language or flavour.</li>
+<li><strong>verify_certificate</strong> (<em>boolean</em>) &#8211; Define if certificate should be verified.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The pdf file as received from configured mapfish print instance url.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="../core/records.html#pyramid_oereb.core.records.documents.DocumentRecord.file" title="pyramid_oereb.core.records.documents.DocumentRecord.file">file</a></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">Exception</span></code> &#8211; Request failed.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.sort_by_localized_text">
 <code class="descname">sort_by_localized_text</code><span class="sig-paren">(</span><em>multilingual_elements</em>, <em>value_accessor</em>, <em>not_null=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.sort_by_localized_text" title="Permalink to this definition">¶</a></dt>
