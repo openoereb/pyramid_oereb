@@ -26,10 +26,12 @@ from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.general_information import GeneralInformationRecord
 from pyramid_oereb.core.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.core.renderer import Base
-import pyramid_oereb.core.renderer.extract.json_
 from pyramid_oereb.core.renderer.extract.json_ import Renderer
 from tests.mockrequest import MockRequest
 from pyramid_oereb.core.views.webservice import Parameter
+
+import pyramid_oereb.core.renderer.extract.json_
+import pyramid_oereb.core.hook_methods
 
 
 def law_status():
@@ -228,7 +230,7 @@ def test_format_real_estate(DummyRenderInfo, real_estate_test_data):
     }
 
 
-@patch.object(pyramid_oereb.contrib.data_sources.standard.hook_methods, 'route_prefix', 'oereb')
+@patch.object(pyramid_oereb.core.hook_methods, 'route_prefix', 'oereb')
 @pytest.mark.parametrize('parameter', [
     default_param(),
     Parameter('json', False, True, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
@@ -504,7 +506,7 @@ def test_format_theme(DummyRenderInfo, params):
     }
 
 
-@patch.object(pyramid_oereb.contrib.data_sources.standard.hook_methods, 'route_prefix', 'oereb')
+@patch.object(pyramid_oereb.core.hook_methods, 'route_prefix', 'oereb')
 @pytest.mark.parametrize('parameter', [
     default_param(),
     Parameter('json', 'reduced', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de')

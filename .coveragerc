@@ -1,5 +1,0 @@
-[run]
-omit =
-    pyramid_oereb/models.py
-    pyramid_oereb/standard/create_tables.py
-    pyramid_oereb/standard/drop_tables.py

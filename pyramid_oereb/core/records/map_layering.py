@@ -6,9 +6,9 @@ class MapLayeringRecord(object):
     Represents a map layering entry with the view service, layer index and layer opacity.
 
     Args:
-        view_service (str): View service.
-        layer_index (str): Index for sorting the layering of the view services within a theme.
-        layer_opacity (str): Opacity of a view service.
+        view_service (dict): View service.
+        layer_index (int): Index for sorting the layering of the view services within a theme.
+        layer_opacity (float): Opacity of a view service.
     """
     def __init__(self, view_service, layer_index, layer_opacity):
 

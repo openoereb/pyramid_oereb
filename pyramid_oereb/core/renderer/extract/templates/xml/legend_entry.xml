@@ -11,5 +11,9 @@
 <data:TypeCode>${legend_entry.type_code | x}</data:TypeCode>
 <data:TypeCodelist>${legend_entry.type_code_list | x}</data:TypeCodelist>
 <data:Theme>
+%if legend_entry.sub_theme:
+    <%include file="theme.xml" args="theme=legend_entry.sub_theme"/>
+%else:
     <%include file="theme.xml" args="theme=legend_entry.theme"/>
+%endif
 </data:Theme>

@@ -7,7 +7,6 @@ from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPInternalServer
 from pyramid.path import DottedNameResolver
 from shapely.geometry import Point
 from pyramid.renderers import render_to_response
-from pyramid.response import Response
 
 from pyramid_oereb import route_prefix
 from pyramid_oereb import Config
@@ -102,7 +101,7 @@ class PlrWebservice(object):
         processor = create_processor()
         capabilities = {
             u'GetCapabilitiesResponse': {
-                u'topic': themes,
+                u'topic': Config.get_themes() if output_format == 'xml' else themes,
                 u'municipality': [record.fosnr for record in processor.municipality_reader.read(params)],
                 u'flavour': Config.get_flavour(),
                 u'language': supported_languages,
@@ -803,16 +802,27 @@ class Symbol(object):
         Returns:
             pyramid.response.Response: Response containing the binary image content.
         """
-        method = None
-        dnr = DottedNameResolver()
-        for plr in Config.get('plrs'):
-            if str(plr.get('code')).lower() == str(self._request_.matchdict.get('theme_code')).lower():
-                method = dnr.resolve(plr.get('hooks').get('get_symbol'))
-                break
+        theme_code = self._request_.matchdict.get('theme_code')
+        sub_theme_code = self._request_.params.get('sub_theme_code')
+        view_service_id = self._request_.matchdict.get('view_service_id')
+        type_code = self._request_.matchdict.get('type_code')
+        method = self.get_method(theme_code)
+        theme_config = Config.get_theme_config_by_code(str(theme_code))
         if method:
-            return method(self._request_)
+            body, mimetype = method(theme_code, sub_theme_code, view_service_id, type_code, theme_config)
+            response = self._request_.response
+            response.status_int = 200
+            response.body = body
+            response.content_type = mimetype
+            return response
         log.error('"get_symbol_method" not found')
         raise HTTPNotFound()
+
+    @staticmethod
+    def get_method(theme_code):
+        dnr = DottedNameResolver()
+        theme_config = Config.get_theme_config_by_code(str(theme_code))
+        return dnr.resolve(theme_config.get('hooks').get('get_symbol'))
 
 
 class Sld(object):
@@ -848,22 +858,24 @@ class Sld(object):
             value of the hooked method was not of type pyramid.response.Response
             pyramid.httpexceptions.HTTPNotFound: When the configured method was not found.
         """
+        real_estate_config = Config.get_real_estate_config()
+        params = {}
+        for param in real_estate_config['visualisation']['url_params']:
+            params.update({param: self._request_.params.get(param)})
+        method = self.get_method()
+        response = self._request_.response
+        response.content_type = 'application/xml'
+        if method:
+            response.body = method(params, real_estate_config)
+            return response
+        log.error(u'method in path "{path}" not found'.format(
+            path=real_estate_config['visualisation']['method'])
+        )
+        raise HTTPNotFound()
+
+    @staticmethod
+    def get_method():
         dnr = DottedNameResolver()
         visualisation_config = Config.get_real_estate_config().get('visualisation')
         method_path = visualisation_config.get('method')
-        method = dnr.resolve(method_path)
-        if method:
-            result = method(self._request_)
-            if isinstance(result, Response):
-                return result
-            else:
-                log.error(
-                    u'The called method {path} does not returned the expected '
-                    u'pyramid.response.Response instance. Returned value was {type}'.format(
-                        path=method_path,
-                        type=type(result)
-                    )
-                )
-                raise HTTPInternalServerError()
-        log.error(u'method in path "{path}" not found'.format(path=method_path))
-        raise HTTPNotFound()
+        return dnr.resolve(method_path)

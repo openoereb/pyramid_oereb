@@ -40,7 +40,7 @@ def generic_models(base, schema_name, pk_type):
         pk_type (sqlalchemy.sql.type_api.TypeEngine): The type of the primary column. E.g.
             sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
             needs
-    Retruns:
+    Returns:
         list: First element is the Office model and second is the Document model.
     """
 

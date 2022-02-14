@@ -1,6 +1,16 @@
 Changelog
 =========
 
+2.0.0.b14
+---------
+- Reorganize hook methos (#1484)
+- Fix Office Record assignment (#1473)
+- External library updates
+
+2.0.0.b13
+---------
+- Fix collection of legend entries (#1482)
+
 2.0.0.b12
 ---------
 - Reactivate statistics functionality from V1 (#1480)

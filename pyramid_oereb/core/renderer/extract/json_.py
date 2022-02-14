@@ -293,7 +293,7 @@ class Renderer(Base):
                     # Link to symbol is only available if type code is set!
                     if plr.type_code:
                         plr_dict.update({
-                            'SymbolRef': self.get_symbol_ref(self._request, plr)
+                            'SymbolRef': self.get_symbol_ref(self._request, plr.legend_entry)
                         })
 
                 if plr.area_share is not None:

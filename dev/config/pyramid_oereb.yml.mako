@@ -250,7 +250,7 @@ pyramid_oereb:
       layer_index: 0
       layer_opacity: 1.0
     visualisation:
-      method: pyramid_oereb.contrib.data_sources.standard.hook_methods.produce_sld_content
+      method: pyramid_oereb.core.hook_methods.produce_sld_content
       # Note: these parameters must fit to the attributes provided by the RealEstateRecord!!!!
       url_params:
         - egrid
@@ -561,10 +561,10 @@ pyramid_oereb:
     # Information about the official survey (last update and provider) used as a base map in the extract
     base_data:
       methods:
-        date: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_update_date
-        provider:  pyramid_oereb.contrib.data_sources.standard.hook_methods.get_surveying_data_provider
+        date: pyramid_oereb.core.hook_methods.get_surveying_data_update_date
+        provider:  pyramid_oereb.core.hook_methods.get_surveying_data_provider
 
-    sort_within_themes_method: pyramid_oereb.contrib.data_sources.standard.hook_methods.plr_sort_within_themes
+    sort_within_themes_method: pyramid_oereb.core.hook_methods.plr_sort_within_themes
     # Example of a specific sorting method:
     # sort_within_themes_method: pyramid_oereb.contrib.plr_sort_within_themes_by_type_code
     # Redirect configuration for type URL. You can use any attribute of the real estate RealEstateRecord
@@ -606,7 +606,7 @@ pyramid_oereb:
           schema_name: land_use_plans
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft
@@ -657,7 +657,7 @@ pyramid_oereb:
           schema_name: motorways_project_planing_zones
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft
@@ -708,7 +708,7 @@ pyramid_oereb:
           schema_name: motorways_building_lines
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft
@@ -759,7 +759,7 @@ pyramid_oereb:
           schema_name: railways_project_planning_zones
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft
@@ -810,7 +810,7 @@ pyramid_oereb:
           schema_name: railways_building_lines
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft
@@ -861,7 +861,7 @@ pyramid_oereb:
           schema_name: airports_project_planning_zones
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft
@@ -912,7 +912,7 @@ pyramid_oereb:
           schema_name: airports_building_lines
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft
@@ -963,7 +963,7 @@ pyramid_oereb:
           schema_name: airports_security_zone_plans
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft
@@ -1015,7 +1015,7 @@ pyramid_oereb:
           schema_name: contaminated_sites
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft
@@ -1066,7 +1066,7 @@ pyramid_oereb:
           schema_name: contaminated_military_sites
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft
@@ -1117,7 +1117,7 @@ pyramid_oereb:
           schema_name: contaminated_civil_aviation_sites
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft
@@ -1168,7 +1168,7 @@ pyramid_oereb:
           schema_name: contaminated_public_transport_sites
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft
@@ -1219,7 +1219,7 @@ pyramid_oereb:
           schema_name: groundwater_protection_zones
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft
@@ -1270,7 +1270,7 @@ pyramid_oereb:
           schema_name: groundwater_protection_sites
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft
@@ -1321,7 +1321,7 @@ pyramid_oereb:
           schema_name: noise_sensitivity_levels
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft
@@ -1375,7 +1375,7 @@ pyramid_oereb:
           schema_name: forest_perimeters
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft
@@ -1426,7 +1426,7 @@ pyramid_oereb:
           schema_name: forest_distance_lines
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
-        get_symbol_ref: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol_ref
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft

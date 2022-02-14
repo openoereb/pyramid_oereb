@@ -1,12 +1,9 @@
-# -*- coding: utf-8 -*-
-
 import pytest
 import datetime
 
 from shapely.wkt import loads
 from unittest.mock import patch
 
-from pyramid.httpexceptions import HTTPNotFound
 from pyramid.testing import DummyRequest
 
 from pyramid_oereb.core import b64
@@ -15,7 +12,7 @@ from pyramid_oereb.core.records.image import ImageRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.view_service import LegendEntryRecord
 from pyramid_oereb.core.records.real_estate import RealEstateRecord
-from pyramid_oereb.contrib.data_sources.standard.hook_methods import get_symbol, get_symbol_ref, \
+from pyramid_oereb.core.hook_methods import get_symbol, get_symbol_ref, \
     get_surveying_data_update_date
 from pyramid_oereb.contrib.data_sources.standard.sources.plr import StandardThemeConfigParser
 import pyramid_oereb.contrib.data_sources.standard.hook_methods
@@ -60,40 +57,12 @@ def legend_entry_data(pyramid_oereb_test_config, dbsession, transact, file_adapt
     yield legend_entries
 
 
-def test_get_symbol_invalid_theme_code(pyramid_oereb_test_config):
-    request = DummyRequest()
-    request.matchdict.update({
-        'theme_code': 'InvalidThemeCode',
-        'view_service_id': '1',
-        'type_code': 'CodeA'
-    })
-    with pytest.raises(HTTPNotFound):
-        get_symbol(request)
+def test_get_symbol():
+    with pytest.raises(NotImplementedError):
+        binary_image, content_type = get_symbol('ch.BelasteteStandorte', None, '1', 'type', {})
 
 
-def test_get_symbol_not_found(pyramid_oereb_test_config):
-    request = DummyRequest()
-    request.matchdict.update({
-        'theme_code': 'ch.BelasteteStandorte',
-        'view_service_id': '1',
-        'type_code': 'missing'
-    })
-    with pytest.raises(HTTPNotFound):
-        get_symbol(request)
-
-
-def test_get_symbol(pyramid_oereb_test_config, legend_entry_data):
-    request = DummyRequest()
-    request.matchdict.update({
-        'theme_code': 'ch.BelasteteStandorte',
-        'view_service_id': '1',
-        'type_code': 'CodeA'
-    })
-    response = get_symbol(request)
-    assert response.body == FileAdapter().read('tests/resources/symbol.png')
-
-
-@patch.object(pyramid_oereb.contrib.data_sources.standard.hook_methods, 'route_prefix', 'oereb')
+@patch.object(pyramid_oereb.core.hook_methods, 'route_prefix', 'oereb')
 def test_get_symbol_ref(pyramid_test_config):
     record = LegendEntryRecord(
         ImageRecord(FileAdapter().read('tests/resources/logo_canton.png')),
