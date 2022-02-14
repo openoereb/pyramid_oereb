@@ -691,7 +691,7 @@ class Renderer(JsonRenderer):
     @staticmethod
     def sort_by_index(elem):
         """
-        Provides the sort key for the supplied hint / law / legal provision 
+        Provides the sort key for the supplied hint / law / legal provision
         element as a tuple consisting of:
          * index
 
