@@ -652,7 +652,7 @@ class Renderer(JsonRenderer):
         for element in ['LegalProvisions', 'Laws', 'Hints']:
             restriction_on_landownership[element] = Renderer.sort_dict_list(
                 restriction_on_landownership[element],
-                Renderer.sort_hints_laws
+                Renderer.sort_by_index
             )
 
     @staticmethod
@@ -689,13 +689,14 @@ class Renderer(JsonRenderer):
         return sort_title, sort_number
 
     @staticmethod
-    def sort_hints_laws(elem):
+    def sort_by_index(elem):
         """
-        Provides the sort key for the supplied hint & law element as a tuple consisting of:
+        Provides the sort key for the supplied hint / law / legal provision 
+        element as a tuple consisting of:
          * index
 
         Args:
-            elem (dict): one element of the hints list
+            elem (dict): one element of the hints / laws / legal provisions list
         Returns:
             sort key (tuple)
         """
