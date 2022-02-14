@@ -202,6 +202,14 @@ def test_get_symbol_no_symbol_content(theme_config, one_result_no_symbol_session
             get_symbol({'identifier': "1"}, theme_config)
 
 
+def test_get_symbol_wrong_param(theme_config, one_result_no_symbol_session):
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=one_result_no_symbol_session()):
+        with pytest.raises(HTTPServerError):
+            get_symbol({'identif': "1"}, theme_config)
+
+
 def test_get_symbol_no_legend_entry(theme_config, no_result_session):
     with patch(
             'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
