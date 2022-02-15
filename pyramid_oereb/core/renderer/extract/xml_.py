@@ -83,18 +83,6 @@ class Renderer(Base):
             'get_localized_image': self.get_localized_image,
             'request': self._request,
             'get_symbol_ref': self.get_symbol_ref,
-            'get_gml_id': self._get_gml_id,
             'date_format': '%Y-%m-%dT%H:%M:%S'
         })
         return content
-
-    def _get_gml_id(self):
-        """
-        Returns the next GML ID.
-
-        Returns:
-             int: The next GML ID.
-
-        """
-        self._gml_id += 1
-        return 'gml{0}'.format(self._gml_id)

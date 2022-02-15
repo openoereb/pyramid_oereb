@@ -19,13 +19,6 @@ from pyramid_oereb.core.views.webservice import Parameter
 from tests.mockrequest import MockRequest
 
 
-def test_get_gml_id(pyramid_oereb_test_config):
-    renderer = Renderer(None)
-    assert renderer._get_gml_id() == 'gml1'
-    assert renderer._get_gml_id() == 'gml2'
-    assert renderer._get_gml_id() == 'gml3'
-
-
 def test_version_against_schema(logo_test_data, schema_xml_versions, DummyRenderInfo):
     versions = {
         u'GetVersionsResponse': {
