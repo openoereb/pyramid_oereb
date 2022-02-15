@@ -254,21 +254,9 @@
             <span class="s1">&#39;get_localized_image&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_localized_image</span><span class="p">,</span>
             <span class="s1">&#39;request&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">,</span>
             <span class="s1">&#39;get_symbol_ref&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_symbol_ref</span><span class="p">,</span>
-            <span class="s1">&#39;get_gml_id&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_gml_id</span><span class="p">,</span>
             <span class="s1">&#39;date_format&#39;</span><span class="p">:</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S&#39;</span>
         <span class="p">})</span>
         <span class="k">return</span> <span class="n">content</span>
-
-    <span class="k">def</span> <span class="nf">_get_gml_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the next GML ID.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">             int: The next GML ID.</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_gml_id</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="s1">&#39;gml</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_gml_id</span><span class="p">)</span>
 </pre></div>
 
            </div>
