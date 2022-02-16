@@ -264,7 +264,7 @@ case insensitive.</li>
 <h2>Functions used as configurable hooks<a class="headerlink" href="#functions-used-as-configurable-hooks" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.hook_methods"><span id="api-pyramid-oereb-standard-hook-methods"></span></span><dl class="function">
 <dt id="pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol">
-<code class="descclassname">pyramid_oereb.contrib.data_sources.standard.hook_methods.</code><code class="descname">get_symbol</code><span class="sig-paren">(</span><em>theme_code</em>, <em>sub_theme_code</em>, <em>view_service_id</em>, <em>type_code</em>, <em>theme_config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/standard/hook_methods.html#get_symbol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyramid_oereb.contrib.data_sources.standard.hook_methods.</code><code class="descname">get_symbol</code><span class="sig-paren">(</span><em>params</em>, <em>theme_config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/standard/hook_methods.html#get_symbol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the symbol for the requested theme and type code from database. It queries the model
 for the legend entry pyramid_oereb.contrib.data_sources.standard.models.get_legend_entry</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -272,10 +272,7 @@ for the legend entry pyramid_oereb.contrib.data_sources.standard.models.get_lege
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>theme_code</strong> (<em>str</em>) &#8211; The theme code.</li>
-<li><strong>sub_theme_code</strong> (<em>str</em><em> or </em><em>None</em>) &#8211; The sub_theme code.</li>
-<li><strong>view_service_id</strong> (<em>str</em>) &#8211; The ID linking to the view service.</li>
-<li><strong>type_code</strong> (<em>str</em>) &#8211; The type_code.</li>
+<li><strong>params</strong> (<em>dict</em>) &#8211; The URL parameters which were handed over via request.</li>
 <li><strong>theme_config</strong> (<em>dict</em>) &#8211; The configuration of the theme how it was set up in the YAML.</li>
 </ul>
 </td>

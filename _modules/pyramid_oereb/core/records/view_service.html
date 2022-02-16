@@ -196,10 +196,12 @@
 <span class="sd">            solve bug https://github.com/openoereb/pyramid_oereb/issues/521</span>
 <span class="sd">        sub_theme (pyramid_oereb.lib.records.theme.ThemeRecord): The optional sub theme to which the</span>
 <span class="sd">            legend entry belongs.</span>
+<span class="sd">        identifier (str): The identifier of the legend entry which might be used for linking to</span>
+<span class="sd">                other elements.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="LegendEntryRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.LegendEntryRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">legend_text</span><span class="p">,</span> <span class="n">type_code</span><span class="p">,</span> <span class="n">type_code_list</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span>
-                 <span class="n">view_service_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sub_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">view_service_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sub_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">identifier</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">legend_text</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;legend_text&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
@@ -210,13 +212,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">type_code_list</span> <span class="o">=</span> <span class="n">type_code_list</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="n">theme</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">view_service_id</span> <span class="o">=</span> <span class="n">view_service_id</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sub_theme</span> <span class="o">=</span> <span class="n">sub_theme</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sub_theme</span> <span class="o">=</span> <span class="n">sub_theme</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span> <span class="o">=</span> <span class="n">identifier</span></div>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1"> -- symbol: </span><span class="si">{}</span><span class="s1"> legend_text: </span><span class="si">{}</span><span class="s1"> type_code: </span><span class="si">{}</span><span class="s1"> type_code_list: </span><span class="si">{}</span><span class="s1">&#39;</span>\
-                    <span class="s1">&#39; theme: </span><span class="si">{}</span><span class="s1">&#39;</span>\
+                    <span class="s1">&#39; theme: </span><span class="si">{}</span><span class="s1"> sub_theme: </span><span class="si">{}</span><span class="s1"> view_service_id: </span><span class="si">{}</span><span class="s1"> identifier: </span><span class="si">{}</span><span class="s1">&#39;</span>\
                     <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend_text</span><span class="p">,</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">type_code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_code_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">theme</span><span class="p">)</span></div>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">type_code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_code_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_theme</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">view_service_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ViewServiceRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord">[docs]</a><span class="k">class</span> <span class="nc">ViewServiceRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>

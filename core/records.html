@@ -1392,7 +1392,7 @@ service to be used for the land registry map.</td>
 <span id="api-pyramid-oereb-core-records-view-service-legendentryrecord"></span><h2><em>LegendEntryRecord</em><a class="headerlink" href="#legendentryrecord" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyramid_oereb.core.records.view_service.LegendEntryRecord">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.view_service.</code><code class="descname">LegendEntryRecord</code><span class="sig-paren">(</span><em>symbol</em>, <em>legend_text</em>, <em>type_code</em>, <em>type_code_list</em>, <em>theme</em>, <em>view_service_id=None</em>, <em>sub_theme=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/view_service.html#LegendEntryRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.view_service.LegendEntryRecord" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.view_service.</code><code class="descname">LegendEntryRecord</code><span class="sig-paren">(</span><em>symbol</em>, <em>legend_text</em>, <em>type_code</em>, <em>type_code_list</em>, <em>theme</em>, <em>view_service_id=None</em>, <em>sub_theme=None</em>, <em>identifier=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/view_service.html#LegendEntryRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.view_service.LegendEntryRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Represents a legend entry with it&#8217;s text as well as it&#8217;s image.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1410,6 +1410,8 @@ belongs.</li>
 solve bug <a class="reference external" href="https://github.com/openoereb/pyramid_oereb/issues/521">https://github.com/openoereb/pyramid_oereb/issues/521</a></li>
 <li><strong>sub_theme</strong> (<em>pyramid_oereb.lib.records.theme.ThemeRecord</em>) &#8211; The optional sub theme to which the
 legend entry belongs.</li>
+<li><strong>identifier</strong> (<em>str</em>) &#8211; The identifier of the legend entry which might be used for linking to
+other elements.</li>
 </ul>
 </td>
 </tr>
@@ -1417,7 +1419,7 @@ legend entry belongs.</li>
 </table>
 <dl class="method">
 <dt id="pyramid_oereb.core.records.view_service.LegendEntryRecord.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>symbol</em>, <em>legend_text</em>, <em>type_code</em>, <em>type_code_list</em>, <em>theme</em>, <em>view_service_id=None</em>, <em>sub_theme=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/view_service.html#LegendEntryRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.view_service.LegendEntryRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>symbol</em>, <em>legend_text</em>, <em>type_code</em>, <em>type_code_list</em>, <em>theme</em>, <em>view_service_id=None</em>, <em>sub_theme=None</em>, <em>identifier=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/view_service.html#LegendEntryRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.view_service.LegendEntryRecord.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

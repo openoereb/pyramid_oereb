@@ -174,7 +174,6 @@
 <span class="kn">import</span> <span class="nn">binascii</span>
 
 <span class="kn">from</span> <span class="nn">pyramid.httpexceptions</span> <span class="kn">import</span> <span class="n">HTTPNotFound</span><span class="p">,</span> <span class="n">HTTPServerError</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Text</span>
 
 <span class="kn">from</span> <span class="nn">pyramid_oereb.contrib.data_sources.standard.sources.plr</span> <span class="kn">import</span> <span class="n">StandardThemeConfigParser</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="kn">import</span> <span class="n">database_adapter</span>
@@ -185,16 +184,13 @@
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="get_symbol"><a class="viewcode-back" href="../../../../../standard/index.html#pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol">[docs]</a><span class="k">def</span> <span class="nf">get_symbol</span><span class="p">(</span><span class="n">theme_code</span><span class="p">,</span> <span class="n">sub_theme_code</span><span class="p">,</span> <span class="n">view_service_id</span><span class="p">,</span> <span class="n">type_code</span><span class="p">,</span> <span class="n">theme_config</span><span class="p">):</span>
+<div class="viewcode-block" id="get_symbol"><a class="viewcode-back" href="../../../../../standard/index.html#pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol">[docs]</a><span class="k">def</span> <span class="nf">get_symbol</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">theme_config</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the symbol for the requested theme and type code from database. It queries the model</span>
 <span class="sd">    for the legend entry pyramid_oereb.contrib.data_sources.standard.models.get_legend_entry</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        theme_code (str): The theme code.</span>
-<span class="sd">        sub_theme_code (str or None): The sub_theme code.</span>
-<span class="sd">        view_service_id (str): The ID linking to the view service.</span>
-<span class="sd">        type_code (str): The type_code.</span>
+<span class="sd">        params (dict): The URL parameters which were handed over via request.</span>
 <span class="sd">        theme_config (dict): The configuration of the theme how it was set up in the YAML.</span>
 
 <span class="sd">    Returns:</span>
@@ -203,25 +199,27 @@
 <span class="sd">        HTTPNotFound</span>
 <span class="sd">        HTTPServerError</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;identifier&#39;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;No useful params for HookMethod was delivered. &#39;</span>
+            <span class="sa">f</span><span class="s1">&#39;Expected &quot;identifier&quot; in params. Sent params are:  </span><span class="si">{</span><span class="n">params</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="p">)</span>
+        <span class="k">raise</span> <span class="n">HTTPServerError</span>
+
     <span class="n">config_parser</span> <span class="o">=</span> <span class="n">StandardThemeConfigParser</span><span class="p">(</span><span class="o">**</span><span class="n">theme_config</span><span class="p">)</span>
     <span class="n">session</span> <span class="o">=</span> <span class="n">database_adapter</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="n">config_parser</span><span class="o">.</span><span class="n">db_connection</span><span class="p">)</span>
 
-    <span class="n">log_string</span> <span class="o">=</span> <span class="s1">&#39;theme_code: </span><span class="si">{}</span><span class="s1">, sub_theme_code: </span><span class="si">{}</span><span class="s1">, view_service_id: </span><span class="si">{}</span><span class="s1">, type_code: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">theme_code</span><span class="p">,</span>
-        <span class="n">sub_theme_code</span><span class="p">,</span>
-        <span class="n">view_service_id</span><span class="p">,</span>
-        <span class="n">type_code</span>
+    <span class="n">log_string</span> <span class="o">=</span> <span class="s1">&#39;identifier: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">identifier</span>
     <span class="p">)</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="n">models</span> <span class="o">=</span> <span class="n">config_parser</span><span class="o">.</span><span class="n">get_models</span><span class="p">()</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">LegendEntry</span>
         <span class="n">legend_entry</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
-            <span class="n">cast</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">type_code</span><span class="p">,</span> <span class="n">Text</span><span class="p">)</span> <span class="o">==</span> <span class="n">cast</span><span class="p">(</span><span class="n">type_code</span><span class="p">,</span> <span class="n">Text</span><span class="p">)</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
-            <span class="n">model</span><span class="o">.</span><span class="n">sub_theme</span> <span class="o">==</span> <span class="n">sub_theme_code</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
-            <span class="n">model</span><span class="o">.</span><span class="n">view_service_id</span> <span class="o">==</span> <span class="n">view_service_id</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">identifier</span>
         <span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">legend_entry</span><span class="p">:</span>
             <span class="n">symbol</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">legend_entry</span><span class="p">,</span> <span class="s1">&#39;symbol&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
