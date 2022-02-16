@@ -59,7 +59,7 @@ def legend_entry_data(pyramid_oereb_test_config, dbsession, transact, file_adapt
 
 def test_get_symbol():
     with pytest.raises(NotImplementedError):
-        binary_image, content_type = get_symbol('ch.BelasteteStandorte', None, '1', 'type', {})
+        binary_image, content_type = get_symbol({'identifier': "1"}, {})
 
 
 @patch.object(pyramid_oereb.core.hook_methods, 'route_prefix', 'oereb')
@@ -70,11 +70,12 @@ def test_get_symbol_ref(pyramid_test_config):
         'CodeA',
         'http://my.codelist.com/test.xml',
         ThemeRecord('ch.BelasteteStandorte', {'de': 'Belastete Standorte'}, 410),
-        view_service_id='1'
+        view_service_id='1',
+        identifier="1"
     )
     request = DummyRequest()
     url = urlparse(get_symbol_ref(request, record))
-    assert url.path == '/image/symbol/ch.BelasteteStandorte/1/CodeA.png'
+    assert url.path == '/image/symbol/ch.BelasteteStandorte/legend_entry.png'
 
 
 def test_get_surveying_data_date():

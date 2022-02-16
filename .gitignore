@@ -84,4 +84,5 @@ DataExtract.json
 /coverage.contrib-data_sources-standard.xml
 /coverage.contrib-print_proxy-mapfish_print.xml
 /coverage.core.xml
+/coverage.contrib-stats.xml
 /coverage.xml
