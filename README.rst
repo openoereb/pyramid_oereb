@@ -35,6 +35,8 @@ Running ``docker-compose up`` will start the DB (it will automatically import th
 a running instance of the pyramid_oereb DEV server connected to the DB. The project folder is mounted
 to it. So changes take effect.
 
+The sample static extract should then be available at http://localhost:6543/oereb/extract/json?EGRID=CH113928077734
+
 
 Running the tests
 =================
