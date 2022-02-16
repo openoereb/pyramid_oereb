@@ -41,30 +41,30 @@ The sample static extract should then be available at http://localhost:6543/oere
 Running the tests
 =================
 
-To run the tests locally (unix machine, windows users should go with the docker way described below):
+To run the tests locally:
 
-1. Start the dev database with ``docker-compose up -d oereb-db`` (with the default config, this uses the default Postgres port on your machine)
-2. Run the tests with ``make tests``
+1. ``docker build -t pyramid_oereb:dev .``
+2. Build run the initial build depending on you OS:
+  * Linux: ``docker run --rm -v $(pwd):/workspace -u $(id -u):$(id -g) pyramid_oereb:dev make clean-all build``
+  * MAC: ``docker run --rm -v $(pwd):/workspace pyramid_oereb:dev make clean-all build``
+  * Windows CMD: ``docker run --rm -v %cd%:/workspace pyramid_oereb:dev make clean-all build``
+  * Windows Powershell: ``docker run --rm -v ${PWD}:/workspace pyramid_oereb:dev make clean-all build``
+3. ``docker-compose build``
+4. ``docker-compose up -d``
+5. change line 7 in tests/resources/test_config.yml from ``postgresql://postgres:postgres@localhost:5432/oereb_test_db`` to ``postgresql://postgres:postgres@oereb-db:5432/oereb_test_db`` => and do not forget to undo before commit!
+6. ``docker-compose exec oereb-server make tests``
 
 To run one specfic test:
 
 .. code-block:: bash
 
-  PYTEST_OPTS="-k <name_of_the_test>" make tests
+  docker-compose exec oereb-server PYTEST_OPTS="-k <name_of_the_test>" make tests
 
 To run all tests in a specific file or directory (omit the subfolder ``tests`` in ``PYTEST_PATH``):
 
 .. code-block:: bash
 
-  PYTEST_PATH="<path_to_test>"  make tests
-
-To run the tests locally but inside Docker:
-
-1. ``docker-compose build``
-2. ``docker-compose up -d``
-3. change line 7 in tests/resources/test_config.yml from ``postgresql://postgres:postgres@localhost:5432/oereb_test_db`` to ``postgresql://postgres:postgres@oereb-db:5432/oereb_test_db``
-4. ``docker-compose exec oereb-server make test-core``
-
+  docker-compose exec oereb-server PYTEST_PATH="<path_to_test>"  make tests
 
 Using MapFish-Print
 ===================
