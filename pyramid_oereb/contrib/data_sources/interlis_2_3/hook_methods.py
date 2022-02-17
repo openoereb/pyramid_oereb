@@ -48,7 +48,7 @@ def get_symbol(params, theme_config):
         models = config_parser.get_models()
         model = models.LegendEntry
         legend_entry = session.query(model).filter(
-            model.id == identifier
+            model.t_id == identifier
         ).one()
         if legend_entry:
             symbol = getattr(legend_entry, 'symbol', None)

@@ -260,7 +260,7 @@ def test_format_plr(DummyRenderInfo, parameter):
     legend_entry = LegendEntryRecord(
         ImageRecord(FileAdapter().read('tests/resources/python.svg')),
         {'de': 'Test'}, 'CodeA', 'TypeCodeList', theme,
-        view_service_id=1)
+        view_service_id=1, identifier="1")
     view_service = ViewServiceRecord(
         {'de': 'http://geowms.bl.ch'},
         1, 1.0, 'de', 2056, None, [legend_entry]
@@ -331,11 +331,9 @@ def test_format_plr(DummyRenderInfo, parameter):
             })
         else:
             expected.update({
-                'SymbolRef': 'http://example.com/image/symbol/{theme}/{view_service_id}/{code}.svg'
+                'SymbolRef': 'http://example.com/image/symbol/{theme_code}/legend_entry.svg?identifier=1'
                     .format(
-                        theme='ch.BelasteteStandorte',
-                        view_service_id=1,
-                        code='CodeA'
+                        theme_code='ch.BelasteteStandorte'
                     )
             })
         assert result[0] == expected
@@ -523,7 +521,8 @@ def test_format_legend_entry(DummyRenderInfo, parameter):
         u'CodeA',
         u'type_code_list',
         theme,
-        view_service_id=1
+        view_service_id=1,
+        identifier="1"
     )
     result = renderer.format_legend_entry(legend_entry)
     expected = {
@@ -538,11 +537,9 @@ def test_format_legend_entry(DummyRenderInfo, parameter):
         })
     else:
         expected.update({
-            'SymbolRef': 'http://example.com/image/symbol/{theme_code}/{view_service_id}/{code}.svg'
+            'SymbolRef': 'http://example.com/image/symbol/{theme_code}/legend_entry.svg?identifier=1'
                 .format(
-                    theme_code='ch.BelasteteStandorte',
-                    view_service_id=1,
-                    code='CodeA'
+                    theme_code='ch.BelasteteStandorte'
                 )
         })
     assert isinstance(result, dict)

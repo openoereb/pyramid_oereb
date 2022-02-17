@@ -652,7 +652,7 @@ class Renderer(JsonRenderer):
         for element in ['LegalProvisions', 'Laws', 'Hints']:
             restriction_on_landownership[element] = Renderer.sort_dict_list(
                 restriction_on_landownership[element],
-                Renderer.sort_legal_provision
+                Renderer.sort_by_index
             )
 
     @staticmethod
@@ -689,17 +689,25 @@ class Renderer(JsonRenderer):
         return sort_title, sort_number
 
     @staticmethod
-    def sort_hints_laws(elem):
+    def sort_by_index(elem):
         """
-        Provides the sort key for the supplied hint & law element as a tuple consisting of:
+        Provides the sort key for the supplied hint / law / legal provision
+        element as a tuple consisting of:
          * index
 
+        Notes
+        - index is defined by Interlis model OeREBKRM_V2_0 as range -1000..1000
+        - "Index = None" if geolink_formatter processes entry from OEREBLEX that has no index
+
         Args:
-            elem (dict): one element of the hints list
+            elem (dict): one element of the hints / laws / legal provisions list
         Returns:
             sort key (tuple)
         """
-        return elem.get('index', 1000)
+        index = elem.get('Index', 1000)
+        if index is None:
+            index = 1000
+        return index
 
     @staticmethod
     def sort_legend_elem(elem):

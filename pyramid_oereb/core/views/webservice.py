@@ -803,13 +803,10 @@ class Symbol(object):
             pyramid.response.Response: Response containing the binary image content.
         """
         theme_code = self._request_.matchdict.get('theme_code')
-        sub_theme_code = self._request_.params.get('sub_theme_code')
-        view_service_id = self._request_.matchdict.get('view_service_id')
-        type_code = self._request_.matchdict.get('type_code')
         method = self.get_method(theme_code)
         theme_config = Config.get_theme_config_by_code(str(theme_code))
         if method:
-            body, mimetype = method(theme_code, sub_theme_code, view_service_id, type_code, theme_config)
+            body, mimetype = method(dict(self._request_.params), theme_config)
             response = self._request_.response
             response.status_int = 200
             response.body = body
