@@ -1,8 +1,8 @@
-pyflakes==2.3.1
+pyflakes==2.4.0
 flake8==3.9.2
-pycodestyle==2.7.0
-psycopg2==2.9.1
-McCabe==0.6.1
+pycodestyle==2.8.0
+psycopg2==2.9.3
+McCabe==0.7.0
 Sphinx<1.6
 sphinx_rtd_theme
 c2c.template==2.0.9  # rq.filter: <= 2.1
