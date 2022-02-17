@@ -244,6 +244,7 @@ def test_get_sorted_legal_provisions(DummyRenderInfo):
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
             "Lawstatus_Text": "Rechtskräftig",
+            "Index": 1,
             "OfficialNumber": "3891.100",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -255,6 +256,7 @@ def test_get_sorted_legal_provisions(DummyRenderInfo):
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
             "Lawstatus_Text": "Rechtskräftig",
+            "Index": 2,
             "OfficialNumber": "3891.100",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -266,6 +268,7 @@ def test_get_sorted_legal_provisions(DummyRenderInfo):
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
             "Lawstatus_Text": "Rechtskräftig",
+            "Index": 3,
             "OfficialNumber": "07.447",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -277,6 +280,7 @@ def test_get_sorted_legal_provisions(DummyRenderInfo):
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
             "Lawstatus_Text": "Rechtskräftig",
+            "Index": 4,
             "OfficialNumber": "07.447",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -291,6 +295,7 @@ def test_get_sorted_legal_provisions(DummyRenderInfo):
            "DocumentType": "LegalProvision",
            "Lawstatus_Code": "inKraft",
            "Lawstatus_Text": "Rechtskräftig",
+           "Index": 3,
            "OfficialNumber": "07.447",
            "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
            "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
@@ -301,6 +306,7 @@ def test_get_sorted_legal_provisions(DummyRenderInfo):
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
             "Lawstatus_Text": "Rechtskräftig",
+            "Index": 1,
             "OfficialNumber": "3891.100",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -312,6 +318,7 @@ def test_get_sorted_legal_provisions(DummyRenderInfo):
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
             "Lawstatus_Text": "Rechtskräftig",
+            "Index": 4,
             "OfficialNumber": "07.447",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -323,6 +330,7 @@ def test_get_sorted_legal_provisions(DummyRenderInfo):
             "DocumentType": "LegalProvision",
             "Lawstatus_Code": "inKraft",
             "Lawstatus_Text": "Rechtskräftig",
+            "Index": 2,
             "OfficialNumber": "3891.100",
             "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
             "ResponsibleOffice_OfficeAtWeb":
@@ -341,33 +349,43 @@ def test_get_sorted_hints(DummyRenderInfo):
         "DocumentType": "Hint",
         "Lawstatus_Code": "inKraft",
         "Lawstatus_Text": "Rechtskräftig",
-        "OfficialNumber": "3891.100",
-        "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
-        "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-        "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/197"}],
-        "Title": "Revision Ortsplanung"
-    }, {
-        "Canton": "BL",
-        "DocumentType": "Hint",
-        "Lawstatus_Code": "inKraft",
-        "Lawstatus_Text": "Rechtskräftig",
-        "index": 1,
-        "OfficialNumber": "3891.100",
-        "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
-        "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-        "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
-    }, {
-        "Canton": "BL",
-        "DocumentType": "Hint",
-        "Lawstatus_Code": "inKraft",
-        "Lawstatus_Text": "Rechtskräftig",
-        "index": 2,
+        "Index": None,
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
         "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
         "Title": "Baugesetz"
-
+    }, {
+        "Canton": "BL",
+        "DocumentType": "Hint",
+        "Lawstatus_Code": "inKraft",
+        "Lawstatus_Text": "Rechtskräftig",
+        "OfficialNumber": "3891.100",
+        "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+        "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+        "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
+        "Title": "Baugesetz"
+    }, {
+        "Canton": "BL",
+        "DocumentType": "Hint",
+        "Lawstatus_Code": "inKraft",
+        "Lawstatus_Text": "Rechtskräftig",
+        "Index": 2,
+        "OfficialNumber": "3891.100",
+        "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+        "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+        "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
+        "Title": "Baugesetz"
+    }, {
+        "Canton": "BL",
+        "DocumentType": "Hint",
+        "Lawstatus_Code": "inKraft",
+        "Lawstatus_Text": "Rechtskräftig",
+        "Index": 1,
+        "OfficialNumber": "3891.100",
+        "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+        "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+        "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
     }]
 
     expected_result = [{
@@ -375,7 +393,7 @@ def test_get_sorted_hints(DummyRenderInfo):
         "DocumentType": "Hint",
         "Lawstatus_Code": "inKraft",
         "Lawstatus_Text": "Rechtskräftig",
-        "index": 1,
+        "Index": 1,
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
@@ -385,7 +403,18 @@ def test_get_sorted_hints(DummyRenderInfo):
         "DocumentType": "Hint",
         "Lawstatus_Code": "inKraft",
         "Lawstatus_Text": "Rechtskräftig",
-        "index": 2,
+        "Index": 2,
+        "OfficialNumber": "3891.100",
+        "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
+        "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
+        "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
+        "Title": "Baugesetz"
+    }, {
+        "Canton": "BL",
+        "DocumentType": "Hint",
+        "Lawstatus_Code": "inKraft",
+        "Lawstatus_Text": "Rechtskräftig",
+        "Index": None,
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
@@ -399,11 +428,11 @@ def test_get_sorted_hints(DummyRenderInfo):
         "OfficialNumber": "3891.100",
         "ResponsibleOffice_Name": "Bundesamt für Verkehr BAV",
         "ResponsibleOffice_OfficeAtWeb": "http://www.bav.admin.ch/themen/verkehrspolitik/00709/index.html",
-        "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/197"}],
-        "Title": "Revision Ortsplanung"
+        "TextAtWeb": [{"URL": "https://oereb-gr-preview.000.ch/api/attachments/198"}],
+        "Title": "Baugesetz"
     }]
 
-    assert expected_result == renderer.sort_dict_list(test_hints, renderer.sort_hints_laws)
+    assert expected_result == renderer.sort_dict_list(test_hints, renderer.sort_by_index)
 
 
 def test_get_sorted_law(DummyRenderInfo):
@@ -415,7 +444,7 @@ def test_get_sorted_law(DummyRenderInfo):
             'Title': 'Raumplanungsverordnung für den Kanton Graubünden',
             'Abbreviation': 'KRVO',
             'OfficialNumber': 'BR 801.110',
-            'index': 5,
+            'Index': 5,
             'Canton': 'GR',
             'Lawstatus_Code': 'inKraft',
             'Lawstatus_Text': 'Rechtskräftig',
@@ -427,7 +456,7 @@ def test_get_sorted_law(DummyRenderInfo):
             'TextAtWeb': [{'URL': u'http://www.admin.ch/ch/d/sr/c814_680.html'}],
             'Title': u'Raumplanungsgesetz für den Kanton Graubünden',
             'Abbreviation': u'KRG',
-            'index': 3,
+            'Index': 3,
             'Canton': u'GR',
             'Lawstatus_Code': u'inKraft',
             'Lawstatus_Text': u'Rechtskräftig',
@@ -440,7 +469,7 @@ def test_get_sorted_law(DummyRenderInfo):
             'Title': u'Raumplanungsgesetz für den Kanton Graubünden2',
             'Abbreviation': u'KRG',
             'OfficialNumber': u'BR 801.100',
-            'index': 1,
+            'Index': 1,
             'Canton': u'GR',
             'Lawstatus_Code': u'inKraft',
             'Lawstatus_Text': u'Rechtskräftig',
@@ -453,7 +482,7 @@ def test_get_sorted_law(DummyRenderInfo):
             'Title': 'Bundesgesetz über die Raumplanung',
             'Abbreviation': 'RPG',
             'OfficialNumber': 'SR 700',
-            'index': 4,
+            'Index': 4,
             'Canton': 'GR',
             'Lawstatus_Code': 'inKraft',
             'Lawstatus_Text': 'Rechtskräftig',
@@ -465,7 +494,7 @@ def test_get_sorted_law(DummyRenderInfo):
             'Title': u'Raumplanungsgesetz für den Kanton Graubünden',
             'Abbreviation': u'KRG',
             'OfficialNumber': u'BR 801.100',
-            'index': 2,
+            'Index': 2,
             'Canton': u'GR',
             'Lawstatus_Code': u'inKraft',
             'Lawstatus_Text': u'Rechtskräftig',
@@ -482,7 +511,7 @@ def test_get_sorted_law(DummyRenderInfo):
             'Title': u'Raumplanungsgesetz für den Kanton Graubünden2',
             'Abbreviation': u'KRG',
             'OfficialNumber': u'BR 801.100',
-            'index': 1,
+            'Index': 1,
             'Canton': u'GR',
             'Lawstatus_Code': u'inKraft',
             'Lawstatus_Text': u'Rechtskräftig',
@@ -495,7 +524,7 @@ def test_get_sorted_law(DummyRenderInfo):
             'Title': u'Raumplanungsgesetz für den Kanton Graubünden',
             'Abbreviation': u'KRG',
             'OfficialNumber': u'BR 801.100',
-            'index': 2,
+            'Index': 2,
             'Canton': u'GR',
             'Lawstatus_Code': u'inKraft',
             'Lawstatus_Text': u'Rechtskräftig',
@@ -507,7 +536,7 @@ def test_get_sorted_law(DummyRenderInfo):
             'TextAtWeb': [{'URL': u'http://www.admin.ch/ch/d/sr/c814_680.html'}],
             'Title': u'Raumplanungsgesetz für den Kanton Graubünden',
             'Abbreviation': u'KRG',
-            'index': 3,
+            'Index': 3,
             'Canton': u'GR',
             'Lawstatus_Code': u'inKraft',
             'Lawstatus_Text': u'Rechtskräftig',
@@ -520,7 +549,7 @@ def test_get_sorted_law(DummyRenderInfo):
             'Title': 'Bundesgesetz über die Raumplanung',
             'Abbreviation': 'RPG',
             'OfficialNumber': 'SR 700',
-            'index': 4,
+            'Index': 4,
             'Canton': 'GR',
             'Lawstatus_Code': 'inKraft',
             'Lawstatus_Text': 'Rechtskräftig',
@@ -532,7 +561,7 @@ def test_get_sorted_law(DummyRenderInfo):
             'Title': 'Raumplanungsverordnung für den Kanton Graubünden',
             'Abbreviation': 'KRVO',
             'OfficialNumber': 'BR 801.110',
-            'index': 5,
+            'Index': 5,
             'Canton': 'GR',
             'Lawstatus_Code': 'inKraft',
             'Lawstatus_Text': 'Rechtskräftig',
@@ -541,7 +570,7 @@ def test_get_sorted_law(DummyRenderInfo):
                 'https://www.gr-lex.gr.ch/frontend/versions/pdf_file_with_annex/2934?locale=de'
         }
     ]
-    assert expected_result == renderer.sort_dict_list(test_law, renderer.sort_hints_laws)
+    assert expected_result == renderer.sort_dict_list(test_law, renderer.sort_by_index)
 
 
 def test_group_legal_provisions(DummyRenderInfo):
