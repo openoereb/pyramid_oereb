@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2.0.0.b15
+---------
+- Fix capabilities extract (#1489)
+- Fix real estate type in get egrid extract (#1491)
+- Fix legend entry symbol selection (#1505)
+- Add document sorting by index in print (#1504)
+
 2.0.0.b14
 ---------
 - Reorganize hook methos (#1484)

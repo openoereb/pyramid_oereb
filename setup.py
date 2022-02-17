@@ -20,7 +20,7 @@ with open('requirements-tests.txt') as f:
 
 setup(
     name='pyramid_oereb',
-    version='2.0.0.b14',
+    version='2.0.0.b15',
     description='pyramid_oereb, extension for pyramid web frame work to provide '
             'a basic server part for the oereb project',
     long_description='FIXME',
