@@ -821,7 +821,7 @@
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;LegalProvisions&#39;</span><span class="p">,</span> <span class="s1">&#39;Laws&#39;</span><span class="p">,</span> <span class="s1">&#39;Hints&#39;</span><span class="p">]:</span>
             <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="n">Renderer</span><span class="o">.</span><span class="n">sort_dict_list</span><span class="p">(</span>
                 <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="n">element</span><span class="p">],</span>
-                <span class="n">Renderer</span><span class="o">.</span><span class="n">sort_legal_provision</span>
+                <span class="n">Renderer</span><span class="o">.</span><span class="n">sort_by_index</span>
             <span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
@@ -858,17 +858,25 @@
         <span class="k">return</span> <span class="n">sort_title</span><span class="p">,</span> <span class="n">sort_number</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Renderer.sort_hints_laws"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_hints_laws">[docs]</a>    <span class="k">def</span> <span class="nf">sort_hints_laws</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.sort_by_index"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_index">[docs]</a>    <span class="k">def</span> <span class="nf">sort_by_index</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Provides the sort key for the supplied hint &amp; law element as a tuple consisting of:</span>
+<span class="sd">        Provides the sort key for the supplied hint / law / legal provision</span>
+<span class="sd">        element as a tuple consisting of:</span>
 <span class="sd">         * index</span>
 
+<span class="sd">        Notes</span>
+<span class="sd">        - index is defined by Interlis model OeREBKRM_V2_0 as range -1000..1000</span>
+<span class="sd">        - &quot;Index = None&quot; if geolink_formatter processes entry from OEREBLEX that has no index</span>
+
 <span class="sd">        Args:</span>
-<span class="sd">            elem (dict): one element of the hints list</span>
+<span class="sd">            elem (dict): one element of the hints / laws / legal provisions list</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            sort key (tuple)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span></div>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Index&#39;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="mi">1000</span>
+        <span class="k">return</span> <span class="n">index</span></div>
 
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Renderer.sort_legend_elem"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_legend_elem">[docs]</a>    <span class="k">def</span> <span class="nf">sort_legend_elem</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>

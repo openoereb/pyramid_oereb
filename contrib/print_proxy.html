@@ -589,6 +589,31 @@ restriction to get the symbol reference for.</li>
 <dd><p><em>pyramid.interfaces.IRendererInfo</em> &#8211; The passed renderer info object.</p>
 </dd></dl>
 
+<dl class="staticmethod">
+<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_index">
+<em class="property">static </em><code class="descname">sort_by_index</code><span class="sig-paren">(</span><em>elem</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_by_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides the sort key for the supplied hint / law / legal provision
+element as a tuple consisting of:</p>
+<blockquote>
+<div><ul class="simple">
+<li>index</li>
+</ul>
+</div></blockquote>
+<p>Notes
+- index is defined by Interlis model OeREBKRM_V2_0 as range -1000..1000
+- &#8220;Index = None&#8221; if geolink_formatter processes entry from OEREBLEX that has no index</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>elem</strong> (<em>dict</em>) &#8211; one element of the hints / laws / legal provisions list</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">sort key (tuple)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_localized_text">
 <code class="descname">sort_by_localized_text</code><span class="sig-paren">(</span><em>multilingual_elements</em>, <em>value_accessor</em>, <em>not_null=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_localized_text" title="Permalink to this definition">¶</a></dt>
@@ -640,28 +665,6 @@ correctness of the sorting.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">sorted list of legend dictionaries</p>
 </td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_hints_laws">
-<em class="property">static </em><code class="descname">sort_hints_laws</code><span class="sig-paren">(</span><em>elem</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_hints_laws"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_hints_laws" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Provides the sort key for the supplied hint &amp; law element as a tuple consisting of:</dt>
-<dd><ul class="first last simple">
-<li>index</li>
-</ul>
-</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>elem</strong> (<em>dict</em>) &#8211; one element of the hints list</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">sort key (tuple)</td>
 </tr>
 </tbody>
 </table>
