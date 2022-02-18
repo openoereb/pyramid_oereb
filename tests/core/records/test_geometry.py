@@ -292,6 +292,26 @@ def test_calculate(pyramid_oereb_test_config, geometry, real_estate_geometry,
 )
 def test_validity(geometry, test):
     assert geometry.is_valid == test
+    # make sure the current version of shapely handles correctly the intersection of an invalid
+    # geometry (self-touching ring, but not self-crossing)
+    try:
+        result_geom = shapely.geometry.box(*geometry.bounds).intersection(geometry)
+        if shapely.__version__ < '1.7':
+            assert result_geom.is_valid == test
+            assert not result_geom.geom_type == 'Polygon'
+        else:
+            assert result_geom.is_valid
+            assert not result_geom.geom_type == 'MultiPolygon'
+    except shapely.errors.TopologicalError:
+        if shapely.geos.geos_version >= (3, 8) and shapely.__version__ < '1.7':
+            # cannot handle intersection with self-touching ring
+            raise Exception('libgeos >= 3.8 is not supported with legacy shapely < 1.7')
+        elif shapely.__version__[:3] == '1.7':
+            # cannot handle intersection with self-touching ring
+            raise Exception('shapely 1.7 is not supported')
+        else:
+            raise Exception('Unexpected test result, intersection of invalid geometries '
+                            'should work with libgeos < 3.8 or shapely >= 1.7')
 
 
 @pytest.mark.parametrize('published_from,published_until,published', [
