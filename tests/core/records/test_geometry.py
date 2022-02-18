@@ -270,7 +270,7 @@ def test_calculate(pyramid_oereb_test_config, geometry, real_estate_geometry,
 
 
 @pytest.mark.parametrize(
-    "geometry,test", [
+    "geometry, valid, fixable", [
         (
             # Invalid geometry according to OGC
             shapely.wkt.loads(
@@ -279,6 +279,7 @@ def test_calculate(pyramid_oereb_test_config, geometry, real_estate_geometry,
                 ).read()
             ),
             False,
+            True,
         ), (
             # Valid geometry according to OGC
             shapely.wkt.loads(
@@ -287,23 +288,58 @@ def test_calculate(pyramid_oereb_test_config, geometry, real_estate_geometry,
                 ).read()
             ),
             True,
+            True,
+        ), (
+            # Invalid self-touching geometry which becomes a valid MultiPolygon
+            shapely.geometry.Polygon([(0, 0), (.5, .5), (1, 0), (1, 1), (0.5, 0.5), (0, 1), (0, 0)]),
+            False,
+            True,
+        ), (
+            # Invalid self-touching geometry which becomes a valid Polygon with an extra interior ring
+            shapely.geometry.Polygon([(0, 0), (3, 0), (3, 2), (1.5, 1.5), (2, 1),
+                                      (1, 1), (1.5, 1.5), (0, 2), (0, 0)]),
+            False,
+            True,
+        ), (
+            # Valid basic geometry
+            shapely.geometry.box(0, 0, 1, 1),
+            True,
+            True,
+        ), (
+            # Self-crossing polygon cannot be fixed by shapely
+            shapely.geometry.Polygon([(0, 0), (1, 1), (1, 0), (0, 1), (0, 0)]),
+            False,
+            False,
         )
     ]
 )
-def test_validity(geometry, test):
-    assert geometry.is_valid == test
+def test_validity(geometry, valid, fixable):
+    assert geometry.is_valid == valid
     # make sure the current version of shapely handles correctly the intersection of an invalid
     # geometry (self-touching ring, but not self-crossing)
     try:
         result_geom = shapely.geometry.box(*geometry.bounds).intersection(geometry)
         if shapely.__version__ < '1.7':
-            assert result_geom.is_valid == test
-            assert not result_geom.geom_type == 'Polygon'
+            assert result_geom.is_valid == valid
+            assert result_geom.geom_type == 'Polygon'
         else:
             assert result_geom.is_valid
-            assert not result_geom.geom_type == 'MultiPolygon'
+            if valid:
+                assert result_geom.geom_type == 'Polygon'
+            else:
+                # invalid Polygon is corrected automatically
+                is_multi_polygon = (result_geom.geom_type == 'MultiPolygon')
+                has_additional_rings = False
+                if not is_multi_polygon:
+                    has_additional_rings = (len(result_geom.interiors) > len(geometry.interiors))
+                assert is_multi_polygon or has_additional_rings
+        # unrepairable geometries should have raised an error up to here
+        assert fixable
     except shapely.errors.TopologicalError:
-        if shapely.geos.geos_version >= (3, 8) and shapely.__version__ < '1.7':
+        if not fixable:
+            # this is an expected error
+            pass
+        elif shapely.geos.geos_version >= (3, 8) and shapely.__version__ < '1.7':
             # cannot handle intersection with self-touching ring
             raise Exception('libgeos >= 3.8 is not supported with legacy shapely < 1.7')
         elif shapely.__version__[:3] == '1.7':
