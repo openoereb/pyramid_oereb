@@ -27,7 +27,7 @@ jobs:
 
   test-py:
     name: Test Python
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     services:
       # Label used to access the service container
       postgres:
