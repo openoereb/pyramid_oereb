@@ -168,7 +168,7 @@
             
   <h1>Source code for sqlalchemy.orm.attributes</h1><div class="highlight"><pre>
 <span></span><span class="c1"># orm/attributes.py</span>
-<span class="c1"># Copyright (C) 2005-2021 the SQLAlchemy authors and contributors</span>
+<span class="c1"># Copyright (C) 2005-2022 the SQLAlchemy authors and contributors</span>
 <span class="c1"># &lt;see AUTHORS file&gt;</span>
 <span class="c1">#</span>
 <span class="c1"># This module is part of SQLAlchemy and is released under</span>
@@ -695,6 +695,11 @@
 
         <span class="n">_is_internal_proxy</span> <span class="o">=</span> <span class="kc">True</span>
 
+        <span class="n">_cache_key_traversal</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">visitors</span><span class="o">.</span><span class="n">ExtendedInternalTraversal</span><span class="o">.</span><span class="n">dp_string</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;_parententity&quot;</span><span class="p">,</span> <span class="n">visitors</span><span class="o">.</span><span class="n">ExtendedInternalTraversal</span><span class="o">.</span><span class="n">dp_multi</span><span class="p">),</span>
+        <span class="p">]</span>
+
         <span class="nd">@property</span>
         <span class="k">def</span> <span class="nf">_impl_uses_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">(</span>
@@ -736,6 +741,16 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">descriptor</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_comparator</span><span class="p">,</span>
                 <span class="n">adapt_to_entity</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">class_</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">descriptor</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_comparator</span><span class="p">,</span>
+                <span class="n">adapt_to_entity</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_adapt_to_entity</span><span class="p">,</span>
+                <span class="n">original_property</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">original_property</span><span class="p">,</span>
             <span class="p">)</span>
 
         <span class="k">def</span> <span class="fm">__get__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">owner</span><span class="p">):</span>
