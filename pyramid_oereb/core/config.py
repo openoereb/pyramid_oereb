@@ -3,6 +3,7 @@ import os
 
 import logging
 import yaml
+import pyaml_env
 from io import open as ioopen
 from pyramid.config import ConfigurationError
 from pyramid_oereb.core.records.office import OfficeRecord
@@ -1907,7 +1908,9 @@ def _parse(cfg_file, cfg_section, c2ctemplate_style=False):
             content = c2c.template.get_config(cfg_file)
         else:
             with ioopen(cfg_file, encoding='utf-8') as f:
-                content = yaml.safe_load(f.read())
+                # content = yaml.safe_load(f.read())
+                # pyaml_env default loader is yaml.loader.SafeLoader
+                content = pyaml_env.parse_config(data=f)
     except IOError as e:
         e.strerror = '{0}{1} \'{2}\', Current working directory is {3}'.format(
             e.strerror, e.args[1], e.filename, os.getcwd())

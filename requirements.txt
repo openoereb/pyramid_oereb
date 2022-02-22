@@ -6,6 +6,7 @@ psycopg2==2.9.1
 pyramid==1.10.8 # rq.filter: <2
 pyramid-debugtoolbar==4.9
 PyYAML==5.4.1
+pyaml-env==1.1.4
 shapely==1.6.4.post1  # rq.filter: ==1.6.4.post1
 simplejson==3.17.4
 SQLAlchemy==1.4.23 # rq.filter: >= 1.4
