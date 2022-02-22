@@ -503,7 +503,10 @@ class Renderer(JsonRenderer):
             self._multilingual_text(item, 'Content')
 
         # Separate the first item, so it can be placed in a different column in the template
-        extract_dict['DisclaimerLandRegister'] = extract_dict.get('Disclaimer', []).pop(0)
+        disclaimer = extract_dict.get('Disclaimer', [])
+        if len(disclaimer) > 0:
+            extract_dict['DisclaimerLandRegister'] = disclaimer.pop(0)
+
         self._flatten_object(extract_dict, 'DisclaimerLandRegister')
 
         extract_dict['features'] = {
