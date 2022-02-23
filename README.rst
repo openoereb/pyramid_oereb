@@ -44,8 +44,17 @@ To run the tests locally but inside Docker:
 1. ``docker-compose build``
 2. ``docker-compose up -d``
 3. change line 7 in tests/resources/test_config.yml from ``postgresql://postgres:postgres@localhost:5432/oereb_test_db`` to ``postgresql://postgres:postgres@oereb-db:5432/oereb_test_db``
-3.5. optionally you might need to clean up the virtual env with  ``docker-compose exec oereb-server make clean-all``
-4. ``docker-compose exec oereb-server make tests``
+4. ``docker-compose exec -u $(id -u):$(id -g) oereb-server make tests``
+
+shortcut:
+```
+make docker-tests
+```
+
+sometimes the local postgres port is already in use, and you must override it:
+```
+EXPOSED_PGPORT=5433 make docker-tests
+```
 
 CI Status
 =========

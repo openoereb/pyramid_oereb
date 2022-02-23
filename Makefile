@@ -1,11 +1,13 @@
+# use different venv in a docker composition to prevent access conflicts
+VENV_ROOT ?= .venv
 # Check if running on CI
 ifeq ($(CI),true)
   PIP_REQUIREMENTS=.requirements-timestamp
-  VENV_BIN=.venv/bin
+  VENV_BIN=${VENV_ROOT}/bin
   PIP_COMMAND=pip
 else
-  PIP_REQUIREMENTS=.venv/.requirements-timestamp
-  VENV_BIN=.venv/bin
+  PIP_REQUIREMENTS=${VENV_ROOT}/.requirements-timestamp
+  VENV_BIN=${VENV_ROOT}/bin
   PIP_COMMAND=pip3
 endif
 
@@ -17,6 +19,9 @@ PGPASSWORD ?= postgres
 PGPORT ?= 5432
 EXPOSED_PGPORT ?= 5432
 PYRAMID_OEREB_PORT ?= 6543
+
+LOCAL_UID := $(shell id -u)
+LOCAL_GID := $(shell id -g)
 
 export PGHOST
 export PGPORT
@@ -48,11 +53,11 @@ PACKAGE = pyramid_oereb
 # Set up environments
 # *******************
 
-.venv/timestamp:
-	python3 -m venv .venv
+${VENV_ROOT}/timestamp:
+	python3 -m venv ${VENV_ROOT}
 	touch $@
 
-.venv/requirements-timestamp: .venv/timestamp setup.py requirements.txt requirements-tests.txt dev-requirements.txt
+${VENV_ROOT}/requirements-timestamp: ${VENV_ROOT}/timestamp setup.py requirements.txt requirements-tests.txt dev-requirements.txt
 	$(VENV_BIN)/$(PIP_COMMAND) install --upgrade pip wheel
 	$(VENV_BIN)/$(PIP_COMMAND) install -r requirements.txt -r requirements-tests.txt -r dev-requirements.txt
 	touch $@
@@ -191,13 +196,13 @@ clean_fed_data: clean_fed_xmls clean_fed_jsons
 # **************
 
 # Build dependencies
-BUILD_DEPS += .venv/requirements-timestamp
+BUILD_DEPS += ${VENV_ROOT}/requirements-timestamp
 
 # ***********************
 # START DEV-YAML creation
 # ***********************
 
-$(DEV_CONFIGURATION_YML): .venv/requirements-timestamp $(DEV_CREATE_STANDARD_YML_SCRIPT)
+$(DEV_CONFIGURATION_YML): ${VENV_ROOT}/requirements-timestamp $(DEV_CREATE_STANDARD_YML_SCRIPT)
 	$(DEV_CREATE_STANDARD_YML_SCRIPT) --name $@ --database $(SQLALCHEMY_URL) --print_backend $(PRINT_BACKEND) --print_url $(PRINT_URL)
 
 # *********************
@@ -221,10 +226,10 @@ DB_DEV_TABLES_FILL_SCRIPT = $(DB_STRUCTURE_PATH)/03_fill_dev_tables.sql
 $(DB_CREATE_EXTENSION):
 	echo "$(DB_CREATE_EXTENSION_SQL)" > $@
 
-$(DB_DEV_TABLES_CREATE_SCRIPT): $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_TABLES_SCRIPT)
+$(DB_DEV_TABLES_CREATE_SCRIPT): $(DEV_CONFIGURATION_YML) ${VENV_ROOT}/requirements-timestamp $(DEV_CREATE_TABLES_SCRIPT)
 	$(DEV_CREATE_TABLES_SCRIPT) --configuration $< --sql-file $@
 
-$(DB_DEV_TABLES_FILL_SCRIPT): $(DEV_CONFIGURATION_YML) .venv/requirements-timestamp $(DEV_CREATE_FILL_SCRIPT) $(FED_JSONS)
+$(DB_DEV_TABLES_FILL_SCRIPT): $(DEV_CONFIGURATION_YML) ${VENV_ROOT}/requirements-timestamp $(DEV_CREATE_FILL_SCRIPT) $(FED_JSONS)
 	$(VENV_BIN)/python $(DEV_CREATE_FILL_SCRIPT) --configuration $< --sql-file $@ --dir $(PG_DEV_DATA_DIR)
 
 DB_STRUCTURE_SCRIPTS = $(DB_CREATE_EXTENSION) \
@@ -245,7 +250,7 @@ clean_dev_db_scripts:
 # *********************
 
 .PHONY: install
-install: .venv/requirements-timestamp
+install: ${VENV_ROOT}/requirements-timestamp
 
 $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT): setup.py $(BUILD_DEPS)
 	$(VENV_BIN)/python $< develop
@@ -265,7 +270,7 @@ clean: clean_fed_data clean_dev_db_scripts
 
 .PHONY: clean-all
 clean-all: clean
-	rm -rf .venv
+	rm -rf ${VENV_ROOT}
 	rm -f development.ini
 	rm -rf $(PACKAGE).egg-info
 
@@ -274,7 +279,7 @@ git-attributes:
 	git --no-pager diff --check `git log --oneline | tail -1 | cut --fields=1 --delimiter=' '`
 
 .PHONY: lint
-lint: .venv/requirements-timestamp
+lint: ${VENV_ROOT}/requirements-timestamp
 	$(VENV_BIN)/flake8
 
 .PHONY: test-postgres
@@ -286,31 +291,39 @@ test-postgis:
 	psql postgresql://postgres:postgres@localhost:5432 -t -c "select 'test postgres';"
 
 .PHONY: test-core
-test-core: .venv/requirements-timestamp
-	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.core --cov $(PACKAGE)/core --cov-report=term-missing --cov-report=xml:coverage.core.xml tests/core
+test-core: ${VENV_ROOT}/requirements-timestamp
+	$(VENV_BIN)/py.test --pdb -vv $(PYTEST_OPTS) --cov-config .coveragerc.core --cov $(PACKAGE)/core --cov-report=term-missing --cov-report=xml:coverage.core.xml tests/core
 
 .PHONY: test-contrib-print_proxy-mapfish_print
-test-contrib-print_proxy-mapfish_print: .venv/requirements-timestamp
+test-contrib-print_proxy-mapfish_print: ${VENV_ROOT}/requirements-timestamp
 	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-print_proxy-mapfish_print --cov $(PACKAGE) --cov-report xml:coverage.contrib-print_proxy-mapfish_print.xml tests/contrib.print_proxy.mapfish_print
 	# $(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc --cov $(PACKAGE) --cov-report term-missing:skip-covered tests/contrib.print_proxy.xml_2_pdf
 
 .PHONY: test-contrib-data_sources-standard
-test-contrib-data_sources-standard: .venv/requirements-timestamp
+test-contrib-data_sources-standard: ${VENV_ROOT}/requirements-timestamp
 	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-data_sources-standard --cov $(PACKAGE)/contrib/data_sources/standard --cov-report=term-missing:skip-covered --cov-report=xml:coverage.contrib-data_sources-standard.xml tests/contrib.data_sources.standard
 
 .PHONY: tests
-tests: .venv/requirements-timestamp test-core test-contrib-data_sources-standard test-contrib-print_proxy-mapfish_print
+tests: ${VENV_ROOT}/requirements-timestamp test-core test-contrib-data_sources-standard test-contrib-print_proxy-mapfish_print
+
+.PHONY: docker-tests
+docker-tests:
+	docker-compose build
+	docker-compose up -d
+	echo "Running tests as user ${LOCAL_UID}:${LOCAL_GID}"
+	docker-compose exec -e PGHOST=oereb-db -u ${LOCAL_UID}:${LOCAL_GID} oereb-server make tests
+	docker-compose down
 
 .PHONY: check
 check: git-attributes lint test
 
 .PHONY: doc-latex
-doc-latex: .venv/requirements-timestamp
+doc-latex: ${VENV_ROOT}/requirements-timestamp
 	rm -rf doc/build/latex
 	$(VENV_BIN)/sphinx-build -b latex doc/source doc/build/latex
 
 .PHONY: doc-html
-doc-html: .venv/requirements-timestamp
+doc-html: ${VENV_ROOT}/requirements-timestamp
 	rm -rf doc/build/html
 	$(VENV_BIN)/sphinx-build -b html doc/source doc/build/html
 

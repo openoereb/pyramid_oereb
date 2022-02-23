@@ -20,6 +20,9 @@ ENV SHELL /bin/zsh
 
 RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
 
+RUN mkdir /venvs && \
+  chmod a+w /venvs/
+
 COPY . /workspace/
 
 WORKDIR /workspace

@@ -11,6 +11,7 @@ services:
       PGUSER: ${PGUSER:-postgres}
       PGPASSWORD: ${PGPASSWORD:-postgres}
       PYRAMID_OEREB_PORT: ${PYRAMID_OEREB_PORT:-6543}
+      VENV_ROOT: /venvs/.venv
     volumes:
       - .:/workspace:cached
     working_dir: /workspace
