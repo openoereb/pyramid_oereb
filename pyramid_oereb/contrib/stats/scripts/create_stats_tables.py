@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from c2cwsgiutils.sqlalchemylogger.handlers import SQLAlchemyHandler
+from pyramid_oereb.core.config import Config
 import configparser
 import ast
 from mako.template import Template
@@ -46,7 +47,7 @@ def create_stats_tables():
 def _create_views(config_file,
                   config_section='handler_sqlalchemylogger',
                   config_sql_args='args'):
-    config = configparser.ConfigParser(os.environ)
+    config = configparser.ConfigParser(Config.get_db_vars_from_env())
     config.read(config_file)
     schema_name = ast.literal_eval(config[config_section][config_sql_args])[0]['tableargs']['schema']
     tablename = ast.literal_eval(config[config_section][config_sql_args])[0]['tablename']

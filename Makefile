@@ -11,12 +11,17 @@ endif
 
 # Environment variables for DB connection
 PGDATABASE ?= pyramid_oereb_test
-PGHOST ?= oereb-db
+PGHOST ?= localhost
 PGUSER ?= postgres
 PGPASSWORD ?= postgres
 PGPORT ?= 5432
 EXPOSED_PGPORT ?= 5432
 PYRAMID_OEREB_PORT ?= 6543
+
+export PGHOST
+export PGPORT
+export PGUSER
+export PGPASSWORD
 
 SQLALCHEMY_URL = "postgresql://$(PGUSER):$(PGPASSWORD)@$(PGHOST):$(PGPORT)/$(PGDATABASE)"
 
