@@ -17,7 +17,6 @@ jobs:
           - 5432:5432
         env:
           POSTGRES_PASSWORD: postgres
-          PGHOST: localhost
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
@@ -41,12 +40,10 @@ jobs:
       - name: Run core tests for Python ${{ matrix.python-version }}
         env:
           PYTHON_TEST_VERSION: ${{ matrix.python-version }}
-          PGHOST: localhost
         run: make test-core
       - name: Run contrib tests for Python ${{ matrix.python-version }}
         env:
           PYTHON_TEST_VERSION: ${{ matrix.python-version }}
-          PGHOST: localhost
         run: make test-contrib
       - name: Set up Python 3.7
         uses: actions/setup-python@v1
