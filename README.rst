@@ -23,6 +23,10 @@ To run the tests locally (unix machine, windows users should go with the docker 
 2. Start the dev database with ``docker-compose up -d oereb-db`` (with the default config, this uses the default Postgres port on your machine)
 3. Run the tests with ``make tests``
 
+alternative tests with custom postgis DB:
+2. you can also start an arbitrary local DB: `docker run -p 5555:5432 --name pg_oereb --rm -it -e POSTGRES_PASSWORD=pw postgis/postgis`
+3. then run the tests defining access to the local DB via ENV vars: `PGPORT=5555 PGPASSWORD=pw make tests`
+
 To run one specfic test:
 
 .. code-block:: bash
@@ -40,7 +44,8 @@ To run the tests locally but inside Docker:
 1. ``docker-compose build``
 2. ``docker-compose up -d``
 3. change line 7 in tests/resources/test_config.yml from ``postgresql://postgres:postgres@localhost:5432/oereb_test_db`` to ``postgresql://postgres:postgres@oereb-db:5432/oereb_test_db``
-4. ``docker-compose exec oereb-server make test-core``
+3.5. optionally you might need to clean up the virtual env with  ``docker-compose exec oereb-server make clean-all``
+4. ``docker-compose exec oereb-server make tests``
 
 CI Status
 =========
