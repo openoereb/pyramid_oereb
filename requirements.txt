@@ -1,10 +1,10 @@
 PyPDF2==1.26.0
-filetype==1.0.7
-geoalchemy2==0.8.5 # rq.filter: <0.9
+filetype==1.0.10
+geoalchemy2==0.10.2
 pyramid==1.10.8 # rq.filter: <2
 pyramid-debugtoolbar==4.9
-shapely==1.8.1  # rq.filter: == 1.8.1
-SQLAlchemy==1.4.23 # rq.filter: >= 1.4
+shapely==1.8.1
+SQLAlchemy==1.4.31
 urllib3[secure]==1.26.8
 waitress==2.0.0
 pyreproj==2.0.0
