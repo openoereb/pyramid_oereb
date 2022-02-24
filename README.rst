@@ -283,9 +283,11 @@ Run the ``make`` targets found in the Makefile either in the ``oereb-server`` co
 Some useful targets:
 
 - ``make serve-dev`` to run the application
-- ``make test`` to run the application tests
+- ``make tests`` to run the application tests
+- ``make docker-tests`` to run the application tests inside a docker composition, so one does not have to care about local set up
 - ``make clean`` to empty the database
 - ``make clean-all`` to empty the database, uninstall the application and the virtual env and clear the rendered configuration files
+- ``make docker-clean-all`` to clean up everything written by the docker container. This is sometimes useful when docker has created some files with root only permission
 
 If necessary the application is re-installed and the database is filled when running ``make serve-dev`` again.
 
@@ -298,5 +300,10 @@ The Docker network ``print-network`` is also required and can be created with:
 .. code-block:: bash
 
   docker network create print-network
+
+It is also possible to launch a mapfish print service on a local URL (via docker or not) and then run the server via `make serve`. The correct print url must be provided:
+```
+PRINT_URL="http://localhost:8680/print/oereb" EXPOSED_PGPORT=5433 PGPORT=5433 make serve-dev
+```
 
 The sample static extract should then be available at http://localhost:6543/oereb/extract/pdf?EGRID=CH113928077734

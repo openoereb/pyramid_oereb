@@ -44,7 +44,7 @@ DEV_CREATE_TABLES_SCRIPT = $(VENV_BIN)/create_standard_tables
 MODEL_PK_TYPE_IS_STRING ?= true
 
 PRINT_BACKEND = MapFishPrint # Set to XML2PDF if preferred
-PRINT_URL = http://oereb-print:8080/print/oereb
+PRINT_URL ?= http://oereb-print:8080/print/oereb
 
 # ********************
 # Variable definitions
@@ -339,9 +339,11 @@ updates: $(PIP_REQUIREMENTS)
 	$(VENV_BIN)/pip list --outdated
 
 .PHONY: serve-dev
-serve-dev: build
+serve-dev: development.ini build
+	docker-compose up -d oereb-db
 	$(VENV_BIN)/pserve $< --reload
 
 .PHONY: serve
-serve: build
+serve: development.ini build
+	docker-compose up -d oereb-db
 	$(VENV_BIN)/pserve $<
