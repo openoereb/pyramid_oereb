@@ -104,6 +104,10 @@ script:
 
 .. note:: Run ``create_standard_tables --help`` for further information.
 
+.. note:: Depending on your system setup, you may need to install pyyaml in order to use this script.
+   For example, if you are using a virtual environment in a directory ``.venv``, you would do:
+   ``.venv/bin/pip3 install pyyaml``
+
 
 .. _installation-step-sample-data:
 
