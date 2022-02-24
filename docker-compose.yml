@@ -1,5 +1,8 @@
 version: "3.7"
 
+volumes:
+  venvs:
+
 services:
   oereb-server:
     build:
@@ -14,6 +17,7 @@ services:
       VENV_ROOT: /venvs/.venv
     volumes:
       - .:/workspace:cached
+      - venvs:/venvs
     working_dir: /workspace
     ports:
       - ${PYRAMID_OEREB_PORT:-6543}:${PYRAMID_OEREB_PORT:-6543}

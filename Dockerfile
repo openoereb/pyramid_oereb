@@ -23,6 +23,9 @@ RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -
 RUN mkdir /venvs && \
   chmod a+w /venvs/
 
+RUN mkdir /workspace && \
+  chmod a+w /workspace/
+
 COPY . /workspace/
 
 WORKDIR /workspace

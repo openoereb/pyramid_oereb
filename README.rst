@@ -42,9 +42,8 @@ To run all tests in a specific file or directory (omit the subfolder ``tests`` i
 To run the tests locally but inside Docker:
 
 1. ``docker-compose build``
-2. ``docker-compose up -d``
-3. change line 7 in tests/resources/test_config.yml from ``postgresql://postgres:postgres@localhost:5432/oereb_test_db`` to ``postgresql://postgres:postgres@oereb-db:5432/oereb_test_db``
-4. ``docker-compose exec -u $(id -u):$(id -g) oereb-server make tests``
+2. ``docker-compose up -d oereb-db``
+3. ``docker-compose run --rm -u $(id -u):$(id -g) oereb-server make build tests``
 
 shortcut:
 ```
@@ -54,6 +53,16 @@ make docker-tests
 sometimes the local postgres port is already in use, and you must override it:
 ```
 EXPOSED_PGPORT=5433 make docker-tests
+```
+
+On windows/mac, you might need to skip the user id / group id detection and launch the docker tests as root
+```
+DOCKER_AS_ROOT=TRUE make docker-tests
+```
+
+in case there are conflicts with file permissions or incorrect venv paths, you might use the root permissions of docker to clean dangling data:
+```
+make docker-clean-all
 ```
 
 CI Status
