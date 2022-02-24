@@ -497,16 +497,17 @@ class Renderer(JsonRenderer):
         extract_dict['RealEstate_RestrictionOnLandownership'] = restrictions
         # End one restriction entry per theme
 
-        for i, item in enumerate(extract_dict.get('Disclaimer', [])):
+        # Flatten the disclaimer dictionary
+        for item in extract_dict.get('Disclaimer', []):
             self._multilingual_text(item, 'Title')
             self._multilingual_text(item, 'Content')
 
-            if i == 0:
-                extract_dict['DisclaimerLandRegister'] = item
-                self._flatten_object(extract_dict, 'DisclaimerLandRegister')
-            if i == 1:
-                extract_dict['DisclaimerPollutedSites'] = item
-                self._flatten_object(extract_dict, 'DisclaimerPollutedSites')
+        # Separate the first item, so it can be placed in a different column in the template
+        disclaimer = extract_dict.get('Disclaimer', [])
+        if len(disclaimer) > 0:
+            extract_dict['DisclaimerLandRegister'] = disclaimer.pop(0)
+
+        self._flatten_object(extract_dict, 'DisclaimerLandRegister')
 
         extract_dict['features'] = {
             'features': {
