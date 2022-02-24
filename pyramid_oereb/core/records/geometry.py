@@ -14,16 +14,15 @@ class GeometryRecord(object):
     """
     Geometry record
 
-    Args:
+    Attributes:
         law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
         published_from (datetime.date): Date from/since when the PLR record is published.
         published_until (datetime.date): Date until the PLR record is published.
-        geom (Point or LineString or Polygon):
-            The geometry which must be of type POINT, LINESTRING or POLYGON, everything else
-             will raise an error.
+        geom (Point or LineString or Polygon): The geometry which must be of type POINT, LINESTRING
+            or POLYGON, everything else will raise an error.
         geo_metadata (uri): The metadata.
-        public_law_restriction (pyramid_oereb.lib.records.plr.PlrRecord): The public law
-            restriction
+        public_law_restriction (pyramid_oereb.lib.records.plr.PlrRecord): The public law restriction
+        calculated (boole): True if there was an access on property before calculation was done.
 
     Raises:
         AttributeError: Error when a wrong geometry type was passed.
@@ -31,7 +30,18 @@ class GeometryRecord(object):
     def __init__(
             self, law_status, published_from, published_until, geom, geo_metadata=None,
             public_law_restriction=None):
-
+        """
+        Args:
+            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
+            published_from (datetime.date): Date from/since when the PLR record is published.
+            published_until (datetime.date): Date until the PLR record is published.
+            geom (Point or LineString or Polygon):
+            The geometry which must be of type POINT, LINESTRING or POLYGON, everything else
+                will raise an error.
+            geo_metadata (uri): The metadata.
+            public_law_restriction (pyramid_oereb.lib.records.plr.PlrRecord): The public law
+                restriction
+        """
         self.law_status = law_status
         self.published_from = published_from
         self.published_until = published_until
@@ -50,7 +60,10 @@ class GeometryRecord(object):
 
     @property
     def published(self):
-        """bool: True if geometry is published."""
+        """
+        Returns:
+            bool: True if geometry is published.
+        """
         if self.published_until is None:
             return self.published_from <= datetime.now().date()
         else:
@@ -81,7 +94,10 @@ class GeometryRecord(object):
 
     @property
     def dim(self):
-        """int: The topological dimension."""
+        """
+        Returns:
+            int: The topological dimension.
+        """
         return self.geom_dim(self.geom)
 
     def _extract_collection(self, result):
@@ -184,7 +200,8 @@ class GeometryRecord(object):
     @property
     def area_share(self):
         """
-        float or None: Returns the area of this geometry.
+        Returns:
+            float or None: the area of this geometry.
         """
         if not self.calculated:
             log.warning(u'There was an access on property "area_share" before calculation was done.')
@@ -193,7 +210,8 @@ class GeometryRecord(object):
     @property
     def length_share(self):
         """
-        float or None: Returns the length of this geometry.
+        Returns:
+            float or None: the length of this geometry.
         """
         if not self.calculated:
             log.warning(u'There was an access on property "length_share" before calculation was done.')
@@ -202,7 +220,8 @@ class GeometryRecord(object):
     @property
     def nr_of_points(self):
         """
-        float or None: Returns the number of this geometry.
+        Returns:
+            float or None: the total amount of points/this geometry.
         """
         if not self.calculated:
             log.warning(u'There was an access on property "nr_of_points" before calculation was done.')

@@ -141,6 +141,9 @@ class DocumentRecord(object):
         return str(self.__class__) + ": " + str(self.__dict__)
 
     def copy(self):
+        """
+        Returns (DocumentRecord): A copy of this DocumentRecord element
+        """
         return DocumentRecord(
             self.document_type,
             self.index,

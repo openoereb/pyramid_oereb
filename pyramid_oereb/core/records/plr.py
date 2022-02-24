@@ -9,6 +9,11 @@ log = logging.getLogger(__name__)
 
 
 class EmptyPlrRecord(object):
+    """
+    Attributes:
+        theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR belongs to.
+        has_data (bool): True if the topic contains data.
+    """
 
     def __init__(self, theme, has_data=True):
         """
@@ -25,6 +30,33 @@ class EmptyPlrRecord(object):
 class PlrRecord(EmptyPlrRecord):
     """
     Public law restriction record.
+    Attributes:
+        theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR belongs to.
+        legend_entry (pyramid_oereb.lib.records.view_service.LegendEntryRecord): The PLR record's
+            corresponding legend record.
+        law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.
+        published_from (datetime.date): Date from/since when the PLR record is published.
+        published_until (datetime.date): Date from when the PLR record is not published anymore.
+        responsible_office (pyramid_oereb.lib.records.office.OfficeRecord): Office which is responsible
+            for this PLR.
+        symbol (pyramid_oereb.lib.records.image.ImageRecord): Symbol of the restriction defined for the
+            legend entry
+        view_service (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view service instance
+            associated with this record.
+        geometries (list of pyramid_oereb.lib.records.geometry.GeometryRecord): List of geometry records
+            associated with this record.
+        sub_theme (pyramid_oereb.lib.records.theme.ThemeRecord or None): Optional subtopic.
+        type_code (unicode): The PLR record's type code (also used by view service).
+        type_code_list (unicode): URL to the PLR's list of type codes.
+        documents (list of pyramid_oereb.core.records.documents.DocumentBaseRecord): List of documents
+            associated with this record.
+        info (dict or None): The information read from the config.
+        min_length (float): The threshold for area calculation.
+        min_area (float): The threshold for area calculation.
+        length_unit (unicode): The threshold for area calculation.
+        area_unit (unicode): The threshold for area calculation.
+        view_service_id (int): The id to the connected view service. This is very important to be able to
+        solve bug https://github.com/openoereb/pyramid_oereb/issues/521
     """
 
     def __init__(self, theme, legend_entry, law_status, published_from, published_until, responsible_office,
@@ -97,11 +129,18 @@ class PlrRecord(EmptyPlrRecord):
 
     @property
     def legend_text(self):
+        """
+        Returns:
+            dict of unicode: the legend text
+        """
         return self.legend_entry.legend_text
 
     @property
     def published(self):
-        """bool: True if PLR is published."""
+        """
+        Retruns:
+            bool: True if PLR is published.
+        """
         if self.published_until is None:
             return self.published_from <= datetime.now().date()
         else:
@@ -143,12 +182,16 @@ class PlrRecord(EmptyPlrRecord):
 
     @property
     def area_share(self):
-        """float or None: Returns the summed area of all related geometry records of this PLR."""
+        """
+        Retruns:
+            float or None: the summed area of all related geometry records of this PLR."""
         return self._area_share
 
     @property
     def part_in_percent(self):
-        """decimal or None: (decimal): Part of the property area touched by the restriction in percent."""
+        """
+        Retruns:
+            decimal or None: (decimal): Part of the property area touched by the restriction in percent."""
         return self._part_in_percent
 
     @part_in_percent.setter
@@ -161,12 +204,16 @@ class PlrRecord(EmptyPlrRecord):
 
     @property
     def length_share(self):
-        """float or None: Returns the summed length of all related geometry records of this PLR."""
+        """
+        Returns:
+            float or None: the summed length of all related geometry records of this PLR."""
         return self._length_share
 
     @property
     def nr_of_points(self):
-        """float or None: Returns the number of points of all related geometry records of this PLR."""
+        """
+        Returns:
+            float or None: the number of points of all related geometry records of this PLR."""
         return self._nr_of_points
 
     def calculate(self, real_estate, geometry_types):

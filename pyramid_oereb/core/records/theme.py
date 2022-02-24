@@ -3,7 +3,16 @@ import warnings
 
 
 class ThemeRecord(object):
-    """Creates a new theme record."""
+    """Creates a new theme record.
+    Attributes:
+        code (unicode): The theme's code.
+        title (dict of unicode): The multilingual description.
+        extract_index (int): Index to sort themes in the extract.
+        sub_code (unicode): The code of the sub_theme. Is none for themes.
+        document_records (list): Documents that relates to this theme
+        identifier (str): The identifier of the theme which might be used for linking to other elements.
+
+    """
 
     def __init__(self, code, title, extract_index, sub_code=None, document_records=None, identifier=None):
         """

@@ -16,7 +16,7 @@ class LegendEntryRecord(object):
     """
     Represents a legend entry with it's text as well as it's image.
 
-    Args:
+    Attributes:
         symbol (pyramid_oereb.lib.records.image.ImageRecord): The binary content of the legend symbol.
         legend_text (dict of unicode): The multilingual description text for the legend entry.
         type_code (unicode): The class of the legend entry corresponding to the plrs classes.
@@ -33,7 +33,21 @@ class LegendEntryRecord(object):
 
     def __init__(self, symbol, legend_text, type_code, type_code_list, theme,
                  view_service_id=None, sub_theme=None, identifier=None):
-
+        """
+        Args:
+            symbol (pyramid_oereb.lib.records.image.ImageRecord): The binary content of the legend symbol.
+            legend_text (dict of unicode): The multilingual description text for the legend entry.
+            type_code (unicode): The class of the legend entry corresponding to the plrs classes.
+            type_code_list (unicode): An URL to the type code list.
+            theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the legend entry
+                belongs.
+            view_service_id (int): The id to the connected view service. This is very important to be able to
+                solve bug https://github.com/openoereb/pyramid_oereb/issues/521
+            sub_theme (pyramid_oereb.lib.records.theme.ThemeRecord): The optional sub theme to which the
+                legend entry belongs.
+            identifier (str): The identifier of the legend entry which might be used for linking to
+                    other elements.
+        """
         if not isinstance(legend_text, dict):
             warnings.warn('Type of "legend_text" should be "dict"')
 
@@ -57,6 +71,11 @@ class LegendEntryRecord(object):
 class ViewServiceRecord(object):
     """
     A view service contains a valid WMS URL with a defined set of layers.
+
+    Attributes:
+        image (dict): multilingual dictionary containing the binary image
+            (pyramid_oereb.core.records.image.ImageRecord) downloaded from WMS link for the
+            requested (if any) or default language. Empty for an extract without images
     """
 
     def __init__(self, reference_wms, layer_index, layer_opacity, default_language,
@@ -71,11 +90,6 @@ class ViewServiceRecord(object):
             srid (int): The SRID which is used for the WMS.
             proxies (dict or None): The proxies which may be used
             legends (list of LegendEntry or None): A list of all relevant legend entries.
-
-        Attributes:
-            image (dict): multilingual dictionary containing the binary image
-                (pyramid_oereb.core.records.image.ImageRecord) downloaded from WMS link for the
-                requested (if any) or default language. Empty for an extract without images
         """
         self.reference_wms = reference_wms
         self.image = dict()  # multilingual dict with binary map images resulting from calling the wms link
@@ -100,6 +114,17 @@ class ViewServiceRecord(object):
 
     @staticmethod
     def sanitize_layer_index(layer_index):
+        """
+        Checks the validity of the layer index
+        Arg:
+           layer_index (int): index of the layer
+
+        Returns:
+            int: the layer index if it is an int berween -1000 and 1000.
+
+        Raises:
+            AttributeError if the index is out of bounds
+        """
         if layer_index and not isinstance(layer_index, int):
             warnings.warn('Type of "layer_index" should be "int"')
         if layer_index < -1000 or layer_index > 1000:
@@ -111,6 +136,17 @@ class ViewServiceRecord(object):
 
     @staticmethod
     def sanitize_layer_opacity(layer_opacity):
+        """
+        Checks the validity of the layer opacity
+        Args:
+            layer_opacity (float): the opacity used to draw the layer.
+
+        Returns:
+            float: the layer opacity if it is a float between 0 and 1
+
+        Raises:
+            AttributeError if the opacity is out of bounds.
+        """
         if layer_opacity and not isinstance(layer_opacity, float):
             warnings.warn('Type of "layer_opacity" should be "float"')
         if layer_opacity < 0.0 or layer_opacity > 1.0:
@@ -122,6 +158,19 @@ class ViewServiceRecord(object):
 
     @staticmethod
     def check_min_max_attributes(min_point, min_name, max_point, max_name):
+        """
+        Checks the validity of a min and max point:
+            - type check
+            - min_point < max_point
+        Args:
+            min_point (shapely.geometry.point.Point): a point geometry
+            min_name (): the name of the point
+            max_point (shapely.geometry.point.Point): a point geometry
+            max_name ():the name of the point
+
+        Raises:
+            AttributeError if one of the check fails
+        """
         if min_point is None and max_point is None:
             return
         if min_point is None or max_point is None:

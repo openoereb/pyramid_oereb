@@ -5,11 +5,16 @@ import warnings
 class GeneralInformationRecord(object):
     """
     Represents a general information entry with its title and content.
-    Args:
+    Attributes:
         title (dict of unicode): The title of the information (multilingual)
         content (dict of unicode): The actual information (multilingual)
     """
     def __init__(self, title, content):
+        """
+        Args:
+            title (dict of unicode): The title of the information (multilingual)
+            content (dict of unicode): The actual information (multilingual)
+        """
 
         if not isinstance(title, dict):
             warnings.warn('Type of "title" should be "dict"')
