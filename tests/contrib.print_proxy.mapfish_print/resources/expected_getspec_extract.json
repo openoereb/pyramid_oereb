@@ -135,10 +135,6 @@
   ],
   "Disclaimer": [
     {
-      "Title": "Eigentumsbeschränkungen im Grundbuch",
-      "Content": "Zusätzlich zu den Angaben in diesem Auszug können Eigentumsbeschränkungen auch im Grundbuch angemerkt sein."
-    },
-    {
       "Title": "Haftungsausschluss Kataster der belasteten Standorte (KbS)",
       "Content": "Der Kataster der belasteten Standorte (KbS) wurde anhand der vom Bundesamt für Umwelt BAFU festgelegten Kriterien erstellt und wird fortwährend aufgrund neuer Erkenntnisse (z.B. Untersuchungen) aktualisiert. Die im KbS eingetragenen Flächen können vom tatsächlichen Ausmass der Belastung abweichen. Erscheint ein Grundstück nicht im KbS, besteht keine absolute Gewähr, dass das Areal frei von jeglichen Abfall- oder Schadstoffbelastungen ist. Bahnbetrieblich, militärisch und für die Luftfahrt genutzte Standorte liegen im Zuständigkeitsbereich des Bundes."
     }
@@ -1037,8 +1033,6 @@
   },
   "DisclaimerLandRegister_Title": "Eigentumsbeschränkungen im Grundbuch",
   "DisclaimerLandRegister_Content": "Zusätzlich zu den Angaben in diesem Auszug können Eigentumsbeschränkungen auch im Grundbuch angemerkt sein.",
-  "DisclaimerPollutedSites_Title": "Haftungsausschluss Kataster der belasteten Standorte (KbS)",
-  "DisclaimerPollutedSites_Content": "Der Kataster der belasteten Standorte (KbS) wurde anhand der vom Bundesamt für Umwelt BAFU festgelegten Kriterien erstellt und wird fortwährend aufgrund neuer Erkenntnisse (z.B. Untersuchungen) aktualisiert. Die im KbS eingetragenen Flächen können vom tatsächlichen Ausmass der Belastung abweichen. Erscheint ein Grundstück nicht im KbS, besteht keine absolute Gewähr, dass das Areal frei von jeglichen Abfall- oder Schadstoffbelastungen ist. Bahnbetrieblich, militärisch und für die Luftfahrt genutzte Standorte liegen im Zuständigkeitsbereich des Bundes.",
   "features": {
     "features": {
       "type": "FeatureCollection",
