@@ -47,19 +47,21 @@ jobs:
     strategy:
       matrix:
         python-version:
-          - python3.7
-          - python3.8
-          - python3.9
-          - python3.10
-          - python3.11
+          - '3.7'
+          - '3.8'
+          - '3.9'
+          - '3.10'
     steps:
       - uses: actions/checkout@v2
+      - name: Set up Python v${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
       - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
       - name: Run tests for Python ${{ matrix.python-version }}
-        env:
-          PYTHON_TEST_VERSION: ${{ matrix.python-version }}
         run: make tests
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
