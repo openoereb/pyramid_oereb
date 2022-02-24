@@ -26,7 +26,6 @@ jobs:
     strategy:
       matrix:
         python-version:
-          - python3.6
           - python3.7
           - python3.8
           - python3.9
@@ -37,14 +36,10 @@ jobs:
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
       - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
-      - name: Run core tests for Python ${{ matrix.python-version }}
+      - name: Run tests for Python ${{ matrix.python-version }}
         env:
           PYTHON_TEST_VERSION: ${{ matrix.python-version }}
-        run: make test-core
-      - name: Run contrib tests for Python ${{ matrix.python-version }}
-        env:
-          PYTHON_TEST_VERSION: ${{ matrix.python-version }}
-        run: make test-contrib
+        run: make tests
       - name: Set up Python 3.7
         uses: actions/setup-python@v1
         with:

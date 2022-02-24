@@ -1,29 +1,16 @@
 PyPDF2==1.26.0
-dicttoxml==1.7.4
-filetype==1.0.7
-geoalchemy2==0.8.5 # rq.filter: <0.9
-psycopg2==2.9.1
+filetype==1.0.10
+geoalchemy2==0.10.2
 pyramid==1.10.8 # rq.filter: <2
 pyramid-debugtoolbar==4.9
-PyYAML==5.4.1
+shapely==1.8.1
+SQLAlchemy==1.4.31
 pyaml-env==1.1.4
-shapely==1.6.4.post1  # rq.filter: ==1.6.4.post1
-simplejson==3.17.4
-SQLAlchemy==1.4.23 # rq.filter: >= 1.4
-sqlalchemy-utils==0.37.8
-transaction==3.0.1
 urllib3[secure]==1.26.8
 waitress==2.0.0
-jsonschema==3.2.0
-pyproj==3.2.0
 pyreproj==2.0.0
-lxml==4.6.5
-Mako==1.1.5
 mako-render==0.1.0
 requests==2.27.1
 geolink-formatter==2.0.1
 pyconizer==0.1.4
-tqdm==4.62.1
-numpy==1.21.0 # rq.filter: <1.20.0
-defusedxml==0.7.1
 c2cwsgiutils==3.*

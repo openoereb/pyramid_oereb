@@ -195,15 +195,14 @@ def test_get_symbol_ref(theme_code, pyramid_test_config, pyramid_oereb_test_conf
         u'test',
         u'test',
         ThemeRecord(theme_code, {'de': 'Test'}, 100),
-        view_service_id=1
+        view_service_id=1,
+        identifier="1"
     )
     if theme_code == u'NotExistingTheme':
         with pytest.raises(HTTPServerError):
             Base.get_symbol_ref(request, record)
     else:
         ref = Base.get_symbol_ref(request, record)
-        assert ref == 'http://example.com/image/symbol/{}/{}/{}.svg'.format(
-            theme_code,
-            record.view_service_id,
-            record.type_code
+        assert ref == 'http://example.com/image/symbol/{}/legend_entry.svg?identifier=1'.format(
+            theme_code
         )
