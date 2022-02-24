@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.0.0.rc1
+---------
+- Updates of all essential libraries used
+- Fix multiple disclaimers in print (#1511)
+
 2.0.0.b15
 ---------
 - Fix capabilities extract (#1489)
