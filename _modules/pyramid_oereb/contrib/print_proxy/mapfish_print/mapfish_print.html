@@ -666,16 +666,17 @@
         <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;RealEstate_RestrictionOnLandownership&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">restrictions</span>
         <span class="c1"># End one restriction entry per theme</span>
 
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">extract_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Disclaimer&#39;</span><span class="p">,</span> <span class="p">[])):</span>
+        <span class="c1"># Flatten the disclaimer dictionary</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">extract_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Disclaimer&#39;</span><span class="p">,</span> <span class="p">[]):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Title&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Content&#39;</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;DisclaimerLandRegister&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="s1">&#39;DisclaimerLandRegister&#39;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;DisclaimerPollutedSites&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="s1">&#39;DisclaimerPollutedSites&#39;</span><span class="p">)</span>
+        <span class="c1"># Separate the first item, so it can be placed in a different column in the template</span>
+        <span class="n">disclaimer</span> <span class="o">=</span> <span class="n">extract_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Disclaimer&#39;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">disclaimer</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;DisclaimerLandRegister&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">disclaimer</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="s1">&#39;DisclaimerLandRegister&#39;</span><span class="p">)</span>
 
         <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;features&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;features&#39;</span><span class="p">:</span> <span class="p">{</span>
