@@ -28,7 +28,8 @@ class LogoReader(object):
         """
         The central read accessor method to get all desired records from configured source.
 
-        .. note:: If you subclass this class your implementation needs to offer this method in the same
+        Note:
+            If you subclass this class your implementation needs to offer this method in the same
             signature. Means the parameters must be the same and the return must be a list of
             :ref:`api-pyramid_oereb-core-records-logo-logorecord`. Otherwise the API like way
             the server works would be broken.
