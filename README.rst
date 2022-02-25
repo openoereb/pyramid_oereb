@@ -43,16 +43,32 @@ Running the tests
 
 To run the tests locally:
 
-1. ``docker build -t pyramid_oereb:dev .``
-2. Build run the initial build depending on you OS:
-  * Linux: ``docker run --rm -v $(pwd):/workspace -u $(id -u):$(id -g) pyramid_oereb:dev make clean-all build``
-  * MAC: ``docker run --rm -v $(pwd):/workspace pyramid_oereb:dev make clean-all build``
-  * Windows CMD: ``docker run --rm -v %cd%:/workspace pyramid_oereb:dev make clean-all build``
-  * Windows Powershell: ``docker run --rm -v ${PWD}:/workspace pyramid_oereb:dev make clean-all build``
-3. ``docker-compose build``
-4. ``docker-compose up -d``
-5. change line 7 in tests/resources/test_config.yml from ``postgresql://postgres:postgres@localhost:5432/oereb_test_db`` to ``postgresql://postgres:postgres@oereb-db:5432/oereb_test_db`` => and do not forget to undo before commit!
-6. ``docker-compose exec oereb-server make tests``
+The docker way:
+---------------
+``make docker-tests``
+should set up the complete test environment
+
+sometimes the local postgres port is already in use, and you must override it:
+```
+EXPOSED_PGPORT=5433 make docker-tests
+```
+
+On windows/mac, you might need to skip the user id / group id detection and launch the docker tests as root
+```
+DOCKER_AS_ROOT=TRUE make docker-tests
+```
+
+Local tests:
+------------
+For local tests without the complete docker composition you need a running DB.
+You can create one based on the oereb image:
+``docker-compose up -d oereb-db``
+or create an empty postgis DB
+``docker run -p 5555:5432 --name pg_oereb --rm -it -e POSTGRES_PASSWORD=pw postgis/postgis``
+Then you can run the tests easily:
+``make tests``
+If the DB does not use standard credentials, you can set them as ENV vars:
+``PGPORT=5555 PGPASSWORD=pw make tests``
 
 To run one specfic test:
 
@@ -60,11 +76,22 @@ To run one specfic test:
 
   docker-compose exec oereb-server PYTEST_OPTS="-k <name_of_the_test>" make tests
 
-To run all tests in a specific file or directory (omit the subfolder ``tests`` in ``PYTEST_PATH``):
 
-.. code-block:: bash
+Useful ``make`` targets
+=======================
 
-  docker-compose exec oereb-server PYTEST_PATH="<path_to_test>"  make tests
+Run the ``make`` targets found in the Makefile either in the ``oereb-server`` container (if using ``docker-compose``) or in your local shell (if running the server locally).
+Some useful targets:
+
+- ``make serve-dev`` to run the application
+- ``make tests`` to run the application tests
+- ``make docker-tests`` to run the application tests inside a docker composition, so one does not have to care about local set up
+- ``make clean`` to empty the database
+- ``make clean-all`` to empty the database, uninstall the application and the virtual env and clear the rendered configuration files
+- ``make docker-clean-all`` to clean up everything written by the docker container. This is sometimes useful when docker has created some files with root only permission
+
+If necessary the application is re-installed and the database is filled when running ``make serve-dev`` again.
+
 
 Using MapFish-Print
 ===================
@@ -75,6 +102,11 @@ The Docker network ``print-network`` is also required and can be created with:
 .. code-block:: bash
 
   docker network create print-network
+
+It is also possible to launch a mapfish print service on a local URL (via docker or not) and then run the server via `make serve`. The correct print url must be provided:
+```
+PRINT_URL="http://localhost:8680/print/oereb" EXPOSED_PGPORT=5433 PGPORT=5433 make serve-dev
+```
 
 The sample static extract should then be available at http://localhost:6543/oereb/extract/pdf?EGRID=CH113928077734
 

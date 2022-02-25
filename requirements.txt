@@ -5,6 +5,7 @@ pyramid==1.10.8 # rq.filter: <2
 pyramid-debugtoolbar==4.9
 shapely==1.8.1
 SQLAlchemy==1.4.31
+pyaml-env==1.1.4
 urllib3[secure]==1.26.8
 waitress==2.0.0
 pyreproj==2.0.0

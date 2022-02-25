@@ -4,7 +4,7 @@ pyramid_oereb:
     name: pyramid_oereb_main
     models: pyramid_oereb.contrib.data_sources.standard.models.main
     db_connection: &main_db_connection
-      postgresql://postgres:postgres@localhost:5432/oereb_test_db
+      postgresql://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/oereb_test_db
 
     law_status_lookup:
       - data_code: inKraft
