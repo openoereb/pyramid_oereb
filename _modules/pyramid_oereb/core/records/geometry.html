@@ -183,16 +183,15 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Geometry record</span>
 
-<span class="sd">    Args:</span>
+<span class="sd">    Attributes:</span>
 <span class="sd">        law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.</span>
 <span class="sd">        published_from (datetime.date): Date from/since when the PLR record is published.</span>
 <span class="sd">        published_until (datetime.date): Date until the PLR record is published.</span>
-<span class="sd">        geom (Point or LineString or Polygon):</span>
-<span class="sd">            The geometry which must be of type POINT, LINESTRING or POLYGON, everything else</span>
-<span class="sd">             will raise an error.</span>
+<span class="sd">        geom (Point or LineString or Polygon): The geometry which must be of type POINT, LINESTRING</span>
+<span class="sd">            or POLYGON, everything else will raise an error.</span>
 <span class="sd">        geo_metadata (uri): The metadata.</span>
-<span class="sd">        public_law_restriction (pyramid_oereb.lib.records.plr.PlrRecord): The public law</span>
-<span class="sd">            restriction</span>
+<span class="sd">        public_law_restriction (pyramid_oereb.lib.records.plr.PlrRecord): The public law restriction</span>
+<span class="sd">        calculated (boole): True if there was an access on property before calculation was done.</span>
 
 <span class="sd">    Raises:</span>
 <span class="sd">        AttributeError: Error when a wrong geometry type was passed.</span>
@@ -200,7 +199,18 @@
 <div class="viewcode-block" id="GeometryRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.geometry.GeometryRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">published_until</span><span class="p">,</span> <span class="n">geom</span><span class="p">,</span> <span class="n">geo_metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">public_law_restriction</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.</span>
+<span class="sd">            published_from (datetime.date): Date from/since when the PLR record is published.</span>
+<span class="sd">            published_until (datetime.date): Date until the PLR record is published.</span>
+<span class="sd">            geom (Point or LineString or Polygon):</span>
+<span class="sd">            The geometry which must be of type POINT, LINESTRING or POLYGON, everything else</span>
+<span class="sd">                will raise an error.</span>
+<span class="sd">            geo_metadata (uri): The metadata.</span>
+<span class="sd">            public_law_restriction (pyramid_oereb.lib.records.plr.PlrRecord): The public law</span>
+<span class="sd">                restriction</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">law_status</span> <span class="o">=</span> <span class="n">law_status</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">=</span> <span class="n">published_from</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">published_until</span> <span class="o">=</span> <span class="n">published_until</span>
@@ -219,7 +229,10 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">published</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;bool: True if geometry is published.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if geometry is published.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_until</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">published_from</span> <span class="o">&lt;=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
@@ -250,7 +263,10 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">dim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;int: The topological dimension.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            int: The topological dimension.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">geom_dim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">geom</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_extract_collection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
@@ -353,7 +369,8 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">area_share</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        float or None: Returns the area of this geometry.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            float or None: the area of this geometry.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculated</span><span class="p">:</span>
             <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;There was an access on property &quot;area_share&quot; before calculation was done.&#39;</span><span class="p">)</span>
@@ -362,7 +379,8 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">length_share</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        float or None: Returns the length of this geometry.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            float or None: the length of this geometry.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculated</span><span class="p">:</span>
             <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;There was an access on property &quot;length_share&quot; before calculation was done.&#39;</span><span class="p">)</span>
@@ -371,7 +389,8 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">nr_of_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        float or None: Returns the number of this geometry.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            float or None: the total amount of points/this geometry.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculated</span><span class="p">:</span>
             <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;There was an access on property &quot;nr_of_points&quot; before calculation was done.&#39;</span><span class="p">)</span>

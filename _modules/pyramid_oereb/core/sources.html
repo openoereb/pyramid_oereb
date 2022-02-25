@@ -191,16 +191,17 @@
 
 
 <div class="viewcode-block" id="BaseDatabaseSource"><a class="viewcode-back" href="../../../standard/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource">[docs]</a><span class="k">class</span> <span class="nc">BaseDatabaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-
-    <span class="c1"># Seconds to wait until database should be ready</span>
-    <span class="n">TIMEOUT</span> <span class="o">=</span> <span class="mi">60</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The plug for addresses which uses a database as source.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        TIMEOUT (int): Seconds to wait until database should be ready</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">TIMEOUT</span> <span class="o">=</span> <span class="mi">60</span>
 
 <div class="viewcode-block" id="BaseDatabaseSource.__init__"><a class="viewcode-back" href="../../../standard/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
 <span class="sd">        Keyword Args:</span>
 <span class="sd">            db_connection (str): A rfc1738 conform database connection string in the form of:</span>
 <span class="sd">                ``&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;@&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;``</span>

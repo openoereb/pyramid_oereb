@@ -209,8 +209,6 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">plr_cadastre_authority</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the authority responsible for the PLR cadastre.</span>
-
 <span class="sd">        Returns:</span>
 <span class="sd">            pyramid_oereb.lib.records.office.OfficeRecord: The authority responsible for the PLR</span>
 <span class="sd">            cadastre.</span>
@@ -221,7 +219,8 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method finally creates the extract.</span>
 
-<span class="sd">        .. note:: If you subclass this class your implementation needs to offer this method in the same</span>
+<span class="sd">        Note:</span>
+<span class="sd">            If you subclass this class your implementation needs to offer this method in the same</span>
 <span class="sd">            signature. Means the parameters must be the same and the return must be a</span>
 <span class="sd">            :ref:`api-pyramid_oereb-core-records-extract-extractrecord`. Otherwise the API like way the server</span>
 <span class="sd">            works would be broken.</span>

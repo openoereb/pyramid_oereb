@@ -483,18 +483,8 @@ for the PLR cadastre.</li>
 <dl class="attribute">
 <dt id="pyramid_oereb.core.readers.extract.ExtractReader.plr_cadastre_authority">
 <code class="descname">plr_cadastre_authority</code><a class="headerlink" href="#pyramid_oereb.core.readers.extract.ExtractReader.plr_cadastre_authority" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the authority responsible for the PLR cadastre.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The authority responsible for the PLR
-cadastre.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pyramid_oereb.lib.records.office.OfficeRecord</td>
-</tr>
-</tbody>
-</table>
+<dd><p><a href="#id2"><span class="problematic" id="id3">**</span></a>Returns* &#8211; pyramid_oereb.lib.records.office.OfficeRecord* &#8211; The authority responsible for the PLR
+cadastre.</p>
 </dd></dl>
 
 <dl class="method">
@@ -634,15 +624,16 @@ signature. Means the parameters must be the same and the return must be a list o
 <a class="reference internal" href="records.html#api-pyramid-oereb-core-records-glossary-glossaryrecord"><span class="std std-ref">GlossaryRecord</span></a>. Otherwise the API like way
 the server works would be broken.</p>
 </div>
-<p>params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The list of found records. Since these are not filtered by any criteria the list simply
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The list of found records. Since these are not filtered by any criteria the list simply
 contains all records delivered by the source.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of pyramid_oereb.core.records.glossary.GlossaryRecord</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of pyramid_oereb.core.records.glossary.GlossaryRecord</td>
 </tr>
 </tbody>
 </table>
@@ -693,15 +684,16 @@ signature. Means the parameters must be the same and the return must be a list o
 <span class="xref std std-ref">api-pyramid_oereb-core-records-lawstatus-lawstatusrecord</span>.
 Otherwise the API like way the server works would be broken.</p>
 </div>
-<p>params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The list of found records. Since these are not filtered by any criteria the list simply
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The list of found records. Since these are not filtered by any criteria the list simply
 contains all records delivered by the source.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of pyramid_oereb.core.records.lawstatus.LawStatusRecord</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of pyramid_oereb.core.records.lawstatus.LawStatusRecord</td>
 </tr>
 </tbody>
 </table>
@@ -810,15 +802,16 @@ signature. Means the parameters must be the same and the return must be a list o
 <a class="reference internal" href="records.html#api-pyramid-oereb-core-records-map-layering-maplayeringrecord"><span class="std std-ref">MapLayeringRecord</span></a>. Otherwise the API like way
 the server works would be broken.</p>
 </div>
-<p>params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The list of found records. Since these are not filtered by any criteria the list simply
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The list of found records. Since these are not filtered by any criteria the list simply
 contains all records delivered by the source.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of pyramid_oereb.core.records.map_layering.MapLayeringRecord</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of pyramid_oereb.core.records.map_layering.MapLayeringRecord</td>
 </tr>
 </tbody>
 </table>
@@ -1005,9 +998,9 @@ Combination will deliver only one result or crashes.</li>
 <li><strong>number</strong> (<em>str</em><em> or </em><em>None</em>) &#8211; The number of parcel or also known real estate. This parameter
 is directly related to the nb_ident parameter and both must be set!
 Combination will deliver only one result or crashes.</li>
-<li><strong>or None</strong><strong>)</strong> (<em>(</em><em>str</em>) &#8211; The unique identifier of the desired real estate. This will deliver
+<li><strong>egrid</strong> (<em>str</em><em> or </em><em>None</em>) &#8211; The unique identifier of the desired real estate. This will deliver
 only one result or crashes.</li>
-<li><strong>geometry</strong> (<em>str</em>) &#8211; A geometry as WKT string which is used to obtain intersected real
+<li><strong>geometry</strong> (<em>str</em><em> or </em><em>None</em>) &#8211; A geometry as WKT string which is used to obtain intersected real
 estates. This may deliver several results.</li>
 </ul>
 </td>
@@ -1067,7 +1060,6 @@ signature. Means the parameters must be the same and the return must be a list o
 <span class="xref std std-ref">api-pyramid_oereb-core-records-realestatetype-realestatetyperecord</span>.
 Otherwise the API like way the server works would be broken.</p>
 </div>
-<p>params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

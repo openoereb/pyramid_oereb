@@ -477,6 +477,12 @@ other elements.</li>
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="pyramid_oereb.core.records.documents.DocumentRecord.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/documents.html#DocumentRecord.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.documents.DocumentRecord.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns (DocumentRecord): A copy of this DocumentRecord element</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="pyramid_oereb.core.records.documents.DocumentRecord.published">
 <code class="descname">published</code><a class="headerlink" href="#pyramid_oereb.core.records.documents.DocumentRecord.published" title="Permalink to this definition">¶</a></dt>
@@ -531,6 +537,40 @@ which is responsible for the topic.</li>
 <dt id="pyramid_oereb.core.records.embeddable.EmbeddableRecord">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.embeddable.</code><code class="descname">EmbeddableRecord</code><span class="sig-paren">(</span><em>cadaster_state</em>, <em>cadaster_organisation</em>, <em>data_owner_cadastral_surveying</em>, <em>transfer_from_source_cadastral_surveying</em>, <em>datasources</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/embeddable.html#EmbeddableRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.embeddable.EmbeddableRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.embeddable.EmbeddableRecord.cadaster_state">
+<code class="descname">cadaster_state</code><a class="headerlink" href="#pyramid_oereb.core.records.embeddable.EmbeddableRecord.cadaster_state" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.datetime</em> &#8211; Actuality of the oereb cadaster.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.embeddable.EmbeddableRecord.cadaster_organisation">
+<code class="descname">cadaster_organisation</code><a class="headerlink" href="#pyramid_oereb.core.records.embeddable.EmbeddableRecord.cadaster_organisation" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.office.OfficeRecord</em> &#8211; The information about the
+organisation which provides this cadaster.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.embeddable.EmbeddableRecord.data_owner_cadastral_surveying">
+<code class="descname">data_owner_cadastral_surveying</code><a class="headerlink" href="#pyramid_oereb.core.records.embeddable.EmbeddableRecord.data_owner_cadastral_surveying" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.office.OfficeRecord</em> &#8211; The information
+about the office which povides the surveying data for this extract.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.embeddable.EmbeddableRecord.transfer_from_source_cadastral_surveying">
+<code class="descname">transfer_from_source_cadastral_surveying</code><a class="headerlink" href="#pyramid_oereb.core.records.embeddable.EmbeddableRecord.transfer_from_source_cadastral_surveying" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.datetime</em> &#8211; The actuality of the surveying data
+used for this extract.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.embeddable.EmbeddableRecord.datasources">
+<code class="descname">datasources</code><a class="headerlink" href="#pyramid_oereb.core.records.embeddable.EmbeddableRecord.datasources" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.lib.records.embeddable.DatasourceRecord</em> &#8211; All the datasource
+information on the extract.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyramid_oereb.core.records.embeddable.EmbeddableRecord.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>cadaster_state</em>, <em>cadaster_organisation</em>, <em>data_owner_cadastral_surveying</em>, <em>transfer_from_source_cadastral_surveying</em>, <em>datasources</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/embeddable.html#EmbeddableRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.embeddable.EmbeddableRecord.__init__" title="Permalink to this definition">¶</a></dt>
@@ -565,7 +605,113 @@ information on the extract.</li>
 <dt id="pyramid_oereb.core.records.extract.ExtractRecord">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.extract.</code><code class="descname">ExtractRecord</code><span class="sig-paren">(</span><em>real_estate</em>, <em>logo_plr_cadastre</em>, <em>federal_logo</em>, <em>cantonal_logo</em>, <em>municipality_logo</em>, <em>plr_cadastre_authority</em>, <em>update_date_os</em>, <em>disclaimers=None</em>, <em>glossaries=None</em>, <em>concerned_theme=None</em>, <em>not_concerned_theme=None</em>, <em>theme_without_data=None</em>, <em>general_information=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/extract.html#ExtractRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>The extract base class.</p>
+<p>The extract base class.
+.. attribute:: creation_date</p>
+<blockquote>
+<div><em>datetime.datetime</em> &#8211; The date and time of the extract creation.</div></blockquote>
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.extract.ExtractRecord.electronic_signature">
+<code class="descname">electronic_signature</code><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.electronic_signature" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode or None</em> &#8211; Digital signature for the extract.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.extract.ExtractRecord.concerned_theme">
+<code class="descname">concerned_theme</code><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.concerned_theme" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.core.records.theme.ThemeRecord</em> &#8211; List of concerned themes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.extract.ExtractRecord.not_concerned_theme">
+<code class="descname">not_concerned_theme</code><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.not_concerned_theme" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.core.records.theme.ThemeRecord</em> &#8211; List of not concerned
+themes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.extract.ExtractRecord.theme_without_data">
+<code class="descname">theme_without_data</code><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.theme_without_data" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.core.records.theme.ThemeRecord</em> &#8211; List of themes without
+data.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.extract.ExtractRecord.extract_identifier">
+<code class="descname">extract_identifier</code><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.extract_identifier" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The extract identifier (UUID).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.extract.ExtractRecord.qr_code">
+<code class="descname">qr_code</code><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.qr_code" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>binary or None</em> &#8211; QR code for the extract as binary string.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.extract.ExtractRecord.update_date_os">
+<code class="descname">update_date_os</code><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.update_date_os" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime</em> &#8211; Last update of the official survey used as base map in the extract.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.extract.ExtractRecord.general_information">
+<code class="descname">general_information</code><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.general_information" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of dict</em> &#8211; General information for the static extract as multilingual
+text.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.extract.ExtractRecord.real_estate">
+<code class="descname">real_estate</code><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.real_estate" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em> &#8211; The real estate in its
+record representation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.extract.ExtractRecord.logo_plr_cadastre">
+<code class="descname">logo_plr_cadastre</code><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.logo_plr_cadastre" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.logo.LogoRecord</em> &#8211; Image file of the PLR logo.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.extract.ExtractRecord.federal_logo">
+<code class="descname">federal_logo</code><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.federal_logo" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.image.ImageRecord</em> &#8211; Image file of the federal logo.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.extract.ExtractRecord.cantonal_logo">
+<code class="descname">cantonal_logo</code><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.cantonal_logo" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.image.ImageRecord</em> &#8211; Image file of the cantonal logo.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.extract.ExtractRecord.municipality_logo">
+<code class="descname">municipality_logo</code><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.municipality_logo" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.image.ImageRecord</em> &#8211; Image file of the municipality
+logo.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.extract.ExtractRecord.plr_cadastre_authority">
+<code class="descname">plr_cadastre_authority</code><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.plr_cadastre_authority" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.office.OfficeRecord</em> &#8211; The authority which is
+responsible for the PLR cadastre.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">disclaimer (list of</code></dt>
+<dd><p>pyramid_oereb.core.records.disclaimer.DisclaimerRecord or None): Disclaimers for the extract.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.extract.ExtractRecord.glossaries">
+<code class="descname">glossaries</code><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.glossaries" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.lib.records.glossary.GlossaryRecord</em> &#8211; Glossaries for the
+extract.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyramid_oereb.core.records.extract.ExtractRecord.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>real_estate</em>, <em>logo_plr_cadastre</em>, <em>federal_logo</em>, <em>cantonal_logo</em>, <em>municipality_logo</em>, <em>plr_cadastre_authority</em>, <em>update_date_os</em>, <em>disclaimers=None</em>, <em>glossaries=None</em>, <em>concerned_theme=None</em>, <em>not_concerned_theme=None</em>, <em>theme_without_data=None</em>, <em>general_information=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/extract.html#ExtractRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.__init__" title="Permalink to this definition">¶</a></dt>
@@ -601,48 +747,6 @@ text.</li>
 </table>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="pyramid_oereb.core.records.extract.ExtractRecord.concerned_theme">
-<code class="descname">concerned_theme</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.concerned_theme" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>list of pyramid_oereb.core.records.theme.ThemeRecord</em> &#8211; List of concerned themes.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyramid_oereb.core.records.extract.ExtractRecord.creation_date">
-<code class="descname">creation_date</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.creation_date" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>datetime.datetime</em> &#8211; The date and time of the extract creation.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyramid_oereb.core.records.extract.ExtractRecord.electronic_signature">
-<code class="descname">electronic_signature</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.electronic_signature" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>unicode or None</em> &#8211; Digital signature for the extract.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyramid_oereb.core.records.extract.ExtractRecord.extract_identifier">
-<code class="descname">extract_identifier</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.extract_identifier" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>unicode</em> &#8211; The extract identifier (UUID).</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyramid_oereb.core.records.extract.ExtractRecord.not_concerned_theme">
-<code class="descname">not_concerned_theme</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.not_concerned_theme" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>list of pyramid_oereb.core.records.theme.ThemeRecord</em> &#8211; List of not concerned themes.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyramid_oereb.core.records.extract.ExtractRecord.qr_code">
-<code class="descname">qr_code</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.qr_code" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>binary or None</em> &#8211; QR code for the extract as binary string.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyramid_oereb.core.records.extract.ExtractRecord.theme_without_data">
-<code class="descname">theme_without_data</code><em class="property"> = None</em><a class="headerlink" href="#pyramid_oereb.core.records.extract.ExtractRecord.theme_without_data" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>list of pyramid_oereb.core.records.theme.ThemeRecord</em> &#8211; List of themes without data.</p>
-</dd></dl>
-
 </dd></dl>
 
 <span class="target" id="module-pyramid_oereb.core.records.general_information"><span id="api-pyramid-oereb-core-records-general-information"></span></span></div>
@@ -653,14 +757,31 @@ text.</li>
 <em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.general_information.</code><code class="descname">GeneralInformationRecord</code><span class="sig-paren">(</span><em>title</em>, <em>content</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/general_information.html#GeneralInformationRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.general_information.GeneralInformationRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Represents a general information entry with its title and content.
-:param title: The title of the information (multilingual)
-:type title: dict of unicode
-:param content: The actual information (multilingual)
-:type content: dict of unicode</p>
+.. attribute:: title</p>
+<blockquote>
+<div><em>dict of unicode</em> &#8211; The title of the information (multilingual)</div></blockquote>
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.general_information.GeneralInformationRecord.content">
+<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.core.records.general_information.GeneralInformationRecord.content" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of unicode</em> &#8211; The actual information (multilingual)</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyramid_oereb.core.records.general_information.GeneralInformationRecord.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>title</em>, <em>content</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/general_information.html#GeneralInformationRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.general_information.GeneralInformationRecord.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>title</strong> (<em>dict of unicode</em>) &#8211; The title of the information (multilingual)</li>
+<li><strong>content</strong> (<em>dict of unicode</em>) &#8211; The actual information (multilingual)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -672,39 +793,84 @@ text.</li>
 <em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.geometry.</code><code class="descname">GeometryRecord</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>published_until</em>, <em>geom</em>, <em>geo_metadata=None</em>, <em>public_law_restriction=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/geometry.html#GeometryRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.geometry.GeometryRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Geometry record</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.geometry.GeometryRecord.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.core.records.geometry.GeometryRecord.law_status" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.law_status.LawStatusRecord</em> &#8211; The law status of this record.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.geometry.GeometryRecord.published_from">
+<code class="descname">published_from</code><a class="headerlink" href="#pyramid_oereb.core.records.geometry.GeometryRecord.published_from" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; Date from/since when the PLR record is published.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.geometry.GeometryRecord.published_until">
+<code class="descname">published_until</code><a class="headerlink" href="#pyramid_oereb.core.records.geometry.GeometryRecord.published_until" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; Date until the PLR record is published.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.geometry.GeometryRecord.geom">
+<code class="descname">geom</code><a class="headerlink" href="#pyramid_oereb.core.records.geometry.GeometryRecord.geom" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Point or LineString or Polygon</em> &#8211; The geometry which must be of type POINT, LINESTRING
+or POLYGON, everything else will raise an error.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.geometry.GeometryRecord.geo_metadata">
+<code class="descname">geo_metadata</code><a class="headerlink" href="#pyramid_oereb.core.records.geometry.GeometryRecord.geo_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>uri</em> &#8211; The metadata.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.geometry.GeometryRecord.public_law_restriction">
+<code class="descname">public_law_restriction</code><a class="headerlink" href="#pyramid_oereb.core.records.geometry.GeometryRecord.public_law_restriction" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.plr.PlrRecord</em> &#8211; The public law restriction</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.geometry.GeometryRecord.calculated">
+<code class="descname">calculated</code><a class="headerlink" href="#pyramid_oereb.core.records.geometry.GeometryRecord.calculated" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>boole</em> &#8211; True if there was an access on property before calculation was done.</p>
+</dd></dl>
+
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>law_status</strong> (<em>pyramid_oereb.lib.records.law_status.LawStatusRecord</em>) &#8211; The law status of this record.</li>
-<li><strong>published_from</strong> (<em>datetime.date</em>) &#8211; Date from/since when the PLR record is published.</li>
-<li><strong>published_until</strong> (<em>datetime.date</em>) &#8211; Date until the PLR record is published.</li>
-<li><strong>geom</strong> (<em>Point</em><em> or </em><em>LineString</em><em> or </em><em>Polygon</em>) &#8211; <dl class="docutils">
-<dt>The geometry which must be of type POINT, LINESTRING or POLYGON, everything else</dt>
-<dd>will raise an error.</dd>
-</dl>
-</li>
-<li><strong>geo_metadata</strong> (<em>uri</em>) &#8211; The metadata.</li>
-<li><strong>public_law_restriction</strong> (<em>pyramid_oereb.lib.records.plr.PlrRecord</em>) &#8211; The public law
-restriction</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">AttributeError</span></code> &#8211; Error when a wrong geometry type was passed.</p>
-</td>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">AttributeError</span></code> &#8211; Error when a wrong geometry type was passed.</td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="pyramid_oereb.core.records.geometry.GeometryRecord.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>law_status</em>, <em>published_from</em>, <em>published_until</em>, <em>geom</em>, <em>geo_metadata=None</em>, <em>public_law_restriction=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/geometry.html#GeometryRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.geometry.GeometryRecord.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>law_status</strong> (<em>pyramid_oereb.lib.records.law_status.LawStatusRecord</em>) &#8211; The law status of this record.</li>
+<li><strong>published_from</strong> (<em>datetime.date</em>) &#8211; Date from/since when the PLR record is published.</li>
+<li><strong>published_until</strong> (<em>datetime.date</em>) &#8211; Date until the PLR record is published.</li>
+<li><strong>geom</strong> (<em>Point</em><em> or </em><em>LineString</em><em> or </em><em>Polygon</em>) &#8211; </li>
+<li><strong>geometry which must be of type POINT</strong><strong>, </strong><strong>LINESTRING</strong><strong> or </strong><strong>POLYGON</strong><strong>, </strong><strong>everything else</strong> (<em>The</em>) &#8211; will raise an error.</li>
+<li><strong>geo_metadata</strong> (<em>uri</em>) &#8211; The metadata.</li>
+<li><strong>public_law_restriction</strong> (<em>pyramid_oereb.lib.records.plr.PlrRecord</em>) &#8211; The public law
+restriction</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pyramid_oereb.core.records.geometry.GeometryRecord.area_share">
 <code class="descname">area_share</code><a class="headerlink" href="#pyramid_oereb.core.records.geometry.GeometryRecord.area_share" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float or None</em> &#8211; Returns the area of this geometry.</p>
+<dd><p><a href="#id2"><span class="problematic" id="id3">**</span></a>Returns* &#8211; float or None* &#8211; the area of this geometry.</p>
 </dd></dl>
 
 <dl class="method">
@@ -740,7 +906,7 @@ types point, line, polygon</li>
 <dl class="attribute">
 <dt id="pyramid_oereb.core.records.geometry.GeometryRecord.dim">
 <code class="descname">dim</code><a class="headerlink" href="#pyramid_oereb.core.records.geometry.GeometryRecord.dim" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; The topological dimension.</p>
+<dd><p><a href="#id4"><span class="problematic" id="id5">**</span></a>Returns* &#8211; int* &#8211; The topological dimension.</p>
 </dd></dl>
 
 <dl class="staticmethod">
@@ -764,19 +930,19 @@ types point, line, polygon</li>
 <dl class="attribute">
 <dt id="pyramid_oereb.core.records.geometry.GeometryRecord.length_share">
 <code class="descname">length_share</code><a class="headerlink" href="#pyramid_oereb.core.records.geometry.GeometryRecord.length_share" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float or None</em> &#8211; Returns the length of this geometry.</p>
+<dd><p><a href="#id6"><span class="problematic" id="id7">**</span></a>Returns* &#8211; float or None* &#8211; the length of this geometry.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pyramid_oereb.core.records.geometry.GeometryRecord.nr_of_points">
 <code class="descname">nr_of_points</code><a class="headerlink" href="#pyramid_oereb.core.records.geometry.GeometryRecord.nr_of_points" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float or None</em> &#8211; Returns the number of this geometry.</p>
+<dd><p><a href="#id8"><span class="problematic" id="id9">**</span></a>Returns* &#8211; float or None* &#8211; the total amount of points/this geometry.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pyramid_oereb.core.records.geometry.GeometryRecord.published">
 <code class="descname">published</code><a class="headerlink" href="#pyramid_oereb.core.records.geometry.GeometryRecord.published" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>bool</em> &#8211; True if geometry is published.</p>
+<dd><p><a href="#id10"><span class="problematic" id="id11">**</span></a>Returns* &#8211; bool* &#8211; True if geometry is published.</p>
 </dd></dl>
 
 </dd></dl>
@@ -789,22 +955,34 @@ types point, line, polygon</li>
 <em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.glossary.</code><code class="descname">GlossaryRecord</code><span class="sig-paren">(</span><em>title</em>, <em>content</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/glossary.html#GlossaryRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.glossary.GlossaryRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Represents a glossary entry with the term and it&#8217;s description.</p>
-<table class="docutils field-list" frame="void" rules="none">
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.glossary.GlossaryRecord.title">
+<code class="descname">title</code><a class="headerlink" href="#pyramid_oereb.core.records.glossary.GlossaryRecord.title" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of unicode</em> &#8211; The term used in the extract (multilingual).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.glossary.GlossaryRecord.content">
+<code class="descname">content</code><a class="headerlink" href="#pyramid_oereb.core.records.glossary.GlossaryRecord.content" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of unicode</em> &#8211; The description text for the glossary entry (multilingual).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.core.records.glossary.GlossaryRecord.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>title</em>, <em>content</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/glossary.html#GlossaryRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.glossary.GlossaryRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>title</strong> (<em>dict of unicode</em>) &#8211; The term used in the extract (multilingual).</li>
-<li><strong>content</strong> (<em>dict of unicode</em>) &#8211; The description text for the glossary entry (multilingual).</li>
+<li><strong>content</strong> (<em>dict of unicode</em>) &#8211; The description text for the glossary entry (multilingual)</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<dl class="method">
-<dt id="pyramid_oereb.core.records.glossary.GlossaryRecord.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>title</em>, <em>content</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/glossary.html#GlossaryRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.glossary.GlossaryRecord.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -815,14 +993,21 @@ types point, line, polygon</li>
 <dt id="pyramid_oereb.core.records.image.ImageRecord">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.image.</code><code class="descname">ImageRecord</code><span class="sig-paren">(</span><em>content</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/image.html#ImageRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.image.ImageRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="pyramid_oereb.core.records.image.ImageRecord.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>content</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/image.html#ImageRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.image.ImageRecord.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.image.ImageRecord.VALID_FILE_TYPES">
+<code class="descname">VALID_FILE_TYPES</code><a class="headerlink" href="#pyramid_oereb.core.records.image.ImageRecord.VALID_FILE_TYPES" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of str</em> &#8211; list with valid image file type.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pyramid_oereb.core.records.image.ImageRecord.SVG_PATTERN">
-<code class="descname">SVG_PATTERN</code><em class="property"> = re.compile('&lt;svg(.|\\n)+&lt;\\/svg&gt;')</em><a class="headerlink" href="#pyramid_oereb.core.records.image.ImageRecord.SVG_PATTERN" title="Permalink to this definition">¶</a></dt>
+<code class="descname">SVG_PATTERN</code><a class="headerlink" href="#pyramid_oereb.core.records.image.ImageRecord.SVG_PATTERN" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>re</em> &#8211; regex pattern for svg image file types.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.core.records.image.ImageRecord.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>content</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/image.html#ImageRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.image.ImageRecord.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>The record to hold the binary information of a image.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -837,12 +1022,11 @@ types point, line, polygon</li>
 <dl class="method">
 <dt id="pyramid_oereb.core.records.image.ImageRecord.encode">
 <code class="descname">encode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/image.html#ImageRecord.encode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.image.ImageRecord.encode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the image as base64 encoded string.</p>
-<table class="docutils field-list" frame="void" rules="none">
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The encoded image.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The encoded image as a base64 encoded string..</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
 </tr>
@@ -932,24 +1116,37 @@ as str, bytes or bytearray. See filetype documentation:
 <em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.law_status.</code><code class="descname">LawStatusRecord</code><span class="sig-paren">(</span><em>code</em>, <em>title</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/law_status.html#LawStatusRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.law_status.LawStatusRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Law status record.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.law_status.LawStatusRecord.code">
+<code class="descname">code</code><a class="headerlink" href="#pyramid_oereb.core.records.law_status.LawStatusRecord.code" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str or unicode</em> &#8211; The code of the law status. It must be &#8220;inKraft&#8221; or
+&#8220;AenderungMitVorwirkung&#8221; or &#8220;AenderungOhneVorwirkung&#8221; every other value will
+raise an error.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.law_status.LawStatusRecord.title">
+<code class="descname">title</code><a class="headerlink" href="#pyramid_oereb.core.records.law_status.LawStatusRecord.title" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of unicode</em> &#8211; The multilingual law status description.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyramid_oereb.core.records.law_status.LawStatusRecord.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>code</em>, <em>title</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/law_status.html#LawStatusRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.law_status.LawStatusRecord.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a new law status record.</p>
-<table class="docutils field-list" frame="void" rules="none">
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>code</strong> (<em>str</em><em> or </em><em>unicode</em>) &#8211; The code of the law status. It must be &#8220;inKraft&#8221; or</li>
-<li><strong>or &quot;AenderungOhneVorwirkung&quot; every other value will</strong> (<em>&quot;AenderungMitVorwirkung&quot;</em>) &#8211; </li>
-<li><strong>an error.</strong> (<em>raise</em>) &#8211; </li>
+<li><strong>code</strong> (<em>str</em><em> or </em><em>unicode</em>) &#8211; The code of the law status. It must be &#8220;inKraft&#8221; or
+&#8220;AenderungMitVorwirkung&#8221; or &#8220;AenderungOhneVorwirkung&#8221; every other value will
+raise an error.</li>
+<li><strong>title</strong> (<em>dict of unicode</em>) &#8211; The multilingual law status description.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p>title (dict of unicode): The multilingual law status description.</p>
 </dd></dl>
 
 </dd></dl>
@@ -962,7 +1159,23 @@ as str, bytes or bytearray. See filetype documentation:
 <em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.logo.</code><code class="descname">LogoRecord</code><span class="sig-paren">(</span><em>code</em>, <em>image_dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/logo.html#LogoRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.logo.LogoRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Represents a logo with its code and its base64 encoded string (multilingual).</p>
-<table class="docutils field-list" frame="void" rules="none">
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.logo.LogoRecord.code">
+<code class="descname">code</code><a class="headerlink" href="#pyramid_oereb.core.records.logo.LogoRecord.code" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str of unicode</em> &#8211; The code for the logo.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.logo.LogoRecord.image_dict">
+<code class="descname">image_dict</code><a class="headerlink" href="#pyramid_oereb.core.records.logo.LogoRecord.image_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of pyramid_oereb.lib.records.image.ImageRecord</em> &#8211; The image encoded
+as base64 (multilingual).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.core.records.logo.LogoRecord.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>code</em>, <em>image_dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/logo.html#LogoRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.logo.LogoRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -975,10 +1188,7 @@ as base64 (multilingual).</li>
 </tr>
 </tbody>
 </table>
-<dl class="method">
-<dt id="pyramid_oereb.core.records.logo.LogoRecord.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>code</em>, <em>image_dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/logo.html#LogoRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.logo.LogoRecord.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -990,7 +1200,28 @@ as base64 (multilingual).</li>
 <em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.map_layering.</code><code class="descname">MapLayeringRecord</code><span class="sig-paren">(</span><em>view_service</em>, <em>layer_index</em>, <em>layer_opacity</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/map_layering.html#MapLayeringRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.map_layering.MapLayeringRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Represents a map layering entry with the view service, layer index and layer opacity.</p>
-<table class="docutils field-list" frame="void" rules="none">
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.map_layering.MapLayeringRecord.view_service">
+<code class="descname">view_service</code><a class="headerlink" href="#pyramid_oereb.core.records.map_layering.MapLayeringRecord.view_service" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; View service.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.map_layering.MapLayeringRecord.layer_index">
+<code class="descname">layer_index</code><a class="headerlink" href="#pyramid_oereb.core.records.map_layering.MapLayeringRecord.layer_index" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; Index for sorting the layering of the view services within a theme.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.map_layering.MapLayeringRecord.layer_opacity">
+<code class="descname">layer_opacity</code><a class="headerlink" href="#pyramid_oereb.core.records.map_layering.MapLayeringRecord.layer_opacity" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> &#8211; Opacity of a view service.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.core.records.map_layering.MapLayeringRecord.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>view_service</em>, <em>layer_index</em>, <em>layer_opacity</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/map_layering.html#MapLayeringRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.map_layering.MapLayeringRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -1003,10 +1234,7 @@ as base64 (multilingual).</li>
 </tr>
 </tbody>
 </table>
-<dl class="method">
-<dt id="pyramid_oereb.core.records.map_layering.MapLayeringRecord.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>view_service</em>, <em>layer_index</em>, <em>layer_opacity</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/map_layering.html#MapLayeringRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.map_layering.MapLayeringRecord.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -1018,7 +1246,34 @@ as base64 (multilingual).</li>
 <em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.municipality.</code><code class="descname">MunicipalityRecord</code><span class="sig-paren">(</span><em>fosnr</em>, <em>name</em>, <em>published</em>, <em>geom=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/municipality.html#MunicipalityRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.municipality.MunicipalityRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>The base document class.</p>
-<table class="docutils field-list" frame="void" rules="none">
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.municipality.MunicipalityRecord.fosnr">
+<code class="descname">fosnr</code><a class="headerlink" href="#pyramid_oereb.core.records.municipality.MunicipalityRecord.fosnr" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The unique id bfs of the municipality.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.municipality.MunicipalityRecord.name">
+<code class="descname">name</code><a class="headerlink" href="#pyramid_oereb.core.records.municipality.MunicipalityRecord.name" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The zipcode for this address.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.municipality.MunicipalityRecord.published">
+<code class="descname">published</code><a class="headerlink" href="#pyramid_oereb.core.records.municipality.MunicipalityRecord.published" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>bool</em> &#8211; Is this municipality ready for publishing via server.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.municipality.MunicipalityRecord.geom">
+<code class="descname">geom</code><a class="headerlink" href="#pyramid_oereb.core.records.municipality.MunicipalityRecord.geom" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str or None</em> &#8211; The geometry which is representing this municipality as a WKT.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.core.records.municipality.MunicipalityRecord.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>fosnr</em>, <em>name</em>, <em>published</em>, <em>geom=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/municipality.html#MunicipalityRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.municipality.MunicipalityRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -1026,17 +1281,13 @@ as base64 (multilingual).</li>
 <li><strong>fosnr</strong> (<em>int</em>) &#8211; The unique id bfs of the municipality.</li>
 <li><strong>name</strong> (<em>unicode</em>) &#8211; The zipcode for this address.</li>
 <li><strong>published</strong> (<em>bool</em>) &#8211; Is this municipality ready for publishing via server.</li>
-<li><strong>logo</strong> (<em>pyramid_oereb.lib.records.image.ImageRecord</em>) &#8211; The municipality logo.</li>
 <li><strong>geom</strong> (<em>str</em><em> or </em><em>None</em>) &#8211; The geometry which is representing this municipality as a WKT.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<dl class="method">
-<dt id="pyramid_oereb.core.records.municipality.MunicipalityRecord.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>fosnr</em>, <em>name</em>, <em>published</em>, <em>geom=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/municipality.html#MunicipalityRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.municipality.MunicipalityRecord.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -1048,7 +1299,65 @@ as base64 (multilingual).</li>
 <em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.office.</code><code class="descname">OfficeRecord</code><span class="sig-paren">(</span><em>name</em>, <em>uid=None</em>, <em>office_at_web=None</em>, <em>line1=None</em>, <em>line2=None</em>, <em>street=None</em>, <em>number=None</em>, <em>postal_code=None</em>, <em>city=None</em>, <em>identifier=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/office.html#OfficeRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.office.OfficeRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Responsible office record.</p>
-<table class="docutils field-list" frame="void" rules="none">
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.office.OfficeRecord.name">
+<code class="descname">name</code><a class="headerlink" href="#pyramid_oereb.core.records.office.OfficeRecord.name" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of unicode</em> &#8211; The official name of the authority (multilingual)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.office.OfficeRecord.uid">
+<code class="descname">uid</code><a class="headerlink" href="#pyramid_oereb.core.records.office.OfficeRecord.uid" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The unique identifier of the authority in the federal register</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.office.OfficeRecord.office_at_web">
+<code class="descname">office_at_web</code><a class="headerlink" href="#pyramid_oereb.core.records.office.OfficeRecord.office_at_web" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of unicode</em> &#8211; The URL to the office&#8217;s homepage (multilingual)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.office.OfficeRecord.line1">
+<code class="descname">line1</code><a class="headerlink" href="#pyramid_oereb.core.records.office.OfficeRecord.line1" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; Complementary address information</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.office.OfficeRecord.line2">
+<code class="descname">line2</code><a class="headerlink" href="#pyramid_oereb.core.records.office.OfficeRecord.line2" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; Complementary address information</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.office.OfficeRecord.street">
+<code class="descname">street</code><a class="headerlink" href="#pyramid_oereb.core.records.office.OfficeRecord.street" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The street where the authority is located</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.office.OfficeRecord.number">
+<code class="descname">number</code><a class="headerlink" href="#pyramid_oereb.core.records.office.OfficeRecord.number" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; House number</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.office.OfficeRecord.postal_code">
+<code class="descname">postal_code</code><a class="headerlink" href="#pyramid_oereb.core.records.office.OfficeRecord.postal_code" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>integer</em> &#8211; ZIP Code of the</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.office.OfficeRecord.city">
+<code class="descname">city</code><a class="headerlink" href="#pyramid_oereb.core.records.office.OfficeRecord.city" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The city where the authority is located
+identifier (str): The identifier of the theme which might be used for linking to other elements.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.core.records.office.OfficeRecord.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>name</em>, <em>uid=None</em>, <em>office_at_web=None</em>, <em>line1=None</em>, <em>line2=None</em>, <em>street=None</em>, <em>number=None</em>, <em>postal_code=None</em>, <em>city=None</em>, <em>identifier=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/office.html#OfficeRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.office.OfficeRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -1062,16 +1371,14 @@ as base64 (multilingual).</li>
 <li><strong>number</strong> (<em>unicode</em>) &#8211; House number</li>
 <li><strong>postal_code</strong> (<em>integer</em>) &#8211; ZIP Code of the</li>
 <li><strong>city</strong> (<em>unicode</em>) &#8211; The city where the authority is located
-identifier (str): The identifier of the theme which might be used for linking to other elements.</li>
+identifier (str): The identifier of the theme which might be used for linking to other
+elements.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<dl class="method">
-<dt id="pyramid_oereb.core.records.office.OfficeRecord.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>name</em>, <em>uid=None</em>, <em>office_at_web=None</em>, <em>line1=None</em>, <em>line2=None</em>, <em>street=None</em>, <em>number=None</em>, <em>postal_code=None</em>, <em>city=None</em>, <em>identifier=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/office.html#OfficeRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.office.OfficeRecord.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -1082,6 +1389,18 @@ identifier (str): The identifier of the theme which might be used for linking to
 <dt id="pyramid_oereb.core.records.plr.EmptyPlrRecord">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.plr.</code><code class="descname">EmptyPlrRecord</code><span class="sig-paren">(</span><em>theme</em>, <em>has_data=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/plr.html#EmptyPlrRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.plr.EmptyPlrRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.EmptyPlrRecord.theme">
+<code class="descname">theme</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.EmptyPlrRecord.theme" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.theme.ThemeRecord</em> &#8211; The theme to which the PLR belongs to.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.EmptyPlrRecord.has_data">
+<code class="descname">has_data</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.EmptyPlrRecord.has_data" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>bool</em> &#8211; True if the topic contains data.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyramid_oereb.core.records.plr.EmptyPlrRecord.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>theme</em>, <em>has_data=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/plr.html#EmptyPlrRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.plr.EmptyPlrRecord.__init__" title="Permalink to this definition">¶</a></dt>
@@ -1109,7 +1428,130 @@ identifier (str): The identifier of the theme which might be used for linking to
 <dt id="pyramid_oereb.core.records.plr.PlrRecord">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.plr.</code><code class="descname">PlrRecord</code><span class="sig-paren">(</span><em>theme</em>, <em>legend_entry</em>, <em>law_status</em>, <em>published_from</em>, <em>published_until</em>, <em>responsible_office</em>, <em>symbol</em>, <em>view_service</em>, <em>geometries</em>, <em>sub_theme=None</em>, <em>type_code=None</em>, <em>type_code_list=None</em>, <em>documents=None</em>, <em>info=None</em>, <em>min_length=0.0</em>, <em>min_area=0.0</em>, <em>length_unit='m'</em>, <em>area_unit='m2'</em>, <em>view_service_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/plr.html#PlrRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyramid_oereb.core.records.plr.EmptyPlrRecord" title="pyramid_oereb.core.records.plr.EmptyPlrRecord"><code class="xref py py-class docutils literal"><span class="pre">pyramid_oereb.core.records.plr.EmptyPlrRecord</span></code></a></p>
-<p>Public law restriction record.</p>
+<p>Public law restriction record.
+.. attribute:: theme</p>
+<blockquote>
+<div><em>pyramid_oereb.lib.records.theme.ThemeRecord</em> &#8211; The theme to which the PLR belongs to.</div></blockquote>
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.PlrRecord.legend_entry">
+<code class="descname">legend_entry</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.legend_entry" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.view_service.LegendEntryRecord</em> &#8211; The PLR record&#8217;s
+corresponding legend record.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.PlrRecord.law_status">
+<code class="descname">law_status</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.law_status" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.law_status.LawStatusRecord</em> &#8211; The law status of this record.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.PlrRecord.published_from">
+<code class="descname">published_from</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.published_from" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; Date from/since when the PLR record is published.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.PlrRecord.published_until">
+<code class="descname">published_until</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.published_until" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>datetime.date</em> &#8211; Date from when the PLR record is not published anymore.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.PlrRecord.responsible_office">
+<code class="descname">responsible_office</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.responsible_office" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.office.OfficeRecord</em> &#8211; Office which is responsible
+for this PLR.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.PlrRecord.symbol">
+<code class="descname">symbol</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.image.ImageRecord</em> &#8211; Symbol of the restriction defined for the
+legend entry</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.PlrRecord.view_service">
+<code class="descname">view_service</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.view_service" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.view_service.ViewServiceRecord</em> &#8211; The view service instance
+associated with this record.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.PlrRecord.geometries">
+<code class="descname">geometries</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.geometries" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.lib.records.geometry.GeometryRecord</em> &#8211; List of geometry records
+associated with this record.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.PlrRecord.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.sub_theme" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.theme.ThemeRecord or None</em> &#8211; Optional subtopic.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.PlrRecord.type_code">
+<code class="descname">type_code</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.type_code" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The PLR record&#8217;s type code (also used by view service).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.PlrRecord.type_code_list">
+<code class="descname">type_code_list</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.type_code_list" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; URL to the PLR&#8217;s list of type codes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.PlrRecord.documents">
+<code class="descname">documents</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.documents" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of pyramid_oereb.core.records.documents.DocumentBaseRecord</em> &#8211; List of documents
+associated with this record.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.PlrRecord.info">
+<code class="descname">info</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.info" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict or None</em> &#8211; The information read from the config.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.PlrRecord.min_length">
+<code class="descname">min_length</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.min_length" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> &#8211; The threshold for area calculation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.PlrRecord.min_area">
+<code class="descname">min_area</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.min_area" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> &#8211; The threshold for area calculation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.PlrRecord.length_unit">
+<code class="descname">length_unit</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.length_unit" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The threshold for area calculation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.PlrRecord.area_unit">
+<code class="descname">area_unit</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.area_unit" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The threshold for area calculation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.PlrRecord.view_service_id">
+<code class="descname">view_service_id</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.view_service_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The id to the connected view service. This is very important to be able to</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">solve bug https</code></dt>
+<dd><p>//github.com/openoereb/pyramid_oereb/issues/521</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyramid_oereb.core.records.plr.PlrRecord.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>theme</em>, <em>legend_entry</em>, <em>law_status</em>, <em>published_from</em>, <em>published_until</em>, <em>responsible_office</em>, <em>symbol</em>, <em>view_service</em>, <em>geometries</em>, <em>sub_theme=None</em>, <em>type_code=None</em>, <em>type_code_list=None</em>, <em>documents=None</em>, <em>info=None</em>, <em>min_length=0.0</em>, <em>min_area=0.0</em>, <em>length_unit='m'</em>, <em>area_unit='m2'</em>, <em>view_service_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/plr.html#PlrRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.__init__" title="Permalink to this definition">¶</a></dt>
@@ -1154,7 +1596,7 @@ associated with this record.</li>
 <dl class="attribute">
 <dt id="pyramid_oereb.core.records.plr.PlrRecord.area_share">
 <code class="descname">area_share</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.area_share" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float or None</em> &#8211; Returns the summed area of all related geometry records of this PLR.</p>
+<dd><p><a href="#id12"><span class="problematic" id="id13">**</span></a>Retruns* &#8211; float or None* &#8211; the summed area of all related geometry records of this PLR.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1184,27 +1626,33 @@ collection which has to be unpacked first in case of collection.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="pyramid_oereb.core.records.plr.PlrRecord.legend_text">
+<code class="descname">legend_text</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.legend_text" title="Permalink to this definition">¶</a></dt>
+<dd><p><a href="#id14"><span class="problematic" id="id15">**</span></a>Returns* &#8211; dict of unicode* &#8211; the legend text</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="pyramid_oereb.core.records.plr.PlrRecord.length_share">
 <code class="descname">length_share</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.length_share" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float or None</em> &#8211; Returns the summed length of all related geometry records of this PLR.</p>
+<dd><p><a href="#id16"><span class="problematic" id="id17">**</span></a>Returns* &#8211; float or None* &#8211; the summed length of all related geometry records of this PLR.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pyramid_oereb.core.records.plr.PlrRecord.nr_of_points">
 <code class="descname">nr_of_points</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.nr_of_points" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>float or None</em> &#8211; Returns the number of points of all related geometry records of this PLR.</p>
+<dd><p><a href="#id18"><span class="problematic" id="id19">**</span></a>Returns* &#8211; float or None* &#8211; the number of points of all related geometry records of this PLR.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pyramid_oereb.core.records.plr.PlrRecord.part_in_percent">
 <code class="descname">part_in_percent</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.part_in_percent" title="Permalink to this definition">¶</a></dt>
-<dd><p><a href="#id2"><span class="problematic" id="id3">**</span></a>decimal or None* &#8211; (decimal)* &#8211; Part of the property area touched by the restriction in percent.</p>
+<dd><p><a href="#id20"><span class="problematic" id="id21">**</span></a>Retruns* &#8211; decimal or None* &#8211; (decimal): Part of the property area touched by the restriction in percent.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pyramid_oereb.core.records.plr.PlrRecord.published">
 <code class="descname">published</code><a class="headerlink" href="#pyramid_oereb.core.records.plr.PlrRecord.published" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>bool</em> &#8211; True if PLR is published.</p>
+<dd><p><a href="#id22"><span class="problematic" id="id23">**</span></a>Retruns* &#8211; bool* &#8211; True if PLR is published.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1317,14 +1765,31 @@ service to be used for the land registry map.</td>
 <em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.real_estate_type.</code><code class="descname">RealEstateTypeRecord</code><span class="sig-paren">(</span><em>code</em>, <em>title</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/real_estate_type.html#RealEstateTypeRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.real_estate_type.RealEstateTypeRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Represents a real estate type entry with the code and it&#8217;s display name.
-:param code: The code for the real estate type.
-:type code: str of unicode
-:param title: The label title for the real estate type (multilingual).
-:type title: dict of unicode</p>
+.. attribute:: code</p>
+<blockquote>
+<div><em>str of unicode</em> &#8211; The code for the real estate type.</div></blockquote>
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.real_estate_type.RealEstateTypeRecord.title">
+<code class="descname">title</code><a class="headerlink" href="#pyramid_oereb.core.records.real_estate_type.RealEstateTypeRecord.title" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of unicode</em> &#8211; The label title for the real estate type (multilingual).</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyramid_oereb.core.records.real_estate_type.RealEstateTypeRecord.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>code</em>, <em>title</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/real_estate_type.html#RealEstateTypeRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.real_estate_type.RealEstateTypeRecord.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>code</strong> (<em>str of unicode</em>) &#8211; The code for the real estate type.</li>
+<li><strong>title</strong> (<em>dict of unicode</em>) &#8211; The label title for the real estate type (multilingual).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -1335,7 +1800,40 @@ service to be used for the land registry map.</td>
 <dt id="pyramid_oereb.core.records.theme.ThemeRecord">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.theme.</code><code class="descname">ThemeRecord</code><span class="sig-paren">(</span><em>code</em>, <em>title</em>, <em>extract_index</em>, <em>sub_code=None</em>, <em>document_records=None</em>, <em>identifier=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/theme.html#ThemeRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.theme.ThemeRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Creates a new theme record.</p>
+<p>Creates a new theme record.
+.. attribute:: code</p>
+<blockquote>
+<div><em>unicode</em> &#8211; The theme&#8217;s code.</div></blockquote>
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.theme.ThemeRecord.title">
+<code class="descname">title</code><a class="headerlink" href="#pyramid_oereb.core.records.theme.ThemeRecord.title" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of unicode</em> &#8211; The multilingual description.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.theme.ThemeRecord.extract_index">
+<code class="descname">extract_index</code><a class="headerlink" href="#pyramid_oereb.core.records.theme.ThemeRecord.extract_index" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; Index to sort themes in the extract.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.theme.ThemeRecord.sub_code">
+<code class="descname">sub_code</code><a class="headerlink" href="#pyramid_oereb.core.records.theme.ThemeRecord.sub_code" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The code of the sub_theme. Is none for themes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.theme.ThemeRecord.document_records">
+<code class="descname">document_records</code><a class="headerlink" href="#pyramid_oereb.core.records.theme.ThemeRecord.document_records" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of str</em> &#8211; Documents that relates to this theme</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.theme.ThemeRecord.identifier">
+<code class="descname">identifier</code><a class="headerlink" href="#pyramid_oereb.core.records.theme.ThemeRecord.identifier" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The identifier of the theme which might be used for linking to other elements.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyramid_oereb.core.records.theme.ThemeRecord.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>code</em>, <em>title</em>, <em>extract_index</em>, <em>sub_code=None</em>, <em>document_records=None</em>, <em>identifier=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/theme.html#ThemeRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.theme.ThemeRecord.__init__" title="Permalink to this definition">¶</a></dt>
@@ -1348,7 +1846,7 @@ service to be used for the land registry map.</td>
 <li><strong>title</strong> (<em>dict of unicode</em>) &#8211; The multilingual description.</li>
 <li><strong>extract_index</strong> (<em>int</em>) &#8211; Index to sort themes in the extract.</li>
 <li><strong>sub_code</strong> (<em>unicode</em>) &#8211; The code of the sub_theme. Is none for themes.</li>
-<li><strong>document_records</strong> (<em>list</em>) &#8211; Documents that relates to this theme</li>
+<li><strong>document_records</strong> (<em>list of str</em>) &#8211; Documents that relates to this theme</li>
 <li><strong>identifier</strong> (<em>str</em>) &#8211; The identifier of the theme which might be used for linking to other elements.</li>
 </ul>
 </td>
@@ -1366,7 +1864,22 @@ service to be used for the land registry map.</td>
 <dt id="pyramid_oereb.core.records.theme_document.ThemeDocumentRecord">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.theme_document.</code><code class="descname">ThemeDocumentRecord</code><span class="sig-paren">(</span><em>theme_id</em>, <em>document_id</em>, <em>article_numbers</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/theme_document.html#ThemeDocumentRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.theme_document.ThemeDocumentRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Creates a new theme record.</p>
+<p>Creates a new theme record.
+.. attribute:: theme_id</p>
+<blockquote>
+<div><em>str</em> &#8211; Foreign key relating to theme&#8217;s id.</div></blockquote>
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.theme_document.ThemeDocumentRecord.document_id">
+<code class="descname">document_id</code><a class="headerlink" href="#pyramid_oereb.core.records.theme_document.ThemeDocumentRecord.document_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; Foreign key relating to document&#8217;s id.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.theme_document.ThemeDocumentRecord.article_numbers">
+<code class="descname">article_numbers</code><a class="headerlink" href="#pyramid_oereb.core.records.theme_document.ThemeDocumentRecord.article_numbers" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of str</em> &#8211; Article numbers to refine statement of document to a theme.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyramid_oereb.core.records.theme_document.ThemeDocumentRecord.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>theme_id</em>, <em>document_id</em>, <em>article_numbers</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/theme_document.html#ThemeDocumentRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.theme_document.ThemeDocumentRecord.__init__" title="Permalink to this definition">¶</a></dt>
@@ -1395,7 +1908,62 @@ service to be used for the land registry map.</td>
 <em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.view_service.</code><code class="descname">LegendEntryRecord</code><span class="sig-paren">(</span><em>symbol</em>, <em>legend_text</em>, <em>type_code</em>, <em>type_code_list</em>, <em>theme</em>, <em>view_service_id=None</em>, <em>sub_theme=None</em>, <em>identifier=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/view_service.html#LegendEntryRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.view_service.LegendEntryRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Represents a legend entry with it&#8217;s text as well as it&#8217;s image.</p>
-<table class="docutils field-list" frame="void" rules="none">
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.view_service.LegendEntryRecord.symbol">
+<code class="descname">symbol</code><a class="headerlink" href="#pyramid_oereb.core.records.view_service.LegendEntryRecord.symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.image.ImageRecord</em> &#8211; The binary content of the legend symbol.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.view_service.LegendEntryRecord.legend_text">
+<code class="descname">legend_text</code><a class="headerlink" href="#pyramid_oereb.core.records.view_service.LegendEntryRecord.legend_text" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict of unicode</em> &#8211; The multilingual description text for the legend entry.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.view_service.LegendEntryRecord.type_code">
+<code class="descname">type_code</code><a class="headerlink" href="#pyramid_oereb.core.records.view_service.LegendEntryRecord.type_code" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; The class of the legend entry corresponding to the plrs classes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.view_service.LegendEntryRecord.type_code_list">
+<code class="descname">type_code_list</code><a class="headerlink" href="#pyramid_oereb.core.records.view_service.LegendEntryRecord.type_code_list" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>unicode</em> &#8211; An URL to the type code list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.view_service.LegendEntryRecord.theme">
+<code class="descname">theme</code><a class="headerlink" href="#pyramid_oereb.core.records.view_service.LegendEntryRecord.theme" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.theme.ThemeRecord</em> &#8211; The theme to which the legend entry
+belongs.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.view_service.LegendEntryRecord.view_service_id">
+<code class="descname">view_service_id</code><a class="headerlink" href="#pyramid_oereb.core.records.view_service.LegendEntryRecord.view_service_id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; The id to the connected view service. This is very important to be able to
+solve bug <a class="reference external" href="https://github.com/openoereb/pyramid_oereb/issues/521">https://github.com/openoereb/pyramid_oereb/issues/521</a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.view_service.LegendEntryRecord.sub_theme">
+<code class="descname">sub_theme</code><a class="headerlink" href="#pyramid_oereb.core.records.view_service.LegendEntryRecord.sub_theme" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pyramid_oereb.lib.records.theme.ThemeRecord</em> &#8211; The optional sub theme to which the
+legend entry belongs.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.view_service.LegendEntryRecord.identifier">
+<code class="descname">identifier</code><a class="headerlink" href="#pyramid_oereb.core.records.view_service.LegendEntryRecord.identifier" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The identifier of the legend entry which might be used for linking to
+other elements.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyramid_oereb.core.records.view_service.LegendEntryRecord.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>symbol</em>, <em>legend_text</em>, <em>type_code</em>, <em>type_code_list</em>, <em>theme</em>, <em>view_service_id=None</em>, <em>sub_theme=None</em>, <em>identifier=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/view_service.html#LegendEntryRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.view_service.LegendEntryRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -1417,10 +1985,7 @@ other elements.</li>
 </tr>
 </tbody>
 </table>
-<dl class="method">
-<dt id="pyramid_oereb.core.records.view_service.LegendEntryRecord.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>symbol</em>, <em>legend_text</em>, <em>type_code</em>, <em>type_code_list</em>, <em>theme</em>, <em>view_service_id=None</em>, <em>sub_theme=None</em>, <em>identifier=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/view_service.html#LegendEntryRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.view_service.LegendEntryRecord.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -1432,6 +1997,14 @@ other elements.</li>
 <em class="property">class </em><code class="descclassname">pyramid_oereb.core.records.view_service.</code><code class="descname">ViewServiceRecord</code><span class="sig-paren">(</span><em>reference_wms</em>, <em>layer_index</em>, <em>layer_opacity</em>, <em>default_language</em>, <em>srid</em>, <em>proxies=None</em>, <em>legends=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/view_service.html#ViewServiceRecord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.view_service.ViewServiceRecord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>A view service contains a valid WMS URL with a defined set of layers.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.core.records.view_service.ViewServiceRecord.image">
+<code class="descname">image</code><a class="headerlink" href="#pyramid_oereb.core.records.view_service.ViewServiceRecord.image" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> &#8211; multilingual dictionary containing the binary image
+(pyramid_oereb.core.records.image.ImageRecord) downloaded from WMS link for the
+requested (if any) or default language. Empty for an extract without images</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="pyramid_oereb.core.records.view_service.ViewServiceRecord.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>reference_wms</em>, <em>layer_index</em>, <em>layer_opacity</em>, <em>default_language</em>, <em>srid</em>, <em>proxies=None</em>, <em>legends=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/view_service.html#ViewServiceRecord.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.view_service.ViewServiceRecord.__init__" title="Permalink to this definition">¶</a></dt>
@@ -1452,14 +2025,36 @@ other elements.</li>
 </tr>
 </tbody>
 </table>
-<dl class="attribute">
-<dt id="pyramid_oereb.core.records.view_service.ViewServiceRecord.image">
-<code class="descname">image</code><a class="headerlink" href="#pyramid_oereb.core.records.view_service.ViewServiceRecord.image" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>dict</em> &#8211; multilingual dictionary containing the binary image
-(pyramid_oereb.core.records.image.ImageRecord) downloaded from WMS link for the
-requested (if any) or default language. Empty for an extract without images</p>
 </dd></dl>
 
+<dl class="staticmethod">
+<dt id="pyramid_oereb.core.records.view_service.ViewServiceRecord.check_min_max_attributes">
+<em class="property">static </em><code class="descname">check_min_max_attributes</code><span class="sig-paren">(</span><em>min_point</em>, <em>min_name</em>, <em>max_point</em>, <em>max_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/view_service.html#ViewServiceRecord.check_min_max_attributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.view_service.ViewServiceRecord.check_min_max_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Checks the validity of a min and max point:</dt>
+<dd><ul class="first last simple">
+<li>type check</li>
+<li>min_point &lt; max_point</li>
+</ul>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>min_point</strong> (<em>shapely.geometry.point.Point</em>) &#8211; a point geometry</li>
+<li><strong>(</strong><strong>)</strong> (<em>max_name</em>) &#8211; the name of the point</li>
+<li><strong>max_point</strong> (<em>shapely.geometry.point.Point</em>) &#8211; a point geometry</li>
+<li><strong>(</strong><strong>)</strong> &#8211; the name of the point</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last">AttributeError if one of the check fails</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -1524,6 +2119,47 @@ doesn&#8217;t contains type &#8220;image&#8221;.</li>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
 </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pyramid_oereb.core.records.view_service.ViewServiceRecord.sanitize_layer_index">
+<em class="property">static </em><code class="descname">sanitize_layer_index</code><span class="sig-paren">(</span><em>layer_index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/view_service.html#ViewServiceRecord.sanitize_layer_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.view_service.ViewServiceRecord.sanitize_layer_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks the validity of the layer index
+Arg:</p>
+<blockquote>
+<div>layer_index (int): index of the layer</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the layer index if it is an int berween -1000 and 1000.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">AttributeError if the index is out of bounds</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="pyramid_oereb.core.records.view_service.ViewServiceRecord.sanitize_layer_opacity">
+<em class="property">static </em><code class="descname">sanitize_layer_opacity</code><span class="sig-paren">(</span><em>layer_opacity</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/view_service.html#ViewServiceRecord.sanitize_layer_opacity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.records.view_service.ViewServiceRecord.sanitize_layer_opacity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks the validity of the layer opacity
+:param layer_opacity: the opacity used to draw the layer.
+:type layer_opacity: float</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the layer opacity if it is a float between 0 and 1</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">float</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body">AttributeError if the opacity is out of bounds.</td>
 </tr>
 </tbody>
 </table>

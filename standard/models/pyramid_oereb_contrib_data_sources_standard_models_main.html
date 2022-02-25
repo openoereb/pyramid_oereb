@@ -213,18 +213,15 @@ The buckets are:</p>
 <p>The geographical projection system which is used out of the box is LV95 aka EPSG:2056. Of course you can
 configure a different one.
 The name of the schema will be:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pyramid_oereb_main</span>
-</pre></div>
-</div>
-<p>But you can change it also via configuration.</p>
 <blockquote>
-<div><div class="admonition note">
+<div>pyramid_oereb_main</div></blockquote>
+<p>But you can change it also via configuration.</p>
+<div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Whenever you configure your own sqlalchemy ORM&#8217;s to use them in this application you must imitate
 the behaviour of the ORM&#8217;s here. This means the names class variables as well as the types of these
 variables.</p>
 </div>
-</div></blockquote>
 <div class="section" id="address">
 <span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-address"></span><h2>Address<a class="headerlink" href="#address" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -280,6 +277,12 @@ for example, any mapped columns or relationships.</p>
 <dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.models.main.</code><code class="descname">Disclaimer</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#Disclaimer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer" title="Permalink to this definition">¶</a></dt>
 <dd><p>The bucket you can throw all disclaimers in the application should be able to use.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; identifier and primary key, used in the database only</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer.title">
 <code class="descname">title</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer.title" title="Permalink to this definition">¶</a></dt>
@@ -345,6 +348,12 @@ for example, any mapped columns or relationships.</p>
 <em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.models.main.</code><code class="descname">GeneralInformation</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#GeneralInformation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation" title="Permalink to this definition">¶</a></dt>
 <dd><p>The bucket to store the general information about the OEREB cadastre</p>
 <dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; identifier and primary key, used in the database only</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation.title">
 <code class="descname">title</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation.title" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; The title of the general information (multilingual)</p>
@@ -376,6 +385,12 @@ for example, any mapped columns or relationships.</p>
 <dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Glossary">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.models.main.</code><code class="descname">Glossary</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#Glossary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Glossary" title="Permalink to this definition">¶</a></dt>
 <dd><p>The bucket you can throw all items you want to have in the extracts glossary as reading help.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Glossary.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Glossary.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; identifier and primary key, used in the database only</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Glossary.title">
 <code class="descname">title</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Glossary.title" title="Permalink to this definition">¶</a></dt>
@@ -439,6 +454,12 @@ for example, any mapped columns or relationships.</p>
 <em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.models.main.</code><code class="descname">Logo</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#Logo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Logo" title="Permalink to this definition">¶</a></dt>
 <dd><p>The container for all logos and municipality coat of arms</p>
 <dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Logo.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Logo.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; identifier and primary key, used in the database only</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Logo.code">
 <code class="descname">code</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Logo.code" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; The identifier given by a code</p>
@@ -470,6 +491,12 @@ for example, any mapped columns or relationships.</p>
 <dt id="pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.models.main.</code><code class="descname">MapLayering</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#MapLayering"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; identifier and primary key, used in the database only</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering.view_service">
 <code class="descname">view_service</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering.view_service" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>dict</em> &#8211; Darstellungsdienst</p>
@@ -644,7 +671,7 @@ the land  registers information.</p>
 <dd><p><em>geoalchemy2.types.Geometry</em> &#8211; The geometry of real estates border. For type
 information see <a class="reference external" href="https://geoalchemy-2.readthedocs.io/en/0.8.4/types.html">geoalchemy2</a>
 docs dependent on the
-configured type.  This concrete one is MULTIPOLYGON</p>
+configured type. This concrete one is MULTIPOLYGON</p>
 </dd></dl>
 
 <dl class="method">
@@ -668,6 +695,12 @@ for example, any mapped columns or relationships.</p>
 <em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.data_sources.standard.models.main.</code><code class="descname">RealEstateType</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#RealEstateType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType" title="Permalink to this definition">¶</a></dt>
 <dd><p>The container where you can throw in all the real estates type texts this application
 should have access to, for creating extracts.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType.id">
+<code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType.id" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; identifier and primary key, used in the database only</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType.code">
 <code class="descname">code</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType.code" title="Permalink to this definition">¶</a></dt>
@@ -703,7 +736,7 @@ for example, any mapped columns or relationships.</p>
 <dl class="attribute">
 <dt id="pyramid_oereb.contrib.data_sources.standard.models.main.Theme.id">
 <code class="descname">id</code><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Theme.id" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>int</em> &#8211; identifier, used in the database only</p>
+<dd><p><em>str</em> &#8211; identifier and primary key, used in the database only</p>
 </dd></dl>
 
 <dl class="attribute">

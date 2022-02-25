@@ -178,6 +178,13 @@
 
 
 <span class="k">def</span> <span class="nf">create_schema_sql</span><span class="p">(</span><span class="n">schema_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Args:</span>
+<span class="sd">        schema_name (str): name of the schema</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: query string to create the schema</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="s1">&#39;CREATE SCHEMA IF NOT EXISTS </span><span class="si">{0}</span><span class="s1">;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">schema_name</span><span class="p">)</span>
 
 
@@ -185,6 +192,9 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Args:</span>
 <span class="sd">        tables_to_create (list of sqlalchemy.schema.Table): The table objects from sqlalchemy.</span>
+<span class="sd">        if_not_exists (bool): defaults to false. Determines if the table is created if it already exists.</span>
+<span class="sd">            ... CREATE IF NOT EXISTS tables_to_create ...</span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">        a string with the sql statement used to create the tables</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -200,6 +210,16 @@
 
 
 <span class="k">def</span> <span class="nf">create_sql</span><span class="p">(</span><span class="n">schema_name</span><span class="p">,</span> <span class="n">tables_to_create</span><span class="p">,</span> <span class="n">if_not_exists</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Args:</span>
+<span class="sd">        schema_name (str): name of the schema to be used.</span>
+<span class="sd">        tables_to_create (list of sqlalchemy.schema.Table): The table objects from sqlalchemy.</span>
+<span class="sd">        if_not_exists (bool): defaults to false. Determines if the table is created if it already exists.</span>
+<span class="sd">            ... CREATE IF NOT EXISTS tables_to_create ...</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        a string with the sql statement used to create the schema and the tables</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">sqls</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">create_schema_sql</span><span class="p">(</span><span class="n">schema_name</span><span class="p">),</span>
         <span class="n">create_tables_sql</span><span class="p">(</span><span class="n">tables_to_create</span><span class="p">,</span> <span class="n">if_not_exists</span><span class="p">)</span>

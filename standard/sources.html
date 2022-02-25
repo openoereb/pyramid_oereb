@@ -227,7 +227,14 @@ class for inherit in special designed classes.</p>
 <dl class="class">
 <dt id="pyramid_oereb.core.sources.BaseDatabaseSource">
 <em class="property">class </em><code class="descclassname">pyramid_oereb.core.sources.</code><code class="descname">BaseDatabaseSource</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources.html#BaseDatabaseSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.sources.BaseDatabaseSource" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>The plug for addresses which uses a database as source.</p>
+<dl class="attribute">
+<dt id="pyramid_oereb.core.sources.BaseDatabaseSource.TIMEOUT">
+<code class="descname">TIMEOUT</code><a class="headerlink" href="#pyramid_oereb.core.sources.BaseDatabaseSource.TIMEOUT" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>int</em> &#8211; Seconds to wait until database should be ready</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="pyramid_oereb.core.sources.BaseDatabaseSource.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources.html#BaseDatabaseSource.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.sources.BaseDatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
@@ -245,12 +252,6 @@ sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</li>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyramid_oereb.core.sources.BaseDatabaseSource.TIMEOUT">
-<code class="descname">TIMEOUT</code><em class="property"> = 60</em><a class="headerlink" href="#pyramid_oereb.core.sources.BaseDatabaseSource.TIMEOUT" title="Permalink to this definition">¶</a></dt>
-<dd><p>The plug for addresses which uses a database as source.</p>
 </dd></dl>
 
 </dd></dl>
@@ -360,6 +361,15 @@ If you want adapt to your own source for disclaimer, this is the point where to 
 <dd><p>Every document source has to implement a read method. This method must accept no parameters. Because
 it should deliver all items available.
 If you want adapt to your own source for documents, this is the point where to hook in.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>office_records</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The office records of the exact
+request.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -394,14 +404,6 @@ If you want adapt to your own source for documents, this is the point where to h
 <dd><p>Every document type source has to implement a read method. This method must accept no parameters.
 Because it should deliver all items available.
 If you want adapt to your own source for document type labels, this is the point where to hook in.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </dd></dl>
@@ -436,9 +438,7 @@ If you want adapt to your own source for document type labels, this is the point
 <dd><p>Every general information source has to implement a read method.
 This method must accept no parameters. Because it should deliver all items available.
 If you want adapt to your own source for general information labels, this is the point
-where to hook in.
-:param params: The parameters of the extract request.
-:type params: pyramid_oereb.views.webservice.Parameter</p>
+where to hook in.</p>
 </dd></dl>
 
 </dd></dl>
@@ -506,9 +506,15 @@ If you want adapt to your own source for glossaries, this is the point where to 
 <code class="descname">read</code><span class="sig-paren">(</span><em>params=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/law_status.html#LawStatusBaseSource.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.sources.law_status.LawStatusBaseSource.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Every law status source has to implement a read method. This method must accept no parameters.
 Because it should deliver all items available.
-If you want adapt to your own source for real estate type labels, this is the point where to hook in.
-:param params: The parameters of the extract request.
-:type params: pyramid_oereb.views.webservice.Parameter</p>
+If you want adapt to your own source for real estate type labels, this is the point where to hook in.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -584,14 +590,6 @@ legend entries, this is the point where to hook in.</p>
 <dd><p>Every logo source has to implement a read method. This method must accept no parameters.
 Because it should deliver all items available.
 If you want adapt to your own source for logo images, this is the point where to hook in.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </dd></dl>
@@ -621,14 +619,6 @@ If you want adapt to your own source for logo images, this is the point where to
 <dd><p>Every map layering source has to implement a read method. This method must accept no parameters.
 Because it should deliver all items available.
 If you want adapt to your own source for map layering, this is the point where to hook in.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </dd></dl>
@@ -836,7 +826,7 @@ Combination must deliver only one result or must raise an error.</li>
 <li><strong>number</strong> (<em>str</em><em> or </em><em>None</em>) &#8211; The number of parcel or also known real estate. This parameter
 is directly related to the nb_ident parameter and both must be set!
 Combination must deliver only one result or must raise an error.</li>
-<li><strong>or None</strong><strong>)</strong> (<em>(</em><em>str</em>) &#8211; The unique identifier of the desired real estate. This must deliver only one
+<li><strong>egrid</strong> (<em>str</em><em> or </em><em>None</em>) &#8211; The unique identifier of the desired real estate. This must deliver only one
 result or must raise an error.</li>
 <li><strong>geometry</strong> (<em>str</em>) &#8211; A geometry as WKT string which is used to obtain intersected real
 estates. This may deliver several results.</li>

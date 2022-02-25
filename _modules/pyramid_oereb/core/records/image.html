@@ -176,30 +176,32 @@
 
 
 <div class="viewcode-block" id="ImageRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.image.ImageRecord">[docs]</a><span class="k">class</span> <span class="nc">ImageRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        VALID_FILE_TYPES (list of str): list with valid image file type.</span>
+<span class="sd">        SVG_PATTERN (re): regex pattern for svg image file types.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">VALID_FILE_TYPES</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s1">&#39;png&#39;</span><span class="p">,</span>
         <span class="s1">&#39;svg&#39;</span>
-    <span class="p">]</span>  <span class="c1"># type: list</span>
+    <span class="p">]</span>
 
     <span class="n">SVG_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;svg(.|\n)+&lt;\/svg&gt;&#39;</span><span class="p">)</span>  <span class="c1"># type: re</span>
 
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The record to hold the binary information of a image.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        content (binary): The binary information of this image as binary string.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="ImageRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.image.ImageRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The record to hold the binary information of a image.</span>
 
+<span class="sd">        Args:</span>
+<span class="sd">            content (binary): The binary information of this image as binary string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">content</span></div>
 
 <div class="viewcode-block" id="ImageRecord.encode"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.image.ImageRecord.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the image as base64 encoded string.</span>
-
 <span class="sd">        Returns:</span>
-<span class="sd">            str: The encoded image.</span>
+<span class="sd">            str: The encoded image as a base64 encoded string..</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">b64</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">)</span></div>
 

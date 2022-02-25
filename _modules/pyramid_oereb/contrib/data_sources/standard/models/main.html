@@ -183,17 +183,16 @@
 
 <span class="sd">The geographical projection system which is used out of the box is LV95 aka EPSG:2056. Of course you can</span>
 <span class="sd">configure a different one.</span>
-<span class="sd">The name of the schema will be::</span>
+<span class="sd">The name of the schema will be:</span>
 
 <span class="sd">    pyramid_oereb_main</span>
 
 <span class="sd">But you can change it also via configuration.</span>
 
-<span class="sd">    .. note::</span>
-
-<span class="sd">        Whenever you configure your own sqlalchemy ORM&#39;s to use them in this application you must imitate</span>
-<span class="sd">        the behaviour of the ORM&#39;s here. This means the names class variables as well as the types of these</span>
-<span class="sd">        variables.</span>
+<span class="sd">Note:</span>
+<span class="sd">    Whenever you configure your own sqlalchemy ORM&#39;s to use them in this application you must imitate</span>
+<span class="sd">    the behaviour of the ORM&#39;s here. This means the names class variables as well as the types of these</span>
+<span class="sd">    variables.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.contrib.data_sources.standard.models</span> <span class="kn">import</span> <span class="n">get_office</span><span class="p">,</span> <span class="n">get_document</span>
@@ -236,11 +235,10 @@
 <span class="sd">            based on which is  delivering a machine readable response format (XML).</span>
 <span class="sd">        land_registry_area (str): The amount of the area of this real estate as it is declared in</span>
 <span class="sd">            the land  registers information.</span>
-
 <span class="sd">        limit (geoalchemy2.types.Geometry): The geometry of real estates border. For type</span>
 <span class="sd">            information see `geoalchemy2 &lt;https://geoalchemy-2.readthedocs.io/en/0.8.4/types.html&gt;`_</span>
 <span class="sd">            docs dependent on the</span>
-<span class="sd">            configured type.  This concrete one is MULTIPOLYGON</span>
+<span class="sd">            configured type. This concrete one is MULTIPOLYGON</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="n">app_schema_name</span><span class="p">}</span>
     <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;real_estate&#39;</span>
@@ -319,7 +317,7 @@
 <span class="sd">    The OEREB themes of the application</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        id (int): identifier, used in the database only</span>
+<span class="sd">        id (str): identifier and primary key, used in the database only</span>
 <span class="sd">        code (str): OEREB code of the theme - unique and used to link each PublicLawRestriction</span>
 <span class="sd">            with the corresponding theme</span>
 <span class="sd">        sub_code (str): OEREB sub_code of the sub-theme: only available for sub themes.</span>
@@ -341,6 +339,7 @@
 <span class="sd">    The container for all logos and municipality coat of arms</span>
 
 <span class="sd">    Attributes:</span>
+<span class="sd">        id (str): identifier and primary key, used in the database only</span>
 <span class="sd">        code (str): The identifier given by a code</span>
 <span class="sd">        logo (dict): The image encoded in base64</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -357,6 +356,7 @@
 <span class="sd">    should have access to, for creating extracts.</span>
 
 <span class="sd">    Attributes:</span>
+<span class="sd">        id (str): identifier and primary key, used in the database only</span>
 <span class="sd">        code (str): The identifier on federal level.</span>
 <span class="sd">        text (str): The text for the multilingual text.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -372,6 +372,7 @@
 <span class="sd">    The bucket you can throw all items you want to have in the extracts glossary as reading help.</span>
 
 <span class="sd">    Attributes:</span>
+<span class="sd">        id (str): identifier and primary key, used in the database only</span>
 <span class="sd">        title (str): The title or abbreviation of a glossary item.</span>
 <span class="sd">        content (str): The description or definition of a glossary item.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -387,6 +388,7 @@
 <span class="sd">    The bucket you can throw all disclaimers in the application should be able to use.</span>
 
 <span class="sd">    Attributes:</span>
+<span class="sd">        id (str): identifier and primary key, used in the database only</span>
 <span class="sd">        title (str): The title which the disclaimer item has.</span>
 <span class="sd">        content (str): The content which the disclaimer item has.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -430,6 +432,7 @@
 <span class="sd">    The bucket to store the general information about the OEREB cadastre</span>
 
 <span class="sd">    Attributes:</span>
+<span class="sd">        id (str): identifier and primary key, used in the database only</span>
 <span class="sd">        title (dict): The title of the general information (multilingual)</span>
 <span class="sd">        content (dict): The actual information (multilingual)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -481,6 +484,7 @@
 <div class="viewcode-block" id="MapLayering"><a class="viewcode-back" href="../../../../../../standard/models/pyramid_oereb_contrib_data_sources_standard_models_main.html#pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering">[docs]</a><span class="k">class</span> <span class="nc">MapLayering</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Attributes:</span>
+<span class="sd">        id (str): identifier and primary key, used in the database only</span>
 <span class="sd">        view_service (dict): Darstellungsdienst</span>
 <span class="sd">        layer_index (int): Index for sorting the layering of the view services for a theme</span>
 <span class="sd">        layer_opacity (float): Opacity of a view service</span>

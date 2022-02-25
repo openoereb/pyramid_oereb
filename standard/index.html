@@ -224,16 +224,16 @@ a dedicated topic. This function will clean all previously created icons from da
 <li><strong>config</strong> (<em>str</em>) &#8211; The path to the used OEREB server configuration YAML file.</li>
 <li><strong>topic_code</strong> (<em>str</em>) &#8211; The topic code for which the symbols should be created. It must be configured in
 the passed yml.</li>
-<li><strong>temp_creation_path</strong> &#8211; The path where the images are created in.</li>
-<li><strong>language</strong> &#8211; The language which is used to produce the WMS rules. This is a tricky part. You must
+<li><strong>temp_creation_path</strong> (<em>str</em>) &#8211; The path where the images are created in.</li>
+<li><strong>language</strong> (<em>str</em>) &#8211; The language which is used to produce the WMS rules. This is a tricky part. You must
 provide the language your WMS is using.</li>
-<li><strong>section</strong> &#8211; The section which the config can be found in the yml.</li>
+<li><strong>section</strong> (<em>str</em>) &#8211; The section which the config can be found in the yml.</li>
 <li><strong>c2ctemplate_style</strong> (<em>bool</em>) &#8211; True if the yaml use a c2c template style (vars.[section]).
 Default is False.</li>
-<li><strong>image_format</strong> &#8211; The image format. This is passed throug to the WMS request. You need to provide a
+<li><strong>image_format</strong> (<em>str</em>) &#8211; The image format. This is passed throug to the WMS request. You need to provide a
 format your WMS is supporting here.</li>
-<li><strong>image_height</strong> &#8211; The height of the produced image.</li>
-<li><strong>image_width</strong> &#8211; The width of the produced image.</li>
+<li><strong>image_height</strong> (<em>int</em>) &#8211; The height of the produced image.</li>
+<li><strong>image_width</strong> (<em>int</em>) &#8211; The width of the produced image.</li>
 <li><strong>encoding</strong> (<em>str</em><em> or </em><em>unicode</em>) &#8211; The encoding which is used to encode the XML. Standard is None. This means
 the encoding is taken from the XML content itself. Only use this parameter if your XML content
 has no encoding set.</li>

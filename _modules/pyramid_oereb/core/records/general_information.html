@@ -174,11 +174,16 @@
 <div class="viewcode-block" id="GeneralInformationRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.general_information.GeneralInformationRecord">[docs]</a><span class="k">class</span> <span class="nc">GeneralInformationRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a general information entry with its title and content.</span>
-<span class="sd">    Args:</span>
+<span class="sd">    Attributes:</span>
 <span class="sd">        title (dict of unicode): The title of the information (multilingual)</span>
 <span class="sd">        content (dict of unicode): The actual information (multilingual)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="GeneralInformationRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.general_information.GeneralInformationRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            title (dict of unicode): The title of the information (multilingual)</span>
+<span class="sd">            content (dict of unicode): The actual information (multilingual)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;title&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>

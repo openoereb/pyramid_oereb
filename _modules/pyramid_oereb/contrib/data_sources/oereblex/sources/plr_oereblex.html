@@ -213,6 +213,10 @@
 <div class="viewcode-block" id="DatabaseOEREBlexSource.get_config_value_for_plr_code"><a class="viewcode-back" href="../../../../../../contrib/sources.html#pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.get_config_value_for_plr_code">[docs]</a>    <span class="k">def</span> <span class="nf">get_config_value_for_plr_code</span><span class="p">(</span><span class="n">url_param_config</span><span class="p">,</span> <span class="n">plr_code</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the appropriate configuration entry for a plr within a url_param_config section.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            url_param_config (list of code and url_param): url parameters to use, per plr code</span>
+<span class="sd">            plr_code (str): the plr code</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">url_param_entry</span> <span class="ow">in</span> <span class="n">url_param_config</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">url_param_entry</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">plr_code</span><span class="p">:</span>
@@ -226,6 +230,10 @@
 <div class="viewcode-block" id="DatabaseOEREBlexSource.get_document_records"><a class="viewcode-back" href="../../../../../../contrib/sources.html#pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.get_document_records">[docs]</a>    <span class="k">def</span> <span class="nf">get_document_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">public_law_restriction_from_db</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Override the parent&#39;s get_document_records method to obtain the models document instead.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list of pyramid_oereb.core.records.documents.DocumentRecord: The documents created from</span>
+<span class="sd">                the parsed OEREBlex response.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">oereblex_params</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">url_param_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oereblex_source</span><span class="o">.</span><span class="n">_url_param_config</span>

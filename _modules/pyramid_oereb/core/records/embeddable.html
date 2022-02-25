@@ -171,7 +171,18 @@
 
 
 <div class="viewcode-block" id="EmbeddableRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.embeddable.EmbeddableRecord">[docs]</a><span class="k">class</span> <span class="nc">EmbeddableRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attributes:</span>
+<span class="sd">            cadaster_state (datetime.datetime): Actuality of the oereb cadaster.</span>
+<span class="sd">            cadaster_organisation (pyramid_oereb.lib.records.office.OfficeRecord): The information about the</span>
+<span class="sd">                organisation which provides this cadaster.</span>
+<span class="sd">            data_owner_cadastral_surveying (pyramid_oereb.lib.records.office.OfficeRecord): The information</span>
+<span class="sd">                about the office which povides the surveying data for this extract.</span>
+<span class="sd">            transfer_from_source_cadastral_surveying (datetime.datetime): The actuality of the surveying data</span>
+<span class="sd">                used for this extract.</span>
+<span class="sd">            datasources (list of pyramid_oereb.lib.records.embeddable.DatasourceRecord): All the datasource</span>
+<span class="sd">                information on the extract.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="EmbeddableRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.embeddable.EmbeddableRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cadaster_state</span><span class="p">,</span> <span class="n">cadaster_organisation</span><span class="p">,</span> <span class="n">data_owner_cadastral_surveying</span><span class="p">,</span>
                  <span class="n">transfer_from_source_cadastral_surveying</span><span class="p">,</span> <span class="n">datasources</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

@@ -238,6 +238,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Args:</span>
 <span class="sd">        config (pyramid_oereb.standard.config.Config): The config object of the application.</span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">        dict containing the factory_model for every plr code.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -592,6 +593,16 @@
         <span class="k">return</span> <span class="n">or_</span><span class="p">(</span><span class="o">*</span><span class="n">clause_blocks</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">handle_collection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">geometry_to_check</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles geometry collection in the geometry query if needed.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            session (sqlalchemy.orm.Session): The requested clean session instance ready for use</span>
+<span class="sd">            geometry_to_check (GeometryRecord): geometry to be queried</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            sqlalchemy.orm.Query : the query based on the geometry_to_check</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">geometry_types</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;geometry_types&#39;</span><span class="p">)</span>
         <span class="n">collection_types</span> <span class="o">=</span> <span class="n">geometry_types</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;collection&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;types&#39;</span><span class="p">)</span>
         <span class="c1"># Check for Geometry type, cause we can&#39;t handle geometry collections the same as specific geometries</span>
