@@ -122,7 +122,7 @@ def model_factory_string_pk(schema_name, geometry_type, srid, db_connection):
         db_connection (str): the db connection string
 
     Returns:
-        Model: the produced set of standard models
+        Models: the produced set of standard models
     """
     return model_factory(schema_name, String, geometry_type, srid, db_connection)
 
@@ -136,6 +136,6 @@ def model_factory_integer_pk(schema_name, geometry_type, srid, db_connection):
         db_connection (str): the db connection string
 
     Returns:
-        Model: the produced set of standard models
+        Models: the produced set of standard models
     """
     return model_factory(schema_name, Integer, geometry_type, srid, db_connection)

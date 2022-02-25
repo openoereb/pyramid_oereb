@@ -184,7 +184,7 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         srid (int): The SRID defining the projection of the geometries stored in standard db schema.
 
     Returns:
-        Model: the produced set of standard models
+        Models: the produced set of standard models
 
     """
     Base = declarative_base()
@@ -573,7 +573,7 @@ def model_factory_integer_pk(schema_name, geometry_type, srid, db_connection):
         db_connection (str): the db connection string
 
     Returns:
-        Model: the produced set of standard models
+        Models: the produced set of standard models
     """
     if geometry_type is not None:
         geometry_type = None

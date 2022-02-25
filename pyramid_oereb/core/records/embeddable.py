@@ -44,7 +44,7 @@ class DatasourceRecord(object):
 
     def __init__(self, theme, date, owner):
         """
-        The record for handling the datasource entity for the emendable flavour.
+        The record for handling the datasource entity for the embeddable flavour.
 
         Args:
             theme (pyramid_oereb.lib.records.theme.ThemeRecord): The topic of the datasource.
