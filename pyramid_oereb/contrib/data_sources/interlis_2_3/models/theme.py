@@ -34,12 +34,14 @@ class Models(object):
 def generic_models(base, schema_name, pk_type):
     """
     Factory to produce a set of generic standard models.
+
     Args:
         base (): The SQLAlchemy base which is assigned to the models.
         schema_name (str): The name of the database schema where this models belong to.
         pk_type (sqlalchemy.sql.type_api.TypeEngine): The type of the primary column. E.g.
             sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
             needs
+
     Returns:
         list: First element is the Office model and second is the Document model.
     """
@@ -180,6 +182,10 @@ def model_factory(schema_name, pk_type, srid, db_connection):
             needs
         geometry_type (str): The geoalchemy geometry type defined as well known string.
         srid (int): The SRID defining the projection of the geometries stored in standard db schema.
+
+    Returns:
+        Model: the produced set of standard models
+
     """
     Base = declarative_base()
 
@@ -190,6 +196,7 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         A simple bucket for achieving a switch per municipality. Here you can configure via the
         imported data if a public law restriction is available or not. You need to fill it with
         the data you provided in the app schemas municipality table (fosnr).
+
         Attributes:
             fosnr (int): The identifier of the municipality in your system (id_bfs = fosnr)
             available (bool): The switch field to configure if this plr is available for the
@@ -205,6 +212,7 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         """
         The bucket to fill in the date when this whole schema was updated. It has a relation to the
         office to be able to find out who was the delivering instance.
+
         Attributes:
             id (str): The identifier. This is used in the database only and must not be set manually. If
                 you  don't like it - don't care about.
@@ -557,6 +565,16 @@ def model_factory(schema_name, pk_type, srid, db_connection):
 
 
 def model_factory_integer_pk(schema_name, geometry_type, srid, db_connection):
+    """
+    Args:
+        schema_name (str): The name of the database schema where this models belong to.
+        geometry_type (str): The geoalchemy geometry type defined as well known string.
+        srid (int): The SRID defining the projection of the geometries stored in standard db schema.
+        db_connection (str): the db connection string
+
+    Returns:
+        Model: the produced set of standard models
+    """
     if geometry_type is not None:
         geometry_type = None
     return model_factory(schema_name, Integer, srid, db_connection)

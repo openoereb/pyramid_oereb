@@ -70,6 +70,7 @@ def parse_multiple_standard_themes(config):
     """
     Args:
         config (pyramid_oereb.standard.config.Config): The config object of the application.
+
     Returns:
         dict containing the factory_model for every plr code.
     """
@@ -519,7 +520,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate in its record representation.
             bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
-            position (int or None): relative position of the plr (within a list of plrs)
         """
 
         # Check if the plr is marked as available
