@@ -24,6 +24,7 @@ def get_symbol(params, theme_config):
 
     Returns:
         bytearray, str: The image content and the mimetype of image.
+
     Raises:
         HTTPNotFound
         HTTPServerError

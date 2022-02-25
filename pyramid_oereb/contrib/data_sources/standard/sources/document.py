@@ -9,6 +9,9 @@ class DatabaseSource(BaseDatabaseSource, DocumentBaseSource):
     def read(self, office_records):
         """
         Central method to read all theme entries.
+
+        Args:
+            office_records (list): list of office records
         """
         session = self._adapter_.get_session(self._key_)
         try:

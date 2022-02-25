@@ -8,7 +8,7 @@ class DatabaseSource(BaseDatabaseSource, LawStatusBaseSource):
         """
         Central method to read all law status values.
         Args:
-            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
+            params (pyramid_oereb.views.webservice.Parameter or None): The parameters of the extract request.
         """
         session = self._adapter_.get_session(self._key_)
         try:

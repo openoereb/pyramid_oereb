@@ -8,9 +8,6 @@ class DatabaseSource(BaseDatabaseSource, MapLayeringBaseSource):
     def read(self):
         """
         Central method to read all map layering entries.
-
-        Args:
-            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
         """
         session = self._adapter_.get_session(self._key_)
         try:

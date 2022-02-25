@@ -23,7 +23,7 @@ class DatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
                 Combination will deliver only one result or crashes.
             (str or None): The unique identifier of the desired real estate. This will deliver
                 only one result or crashes.
-            geometry (str): A geometry as WKT string which is used to obtain intersected real
+            geometry (str or None): A geometry as WKT string which is used to obtain intersected real
                 estates. This may deliver several results.
         """
         session = self._adapter_.get_session(self._key_)

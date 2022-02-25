@@ -31,6 +31,7 @@ def get_office(base, schema_name, pk_type):
         pk_type (sqlalchemy.sql.type_api.TypeEngine): The type of the primary column. E.g.
             sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
             needs
+
     Returns:
         sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
     """
@@ -80,6 +81,7 @@ def get_document(base, schema_name, pk_type, Office):
             sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
             needs
         Office (sqlalchemy.orm.decl_api.DeclarativeMeta): The office model.
+
     Returns:
         sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
     """
@@ -88,6 +90,7 @@ def get_document(base, schema_name, pk_type, Office):
         """
         THE DOCUMENT
         This represents the main document in the whole system.
+
         Attributes:
             id (int): The identifier. This is used in the database only and must not be set manually. If
                 you  don't like it - don't care about.
@@ -146,6 +149,7 @@ def get_availability(base, schema_name, pk_type):
         pk_type (sqlalchemy.sql.type_api.TypeEngine): The type of the primary column. E.g.
             sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
             needs
+
     Returns:
         sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
     """
@@ -181,6 +185,7 @@ def get_data_integration(base, schema_name, pk_type, Office):
             sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
             needs
         Office (sqlalchemy.orm.decl_api.DeclarativeMeta): The office model.
+
     Returns:
         sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
     """
@@ -220,6 +225,7 @@ def get_view_service(base, schema_name, pk_type):
         pk_type (sqlalchemy.sql.type_api.TypeEngine): The type of the primary column. E.g.
             sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
             needs
+
     Returns:
         sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
     """
@@ -257,6 +263,7 @@ def get_legend_entry(base, schema_name, pk_type, ViewService):
             sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
             needs
         ViewService (sqlalchemy.orm.decl_api.DeclarativeMeta): The view service model.
+
     Returns:
         sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
     """
@@ -264,6 +271,7 @@ def get_legend_entry(base, schema_name, pk_type, ViewService):
     class LegendEntry(base):
         """
         A class based legend system which is directly related to :class:`ViewService`.
+
         Attributes:
             id (str): The identifier. This is used in the database only and must not be set manually. If
                 you  don't like it - don't care about.
@@ -312,6 +320,7 @@ def get_public_law_restriction(base, schema_name, pk_type, Office, ViewService, 
         Office (sqlalchemy.orm.decl_api.DeclarativeMeta): The office model.
         ViewService (sqlalchemy.orm.decl_api.DeclarativeMeta): The view service model.
         LegendEntry (sqlalchemy.orm.decl_api.DeclarativeMeta): The legend entry model.
+
     Returns:
         sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
     """
@@ -319,6 +328,7 @@ def get_public_law_restriction(base, schema_name, pk_type, Office, ViewService, 
     class PublicLawRestriction(base):
         """
         The container where you can fill in all your public law restrictions to the topic.
+
         Attributes:
             id (str): The identifier. This is used in the database only and must not be set manually. If
                 you  don't like it - don't care about.
@@ -382,6 +392,7 @@ def get_geometry(base, schema_name, pk_type, geometry_type, srid, PublicLawRestr
         geometry_type (str): The geoalchemy geometry type defined as well known string.
         srid (int): The SRID defining the projection of the geometries stored in standard db schema.
         PublicLawRestriction (sqlalchemy.orm.decl_api.DeclarativeMeta): The public law restriction model.
+
     Returns:
         sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
     """
@@ -389,6 +400,7 @@ def get_geometry(base, schema_name, pk_type, geometry_type, srid, PublicLawRestr
     class Geometry(base):
         """
         The dedicated model for all geometries in relation to their public law restriction.
+
         Attributes:
             id (str): The identifier. This is used in the database only and must not be set manually. If
                 you  don't like it - don't care about.
@@ -441,6 +453,7 @@ def get_public_law_restriction_document(base, schema_name, pk_type, PublicLawRes
             needs
         PublicLawRestriction (sqlalchemy.orm.decl_api.DeclarativeMeta): The public law restriction model.
         Document (sqlalchemy.orm.decl_api.DeclarativeMeta): The document model.
+
     Returns:
         sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
     """
@@ -448,6 +461,7 @@ def get_public_law_restriction_document(base, schema_name, pk_type, PublicLawRes
     class PublicLawRestrictionDocument(base):
         """
         Meta bucket (join table) for the relationship between public law restrictions and documents.
+
         Attributes:
             id (str): The identifier. This is used in the database only and must not be set manually. If
                 you  don't like it - don't care about.

@@ -12,17 +12,16 @@ The buckets are:
 
 The geographical projection system which is used out of the box is LV95 aka EPSG:2056. Of course you can
 configure a different one.
-The name of the schema will be::
+The name of the schema will be:
 
     pyramid_oereb_main
 
 But you can change it also via configuration.
 
-    .. note::
-
-        Whenever you configure your own sqlalchemy ORM's to use them in this application you must imitate
-        the behaviour of the ORM's here. This means the names class variables as well as the types of these
-        variables.
+Note:
+    Whenever you configure your own sqlalchemy ORM's to use them in this application you must imitate
+    the behaviour of the ORM's here. This means the names class variables as well as the types of these
+    variables.
 
 """
 from pyramid_oereb.contrib.data_sources.standard.models import get_office, get_document
@@ -65,11 +64,10 @@ class RealEstate(Base):
             based on which is  delivering a machine readable response format (XML).
         land_registry_area (str): The amount of the area of this real estate as it is declared in
             the land  registers information.
-
         limit (geoalchemy2.types.Geometry): The geometry of real estates border. For type
             information see `geoalchemy2 <https://geoalchemy-2.readthedocs.io/en/0.8.4/types.html>`_
             docs dependent on the
-            configured type.  This concrete one is MULTIPOLYGON
+            configured type. This concrete one is MULTIPOLYGON
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'real_estate'
@@ -148,7 +146,7 @@ class Theme(Base):
     The OEREB themes of the application
 
     Attributes:
-        id (int): identifier, used in the database only
+        id (str): identifier and primary key, used in the database only
         code (str): OEREB code of the theme - unique and used to link each PublicLawRestriction
             with the corresponding theme
         sub_code (str): OEREB sub_code of the sub-theme: only available for sub themes.
@@ -170,6 +168,7 @@ class Logo(Base):
     The container for all logos and municipality coat of arms
 
     Attributes:
+        id (str): identifier and primary key, used in the database only
         code (str): The identifier given by a code
         logo (dict): The image encoded in base64
     """
@@ -186,6 +185,7 @@ class RealEstateType(Base):
     should have access to, for creating extracts.
 
     Attributes:
+        id (str): identifier and primary key, used in the database only
         code (str): The identifier on federal level.
         text (str): The text for the multilingual text.
     """
@@ -201,6 +201,7 @@ class Glossary(Base):
     The bucket you can throw all items you want to have in the extracts glossary as reading help.
 
     Attributes:
+        id (str): identifier and primary key, used in the database only
         title (str): The title or abbreviation of a glossary item.
         content (str): The description or definition of a glossary item.
     """
@@ -216,6 +217,7 @@ class Disclaimer(Base):
     The bucket you can throw all disclaimers in the application should be able to use.
 
     Attributes:
+        id (str): identifier and primary key, used in the database only
         title (str): The title which the disclaimer item has.
         content (str): The content which the disclaimer item has.
     """
@@ -259,6 +261,7 @@ class GeneralInformation(Base):
     The bucket to store the general information about the OEREB cadastre
 
     Attributes:
+        id (str): identifier and primary key, used in the database only
         title (dict): The title of the general information (multilingual)
         content (dict): The actual information (multilingual)
     """
@@ -310,6 +313,7 @@ class ThemeDocument(Base):
 class MapLayering(Base):
     """
     Attributes:
+        id (str): identifier and primary key, used in the database only
         view_service (dict): Darstellungsdienst
         layer_index (int): Index for sorting the layering of the view services for a theme
         layer_opacity (float): Opacity of a view service
