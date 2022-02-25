@@ -40,8 +40,6 @@ class ExtractReader(object):
     @property
     def plr_cadastre_authority(self):
         """
-        Returns the authority responsible for the PLR cadastre.
-
         Returns:
             pyramid_oereb.lib.records.office.OfficeRecord: The authority responsible for the PLR
             cadastre.
@@ -52,7 +50,8 @@ class ExtractReader(object):
         """
         This method finally creates the extract.
 
-        .. note:: If you subclass this class your implementation needs to offer this method in the same
+        Note:
+            If you subclass this class your implementation needs to offer this method in the same
             signature. Means the parameters must be the same and the return must be a
             :ref:`api-pyramid_oereb-core-records-extract-extractrecord`. Otherwise the API like way the server
             works would be broken.

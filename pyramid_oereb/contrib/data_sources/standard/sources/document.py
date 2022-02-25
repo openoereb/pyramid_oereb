@@ -9,6 +9,10 @@ class DatabaseSource(BaseDatabaseSource, DocumentBaseSource):
     def read(self, office_records):
         """
         Central method to read all theme entries.
+
+        Args:
+            office_records (list of pyramid_oereb.core.records.office.OfficeRecord): The office records of
+                the exact request.
         """
         session = self._adapter_.get_session(self._key_)
         try:

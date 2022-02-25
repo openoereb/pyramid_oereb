@@ -32,7 +32,8 @@ class RealEstateReader(object):
         """
         The central read accessor method to get all desired records from configured source.
 
-        .. note:: If you subclass this class your implementation needs to offer this method in the same
+        Note:
+            If you subclass this class your implementation needs to offer this method in the same
             signature. Means the parameters must be the same and the return must be a list of
             :ref:`api-pyramid_oereb-core-records-real_estate-realestaterecord`. Otherwise the API like way the
             server works would be broken.
@@ -45,9 +46,9 @@ class RealEstateReader(object):
             number (str or None): The number of parcel or also known real estate. This parameter
                 is directly related to the nb_ident parameter and both must be set!
                 Combination will deliver only one result or crashes.
-            (str or None): The unique identifier of the desired real estate. This will deliver
+            egrid (str or None): The unique identifier of the desired real estate. This will deliver
                 only one result or crashes.
-            geometry (str): A geometry as WKT string which is used to obtain intersected real
+            geometry (str or None): A geometry as WKT string which is used to obtain intersected real
                 estates. This may deliver several results.
 
         Returns:

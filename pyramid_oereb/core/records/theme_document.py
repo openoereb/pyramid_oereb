@@ -2,7 +2,12 @@
 
 
 class ThemeDocumentRecord(object):
-    """Creates a new theme record."""
+    """Creates a new theme record.
+    Attributes:
+        theme_id (str): Foreign key relating to theme's id.
+        document_id (str): Foreign key relating to document's id.
+        article_numbers (list of str): Article numbers to refine statement of document to a theme.
+    """
 
     def __init__(self, theme_id, document_id, article_numbers):
         """

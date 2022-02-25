@@ -28,16 +28,16 @@ def create_legend_entries_in_standard_db(config, topic_code, temp_creation_path=
         config (str): The path to the used OEREB server configuration YAML file.
         topic_code (str): The topic code for which the symbols should be created. It must be configured in
             the passed yml.
-        temp_creation_path: The path where the images are created in.
-        language: The language which is used to produce the WMS rules. This is a tricky part. You must
+        temp_creation_path (str): The path where the images are created in.
+        language (str): The language which is used to produce the WMS rules. This is a tricky part. You must
             provide the language your WMS is using.
-        section: The section which the config can be found in the yml.
+        section (str): The section which the config can be found in the yml.
         c2ctemplate_style (bool): True if the yaml use a c2c template style (vars.[section]).
             Default is False.
-        image_format: The image format. This is passed throug to the WMS request. You need to provide a
+        image_format (str): The image format. This is passed throug to the WMS request. You need to provide a
             format your WMS is supporting here.
-        image_height: The height of the produced image.
-        image_width: The width of the produced image.
+        image_height (int): The height of the produced image.
+        image_width (int): The width of the produced image.
         encoding (str or unicode): The encoding which is used to encode the XML. Standard is None. This means
             the encoding is taken from the XML content itself. Only use this parameter if your XML content
             has no encoding set.

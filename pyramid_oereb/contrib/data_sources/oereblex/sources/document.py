@@ -96,7 +96,7 @@ class OEREBlexSource(Base):
         Args:
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             geolink_id (int): The geoLink ID.
-            oereblex_params (string): Any additional parameters to pass to Oereblex
+            oereblex_params (string or None): Any additional parameters to pass to Oereblex
         """
         log.debug("read() start for geolink_id {}, oereblex_params {}".format(geolink_id, oereblex_params))
 

@@ -5,5 +5,6 @@ imagine these record things as the in-application-currency. They are achieved an
 :ref:`base-sources`. They are gathered by the :ref:`readers`. And they are combined, sorted, dismissed and
 reorganized by the processor.
 
-.. note:: This layer is not meant to be adapted in normal.
+Note:
+     This layer is not meant to be adapted in normal.
 """

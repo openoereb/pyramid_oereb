@@ -5,28 +5,43 @@ import uuid
 
 
 class ExtractRecord(object):
-    """The extract base class."""
+    """
+    The extract base class.
+    Attributes:
+        creation_date (datetime.datetime): The date and time of the extract creation.
+        electronic_signature (unicode or None): Digital signature for the extract.
+        concerned_theme (list of pyramid_oereb.core.records.theme.ThemeRecord): List of concerned themes.
+        not_concerned_theme (list of pyramid_oereb.core.records.theme.ThemeRecord): List of not concerned
+            themes.
+        theme_without_data (list of pyramid_oereb.core.records.theme.ThemeRecord): List of themes without
+            data.
+        extract_identifier (unicode): The extract identifier (UUID).
+        qr_code (binary or None): QR code for the extract as binary string.
+        update_date_os (datetime): Last update of the official survey used as base map in the extract.
+        general_information (list of dict): General information for the static extract as multilingual
+            text.
+        real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate in its
+            record representation.
+        logo_plr_cadastre (pyramid_oereb.lib.records.logo.LogoRecord): Image file of the PLR logo.
+        federal_logo (pyramid_oereb.lib.records.image.ImageRecord):Image file of the federal logo.
+        cantonal_logo (pyramid_oereb.lib.records.image.ImageRecord): Image file of the cantonal logo.
+        municipality_logo (pyramid_oereb.lib.records.image.ImageRecord): Image file of the municipality
+            logo.
+        plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority which is
+            responsible for the PLR cadastre.
+        disclaimer (list of
+            pyramid_oereb.core.records.disclaimer.DisclaimerRecord or None): Disclaimers for the extract.
+        glossaries (list of pyramid_oereb.lib.records.glossary.GlossaryRecord): Glossaries for the
+            extract.
+    """
 
     creation_date = None
-    """datetime.datetime: The date and time of the extract creation."""
-
     electronic_signature = None
-    """unicode or None: Digital signature for the extract."""
-
     concerned_theme = None
-    """list of pyramid_oereb.core.records.theme.ThemeRecord: List of concerned themes."""
-
     not_concerned_theme = None
-    """list of pyramid_oereb.core.records.theme.ThemeRecord: List of not concerned themes."""
-
     theme_without_data = None
-    """list of pyramid_oereb.core.records.theme.ThemeRecord: List of themes without data."""
-
     extract_identifier = None
-    """unicode: The extract identifier (UUID)."""
-
     qr_code = None
-    """binary or None: QR code for the extract as binary string."""
 
     def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo,
                  plr_cadastre_authority, update_date_os, disclaimers=None, glossaries=None,

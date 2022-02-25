@@ -10,12 +10,18 @@ class LogoRecord(object):
     """
     Represents a logo with its code and its base64 encoded string (multilingual).
 
-    Args:
+    Attributes:
         code (str of unicode): The code for the logo.
         image_dict (dict of pyramid_oereb.lib.records.image.ImageRecord): The image encoded
             as base64 (multilingual).
     """
     def __init__(self, code, image_dict):
+        """
+        Args:
+            code (str of unicode): The code for the logo.
+            image_dict (dict of pyramid_oereb.lib.records.image.ImageRecord): The image encoded
+                as base64 (multilingual).
+        """
 
         if not isinstance(code, str):
             warnings.warn('Type of "code" should be "str"')
