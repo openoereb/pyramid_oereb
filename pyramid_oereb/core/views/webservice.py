@@ -125,6 +125,7 @@ class PlrWebservice(object):
         """
         try:
             output_format = self.__validate_format_param__(self._DEFAULT_FORMATS)
+            service = None
             with_geometry = False
             if self.__has_params__(['GEOMETRY']):
                 if self._params.get('GEOMETRY').lower() == 'true':
@@ -135,15 +136,19 @@ class PlrWebservice(object):
             )
             # Type A
             if self.__has_params__(['EN']):
+                service = 'GetEgridCoord'
                 records = self._get_egrid_coord(params)
             # Type B
             elif self.__has_params__(['IDENTDN', 'NUMBER']):
+                service = 'GetEgridIdent'
                 records = self._get_egrid_ident(params)
             # Type C
             elif self.__has_params__(['POSTALCODE', 'LOCALISATION', 'NUMBER']):
+                service = 'GetEgridAddress'
                 records = self._get_egrid_address(params)
             # Type D
             elif self.__has_params__(['GNSS']):
+                service = 'GetEgridCoord'
                 records = self._get_egrid_coord(params)
             # Raise exception
             else:
@@ -157,8 +162,9 @@ class PlrWebservice(object):
         except HTTPBadRequest as err:
             response = HTTPBadRequest('{}'.format(err))
         response.extras = OerebStats(
-            service='GetEgrid',
-            params=dict(self._params)
+            service=service,
+            params=dict(self._params),
+            output_format=output_format
         )
         return response
 
