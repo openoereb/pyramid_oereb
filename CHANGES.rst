@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.0.0.rc2
+---------
+- Finalize stats reactivation (#1517)
+
 2.0.0.rc1
 ---------
 - Updates of all essential libraries used
