@@ -69,7 +69,7 @@ formatter = generic
 
 [handler_sqlalchemylogger]
 class = c2cwsgiutils.sqlalchemylogger.handlers.SQLAlchemyHandler
-args = ({'url':'postgresql://postgres:postgres@oereb-db:5432/oereb_stats','tablename':'logs','tableargs': {'schema':'oereb_logs'}},'healthcheck')
+args = ({'url':'${pyramid_stats_url}','tablename':'logs','tableargs': {'schema':'oereb_logs'}},'healthcheck')
 level = NOTSET
 formatter = generic
 propagate = 0
