@@ -221,7 +221,7 @@ NOTE
 
    Create a pyramid\_oereb.yml file in the project root folder and copy the content of
    pyramid\_oereb\_standard.yml we created before in it and adapt the necessary parameters to your
-   environnement - p.ex db\_connection and so on in the development.ini and production.ini at the end of the
+   environment - p.ex db\_connection and so on in the development.ini at the end of the
    [app:main] block add
 
    .. code-block:: shell
