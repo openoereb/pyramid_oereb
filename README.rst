@@ -22,14 +22,10 @@ If you are interested in contributing or extending the project, take a look at t
 Starting the development server
 ===============================
 
-1. ``docker build -t pyramid_oereb:dev .``
-2. Build run the initial build depending on you OS:
-  * Linux: ``docker run --rm -v $(pwd):/workspace -u $(id -u):$(id -g) pyramid_oereb:dev make clean-all build``
-  * MAC: ``docker run --rm -v $(pwd):/workspace pyramid_oereb:dev make clean-all build``
-  * Windows CMD: ``docker run --rm -v %cd%:/workspace pyramid_oereb:dev make clean-all build``
-  * Windows Powershell: ``docker run --rm -v ${PWD}:/workspace pyramid_oereb:dev make clean-all build``
-5. ``docker-compose build``
-6. ``docker-compose up``
+1. Build run the initial build depending on you OS:
+  * Linux: ``docker-compose run --rm -u $(id -u):$(id -g) oereb-make build``
+  * MAC/Windows: ``docker-compose run --rm oereb-make build``
+2. ``docker-compose up``
 
 Running ``docker-compose up`` will start the DB (it will automatically import the test/dev data on startup) and start
 a running instance of the pyramid_oereb DEV server connected to the DB. The project folder is mounted
@@ -45,28 +41,28 @@ To run the tests locally:
 
 The docker way:
 ---------------
+  * Linux: ``docker-compose run --rm -u $(id -u):$(id -g) oereb-server build tests``
+  * MAC/Windows: ``docker-compose run --rm oereb-server build tests``
+
+For systems having a make tool, the following recipe can be used:
 ``make docker-tests``
-should set up the complete test environment
 
 sometimes the local postgres port is already in use, and you must override it:
-```
-EXPOSED_PGPORT=5433 make docker-tests
-```
+``EXPOSED_PGPORT=5433 make docker-tests``
 
-On windows/mac, you might need to skip the user id / group id detection and launch the docker tests as root
-```
-DOCKER_AS_ROOT=TRUE make docker-tests
-```
 
 Local tests:
 ------------
 For local tests without the complete docker composition you need a running DB.
 You can create one based on the oereb image:
 ``docker-compose up -d oereb-db``
+
 or create an empty postgis DB
 ``docker run -p 5555:5432 --name pg_oereb --rm -it -e POSTGRES_PASSWORD=pw postgis/postgis``
+
 Then you can run the tests easily:
 ``make tests``
+
 If the DB does not use standard credentials, you can set them as ENV vars:
 ``PGPORT=5555 PGPASSWORD=pw make tests``
 
@@ -75,6 +71,15 @@ To run one specfic test:
 .. code-block:: bash
 
   docker-compose exec oereb-server PYTEST_OPTS="-k <name_of_the_test>" make tests
+
+Troubleshooting
+---------------
+Some local files may remain from previous builds, and the regular user may not be able to delete them.
+In this case cleanup can be done like:
+
+.. code-block:: bash
+  docker-compose run --rm oereb-make clean-all
+
 
 
 Useful ``make`` targets
