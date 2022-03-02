@@ -25,7 +25,7 @@ class RealEstateBaseSource(Base):
             number (str or None): The number of parcel or also known real estate. This parameter
                 is directly related to the nb_ident parameter and both must be set!
                 Combination must deliver only one result or must raise an error.
-            (str or None): The unique identifier of the desired real estate. This must deliver only one
+            egrid (str or None): The unique identifier of the desired real estate. This must deliver only one
                 result or must raise an error.
             geometry (str): A geometry as WKT string which is used to obtain intersected real
                 estates. This may deliver several results.

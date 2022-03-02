@@ -2,8 +2,7 @@
 import os
 
 import logging
-import yaml
-from io import open as ioopen
+import pyaml_env
 from pyramid.config import ConfigurationError
 from pyramid_oereb.core.records.office import OfficeRecord
 from pyramid_oereb.core.records.document_types import DocumentTypeRecord
@@ -1872,6 +1871,14 @@ class Config(object):
             map_size_mm = print_conf['pdf_map_size_millimeters']
             return [int(pixel_size * map_size_mm[0]), int(pixel_size * map_size_mm[1])]
 
+    @staticmethod
+    def get_db_vars_from_env():
+        """
+        return the DB connection parameters below as a dict from the environment
+        """
+        DB_VARS = ["PGHOST", "PGPORT", "PGUSER", "PGPASSWORD", "PGDATABASE"]
+        return {db_var: os.environ[db_var] for db_var in DB_VARS if db_var in os.environ}
+
 
 def _parse(cfg_file, cfg_section, c2ctemplate_style=False):
     """
@@ -1906,8 +1913,7 @@ def _parse(cfg_file, cfg_section, c2ctemplate_style=False):
             import c2c.template
             content = c2c.template.get_config(cfg_file)
         else:
-            with ioopen(cfg_file, encoding='utf-8') as f:
-                content = yaml.safe_load(f.read())
+            content = pyaml_env.parse_config(cfg_file)
     except IOError as e:
         e.strerror = '{0}{1} \'{2}\', Current working directory is {3}'.format(
             e.strerror, e.args[1], e.filename, os.getcwd())

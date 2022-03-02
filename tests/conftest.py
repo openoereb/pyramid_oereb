@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 import json
-import yaml
+import pyaml_env
 from io import StringIO
 from unittest.mock import patch
 from datetime import date, timedelta
@@ -129,8 +129,7 @@ def test_db_name(test_db_url):
 @pytest.fixture(scope='session')
 @pytest.mark.usefixtures('config_path')
 def test_db_url(config_path):
-    with open(config_path, encoding='utf-8') as f:
-        content = yaml.safe_load(f.read())
+    content = pyaml_env.parse_config(config_path)
     yield make_url(content.get('pyramid_oereb').get('app_schema').get('db_connection'))
 
 

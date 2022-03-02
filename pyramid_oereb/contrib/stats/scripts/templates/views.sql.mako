@@ -24,8 +24,8 @@ CREATE OR REPLACE VIEW ${schema_name|u}.stats_get_egrid_coord AS
     SELECT cast(msg AS json) -> 'response' -> 'extras' ->> 'service' AS service ,
            cast(cast(msg AS json) -> 'response' ->> 'status_code' AS INTEGER) AS status_code,
            cast(msg AS json) -> 'response' -> 'extras' ->> 'output_format' AS output_format,
-           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'xy' AS xy,
-           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'gnss' AS gnss,
+           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'EN' AS en,
+           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'GNSS' AS gnss,
            created_at,
            cast(msg AS json) -> 'request' ->> 'path' AS path
     FROM ${schema_name|u}.${tablename|u} WHERE logger = 'JSON' AND cast(msg AS json) -> 'response' ->'extras' ->> 'service' = 'GetEgridCoord';
@@ -36,8 +36,8 @@ CREATE OR REPLACE VIEW ${schema_name|u}.stats_get_egrid_ident AS
     SELECT cast(msg AS json) -> 'response' -> 'extras' ->> 'service' AS service ,
            cast(cast(msg AS json) -> 'response' ->> 'status_code' AS INTEGER) AS status_code,
            cast(msg AS json) -> 'response' -> 'extras' ->> 'output_format' AS output_format,
-           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'identdn' AS identdn,
-           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'number' AS number,
+           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'IDENTDN' AS identdn,
+           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'NUMBER' AS number,
            created_at,
            cast(msg AS json) -> 'request' ->> 'path' AS path
     FROM ${schema_name|u}.${tablename|u} WHERE logger = 'JSON' AND cast(msg AS json) -> 'response' ->'extras' ->> 'service' = 'GetEgridIdent';
@@ -48,9 +48,9 @@ CREATE OR REPLACE VIEW ${schema_name|u}.stats_get_egrid_address AS
     SELECT cast(msg AS json) -> 'response' -> 'extras' ->> 'service' AS service ,
            cast(cast(msg AS json) -> 'response' ->> 'status_code' AS INTEGER) AS status_code,
            cast(msg AS json) -> 'response' -> 'extras' ->> 'output_format' AS output_format,
-           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'postalcode' AS postalcode,
-           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'localisation' AS localisation,
-           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'number' AS number,
+           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'POSTALCODE' AS postalcode,
+           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'LOCALISATION' AS localisation,
+           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'NUMBER' AS number,
            created_at,
            cast(msg AS json) -> 'request' ->> 'path' AS path
     FROM ${schema_name|u}.${tablename|u} WHERE logger = 'JSON' AND cast(msg AS json) -> 'response' ->'extras' ->> 'service' = 'GetEgridAddress';
@@ -77,10 +77,6 @@ CREATE OR REPLACE VIEW ${schema_name|u}.stats_daily_extract_by_id AS
         COUNT(1) AS nb_requests,
         COUNT(1) FILTER (WHERE  output_format = 'pdf') AS format_pdf,
         COUNT(1) FILTER (WHERE  output_format = 'json') AS format_json,
-        COUNT(1) FILTER (WHERE  output_format = 'xml') AS format_xml,
-        COUNT(1) FILTER (WHERE flavour = 'signed') AS flavour_signed,
-        COUNT(1) FILTER (WHERE flavour = 'full') AS flavour_full,
-        COUNT(1) FILTER (WHERE flavour = 'embeddable') AS flavour_embeddable,
-        COUNT(1) FILTER (WHERE flavour = 'reduced') AS flavour_reduced
+        COUNT(1) FILTER (WHERE  output_format = 'xml') AS format_xml
     FROM ${schema_name|u}.stats_get_extract_by_id WHERE cast(status_code as INTEGER) = 200
     GROUP BY 1;

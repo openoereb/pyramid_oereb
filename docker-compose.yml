@@ -1,5 +1,8 @@
 version: "3.7"
 
+volumes:
+  venvs:
+
 services:
   oereb-server:
     build:
@@ -11,8 +14,10 @@ services:
       PGUSER: ${PGUSER:-postgres}
       PGPASSWORD: ${PGPASSWORD:-postgres}
       PYRAMID_OEREB_PORT: ${PYRAMID_OEREB_PORT:-6543}
+      VENV_ROOT: /venvs/.venv
     volumes:
       - .:/workspace:cached
+      - venvs:/venvs
     working_dir: /workspace
     ports:
       - ${PYRAMID_OEREB_PORT:-6543}:${PYRAMID_OEREB_PORT:-6543}

@@ -7,30 +7,32 @@ from pyramid_oereb.core import b64
 
 
 class ImageRecord(object):
+    """
+    Attributes:
+        VALID_FILE_TYPES (list of str): list with valid image file type.
+        SVG_PATTERN (re): regex pattern for svg image file types.
+    """
 
     VALID_FILE_TYPES = [
         'png',
         'svg'
-    ]  # type: list
+    ]
 
     SVG_PATTERN = re.compile(r'<svg(.|\n)+<\/svg>')  # type: re
 
-    """
-    The record to hold the binary information of a image.
-
-    Args:
-        content (binary): The binary information of this image as binary string.
-    """
     def __init__(self, content):
+        """
+        The record to hold the binary information of a image.
 
+        Args:
+            content (binary): The binary information of this image as binary string.
+        """
         self.content = content
 
     def encode(self):
         """
-        Returns the image as base64 encoded string.
-
         Returns:
-            str: The encoded image.
+            str: The encoded image as a base64 encoded string..
         """
         return b64.encode(self.content)
 

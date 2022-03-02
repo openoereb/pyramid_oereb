@@ -67,6 +67,7 @@ def parse_multiple_standard_themes(config):
     """
     Args:
         config (pyramid_oereb.standard.config.Config): The config object of the application.
+
     Returns:
         dict containing the factory_model for every plr code.
     """
@@ -421,6 +422,16 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return or_(*clause_blocks)
 
     def handle_collection(self, session, geometry_to_check):
+        """
+        Handles geometry collection in the geometry query if needed.
+
+        Args:
+            session (sqlalchemy.orm.Session): The requested clean session instance ready for use
+            geometry_to_check (GeometryRecord): geometry to be queried
+
+        Returns:
+            sqlalchemy.orm.Query : the query based on the geometry_to_check
+        """
         geometry_types = Config.get('geometry_types')
         collection_types = geometry_types.get('collection').get('types')
         # Check for Geometry type, cause we can't handle geometry collections the same as specific geometries

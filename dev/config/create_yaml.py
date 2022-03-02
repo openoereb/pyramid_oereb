@@ -78,5 +78,6 @@ def create_yaml():
     _create_yaml_config_(
         name=options.name,
         database=options.database,
-        print_backend=options.print_backend
+        print_backend=options.print_backend,
+        print_url=options.print_url
     )

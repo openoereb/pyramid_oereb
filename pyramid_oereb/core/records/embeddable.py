@@ -2,7 +2,18 @@
 
 
 class EmbeddableRecord(object):
-
+    """
+        Attributes:
+            cadaster_state (datetime.datetime): Actuality of the oereb cadaster.
+            cadaster_organisation (pyramid_oereb.lib.records.office.OfficeRecord): The information about the
+                organisation which provides this cadaster.
+            data_owner_cadastral_surveying (pyramid_oereb.lib.records.office.OfficeRecord): The information
+                about the office which povides the surveying data for this extract.
+            transfer_from_source_cadastral_surveying (datetime.datetime): The actuality of the surveying data
+                used for this extract.
+            datasources (list of pyramid_oereb.lib.records.embeddable.DatasourceRecord): All the datasource
+                information on the extract.
+    """
     def __init__(self, cadaster_state, cadaster_organisation, data_owner_cadastral_surveying,
                  transfer_from_source_cadastral_surveying, datasources):
         """

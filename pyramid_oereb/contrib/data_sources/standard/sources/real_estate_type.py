@@ -7,6 +7,7 @@ class DatabaseSource(BaseDatabaseSource, RealEstateTypeBaseSource):
     def read(self, params=None):
         """
         Central method to read all real estate type values.
+
         Args:
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
         """

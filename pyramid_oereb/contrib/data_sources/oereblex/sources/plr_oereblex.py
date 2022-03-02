@@ -44,6 +44,10 @@ class DatabaseOEREBlexSource(DatabaseSource):
     def get_config_value_for_plr_code(url_param_config, plr_code):
         """
         Returns the appropriate configuration entry for a plr within a url_param_config section.
+
+        Args:
+            url_param_config (list of code and url_param): url parameters to use, per plr code
+            plr_code (str): the plr code
         """
         for url_param_entry in url_param_config:
             if url_param_entry['code'] == plr_code:
@@ -57,6 +61,10 @@ class DatabaseOEREBlexSource(DatabaseSource):
     def get_document_records(self, params, public_law_restriction_from_db):
         """
         Override the parent's get_document_records method to obtain the models document instead.
+
+        Returns:
+            list of pyramid_oereb.core.records.documents.DocumentRecord: The documents created from
+                the parsed OEREBlex response.
         """
         oereblex_params = None
         url_param_config = self._oereblex_source._url_param_config

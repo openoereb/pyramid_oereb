@@ -17,8 +17,7 @@ from pyramid_oereb.core.readers.address import AddressReader
 from pyramid_oereb.core.renderer import Base as Renderer
 from timeit import default_timer as timer
 
-# TODO reactivate after fix of issue #1293: all usages of OerebStats in this file
-# from pyramid_oereb.contrib.stats.decorators import OerebStats
+from pyramid_oereb.contrib.stats.decorators import OerebStats
 
 log = logging.getLogger(__name__)
 
@@ -70,7 +69,7 @@ class PlrWebservice(object):
         response = render_to_response(renderer_name, versions, request=self._request)
         if output_format == 'json':
             response.content_type = 'application/json; charset=UTF-8'
-        # response.extras = OerebStats(service='GetVersions', output_format=output_format)
+        response.extras = OerebStats(service='GetVersions', output_format=output_format)
         return response
 
     def get_capabilities(self):
@@ -113,7 +112,7 @@ class PlrWebservice(object):
         response = render_to_response(renderer_name, capabilities, request=self._request)
         if output_format == 'json':
             response.content_type = 'application/json; charset=UTF-8'
-        # response.extras = OerebStats(service='GetCapabilities', output_format=output_format)
+        response.extras = OerebStats(service='GetCapabilities', output_format=output_format)
         return response
 
     def get_egrid(self):
@@ -126,6 +125,7 @@ class PlrWebservice(object):
         """
         try:
             output_format = self.__validate_format_param__(self._DEFAULT_FORMATS)
+            service = None
             with_geometry = False
             if self.__has_params__(['GEOMETRY']):
                 if self._params.get('GEOMETRY').lower() == 'true':
@@ -136,15 +136,19 @@ class PlrWebservice(object):
             )
             # Type A
             if self.__has_params__(['EN']):
+                service = 'GetEgridCoord'
                 records = self._get_egrid_coord(params)
             # Type B
             elif self.__has_params__(['IDENTDN', 'NUMBER']):
+                service = 'GetEgridIdent'
                 records = self._get_egrid_ident(params)
             # Type C
             elif self.__has_params__(['POSTALCODE', 'LOCALISATION', 'NUMBER']):
+                service = 'GetEgridAddress'
                 records = self._get_egrid_address(params)
             # Type D
             elif self.__has_params__(['GNSS']):
+                service = 'GetEgridCoord'
                 records = self._get_egrid_coord(params)
             # Raise exception
             else:
@@ -157,10 +161,11 @@ class PlrWebservice(object):
             response = HTTPNoContent('{}'.format(err))
         except HTTPBadRequest as err:
             response = HTTPBadRequest('{}'.format(err))
-        # response.extras = OerebStats(
-        #     service='GetEgrid',
-        #     params=dict(self._params)
-        # )
+        response.extras = OerebStats(
+            service=service,
+            params=dict(self._params),
+            output_format=output_format
+        )
         return response
 
     def _get_egrid_coord(self, params):
@@ -317,20 +322,20 @@ class PlrWebservice(object):
             response = HTTPNoContent('{}'.format(err))
         except HTTPBadRequest as err:
             response = HTTPBadRequest('{}'.format(err))
-        # try:
-        #     response.extras = OerebStats(service='GetExtractById',
-        #                                  output_format=params.format,
-        #                                  params=vars(params))
-        # except UnboundLocalError:
-        #     response.extras = OerebStats(service='GetExtractById', params={'error': response.message})
-        # except Exception:
-        #     # if params is not set we get UnboundLocalError
-        #     # or we could get ValueError
-        #     # in any case, the logging should never crash the response delivery
-        #     try:
-        #         response.extras = OerebStats(service='GetExtractById', params={'error': response.message})
-        #     except AttributeError:
-        #         response.extras = OerebStats(service='GetExtractById')
+        try:
+            response.extras = OerebStats(service='GetExtractById',
+                                         output_format=params.format,
+                                         params=vars(params))
+        except UnboundLocalError:
+            response.extras = OerebStats(service='GetExtractById', params={'error': response.message})
+        except Exception:
+            # if params is not set we get UnboundLocalError
+            # or we could get ValueError
+            # in any case, the logging should never crash the response delivery
+            try:
+                response.extras = OerebStats(service='GetExtractById', params={'error': response.message})
+            except AttributeError:
+                response.extras = OerebStats(service='GetExtractById')
         return response
 
     def __validate_extract_params__(self):
@@ -492,7 +497,7 @@ class PlrWebservice(object):
                 request=self._request
             )
 
-        # response.extras = OerebStats(service='GetEGRID', output_format=output_format)
+        response.extras = OerebStats(service='GetEGRID', output_format=output_format)
         return response
 
     @staticmethod

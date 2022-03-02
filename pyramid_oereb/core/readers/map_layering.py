@@ -28,12 +28,14 @@ class MapLayeringReader(object):
         """
         The central read accessor method to get all desired records from configured source.
 
-        .. note:: If you subclass this class your implementation needs to offer this method in the same
+        Note:
+            If you subclass this class your implementation needs to offer this method in the same
             signature. Means the parameters must be the same and the return must be a list of
             :ref:`api-pyramid_oereb-core-records-map_layering-maplayeringrecord`. Otherwise the API like way
             the server works would be broken.
 
-        params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
+        Args:
+            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
 
         Returns:
             list of pyramid_oereb.core.records.map_layering.MapLayeringRecord:

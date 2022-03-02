@@ -22,16 +22,17 @@ class Base(object):
 
 
 class BaseDatabaseSource(Base):
-
-    # Seconds to wait until database should be ready
-    TIMEOUT = 60
     """
     The plug for addresses which uses a database as source.
+
+    Attributes:
+        TIMEOUT (int): Seconds to wait until database should be ready
     """
+
+    TIMEOUT = 60
 
     def __init__(self, **kwargs):
         """
-
         Keyword Args:
             db_connection (str): A rfc1738 conform database connection string in the form of:
                 ``<driver_name>://<username>:<password>@<database_host>:<port>/<database_name>``
