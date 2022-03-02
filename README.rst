@@ -41,10 +41,10 @@ To run the tests locally:
 
 The docker way:
 ---------------
-  * Linux: ``docker-compose run --rm -u $(id -u):$(id -g) oereb-server build tests``
-  * MAC/Windows: ``docker-compose run --rm oereb-server build tests``
+  * Linux: ``docker-compose run --rm -u $(id -u):$(id -g) oereb-server make build tests``
+  * MAC/Windows: ``docker-compose run --rm oereb-server make build tests``
 
-For systems having a make tool, the following recipe can be used:
+For systems having a local make tool, the following recipe can be used:
 ``make docker-tests``
 
 sometimes the local postgres port is already in use, and you must override it:
