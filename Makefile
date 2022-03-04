@@ -13,6 +13,7 @@ endif
 
 # Environment variables for DB connection
 PGDATABASE ?= pyramid_oereb_test
+PGSTATSDB ?= oereb_stats
 PGHOST ?= localhost
 PGUSER ?= postgres
 PGPASSWORD ?= postgres
@@ -33,6 +34,7 @@ DOCKER_USER_OPTION = -u ${LOCAL_UID}:${LOCAL_GID}
 endif
 
 SQLALCHEMY_URL = "postgresql://$(PGUSER):$(PGPASSWORD)@$(PGHOST):$(PGPORT)/$(PGDATABASE)"
+STATS_URL = "postgresql://$(PGUSER):$(PGPASSWORD)@$(PGHOST):$(PGPORT)/$(PGSTATSDB)"
 
 PG_DEV_DATA_DIR = dev/sample_data
 
@@ -260,7 +262,7 @@ $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT): setup.py $(BUILD_
 	$(VENV_BIN)/python $< develop
 
 development.ini: install
-	$(VENV_BIN)/mako-render --var pyramid_oereb_port=$(PYRAMID_OEREB_PORT) development.ini.mako > development.ini
+	$(VENV_BIN)/mako-render --var pyramid_oereb_port=$(PYRAMID_OEREB_PORT) --var pyramid_stats_url=$(STATS_URL) development.ini.mako > development.ini
 
 .PHONY: build
 build: install $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CONFIGURATION_YML) create_dev_db_scripts development.ini
