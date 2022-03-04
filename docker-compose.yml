@@ -4,10 +4,34 @@ volumes:
   venvs:
 
 services:
-  oereb-server:
+  oereb-make:
+    image: oereb/main_container
     build:
       context: .
       dockerfile: Dockerfile
+    user: "${LOCAL_UID}:${LOCAL_GID}"
+    environment:
+      PGHOST: ${PGHOST:-oereb-db}
+      PGPORT: ${PGPORT:-5432}
+      PGUSER: ${PGUSER:-postgres}
+      PGPASSWORD: ${PGPASSWORD:-postgres}
+      PYRAMID_OEREB_PORT: ${PYRAMID_OEREB_PORT:-6543}
+      VENV_ROOT: /venvs/.venv
+    volumes:
+      - .:/workspace:cached
+      - venvs:/venvs
+    working_dir: /workspace
+    entrypoint: make
+    command: build
+
+  oereb-server:
+    image: oereb/main_container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - oereb-db
+    user: "${LOCAL_UID}:${LOCAL_GID}"
     environment:
       PGHOST: ${PGHOST:-oereb-db}
       PGPORT: ${PGPORT:-5432}

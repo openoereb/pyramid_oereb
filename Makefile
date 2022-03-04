@@ -317,14 +317,13 @@ tests: ${VENV_ROOT}/requirements-timestamp test-core test-contrib-data_sources-s
 
 .PHONY: docker-tests
 docker-tests:
-	docker-compose up -d oereb-db
 	echo "Running tests as user ${LOCAL_UID}:${LOCAL_GID}"
-	docker-compose run --rm -e PGHOST=oereb-db ${DOCKER_USER_OPTION} oereb-server make build tests
+	docker-compose run --rm -e PGHOST=oereb-db -e UID=${LOCAL_UID} -e GID=${LOCAL_GID} oereb-server make build tests
 	docker-compose down
 
 .PHONY: docker-clean-all
 docker-clean-all:
-	docker-compose run --rm oereb-server make clean-all
+	docker-compose run --rm oereb-make clean-all
 
 .PHONY: check
 check: git-attributes lint test
