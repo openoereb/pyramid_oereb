@@ -479,7 +479,7 @@ class Renderer(JsonRenderer):
         for restriction in restrictions:
             legends = {}
             for legend in restriction['Legend']:
-                type_ = legend['TypeCode']
+                type_ = f"{legend['TypeCode']}_{legend['Geom_Type']}"
                 if type_ in legends:
                     for item in ['AreaShare', 'LengthShare', 'PartInPercent', 'NrOfPoints']:
                         if item in legend:
