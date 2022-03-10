@@ -13,4 +13,5 @@ mako-render==0.1.0
 requests==2.27.1
 geolink-formatter==2.0.1
 pyconizer==0.1.4
-c2cwsgiutils==3.*
+c2cwsgiutils==5.*
+sqlalchemy_utils==0.38.2
