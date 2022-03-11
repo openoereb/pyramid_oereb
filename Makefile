@@ -13,6 +13,7 @@ endif
 
 # Environment variables for DB connection
 PGDATABASE ?= pyramid_oereb_test
+PGSTATSDB ?= oereb_stats
 PGHOST ?= localhost
 PGUSER ?= postgres
 PGPASSWORD ?= postgres
@@ -33,6 +34,7 @@ DOCKER_USER_OPTION = -u ${LOCAL_UID}:${LOCAL_GID}
 endif
 
 SQLALCHEMY_URL = "postgresql://$(PGUSER):$(PGPASSWORD)@$(PGHOST):$(PGPORT)/$(PGDATABASE)"
+STATS_URL = "postgresql://$(PGUSER):$(PGPASSWORD)@$(PGHOST):$(PGPORT)/$(PGSTATSDB)"
 
 PG_DEV_DATA_DIR = dev/sample_data
 
@@ -71,10 +73,10 @@ ${VENV_ROOT}/requirements-timestamp: ${VENV_ROOT}/timestamp setup.py requirement
 ##########
 
 # URLS to fed data
-THEMES_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Themen_20220125.xml
+THEMES_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Themen_20220301.xml
 LAWS_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Gesetze_20210414.xml
 LOGOS_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Logos_20211021.xml
-TEXTS_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Texte_20211021.xml
+TEXTS_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Texte_20220301.xml
 
 # XML files for creating XML files
 FED_TMP = .fed
@@ -260,7 +262,7 @@ $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT): setup.py $(BUILD_
 	$(VENV_BIN)/python $< develop
 
 development.ini: install
-	$(VENV_BIN)/mako-render --var pyramid_oereb_port=$(PYRAMID_OEREB_PORT) development.ini.mako > development.ini
+	$(VENV_BIN)/mako-render --var pyramid_oereb_port=$(PYRAMID_OEREB_PORT) --var pyramid_stats_url=$(STATS_URL) development.ini.mako > development.ini
 
 .PHONY: build
 build: install $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CONFIGURATION_YML) create_dev_db_scripts development.ini
@@ -317,14 +319,13 @@ tests: ${VENV_ROOT}/requirements-timestamp test-core test-contrib-data_sources-s
 
 .PHONY: docker-tests
 docker-tests:
-	docker-compose up -d oereb-db
 	echo "Running tests as user ${LOCAL_UID}:${LOCAL_GID}"
-	docker-compose run --rm -e PGHOST=oereb-db ${DOCKER_USER_OPTION} oereb-server make build tests
+	docker-compose run --rm -e PGHOST=oereb-db -e UID=${LOCAL_UID} -e GID=${LOCAL_GID} oereb-server make build tests
 	docker-compose down
 
 .PHONY: docker-clean-all
 docker-clean-all:
-	docker-compose run --rm oereb-server make clean-all
+	docker-compose run --rm oereb-make clean-all
 
 .PHONY: check
 check: git-attributes lint test
