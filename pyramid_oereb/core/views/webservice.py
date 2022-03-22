@@ -156,20 +156,6 @@ class PlrWebservice(object):
                     'Invalid parameters. You need one of the following combinations: '
                     'EN or GNSS or IDENTDN and NUMBER or POSTALCODE, LOCALISATION and NUMBER.'
                 )
-            supported_languages = Config.get_language()
-            for record in records:
-                real_estate_type = Config.get_real_estate_type_by_data_code(record.type)
-                text = []
-                for lang in real_estate_type.title:
-                    if lang in supported_languages:
-                        text.append({
-                            'Language': lang,
-                            'Text': real_estate_type.title[lang]
-                        })
-                record.type = {
-                    'Code': real_estate_type.code,
-                    'Text': text
-                }
             response = self.__get_egrid_response__(records, params)
         except HTTPNoContent as err:
             response = HTTPNoContent('{}'.format(err))
@@ -482,12 +468,24 @@ class PlrWebservice(object):
             return HTTPNoContent()
         output_format = self.__validate_format_param__(self._DEFAULT_FORMATS)
         real_estates = list()
+        supported_languages = Config.get_language()
         for r in records:
+            real_estate_type = Config.get_real_estate_type_by_data_code(getattr(r, 'type'))
+            text = []
+            for lang in real_estate_type.title:
+                if lang in supported_languages:
+                    text.append({
+                        'Language': lang,
+                        'Text': real_estate_type.title[lang]
+                    })
             real_estate = {
                 'egrid': getattr(r, 'egrid'),
                 'number': getattr(r, 'number'),
                 'identDN': getattr(r, 'identdn'),
-                'type': getattr(r, 'type')
+                'type': {
+                    'Code': real_estate_type.code,
+                    'Text': text
+                }
             }
             if params.with_geometry and output_format == 'json':
                 real_estate.update({
