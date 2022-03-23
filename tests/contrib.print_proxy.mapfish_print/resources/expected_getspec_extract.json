@@ -1014,7 +1014,7 @@
           "Geom_Type": "NrOfPoints",
           "TypeCodelist": "https://models.geo.bl.ch/Codetexte_dummy.xml",
           "NrOfPoints": "1",
-          "SymbolRef": "https://oereb-dev.geo.bl.ch/image/symbol/ch.Laermempfindlichkeitsstufen/1/ES_III.png",
+          "SymbolRef": "https://oereb-dev.geo.bl.ch/image/symbol/ch.Laermempfindlichkeitsstufen/2/ES_III.png",
           "LegendText": "Empfindlichkeitsstufe III"
         }
       ],

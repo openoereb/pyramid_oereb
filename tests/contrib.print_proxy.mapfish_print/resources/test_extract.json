@@ -3962,7 +3962,7 @@
             "crs": "EPSG:2056"
           }
         },
-        "SymbolRef": "https://oereb-dev.geo.bl.ch/image/symbol/ch.Laermempfindlichkeitsstufen/1/ES_III.png",
+        "SymbolRef": "https://oereb-dev.geo.bl.ch/image/symbol/ch.Laermempfindlichkeitsstufen/2/ES_III.png",
         "NrOfPoints": 1,
         "TypeCode": "ES_III",
         "TypeCodelist": "https://models.geo.bl.ch/Codetexte_dummy.xml",
