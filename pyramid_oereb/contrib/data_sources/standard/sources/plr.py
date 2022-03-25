@@ -293,6 +293,18 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return geometry_records
 
     def from_db_to_geometry_records(self, geometries_from_db):
+        """
+        Translates a geometry element read from database (SQLAlchemy) into the internal record format.
+
+        Args:
+            geometries_from_db
+                (list of pyramid_oereb.contrib.data_sources.standard.models.get_geometry.<locals>.Geometry):
+                    The element read out of the database.
+
+        Returns:
+            pyramid_oereb.core.records.geometry.GeometryRecord: The geometry record utilizing all attributes
+                read from db entity.
+        """
         geometry_records = []
         for geometry_from_db in geometries_from_db:
             # Create law status record
