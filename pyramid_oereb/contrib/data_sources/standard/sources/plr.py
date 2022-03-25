@@ -312,22 +312,34 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         return geometry_records
 
-    def from_db_to_office_record(self, offices_from_db):
+    def from_db_to_office_record(self, office_from_db):
+        """
+        Translates an office element read from database (SQLAlchemy) into the internal record format.
+
+        Args:
+            office_from_db (pyramid_oereb.contrib.data_sources.standard.models.get_office.<locals>.Office):
+                The element read out of the database.
+
+        Returns:
+            pyramid_oereb.core.records.office.OfficeRecord: The office record utilizing all attributes
+                read from db entity.
+        """
         office_record = self._office_record_class(
-            offices_from_db.name,
-            offices_from_db.uid,
-            offices_from_db.office_at_web,
-            offices_from_db.line1,
-            offices_from_db.line2,
-            offices_from_db.street,
-            offices_from_db.number,
-            offices_from_db.postal_code,
-            offices_from_db.city
+            office_from_db.name,
+            office_from_db.uid,
+            office_from_db.office_at_web,
+            office_from_db.line1,
+            office_from_db.line2,
+            office_from_db.street,
+            office_from_db.number,
+            office_from_db.postal_code,
+            office_from_db.city
         )
 
         return office_record
 
     def from_db_to_document_records(self, documents_from_db):
+
         document_records = []
         for document in documents_from_db:
             office_record = self.from_db_to_office_record(document.responsible_office)
@@ -350,6 +362,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 abbreviation=document.abbreviation,
                 official_number=document.official_number,
                 only_in_municipality=document.only_in_municipality,
+                # Documents in themes can't have article numbers (fed spec model)
                 article_numbers=None,
                 file=document.file
             ))

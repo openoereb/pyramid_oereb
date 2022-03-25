@@ -68,7 +68,8 @@ def plr_source_params(db_connection):
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource",
             "params": {
                 "db_connection": db_connection,
-                "model_factory": "pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk",  # noqa: E501
+                "model_factory": "pyramid_oereb.contrib.data_sources.standard."
+                                 "models.theme.model_factory_string_pk",
                 "schema_name": "land_use_plans"
             }
         },
@@ -281,7 +282,9 @@ def patch_get_document_type_by_data_code(document_type_record):
     def get_document_type_by_data_code(code, document_type):
         return document_type_record
 
-    with patch('pyramid_oereb.core.config.Config.get_document_type_by_data_code', get_document_type_by_data_code):  # noqa: E501
+    with patch(
+            'pyramid_oereb.core.config.Config.get_document_type_by_data_code',
+            get_document_type_by_data_code):
         yield
 
 
@@ -290,7 +293,9 @@ def patch_unwrap_multi_geometry():
     def mock_unwrap_multi_geometry(obj, law_status, published_from, published_until, geometry, geo_metadata):
         return [obj, law_status, published_from, published_until, geometry, geo_metadata]
 
-    with patch('pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.unwrap_multi_geometry_', mock_unwrap_multi_geometry):  # noqa: E501
+    with patch(
+            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.unwrap_multi_geometry_',
+            mock_unwrap_multi_geometry):
         yield
 
 
@@ -299,7 +304,10 @@ def patch_unwrap_geometry_collection():
     def unwrap_geometry_collection(obj, law_status, published_from, published_until, geometry, geo_metadata):
         return [obj, law_status, published_from, published_until, geometry, geo_metadata]
 
-    with patch('pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.unwrap_geometry_collection_', unwrap_geometry_collection):  # noqa: E501
+    with patch(
+            'pyramid_oereb.contrib.data_sources.standard.sources.plr.'
+            'DatabaseSource.unwrap_geometry_collection_',
+            unwrap_geometry_collection):
         yield
 
 
@@ -308,7 +316,9 @@ def patch_create_geometry_records():
     def create_geometry_records(obj, law_status, published_from, published_until, geometry, geo_metadata):
         return [obj, law_status, published_from, published_until, geometry, geo_metadata]
 
-    with patch('pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.create_geometry_records_', create_geometry_records):  # noqa: E501
+    with patch(
+            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.create_geometry_records_',
+            create_geometry_records):
         yield
 
 
@@ -316,7 +326,9 @@ def patch_create_geometry_records():
 def patch_from_db_to_office_record(office_records):
     def from_db_to_office_record(obj, office_from_db):
         return office_records[0]
-    with patch('pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_office_record', from_db_to_office_record):  # noqa: E501
+    with patch(
+            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_office_record',
+            from_db_to_office_record):
         yield
 
 
@@ -358,6 +370,39 @@ def office_from_db(office_model_class):
 
 
 @pytest.fixture
+def document_db_values(png_binary, yesterday, tomorrow):
+    yield [{
+        'id': "1",
+        'document_type': 'Hinweis',
+        'index': 1,
+        'law_status': 'inKraft',
+        'title': {'de', 'Titel1'},
+        'office_id': 1,
+        'published_from': yesterday,
+        'published_until': tomorrow,
+        'text_at_web': {'de': 'https://test1.abcd'},
+        'abbreviation': {'de': 'abkrz'},
+        'official_number': {'de': 'ch.abc.d123'},
+        'only_in_municipality': 1234,
+        'file': png_binary
+    }, {
+        'id': "2",
+        'document_type': 'Gesetz',
+        'index': 2,
+        'law_status': 'inKraft',
+        'title': {'de', 'Titel2'},
+        'office_id': 1,
+        'published_from': yesterday,
+        'published_until': tomorrow,
+        'text_at_web': {'de': 'https://test2.abcd'},
+        'abbreviation': {'de': 'abkrz'},
+        'official_number': {'de': 'ch.abc.d321'},
+        'only_in_municipality': 4567,
+        'file': png_binary
+    }]
+
+
+@pytest.fixture
 def document_model_class(base, office_model_class):
     from pyramid_oereb.contrib.data_sources.standard.models.main import get_document
     document_model = get_document(base, 'test', String, office_model_class)
@@ -365,36 +410,10 @@ def document_model_class(base, office_model_class):
 
 
 @pytest.fixture
-def documents_from_db(document_model_class, png_binary, yesterday, tomorrow):
+def documents_from_db(document_model_class, document_db_values):
     yield [
-        document_model_class(**{
-            'id': "1",
-            'document_type': 'Hinweis',
-            'index': 1,
-            'law_status': 'inKraft',
-            'title': {'de', 'Titel1'},
-            'office_id': 1,
-            'published_from': yesterday,
-            'published_until': tomorrow,
-            'text_at_web': {'de': 'https://test1.abcd'},
-            'abbreviation': {'de': 'abkrz'},
-            'official_number': {'de': 'ch.abc.d123'},
-            'file': png_binary
-        }),
-        document_model_class(**{
-            'id': "2",
-            'document_type': 'Gesetz',
-            'index': 2,
-            'law_status': 'inKraft',
-            'title': {'de', 'Titel2'},
-            'office_id': 1,
-            'published_from': yesterday,
-            'published_until': tomorrow,
-            'text_at_web': {'de': 'https://test2.abcd'},
-            'abbreviation': {'de': 'abkrz'},
-            'official_number': {'de': 'ch.abc.d321'},
-            'file': png_binary
-        })
+        document_model_class(**document_db_values[0]),
+        document_model_class(**document_db_values[1])
     ]
 
 
@@ -412,7 +431,8 @@ def plr_model_class(base, view_service_model_class, legend_entry_model_class, of
 
 
 @pytest.fixture
-def plrs_from_db(plr_model_class, yesterday, tomorrow, view_service_from_db, office_from_db, legend_entries_from_db):  # noqa: E501
+def plrs_from_db(plr_model_class, yesterday, tomorrow, view_service_from_db,
+                 office_from_db, legend_entries_from_db):
     yield [
         plr_model_class(**{
             'id': "1",
@@ -477,8 +497,11 @@ def geometries_from_db(geometry_model_class, plrs_from_db, wkb_geom):
     ]
 
 
-def test_from_db_to_legend_entry_record_with_subtheme(plr_source_params, all_plr_result_session, legend_entries_from_db, png_binary):  # noqa: E501
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):  # noqa: E501
+def test_from_db_to_legend_entry_record_with_subtheme(plr_source_params, all_plr_result_session,
+                                                      legend_entries_from_db, png_binary):
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=all_plr_result_session()):
         source = DatabaseSource(**plr_source_params)
         legend_entry_record = source.from_db_to_legend_entry_record(legend_entries_from_db[1])
         assert isinstance(legend_entry_record, LegendEntryRecord)
@@ -492,8 +515,11 @@ def test_from_db_to_legend_entry_record_with_subtheme(plr_source_params, all_plr
         assert isinstance(legend_entry_record.sub_theme, ThemeRecord)
 
 
-def test_from_db_to_legend_entry_record_without_subtheme(plr_source_params, all_plr_result_session, legend_entries_from_db, png_binary):  # noqa: E501
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):  # noqa: E501
+def test_from_db_to_legend_entry_record_without_subtheme(plr_source_params, all_plr_result_session,
+                                                         legend_entries_from_db, png_binary):
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=all_plr_result_session()):
         source = DatabaseSource(**plr_source_params)
         legend_entry_record = source.from_db_to_legend_entry_record(legend_entries_from_db[0])
         assert isinstance(legend_entry_record, LegendEntryRecord)
@@ -507,26 +533,44 @@ def test_from_db_to_legend_entry_record_without_subtheme(plr_source_params, all_
         assert legend_entry_record.sub_theme is None
 
 
-def test_from_db_to_legend_entry_records_with_subtheme(plr_source_params, all_plr_result_session, legend_entries_from_db, legend_entry_records):  # noqa: E501
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):  # noqa: E501
+def test_from_db_to_legend_entry_records_with_subtheme(plr_source_params, all_plr_result_session,
+                                                       legend_entries_from_db, legend_entry_records):
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=all_plr_result_session()):
         source = DatabaseSource(**plr_source_params)
-        legend_entry_records = source.from_db_to_legend_entry_records(legend_entries_from_db, legend_entry_records[0])  # noqa: E501
+        legend_entry_records = source.from_db_to_legend_entry_records(
+            legend_entries_from_db,
+            legend_entry_records[0]
+        )
         assert len(legend_entry_records) == 1
         assert legend_entry_records[0].legend_text == {'de': 'testlegende with sub theme'}
 
 
-def test_from_db_to_legend_entry_records_without_subtheme(plr_source_params, all_plr_result_session, legend_entries_from_db, legend_entry_records):  # noqa: E501
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):  # noqa: E501
+def test_from_db_to_legend_entry_records_without_subtheme(plr_source_params, all_plr_result_session,
+                                                          legend_entries_from_db, legend_entry_records):
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=all_plr_result_session()):
         source = DatabaseSource(**plr_source_params)
-        legend_entry_records = source.from_db_to_legend_entry_records(legend_entries_from_db, legend_entry_records[1])  # noqa: E501
+        legend_entry_records = source.from_db_to_legend_entry_records(
+            legend_entries_from_db,
+            legend_entry_records[1]
+        )
         assert len(legend_entry_records) == 1
         assert legend_entry_records[0].legend_text == {'de': 'testlegende without sub theme'}
 
 
-def test_from_db_to_view_service_record(plr_source_params, all_plr_result_session, legend_entry_records, view_service_from_db):  # noqa: E501
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):  # noqa: E501
+def test_from_db_to_view_service_record(plr_source_params, all_plr_result_session,
+                                        legend_entry_records, view_service_from_db):
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=all_plr_result_session()):
         source = DatabaseSource(**plr_source_params)
-        view_service_record = source.from_db_to_view_service_record(view_service_from_db, legend_entry_records)  # noqa: E501
+        view_service_record = source.from_db_to_view_service_record(
+            view_service_from_db,
+            legend_entry_records
+        )
         assert isinstance(view_service_record, ViewServiceRecord)
 
 
@@ -588,12 +632,16 @@ def test_handle_collection(tolerances, with_collection, config, source_params, a
     (loads('LINESTRING (10 10, 20 20, 10 40)'), 1, LineString),
     (loads('POLYGON ((40 40, 20 45, 45 30, 40 40))'), 1, Polygon)
 ])
-def test_create_geometry_records_simple(plr_source_params, all_plr_result_session, legend_entry_records, view_service_from_db, geom, length, geom_type, law_status_records):  # noqa: E501
+def test_create_geometry_records_simple(plr_source_params, all_plr_result_session, legend_entry_records,
+                                        view_service_from_db, geom, length, geom_type,
+                                        law_status_records):
     law_status = law_status_records[0]
     published_from = datetime.date.today() - datetime.timedelta(days=1)
     published_until = datetime.date.today() + datetime.timedelta(days=1)
     geo_metadata = 'https://geocat.ch'
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):  # noqa: E501
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=all_plr_result_session()):
         source = DatabaseSource(**plr_source_params)
         unwrapped_geometries = source.create_geometry_records_(
             law_status,
@@ -612,17 +660,39 @@ def test_create_geometry_records_simple(plr_source_params, all_plr_result_sessio
 
 
 @pytest.mark.parametrize('geom', [
-    (loads('MULTIPOLYGON (((40 40, 20 45, 45 30, 40 40)),((20 35, 10 30, 10 10, 30 5, 45 20, 20 35),(30 20, 20 15, 20 25, 30 20)))')),  # noqa: E501
-    (loads('MULTIPOINT ((10 40), (40 30), (20 20), (30 10))')),
-    (loads('MULTILINESTRING ((10 10, 20 20, 10 40),(40 40, 30 30, 40 20, 30 10))'))
+    (loads(
+        'MULTIPOLYGON ('
+        '((40 40, 20 45, 45 30, 40 40)),'
+        '((20 35, 10 30, 10 10, 30 5, 45 20, 20 35),'
+        '(30 20, 20 15, 20 25, 30 20))'
+        ')'
+    )),
+    (loads(
+        'MULTIPOINT ('
+        '(10 40),'
+        '(40 30),'
+        '(20 20),'
+        '(30 10)'
+        ')'
+    )),
+    (loads(
+        'MULTILINESTRING ('
+        '(10 10, 20 20, 10 40),'
+        '(40 40, 30 30, 40 20, 30 10)'
+        ')'
+    ))
 ])
-def test_create_geometry_records_multi(plr_source_params, all_plr_result_session, legend_entry_records, view_service_from_db, geom, law_status_records, patch_unwrap_multi_geometry):  # noqa: E501
+def test_create_geometry_records_multi(plr_source_params, all_plr_result_session, legend_entry_records,
+                                       view_service_from_db, geom, law_status_records,
+                                       patch_unwrap_multi_geometry):
     from pyramid_oereb.contrib.data_sources.standard.sources.plr import DatabaseSource
     law_status = law_status_records[0]
     published_from = datetime.date.today() - datetime.timedelta(days=1)
     published_until = datetime.date.today() + datetime.timedelta(days=1)
     geo_metadata = 'https://geocat.ch'
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):  # noqa: E501
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=all_plr_result_session()):
         source = DatabaseSource(**plr_source_params)
         unwrapped_geometries = source.create_geometry_records_(
             law_status,
@@ -645,7 +715,9 @@ def test_create_geometry_records_multi(plr_source_params, all_plr_result_session
     (loads('GEOMETRYCOLLECTION (MULTILINESTRING ((10 10, 20 20, 10 40),(40 40, 30 30, 40 20, 30 10)))')),
     (loads('GEOMETRYCOLLECTION (POLYGON ((40 40, 20 45, 45 30, 40 40)))'))
 ])
-def test_create_geometry_records_collection(plr_source_params, all_plr_result_session, legend_entry_records, view_service_from_db, geom, law_status_records, patch_unwrap_geometry_collection):  # noqa: E501
+def test_create_geometry_records_collection(plr_source_params, all_plr_result_session, legend_entry_records,
+                                            view_service_from_db, geom, law_status_records,
+                                            patch_unwrap_geometry_collection):
     from pyramid_oereb.contrib.data_sources.standard.sources.plr import DatabaseSource
     law_status = law_status_records[0]
     published_from = datetime.date.today() - datetime.timedelta(days=1)
@@ -669,16 +741,38 @@ def test_create_geometry_records_collection(plr_source_params, all_plr_result_se
 
 
 @pytest.mark.parametrize('multi_geom,length,geom_type', [
-    (loads('MULTIPOLYGON (((40 40, 20 45, 45 30, 40 40)),((20 35, 10 30, 10 10, 30 5, 45 20, 20 35),(30 20, 20 15, 20 25, 30 20)))'), 2, Polygon),  # noqa: E501
-    (loads('MULTIPOINT ((10 40), (40 30), (20 20), (30 10))'), 4, Point),
-    (loads('MULTILINESTRING ((10 10, 20 20, 10 40),(40 40, 30 30, 40 20, 30 10))'), 2, LineString)
+    (loads(
+        'MULTIPOLYGON ('
+        '((40 40, 20 45, 45 30, 40 40)),'
+        '((20 35, 10 30, 10 10, 30 5, 45 20, 20 35),'
+        '(30 20, 20 15, 20 25, 30 20))'
+        ')'
+    ), 2, Polygon),
+    (loads(
+        'MULTIPOINT ('
+        '(10 40),'
+        '(40 30),'
+        '(20 20),'
+        '(30 10)'
+        ')'
+       ), 4, Point),
+    (loads(
+        'MULTILINESTRING ('
+        '(10 10, 20 20, 10 40),'
+        '(40 40, 30 30, 40 20, 30 10)'
+        ')'
+    ), 2, LineString)
 ])
-def test_unwrap_multi_geometry(plr_source_params, all_plr_result_session, legend_entry_records, view_service_from_db, multi_geom, length, geom_type, law_status_records):  # noqa: E501
+def test_unwrap_multi_geometry(plr_source_params, all_plr_result_session, legend_entry_records,
+                               view_service_from_db, multi_geom, length, geom_type,
+                               law_status_records):  # noqa: E501
     law_status = law_status_records[0]
     published_from = datetime.date.today() - datetime.timedelta(days=1)
     published_until = datetime.date.today() + datetime.timedelta(days=1)
     geo_metadata = 'https://geocat.ch'
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):  # noqa: E501
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=all_plr_result_session()):
         source = DatabaseSource(**plr_source_params)
         unwrapped_geometries = source.unwrap_multi_geometry_(
             law_status,
@@ -702,13 +796,17 @@ def test_unwrap_multi_geometry(plr_source_params, all_plr_result_session, legend
     (loads('GEOMETRYCOLLECTION (MULTILINESTRING ((10 10, 20 20, 10 40),(40 40, 30 30, 40 20, 30 10)))'), 2),
     (loads('GEOMETRYCOLLECTION (POLYGON ((40 40, 20 45, 45 30, 40 40)))'), 1)
 ])
-def test_unwrap_geometry_collection(plr_source_params, all_plr_result_session, legend_entry_records, view_service_from_db, geom, law_status_records, patch_create_geometry_records, length):  # noqa: E501
+def test_unwrap_geometry_collection(plr_source_params, all_plr_result_session, legend_entry_records,
+                                    view_service_from_db, geom, law_status_records,
+                                    patch_create_geometry_records, length):
     from pyramid_oereb.contrib.data_sources.standard.sources.plr import DatabaseSource
     law_status = law_status_records[0]
     published_from = datetime.date.today() - datetime.timedelta(days=1)
     published_until = datetime.date.today() + datetime.timedelta(days=1)
     geo_metadata = 'https://geocat.ch'
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):  # noqa: E501
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=all_plr_result_session()):
         source = DatabaseSource(**plr_source_params)
         unwrapped_geometries = source.unwrap_geometry_collection_(
             law_status,
@@ -726,8 +824,11 @@ def test_unwrap_geometry_collection(plr_source_params, all_plr_result_session, l
             assert unwrapped_geometries[5 + index] == geo_metadata
 
 
-def test_unwrap_collection_geometry_fail(plr_source_params, all_plr_result_session, legend_entry_records, view_service_from_db, law_status_records):  # noqa: E501
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):  # noqa: E501
+def test_unwrap_collection_geometry_fail(plr_source_params, all_plr_result_session, legend_entry_records,
+                                         view_service_from_db, law_status_records):
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=all_plr_result_session()):
         source = DatabaseSource(**plr_source_params)
         with pytest.raises(AttributeError):
             source.unwrap_geometry_collection_(
@@ -735,14 +836,23 @@ def test_unwrap_collection_geometry_fail(plr_source_params, all_plr_result_sessi
                 datetime.date.today() - datetime.timedelta(days=1),
                 datetime.date.today() + datetime.timedelta(days=1),
                 loads(
-                    'GEOMETRYCOLLECTION (POINT (40 10),LINESTRING (10 10, 20 20, 10 40),POLYGON ((40 40, 20 45, 45 30, 40 40)))'),  # noqa: E501
+                    'GEOMETRYCOLLECTION ('
+                    'POINT (40 10),'
+                    'LINESTRING (10 10, 20 20, 10 40),'
+                    'POLYGON ((40 40, 20 45, 45 30, 40 40))'
+                    ')'
+                ),
                 'https://geocat.ch'
             )
 
 
-def test_from_db_to_geometry_records(plr_source_params, all_plr_result_session, patch_config_get_law_status_by_data_code, patch_create_geometry_records, geometries_from_db, law_status_records, yesterday, tomorrow):  # noqa: E501
+def test_from_db_to_geometry_records(plr_source_params, all_plr_result_session,
+                                     patch_config_get_law_status_by_data_code, patch_create_geometry_records,
+                                     geometries_from_db, law_status_records, yesterday, tomorrow):
     from pyramid_oereb.contrib.data_sources.standard.sources.plr import DatabaseSource
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):  # noqa: E501
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=all_plr_result_session()):
         source = DatabaseSource(**plr_source_params)
         geometry_records = source.from_db_to_geometry_records(geometries_from_db)
         assert geometry_records[0] == source
@@ -754,7 +864,9 @@ def test_from_db_to_geometry_records(plr_source_params, all_plr_result_session, 
 
 
 def test_from_db_to_office_record(plr_source_params, all_plr_result_session, office_from_db):
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):  # noqa: E501
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=all_plr_result_session()):
         source = DatabaseSource(**plr_source_params)
         office_record = source.from_db_to_office_record(office_from_db[0])
         assert office_record.name == {'de': 'Office1'}
@@ -768,13 +880,28 @@ def test_from_db_to_office_record(plr_source_params, all_plr_result_session, off
         assert office_record.city == 'Office1 City'
 
 
-def test_from_db_to_document_records(plr_source_params, all_plr_result_session, documents_from_db, patch_from_db_to_office_record, patch_config_get_law_status_by_data_code, patch_get_document_type_by_data_code, document_type_record, law_status_records):  # noqa: E501
+def test_from_db_to_document_records(plr_source_params, all_plr_result_session, documents_from_db,
+                                     patch_from_db_to_office_record, patch_config_get_law_status_by_data_code,
+                                     patch_get_document_type_by_data_code, document_type_record,
+                                     law_status_records, document_db_values, office_records):
     from pyramid_oereb.contrib.data_sources.standard.sources.plr import DatabaseSource
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_plr_result_session()):  # noqa: E501
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=all_plr_result_session()):
         source = DatabaseSource(**plr_source_params)
         document_records = source.from_db_to_document_records(documents_from_db)
         assert len(document_records) == 2
-        for record in document_records:
+        for index, record in enumerate(document_records):
             assert record.document_type == document_type_record
             assert record.law_status == law_status_records[0]
-            # TODO: Add more specific tests, reuse definition between records and models
+            assert record.responsible_office == office_records[0]
+            assert record.index == document_db_values[index]['index']
+            assert record.title == document_db_values[index]['title']
+            assert record.published_from == document_db_values[index]['published_from']
+            assert record.published_until == document_db_values[index]['published_until']
+            assert record.text_at_web == document_db_values[index]['text_at_web']
+            assert record.abbreviation == document_db_values[index]['abbreviation']
+            assert record.official_number == document_db_values[index]['official_number']
+            assert record.only_in_municipality == document_db_values[index]['only_in_municipality']
+            assert len(record.article_numbers) == 0
+            assert record.file == document_db_values[index]['file']
