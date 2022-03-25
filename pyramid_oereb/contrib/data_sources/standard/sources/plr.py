@@ -167,6 +167,25 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
     def unwrap_multi_geometry_(self, law_status, published_from, published_until,
                                multi_geom, geo_metadata):
+        """
+        Produces an array of geometry records representing simple shapely geometries POINT,
+        LINE, POLYGON out of a passed shapely multi geometry and assigns all attributes to them.
+
+        Args:
+            law_status (pyramid_oereb.core.records.law_status.LawStatusRecord): The law status.
+            published_from (datetime.datetime.date): Date from/since when the PLR record is published.
+            published_until (datetime.datetime.date): Date until the PLR record is published.
+            multi_geom (
+                shapely.geometry.MultiPoint or
+                shapely.geometry.MultiLineString or
+                shapely.geometry.MultiPolygon
+            ): The geometry which will be unwrapped.
+            geo_metadata (str): The metadata uri.
+
+        Returns:
+            list of pyramid_oereb.core.records.geometry.GeometryRecord: The list of unwrapped basic geometry
+                records. Each record has the same attribute values as the original one.
+        """
         unwrapped = []
         for geom in multi_geom.geoms:
             unwrapped.append(
@@ -182,6 +201,21 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
     def unwrap_geometry_collection_(self, law_status, published_from, published_until,
                                     collection, geo_metadata):
+        """
+        Produces an array of geometry records representing simple shapely geometries POINT,
+        LINE, POLYGON out of a passed shapely collection geometry and assigns all attributes to them.
+
+        Args:
+            law_status (pyramid_oereb.core.records.law_status.LawStatusRecord):
+            published_from (datetime.datetime.date): Date from/since when the PLR record is published.
+            published_until (datetime.datetime.date): Date until the PLR record is published.
+            collection (shapely.geometry.GeometryCollection): The geometry which will be unwrapped.
+            geo_metadata (str): The metadata uri.
+
+        Returns:
+            list of pyramid_oereb.core.records.geometry.GeometryRecord: The list of unwrapped basic geometry
+                records. Each record has the same attribute values as the original one.
+        """
         unwrapped = []
         if len(collection.geoms) > 1:
             raise AttributeError(u'There was more than one element in the GeometryCollection. '
@@ -200,6 +234,22 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
     def create_geometry_records_(self, law_status, published_from, published_until,
                                  geom, geo_metadata):
+        """
+        Produces an array of pyramid_oereb geometry records representing simple shapely geometries POINT,
+        LINE, POLYGON out of a passed shapely (multi)point, (multi)line, (multi)polygon or collection geometry
+        and assigns all attributes to them.
+
+        Args:
+            law_status (pyramid_oereb.core.records.law_status.LawStatusRecord):
+            published_from (datetime.datetime.date): Date from/since when the PLR record is published.
+            published_until (datetime.datetime.date): Date until the PLR record is published.
+            geom (shapely.geometry.GeometryCollection): The geometry which will be unwrapped.
+            geo_metadata (str): The metadata uri.
+
+        Returns:
+            list of pyramid_oereb.core.records.geometry.GeometryRecord: The list of unwrapped basic geometry
+                records. Each record has the same attribute values as the original one.
+        """
         geometry_records = []
 
         # Process single geometries
