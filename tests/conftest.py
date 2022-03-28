@@ -289,7 +289,7 @@ def real_estate_data(pyramid_oereb_test_config, dbsession, transact):
         'egrid': u'TEST2',
         'number': u'9999',
         'identdn': u'BLTEST',
-        'type': u'RealEstate',
+        'type': u'Liegenschaft',
         'canton': u'BL',
         'municipality': u'Liestal',
         'fosnr': 1234,

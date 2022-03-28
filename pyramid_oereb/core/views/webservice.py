@@ -468,12 +468,24 @@ class PlrWebservice(object):
             return HTTPNoContent()
         output_format = self.__validate_format_param__(self._DEFAULT_FORMATS)
         real_estates = list()
+        supported_languages = Config.get_language()
         for r in records:
+            real_estate_type = Config.get_real_estate_type_by_data_code(getattr(r, 'type'))
+            text = []
+            for lang in real_estate_type.title:
+                if lang in supported_languages:
+                    text.append({
+                        'Language': lang,
+                        'Text': real_estate_type.title[lang]
+                    })
             real_estate = {
                 'egrid': getattr(r, 'egrid'),
                 'number': getattr(r, 'number'),
                 'identDN': getattr(r, 'identdn'),
-                'type': getattr(r, 'type')
+                'type': {
+                    'Code': real_estate_type.code,
+                    'Text': text
+                }
             }
             if params.with_geometry and output_format == 'json':
                 real_estate.update({
