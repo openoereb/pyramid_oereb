@@ -21,7 +21,7 @@ def create_theme_tables_(theme_config, tables_only=False, sql_file=None, if_not_
         tables_only (bool): True to skip creation of schema. Default is False.
         sql_file (file): The file to generate. Default is None (in the database).
     """
-    if theme_config.get('standard') == True:  # noqa: E712
+    if theme_config.get('standard', True) == True:  # noqa: E712
         config_parser = StandardThemeConfigParser(**theme_config)
         models = config_parser.get_models()
         theme_schema_name = models.schema_name
@@ -40,8 +40,9 @@ def create_tables_from_standard_configuration(
     """
     Creates all schemas which are defined in the passed yaml file: <section>.<plrs>.[<plr>.<code>]. The code
     must be camel case. It will be transformed to snake case and used as schema name.
-    Creates all tables inside the created schemas. This only affects the sqlalchemy models which are defined
-    with the Base class from pyramid_oereb.standard.models.
+    Creates the DB models for all schemas consisting of each schema and the tables inside.
+    This only affects the models of the themes which are configured with `standard: True`.
+    If `standard` is not set in the config.yaml for a theme the default will be `True`.
 
     Args:
         configuration_yaml_path (str): The absolute path to the yaml file which contains the plr
@@ -68,9 +69,12 @@ def create_tables_from_standard_configuration(
     sql_file.write(sql)
 
     for theme_config in Config.get('plrs'):
-        if theme_config.get('standard'):
-            create_theme_tables_(theme_config, tables_only=tables_only, sql_file=sql_file,
-                                 if_not_exists=if_not_exists)
+        create_theme_tables_(
+            theme_config,
+            tables_only=tables_only,
+            sql_file=sql_file,
+            if_not_exists=if_not_exists
+        )
 
 
 def create_standard_tables():
