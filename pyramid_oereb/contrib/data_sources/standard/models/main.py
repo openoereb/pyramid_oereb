@@ -328,15 +328,17 @@ class MapLayering(Base):
 
 class Availability(Base):
     """
-    Availability is a settings tabel where you can join municipalities to theme codes/sub theme codes and assign
-    a published flag.
-    This flag has to be `False`. Then the delivery of the PLR's in this theme/sub theme within the municipality
-    is blocked. This is useful to publish OEREB data step by step based on municipality.
+    Availability is a settings tabel where you can join municipalities to theme codes/sub theme
+    codes and assign a published flag.
+    This flag has to be `False`. Then the delivery of the PLR's in this theme/sub theme within
+    the municipality is blocked. This is useful to publish OEREB data step by step based on
+    municipality.
 
     NOTE:
-        Core handles no found match in this table as it would be published. So you can either fill this table with all
-        combinations of themes/sub themes and municipalities and set published to True (explicit configuration) or
-        leave the table empty (implicit configuration). Both leads to published data.
+        Core handles no found match in this table as it would be published. So you can either
+        fill this table with all combinations of themes/sub themes and municipalities and set
+        published to True (explicit configuration) or leave the table empty
+        (implicit configuration). Both leads to published data.
 
     Attributes:
         id (str): The identifier of this list. It is used in DB only.

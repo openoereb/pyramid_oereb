@@ -12,7 +12,7 @@ logging.basicConfig()
 log = logging.getLogger(__name__)
 
 
-def create_theme_tables_(theme_config, tables_only=False, sql_file=None, if_not_exists=False):
+def create_theme_tables_(theme_config, source_class, tables_only=False, sql_file=None, if_not_exists=False):
     """
     Create the tables for a specific theme.
 
@@ -21,7 +21,7 @@ def create_theme_tables_(theme_config, tables_only=False, sql_file=None, if_not_
         tables_only (bool): True to skip creation of schema. Default is False.
         sql_file (file): The file to generate. Default is None (in the database).
     """
-    if theme_config['source']['class'] == 'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource':
+    if theme_config['source']['class'] == source_class:
         config_parser = StandardThemeConfigParser(**theme_config)
         models = config_parser.get_models()
         theme_schema_name = models.schema_name
@@ -68,8 +68,13 @@ def create_tables_from_standard_configuration(
     sql_file.write(sql)
 
     for theme_config in Config.get('plrs'):
-        create_theme_tables_(theme_config, tables_only=tables_only, sql_file=sql_file,
-                             if_not_exists=if_not_exists)
+        create_theme_tables_(
+            theme_config,
+            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource',
+            tables_only=tables_only,
+            sql_file=sql_file,
+            if_not_exists=if_not_exists
+        )
 
 
 def create_standard_tables():

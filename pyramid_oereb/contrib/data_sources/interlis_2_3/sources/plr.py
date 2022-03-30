@@ -115,8 +115,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         self.legend_entry_model = self.models.LegendEntry
         self.datasource = []
 
-        session = self._adapter_.get_session(self._key_)
-
     def from_db_to_legend_entry_record(self, legend_entry_from_db):
         theme = Config.get_theme_by_code_sub_code(legend_entry_from_db.theme, legend_entry_from_db.sub_theme)
         legend_entry_record = self._legend_entry_record_class(

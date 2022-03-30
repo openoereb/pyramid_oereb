@@ -1929,7 +1929,8 @@ class Config(object):
     @staticmethod
     def availability_by_theme_code_municipality_fosnr(theme_code, fosnr):
         """
-        Looks for configured availabilities. If a match was found it returns the matched availability status (bool).
+        Looks for configured availabilities. If a match was found it returns the matched
+        availability status (bool).
 
         If none was found with the given theme code, fosnr it implicates the status is published.
 

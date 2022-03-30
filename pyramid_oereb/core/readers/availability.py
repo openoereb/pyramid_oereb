@@ -29,10 +29,10 @@ class AvailabilityReader(object):
         The read method of this reader. There we invoke the read method of the bound source.
 
         Note:
-            If you construct a subclass of this class your implementation needs to offer this method in the same
-            signature. Means the parameters must be the same and the return must be a list of
-            :ref:`api-pyramid_oereb-core-records-availability-availabilityrecord`. Otherwise the API like way
-            the server works would be broken.
+            If you construct a subclass of this class your implementation needs to offer this
+            method in the same signature. Means the parameters must be the same and the return
+            must be a list of :ref:`api-pyramid_oereb-core-records-availability-availabilityrecord`.
+            Otherwise the API like way the server works would be broken.
 
         Returns:
             list of pyramid_oereb.core.records.availability.AvailabilityRecord:
