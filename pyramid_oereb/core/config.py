@@ -4,6 +4,8 @@ import os
 import logging
 import pyaml_env
 from pyramid.config import ConfigurationError
+
+from pyramid_oereb.core.readers.availability import AvailabilityReader
 from pyramid_oereb.core.records.office import OfficeRecord
 from pyramid_oereb.core.records.document_types import DocumentTypeRecord
 from pyramid_oereb.core.records.law_status import LawStatusRecord
@@ -42,6 +44,7 @@ class Config(object):
     map_layering = None
     theme_document = None
     offices = None
+    availabilities = None
 
     @staticmethod
     def init(configfile, configsection, c2ctemplate_style=False, init_data=False):
@@ -71,6 +74,7 @@ class Config(object):
             Config.init_map_layering()
             Config.init_logos()
             Config.assemble_relation_themes_documents()
+            Config.init_availabilities()
 
     @staticmethod
     def get_config():
@@ -171,6 +175,13 @@ class Config(object):
             Config.offices = Config._read_offices()
         except ProgrammingError:
             Config.offices = None
+
+    @staticmethod
+    def init_availabilities():
+        """
+        Initializes availabilities from the configured source.
+        """
+        Config.availabilities = Config._read_availabilities()
 
     @staticmethod
     def assemble_relation_themes_documents():
@@ -311,7 +322,7 @@ class Config(object):
     @staticmethod
     def _read_offices():
         """
-        Reads settings of offices from config an intiates the relevant reader.
+        Reads settings of offices from config and instantiates the relevant reader.
 
         Returns:
             list of pyramid_oereb.core.records.office.OfficeRecord:
@@ -330,6 +341,29 @@ class Config(object):
             **office_config.get('source').get('params')
         )
         return office_reader.read()
+
+    @staticmethod
+    def _read_availabilities():
+        """
+        Reads settings of availabilities from configured source and instantiates the relevant reader.
+
+        Returns:
+            list of pyramid_oereb.core.records.office.OfficeRecord:
+                The list of found records. Since these are not filtered by any criteria the list simply
+                contains all records delivered by the source.
+
+        Raises:
+            ConfigurationError
+        """
+
+        availability_config = Config.get_availability_config()
+        if availability_config is None:
+            raise ConfigurationError("Missing configuration for availability source config")
+        availability_reader = AvailabilityReader(
+            availability_config.get('source').get('class'),
+            **availability_config.get('source').get('params')
+        )
+        return availability_reader.read()
 
     @staticmethod
     def get_srid():
@@ -1241,6 +1275,7 @@ class Config(object):
 
         return Config._config.get('logos')
 
+    @staticmethod
     def get_law_status_config():
         """
         Returns a dictionary of the configured law status sources.
@@ -1304,6 +1339,18 @@ class Config(object):
         assert Config._config is not None
 
         return Config._config.get('extract')
+
+    @staticmethod
+    def get_availability_config():
+        """
+        Returns a dictionary of the configured availability settings.
+
+        Returns:
+            dict: The configured availability settings.
+        """
+        assert Config._config is not None
+
+        return Config._config.get('availability')
 
     @staticmethod
     def get_plr_cadastre_authority():
@@ -1878,6 +1925,27 @@ class Config(object):
         """
         DB_VARS = ["PGHOST", "PGPORT", "PGUSER", "PGPASSWORD", "PGDATABASE"]
         return {db_var: os.environ[db_var] for db_var in DB_VARS if db_var in os.environ}
+
+    @staticmethod
+    def availability_by_theme_code_municipality_fosnr(theme_code, fosnr):
+        """
+        Looks for configured availabilities. If a match was found it returns the matched availability status (bool).
+
+        If none was found with the given theme code, fosnr it implicates the status is published.
+
+        Args:
+            theme_code (str): The theme code to look for.
+            fosnr (int): The fosnr (aka ID_BFS) to look for.
+
+        Returns:
+             bool: True if the combination of municipality and theme code is available, false otherwise.
+        """
+        if Config.availabilities is None:
+            raise ConfigurationError("The availabilities have not been initialized")
+        for availability in Config.availabilities:
+            if int(fosnr) == int(availability.fosnr) and theme_code == availability.theme_code:
+                return availability.available
+        return True
 
 
 def _parse(cfg_file, cfg_section, c2ctemplate_style=False):

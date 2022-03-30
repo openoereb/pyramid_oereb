@@ -10,7 +10,6 @@ from sqlalchemy import text, or_
 
 from pyramid_oereb import Config
 from pyramid_oereb.core import b64
-from pyramid_oereb.core.records.availability import AvailabilityRecord
 from pyramid_oereb.core.records.image import ImageRecord
 from pyramid_oereb.core.records.plr import EmptyPlrRecord
 from pyramid_oereb.core.sources import BaseDatabaseSource
@@ -114,23 +113,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         PlrBaseSource.__init__(self, **kwargs)
 
         self.legend_entry_model = models.LegendEntry
-        availability_model = models.Availability
-
-        self.availabilities = []
         self.datasource = []
 
         session = self._adapter_.get_session(self._key_)
-
-        try:
-
-            availabilities_from_db = session.query(availability_model).all()
-            for availability in availabilities_from_db:
-                self.availabilities.append(
-                    AvailabilityRecord(availability.fosnr, available=availability.available)
-                )
-
-        finally:
-            session.close()
 
     def from_db_to_legend_entry_record(self, legend_entry_from_db):
         theme = Config.get_theme_by_code_sub_code(legend_entry_from_db.theme, legend_entry_from_db.sub_theme)
@@ -523,7 +508,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         """
 
         # Check if the plr is marked as available
-        if self._is_available(real_estate):
+        if Config.availability_by_theme_code_municipality_fosnr(self._plr_info['code'], real_estate.fosnr):
             session = self._adapter_.get_session(self._key_)
             try:
                 if session.query(self._model_).count() == 0:
@@ -567,19 +552,3 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 Config.get_theme_by_code_sub_code(self._plr_info['code']),
                 has_data=False
             )]
-
-    def _is_available(self, real_estate):
-        """
-        Checks if the topic is available for the specified real estate.
-
-        Args:
-            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
-                estate in its record representation.
-
-        Returns:
-             bool: True if the topic is available, false otherwise.
-        """
-        for availability in self.availabilities:
-            if int(real_estate.fosnr) == int(availability.fosnr) and not availability.available:
-                return False
-        return True
