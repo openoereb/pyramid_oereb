@@ -104,7 +104,7 @@ class SampleData(object):
 
         from pyramid_oereb.contrib.data_sources.standard.models.main import Theme, Logo, \
             DocumentTypeText, RealEstate, Address, Municipality, Glossary, Disclaimer, \
-            GeneralInformation, RealEstateType, LawStatus, Document, Office, ThemeDocument
+            GeneralInformation, RealEstateType, LawStatus, Document, Office, ThemeDocument, Availability
 
         # Fill tables with sample data
         for class_, file_name in [
@@ -126,7 +126,8 @@ class SampleData(object):
             (Document, 'ch.laws.json'),
             (Document, 'dev.laws.json'),
             (ThemeDocument, 'ch.themes_docs.json'),
-            (ThemeDocument, 'dev.themes_docs.json')
+            (ThemeDocument, 'dev.themes_docs.json'),
+            (Availability, 'dev.availabilities.json')
         ]:
             self._load_sample(class_, file_name)
 
@@ -141,7 +142,6 @@ class SampleData(object):
             print("Import theme {}.".format(folder))
 
             for class_, file_name in [
-                (schema.Availability, 'availabilities.json'),
                 (schema.Office, 'office.json'),
                 (schema.DataIntegration, 'data_integration.json'),
                 (schema.ViewService, 'view_service.json'),

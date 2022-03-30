@@ -139,41 +139,6 @@ def get_document(base, schema_name, pk_type, Office):
     return Document
 
 
-def get_availability(base, schema_name, pk_type):
-    """
-    Factory to produce a generic availability model.
-
-    Args:
-        base (sqlalchemy.orm.decl_api.DeclarativeMeta): The SQLAlchemy base which is assigned to the models.
-        schema_name (str): The name of the database schema where this models belong to.
-        pk_type (sqlalchemy.sql.type_api.TypeEngine): The type of the primary column. E.g.
-            sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
-            needs
-
-    Returns:
-        sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
-    """
-
-    class Availability(base):
-        """
-        A simple bucket for achieving a switch per municipality. Here you can configure via the
-        imported data if a public law restriction is available or not. You need to fill it with
-        the data you provided in the app schemas municipality table (fosnr).
-
-        Attributes:
-            fosnr (int): The identifier of the municipality in your system (id_bfs = fosnr)
-            available (bool): The switch field to configure if this plr is available for the
-                municipality or not.  This field has direct influence on the applications
-                behaviour. See documentation for more info.
-        """
-        __table_args__ = {'schema': schema_name}
-        __tablename__ = 'availability'
-        fosnr = Column(pk_type, primary_key=True, autoincrement=False)
-        available = Column(Boolean, nullable=False, default=False)
-
-    return Availability
-
-
 def get_data_integration(base, schema_name, pk_type, Office):
     """
     Factory to produce a generic data integration model.

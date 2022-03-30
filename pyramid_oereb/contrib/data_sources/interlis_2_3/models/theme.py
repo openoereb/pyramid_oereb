@@ -7,13 +7,12 @@ from sqlalchemy.orm import relationship
 
 class Models(object):
 
-    def __init__(self, availability, data_integration, office, document, view_service,
+    def __init__(self, data_integration, office, document, view_service,
                  legend_entry, public_law_restriction, geometry,
                  public_law_restriction_document,
                  localised_blob, localised_uri, multilingual_blob, multilingual_uri,
                  base, db_connection, schema_name):
 
-        self.Availability = availability
         self.DataIntegration = data_integration
         self.Office = office
         self.Document = document
@@ -190,23 +189,6 @@ def model_factory(schema_name, pk_type, srid, db_connection):
     Base = declarative_base()
 
     Office, Document = generic_models(Base, schema_name, pk_type)
-
-    class Availability(Base):
-        """
-        A simple bucket for achieving a switch per municipality. Here you can configure via the
-        imported data if a public law restriction is available or not. You need to fill it with
-        the data you provided in the app schemas municipality table (fosnr).
-
-        Attributes:
-            fosnr (int): The identifier of the municipality in your system (id_bfs = fosnr)
-            available (bool): The switch field to configure if this plr is available for the
-                municipality or not.  This field has direct influence on the applications
-                behaviour. See documentation for more info.
-        """
-        __table_args__ = {'schema': schema_name}
-        __tablename__ = 'verfuegbarkeit'
-        fosnr = Column('bfsnr', pk_type, primary_key=True, autoincrement=False)
-        available = Column('verfuegbar', Boolean, nullable=False, default=False)
 
     class DataIntegration(Base):
         """
@@ -556,7 +538,7 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         )
 
     return Models(
-        Availability, DataIntegration,
+        DataIntegration,
         Office, Document, ViewService,
         LegendEntry, PublicLawRestriction, Geometry, PublicLawRestrictionDocument,
         LocalisedBlob, LocalisedUri, MultilingualBlob, MultilingualUri,

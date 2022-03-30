@@ -353,9 +353,15 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
     def get_document_records(self, params, public_law_restriction_from_db):
         documents_from_db = []
         if not hasattr(public_law_restriction_from_db, 'legal_provisions'):
-            raise AttributeError('The public_law_restriction implementation of type {} has no '
-                                 'legal_provisions attribute. Check the model implementation.'
-                                 .format(type(public_law_restriction_from_db)))
+            raise AttributeError(
+                'The public_law_restriction implementation of type {} has no '
+                'legal_provisions attribute. Check the model implementation. Theme: {}, ID: {}, {}' .format(
+                    type(public_law_restriction_from_db),
+                    self._plr_info.get('code'),
+                    public_law_restriction_from_db.__weakref__,
+                    dir(public_law_restriction_from_db)
+                )
+            )
         for legal_provision in public_law_restriction_from_db.legal_provisions:
             documents_from_db.append(legal_provision.document)
         document_records = self.from_db_to_document_records(documents_from_db)
