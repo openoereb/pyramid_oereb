@@ -100,16 +100,16 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 as key and text as value.
         """
         config_parser = StandardThemeConfigParser(**kwargs)
-        models = config_parser.get_models()
+        self.models = config_parser.get_models()
         bds_kwargs = {
-            'model': models.Geometry,
+            'model': self.models.Geometry,
             'db_connection': kwargs.get('source').get('params').get('db_connection')
         }
 
         BaseDatabaseSource.__init__(self, **bds_kwargs)
         PlrBaseSource.__init__(self, **kwargs)
 
-        self.legend_entry_model = models.LegendEntry
+        self.legend_entry_model = self.models.LegendEntry
 
     def from_db_to_legend_entry_record(self, legend_entry_from_db):
         theme = Config.get_theme_by_code_sub_code(legend_entry_from_db.theme)
@@ -494,6 +494,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         # Check if the plr is marked as available
         if Config.availability_by_theme_code_municipality_fosnr(self._plr_info['code'], real_estate.fosnr):
             session = self.get_session()
+
             try:
                 if session.query(self._model_).count() == 0:
                     # We can stop here already because there are no items in the database
