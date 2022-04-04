@@ -2,7 +2,7 @@
 import optparse
 import logging
 
-from pyramid_oereb.contrib.data_sources.standard.create_tables import \
+from pyramid_oereb.contrib.data_sources.create_tables import \
     create_tables_from_standard_configuration
 
 
@@ -53,10 +53,11 @@ def create_standard_tables():
     if not options.configuration:
         parser.error('No configuration file set.')
 
+    config_source = 'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource'
     if options.sql_file is None:
         create_tables_from_standard_configuration(
             configuration_yaml_path=options.configuration,
-            source_class='pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource',
+            source_class=config_source,
             section=options.section,
             c2ctemplate_style=options.c2ctemplate_style,
             tables_only=options.tables_only
@@ -65,7 +66,7 @@ def create_standard_tables():
         with open(options.sql_file, 'w') as sql_file:
             create_tables_from_standard_configuration(
                 configuration_yaml_path=options.configuration,
-                source_class='pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource',
+                source_class=config_source,
                 section=options.section,
                 c2ctemplate_style=options.c2ctemplate_style,
                 sql_file=sql_file
