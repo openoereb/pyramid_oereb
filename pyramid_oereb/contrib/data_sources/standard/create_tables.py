@@ -71,7 +71,7 @@ def create_standard_tables():
             tables_only=options.tables_only
         )
     else:
-        append_to_sql = 'w' if  options.append_to_sql else 'a'
+        append_to_sql = 'w' if options.append_to_sql else 'a'
         with open(options.sql_file, append_to_sql) as sql_file:
             create_tables_from_standard_configuration(
                 configuration_yaml_path=options.configuration,

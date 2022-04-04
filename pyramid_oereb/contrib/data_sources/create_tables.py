@@ -182,7 +182,7 @@ def create_main_schema_tables():
             tables_only=options.tables_only
         )
     else:
-        append_to_sql = 'w' if  options.append_to_sql else 'a'
+        append_to_sql = 'w' if options.append_to_sql else 'a'
         with open(options.sql_file, append_to_sql) as sql_file:
             create_main_schema_from_configuration_(
                 configuration_yaml_path=options.configuration,
