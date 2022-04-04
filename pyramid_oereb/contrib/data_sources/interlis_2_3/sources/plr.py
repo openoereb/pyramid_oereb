@@ -6,7 +6,7 @@ import binascii
 from geoalchemy2.shape import to_shape, from_shape
 from shapely.geometry import Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, \
     GeometryCollection
-from sqlalchemy import text, or_
+from sqlalchemy import or_
 
 from pyramid_oereb import Config
 from pyramid_oereb.core import b64
@@ -420,49 +420,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             documents_from_db.append(legal_provision.document)
         document_records = self.from_db_to_document_records(documents_from_db)
         return document_records
-
-    @staticmethod
-    def extract_geometry_collection_db(db_path, real_estate_geometry):
-        """
-        Decides the geometry collection cases of geometric filter operations when the database contains multi
-        geometries but the passed geometry does not.
-        The multi geometry will be extracted to it's sub parts for operation.
-
-        Args:
-            db_path (str): The point separated string of schema_name.table_name.column_name from
-                which we can construct a correct SQL statement.
-            real_estate_geometry (shapely.geometry.base.BaseGeometry): The shapely geometry
-                representation which is used for comparison.
-
-        Returns:
-            sqlalchemy.sql.elements.BooleanClauseList: The clause element.
-
-        Raises:
-            HTTPBadRequest
-        """
-        srid = Config.get('srid')
-        sql_text_point = 'ST_Intersects(ST_CollectionExtract({0}, 1), ST_GeomFromText(\'{1}\', {2}))'.format(
-            db_path,
-            real_estate_geometry.wkt,
-            srid
-        )
-        sql_text_line = 'ST_Intersects(ST_CollectionExtract({0}, 2), ST_GeomFromText(\'{1}\', {2}))'.format(
-            db_path,
-            real_estate_geometry.wkt,
-            srid
-        )
-        sql_text_polygon = 'ST_Intersects(ST_CollectionExtract({0}, 3), ' \
-                           'ST_GeomFromText(\'{1}\', {2}))'.format(
-                                db_path,
-                                real_estate_geometry.wkt,
-                                srid
-                            )
-        clause_blocks = [
-            text(sql_text_point),
-            text(sql_text_line),
-            text(sql_text_polygon)
-        ]
-        return or_(*clause_blocks)
 
     def collect_related_geometries_by_real_estate(self, session, real_estate):
         """
