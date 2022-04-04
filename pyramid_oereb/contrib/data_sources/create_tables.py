@@ -18,6 +18,9 @@ def create_theme_tables_(theme_config, source_class, tables_only=False, sql_file
 
     Args:
         theme_config (dict): The configuration section for the specific theme.
+        source_class (): The source from which the table is created.
+                         This can be the standard source or the oereblex source.
+                         Only the Themes configured with this source are created.
         tables_only (bool): True to skip creation of schema. Default is False.
         sql_file (file): The file to generate. Default is None (in the database).
     """
@@ -35,7 +38,11 @@ def create_theme_tables_(theme_config, source_class, tables_only=False, sql_file
 
 
 def create_tables_from_standard_configuration(
-        configuration_yaml_path, section='pyramid_oereb', c2ctemplate_style=False, tables_only=False,
+        configuration_yaml_path,
+        source_class,
+        section='pyramid_oereb',
+        c2ctemplate_style=False,
+        tables_only=False,
         sql_file=None, if_not_exists=False):
     """
     Creates all schemas which are defined in the passed yaml file: <section>.<plrs>.[<plr>.<code>]. The code
@@ -70,72 +77,70 @@ def create_tables_from_standard_configuration(
     for theme_config in Config.get('plrs'):
         create_theme_tables_(
             theme_config,
-            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource',
+            source_class,
             tables_only=tables_only,
             sql_file=sql_file,
             if_not_exists=if_not_exists
         )
 
 
-def create_standard_tables():
-    parser = optparse.OptionParser(
-        usage='usage: %prog [options]',
-        description='Create all content for the standard database'
-    )
-    parser.add_option(
-        '-c', '--configuration',
-        dest='configuration',
-        metavar='YAML',
-        type='string',
-        help='The absolute path to the configuration yaml file.'
-    )
-    parser.add_option(
-        '-s', '--section',
-        dest='section',
-        metavar='SECTION',
-        type='string',
-        default='pyramid_oereb',
-        help='The section which contains configuration (default is: pyramid_oereb).'
-    )
-    parser.add_option(
-        '-T', '--tables-only',
-        dest='tables_only',
-        action='store_true',
-        default=False,
-        help='Use this flag to skip the creation of the schema.'
-    )
-    parser.add_option(
-        '--sql-file',
-        type='string',
-        help='Generate an SQL file.'
-    )
-    parser.add_option(
-        '--c2ctemplate-style',
-        dest='c2ctemplate_style',
-        action='store_true',
-        default=False,
-        help='Is the yaml file using a c2ctemplate style (starting with vars)'
-    )
-    options, args = parser.parse_args()
-    if not options.configuration:
-        parser.error('No configuration file set.')
-
-    if options.sql_file is None:
-        create_tables_from_standard_configuration(
-            configuration_yaml_path=options.configuration,
-            section=options.section,
-            c2ctemplate_style=options.c2ctemplate_style,
-            tables_only=options.tables_only
-        )
-    else:
-        with open(options.sql_file, 'w') as sql_file:
-            create_tables_from_standard_configuration(
-                configuration_yaml_path=options.configuration,
-                section=options.section,
-                c2ctemplate_style=options.c2ctemplate_style,
-                sql_file=sql_file
-            )
-
+# def create_standard_tables():
+#     parser = optparse.OptionParser(
+#         usage='usage: %prog [options]',
+#         description='Create all content for the standard database'
+#     )
+#     parser.add_option(
+#         '-c', '--configuration',
+#         dest='configuration',
+#         metavar='YAML',
+#         type='string',
+#         help='The absolute path to the configuration yaml file.'
+#     )
+#     parser.add_option(
+#         '-s', '--section',
+#         dest='section',
+#         metavar='SECTION',
+#         type='string',
+#         default='pyramid_oereb',
+#         help='The section which contains configuration (default is: pyramid_oereb).'
+#     )
+#     parser.add_option(
+#         '-T', '--tables-only',
+#         dest='tables_only',
+#         action='store_true',
+#         default=False,
+#         help='Use this flag to skip the creation of the schema.'
+#     )
+#     parser.add_option(
+#         '--sql-file',
+#         type='string',
+#         help='Generate an SQL file.'
+#     )
+#     parser.add_option(
+#         '--c2ctemplate-style',
+#         dest='c2ctemplate_style',
+#         action='store_true',
+#         default=False,
+#         help='Is the yaml file using a c2ctemplate style (starting with vars)'
+#     )
+#     options, args = parser.parse_args()
+#     if not options.configuration:
+#         parser.error('No configuration file set.')
+#     if options.sql_file is None:
+#         create_tables_from_standard_configuration(
+#             configuration_yaml_path=options.configuration,
+#             section=options.section,
+#             c2ctemplate_style=options.c2ctemplate_style,
+#             tables_only=options.tables_only
+#         )
+#     else:
+#         with open(options.sql_file, 'w') as sql_file:
+#             create_tables_from_standard_configuration(
+#                 configuration_yaml_path=options.configuration,
+#                 section=options.section,
+#                 c2ctemplate_style=options.c2ctemplate_style,
+#                 sql_file=sql_file
+#             )
 
 def create_theme_tables():
     parser = optparse.OptionParser(
