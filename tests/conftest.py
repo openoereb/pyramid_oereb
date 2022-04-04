@@ -19,7 +19,8 @@ from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.document_types import DocumentTypeRecord
 from pyramid_oereb.core.records.law_status import LawStatusRecord
 from pyramid_oereb.core.records.logo import LogoRecord
-from pyramid_oereb.contrib.data_sources.create_tables import create_tables_from_standard_configuration
+from pyramid_oereb.contrib.data_sources.create_tables import create_main_schema_from_configuration_, \
+    create_tables_from_standard_configuration
 from pyramid_oereb.contrib.data_sources.standard.sources.plr import StandardThemeConfigParser
 
 SCHEMA_JSON_EXTRACT_PATH = './tests/resources/schema/20210415/extract.json'
@@ -186,8 +187,17 @@ def test_db_engine(base_engine, test_db_name, config_path):
     engine.execute("CREATE EXTENSION POSTGIS")
 
     # initialize the DB with standard tables via a temp string buffer to hold SQL commands
+
+    # crate the main schema
+    sql_file_main = StringIO()
+    create_main_schema_from_configuration_(config_path, sql_file=sql_file_main)
+    sql_file_main.seek(0)
+    engine.execute(sql_file_main.read())
+
+    # create the schemas for the themes
     sql_file = StringIO()
-    create_tables_from_standard_configuration(config_path, sql_file=sql_file)
+    standart_table_source = 'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource'
+    create_tables_from_standard_configuration(config_path, standart_table_source, sql_file=sql_file)
     sql_file.seek(0)
     engine.execute(sql_file.read())
 

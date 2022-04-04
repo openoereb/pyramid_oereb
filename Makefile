@@ -41,7 +41,9 @@ PG_DEV_DATA_DIR = dev/sample_data
 DEV_CONFIGURATION_YML = pyramid_oereb.yml
 DEV_CREATE_FILL_SCRIPT = dev/database/load_sample_data.py
 DEV_CREATE_STANDARD_YML_SCRIPT = $(VENV_BIN)/create_example_yaml
-DEV_CREATE_TABLES_SCRIPT = $(VENV_BIN)/create_standard_tables
+DEV_CREATE_MAIN_TABLES_SCRIPT = $(VENV_BIN)/create_main_schema_tables
+DEV_CREATE_STANDARD_TABLES_SCRIPT = $(VENV_BIN)/create_standard_tables
+DEV_CREATE_OEREBLEX_TABLES_SCRIPT = $(VENV_BIN)/create_oereblex_tables
 
 MODEL_PK_TYPE_IS_STRING ?= true
 
@@ -221,15 +223,20 @@ DB_CREATE_EXTENSION = $(DB_STRUCTURE_PATH)/01_create_extension.sql
 DB_CREATE_EXTENSION_SQL = CREATE EXTENSION IF NOT EXISTS postgis;
 
 DB_DEV_TABLES_CREATE_SCRIPT = $(DB_STRUCTURE_PATH)/02_create_dev_tables.sql
-DEV_CREATE_TABLES_SCRIPT = $(VENV_BIN)/create_standard_tables
+DEV_CREATE_MAIN_TABLES_SCRIPT = $(VENV_BIN)/create_main_schema_tables
+DEV_CREATE_STANDARD_TABLES_SCRIPT = $(VENV_BIN)/create_standard_tables
+DEV_CREATE_OEREBLEX_TABLES_SCRIPT = $(VENV_BIN)/create_oereblex_tables
 
 DB_DEV_TABLES_FILL_SCRIPT = $(DB_STRUCTURE_PATH)/03_fill_dev_tables.sql
 
 $(DB_CREATE_EXTENSION):
 	echo "$(DB_CREATE_EXTENSION_SQL)" > $@
 
-$(DB_DEV_TABLES_CREATE_SCRIPT): $(DEV_CONFIGURATION_YML) ${VENV_ROOT}/requirements-timestamp $(DEV_CREATE_TABLES_SCRIPT)
-	$(DEV_CREATE_TABLES_SCRIPT) --configuration $< --sql-file $@
+$(DB_DEV_TABLES_CREATE_SCRIPT): $(DEV_CONFIGURATION_YML) ${VENV_ROOT}/requirements-timestamp $(DEV_CREATE_STANDARD_TABLES_SCRIPT) \
+								$(DEV_CREATE_OEREBLEX_TABLES_SCRIPT) $(DEV_CREATE_MAIN_TABLES_SCRIPT)
+	$(DEV_CREATE_MAIN_TABLES_SCRIPT) --configuration $< --sql-file $@
+	$(DEV_CREATE_STANDARD_TABLES_SCRIPT) --configuration $< --sql-file $@
+	$(DEV_CREATE_OEREBLEX_TABLES_SCRIPT) --configuration $< --sql-file $@
 
 $(DB_DEV_TABLES_FILL_SCRIPT): $(DEV_CONFIGURATION_YML) ${VENV_ROOT}/requirements-timestamp $(DEV_CREATE_FILL_SCRIPT)
 	$(VENV_BIN)/python $(DEV_CREATE_FILL_SCRIPT) --configuration $< --sql-file $@ --dir $(PG_DEV_DATA_DIR)
@@ -254,14 +261,14 @@ clean_dev_db_scripts:
 .PHONY: install
 install: ${VENV_ROOT}/requirements-timestamp
 
-$(DEV_CREATE_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT): setup.py $(BUILD_DEPS)
+$(DEV_CREATE_MAIN_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_TABLES_SCRIPT) $(DEV_CREATE_OEREBLEX_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT): setup.py $(BUILD_DEPS)
 	$(VENV_BIN)/python $< develop
 
 development.ini: install
 	$(VENV_BIN)/mako-render --var pyramid_oereb_port=$(PYRAMID_OEREB_PORT) --var pyramid_stats_url=$(STATS_URL) development.ini.mako > development.ini
 
 .PHONY: build
-build: install $(DEV_CREATE_TABLES_SCRIPT) $(DEV_CONFIGURATION_YML) create_dev_db_scripts development.ini
+build: install $(DEV_CREATE_MAIN_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_TABLES_SCRIPT) $(DEV_CREATE_OEREBLEX_TABLES_SCRIPT) $(DEV_CONFIGURATION_YML) create_dev_db_scripts development.ini
 
 .PHONY: clean
 clean: clean_fed_data clean_dev_db_scripts
