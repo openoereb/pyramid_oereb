@@ -23,6 +23,7 @@ def create_theme_tables_(theme_config, source_class, tables_only=False, sql_file
                          Only the Themes configured with this source are created.
         tables_only (bool): True to skip creation of schema. Default is False.
         sql_file (file): The file to generate. Default is None (in the database).
+        if_not_exists (bool): create Schema with the flag `IF NOT EXISTS`
     """
     if theme_config['source']['class'] == source_class:
         config_parser = StandardThemeConfigParser(**theme_config)
@@ -59,6 +60,7 @@ def create_tables_from_standard_configuration(
             Default is False.
         tables_only (bool): True to skip creation of schema. Default is False.
         sql_file (file): the file to generate. Default is None (in the database).
+        if_not_exists (bool): create Schema with the flag `IF NOT EXISTS`
     """
     if Config.get_config() is None:
         Config.init(configuration_yaml_path, section, c2ctemplate_style)
@@ -94,6 +96,7 @@ def create_main_schema_from_configuration_(
             Default is False.
         tables_only (bool): True to skip creation of schema. Default is False.
         sql_file (file): the file to generate. Default is None (in the database).
+        if_not_exists (bool): create Schema with the flag `IF NOT EXISTS`
     """
     if Config.get_config() is None:
         Config.init(configuration_yaml_path, section, c2ctemplate_style)
