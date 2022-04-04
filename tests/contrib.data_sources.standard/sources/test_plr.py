@@ -6,13 +6,18 @@ from unittest.mock import patch
 from geoalchemy2 import WKTElement
 from shapely.geometry import Polygon, Point, LineString
 from shapely.wkt import loads
-from sqlalchemy import String
+from sqlalchemy import String, text
 from sqlalchemy.orm import declarative_base
 
 from shapely.geometry import Polygon, GeometryCollection
 from pyramid_oereb.core.config import Config
-from pyramid_oereb.contrib.data_sources.standard.models import get_view_service, get_legend_entry,\
-    get_public_law_restriction, get_geometry
+from pyramid_oereb.core.records.documents import DocumentRecord
+from pyramid_oereb.core.records.geometry import GeometryRecord
+from pyramid_oereb.core.records.law_status import LawStatusRecord
+from pyramid_oereb.core.records.plr import PlrRecord
+from pyramid_oereb.core.views.webservice import Parameter
+from pyramid_oereb.contrib.data_sources.standard.models import get_view_service, get_legend_entry, \
+    get_public_law_restriction, get_geometry, get_public_law_restriction_document
 from pyramid_oereb.contrib.data_sources.standard.sources.plr import DatabaseSource
 from pyramid_oereb.core import b64
 from pyramid_oereb.core.records.document_types import DocumentTypeRecord
@@ -164,12 +169,32 @@ def base():
 
 @pytest.fixture
 def view_service_model_class(base):
-    yield get_view_service(base, 'test', String)
+    yield get_view_service(
+        base,
+        'test',
+        String
+    )
 
 
 @pytest.fixture
 def legend_entry_model_class(view_service_model_class, base):
-    yield get_legend_entry(base, 'test', String, view_service_model_class)
+    yield get_legend_entry(
+        base,
+        'test',
+        String,
+        view_service_model_class
+    )
+
+
+@pytest.fixture
+def public_law_restriction_document_model_class(base, plr_model_class, document_model_class):
+    yield get_public_law_restriction_document(
+        base,
+        'test',
+        String,
+        plr_model_class,
+        document_model_class
+    )
 
 
 @pytest.fixture
@@ -252,6 +277,24 @@ def document_type_record():
 
 
 @pytest.fixture
+def document_records(document_type_record, law_status_records, yesterday, office_records):
+    yield [
+        DocumentRecord(
+            document_type=document_type_record,
+            index=2,
+            law_status=law_status_records[0],
+            title={'de': 'Test Rechtsvorschrift'},
+            published_from=yesterday,
+            responsible_office=office_records[0],
+            text_at_web={'de': 'http://meine.rechtsvorschrift.ch'},
+            official_number={'de': 'rv.test.1'},
+            abbreviation={'de': 'Test'},
+            article_numbers=['Art.1', 'Art.2', 'Art.3']
+        )
+    ]
+
+
+@pytest.fixture
 def office_records():
     yield [
         OfficeRecord(
@@ -264,6 +307,43 @@ def office_records():
             '1a',
             4444,
             'Office1 City'
+        )
+    ]
+
+
+@pytest.fixture
+def view_service_record():
+    yield ViewServiceRecord(
+        {'de': 'http://my.wms.com'},
+        1,
+        1.0,
+        'de',
+        2056,
+        None,
+        None
+    )
+
+
+@pytest.fixture
+def geometry_records(law_status_records):
+    yield [
+        GeometryRecord(
+            law_status_records[0],
+            datetime.date.today(),
+            None,
+            Point(0.5, 0.5)
+        ),
+        GeometryRecord(
+            law_status_records[0],
+            datetime.date.today(),
+            None,
+            LineString([(0, 0), (0, 1)])
+        ),
+        GeometryRecord(
+            law_status_records[0],
+            datetime.date.today(),
+            None,
+            Polygon([(0, 0), (1, 1), (1, 0)])
         )
     ]
 
@@ -329,6 +409,76 @@ def patch_from_db_to_office_record(office_records):
     with patch(
             'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_office_record',
             from_db_to_office_record):
+        yield
+
+
+@pytest.fixture
+def patch_from_db_to_legend_entry_record(legend_entry_records):
+    def from_db_to_legend_entry_record(obj, legend_entry_from_db):
+        return legend_entry_records[0]
+    with patch(
+            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_legend_entry_record',
+            from_db_to_legend_entry_record):
+        yield
+
+
+@pytest.fixture
+def patch_from_db_to_legend_entry_records(legend_entry_records):
+    def from_db_to_legend_entry_records(obj, legend_entries_from_db, legend_entry_record):
+        return legend_entry_records
+    with patch(
+            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_legend_entry_records',
+            from_db_to_legend_entry_records):
+        yield
+
+
+@pytest.fixture
+def patch_from_db_to_view_service_record(view_service_record):
+    def from_db_to_view_service_record(obj, public_law_restriction_from_db, legend_entry_records):
+        return view_service_record
+    with patch(
+            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_view_service_record',
+            from_db_to_view_service_record):
+        yield
+
+
+@pytest.fixture
+def patch_from_db_to_geometry_records(geometry_records):
+    def from_db_to_geometry_records(obj, public_law_restriction_from_db):
+        return geometry_records
+    with patch(
+            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_geometry_records',
+            from_db_to_geometry_records):
+        yield
+
+
+@pytest.fixture
+def patch_from_db_to_document_records(document_records):
+    def from_db_to_document_records(obj, documents_from_db):
+        return document_records
+    with patch(
+            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_document_records',
+            from_db_to_document_records):
+        yield
+
+
+@pytest.fixture
+def patch_config_get_document_types_lookups(plr_source_params):
+    def get_document_types_lookups(theme_code):
+        return plr_source_params['document_types_lookup']
+    with patch(
+            'pyramid_oereb.core.config.Config.get_document_types_lookups',
+            get_document_types_lookups):
+        yield
+
+
+@pytest.fixture
+def patch_config_get_document_type_by_data_code(document_type_record):
+    def get_document_type_by_data_code(theme_code, data_code):
+        return document_type_record
+    with patch(
+            'pyramid_oereb.core.config.Config.get_document_type_by_data_code',
+            get_document_type_by_data_code):
         yield
 
 
@@ -431,18 +581,41 @@ def plr_model_class(base, view_service_model_class, legend_entry_model_class, of
 
 
 @pytest.fixture
-def plrs_from_db(plr_model_class, yesterday, tomorrow, view_service_from_db,
-                 office_from_db, legend_entries_from_db):
+def public_law_restriction_document_db(public_law_restriction_document_model_class, documents_from_db):
     yield [
-        plr_model_class(**{
-            'id': "1",
-            'law_status': 'inKraft',
-            'published_from': yesterday,
-            'published_until': tomorrow,
-            'view_service_id': view_service_from_db.id,
-            'office_id': office_from_db[0].id,
-            'legend_entry_id': legend_entries_from_db[0].id
+        public_law_restriction_document_model_class(**{
+            'document': documents_from_db[0],
+            'document_id': documents_from_db[0].id,
+            'public_law_restriction_id': '1'
+        }),
+        public_law_restriction_document_model_class(**{
+            'document': documents_from_db[1],
+            'document_id': documents_from_db[1].id,
+            'public_law_restriction_id': '1'
         })
+    ]
+
+
+@pytest.fixture
+def plrs_from_db(plr_model_class, yesterday, tomorrow, view_service_from_db,
+                 office_from_db, legend_entries_from_db, public_law_restriction_document_db,
+                 public_law_restriction_document_model_class, geometries_from_db):
+    geometries_from_db[0].public_law_restriction_id = '1'
+    plr_from_db_1 = plr_model_class(**{
+        'id': "1",
+        'law_status': 'inKraft',
+        'published_from': yesterday,
+        'published_until': tomorrow,
+        'view_service_id': view_service_from_db.id,
+        'view_service': view_service_from_db,
+        'office_id': office_from_db[0].id,
+        'legend_entry_id': legend_entries_from_db[0].id,
+        'legend_entry': legend_entries_from_db[0],
+        'geometries': [geometries_from_db[0]],
+    })
+    plr_from_db_1.legal_provisions = public_law_restriction_document_db
+    yield [
+        plr_from_db_1
     ]
 
 
@@ -480,7 +653,7 @@ def geometry_model_class(plr_model_class, base):
 
 
 @pytest.fixture
-def geometries_from_db(geometry_model_class, plrs_from_db, wkb_geom):
+def geometries_from_db(geometry_model_class, wkb_geom):
     published_from = datetime.date.today() - datetime.timedelta(days=1)
     published_until = datetime.date.today() + datetime.timedelta(days=1)
     geo_metadata = 'https://geocat.ch'
@@ -491,8 +664,7 @@ def geometries_from_db(geometry_model_class, plrs_from_db, wkb_geom):
             "published_from": published_from,
             "published_until": published_until,
             "geo_metadata": geo_metadata,
-            "geom": wkb_geom[0],
-            "public_law_restriction_id": plrs_from_db[0]
+            "geom": wkb_geom[0]
         })
     ]
 
@@ -905,3 +1077,108 @@ def test_from_db_to_document_records(plr_source_params, all_plr_result_session, 
             assert record.only_in_municipality == document_db_values[index]['only_in_municipality']
             assert len(record.article_numbers) == 0
             assert record.file == document_db_values[index]['file']
+
+
+def test_from_db_to_plr_record(plr_source_params, all_plr_result_session, patch_from_db_to_legend_entry_record,
+                               patch_from_db_to_legend_entry_records, patch_from_db_to_office_record,
+                               patch_from_db_to_view_service_record, patch_from_db_to_geometry_records,
+                               patch_config_get_law_status_by_data_code,
+                               patch_config_get_document_types_lookups,
+                               patch_config_get_document_type_by_data_code,
+                               patch_from_db_to_document_records,
+                               legend_entries_from_db, plrs_from_db,
+                               yesterday,
+                               tomorrow,
+                               legend_entry_records,
+                               law_status_records,
+                               office_records,
+                               view_service_record,
+                               geometry_records,
+                               documents_from_db,
+                               view_service_from_db):
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=all_plr_result_session()):
+        source = DatabaseSource(**plr_source_params)
+        plr_record = source.from_db_to_plr_record(
+            Parameter('json'),
+            plrs_from_db[0],
+            legend_entries_from_db
+        )
+        assert isinstance(plr_record, PlrRecord)
+        assert isinstance(plr_record.theme, ThemeRecord)
+        assert plr_record.theme == legend_entry_records[0].theme
+        assert isinstance(plr_record.legend_entry, LegendEntryRecord)
+        assert plr_record.legend_entry == legend_entry_records[0]
+        assert isinstance(plr_record.law_status, LawStatusRecord)
+        assert plr_record.law_status == law_status_records[0]
+        assert plr_record.published_from == yesterday
+        assert plr_record.published_until == tomorrow
+        assert isinstance(plr_record.responsible_office, OfficeRecord)
+        assert plr_record.responsible_office == office_records[0]
+        assert isinstance(plr_record.symbol, ImageRecord)
+        assert isinstance(plr_record.view_service, ViewServiceRecord)
+        assert plr_record.view_service == view_service_record
+        assert isinstance(plr_record.geometries[0], GeometryRecord)
+        assert plr_record.geometries[0] == geometry_records[0]
+        assert isinstance(plr_record.sub_theme, ThemeRecord)
+        assert plr_record.sub_theme == Config.themes[1]
+        assert plr_record.type_code == legend_entries_from_db[0].type_code
+        assert plr_record.type_code_list == legend_entries_from_db[0].type_code_list
+        assert isinstance(plr_record.documents[0], DocumentRecord)
+        assert plr_record.min_area == plr_source_params['thresholds']['area']['limit']
+        assert plr_record.min_length == plr_source_params['thresholds']['length']['limit']
+        assert plr_record.area_unit == plr_source_params['thresholds']['area']['unit']
+        assert plr_record.length_unit == plr_source_params['thresholds']['length']['unit']
+        assert plr_record.view_service_id == view_service_from_db.id
+
+
+def test_get_document_records(plr_source_params, all_plr_result_session, plrs_from_db,
+                              patch_from_db_to_document_records,
+                              document_records):
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=all_plr_result_session()):
+        source = DatabaseSource(**plr_source_params)
+        plr_document_records = source.get_document_records(
+            Parameter('json'),
+            plrs_from_db[0]
+        )
+        assert len(plr_document_records) == 1
+        assert isinstance(plr_document_records[0], DocumentRecord)
+        assert plr_document_records[0] == document_records[0]
+
+
+def test_extract_geometry_collection_db(plr_source_params, all_plr_result_session):
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=all_plr_result_session()):
+        real_estate_wkt = 'MULTIPOLYGON (' \
+                          '((40 40, 20 45, 45 30, 40 40)),' \
+                          '((20 35, 10 30, 10 10, 30 5, 45 20, 20 35),' \
+                          '(30 20, 20 15, 20 25, 30 20))'\
+                          ')'
+        real_estate_geometry = loads(
+            real_estate_wkt
+        )
+        source = DatabaseSource(**plr_source_params)
+        clause = source.extract_geometry_collection_db(
+            'test.geometry.geom',
+            real_estate_geometry
+        )
+        assert len(clause.clauses) == 3
+        assert clause.clauses[0].text == text(
+            'ST_Intersects(ST_CollectionExtract(test.geometry.geom, 1), ST_GeomFromText(\'{}\', 2056))'.format(
+                real_estate_geometry.wkt
+            )
+        ).text
+        assert clause.clauses[1].text == text(
+            'ST_Intersects(ST_CollectionExtract(test.geometry.geom, 2), ST_GeomFromText(\'{}\', 2056))'.format(
+                real_estate_geometry.wkt
+            )
+        ).text
+        assert clause.clauses[2].text == text(
+            'ST_Intersects(ST_CollectionExtract(test.geometry.geom, 3), ST_GeomFromText(\'{}\', 2056))'.format(
+                real_estate_geometry.wkt
+            )
+        ).text

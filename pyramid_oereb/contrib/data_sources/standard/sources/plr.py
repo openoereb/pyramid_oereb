@@ -351,6 +351,16 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return office_record
 
     def from_db_to_document_records(self, documents_from_db):
+        """
+
+        Args:
+            documents_from_db (pyramid_oereb.contrib.data_sources.standard.models.get_document.<locals>.Document):
+                The element read out of the database.
+
+        Returns:
+            pyramid_oereb.core.records.document.DocumentRecord: The document record utilizing all attributes
+                read from db entity.
+        """
 
         document_records = []
         for document in documents_from_db:
@@ -381,6 +391,21 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return document_records
 
     def from_db_to_plr_record(self, params, public_law_restriction_from_db, legend_entries_from_db):
+        """
+        Produces out of the passed DB elements a PublicLawRestriction record. It heavily utilizes the
+        instance methods to extract the nested information.
+
+        Args:
+            params (pyramid_oereb.core.views.webservice.Parameter): The parameters of the extract request.
+            public_law_restriction_from_db (pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction.<locals>.PublicLawRestriction):
+                The element read out of the database.
+            legend_entries_from_db (pyramid_oereb.contrib.data_sources.standard.models.get_legend_entry.<locals>.LegendEntry):
+                The elements read out of the database.
+
+        Returns:
+            pyramid_oereb.core.records.plr.PlrRecord: The public law restriction record utilizing all attributes
+                read from db entity and its relations.
+        """
         thresholds = self._plr_info.get('thresholds')
         min_length = thresholds.get('length').get('limit')
         length_unit = thresholds.get('length').get('unit')
@@ -434,6 +459,19 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return plr_record
 
     def get_document_records(self, params, public_law_restriction_from_db):
+        """
+        Here the M:N relation between Document and PLR through the relation table
+        pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction_document.<locals>.PublicLawRestrictionDocument
+        is resolved to real document records.
+
+        Args:
+            params (pyramid_oereb.core.views.webservice.Parameter): The parameters of the extract request.
+            public_law_restriction_from_db (pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction.<locals>.PublicLawRestriction):
+                The element read out of the database.
+
+        Returns:
+            list of pyramid_oereb.core.records.documents.DocumentRecord: The document records related to the passed PLR.
+        """
         documents_from_db = []
         if not hasattr(public_law_restriction_from_db, 'legal_provisions'):
             raise AttributeError(
@@ -447,7 +485,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             )
         for legal_provision in public_law_restriction_from_db.legal_provisions:
             documents_from_db.append(legal_provision.document)
-        document_records = self.from_db_to_document_records(documents_from_db)
+        document_records = self.from_db_to_document_records(public_law_restriction_from_db.legal_provisions)
         return document_records
 
     @staticmethod
@@ -587,7 +625,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         The read point which creates an extract, depending on a passed real estate.
 
         Args:
-            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
+            params (pyramid_oereb.core.views.webservice.Parameter): The parameters of the extract request.
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate in its record representation.
             bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
