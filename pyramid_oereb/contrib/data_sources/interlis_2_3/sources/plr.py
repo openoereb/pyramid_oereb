@@ -563,7 +563,10 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         # Add empty record if topic is not available
         else:
-            self.records = [EmptyPlrRecord(self._theme_record, has_data=False)]
+            self.records = [EmptyPlrRecord(
+                Config.get_theme_by_code_sub_code(self._plr_info['code']),
+                has_data=False
+            )]
 
     def _is_available(self, real_estate):
         """

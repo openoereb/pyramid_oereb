@@ -27,7 +27,8 @@ def test_getegrid_coord_missing_parameter():
 
 
 @pytest.mark.parametrize('geometry', [False, True])
-def test_getegrid_ident(pyramid_oereb_test_config, schema_json_extract, geometry, real_estate_data):
+def test_getegrid_ident(pyramid_oereb_test_config, schema_json_extract, geometry, real_estate_data,
+                        real_estate_types_test_data):
     request = MockRequest(current_route_url='http://example.com/oereb/getegrid/json/BLTEST/1000')
 
     # Add params to matchdict as the view will do it for /getegrid/{format}/{identdn}/{number}
@@ -55,14 +56,35 @@ def test_getegrid_ident(pyramid_oereb_test_config, schema_json_extract, geometry
     assert real_estates[0]['egrid'] == u'TEST'
     assert real_estates[0]['number'] == u'1000'
     assert real_estates[0]['identDN'] == u'BLTEST'
-    assert real_estates[0]['type'] == u'Liegenschaft'
+    assert real_estates[0]['type'] == {
+        'Code': u'RealEstate',
+        'Text': [
+            {
+                'Language': u'de',
+                'Text': u'Liegenschaft'
+            },
+            {
+                'Language': u'fr',
+                'Text': u'Bien-fonds'
+            },
+            {
+                'Language': u'it',
+                'Text': u'Bene immobile'
+            },
+            {
+                'Language': u'rm',
+                'Text': u'Bain immobigliar'
+            }
+        ]
+    }
     if geometry:
         assert 'limit' in real_estates[0]
         assert 'crs' in real_estates[0]['limit']
         assert 'coordinates' in real_estates[0]['limit']
 
 
-def test_getegrid_en(pyramid_oereb_test_config, schema_json_extract, real_estate_data):
+def test_getegrid_en(pyramid_oereb_test_config, schema_json_extract, real_estate_data,
+                     real_estate_types_test_data):
     del pyramid_oereb_test_config
 
     url = 'http://example.com/oereb/getegrid/json/?EN=2,0'
@@ -91,7 +113,8 @@ def test_getegrid_en(pyramid_oereb_test_config, schema_json_extract, real_estate
     assert real_estates[0]['identDN'] == u'BLTEST'
 
 
-def test_getegrid_gnss(pyramid_oereb_test_config, schema_json_extract, real_estate_data):
+def test_getegrid_gnss(pyramid_oereb_test_config, schema_json_extract, real_estate_data,
+                       real_estate_types_test_data):
     del pyramid_oereb_test_config
 
     request = MockRequest(
@@ -119,7 +142,8 @@ def test_getegrid_gnss(pyramid_oereb_test_config, schema_json_extract, real_esta
     assert real_estates[0]['identDN'] == u'BLTEST'
 
 
-def test_getegrid_address(pyramid_oereb_test_config, schema_json_extract, real_estate_data, address):
+def test_getegrid_address(pyramid_oereb_test_config, schema_json_extract, real_estate_data, address,
+                          real_estate_types_test_data):
     del pyramid_oereb_test_config
 
     request = MockRequest(
@@ -148,7 +172,7 @@ def test_getegrid_address(pyramid_oereb_test_config, schema_json_extract, real_e
     assert response.get('GetEGRIDResponse')[0].get('identDN') == u'BLTEST'
 
 
-def test_get_egrid_response(pyramid_test_config):
+def test_get_egrid_response(pyramid_test_config, real_estate_types_test_data):
     del pyramid_test_config
 
     request = MockRequest(current_route_url='http://example.com/oereb/getegrid/json/')
@@ -176,7 +200,27 @@ def test_get_egrid_response(pyramid_test_config):
             'egrid': 'egrid',
             'number': 'number',
             'identDN': 'identdn',
-            'type': 'Liegenschaft'
+            'type': {
+                'Code': u'RealEstate',
+                'Text': [
+                    {
+                        'Language': u'de',
+                        'Text': u'Liegenschaft'
+                    },
+                    {
+                        'Language': u'fr',
+                        'Text': u'Bien-fonds'
+                    },
+                    {
+                        'Language': u'it',
+                        'Text': u'Bene immobile'
+                    },
+                    {
+                        'Language': u'rm',
+                        'Text': u'Bain immobigliar'
+                    }
+                ]
+            }
         }]
     }
 

@@ -38,6 +38,10 @@
     {
       "Code": "ch.LaermempfindlichkeitsstufeninForce",
       "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+    },
+    {
+      "Code": "ch.LaermempfindlichkeitsstufeninForce",
+      "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
     }
   ],
   "NotConcernedTheme": [
@@ -995,7 +999,6 @@
         }
       ],
       "Hints": [],
-      "Geom_Type": "AreaShare",
       "Legend": [
         {
           "TypeCode": "ES_III",
@@ -1004,6 +1007,14 @@
           "AreaShare": "33251 m²",
           "PartInPercent": "94.7%",
           "SymbolRef": "https://oereb-dev.geo.bl.ch/image/symbol/ch.Laermempfindlichkeitsstufen/1/ES_III.png",
+          "LegendText": "Empfindlichkeitsstufe III"
+        },
+        {
+          "TypeCode": "ES_III",
+          "Geom_Type": "NrOfPoints",
+          "TypeCodelist": "https://models.geo.bl.ch/Codetexte_dummy.xml",
+          "NrOfPoints": "1",
+          "SymbolRef": "https://oereb-dev.geo.bl.ch/image/symbol/ch.Laermempfindlichkeitsstufen/2/ES_III.png",
           "LegendText": "Empfindlichkeitsstufe III"
         }
       ],

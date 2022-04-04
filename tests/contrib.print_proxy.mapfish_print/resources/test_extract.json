@@ -3873,6 +3873,273 @@
             ]
           }
         ]
+      },
+  
+      {
+        "LegendText": [
+          {
+            "Language": "de",
+            "Text": "Empfindlichkeitsstufe III"
+          }
+        ],
+        "Theme": {
+          "Code": "ch.Laermempfindlichkeitsstufen",
+          "Text": [
+            {
+              "Language": "de",
+              "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+            }
+          ]
+        },
+        "Lawstatus": {
+          "Code": "inForce",
+          "Text": [
+            {
+              "Language": "de",
+              "Text": "Rechtskräftig"
+            }
+          ]
+        },
+        "ResponsibleOffice": {
+          "Name": [
+            {
+              "Language": "de",
+              "Text": "Gemeinde Oberwil (BL)"
+            }
+          ],
+          "OfficeAtWeb": [
+            {
+              "Language": "de",
+              "Text": "https://www.oberwil.ch"
+            }
+          ]
+        },
+        "Map": {
+          "ReferenceWMS": [
+            {
+              "Language": "de",
+              "Text": "https://oereb-dev.geo.bl.ch/wms?SERVICE=WMS&VERSION=1.1&REQUEST=GetMap&LAYERS=ch.Laermempfindlichkeitsstufen&STYLES=default&SRS=EPSG%3A2056&FORMAT=image%2Fpng&BBOX=2608564.1173571427%2C1261670.8114999998%2C2609194.3826428573%2C1262028.7715&WIDTH=493&HEIGHT=280"
+            }
+          ],
+          "OtherLegend": [
+            {
+              "LegendText": [
+                {
+                  "Language": "de",
+                  "Text": "Empfindlichkeitsstufe II"
+                }
+              ],
+              "TypeCode": "ES_II",
+              "TypeCodelist": "https://models.geo.bl.ch/Codetexte_dummy.xml",
+              "Theme": {
+                "Code": "ch.Laermempfindlichkeitsstufen",
+                "Text": [
+                  {
+                    "Language": "de",
+                    "Text": "Lärmempfindlichkeitsstufen (in Nutzungszonen)"
+                  }
+                ]
+              },
+              "SymbolRef": "https://oereb-dev.geo.bl.ch/image/symbol/ch.Laermempfindlichkeitsstufen/1/ES_II.png"
+            }
+          ],
+          "layerIndex": 1,
+          "layerOpacity": 1.0,
+          "min": {
+            "type": "Point",
+            "coordinates": [
+              2608564.1173571427,
+              1261670.8114999998
+            ],
+            "crs": "EPSG:2056"
+          },
+          "max": {
+            "type": "Point",
+            "coordinates": [
+              2609194.3826428573,
+              1262028.7715
+            ],
+            "crs": "EPSG:2056"
+          }
+        },
+        "SymbolRef": "https://oereb-dev.geo.bl.ch/image/symbol/ch.Laermempfindlichkeitsstufen/2/ES_III.png",
+        "NrOfPoints": 1,
+        "TypeCode": "ES_III",
+        "TypeCodelist": "https://models.geo.bl.ch/Codetexte_dummy.xml",
+        "LegalProvisions": [
+          {
+            "Type": {
+              "Code": "Law",
+              "Text": [
+                {
+                  "Language": "de",
+                  "Text": "Gesetzliche Grundlage"
+                }
+              ]
+            },
+            "Index": 620,
+            "Title": [
+              {
+                "Language": "de",
+                "Text": "Lärmschutz-Verordnung"
+              }
+            ],
+            "Lawstatus": {
+              "Code": "inForce",
+              "Text": [
+                {
+                  "Language": "de",
+                  "Text": "Rechtskräftig"
+                }
+              ]
+            },
+            "TextAtWeb": [
+              {
+                "Language": "de",
+                "Text": "https://www.admin.ch/ch/d/sr/c814_41.html"
+              }
+            ],
+            "ResponsibleOffice": {
+              "Name": [
+                {
+                  "Language": "de",
+                  "Text": "Bundeskanzlei"
+                }
+              ],
+              "OfficeAtWeb": [
+                {
+                  "Language": "de",
+                  "Text": "https://www.bk.admin.ch"
+                }
+              ],
+              "UID": "CHE263297189"
+            },
+            "Abbreviation": [
+              {
+                "Language": "de",
+                "Text": "LSV"
+              }
+            ],
+            "OfficialNumber": [
+              {
+                "Language": "de",
+                "Text": "SR 814.41"
+              }
+            ]
+          },
+          {
+            "Type": {
+              "Code": "LegalProvision",
+              "Text": [
+                {
+                  "Language": "de",
+                  "Text": "Rechtsvorschrift"
+                }
+              ]
+            },
+            "Index": 900,
+            "Title": [
+              {
+                "Language": "de",
+                "Text": "RRB vom 01.03.1994"
+              }
+            ],
+            "Lawstatus": {
+              "Code": "inForce",
+              "Text": [
+                {
+                  "Language": "de",
+                  "Text": "Rechtskräftig"
+                }
+              ]
+            },
+            "TextAtWeb": [
+              {
+                "Language": "de",
+                "Text": "https://oereblex.bl.ch/api/attachments/17051"
+              }
+            ],
+            "ResponsibleOffice": {
+              "Name": [
+                {
+                  "Language": "de",
+                  "Text": "Gemeindeverwaltung"
+                }
+              ],
+              "OfficeAtWeb": [
+                {
+                  "Language": "de",
+                  "Text": "www.oberwil.ch"
+                }
+              ]
+            },
+            "OfficialNumber": [
+              {
+                "Language": "de",
+                "Text": "Nr. 502"
+              }
+            ]
+          },
+          {
+            "Type": {
+              "Code": "Law",
+              "Text": [
+                {
+                  "Language": "de",
+                  "Text": "Gesetzliche Grundlage"
+                }
+              ]
+            },
+            "Index": 430,
+            "Title": [
+              {
+                "Language": "de",
+                "Text": "Umweltschutzgesetz Basel-Landschaft"
+              }
+            ],
+            "Lawstatus": {
+              "Code": "inForce",
+              "Text": [
+                {
+                  "Language": "de",
+                  "Text": "Rechtskräftig"
+                }
+              ]
+            },
+            "TextAtWeb": [
+              {
+                "Language": "de",
+                "Text": "https://bl.clex.ch/frontend/versions/pdf_file_with_annex/1337?locale=de"
+              }
+            ],
+            "ResponsibleOffice": {
+              "Name": [
+                {
+                  "Language": "de",
+                  "Text": "Landeskanzlei"
+                }
+              ],
+              "OfficeAtWeb": [
+                {
+                  "Language": "de",
+                  "Text": "https://www.baselland.ch/politik-und-behorden/besondere-behorden/landeskanzlei"
+                }
+              ]
+            },
+            "Abbreviation": [
+              {
+                "Language": "de",
+                "Text": "USG BL"
+              }
+            ],
+            "OfficialNumber": [
+              {
+                "Language": "de",
+                "Text": "SGS 780"
+              }
+            ]
+          }
+        ]
       }
     ]
   },
