@@ -6,7 +6,7 @@ import binascii
 from geoalchemy2.shape import to_shape, from_shape
 from shapely.geometry import Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, \
     GeometryCollection
-from sqlalchemy import text, or_
+from sqlalchemy import or_
 
 from pyramid_oereb import Config
 from pyramid_oereb.core import b64
