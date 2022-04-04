@@ -49,6 +49,14 @@ def create_oereblex_tables():
         default=False,
         help='Is the yaml file using a c2ctemplate style (starting with vars)'
     )
+    parser.add_option(
+        '-w', '--over-write',
+        dest='append_to_sql',
+        action='store_true',
+        default=False,
+        help='Setting this will overwrite the given sql-file (defaults to append to the file).'
+    )
+
     options, args = parser.parse_args()
     if not options.configuration:
         parser.error('No configuration file set.')
@@ -63,7 +71,8 @@ def create_oereblex_tables():
             tables_only=options.tables_only
         )
     else:
-        with open(options.sql_file, 'w') as sql_file:
+        append_to_sql = 'w' if  options.append_to_sql else 'a'
+        with open(options.sql_file, append_to_sql) as sql_file:
             create_tables_from_standard_configuration(
                 configuration_yaml_path=options.configuration,
                 source_class=config_source,

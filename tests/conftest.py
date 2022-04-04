@@ -187,7 +187,8 @@ def test_db_engine(base_engine, test_db_name, config_path):
 
     # initialize the DB with standard tables via a temp string buffer to hold SQL commands
     sql_file = StringIO()
-    create_tables_from_standard_configuration(config_path, sql_file=sql_file)
+    standart_table_source = 'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource'
+    create_tables_from_standard_configuration(config_path, standart_table_source, sql_file=sql_file)
     sql_file.seek(0)
     engine.execute(sql_file.read())
 
