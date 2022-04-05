@@ -6,7 +6,7 @@ from unittest.mock import patch
 from geoalchemy2 import WKTElement
 from shapely.geometry import Polygon, Point, LineString
 from shapely.wkt import loads
-from sqlalchemy import String, text
+from sqlalchemy import String, text, create_engine, orm
 from sqlalchemy.orm import declarative_base
 
 from shapely.geometry import Polygon, GeometryCollection
@@ -40,6 +40,20 @@ def yesterday(date_today):
 @pytest.fixture
 def tomorrow(date_today):
     yield date_today + datetime.timedelta(days=1)
+
+
+@pytest.fixture
+def real_estate_wkt():
+    yield 'MULTIPOLYGON (' \
+          '((40 40, 20 45, 45 30, 40 40)),' \
+          '((20 35, 10 30, 10 10, 30 5, 45 20, 20 35),' \
+          '(30 20, 20 15, 20 25, 30 20))'\
+          ')'
+
+
+@pytest.fixture
+def real_estate_shapely_geom(real_estate_wkt):
+    yield loads(real_estate_wkt)
 
 
 @pytest.fixture
@@ -137,7 +151,33 @@ def config_themes(app_config):
 def config_config(app_config):
     mock_config = {
         'default_language': 'de',
-        'srid': 2056
+        'srid': 2056,
+        'geometry_types': {
+            'point': {
+                'types': {
+                    'Point',
+                    'MultiPoint'
+                }
+            },
+            'line': {
+                'types': {
+                    'LineString',
+                    'LinearRing',
+                    'MultiLineString'
+                }
+            },
+            'polygon': {
+                'types': {
+                    'Polygon',
+                    'MultiPolygon'
+                }
+            },
+            'collection': {
+                'types': {
+                    'GeometryCollection'
+                }
+            }
+        }
     }
     with patch('pyramid_oereb.core.config.Config._config', mock_config):
         yield
@@ -1149,36 +1189,40 @@ def test_get_document_records(plr_source_params, all_plr_result_session, plrs_fr
         assert plr_document_records[0] == document_records[0]
 
 
-def test_extract_geometry_collection_db(plr_source_params, all_plr_result_session):
+def test_extract_geometry_collection_db(real_estate_shapely_geom):
+    real_estate_shapely_geom
+    clause = DatabaseSource.extract_geometry_collection_db(
+        'test.geometry.geom',
+        real_estate_shapely_geom
+    )
+    assert len(clause.clauses) == 3
+    assert clause.clauses[0].text == text(
+        'ST_Intersects(ST_CollectionExtract(test.geometry.geom, 1), ST_GeomFromText(\'{}\', 2056))'.format(
+            real_estate_shapely_geom.wkt
+        )
+    ).text
+    assert clause.clauses[1].text == text(
+        'ST_Intersects(ST_CollectionExtract(test.geometry.geom, 2), ST_GeomFromText(\'{}\', 2056))'.format(
+            real_estate_shapely_geom.wkt
+        )
+    ).text
+    assert clause.clauses[2].text == text(
+        'ST_Intersects(ST_CollectionExtract(test.geometry.geom, 3), ST_GeomFromText(\'{}\', 2056))'.format(
+            real_estate_shapely_geom.wkt
+        )
+    ).text
+
+
+def test_handle_collection(plr_source_params, all_plr_result_session, real_estate_shapely_geom,
+                           db_connection):
     with patch(
             'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
             return_value=all_plr_result_session()):
-        real_estate_wkt = 'MULTIPOLYGON (' \
-                          '((40 40, 20 45, 45 30, 40 40)),' \
-                          '((20 35, 10 30, 10 10, 30 5, 45 20, 20 35),' \
-                          '(30 20, 20 15, 20 25, 30 20))'\
-                          ')'
-        real_estate_geometry = loads(
-            real_estate_wkt
-        )
+        engine = create_engine(db_connection, pool_recycle=30)
+        session = orm.scoped_session(orm.sessionmaker(bind=engine))
         source = DatabaseSource(**plr_source_params)
-        clause = source.extract_geometry_collection_db(
-            'test.geometry.geom',
-            real_estate_geometry
-        )
-        assert len(clause.clauses) == 3
-        assert clause.clauses[0].text == text(
-            'ST_Intersects(ST_CollectionExtract(test.geometry.geom, 1), ST_GeomFromText(\'{}\', 2056))'.format(
-                real_estate_geometry.wkt
-            )
-        ).text
-        assert clause.clauses[1].text == text(
-            'ST_Intersects(ST_CollectionExtract(test.geometry.geom, 2), ST_GeomFromText(\'{}\', 2056))'.format(
-                real_estate_geometry.wkt
-            )
-        ).text
-        assert clause.clauses[2].text == text(
-            'ST_Intersects(ST_CollectionExtract(test.geometry.geom, 3), ST_GeomFromText(\'{}\', 2056))'.format(
-                real_estate_geometry.wkt
-            )
-        ).text
+        source._plr_info['geometry_type'] = 'Point'
+
+
+        query = source.handle_collection(session, real_estate_shapely_geom)
+        assert str(query) == 'test'

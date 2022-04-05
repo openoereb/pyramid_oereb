@@ -485,7 +485,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             )
         for legal_provision in public_law_restriction_from_db.legal_provisions:
             documents_from_db.append(legal_provision.document)
-        document_records = self.from_db_to_document_records(public_law_restriction_from_db.legal_provisions)
+        document_records = self.from_db_to_document_records(documents_from_db)
         return document_records
 
     @staticmethod
@@ -528,8 +528,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         Handles geometry collection in the geometry query if needed.
 
         Args:
-            session (sqlalchemy.orm.Session): The requested clean session instance ready for use
-            geometry_to_check (GeometryRecord): geometry to be queried
+            session (sqlalchemy.orm.Session or sqlalchemy.orm.scoped_session): The requested clean
+                session instance ready for use
+            geometry_to_check (shapely.geometry.base.BaseGeometry): geometry to be queried
 
         Returns:
             sqlalchemy.orm.Query : the query based on the geometry_to_check
