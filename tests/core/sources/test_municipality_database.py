@@ -2,8 +2,6 @@
 
 import pytest
 
-from tests.mockrequest import MockParameter
-
 
 @pytest.fixture
 def municipality_data(dbsession, transact):

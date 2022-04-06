@@ -2,7 +2,6 @@
 import pytest
 
 from pyramid_oereb.core.adapter import DatabaseAdapter
-from tests.mockrequest import MockParameter
 
 
 @pytest.fixture

@@ -4,7 +4,6 @@ import pytest
 from pyramid_oereb.core.sources import Base
 from pyramid_oereb.core.readers.disclaimer import DisclaimerReader
 from pyramid_oereb.core.records.disclaimer import DisclaimerRecord
-from tests.mockrequest import MockParameter
 
 
 @pytest.fixture

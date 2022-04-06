@@ -284,14 +284,14 @@ class PlrWebservice(object):
                 if params.format == 'url':
                     log.debug("get_extract_by_id() calling url")
                     return self.__redirect_to_dynamic_client__(real_estate_records[0])
-                yappi.set_clock_type("cpu")
-                yappi.start()
+                # yappi.set_clock_type("cpu")
+                # yappi.start()
                 extract = processor.process(
                     real_estate_records[0],
                     params,
                     self._request.route_url('{0}/sld'.format(route_prefix))
                 )
-                yappi.get_func_stats().save('/workspace/processor_function_stats.prof', "pstat")
+                # yappi.get_func_stats().save('/workspace/processor_function_stats.prof', "pstat")
                 # yappi.get_thread_stats().save('/workspace/processor_thread_stats.prof', "pstat")
 
                 if params.format == 'json':

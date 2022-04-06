@@ -4,7 +4,6 @@ import pytest
 from pyramid_oereb.core.sources import Base
 from pyramid_oereb.core.readers.glossary import GlossaryReader
 from pyramid_oereb.core.records.glossary import GlossaryRecord
-from tests.mockrequest import MockParameter
 
 
 @pytest.fixture
