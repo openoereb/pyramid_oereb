@@ -37,7 +37,7 @@ def test_read(pyramid_oereb_test_config, glossary_data):
     from pyramid_oereb.contrib.data_sources.standard.sources.glossary import DatabaseSource
 
     source = DatabaseSource(**pyramid_oereb_test_config.get_glossary_config().get('source').get('params'))
-    source.read(MockParameter())
+    source.read()
     results = source.records
     assert len(results) == 1
     assert results[0].title['fr'] == glossary_data[0].title['fr']

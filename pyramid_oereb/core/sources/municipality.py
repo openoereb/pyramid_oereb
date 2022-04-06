@@ -13,14 +13,10 @@ class MunicipalityBaseSource(Base):
     """
     _record_class_ = MunicipalityRecord
 
-    def read(self, params, fosnr=None):
+    def read(self):
         """
         Every municipality source has to implement a read method. This method must accept no parameters.
         Because it should deliver all items available.
         If you want adapt to your own source for municipalities, this is the point where to hook in.
-
-        Args:
-            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
-            fosnr (int or None): The federal number of the municipality defined by the statistics office.
         """
         pass  # pragma: no cover

@@ -10,21 +10,16 @@ from pyramid_oereb.core.sources.municipality import MunicipalityBaseSource
 
 class DatabaseSource(BaseDatabaseSource, MunicipalityBaseSource):
 
-    def read(self, params, fosnr=None):
+    def read(self):
         """
-        Central method to read a municipality by it's id_bfs identifier.
-
-        Args:
-            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
-            fosnr (int or None): The federal number of the municipality defined by the statistics office.
+        The read method to access the standard database structure. It uses SQL-Alchemy for querying. It does
+        not accept any parameters nor it applies any filter on the database query. It simply loads all
+        content from the configured model.
         """
         session = self._adapter_.get_session(self._key_)
         try:
             self.records = list()
-            if fosnr:
-                results = session.query(self._model_).filter(self._model_.fosnr == fosnr).all()
-            else:
-                results = session.query(self._model_).all()
+            results = session.query(self._model_).all()
             for result in results:
                 self.records.append(self._record_class_(
                     result.fosnr,

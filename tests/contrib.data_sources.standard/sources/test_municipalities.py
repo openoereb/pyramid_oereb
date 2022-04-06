@@ -5,7 +5,6 @@ from geoalchemy2 import WKTElement
 from geoalchemy2.shape import to_shape
 from pyramid_oereb.contrib.data_sources.standard.sources.municipality import DatabaseSource
 from pyramid_oereb.core.records.municipality import MunicipalityRecord
-from pyramid_oereb.core.views.webservice import Parameter
 
 
 @pytest.fixture
@@ -90,7 +89,7 @@ def all_municipalities_filtered_result_session(session, query, municipalities):
 def test_read_all(municipalities_source_params, all_municipalities_result_session, wkb_multipolygon):
     source = DatabaseSource(**municipalities_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_municipalities_result_session()):  # noqa: E501
-        source.read(Parameter('xml'))
+        source.read()
         assert len(source.records) == 2
         assert isinstance(source.records[0], MunicipalityRecord)
         assert isinstance(source.records[1], MunicipalityRecord)
@@ -98,10 +97,3 @@ def test_read_all(municipalities_source_params, all_municipalities_result_sessio
         assert source.records[0].geom == to_shape(wkb_multipolygon).wkt
         assert source.records[0].name == "Oberwil (BL)"
         assert source.records[0].published
-
-
-def test_read_all_filtered(municipalities_source_params, all_municipalities_filtered_result_session):
-    source = DatabaseSource(**municipalities_source_params)
-    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_municipalities_filtered_result_session()):  # noqa: E501
-        source.read(Parameter('xml'), fosnr=2771)
-        assert len(source.records) == 1

@@ -51,7 +51,7 @@ def test_read(pyramid_oereb_test_config, disclaimer_data):
         pyramid_oereb_test_config.get_disclaimer_config().get('source').get('class'),
         **pyramid_oereb_test_config.get_disclaimer_config().get('source').get('params')
     )
-    results = reader.read(MockParameter())
+    results = reader.read()
     assert isinstance(results, list)
     assert len(results) == len(disclaimer_data)
     assert isinstance(results[0], DisclaimerRecord)

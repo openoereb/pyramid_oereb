@@ -40,7 +40,7 @@ def test_read(pyramid_oereb_test_config, glossary_data):
         pyramid_oereb_test_config.get_glossary_config().get('source').get('class'),
         **pyramid_oereb_test_config.get_glossary_config().get('source').get('params')
     )
-    results = reader.read(MockParameter())
+    results = reader.read()
     assert isinstance(results, list)
     assert isinstance(results[0], GlossaryRecord)
     assert len(results) == 1
