@@ -5,7 +5,6 @@ from sqlalchemy.orm import relationship
 
 from pyramid_oereb.contrib.data_sources.standard.models import (
     get_office,
-    get_availability,
     get_data_integration,
     get_view_service,
     get_legend_entry,
@@ -15,11 +14,10 @@ from pyramid_oereb.contrib.data_sources.standard.models import (
 
 class Models(object):
 
-    def __init__(self, availability, office, data_integration, view_service,
+    def __init__(self, office, data_integration, view_service,
                  legend_entry, public_law_restriction, geometry, base,
                  db_connection, schema_name):
 
-        self.Availability = availability
         self.Office = office
         self.DataIntegration = data_integration
         self.ViewService = view_service
@@ -45,7 +43,6 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
     """
     Base = declarative_base()
 
-    Availability = get_availability(Base, schema_name, pk_type)
     Office = get_office(Base, schema_name, pk_type)
     DataIntegration = get_data_integration(Base, schema_name, pk_type, Office)
     ViewService = get_view_service(Base, schema_name, pk_type)
@@ -107,7 +104,7 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
     Geometry = get_geometry(Base, schema_name, pk_type, geometry_type, srid, PublicLawRestriction)
 
     return Models(
-        Availability, Office, DataIntegration, ViewService,
+        Office, DataIntegration, ViewService,
         LegendEntry, PublicLawRestriction, Geometry, Base,
         db_connection, schema_name
     )

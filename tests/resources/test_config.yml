@@ -265,6 +265,13 @@ pyramid_oereb:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer
 
+  availability:
+    source:
+      class: pyramid_oereb.contrib.data_sources.standard.sources.availability.DatabaseSource
+      params:
+        db_connection: *main_db_connection
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Availability
+
   print:
     renderer: pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer
     with_geometry: False

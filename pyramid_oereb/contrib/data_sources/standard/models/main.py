@@ -324,3 +324,31 @@ class MapLayering(Base):
     view_service = Column(JSONType, nullable=False)
     layer_index = Column(Integer, nullable=False)
     layer_opacity = Column(Float, nullable=False)
+
+
+class Availability(Base):
+    """
+    Availability is a settings tabel where you can join municipalities to theme codes/sub theme
+    codes and assign a published flag.
+    This flag has to be `False`. Then the delivery of the PLR's in this theme/sub theme within
+    the municipality is blocked. This is useful to publish OEREB data step by step based on
+    municipality.
+
+    NOTE:
+        Core handles no found match in this table as it would be published. So you can either
+        fill this table with all combinations of themes/sub themes and municipalities and set
+        published to True (explicit configuration) or leave the table empty
+        (implicit configuration). Both leads to published data.
+
+    Attributes:
+        id (str): The identifier of this list. It is used in DB only.
+        municipality_fosnr (int): The municipality identifier which the switch element belongs to.
+        theme_code (str): the theme code which this switch element belongs to.
+        available (bool): Switch wether the element is published or not.
+    """
+    __table_args__ = {'schema': app_schema_name}
+    __tablename__ = 'availability'
+    id = Column(String, primary_key=True)
+    municipality_fosnr = Column(ForeignKey(Municipality.fosnr), nullable=False)
+    theme_code = Column(String, nullable=False)
+    available = Column(Boolean, nullable=False, default=False)
