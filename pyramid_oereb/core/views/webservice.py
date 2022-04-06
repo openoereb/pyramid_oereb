@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import yappi
+# import yappi
 
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPInternalServerError, HTTPNoContent, \
     HTTPNotFound
