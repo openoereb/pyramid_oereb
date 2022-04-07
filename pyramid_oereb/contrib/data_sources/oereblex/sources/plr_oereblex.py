@@ -93,9 +93,9 @@ class DatabaseOEREBlexSource(DatabaseSource):
             list of pyramid_oereb.core.records.documents.DocumentRecord:
                 The documents created from the parsed OEREBlex response.
         """
-        log.debug("document_records_from_oereblex() start, GEO-Link {}, oereblex_params {}"
-                  .format(geolink, oereblex_params))
-        identifier = '{}{}'.format(geolink, params.language)
+        log.debug("document_records_from_oereblex() start, GEO-Link {}, law status {}, oereblex_params {}"
+                  .format(geolink, law_status.code, oereblex_params))
+        identifier = '{}{}{}'.format(geolink, law_status.code, params.language)
         if identifier in self._queried_geolinks:
             log.debug('skip querying this geolink "{}" because it was fetched already.'.format(identifier))
             log.debug('use already queried instead')
