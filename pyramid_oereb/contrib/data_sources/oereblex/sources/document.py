@@ -38,6 +38,8 @@ class OEREBlexSource(Base):
             validation (bool): Turn XML validation on/off. Default is true.
             url_param_config (list of code and url_param): Optional url parameters to use, per plr code
             code (str): The official code. Regarding to the federal specifications.
+            use_prepubs (bool): If true and the law status is not "inForce", the prepubs URL will be
+                used. Default is false.
 
         """
         super(OEREBlexSource, self).__init__()
