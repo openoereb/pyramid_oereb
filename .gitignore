@@ -69,17 +69,6 @@ DataExtract.json
 /dev/database/structure/03_fill_dev_tables.sql
 /dev/database/structure/02_create_dev_tables.sql
 /dev/database/structure/01_create_extension.sql
-/dev/sample_data/ch.disclaimer.json
-/dev/sample_data/ch.document_type.json
-/dev/sample_data/ch.general_information.json
-/dev/sample_data/ch.glossary.json
-/dev/sample_data/ch.law_responsible_offices.json
-/dev/sample_data/ch.law_status.json
-/dev/sample_data/ch.laws.json
-/dev/sample_data/ch.logo.json
-/dev/sample_data/ch.real_estate_type.json
-/dev/sample_data/ch.themes.json
-/dev/sample_data/ch.themes_docs.json
 
 /coverage.contrib-data_sources-standard.xml
 /coverage.contrib-print_proxy-mapfish_print.xml

@@ -1,0 +1,494 @@
+
+[
+    {
+        "id": "ch.admin.bk.sr.700",
+        "document_type": "GesetzlicheGrundlage",
+        "extract_index": 10,
+        "title": {
+            "de": "Bundesgesetz über die Raumplanung",
+            "fr": "Loi fédérale sur l'aménagement du territoire",
+            "it": "Legge federale sulla pianificazione del territorio",
+            "rm": "Lescha federala davart la planisaziun dal territori",
+            "en": "Federal Act on Spatial Planning"
+        },
+        "abbreviation": {
+            "de": "RPG",
+            "fr": "LAT",
+            "it": "LPT",
+            "rm": "LPT",
+            "en": "SPA"
+        },
+        "official_number": {
+            "de": "SR 700",
+            "fr": "RS 700",
+            "it": "RS 700",
+            "rm": "CS 700",
+            "en": "SR 700"
+        },
+        "text_at_web": {
+            "de": "https://www.admin.ch/ch/d/sr/c700.html",
+            "fr": "https://www.admin.ch/ch/f/sr/c700.html",
+            "it": "https://www.admin.ch/ch/i/sr/c700.html"
+        },
+        "index": "10",
+        "law_status": "inKraft",
+        "published_from": "1979-06-22",
+        "office_id": "ch.admin.bk"
+    },
+    {
+        "id": "ch.admin.bk.sr.725.11",
+        "document_type": "GesetzlicheGrundlage",
+        "extract_index": 110,
+        "title": {
+            "de": "Bundesgesetz über die Nationalstrassen",
+            "fr": "Loi fédérale sur les routes nationales",
+            "it": "Legge federale sulle strade nazionali",
+            "rm": "Lescha federala davart las vias naziunalas",
+            "en": "Federal Act on the National Highways"
+        },
+        "abbreviation": {
+            "de": "NSG",
+            "fr": "LRN",
+            "it": "LSN",
+            "rm": "LVN",
+            "en": "NHwA"
+        },
+        "official_number": {
+            "de": "SR 725.11",
+            "fr": "RS 725.11",
+            "it": "RS 725.11",
+            "rm": "CS 725.11",
+            "en": "SR 725.11"
+        },
+        "text_at_web": {
+            "de": "https://www.admin.ch/ch/d/sr/c725_11.html",
+            "fr": "https://www.admin.ch/ch/f/sr/c725_11.html",
+            "it": "https://www.admin.ch/ch/i/sr/c725_11.html"
+        },
+        "index": "110",
+        "law_status": "inKraft",
+        "published_from": "1960-03-08",
+        "office_id": "ch.admin.bk"
+    },
+    {
+        "id": "ch.admin.bk.sr.725.111",
+        "document_type": "GesetzlicheGrundlage",
+        "extract_index": 120,
+        "title": {
+            "de": "Nationalstrassenverordnung",
+            "fr": "Ordonnance sur les routes nationales",
+            "it": "Ordinanza sulle strade nazionali",
+            "rm": "Ordinaziun davart las vias naziunalas",
+            "en": "National Highways Ordinance"
+        },
+        "abbreviation": {
+            "de": "NSV",
+            "fr": "ORN",
+            "it": "OSN",
+            "rm": "OVN",
+            "en": "NHwO"
+        },
+        "official_number": {
+            "de": "SR 725.111",
+            "fr": "RS 725.111",
+            "it": "RS 725.111",
+            "rm": "CS 725.111",
+            "en": "SR 725.111"
+        },
+        "text_at_web": {
+            "de": "https://www.admin.ch/ch/d/sr/c725_111.html",
+            "fr": "https://www.admin.ch/ch/f/sr/c725_111.html",
+            "it": "https://www.admin.ch/ch/i/sr/c725_111.html"
+        },
+        "index": "120",
+        "law_status": "inKraft",
+        "published_from": "2007-11-07",
+        "office_id": "ch.admin.bk"
+    },
+    {
+        "id": "ch.admin.bk.sr.742.101",
+        "document_type": "GesetzlicheGrundlage",
+        "extract_index": 210,
+        "title": {
+            "de": "Eisenbahngesetz",
+            "fr": "Loi fédérale sur les chemins de fer",
+            "it": "Legge federale sulle ferrovie",
+            "rm": "Lescha federala davart las viafiers",
+            "en": "Railways Act"
+        },
+        "abbreviation": {
+            "de": "EBG",
+            "fr": "LCdF",
+            "it": "Lferr",
+            "rm": "LVaifier",
+            "en": "RailA"
+        },
+        "official_number": {
+            "de": "SR 742.101",
+            "fr": "RS 742.101",
+            "it": "RS 742.101",
+            "rm": "CS 742.101",
+            "en": "SR 742.101"
+        },
+        "text_at_web": {
+            "de": "https://www.admin.ch/ch/d/sr/c742_101.html",
+            "fr": "https://www.admin.ch/ch/f/sr/c742_101.html",
+            "it": "https://www.admin.ch/ch/i/sr/c742_101.html"
+        },
+        "index": "210",
+        "law_status": "inKraft",
+        "published_from": "1957-12-20",
+        "office_id": "ch.admin.bk"
+    },
+    {
+        "id": "ch.admin.bk.sr.748.0",
+        "document_type": "GesetzlicheGrundlage",
+        "extract_index": 310,
+        "title": {
+            "de": "Bundesgesetz über die Luftfahrt",
+            "fr": "Loi fédérale sur l'aviation",
+            "it": "Legge federale sulla navigazione aerea",
+            "rm": "Lescha federala davart l'aviatica",
+            "en": "Federal Act on Civil Aviation"
+        },
+        "abbreviation": {
+            "de": "LFG",
+            "fr": "LA",
+            "it": "LNA",
+            "rm": "LA",
+            "en": "CAA"
+        },
+        "official_number": {
+            "de": "SR 748.0",
+            "fr": "RS 748.0",
+            "it": "RS 748.0",
+            "rm": "CS 748.0",
+            "en": "RS 748.0"
+        },
+        "text_at_web": {
+            "de": "https://www.admin.ch/ch/d/sr/c748_0.html",
+            "fr": "https://www.admin.ch/ch/f/sr/c748_0.html",
+            "it": "https://www.admin.ch/ch/i/sr/c748_0.html"
+        },
+        "index": "310",
+        "law_status": "inKraft",
+        "published_from": "1948-12-21",
+        "office_id": "ch.admin.bk"
+    },
+    {
+        "id": "ch.admin.bk.sr.748.131.1",
+        "document_type": "GesetzlicheGrundlage",
+        "extract_index": 320,
+        "title": {
+            "de": "Verordnung über die Infrastruktur der Luftfahrt",
+            "fr": "Ordonnance sur l'infrastructure aéronautique",
+            "it": "Ordinanza sull'infrastruttura aeronautica",
+            "rm": "Ordinaziun davart l'infrastructura da l'aviatica",
+            "en": "Ordinance on Aviation Infrastructure"
+        },
+        "abbreviation": {
+            "de": "VIL",
+            "fr": "OSIA",
+            "it": "OSIA",
+            "rm": "OIAv",
+            "en": "AvIO"
+        },
+        "official_number": {
+            "de": "SR 748.131.1",
+            "fr": "RS 748.131.1",
+            "it": "RS 748.131.1",
+            "rm": "CS 748.131.1",
+            "en": "SR 748.131.1"
+        },
+        "text_at_web": {
+            "de": "https://www.admin.ch/ch/d/sr/c748_131_1.html",
+            "fr": "https://www.admin.ch/ch/f/sr/c748_131_1.html",
+            "it": "https://www.admin.ch/ch/i/sr/c748_131_1.html"
+        },
+        "index": "320",
+        "law_status": "inKraft",
+        "published_from": "1994-11-23",
+        "office_id": "ch.admin.bk"
+    },
+    {
+        "id": "ch.admin.bk.sr.814.01",
+        "document_type": "GesetzlicheGrundlage",
+        "extract_index": 410,
+        "title": {
+            "de": "Bundesgesetz über den Umweltschutz",
+            "fr": "Loi fédérale sur la protection de l'environnement",
+            "it": "Legge federale sulla protezione dell'ambiente",
+            "rm": "Lescha davart la protecziun da l'ambient",
+            "en": "Federal Act on the Protection of the Environment"
+        },
+        "abbreviation": {
+            "de": "USG",
+            "fr": "LPE",
+            "it": "LPAmb",
+            "rm": "LPAmb",
+            "en": "EPA"
+        },
+        "official_number": {
+            "de": "SR 814.01",
+            "fr": "RS 814.01",
+            "it": "RS 814.01",
+            "rm": "CS 814.01",
+            "en": "SR 814.01"
+        },
+        "text_at_web": {
+            "de": "https://www.admin.ch/ch/d/sr/c814_01.html",
+            "fr": "https://www.admin.ch/ch/f/sr/c814_01.html",
+            "it": "https://www.admin.ch/ch/i/sr/c814_01.html"
+        },
+        "index": "410",
+        "law_status": "inKraft",
+        "published_from": "1983-10-07",
+        "office_id": "ch.admin.bk"
+    },
+    {
+        "id": "ch.admin.bk.sr.814.680",
+        "document_type": "GesetzlicheGrundlage",
+        "extract_index": 420,
+        "title": {
+            "de": "Verordnung über die Sanierung von belasteten Standorten",
+            "fr": "Ordonnance sur l'assainissement des sites pollués",
+            "it": "Ordinanza sul risanamento dei siti inquinati",
+            "rm": "Ordinaziun davart las deponias veglias",
+            "en": "Ordinance on the Remediation of Contaminated Sites"
+        },
+        "abbreviation": {
+            "de": "AltlV",
+            "fr": "OSites",
+            "it": "OSiti",
+            "rm": "OSDV",
+            "en": "CSO"
+        },
+        "official_number": {
+            "de": "SR 814.680",
+            "fr": "RS 814.680",
+            "it": "RS 814.680",
+            "rm": "CS 814.680",
+            "en": "RS 814.680"
+        },
+        "text_at_web": {
+            "de": "https://www.admin.ch/ch/d/sr/c814_680.html",
+            "fr": "https://www.admin.ch/ch/f/sr/c814_680.html",
+            "it": "https://www.admin.ch/ch/i/sr/c814_680.html"
+        },
+        "index": "420",
+        "law_status": "inKraft",
+        "published_from": "1998-08-26",
+        "office_id": "ch.admin.bk"
+    },
+    {
+        "id": "ch.admin.bk.sr.814.20",
+        "document_type": "GesetzlicheGrundlage",
+        "extract_index": 510,
+        "title": {
+            "de": "Bundesgesetz über den Schutz der Gewässer",
+            "fr": "Loi fédérale sur la protection des eaux",
+            "it": "Legge federale sulla protezione delle acque",
+            "rm": "Lescha federala davart la protecziun da las auas",
+            "en": "Federal Act on the Protection of Waters"
+        },
+        "abbreviation": {
+            "de": "GSchG",
+            "fr": "Leaux",
+            "it": "LPAc",
+            "rm": "LPAuas",
+            "en": "WPA"
+        },
+        "official_number": {
+            "de": "SR 814.20",
+            "fr": "RS 814.20",
+            "it": "RS 814.20",
+            "rm": "CS 814.20",
+            "en": "SR 814.20"
+        },
+        "text_at_web": {
+            "de": "https://www.admin.ch/ch/d/sr/c814_20.html",
+            "fr": "https://www.admin.ch/ch/f/sr/c814_20.html",
+            "it": "https://www.admin.ch/ch/i/sr/c814_20.html"
+        },
+        "index": "510",
+        "law_status": "inKraft",
+        "published_from": "1991-01-24",
+        "office_id": "ch.admin.bk"
+    },
+    {
+        "id": "ch.admin.bk.sr.814.201",
+        "document_type": "GesetzlicheGrundlage",
+        "extract_index": 520,
+        "title": {
+            "de": "Gewässerschutzverordnung",
+            "fr": "Ordonnance sur la protection des eaux",
+            "it": "Ordinanza sulla protezione delle acque",
+            "rm": "Ordinaziun davart la protecziun da las auas",
+            "en": "Waters Protection Ordinance"
+        },
+        "abbreviation": {
+            "de": "GSchV",
+            "fr": "OEaux",
+            "it": "OPAc",
+            "rm": "OPAuas",
+            "en": "WPO"
+        },
+        "official_number": {
+            "de": "SR 814.201",
+            "fr": "RS 814.201",
+            "it": "RS 814.201",
+            "rm": "CS 814.201",
+            "en": "SR 814.201"
+        },
+        "text_at_web": {
+            "de": "https://www.admin.ch/ch/d/sr/c814_201.html",
+            "fr": "https://www.admin.ch/ch/f/sr/c814_201.html",
+            "it": "https://www.admin.ch/ch/i/sr/c814_201.html"
+        },
+        "index": "520",
+        "law_status": "inKraft",
+        "published_from": "1998-10-28",
+        "office_id": "ch.admin.bk"
+    },
+    {
+        "id": "ch.admin.bk.sr.814.41",
+        "document_type": "GesetzlicheGrundlage",
+        "extract_index": 620,
+        "title": {
+            "de": "Lärmschutz-Verordnung",
+            "fr": "Ordonnance sur la protection contre le bruit",
+            "it": "Ordinanza contro l'inquinamento fonico",
+            "rm": "Ordinaziun davart la protecziun cunter canera",
+            "en": "Noise Abatement Ordinance"
+        },
+        "abbreviation": {
+            "de": "LSV",
+            "fr": "OPB",
+            "it": "OIF",
+            "rm": "OPC",
+            "en": "NAO"
+        },
+        "official_number": {
+            "de": "SR 814.41",
+            "fr": "RS 814.41",
+            "it": "RS 814.41",
+            "rm": "CS 814.41",
+            "en": "SR 814.41"
+        },
+        "text_at_web": {
+            "de": "https://www.admin.ch/ch/d/sr/c814_41.html",
+            "fr": "https://www.admin.ch/ch/f/sr/c814_41.html",
+            "it": "https://www.admin.ch/ch/i/sr/c814_41.html"
+        },
+        "index": "620",
+        "law_status": "inKraft",
+        "published_from": "1986-12-15",
+        "office_id": "ch.admin.bk"
+    },
+    {
+        "id": "ch.admin.bk.sr.921.0",
+        "document_type": "GesetzlicheGrundlage",
+        "extract_index": 710,
+        "title": {
+            "de": "Bundesgesetz über den Wald",
+            "fr": "Loi fédérale sur les forêts",
+            "it": "Legge federale sulle foreste",
+            "rm": "Lescha federala davart il guaud",
+            "en": "Federal Act on Forest"
+        },
+        "abbreviation": {
+            "de": "WaG",
+            "fr": "LFo",
+            "it": "LFo",
+            "rm": "LG",
+            "en": "ForA"
+        },
+        "official_number": {
+            "de": "SR 921.0",
+            "fr": "RS 921.0",
+            "it": "RS 921.0",
+            "rm": "CS 921.0",
+            "en": "RS 921.0"
+        },
+        "text_at_web": {
+            "de": "https://www.admin.ch/ch/d/sr/c921_0.html",
+            "fr": "https://www.admin.ch/ch/f/sr/c921_0.html",
+            "it": "https://www.admin.ch/ch/i/sr/c921_0.html"
+        },
+        "index": "710",
+        "law_status": "inKraft",
+        "published_from": "1991-10-04",
+        "office_id": "ch.admin.bk"
+    },
+    {
+        "id": "ch.admin.bk.sr.921.01",
+        "document_type": "GesetzlicheGrundlage",
+        "extract_index": 720,
+        "title": {
+            "de": "Verordnung über den Wald",
+            "fr": "Ordonnance sur les forêts",
+            "it": "Ordinanza sulle foreste",
+            "rm": "Ordinaziun davart il guaud",
+            "en": "Ordinance on Forest"
+        },
+        "abbreviation": {
+            "de": "WaV",
+            "fr": "OFo",
+            "it": "OFo",
+            "rm": "OG",
+            "en": "ForO"
+        },
+        "official_number": {
+            "de": "SR 921.01",
+            "fr": "RS 921.01",
+            "it": "RS 921.01",
+            "rm": "CS 921.01",
+            "en": "SR 921.01"
+        },
+        "text_at_web": {
+            "de": "https://www.admin.ch/ch/d/sr/c921_01.html",
+            "fr": "https://www.admin.ch/ch/f/sr/c921_01.html",
+            "it": "https://www.admin.ch/ch/i/sr/c921_01.html"
+        },
+        "index": "720",
+        "law_status": "inKraft",
+        "published_from": "1992-11-30",
+        "office_id": "ch.admin.bk"
+    },
+    {
+        "id": "ch.admin.bk.sr.734.0",
+        "document_type": "GesetzlicheGrundlage",
+        "extract_index": 810,
+        "title": {
+            "de": "Bundesgesetz betreffend die elektrischen Schwach- und Starkstromanlagen",
+            "fr": "Loi fédérale concernant les installations électriques à faible et à fort courant",
+            "it": "Legge federale concernente gli impianti elettrici a corrente forte e a corrente debole",
+            "rm": "Lescha federala davart ils implants electrics da current lev e da current ferm",
+            "en": "Federal Act on Weak and Heavy Current Electrical Installations"
+        },
+        "abbreviation": {
+            "de": "EleG",
+            "fr": "LIE",
+            "it": "LIE",
+            "rm": "LIE",
+            "en": "ElecA"
+        },
+        "official_number": {
+            "de": "SR 734.0",
+            "fr": "RS 734.0",
+            "it": "RS 734.0",
+            "rm": "CS 734.0",
+            "en": "SR 734.0"
+        },
+        "text_at_web": {
+            "de": "https://www.admin.ch/ch/d/sr/c734_0.html",
+            "fr": "https://www.admin.ch/ch/f/sr/c734_0.html",
+            "it": "https://www.admin.ch/ch/i/sr/c734_0.html"
+        },
+        "index": "810",
+        "law_status": "inKraft",
+        "published_from": "1902-06-24",
+        "office_id": "ch.admin.bk"
+    }
+]
+

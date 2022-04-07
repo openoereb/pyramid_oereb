@@ -73,124 +73,120 @@ ${VENV_ROOT}/requirements-timestamp: ${VENV_ROOT}/timestamp setup.py requirement
 ##########
 
 # URLS to fed data
-THEMES_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Themen_20220301.xml
-LAWS_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Gesetze_20210414.xml
-LOGOS_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Logos_20211021.xml
-TEXTS_XML_URL=http://models.geo.admin.ch/V_D/OeREB/OeREBKRM_V2_0_Texte_20220301.xml
+include fed.urls
 
 # XML files for creating XML files
 FED_TMP = .fed
+FED_CHECK = .fed_check
 FED_TMP_TIMESTAMP = $(FED_TMP)/.create-timestamp
-THEMES_XML = $(FED_TMP)/themes.xml
-LAWS_XML = $(FED_TMP)/laws.xml
-LOGOS_XML = $(FED_TMP)/logos.xml
-TEXTS_XML = $(FED_TMP)/texts.xml
 
-FED_XMLS = $(THEMES_XML) \
-	$(LAWS_XML) \
-	$(LOGOS_XML) \
-	$(TEXTS_XML)
+THEMES_XML = $(FED_TMP)/FED_THEMES.xml
+LAWS_XML = $(FED_TMP)/FED_LAWS.xml
+LOGOS_XML = $(FED_TMP)/FED_LOGOS.xml
+TEXTS_XML = $(FED_TMP)/FED_TEXTS.xml
 
 $(FED_TMP_TIMESTAMP):
 	mkdir -p $(FED_TMP)
+	mkdir -p $(FED_CHECK)
 	touch $@
 
-$(THEMES_XML): $(FED_TMP_TIMESTAMP)
-	curl -X GET $(THEMES_XML_URL) > $@
-
-$(LAWS_XML): $(FED_TMP_TIMESTAMP)
-	curl -X GET $(LAWS_XML_URL) > $@
-
-$(LOGOS_XML): $(FED_TMP_TIMESTAMP)
-	curl -X GET $(LOGOS_XML_URL) > $@
-
-$(TEXTS_XML): $(FED_TMP_TIMESTAMP)
-	curl -X GET $(TEXTS_XML_URL) > $@
-
+$(FED_TMP)/FED_%.xml: $(FED_TMP_TIMESTAMP)
+	curl -X GET $($*_XML_URL) > $@
 
 # JSON files for import into sample database
-THEMES_JSON = $(PG_DEV_DATA_DIR)/ch.themes.json
-THEMES_DOCS_JSON = $(PG_DEV_DATA_DIR)/ch.themes_docs.json
-LAWS_JSON = $(PG_DEV_DATA_DIR)/ch.laws.json
-LAW_RESPONSIBLE_OFFICES_JSON = $(PG_DEV_DATA_DIR)/ch.law_responsible_offices.json
-LOGOS_JSON = $(PG_DEV_DATA_DIR)/ch.logo.json
-LAW_STATUS_JSON = $(PG_DEV_DATA_DIR)/ch.law_status.json
-DOCUMENT_TYPE_JSON = $(PG_DEV_DATA_DIR)/ch.document_type.json
-REAL_ESTATE_TYPE_JSON = $(PG_DEV_DATA_DIR)/ch.real_estate_type.json
-GLOSSARY_JSON = $(PG_DEV_DATA_DIR)/ch.glossary.json
-DISCLAIMER_JSON = $(PG_DEV_DATA_DIR)/ch.disclaimer.json
-GENERAL_INFORMATION_JSON = $(PG_DEV_DATA_DIR)/ch.general_information.json
+JSON_PREFIXES = ch.themes \
+	ch.themes_docs \
+	ch.laws \
+	ch.law_responsible_offices \
+	ch.logo \
+	ch.law_status \
+	ch.document_type \
+	ch.real_estate_type \
+	ch.glossary \
+	ch.disclaimer \
+	ch.general_information
 
-# XSL files for transformation of XML to JSON
+FED_JSONS = $(foreach prefix, $(JSON_PREFIXES), $(FED_CHECK)/$(prefix).json)
+
 FED_XSL_PATH = dev/database/fed
-THEMES_XSL = $(FED_XSL_PATH)/themes.json.xsl
-THEMES_DOCS_XSL = $(FED_XSL_PATH)/themes_docs.json.xsl
-LAWS_XSL = $(FED_XSL_PATH)/laws.json.xsl
-LAW_RESPONSIBLE_OFFICES_XSL = $(FED_XSL_PATH)/laws_responsible_office.json.xsl
-LOGOS_XSL = $(FED_XSL_PATH)/logos.json.xsl
-LAW_STATUS_XSL = $(FED_XSL_PATH)/law_status.json.xsl
-DOCUMENT_TYPE_XSL = $(FED_XSL_PATH)/document_type.json.xsl
-REAL_ESTATE_TYPE_XSL = $(FED_XSL_PATH)/real_estate_type.json.xsl
-GLOSSARY_XSL = $(FED_XSL_PATH)/glossary.json.xsl
-DISCLAIMER_XSL = $(FED_XSL_PATH)/disclaimer.json.xsl
-GENERAL_INFORMATION_XSL = $(FED_XSL_PATH)/general_information.json.xsl
 
-$(THEMES_JSON): $(THEMES_XML) $(THEMES_XSL)
-	xsltproc $(THEMES_XSL) $< > $@
+# override derived xml from downloaded one via symlink
+# use hard link so that the system is not confused by a relative path
+# FED_THEMES.xml based
+$(FED_TMP)/themes.xml $(FED_TMP)/themes_docs.xml: $(THEMES_XML)
+	ln $< $@
 
-$(THEMES_DOCS_JSON): $(THEMES_XML) $(THEMES_DOCS_XSL)
-	xsltproc $(THEMES_DOCS_XSL) $< > $@
+#FED_LAWS.xml based
+$(FED_TMP)/laws.xml $(FED_TMP)/law_responsible_offices.xml: $(LAWS_XML)
+	ln $< $@
 
-$(LAWS_JSON): $(LAWS_XML) $(LAWS_XSL)
-	xsltproc $(LAWS_XSL) $< > $@
+# FED_LOGOS.xml based
+$(FED_TMP)/logo.xml: $(LOGOS_XML)
+	ln $< $@
 
-$(LAW_RESPONSIBLE_OFFICES_JSON): $(LAWS_XML) $(LAW_RESPONSIBLE_OFFICES_XSL)
-	xsltproc $(LAW_RESPONSIBLE_OFFICES_XSL) $< > $@
+# FED_TEXTS.xml based
+$(FED_TMP)/law_status.xml $(FED_TMP)/document_type.xml $(FED_TMP)/real_estate_type.xml $(FED_TMP)/glossary.xml $(FED_TMP)/disclaimer.xml $(FED_TMP)/general_information.xml: $(TEXTS_XML)
+	ln $< $@
 
-$(LOGOS_JSON): $(LOGOS_XML) $(LOGOS_XSL)
-	xsltproc $(LOGOS_XSL) $< > $@
-
-$(LAW_STATUS_JSON): $(TEXTS_XML) $(LAW_STATUS_XSL)
-	xsltproc $(LAW_STATUS_XSL) $< > $@
-
-$(DOCUMENT_TYPE_JSON): $(TEXTS_XML) $(DOCUMENT_TYPE_XSL)
-	xsltproc $(DOCUMENT_TYPE_XSL) $< > $@
-
-$(REAL_ESTATE_TYPE_JSON): $(TEXTS_XML) $(REAL_ESTATE_TYPE_XSL)
-	xsltproc $(REAL_ESTATE_TYPE_XSL) $< > $@
-
-$(GLOSSARY_JSON): $(TEXTS_XML) $(GLOSSARY_XSL)
-	xsltproc $(GLOSSARY_XSL) $< > $@
-
-$(DISCLAIMER_JSON): $(TEXTS_XML) $(DISCLAIMER_XSL)
-	xsltproc $(DISCLAIMER_XSL) $< > $@
-
-$(GENERAL_INFORMATION_JSON): $(TEXTS_XML) $(GENERAL_INFORMATION_XSL)
-	xsltproc $(GENERAL_INFORMATION_XSL) $< > $@
-
-FED_JSONS = $(THEMES_JSON) \
-	$(THEMES_DOCS_JSON) \
-	$(LAWS_JSON) \
-	$(LAW_RESPONSIBLE_OFFICES_JSON) \
-	$(LOGOS_JSON) \
-	$(LAW_STATUS_JSON) \
-	$(DOCUMENT_TYPE_JSON) \
-	$(REAL_ESTATE_TYPE_JSON) \
-	$(GLOSSARY_JSON) \
-	$(DISCLAIMER_JSON) \
-	$(GENERAL_INFORMATION_JSON)
-
-clean_fed_xmls:
-	rm -f $(FED_XMLS)
-
-clean_fed_jsons:
-	rm -f $(FED_JSONS)
+# rule to generate json from correctly named xsl and xml
+$(FED_CHECK)/ch.%.json: $(FED_XSL_PATH)/%.json.xsl $(FED_TMP)/%.xml
+	xsltproc $^ > $@
 
 .PHONY: prepare_fed_data
 prepare_fed_data: $(FED_JSONS)
 
+
+# rules for automatic check of correct federal definitions
+.PHONY: compare_files_%
+compare_files_%:
+	diff $(FED_CHECK)/$* $(PG_DEV_DATA_DIR)/$*
+
+COMPARE_ALL_JSONS = $(foreach prefix, $(JSON_PREFIXES), compare_files_$(prefix).json)
+
+.PHONY: check_fed_data 
+check_fed_data: clean_fed_data prepare_fed_data $(COMPARE_ALL_JSONS)
+
+
+# rules for update of fed urls and data
+NEW_URL_INDEX=fed.urls.new
+$(NEW_URL_INDEX):
+	curl 'https://models.geo.admin.ch/?delimiter=/&prefix=V_D/OeREB/' | grep -Po '<Key>(.*?)</Key>' > $@
+
+.PHONY: update_url_%
+update_url_%: $(NEW_URL_INDEX)
+	sed -i "s/OeREBKRM_V2_0_$*_.*.xml/$(shell grep -Po OeREBKRM_V2_0_$*_.*xml $<)/" fed.urls	
+
+.PHONY: remove_url_index
+remove_url_index:
+	rm -f $(NEW_URL_INDEX)
+
+# try to find the updated URLs on line using the website's index
+.PHONY: update_fed_data_urls
+update_fed_data_urls: \
+    update_url_Gesetze \
+    update_url_Themen \
+    update_url_Logos \
+    update_url_Texte \
+    remove_url_index
+
+# hard apply the newly generated data to the project. Changes must then be committed
+.PHONY: update_fed_data
+update_fed_data_urls: prepare_fed_data
+	cp $(FED_JSONS) $(PG_DEV_DATA_DIR)
+
+# do everything automatically: find the new URLs, generate json data, copy json to project
+.PHONY: auto_update_fed_data
+auto_update_fed_data: clean_fed_data update_fed_data_urls update_fed_data_urls
+
+clean_fed_xmls:
+	rm -f $(THEMES_XML) $(LAWS_XML) $(LOGOS_XML) $(TEXTS_XML)
+
+clean_fed_jsons:
+	rm -f $(FED_JSONS)
+
 clean_fed_data: clean_fed_xmls clean_fed_jsons
 	rm -rf .fed
+	rm -rf .fed_check
 
 ##########
 # END FEDERAL DATA SECTION
@@ -235,7 +231,7 @@ $(DB_CREATE_EXTENSION):
 $(DB_DEV_TABLES_CREATE_SCRIPT): $(DEV_CONFIGURATION_YML) ${VENV_ROOT}/requirements-timestamp $(DEV_CREATE_TABLES_SCRIPT)
 	$(DEV_CREATE_TABLES_SCRIPT) --configuration $< --sql-file $@
 
-$(DB_DEV_TABLES_FILL_SCRIPT): $(DEV_CONFIGURATION_YML) ${VENV_ROOT}/requirements-timestamp $(DEV_CREATE_FILL_SCRIPT) $(FED_JSONS)
+$(DB_DEV_TABLES_FILL_SCRIPT): $(DEV_CONFIGURATION_YML) ${VENV_ROOT}/requirements-timestamp $(DEV_CREATE_FILL_SCRIPT)
 	$(VENV_BIN)/python $(DEV_CREATE_FILL_SCRIPT) --configuration $< --sql-file $@ --dir $(PG_DEV_DATA_DIR)
 
 DB_STRUCTURE_SCRIPTS = $(DB_CREATE_EXTENSION) \

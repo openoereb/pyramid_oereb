@@ -1,0 +1,184 @@
+
+[
+    {
+        "theme_id": "ch.Nutzungsplanung",
+        "document_id": "ch.admin.bk.sr.700",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.ProjektierungszonenNationalstrassen",
+        "document_id": "ch.admin.bk.sr.725.11",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.ProjektierungszonenNationalstrassen",
+        "document_id": "ch.admin.bk.sr.725.111",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.BaulinienNationalstrassen",
+        "document_id": "ch.admin.bk.sr.725.11",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.BaulinienNationalstrassen",
+        "document_id": "ch.admin.bk.sr.725.111",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.ProjektierungszonenEisenbahnanlagen",
+        "document_id": "ch.admin.bk.sr.742.101",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.BaulinienEisenbahnanlagen",
+        "document_id": "ch.admin.bk.sr.742.101",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.ProjektierungszonenFlughafenanlagen",
+        "document_id": "ch.admin.bk.sr.748.0",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.ProjektierungszonenFlughafenanlagen",
+        "document_id": "ch.admin.bk.sr.748.131.1",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.BaulinienFlughafenanlagen",
+        "document_id": "ch.admin.bk.sr.748.0",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.BaulinienFlughafenanlagen",
+        "document_id": "ch.admin.bk.sr.748.131.1",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.Sicherheitszonenplan",
+        "document_id": "ch.admin.bk.sr.748.0",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.Sicherheitszonenplan",
+        "document_id": "ch.admin.bk.sr.748.131.1",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.BelasteteStandorte",
+        "document_id": "ch.admin.bk.sr.814.01",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.BelasteteStandorte",
+        "document_id": "ch.admin.bk.sr.814.680",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.BelasteteStandorteMilitaer",
+        "document_id": "ch.admin.bk.sr.814.01",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.BelasteteStandorteMilitaer",
+        "document_id": "ch.admin.bk.sr.814.680",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.BelasteteStandorteZivileFlugplaetze",
+        "document_id": "ch.admin.bk.sr.814.01",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.BelasteteStandorteZivileFlugplaetze",
+        "document_id": "ch.admin.bk.sr.814.680",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.BelasteteStandorteOeffentlicherVerkehr",
+        "document_id": "ch.admin.bk.sr.814.01",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.BelasteteStandorteOeffentlicherVerkehr",
+        "document_id": "ch.admin.bk.sr.814.680",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.Grundwasserschutzzonen",
+        "document_id": "ch.admin.bk.sr.814.20",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.Grundwasserschutzzonen",
+        "document_id": "ch.admin.bk.sr.814.201",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.Grundwasserschutzareale",
+        "document_id": "ch.admin.bk.sr.814.20",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.Grundwasserschutzareale",
+        "document_id": "ch.admin.bk.sr.814.201",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.Laermempfindlichkeitsstufen",
+        "document_id": "ch.admin.bk.sr.814.41",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.StatischeWaldgrenzen",
+        "document_id": "ch.admin.bk.sr.921.0",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.StatischeWaldgrenzen",
+        "document_id": "ch.admin.bk.sr.921.01",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.Waldabstandslinien",
+        "document_id": "ch.admin.bk.sr.921.0",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.Planungszonen",
+        "document_id": "ch.admin.bk.sr.700",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.Waldreservate",
+        "document_id": "ch.admin.bk.sr.921.0",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.Waldreservate",
+        "document_id": "ch.admin.bk.sr.921.01",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.Gewaesserraum",
+        "document_id": "ch.admin.bk.sr.814.20",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.Gewaesserraum",
+        "document_id": "ch.admin.bk.sr.814.201",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.ProjektierungszonenStarkstromanlagen",
+        "document_id": "ch.admin.bk.sr.734.0",
+        "article_numbers":  null
+    },
+    {
+        "theme_id": "ch.BaulinienStarkstromanlagen",
+        "document_id": "ch.admin.bk.sr.734.0",
+        "article_numbers":  null
+    }
+]
+
