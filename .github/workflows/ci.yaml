@@ -4,7 +4,7 @@ on: [push]
 jobs:
 
   test-fed-data:
-    name: Check style (lint)
+    name: Check federal data definitions
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -12,7 +12,7 @@ jobs:
       - run: sudo apt update
       - run: sudo apt-get install xsltproc
       - name: Check updates of federal data
-        run: make check_fed_data
+        run: make check_fed_data || echo "::warning ::The federal data definitions seem to be out of date. Check fed.urls if the links are still valid. You may use the tools `make update_fed_data_urls` and `make auto_update_fed_data`"
 
   # lint:
   #   name: Check style (lint)
