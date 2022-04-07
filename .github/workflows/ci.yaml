@@ -3,76 +3,76 @@ on: [push]
 
 jobs:
 
-  # lint:
-  #   name: Check style (lint)
-  #   runs-on: ubuntu-20.04
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - run: sudo rm /etc/apt/sources.list.d/*.list
-  #     - run: sudo apt update
-  #     - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
-  #     - name: Run make lint
-  #       run: make lint
+  lint:
+    name: Check style (lint)
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: sudo rm /etc/apt/sources.list.d/*.list
+      - run: sudo apt update
+      - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
+      - name: Run make lint
+        run: make lint
 
-  # gitattributes:
-  #   name: Check style (git-attributes)
-  #   runs-on: ubuntu-20.04
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - run: sudo rm /etc/apt/sources.list.d/*.list
-  #     - run: sudo apt update
-  #     - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
-  #     - name: Run make git-attributes
-  #       run: make git-attributes
+  gitattributes:
+    name: Check style (git-attributes)
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: sudo rm /etc/apt/sources.list.d/*.list
+      - run: sudo apt update
+      - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
+      - name: Run make git-attributes
+        run: make git-attributes
 
-  # test-py:
-  #   name: Test Python
-  #   runs-on: ubuntu-20.04
-  #   services:
-  #     # Label used to access the service container
-  #     postgres:
-  #       # Docker Hub image
-  #       image: postgis/postgis
-  #       # Provide the password for postgres
-  #       ports:
-  #         - 5432:5432
-  #       env:
-  #         POSTGRES_PASSWORD: postgres
-  #       # Set health checks to wait until postgres has started
-  #       options: >-
-  #         --health-cmd pg_isready
-  #         --health-interval 10s
-  #         --health-timeout 5s
-  #         --health-retries 5
-  #   strategy:
-  #     matrix:
-  #       python-version:
-  #         - '3.7'
-  #         - '3.8'
-  #         - '3.9'
-  #         - '3.10'
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Set up Python v${{ matrix.python-version }}
-  #       uses: actions/setup-python@v2
-  #       with:
-  #         python-version: ${{ matrix.python-version }}
-  #         architecture: x64
-  #     - run: sudo rm /etc/apt/sources.list.d/*.list
-  #     - run: sudo apt update
-  #     - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
-  #     - name: Run tests for Python ${{ matrix.python-version }}
-  #       run: make tests
-  #     - name: Upload coverage to Codecov
-  #       uses: codecov/codecov-action@v2
-  #       with:
-  #         token: ${{ secrets.CODECOV_TOKEN }}
-  #         env_vars: OS,PYTHON
-  #         fail_ci_if_error: true
-  #         files: ./coverage.core.xml,./coverage.contrib-data_sources-standard.xml,./coverage.contrib-print_proxy-mapfish_print.xml,./coverage.contrib-stats.xml
-  #         flags: unittests
-  #         name: codecov-unittest
-  #         verbose: true
+  test-py:
+    name: Test Python
+    runs-on: ubuntu-20.04
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgis/postgis
+        # Provide the password for postgres
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    strategy:
+      matrix:
+        python-version:
+          - '3.7'
+          - '3.8'
+          - '3.9'
+          - '3.10'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python v${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: x64
+      - run: sudo rm /etc/apt/sources.list.d/*.list
+      - run: sudo apt update
+      - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
+      - name: Run tests for Python ${{ matrix.python-version }}
+        run: make tests
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          env_vars: OS,PYTHON
+          fail_ci_if_error: true
+          files: ./coverage.core.xml,./coverage.contrib-data_sources-standard.xml,./coverage.contrib-print_proxy-mapfish_print.xml,./coverage.contrib-stats.xml
+          flags: unittests
+          name: codecov-unittest
+          verbose: true
 
   test-fed-data:
     name: Check federal data definitions
@@ -90,50 +90,50 @@ jobs:
           echo "::warning ::The federal data definitions seem to be out of date. Check fed.urls if the links are still valid. You may use the tools 'make update_fed_data_urls' and 'make auto_update_fed_data'.";
           exit $exit_code)
 
-  # doc:
-  #   name: Make and deploy documentation
-  #   if: github.ref == 'refs/heads/master'
-  #   runs-on: ubuntu-20.04
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Make documentation
-  #       run: |
-  #         sudo rm /etc/apt/sources.list.d/*.list
-  #         sudo apt update
-  #         sudo apt-get install virtualenv libpq-dev libgeos-dev
-  #         make doc-html
-  #     - name: Deploy 🚀
-  #       uses: JamesIves/github-pages-deploy-action@4.1.1
-  #       with:
-  #         branch: gh-pages # The branch the action should deploy to.
-  #         folder: doc/build/html # The folder the action should deploy.
+  doc:
+    name: Make and deploy documentation
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Make documentation
+        run: |
+          sudo rm /etc/apt/sources.list.d/*.list
+          sudo apt update
+          sudo apt-get install virtualenv libpq-dev libgeos-dev
+          make doc-html
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: doc/build/html # The folder the action should deploy.
 
-  # build-and-publish:
-  #   name: Build and publish Python 🐍 distributions 📦 to PyPI
-  #   runs-on: ubuntu-20.04
-  #   needs: [lint, gitattributes]
-  #   steps:
-  #   - uses: actions/checkout@master
-  #   - name: Set up Python 3.7
-  #     uses: actions/setup-python@v1
-  #     with:
-  #       python-version: 3.7
-  #   - name: Install pypa/build
-  #     run: >-
-  #       python -m
-  #       pip install
-  #       build
-  #       --user
-  #   - name: Build a binary wheel and a source tarball
-  #     run: >-
-  #       python -m
-  #       build
-  #       --sdist
-  #       --wheel
-  #       --outdir dist/
-  #       .
-  #   - name: Publish distribution 📦 to PyPI
-  #     if: startsWith(github.ref, 'refs/tags')
-  #     uses: pypa/gh-action-pypi-publish@master
-  #     with:
-  #       password: ${{ secrets.PYPI_API_TOKEN }}
+  build-and-publish:
+    name: Build and publish Python 🐍 distributions 📦 to PyPI
+    runs-on: ubuntu-20.04
+    needs: [lint, gitattributes]
+    steps:
+    - uses: actions/checkout@master
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - name: Install pypa/build
+      run: >-
+        python -m
+        pip install
+        build
+        --user
+    - name: Build a binary wheel and a source tarball
+      run: >-
+        python -m
+        build
+        --sdist
+        --wheel
+        --outdir dist/
+        .
+    - name: Publish distribution 📦 to PyPI
+      if: startsWith(github.ref, 'refs/tags')
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.PYPI_API_TOKEN }}
