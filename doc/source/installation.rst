@@ -100,7 +100,7 @@ script:
  create_standard_tables -c pyramid_oereb_standard.yml --sql-file=sqlFile.sql
  create_oereblex_tables -c pyramid_oereb_standard.yml --sql-file=sqlFile.sql
 
-Then load the generate sql file into your DB
+Then load the generated sql file into your DB
 
 .. warning:: We assume you did not specify a custom name for the configuration file. If you have used a custom
    name, you will have to replace `pyramid_oereb_standard.yml` with your specified name in this and all
