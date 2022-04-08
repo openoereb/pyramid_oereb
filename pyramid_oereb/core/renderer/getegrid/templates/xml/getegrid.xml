@@ -16,7 +16,15 @@
     <extract:number>${item['number']}</extract:number>
     <extract:identDN>${item['identDN']}</extract:identDN>
     <extract:type>
-        <%include file="real_estate_type.xml" args="real_estate_type=Config.get_real_estate_type_by_data_code(item['type'])"/>
+        <data:Code>${item['type']['Code'] | x}</data:Code>
+        <data:Text>
+            % for localized_text in item['type']['Text']:
+            <data:LocalisedText>
+                <data:Language>${localized_text.get('Language') | x}</data:Language>
+                <data:Text>${localized_text.get('Text') | x}</data:Text>
+            </data:LocalisedText>
+            % endfor
+        </data:Text>
     </extract:type>
     %if params.with_geometry:
     <extract:limit>
