@@ -71,10 +71,14 @@ class DatabaseOEREBlexSource(DatabaseSource):
         if url_param_config:
             plr_code = self._theme_record.code
             oereblex_params = DatabaseOEREBlexSource.get_config_value_for_plr_code(url_param_config, plr_code)
+        law_status = Config.get_law_status_by_data_code(
+            self._plr_info.get('code'),
+            public_law_restriction_from_db.law_status
+        )
         return self.document_records_from_oereblex(params, public_law_restriction_from_db.geolink,
-                                                   oereblex_params)
+                                                   law_status, oereblex_params)
 
-    def document_records_from_oereblex(self, params, geolink, oereblex_params):
+    def document_records_from_oereblex(self, params, geolink, law_status, oereblex_params):
         """
         Create document records parsed from the OEREBlex response with the specified geoLink ID and appends
         them to the current public law restriction.
@@ -82,20 +86,21 @@ class DatabaseOEREBlexSource(DatabaseSource):
         Args:
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             geolink (int): The ID of the GEO-Link to request the documents for.
+            law_status (pyramid_oereb.core.records.lawstatus.LawStatusRecord): The restriction's law status.
             oereblex_params (string): URL parameter to add to the models request
 
         Returns:
             list of pyramid_oereb.core.records.documents.DocumentRecord:
                 The documents created from the parsed OEREBlex response.
         """
-        log.debug("document_records_from_oereblex() start, GEO-Link {}, oereblex_params {}"
-                  .format(geolink, oereblex_params))
-        identifier = '{}{}'.format(geolink, params.language)
+        log.debug("document_records_from_oereblex() start, GEO-Link {}, law status {}, oereblex_params {}"
+                  .format(geolink, law_status.code, oereblex_params))
+        identifier = '{}{}{}'.format(geolink, law_status.code, params.language)
         if identifier in self._queried_geolinks:
             log.debug('skip querying this geolink "{}" because it was fetched already.'.format(identifier))
             log.debug('use already queried instead')
         else:
-            self._oereblex_source.read(params, geolink, oereblex_params)
+            self._oereblex_source.read(params, geolink, law_status, oereblex_params)
             log.debug("document_records_from_oereblex() returning {} records"
                       .format(len(self._oereblex_source.records)))
             self._queried_geolinks[identifier] = self._oereblex_source.records

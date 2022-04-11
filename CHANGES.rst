@@ -1,6 +1,14 @@
 Changelog
 =========
 
+2.0.0
+-----
+- Fix legend entry collection (#1529)
+- Fix stats for GetEgrid (#1524)
+- Update theme and texts URL according to swisstopo (#1526)
+- Fix JSON response of GetEgrid (#1534)
+- Fix error in Interlis model sub-code usage (#1538)
+
 2.0.0.rc2
 ---------
 - Finalize stats reactivation (#1517)

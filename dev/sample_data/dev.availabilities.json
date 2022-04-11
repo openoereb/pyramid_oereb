@@ -1,0 +1,32 @@
+[
+  {
+    "theme_code": "ch.BelasteteStandorteMilitaer",
+    "municipality_fosnr": 2771,
+    "available": false
+  },
+  {
+    "theme_code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+    "municipality_fosnr": 2771,
+    "available": true
+  },
+  {
+    "theme_code": "ch.StatischeWaldgrenzen",
+    "municipality_fosnr": 2771,
+    "available": true
+  },
+  {
+    "theme_code": "ch.Grundwasserschutzzonen",
+    "municipality_fosnr": 2771,
+    "available": true
+  },
+  {
+    "theme_code": "ch.Nutzungsplanung",
+    "municipality_fosnr": 2771,
+    "available": true
+  },
+  {
+    "theme_code": "ch.BaulinienNationalstrassen",
+    "municipality_fosnr": 2771,
+    "available": false
+  }
+]

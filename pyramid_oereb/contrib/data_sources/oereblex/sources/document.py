@@ -38,6 +38,8 @@ class OEREBlexSource(Base):
             validation (bool): Turn XML validation on/off. Default is true.
             url_param_config (list of code and url_param): Optional url parameters to use, per plr code
             code (str): The official code. Regarding to the federal specifications.
+            use_prepubs (bool): If true and the law status is not "inForce", the prepubs URL will be
+                used. Default is false.
 
         """
         super(OEREBlexSource, self).__init__()
@@ -50,6 +52,9 @@ class OEREBlexSource(Base):
         self._related_notice_as_main = kwargs.get('related_notice_as_main')
         self._proxies = kwargs.get('proxy')
         self._code = kwargs.get('code')
+        self._use_prepubs = kwargs.get('use_prepubs')
+
+        log.debug('Use prepubs: {0}'.format(self._use_prepubs))
 
         # Set default values for missing parameters
         if self._version is None:
@@ -89,18 +94,24 @@ class OEREBlexSource(Base):
                     raise AssertionError('url_param_config list entry is of wrong type {},'
                                          ' should be dictionary'.format(type(list_entry)))
 
-    def read(self, params, geolink_id, oereblex_params=None):
+    def read(self, params, geolink_id, law_status, oereblex_params=None):
         """
         Requests the geoLink for the specified ID and returns records for the received documents.
 
         Args:
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
             geolink_id (int): The geoLink ID.
+            law_status (pyramid_oereb.core.records.lawstatus.LawStatusRecord): The restriction's law status.
             oereblex_params (string or None): Any additional parameters to pass to Oereblex
         """
         log.debug("read() start for geolink_id {}, oereblex_params {}".format(geolink_id, oereblex_params))
 
-        url_base = '{host}/api/{version}geolinks/{id}.xml'
+        if self._use_prepubs and law_status.code != 'inForce':
+            service = 'prepubs'
+        else:
+            service = 'geolinks'
+
+        url_base = '{host}/api/{version}{service}/{id}.xml'
         if oereblex_params:
             url_base = url_base + '?' + oereblex_params
 
@@ -108,6 +119,7 @@ class OEREBlexSource(Base):
         url = url_base.format(
             host=self._parser.host_url,
             version=self._version + '/' if self._pass_version else '',
+            service=service,
             id=geolink_id,
             url_params=oereblex_params
         )

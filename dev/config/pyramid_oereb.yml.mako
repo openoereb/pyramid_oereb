@@ -210,6 +210,8 @@ pyramid_oereb:
     # url_param_config:
     # - code: ch.StatischeWaldgrenzen
     #   url_param: 'oereb_id=5'
+    # Optional parameter to use "prepubs" URL if law_status is not "inForce" (Default: False).
+    use_prepubs: True
 
   # Defines the information of the oereb cadastre providing authority. Please change this to your data. This
   # will be directly used for producing the extract output.
@@ -570,6 +572,23 @@ pyramid_oereb:
     # Redirect configuration for type URL. You can use any attribute of the real estate RealEstateRecord
     # (e.g. "{egrid}") to parameterize the URL.
     redirect: https://geoview.bl.ch/oereb/?egrid={egrid}
+
+  # The processor of the oereb project needs access to availability data. In the standard configuration this
+  # is assumed to be read from a database. Hint: If you want to read the availability out of an existing database
+  # table to avoid imports of this data every time it gets updates, you only need to change the model bound to
+  # the source. The model must implement the same field names and information as the default model does.
+  availability:
+    # The availability must have a property source.
+    source:
+      # The source must have a class which represents the accessor to the source. In this example, it is an
+      # already implemented source which reads data from a database.
+      class: pyramid_oereb.contrib.data_sources.standard.sources.availability.DatabaseSource
+      # The necessary parameters to use this class
+      params:
+        # The connection path where the database can be found
+        db_connection: *main_db_connection
+        # The model which maps the map layering database table.
+        model: pyramid_oereb.contrib.data_sources.standard.models.main.Availability
 
   # All PLRs which are provided by this application. This is related to all application behaviour, especially
   # the extract creation process which loops over this list.

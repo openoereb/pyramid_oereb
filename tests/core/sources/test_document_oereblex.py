@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import datetime
+from pyramid_oereb.core.records.law_status import LawStatusRecord
 
 import pytest
 import yaml
@@ -197,20 +198,28 @@ def test_get_document_records(oereblex_test_config, i, document):
             assert record.text_at_web == {'de': '/api/attachments/{fid}'.format(fid=i + idx)}
 
 
-def test_read(oereblex_test_config):
+@pytest.mark.parametrize('law_status,service', [
+    (LawStatusRecord('inForce', {'de': 'Rechtskräftig'}), 'geolinks'),
+    (LawStatusRecord('changeWithPreEffect', {'de': 'Änderung mit Vorwirkung'}), 'prepubs')
+])
+def test_read(law_status, service, oereblex_test_config):
     del oereblex_test_config
 
     with requests_mock.mock() as m:
         with open('./tests/resources/geolink_v1.2.2.xml', 'rb') as f:
-            m.get('http://oereblex.example.com/api/geolinks/100.xml', content=f.read())
+            m.get(
+                'http://oereblex.example.com/api/{0}/100.xml'.format(service),
+                content=f.read()
+            )
         source = OEREBlexSource(
             host='http://oereblex.example.com',
             language='de',
             canton='BL',
             version='1.2.2',
             code='ch.Waldabstandslinien',
+            use_prepubs=True
         )
-        source.read(MockParameter(), 100)
+        source.read(MockParameter(), 100, law_status)
         assert len(source.records) == 9
         document = source.records[0]
         assert isinstance(document, DocumentRecord)
@@ -236,7 +245,7 @@ def test_read_related_decree_as_main(oereblex_test_config):
             related_decree_as_main=True,
             code='ch.Waldabstandslinien',
         )
-        source.read(MockParameter(), 100)
+        source.read(MockParameter(), 100, LawStatusRecord('inForce', {'de': 'Rechtskräftig'}))
         assert len(source.records) == 9
         document = source.records[0]
         assert isinstance(document, DocumentRecord)
@@ -262,7 +271,7 @@ def test_read_related_notice_as_main(oereblex_test_config):
             related_notice_as_main=True,
             code='ch.Waldabstandslinien',
         )
-        source.read(MockParameter(), 100)
+        source.read(MockParameter(), 100, LawStatusRecord('inForce', {'de': 'Rechtskräftig'}))
         assert len(source.records) == 9
         document = source.records[8]
         assert isinstance(document, DocumentRecord)
@@ -289,7 +298,7 @@ def test_read_with_version_in_url(oereblex_test_config):
             pass_version=True,
             code='ch.Waldabstandslinien',
         )
-        source.read(MockParameter(), 100)
+        source.read(MockParameter(), 100, LawStatusRecord('inForce', {'de': 'Rechtskräftig'}))
         assert len(source.records) == 9
 
 
@@ -307,7 +316,7 @@ def test_read_with_specified_version(oereblex_test_config):
             pass_version=True,
             code='ch.Waldabstandslinien',
         )
-        source.read(MockParameter(), 100)
+        source.read(MockParameter(), 100, LawStatusRecord('inForce', {'de': 'Rechtskräftig'}))
         assert len(source.records) == 9
 
 
@@ -324,7 +333,7 @@ def test_read_with_specified_language(oereblex_test_config):
         )
         params = MockParameter()
         params.set_language('fr')
-        source.read(params, 100)
+        source.read(params, 100, LawStatusRecord('inForce', {'de': 'Rechtskräftig'}))
         assert len(source.records) == 9
         document = source.records[0]
         assert document.responsible_office.name == {'fr': 'Bauverwaltung Gemeinde'}

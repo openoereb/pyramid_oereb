@@ -6,11 +6,10 @@ import binascii
 from geoalchemy2.shape import to_shape, from_shape
 from shapely.geometry import Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, \
     GeometryCollection
-from sqlalchemy import text, or_
+from sqlalchemy import or_
 
 from pyramid_oereb import Config
 from pyramid_oereb.core import b64
-from pyramid_oereb.core.records.availability import AvailabilityRecord
 from pyramid_oereb.core.records.image import ImageRecord
 from pyramid_oereb.core.records.plr import EmptyPlrRecord
 from pyramid_oereb.core.sources import BaseDatabaseSource
@@ -104,33 +103,17 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 as key and text as value.
         """
         config_parser = StandardThemeConfigParser(**kwargs)
-        models = config_parser.get_models()
+        self.models = config_parser.get_models()
         bds_kwargs = {
-            'model': models.Geometry,
+            'model': self.models.Geometry,
             'db_connection': kwargs.get('source').get('params').get('db_connection')
         }
 
         BaseDatabaseSource.__init__(self, **bds_kwargs)
         PlrBaseSource.__init__(self, **kwargs)
 
-        self.legend_entry_model = models.LegendEntry
-        availability_model = models.Availability
-
-        self.availabilities = []
+        self.legend_entry_model = self.models.LegendEntry
         self.datasource = []
-
-        session = self._adapter_.get_session(self._key_)
-
-        try:
-
-            availabilities_from_db = session.query(availability_model).all()
-            for availability in availabilities_from_db:
-                self.availabilities.append(
-                    AvailabilityRecord(availability.fosnr, available=availability.available)
-                )
-
-        finally:
-            session.close()
 
     def from_db_to_legend_entry_record(self, legend_entry_from_db):
         theme = Config.get_theme_by_code_sub_code(legend_entry_from_db.theme, legend_entry_from_db.sub_theme)
@@ -421,49 +404,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         document_records = self.from_db_to_document_records(documents_from_db)
         return document_records
 
-    @staticmethod
-    def extract_geometry_collection_db(db_path, real_estate_geometry):
-        """
-        Decides the geometry collection cases of geometric filter operations when the database contains multi
-        geometries but the passed geometry does not.
-        The multi geometry will be extracted to it's sub parts for operation.
-
-        Args:
-            db_path (str): The point separated string of schema_name.table_name.column_name from
-                which we can construct a correct SQL statement.
-            real_estate_geometry (shapely.geometry.base.BaseGeometry): The shapely geometry
-                representation which is used for comparison.
-
-        Returns:
-            sqlalchemy.sql.elements.BooleanClauseList: The clause element.
-
-        Raises:
-            HTTPBadRequest
-        """
-        srid = Config.get('srid')
-        sql_text_point = 'ST_Intersects(ST_CollectionExtract({0}, 1), ST_GeomFromText(\'{1}\', {2}))'.format(
-            db_path,
-            real_estate_geometry.wkt,
-            srid
-        )
-        sql_text_line = 'ST_Intersects(ST_CollectionExtract({0}, 2), ST_GeomFromText(\'{1}\', {2}))'.format(
-            db_path,
-            real_estate_geometry.wkt,
-            srid
-        )
-        sql_text_polygon = 'ST_Intersects(ST_CollectionExtract({0}, 3), ' \
-                           'ST_GeomFromText(\'{1}\', {2}))'.format(
-                                db_path,
-                                real_estate_geometry.wkt,
-                                srid
-                            )
-        clause_blocks = [
-            text(sql_text_point),
-            text(sql_text_line),
-            text(sql_text_polygon)
-        ]
-        return or_(*clause_blocks)
-
     def collect_related_geometries_by_real_estate(self, session, real_estate):
         """
         Extracts all geometries in the topic which have spatial relation with the passed real estate
@@ -523,7 +463,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         """
 
         # Check if the plr is marked as available
-        if self._is_available(real_estate):
+        if Config.availability_by_theme_code_municipality_fosnr(self._plr_info['code'], real_estate.fosnr):
             session = self._adapter_.get_session(self._key_)
             try:
                 if session.query(self._model_).count() == 0:
@@ -567,19 +507,3 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 Config.get_theme_by_code_sub_code(self._plr_info['code']),
                 has_data=False
             )]
-
-    def _is_available(self, real_estate):
-        """
-        Checks if the topic is available for the specified real estate.
-
-        Args:
-            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
-                estate in its record representation.
-
-        Returns:
-             bool: True if the topic is available, false otherwise.
-        """
-        for availability in self.availabilities:
-            if int(real_estate.fosnr) == int(availability.fosnr) and not availability.available:
-                return False
-        return True
