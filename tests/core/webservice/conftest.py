@@ -6,6 +6,7 @@ from pyramid_oereb.core.adapter import FileAdapter
 # from datetime import date, timedelta
 
 from pyramid_oereb.core.config import Config
+from pyramid_oereb.core.records.municipality import MunicipalityRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.logo import LogoRecord
 from pyramid_oereb.core.records.real_estate_type import RealEstateTypeRecord
@@ -20,20 +21,13 @@ def extract_real_estate_data(real_estate_data, municipalities, themes, real_esta
     pass
 
 
-@pytest.fixture
-def municipalities(pyramid_oereb_test_config, dbsession, transact):
-    del transact
-
-    from pyramid_oereb.contrib.data_sources.standard.models import main
-
-    # Add dummy municipality
-    municipalities = [main.Municipality(**{
-        'fosnr': 1234,
-        'name': u'Test',
-        'published': True,
-        'geom': 'SRID=2056;MULTIPOLYGON(((0 0, 0 10, 10 10, 10 0, 0 0)))'
-    })]
-    dbsession.add_all(municipalities)
+@pytest.fixture(autouse=True)
+def municipalities(pyramid_oereb_test_config):
+    with patch(
+            'pyramid_oereb.core.config.Config.municipalities',
+            [MunicipalityRecord(1234, 'test', True)]
+    ):
+        yield pyramid_oereb_test_config
 
 
 @pytest.fixture

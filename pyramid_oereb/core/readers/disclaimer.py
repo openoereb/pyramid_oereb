@@ -24,7 +24,7 @@ class DisclaimerReader(object):
         source_class = DottedNameResolver().maybe_resolve(dotted_source_class_path)
         self._source_ = source_class(**params)
 
-    def read(self, params):
+    def read(self):
         """
         The read method of this reader. There we invoke the read method of the bound source.
 
@@ -34,13 +34,10 @@ class DisclaimerReader(object):
             :ref:`api-pyramid_oereb-core-records-availability-availabilityrecord`. Otherwise the API like way
             the server works would be broken.
 
-        Args:
-            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
-
         Returns:
             list of pyramid_oereb.core.records.disclaimer.DisclaimerRecord:
                 The list of found records. Since these are not filtered by any criteria the list simply
                 contains all records delivered by the source.
         """
-        self._source_.read(params)
+        self._source_.read()
         return self._source_.records

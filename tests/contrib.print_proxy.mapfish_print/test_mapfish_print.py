@@ -5,6 +5,8 @@ import json
 import codecs
 import pytest
 import responses
+
+from pyramid_oereb.core.records.municipality import MunicipalityRecord
 from tests.mockrequest import MockRequest
 from unittest.mock import patch
 import pyramid_oereb
@@ -827,6 +829,7 @@ def dummy_pdf():
 
 @patch.object(pyramid_oereb.core.views.webservice, 'route_prefix', 'oereb')
 @patch.object(pyramid_oereb.core.renderer.extract.json_, 'route_prefix', 'oereb')
+@patch.object(pyramid_oereb.core.config.Config, 'municipalities', [MunicipalityRecord(1234, 'test', True)])
 def test_mfp_service(mock_responses, pyramid_test_config,
                      real_estate_data,
                      municipalities, themes, real_estate_types_test_data, logos,
@@ -841,7 +844,6 @@ def test_mfp_service(mock_responses, pyramid_test_config,
         'EGRID': 'TEST',
         # 'TOPICS': topics
     })
-    from pyramid_oereb.core.config import Config
     pyramid_test_config.add_renderer('pyramid_oereb_extract_print',
                                      Config.get('print').get('renderer'))
     service = PlrWebservice(request)

@@ -6,6 +6,9 @@ import pyaml_env
 from pyramid.config import ConfigurationError
 
 from pyramid_oereb.core.readers.availability import AvailabilityReader
+from pyramid_oereb.core.readers.disclaimer import DisclaimerReader
+from pyramid_oereb.core.readers.glossary import GlossaryReader
+from pyramid_oereb.core.readers.municipality import MunicipalityReader
 from pyramid_oereb.core.records.office import OfficeRecord
 from pyramid_oereb.core.records.document_types import DocumentTypeRecord
 from pyramid_oereb.core.records.law_status import LawStatusRecord
@@ -45,6 +48,9 @@ class Config(object):
     theme_document = None
     offices = None
     availabilities = None
+    glossaries = None
+    disclaimers = None
+    municipalities = None
 
     @staticmethod
     def init(configfile, configsection, c2ctemplate_style=False, init_data=False):
@@ -75,6 +81,9 @@ class Config(object):
             Config.init_logos()
             Config.assemble_relation_themes_documents()
             Config.init_availabilities()
+            Config.init_glossaries()
+            Config.init_disclaimers()
+            Config.init_municipalities()
 
     @staticmethod
     def get_config():
@@ -182,6 +191,18 @@ class Config(object):
         Initializes availabilities from the configured source.
         """
         Config.availabilities = Config._read_availabilities()
+
+    @staticmethod
+    def init_glossaries():
+        Config.glossaries = Config._read_glossaries()
+
+    @staticmethod
+    def init_disclaimers():
+        Config.disclaimers = Config._read_disclaimers()
+
+    @staticmethod
+    def init_municipalities():
+        Config.municipalities = Config._read_municipalities()
 
     @staticmethod
     def assemble_relation_themes_documents():
@@ -364,6 +385,72 @@ class Config(object):
             **availability_config.get('source').get('params')
         )
         return availability_reader.read()
+
+    @staticmethod
+    def _read_glossaries():
+        """
+        Reads settings of glossaries from configured source and instantiates the relevant reader.
+
+        Returns:
+            list of pyramid_oereb.core.records.glossary.GlossaryRecord:
+                The list of found records. Since these are not filtered by any criteria the list simply
+                contains all records delivered by the source.
+
+        Raises:
+            ConfigurationError
+        """
+        glossary_config = Config.get_glossary_config()
+        if glossary_config is None:
+            raise ConfigurationError("Missing configuration for glossary source config")
+        glossary_reader = GlossaryReader(
+            glossary_config.get('source').get('class'),
+            **glossary_config.get('source').get('params')
+        )
+        return glossary_reader.read()
+
+    @staticmethod
+    def _read_disclaimers():
+        """
+        Reads settings of disclaimers from configured source and instantiates the relevant reader.
+
+        Returns:
+            list of pyramid_oereb.core.records.disclaimer.DisclaimerRecord:
+                The list of found records. Since these are not filtered by any criteria the list simply
+                contains all records delivered by the source.
+
+        Raises:
+            ConfigurationError
+        """
+        disclaimer_config = Config.get_disclaimer_config()
+        if disclaimer_config is None:
+            raise ConfigurationError("Missing configuration for disclaimer source config")
+        disclaimer_reader = DisclaimerReader(
+            disclaimer_config.get('source').get('class'),
+            **disclaimer_config.get('source').get('params')
+        )
+        return disclaimer_reader.read()
+
+    @staticmethod
+    def _read_municipalities():
+        """
+        Reads settings of disclaimers from configured source and instantiates the relevant reader.
+
+        Returns:
+            list of pyramid_oereb.core.records.municipality.MunicipalityRecord:
+                The list of found records. Since these are not filtered by any criteria the list simply
+                contains all records delivered by the source.
+
+        Raises:
+            ConfigurationError
+        """
+        municipality_config = Config.get_municipality_config()
+        if municipality_config is None:
+            raise ConfigurationError("Missing configuration for municipality source config")
+        municipality_reader = MunicipalityReader(
+            municipality_config.get('source').get('class'),
+            **municipality_config.get('source').get('params')
+        )
+        return municipality_reader.read()
 
     @staticmethod
     def get_srid():
@@ -1947,6 +2034,31 @@ class Config(object):
             if int(fosnr) == int(availability.fosnr) and theme_code == availability.theme_code:
                 return availability.available
         return True
+
+    @staticmethod
+    def municipality_by_fosnr(fosnr):
+        """
+        Loops through all configured municipalities read from configured source to find a match by
+        fosnr identifier.
+
+        Args:
+            fosnr (int): The key/fosnr which is used to find matching municipality.
+
+        Returns:
+            pyramid_oereb.lib.records.municipality.MunicipalityRecord: The found municipality
+        Raises:
+            ConfigurationError: If no match was found
+
+        """
+        for municipality in Config.municipalities:
+            if municipality.fosnr == fosnr:
+                return municipality
+        raise ConfigurationError(
+            'No municipalitiy with fosnr {} could be found in the configured municipalities ({}).'.format(
+                fosnr,
+                Config.municipalities
+            )
+        )
 
 
 def _parse(cfg_file, cfg_section, c2ctemplate_style=False):

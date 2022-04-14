@@ -2,7 +2,6 @@ import pytest
 from unittest.mock import patch
 
 from pyramid_oereb.contrib.data_sources.standard.sources.disclaimer import DatabaseSource
-from pyramid_oereb.core.views.webservice import Parameter
 from pyramid_oereb.core.records.disclaimer import DisclaimerRecord
 
 
@@ -45,7 +44,7 @@ def all_disclaimer_result_session(session, query):
 def test_read_all(disclaimer_source_params, all_disclaimer_result_session):
     source = DatabaseSource(**disclaimer_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_disclaimer_result_session()):  # noqa: E501
-        source.read(Parameter('xml'))
+        source.read()
         assert len(source.records) == 2
         assert isinstance(source.records[0], DisclaimerRecord)
         assert isinstance(source.records[1], DisclaimerRecord)

@@ -7,10 +7,7 @@ from pyramid.path import DottedNameResolver
 
 from pyramid_oereb.core.config import Config
 from pyramid_oereb.core.records.plr import PlrRecord
-from pyramid_oereb.core.readers.disclaimer import DisclaimerReader
 from pyramid_oereb.core.readers.extract import ExtractReader
-from pyramid_oereb.core.readers.glossary import GlossaryReader
-from pyramid_oereb.core.readers.municipality import MunicipalityReader
 from pyramid_oereb.core.readers.real_estate import RealEstateReader
 
 
@@ -19,8 +16,7 @@ log = logging.getLogger(__name__)
 
 class Processor(object):
 
-    def __init__(self, real_estate_reader, municipality_reader, disclaimer_reader,
-                 glossary_reader, plr_sources, extract_reader):
+    def __init__(self, real_estate_reader, plr_sources, extract_reader):
         """
         The Processor class is directly bound to the get_extract_by_id service in this application. It's task
         is to unsnarl the difficult model of the oereb extract and handle all objects inside this extract
@@ -30,22 +26,12 @@ class Processor(object):
         Args:
             real_estate_reader (pyramid_oereb.lib.readers.real_estate.RealEstateReader): The
                 real estate reader instance for runtime use.
-            municipality_reader (pyramid_oereb.lib.readers.municipality.MunicipalityReader): The
-                municipality reader instance for runtime use.
-            disclaimer_reader
-                (pyramid_oereb.core.readers.disclaimer.DisclaimerReader):
-                The disclaimer of liability reader instance for runtime use.
-            glossary_reader (pyramid_oereb.lib.readers.glossary.GlossaryReader): The glossary
-                reader instance for runtime use.
             plr_sources (list of pyramid_oereb.standard.sources.plr.DatabaseSource): The
                 public law restriction source instances for runtime use wrapped in a list.
             extract_reader (pyramid_oereb.lib.readers.extract.ExtractReader): The extract reader
                 instance for runtime use.
         """
         self._real_estate_reader_ = real_estate_reader
-        self._municipality_reader_ = municipality_reader
-        self._disclaimer_reader_ = disclaimer_reader
-        self._glossary_reader_ = glossary_reader
         self._plr_sources_ = plr_sources
         self._extract_reader_ = extract_reader
 
@@ -232,33 +218,6 @@ class Processor(object):
         return self._real_estate_reader_
 
     @property
-    def municipality_reader(self):
-        """
-        Returns:
-            pyramid_oereb.lib.readers.municipality.MunicipalityReader: The municipality reader
-            reader instance.
-        """
-        return self._municipality_reader_
-
-    @property
-    def disclaimer_reader(self):
-        """
-        Returns:
-            pyramid_oereb.lib.readers.disclaimer.DisclaimerReader:
-            The disclaimer reader reader instance.
-        """
-        return self._disclaimer_reader_
-
-    @property
-    def glossary_reader(self):
-        """
-        Returns:
-            pyramid_oereb.lib.readers.glossary.GlossaryReader: The glossary reader reader
-            instance.
-        """
-        return self._glossary_reader_
-
-    @property
     def plr_sources(self):
         """
         Returns:
@@ -291,9 +250,7 @@ class Processor(object):
             pyramid_oereb.lib.records.extract.ExtractRecord: The generated extract record.
         """
         log.debug("process() start")
-        municipality = self._municipality_reader_.read(params, real_estate.fosnr)[0]
-        disclaimers = self._disclaimer_reader_.read(params)
-        glossaries = self._glossary_reader_.read(params)
+        municipality = Config.municipality_by_fosnr(real_estate.fosnr)
         extract_raw = self._extract_reader_.read(params, real_estate, municipality)
         extract = self.plr_tolerance_check(extract_raw)
 
@@ -312,8 +269,8 @@ class Processor(object):
         # intersecting and not intersecting and starts the legend entry sorting after.
         self.view_service_handling(extract.real_estate, params.images, params.format, params.language)
 
-        extract.disclaimers = disclaimers
-        extract.glossaries = glossaries
+        extract.disclaimers = Config.disclaimers
+        extract.glossaries = Config.glossaries
         log.debug("process() done, returning extract.")
         return extract
 
@@ -329,30 +286,12 @@ def create_processor():
     """
 
     real_estate_config = Config.get_real_estate_config()
-    municipality_config = Config.get_municipality_config()
-    disclaimer_config = Config.get_disclaimer_config()
-    glossary_config = Config.get_glossary_config()
 
     plr_cadastre_authority = Config.get_plr_cadastre_authority()
 
     real_estate_reader = RealEstateReader(
         real_estate_config.get('source').get('class'),
         **real_estate_config.get('source').get('params')
-    )
-
-    municipality_reader = MunicipalityReader(
-        municipality_config.get('source').get('class'),
-        **municipality_config.get('source').get('params')
-    )
-
-    disclaimer_reader = DisclaimerReader(
-        disclaimer_config.get('source').get('class'),
-        **disclaimer_config.get('source').get('params')
-    )
-
-    glossary_reader = GlossaryReader(
-        glossary_config.get('source').get('class'),
-        **glossary_config.get('source').get('params')
     )
 
     plr_sources = []
@@ -367,9 +306,6 @@ def create_processor():
 
     return Processor(
         real_estate_reader=real_estate_reader,
-        municipality_reader=municipality_reader,
-        disclaimer_reader=disclaimer_reader,
-        glossary_reader=glossary_reader,
         plr_sources=plr_sources,
         extract_reader=extract_reader,
     )
