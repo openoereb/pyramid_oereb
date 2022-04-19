@@ -6,6 +6,16 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+.. _changes-version-2.0.1:
+
+Version 2.0.1
+-------------
+Bug-fix and performance optimization release:
+
+ * Disclaimer, glossary and municipality are now read only on startup (#1544)
+ * Add support for OEREBlex prepubs URL (#1546)
+ * Fix real estate type in XML for GetEgrid (#1545)
+
 .. _changes-version-2.0.0:
 
 Version 2.0.0
