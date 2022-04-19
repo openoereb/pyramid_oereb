@@ -1,0 +1,38 @@
+[
+  {
+    "theme_code": "ch.BaulinienNationalstrassen",
+    "office_id": "CHE304459014",
+    "id": "1",
+    "date": "2017-07-01T12:00:00"
+  },
+  {
+    "theme_code": "ch.Nutzungsplanung",
+    "office_id": "CHE123456789",
+    "id": "2",
+    "date": "2017-07-01T12:00:00"
+  },
+  {
+    "theme_code": "ch.Grundwasserschutzzonen",
+    "office_id": "amt321",
+    "id": "3",
+    "date": "2017-07-01T12:00:00"
+  },
+  {
+    "theme_code": "ch.StatischeWaldgrenzen",
+    "office_id": "amt132",
+    "id": "4",
+    "date": "2017-07-01T12:00:00"
+  },
+  {
+    "theme_code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+    "office_id": "amt40",
+    "id": "5",
+    "date": "2017-07-01T12:00:00"
+  },
+  {
+    "theme_code": "ch.BelasteteStandorteMilitaer",
+    "office_id": "amt375954115",
+    "id": "6",
+    "date": "2017-07-01T12:00:00"
+  }
+]

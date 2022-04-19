@@ -139,47 +139,6 @@ def get_document(base, schema_name, pk_type, Office):
     return Document
 
 
-def get_data_integration(base, schema_name, pk_type, Office):
-    """
-    Factory to produce a generic data integration model.
-
-    Args:
-        base (sqlalchemy.orm.decl_api.DeclarativeMeta): The SQLAlchemy base which is assigned to the models.
-        schema_name (str): The name of the database schema where this models belong to.
-        pk_type (sqlalchemy.sql.type_api.TypeEngine): The type of the primary column. E.g.
-            sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
-            needs
-        Office (sqlalchemy.orm.decl_api.DeclarativeMeta): The office model.
-
-    Returns:
-        sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.
-    """
-
-    class DataIntegration(base):
-        """
-        The bucket to fill in the date when this whole schema was updated. It has a relation to the
-        office to be able to find out who was the delivering instance.
-
-        Attributes:
-            id (str): The identifier. This is used in the database only and must not be set manually. If
-                you  don't like it - don't care about.
-            date (datetime.date): The date when this data set was delivered.
-            office_id (str): A foreign key which points to the actual office instance.
-            office (pyramid_oereb.standard.models.airports_building_lines.Office):
-                The actual office instance which the id points to.
-            checksum (str):
-        """
-        __table_args__ = {'schema': schema_name}
-        __tablename__ = 'data_integration'
-        id = Column(pk_type, primary_key=True, autoincrement=False)
-        date = Column(DateTime, nullable=False)
-        office_id = Column(ForeignKey(Office.id), nullable=False)
-        office = relationship(Office)
-        checksum = Column(String, nullable=True)
-
-    return DataIntegration
-
-
 def get_view_service(base, schema_name, pk_type):
     """
     Factory to produce a generic view service model.
