@@ -6,7 +6,7 @@ mandatory topics the federation asks for.
 
 
 from sqlalchemy import Column, ForeignKey
-from sqlalchemy import String, Integer, Float, DateTime, Date
+from sqlalchemy import String, Integer, Float, Date
 from geoalchemy2.types import Geometry as GeoAlchemyGeometry
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import JSONType
