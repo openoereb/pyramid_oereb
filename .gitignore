@@ -75,3 +75,5 @@ DataExtract.json
 /coverage.core.xml
 /coverage.contrib-stats.xml
 /coverage.xml
+
+/.fed_check
