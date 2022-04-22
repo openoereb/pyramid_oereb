@@ -43,6 +43,7 @@ services:
       - .:/workspace:cached
       - venvs:/venvs
     working_dir: /workspace
+    command: [ "/venvs/.venv/bin/pserve", "development.ini", "--reload"]
     ports:
       - ${PYRAMID_OEREB_PORT:-6543}:${PYRAMID_OEREB_PORT:-6543}
     networks:

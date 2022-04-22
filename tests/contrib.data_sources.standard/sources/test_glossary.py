@@ -2,7 +2,6 @@ import pytest
 from unittest.mock import patch
 
 from pyramid_oereb.contrib.data_sources.standard.sources.glossary import DatabaseSource
-from pyramid_oereb.core.views.webservice import Parameter
 from pyramid_oereb.core.records.glossary import GlossaryRecord
 
 
@@ -50,7 +49,7 @@ def all_glossary_result_session(session, query):
 def test_read_all(glossary_source_params, all_glossary_result_session):
     source = DatabaseSource(**glossary_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_glossary_result_session()):  # noqa: E501
-        source.read(Parameter('xml'))
+        source.read()
         assert len(source.records) == 3
         assert isinstance(source.records[0], GlossaryRecord)
         assert isinstance(source.records[1], GlossaryRecord)

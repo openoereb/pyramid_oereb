@@ -13,13 +13,10 @@ class DisclaimerBaseSource(Base):
     """
     _record_class_ = DisclaimerRecord
 
-    def read(self, params):
+    def read(self):
         """
         Every disclaimer source has to implement a read method. This method must accept no
         parameters. Because it should deliver all items available.
         If you want adapt to your own source for disclaimer, this is the point where to hook in.
-
-        Args:
-            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
         """
         pass  # pragma: no cover

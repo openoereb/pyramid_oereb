@@ -2,8 +2,6 @@
 
 import pytest
 
-from tests.mockrequest import MockParameter
-
 
 @pytest.fixture
 def municipality_data(dbsession, transact):
@@ -37,7 +35,7 @@ def test_read(pyramid_oereb_test_config, municipality_data):
     from pyramid_oereb.contrib.data_sources.standard.sources.municipality import DatabaseSource
 
     source = DatabaseSource(**pyramid_oereb_test_config.get_municipality_config().get('source').get('params'))
-    source.read(MockParameter())
+    source.read()
     assert isinstance(source.records, list)
     assert len(source.records) == len(municipality_data)
     assert source.records[0].fosnr == municipality_data[0].fosnr

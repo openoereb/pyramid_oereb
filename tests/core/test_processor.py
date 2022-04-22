@@ -14,10 +14,7 @@ from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.law_status import LawStatusRecord
 from pyramid_oereb.core.records.view_service import ViewServiceRecord, LegendEntryRecord
 from pyramid_oereb.core.records.municipality import MunicipalityRecord
-from pyramid_oereb.core.readers.disclaimer import DisclaimerReader
 from pyramid_oereb.core.readers.extract import ExtractReader
-from pyramid_oereb.core.readers.glossary import GlossaryReader
-from pyramid_oereb.core.readers.municipality import MunicipalityReader
 from pyramid_oereb.core.readers.real_estate import RealEstateReader
 from pyramid_oereb.core.views.webservice import PlrWebservice
 from tests.mockrequest import MockRequest
@@ -37,8 +34,8 @@ request_params = {
 @pytest.fixture
 def processor_data(pyramid_oereb_test_config, main_schema):
     with patch(
-        'pyramid_oereb.core.readers.municipality.MunicipalityReader.read',
-            return_value=[MunicipalityRecord(1234, 'test', True)]
+        'pyramid_oereb.core.config.Config.municipalities',
+        [MunicipalityRecord(1234, 'test', True)]
     ):
         yield pyramid_oereb_test_config
 
@@ -51,9 +48,6 @@ def test_missing_params():
 def test_properties(pyramid_oereb_test_config):
     processor = create_processor()
     assert isinstance(processor.extract_reader, ExtractReader)
-    assert isinstance(processor.municipality_reader, MunicipalityReader)
-    assert isinstance(processor.disclaimer_reader, DisclaimerReader)
-    assert isinstance(processor.glossary_reader, GlossaryReader)
     assert isinstance(processor.plr_sources, list)
     assert isinstance(processor.real_estate_reader, RealEstateReader)
 

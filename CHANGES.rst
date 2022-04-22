@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0.1
+-----
+- Disclaimer, glossary and municipality are now read only on startup, to improve performance (#1544)
+- Add support for OEREBlex prepubs URL (#1546)
+- Fix real estate type in XML for GetEgrid (#1545)
+
 2.0.0
 -----
 - Fix legend entry collection (#1529)
@@ -8,6 +14,7 @@ Changelog
 - Update theme and texts URL according to swisstopo (#1526)
 - Fix JSON response of GetEgrid (#1534)
 - Fix error in Interlis model sub-code usage (#1538)
+- Improve performance by moving availability to main schema and read only on startup (#1540)
 
 2.0.0.rc2
 ---------

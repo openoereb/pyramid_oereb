@@ -6,4 +6,5 @@ McCabe==0.6.1
 Sphinx<1.6
 sphinx_rtd_theme
 c2c.template==2.3.0
+yappi
 -e .
