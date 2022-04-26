@@ -1,80 +1,34 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Readers &mdash; pyramid_oereb  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'',
-              LANGUAGE:'en',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Records" href="records.html" />
     <link rel="prev" title="Core" href="index.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> pyramid_oereb
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -82,19 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
@@ -104,6 +47,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Core</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Readers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#addressreader"><em>AddressReader</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#availabilityreader"><em>AvailabilityReader</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#disclaimerreader"><em>DisclaimerReader</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#documentreader"><em>DocumentReader</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#documenttypereader"><em>DocumentTypeReader</em></a></li>
@@ -128,1118 +72,1006 @@
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">pyramid_oereb</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="index.html">Core</a> &raquo;</li>
-        
       <li>Readers</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="readers">
+             
+  <section id="readers">
 <span id="id1"></span><h1>Readers<a class="headerlink" href="#readers" title="Permalink to this headline">¶</a></h1>
 <span class="target" id="module-pyramid_oereb.core.readers"><span id="api-pyramid-oereb-core-readers"></span></span><p>Regarding to the main documentation you find here all the stuff which is related to the reader layer. This
 layer is part of the core server application. It is addressed directly by the processor. Its main task is to
 call the user configured sources and read all the necessary records from them. This is the lowest core layer.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This layer is not meant to be adapted in normal.</p>
+<p class="admonition-title">Note</p>
+<p>This layer is not meant to be adapted in normal.</p>
 </div>
-<span class="target" id="module-pyramid_oereb.core.readers.address"><span id="api-pyramid-oereb-core-readers-address"></span></span><div class="section" id="addressreader">
+<span class="target" id="module-pyramid_oereb.core.readers.address"><span id="api-pyramid-oereb-core-readers-address"></span></span><section id="addressreader">
 <span id="api-pyramid-oereb-core-readers-address-addressreader"></span><h2><em>AddressReader</em><a class="headerlink" href="#addressreader" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.core.readers.address.AddressReader">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.core.readers.address.</code><code class="descname">AddressReader</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/address.html#AddressReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.address.AddressReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.address.AddressReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.address.</span></span><span class="sig-name descname"><span class="pre">AddressReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/address.html#AddressReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.address.AddressReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The central reader accessor for addresses. It is directly bound to a so called source which is defined by
 a pythonic dotted string to the class definition of this source. An instance of the passed source will be
 created on instantiation of this reader class by passing through the parameter kwargs.</p>
 <p>The address is here the real combination of a street name, a zip code and a street number.</p>
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.address.AddressReader.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/address.html#AddressReader.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.address.AddressReader.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dotted_source_class_path</strong> (<em>str</em><em> or </em><em>pyramid_oereb.lib.sources.address.AddressBaseSource</em>) &#8211; The path to the class which represents the source used by this reader. This
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.address.AddressReader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/address.html#AddressReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.address.AddressReader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dotted_source_class_path</strong> (<em>str</em><em> or </em><em>pyramid_oereb.lib.sources.address.AddressBaseSource</em>) – The path to the class which represents the source used by this reader. This
 class must exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-address-addressbasesource"><span class="std std-ref">Address AddressBaseSource</span></a>.</li>
-<li><strong>(</strong><strong>kwargs</strong><strong>)</strong> &#8211; kwargs, which are necessary as configuration parameter for the above by
-dotted name defined class.</li>
+<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-address-addressbasesource"><span class="std std-ref">Address AddressBaseSource</span></a>.</p></li>
+<li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
+dotted name defined class.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.address.AddressReader.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>params</em>, <em>street_name</em>, <em>zip_code</em>, <em>street_number</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/address.html#AddressReader.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.address.AddressReader.read" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.address.AddressReader.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zip_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/address.html#AddressReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.address.AddressReader.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>The read method of this reader. There we invoke the read method of the bound source.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you subclass this class your implementation needs to offer this method in the same
+<p class="admonition-title">Note</p>
+<p>If you subclass this class your implementation needs to offer this method in the same
 signature. Means the parameters must be the same and the return must be a list of
 <a class="reference internal" href="records.html#api-pyramid-oereb-core-records-address-addressrecord"><span class="std std-ref">AddressRecord</span></a>. Otherwise the API like way the server
 works would be broken.</p>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</li>
-<li><strong>street_name</strong> (<em>unicode</em>) &#8211; The name of the street for the desired address.</li>
-<li><strong>zip_code</strong> (<em>int</em>) &#8211; The postal zipcode for the desired address.</li>
-<li><strong>street_number</strong> (<em>str</em>) &#8211; The house or so called street number of the desired address.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) – The parameters of the extract request.</p></li>
+<li><p><strong>street_name</strong> (<em>unicode</em>) – The name of the street for the desired address.</p></li>
+<li><p><strong>zip_code</strong> (<em>int</em>) – The postal zipcode for the desired address.</p></li>
+<li><p><strong>street_number</strong> (<em>str</em>) – The house or so called street number of the desired address.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The list of found records filtered by the passed criteria.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of pyramid_oereb.core.records.address.AddressRecord</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list of found records filtered by the passed criteria.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of pyramid_oereb.core.records.address.AddressRecord</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.readers.disclaimer"><span id="api-pyramid-oereb-core-readers-disclaimer"></span></span></div>
-<div class="section" id="disclaimerreader">
-<span id="api-pyramid-oereb-core-readers-disclaimer-disclaimerreader"></span><h2><em>DisclaimerReader</em><a class="headerlink" href="#disclaimerreader" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.core.readers.disclaimer.DisclaimerReader">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.core.readers.disclaimer.</code><code class="descname">DisclaimerReader</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/disclaimer.html#DisclaimerReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.disclaimer.DisclaimerReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<span class="target" id="module-pyramid_oereb.core.readers.availability"><span id="api-pyramid-oereb-core-readers-availability"></span></span></section>
+<section id="availabilityreader">
+<span id="api-pyramid-oereb-core-readers-availability-availabilityreader"></span><h2><em>AvailabilityReader</em><a class="headerlink" href="#availabilityreader" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.availability.AvailabilityReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.availability.</span></span><span class="sig-name descname"><span class="pre">AvailabilityReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/availability.html#AvailabilityReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.availability.AvailabilityReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The central reader for the disclaimer definitions. It is directly bound to a so called source
 which is defined by a pythonic dotted string to the class definition of this source.
 An instance of the passed source will be created on instantiation of this reader class by passing through
 the parameter kwargs.</p>
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.disclaimer.DisclaimerReader.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/disclaimer.html#DisclaimerReader.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.disclaimer.DisclaimerReader.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>(</strong><strong>str or</strong> (<em>dotted_source_class_path</em>) &#8211; pyramid_oereb.core.records.disclaimer.DisclaimerRecord):
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.availability.AvailabilityReader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/availability.html#AvailabilityReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.availability.AvailabilityReader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>or</strong> (<em>dotted_source_class_path</em><em> (</em><em>str</em>) – pyramid_oereb.core.sources.availability.AvailabilityBaseSource):
 The path to the class which represents the source used by this reader. This
 class must exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-disclaimer-disclaimerbasesource"><span class="std std-ref">Disclaimer DisclaimerBaseSource</span></a>.</li>
-<li><strong>(</strong><strong>kwargs</strong><strong>)</strong> &#8211; kwargs, which are necessary as configuration parameter for the above by
-dotted name defined class.</li>
+<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-disclaimer-disclaimerbasesource"><span class="std std-ref">Disclaimer DisclaimerBaseSource</span></a>.</p></li>
+<li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
+dotted name defined class.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.disclaimer.DisclaimerReader.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/disclaimer.html#DisclaimerReader.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.disclaimer.DisclaimerReader.read" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.availability.AvailabilityReader.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/availability.html#AvailabilityReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.availability.AvailabilityReader.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>The read method of this reader. There we invoke the read method of the bound source.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you subclass this class your implementation needs to offer this method in the same
+<p class="admonition-title">Note</p>
+<p>If you construct a subclass of this class your implementation needs to offer this
+method in the same signature. Means the parameters must be the same and the return
+must be a list of <a class="reference internal" href="records.html#api-pyramid-oereb-core-records-availability-availabilityrecord"><span class="std std-ref">AvailabilityRecord</span></a>.
+Otherwise the API like way the server works would be broken.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
+contains all records delivered by the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list of pyramid_oereb.core.records.availability.AvailabilityRecord</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.core.readers.disclaimer"><span id="api-pyramid-oereb-core-readers-disclaimer"></span></span></section>
+<section id="disclaimerreader">
+<span id="api-pyramid-oereb-core-readers-disclaimer-disclaimerreader"></span><h2><em>DisclaimerReader</em><a class="headerlink" href="#disclaimerreader" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.disclaimer.DisclaimerReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.disclaimer.</span></span><span class="sig-name descname"><span class="pre">DisclaimerReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/disclaimer.html#DisclaimerReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.disclaimer.DisclaimerReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The central reader for the disclaimer definitions. It is directly bound to a so called source
+which is defined by a pythonic dotted string to the class definition of this source.
+An instance of the passed source will be created on instantiation of this reader class by passing through
+the parameter kwargs.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.disclaimer.DisclaimerReader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/disclaimer.html#DisclaimerReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.disclaimer.DisclaimerReader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>or</strong> (<em>dotted_source_class_path</em><em> (</em><em>str</em>) – pyramid_oereb.core.records.disclaimer.DisclaimerRecord):
+The path to the class which represents the source used by this reader. This
+class must exist and it must implement basic source behaviour of the
+<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-disclaimer-disclaimerbasesource"><span class="std std-ref">Disclaimer DisclaimerBaseSource</span></a>.</p></li>
+<li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
+dotted name defined class.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.disclaimer.DisclaimerReader.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/disclaimer.html#DisclaimerReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.disclaimer.DisclaimerReader.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>The read method of this reader. There we invoke the read method of the bound source.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you subclass this class your implementation needs to offer this method in the same
 signature. Means the parameters must be the same and the return must be a list of
 <a class="reference internal" href="records.html#api-pyramid-oereb-core-records-availability-availabilityrecord"><span class="std std-ref">AvailabilityRecord</span></a>. Otherwise the API like way
 the server works would be broken.</p>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The list of found records. Since these are not filtered by any criteria the list simply
-contains all records delivered by the source.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of pyramid_oereb.core.records.disclaimer.DisclaimerRecord</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
+contains all records delivered by the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list of pyramid_oereb.core.records.disclaimer.DisclaimerRecord</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.readers.document"><span id="api-pyramid-oereb-core-readers-document"></span></span></div>
-<div class="section" id="documentreader">
+<span class="target" id="module-pyramid_oereb.core.readers.document"><span id="api-pyramid-oereb-core-readers-document"></span></span></section>
+<section id="documentreader">
 <span id="api-pyramid-oereb-core-readers-document-documentreader"></span><h2><em>DocumentReader</em><a class="headerlink" href="#documentreader" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.core.readers.document.DocumentReader">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.core.readers.document.</code><code class="descname">DocumentReader</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/document.html#DocumentReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.document.DocumentReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.document.DocumentReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.document.</span></span><span class="sig-name descname"><span class="pre">DocumentReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/document.html#DocumentReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.document.DocumentReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The central reader for the document definitions. It is directly bound to a so called source
 which is defined by a pythonic dotted string to the class definition of this source.
 An instance of the passed source will be created on instantiation of this reader class by passing through
 the parameter kwargs.</p>
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.document.DocumentReader.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/document.html#DocumentReader.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.document.DocumentReader.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dotted_source_class_path</strong> &#8211; (str or pyramid_oereb.core.sources.document.DocumentBaseSource): The path to
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.document.DocumentReader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/document.html#DocumentReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.document.DocumentReader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.document.DocumentBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-document-documentbasesource"><span class="std std-ref">Document DocumentBaseSource</span></a>.</li>
-<li><strong>(</strong><strong>kwargs</strong><strong>)</strong> &#8211; kwargs, which are necessary as configuration parameter for the above by
-dotted name defined class.</li>
+<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-document-documentbasesource"><span class="std std-ref">Document DocumentBaseSource</span></a>.</p></li>
+<li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
+dotted name defined class.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.document.DocumentReader.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>office_records</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/document.html#DocumentReader.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.document.DocumentReader.read" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.document.DocumentReader.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">office_records</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/document.html#DocumentReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.document.DocumentReader.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>The central read accessor method to get all desired records from configured source.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you subclass this class your implementation needs to offer this method in the same
+<p class="admonition-title">Note</p>
+<p>If you subclass this class your implementation needs to offer this method in the same
 signature. Means the parameters must be the same and the return must be a list of
 <a class="reference internal" href="records.html#api-pyramid-oereb-core-records-documents-documentrecord"><span class="std std-ref">DocumentRecord</span></a>. Otherwise the API like way
 the server works would be broken.</p>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The list of found records. Since these are not filtered by any criteria the list simply
-contains all records delivered by the source.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of pyramid_oereb.core.records.documents.DocumentRecord</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
+contains all records delivered by the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list of pyramid_oereb.core.records.documents.DocumentRecord</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.readers.document_types"><span id="api-pyramid-oereb-core-readers-document-types"></span></span></div>
-<div class="section" id="documenttypereader">
+<span class="target" id="module-pyramid_oereb.core.readers.document_types"><span id="api-pyramid-oereb-core-readers-document-types"></span></span></section>
+<section id="documenttypereader">
 <span id="api-pyramid-oereb-core-readers-document-types-documenttypereader"></span><h2><em>DocumentTypeReader</em><a class="headerlink" href="#documenttypereader" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.core.readers.document_types.DocumentTypeReader">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.core.readers.document_types.</code><code class="descname">DocumentTypeReader</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/document_types.html#DocumentTypeReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.document_types.DocumentTypeReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.document_types.DocumentTypeReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.document_types.</span></span><span class="sig-name descname"><span class="pre">DocumentTypeReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/document_types.html#DocumentTypeReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.document_types.DocumentTypeReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The central reader for the document type definitions. It is directly bound to a so called source
 which is defined by a pythonic dotted string to the class definition of this source.
 An instance of the passed source will be created on instantiation of this reader class by passing through
 the parameter kwargs.</p>
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.document_types.DocumentTypeReader.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/document_types.html#DocumentTypeReader.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.document_types.DocumentTypeReader.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dotted_source_class_path</strong> &#8211; (str or pyramid_oereb.core.sources.document_types.DocumentTypesBaseSource): The path to
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.document_types.DocumentTypeReader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/document_types.html#DocumentTypeReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.document_types.DocumentTypeReader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.document_types.DocumentTypesBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-document-types-documenttypesbasesource"><span class="std std-ref">Document Types DocumentTypesBaseSource</span></a>.</li>
-<li><strong>(</strong><strong>kwargs</strong><strong>)</strong> &#8211; kwargs, which are necessary as configuration parameter for the above by
-dotted name defined class.</li>
+<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-document-types-documenttypesbasesource"><span class="std std-ref">Document Types DocumentTypesBaseSource</span></a>.</p></li>
+<li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
+dotted name defined class.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.document_types.DocumentTypeReader.read">
-<code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/document_types.html#DocumentTypeReader.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.document_types.DocumentTypeReader.read" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.document_types.DocumentTypeReader.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/document_types.html#DocumentTypeReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.document_types.DocumentTypeReader.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>The central read accessor method to get all desired records from configured source.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you subclass this class your implementation needs to offer this method in the same
+<p class="admonition-title">Note</p>
+<p>If you subclass this class your implementation needs to offer this method in the same
 signature. Means the parameters must be the same and the return must be a list of
 <a class="reference internal" href="records.html#api-pyramid-oereb-core-records-document-types-documenttyperecord"><span class="std std-ref">DocumentTypeRecord</span></a>. Otherwise the
 API like way the server works would be broken.</p>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The list of found records. Since these are not filtered by any criteria the list simply
-contains all records delivered by the source.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of pyramid_oereb.core.records.document_types.DocumentTypeRecord</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
+contains all records delivered by the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list of pyramid_oereb.core.records.document_types.DocumentTypeRecord</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.readers.extract"><span id="api-pyramid-oereb-core-readers-extract"></span></span></div>
-<div class="section" id="extractreader">
+<span class="target" id="module-pyramid_oereb.core.readers.extract"><span id="api-pyramid-oereb-core-readers-extract"></span></span></section>
+<section id="extractreader">
 <span id="api-pyramid-oereb-core-readers-extract-extractreader"></span><h2><em>ExtractReader</em><a class="headerlink" href="#extractreader" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.core.readers.extract.ExtractReader">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.core.readers.extract.</code><code class="descname">ExtractReader</code><span class="sig-paren">(</span><em>plr_sources</em>, <em>plr_cadastre_authority</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/extract.html#ExtractReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.extract.ExtractReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.extract.ExtractReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.extract.</span></span><span class="sig-name descname"><span class="pre">ExtractReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plr_sources</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plr_cadastre_authority</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/extract.html#ExtractReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.extract.ExtractReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The class which generates <em>the extract</em> as a record
 (<a class="reference internal" href="records.html#api-pyramid-oereb-core-records-extract-extractrecord"><span class="std std-ref">ExtractRecord</span></a>). This is the point where all necessary
 and extract related components are bound together.</p>
-<dl class="attribute">
-<dt id="pyramid_oereb.core.readers.extract.ExtractReader.extract">
-<code class="descname">extract</code><a class="headerlink" href="#pyramid_oereb.core.readers.extract.ExtractReader.extract" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>pyramid_oereb.lib.records.extract.ExtractRecord or None</em> &#8211; The extract as a record
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.extract.ExtractReader.extract">
+<span class="sig-name descname"><span class="pre">extract</span></span><a class="headerlink" href="#pyramid_oereb.core.readers.extract.ExtractReader.extract" title="Permalink to this definition">¶</a></dt>
+<dd><p>The extract as a record
 representation. On initialisation this is None. It will be set by calling the read method of the
 instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>pyramid_oereb.lib.records.extract.ExtractRecord or None</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.extract.ExtractReader.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>plr_sources</em>, <em>plr_cadastre_authority</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/extract.html#ExtractReader.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.extract.ExtractReader.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>plr_sources</strong> (<em>list of pyramid_oereb.lib.sources.plr.PlrBaseSource</em>) &#8211; The list of PLR source
-instances which the achieved extract should be about.</li>
-<li><strong>plr_cadastre_authority</strong> (<em>pyramid_oereb.lib.records.office.OfficeRecord</em>) &#8211; The authority responsible
-for the PLR cadastre.</li>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.extract.ExtractReader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plr_sources</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plr_cadastre_authority</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/extract.html#ExtractReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.extract.ExtractReader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plr_sources</strong> (<em>list of pyramid_oereb.lib.sources.plr.PlrBaseSource</em>) – The list of PLR source
+instances which the achieved extract should be about.</p></li>
+<li><p><strong>plr_cadastre_authority</strong> (<em>pyramid_oereb.lib.records.office.OfficeRecord</em>) – The authority responsible
+for the PLR cadastre.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="pyramid_oereb.core.readers.extract.ExtractReader.plr_cadastre_authority">
-<code class="descname">plr_cadastre_authority</code><a class="headerlink" href="#pyramid_oereb.core.readers.extract.ExtractReader.plr_cadastre_authority" title="Permalink to this definition">¶</a></dt>
-<dd><p><a href="#id2"><span class="problematic" id="id3">**</span></a>Returns* &#8211; pyramid_oereb.lib.records.office.OfficeRecord* &#8211; The authority responsible for the PLR
+<dl class="py property">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.extract.ExtractReader.plr_cadastre_authority">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">plr_cadastre_authority</span></span><a class="headerlink" href="#pyramid_oereb.core.readers.extract.ExtractReader.plr_cadastre_authority" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:
+pyramid_oereb.lib.records.office.OfficeRecord: The authority responsible for the PLR
 cadastre.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.extract.ExtractReader.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>params</em>, <em>real_estate</em>, <em>municipality</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/extract.html#ExtractReader.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.extract.ExtractReader.read" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.extract.ExtractReader.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real_estate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">municipality</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/extract.html#ExtractReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.extract.ExtractReader.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method finally creates the extract.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you subclass this class your implementation needs to offer this method in the same
+<p class="admonition-title">Note</p>
+<p>If you subclass this class your implementation needs to offer this method in the same
 signature. Means the parameters must be the same and the return must be a
 <a class="reference internal" href="records.html#api-pyramid-oereb-core-records-extract-extractrecord"><span class="std std-ref">ExtractRecord</span></a>. Otherwise the API like way the server
 works would be broken.</p>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</li>
-<li><strong>real_estate</strong> (<em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em>) &#8211; The real
-estate for which the report should be generated</li>
-<li><strong>municipality</strong> (<em>pyramid_oereb.lib.records.municipality.MunicipalityRecord</em>) &#8211; The municipality
-record.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) – The parameters of the extract request.</p></li>
+<li><p><strong>real_estate</strong> (<em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em>) – The real
+estate for which the report should be generated</p></li>
+<li><p><strong>municipality</strong> (<em>pyramid_oereb.lib.records.municipality.MunicipalityRecord</em>) – The municipality
+record.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The extract record containing all gathered data.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pyramid_oereb.lib.records.extract.ExtractRecord</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The extract record containing all gathered data.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pyramid_oereb.lib.records.extract.ExtractRecord</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.readers.general_information"><span id="api-pyramid-oereb-core-readers-general-information"></span></span></div>
-<div class="section" id="generalinformationreader">
+<span class="target" id="module-pyramid_oereb.core.readers.general_information"><span id="api-pyramid-oereb-core-readers-general-information"></span></span></section>
+<section id="generalinformationreader">
 <span id="api-pyramid-oereb-core-readers-general-information-generalinformationreader"></span><h2><em>GeneralInformationReader</em><a class="headerlink" href="#generalinformationreader" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.core.readers.general_information.GeneralInformationReader">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.core.readers.general_information.</code><code class="descname">GeneralInformationReader</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/general_information.html#GeneralInformationReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.general_information.GeneralInformationReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.general_information.GeneralInformationReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.general_information.</span></span><span class="sig-name descname"><span class="pre">GeneralInformationReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/general_information.html#GeneralInformationReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.general_information.GeneralInformationReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The central reader for the OEREB general information. It is directly bound to a so called source
 which is defined by a pythonic dotted string to the class definition of this source.
 An instance of the passed source will be created on instantiation of this reader class by passing through
 the parameter kwargs.</p>
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.general_information.GeneralInformationReader.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/general_information.html#GeneralInformationReader.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.general_information.GeneralInformationReader.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dotted_source_class_path</strong> &#8211; (str or pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource): The path
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.general_information.GeneralInformationReader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/general_information.html#GeneralInformationReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.general_information.GeneralInformationReader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource): The path
 to the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-general-information-generalinformationbasesource"><span class="std std-ref">General Information GeneralInformationBaseSource</span></a>.</li>
-<li><strong>(</strong><strong>kwargs</strong><strong>)</strong> &#8211; kwargs, which are necessary as configuration parameter for the above by
-dotted name defined class.</li>
+<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-general-information-generalinformationbasesource"><span class="std std-ref">General Information GeneralInformationBaseSource</span></a>.</p></li>
+<li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
+dotted name defined class.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.general_information.GeneralInformationReader.read">
-<code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/general_information.html#GeneralInformationReader.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.general_information.GeneralInformationReader.read" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.general_information.GeneralInformationReader.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/general_information.html#GeneralInformationReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.general_information.GeneralInformationReader.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>The central read accessor method to get all desired records from configured source.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you subclass this class your implementation needs to offer this method in the same
+<p class="admonition-title">Note</p>
+<p>If you subclass this class your implementation needs to offer this method in the same
 signature. Means the parameters must be the same and the return must be a list of
 <a class="reference internal" href="records.html#api-pyramid-oereb-core-records-general-information-generalinformationrecord"><span class="std std-ref">GeneralInformationRecord</span></a>.
 Otherwise the API like way the server works would be broken.</p>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The list of found records. Since these are not filtered by any criteria the list simply
-contains all records delivered by the source.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of pyramid_oereb.core.records.general_information.GeneralInformationRecord</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
+contains all records delivered by the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list of pyramid_oereb.core.records.general_information.GeneralInformationRecord</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.readers.glossary"><span id="api-pyramid-oereb-core-readers-glossary"></span></span></div>
-<div class="section" id="glossaryreader">
+<span class="target" id="module-pyramid_oereb.core.readers.glossary"><span id="api-pyramid-oereb-core-readers-glossary"></span></span></section>
+<section id="glossaryreader">
 <span id="api-pyramid-oereb-core-readers-glossary-glossaryreader"></span><h2><em>GlossaryReader</em><a class="headerlink" href="#glossaryreader" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.core.readers.glossary.GlossaryReader">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.core.readers.glossary.</code><code class="descname">GlossaryReader</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/glossary.html#GlossaryReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.glossary.GlossaryReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.glossary.GlossaryReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.glossary.</span></span><span class="sig-name descname"><span class="pre">GlossaryReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/glossary.html#GlossaryReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.glossary.GlossaryReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The central reader for the glossary definitions. It is directly bound to a so called source
 which is defined by a pythonic dotted string to the class definition of this source.
 An instance of the passed source will be created on instantiation of this reader class by passing through
 the parameter kwargs.</p>
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.glossary.GlossaryReader.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/glossary.html#GlossaryReader.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.glossary.GlossaryReader.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dotted_source_class_path</strong> &#8211; (str or pyramid_oereb.core.sources.glossary.GlossaryBaseSource): The path to
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.glossary.GlossaryReader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/glossary.html#GlossaryReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.glossary.GlossaryReader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.glossary.GlossaryBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-glossary-glossarybasesource"><span class="std std-ref">Glossary GlossaryBaseSource</span></a>.</li>
-<li><strong>(</strong><strong>kwargs</strong><strong>)</strong> &#8211; kwargs, which are necessary as configuration parameter for the above by
-dotted name defined class.</li>
+<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-glossary-glossarybasesource"><span class="std std-ref">Glossary GlossaryBaseSource</span></a>.</p></li>
+<li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
+dotted name defined class.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.glossary.GlossaryReader.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/glossary.html#GlossaryReader.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.glossary.GlossaryReader.read" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.glossary.GlossaryReader.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/glossary.html#GlossaryReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.glossary.GlossaryReader.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>The central read accessor method to get all desired records from configured source.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you subclass this class your implementation needs to offer this method in the same
+<p class="admonition-title">Note</p>
+<p>If you subclass this class your implementation needs to offer this method in the same
 signature. Means the parameters must be the same and the return must be a list of
 <a class="reference internal" href="records.html#api-pyramid-oereb-core-records-glossary-glossaryrecord"><span class="std std-ref">GlossaryRecord</span></a>. Otherwise the API like way
 the server works would be broken.</p>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The list of found records. Since these are not filtered by any criteria the list simply
-contains all records delivered by the source.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of pyramid_oereb.core.records.glossary.GlossaryRecord</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
+contains all records delivered by the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list of pyramid_oereb.core.records.glossary.GlossaryRecord</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.readers.law_status"><span id="api-pyramid-oereb-core-readers-law-status"></span></span></div>
-<div class="section" id="lawstatusreader">
+<span class="target" id="module-pyramid_oereb.core.readers.law_status"><span id="api-pyramid-oereb-core-readers-law-status"></span></span></section>
+<section id="lawstatusreader">
 <span id="api-pyramid-oereb-core-readers-law-status-lawstatusreader"></span><h2><em>LawStatusReader</em><a class="headerlink" href="#lawstatusreader" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.core.readers.law_status.LawStatusReader">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.core.readers.law_status.</code><code class="descname">LawStatusReader</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/law_status.html#LawStatusReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.law_status.LawStatusReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.law_status.LawStatusReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.law_status.</span></span><span class="sig-name descname"><span class="pre">LawStatusReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/law_status.html#LawStatusReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.law_status.LawStatusReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The central reader for the law status definitions. It is directly bound to a so called source
 which is defined by a pythonic dotted string to the class definition of this source.
 An instance of the passed source will be created on instantiation of this reader class by passing through
 the parameter kwargs.</p>
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.law_status.LawStatusReader.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/law_status.html#LawStatusReader.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.law_status.LawStatusReader.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dotted_source_class_path</strong> &#8211; (str or pyramid_oereb.core.sources.lawstatus.LawStatusBaseSource): The path to
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.law_status.LawStatusReader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/law_status.html#LawStatusReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.law_status.LawStatusReader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.lawstatus.LawStatusBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<span class="xref std std-ref">api-pyramid_oereb-core-sources-lawstatus-lawstatusbasesource</span>.</li>
-<li><strong>(</strong><strong>kwargs</strong><strong>)</strong> &#8211; kwargs, which are necessary as configuration parameter for the above by
-dotted name defined class.</li>
+<span class="xref std std-ref">api-pyramid_oereb-core-sources-lawstatus-lawstatusbasesource</span>.</p></li>
+<li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
+dotted name defined class.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.law_status.LawStatusReader.read">
-<code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/law_status.html#LawStatusReader.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.law_status.LawStatusReader.read" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.law_status.LawStatusReader.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/law_status.html#LawStatusReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.law_status.LawStatusReader.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>The central read accessor method to get all desired records from configured source.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you subclass this class your implementation needs to offer this method in the same
+<p class="admonition-title">Note</p>
+<p>If you subclass this class your implementation needs to offer this method in the same
 signature. Means the parameters must be the same and the return must be a list of
 <span class="xref std std-ref">api-pyramid_oereb-core-records-lawstatus-lawstatusrecord</span>.
 Otherwise the API like way the server works would be broken.</p>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The list of found records. Since these are not filtered by any criteria the list simply
-contains all records delivered by the source.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of pyramid_oereb.core.records.lawstatus.LawStatusRecord</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) – The parameters of the extract request.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list of found records. Since these are not filtered by any criteria the list simply
+contains all records delivered by the source.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of pyramid_oereb.core.records.lawstatus.LawStatusRecord</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.readers.logo"><span id="api-pyramid-oereb-core-readers-logo"></span></span></div>
-<div class="section" id="logoreader">
+<span class="target" id="module-pyramid_oereb.core.readers.logo"><span id="api-pyramid-oereb-core-readers-logo"></span></span></section>
+<section id="logoreader">
 <span id="api-pyramid-oereb-core-readers-logo-logoreader"></span><h2><em>LogoReader</em><a class="headerlink" href="#logoreader" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.core.readers.logo.LogoReader">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.core.readers.logo.</code><code class="descname">LogoReader</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/logo.html#LogoReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.logo.LogoReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.logo.LogoReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.logo.</span></span><span class="sig-name descname"><span class="pre">LogoReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/logo.html#LogoReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.logo.LogoReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The central reader for the logo images. It is directly bound to a so called source
 which is defined by a pythonic dotted string to the class definition of this source.
 An instance of the passed source will be created on instantiation of this reader class by passing through
 the parameter kwargs.</p>
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.logo.LogoReader.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/logo.html#LogoReader.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.logo.LogoReader.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dotted_source_class_path</strong> &#8211; (str or pyramid_oereb.core.sources.logo.LogoBaseSource): The path to
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.logo.LogoReader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/logo.html#LogoReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.logo.LogoReader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.logo.LogoBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-logo-logobasesource"><span class="std std-ref">Logo LogoBaseSource</span></a>.</li>
-<li><strong>(</strong><strong>kwargs</strong><strong>)</strong> &#8211; kwargs, which are necessary as configuration parameter for the above by
-dotted name defined class.</li>
+<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-logo-logobasesource"><span class="std std-ref">Logo LogoBaseSource</span></a>.</p></li>
+<li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
+dotted name defined class.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.logo.LogoReader.read">
-<code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/logo.html#LogoReader.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.logo.LogoReader.read" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.logo.LogoReader.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/logo.html#LogoReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.logo.LogoReader.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>The central read accessor method to get all desired records from configured source.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you subclass this class your implementation needs to offer this method in the same
+<p class="admonition-title">Note</p>
+<p>If you subclass this class your implementation needs to offer this method in the same
 signature. Means the parameters must be the same and the return must be a list of
 <a class="reference internal" href="records.html#api-pyramid-oereb-core-records-logo-logorecord"><span class="std std-ref">LogoRecord</span></a>. Otherwise the API like way
 the server works would be broken.</p>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The list of found records. Since these are not filtered by any criteria the list simply
-contains all records delivered by the source.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of pyramid_oereb.core.records.logo.LogoRecord</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
+contains all records delivered by the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list of pyramid_oereb.core.records.logo.LogoRecord</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.readers.map_layering"><span id="api-pyramid-oereb-core-readers-map-layering"></span></span></div>
-<div class="section" id="maplayeringreader">
+<span class="target" id="module-pyramid_oereb.core.readers.map_layering"><span id="api-pyramid-oereb-core-readers-map-layering"></span></span></section>
+<section id="maplayeringreader">
 <span id="api-pyramid-oereb-core-readers-map-layering-maplayeringreader"></span><h2><em>MapLayeringReader</em><a class="headerlink" href="#maplayeringreader" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.core.readers.map_layering.MapLayeringReader">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.core.readers.map_layering.</code><code class="descname">MapLayeringReader</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/map_layering.html#MapLayeringReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.map_layering.MapLayeringReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.map_layering.MapLayeringReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.map_layering.</span></span><span class="sig-name descname"><span class="pre">MapLayeringReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/map_layering.html#MapLayeringReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.map_layering.MapLayeringReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The central reader for the map layering definitions. It is directly bound to a so called source
 which is defined by a pythonic dotted string to the class definition of this source.
 An instance of the passed source will be created on instantiation of this reader class by passing through
 the parameter kwargs.</p>
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.map_layering.MapLayeringReader.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/map_layering.html#MapLayeringReader.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.map_layering.MapLayeringReader.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dotted_source_class_path</strong> &#8211; (str or pyramid_oereb.core.sources.map_layering.MapLayeringBaseSource): The path to
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.map_layering.MapLayeringReader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/map_layering.html#MapLayeringReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.map_layering.MapLayeringReader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.map_layering.MapLayeringBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-glossary-glossarybasesource"><span class="std std-ref">Glossary GlossaryBaseSource</span></a>.</li>
-<li><strong>(</strong><strong>kwargs</strong><strong>)</strong> &#8211; kwargs, which are necessary as configuration parameter for the above by
-dotted name defined class.</li>
+<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-glossary-glossarybasesource"><span class="std std-ref">Glossary GlossaryBaseSource</span></a>.</p></li>
+<li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
+dotted name defined class.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.map_layering.MapLayeringReader.read">
-<code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/map_layering.html#MapLayeringReader.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.map_layering.MapLayeringReader.read" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.map_layering.MapLayeringReader.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/map_layering.html#MapLayeringReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.map_layering.MapLayeringReader.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>The central read accessor method to get all desired records from configured source.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you subclass this class your implementation needs to offer this method in the same
+<p class="admonition-title">Note</p>
+<p>If you subclass this class your implementation needs to offer this method in the same
 signature. Means the parameters must be the same and the return must be a list of
 <a class="reference internal" href="records.html#api-pyramid-oereb-core-records-map-layering-maplayeringrecord"><span class="std std-ref">MapLayeringRecord</span></a>. Otherwise the API like way
 the server works would be broken.</p>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The list of found records. Since these are not filtered by any criteria the list simply
-contains all records delivered by the source.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of pyramid_oereb.core.records.map_layering.MapLayeringRecord</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) – The parameters of the extract request.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list of found records. Since these are not filtered by any criteria the list simply
+contains all records delivered by the source.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of pyramid_oereb.core.records.map_layering.MapLayeringRecord</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.readers.municipality"><span id="api-pyramid-oereb-core-readers-municipality"></span></span></div>
-<div class="section" id="municipalityreader">
+<span class="target" id="module-pyramid_oereb.core.readers.municipality"><span id="api-pyramid-oereb-core-readers-municipality"></span></span></section>
+<section id="municipalityreader">
 <span id="api-pyramid-oereb-core-readers-municipality-municipalityreader"></span><h2><em>MunicipalityReader</em><a class="headerlink" href="#municipalityreader" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.core.readers.municipality.MunicipalityReader">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.core.readers.municipality.</code><code class="descname">MunicipalityReader</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/municipality.html#MunicipalityReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.municipality.MunicipalityReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.municipality.MunicipalityReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.municipality.</span></span><span class="sig-name descname"><span class="pre">MunicipalityReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/municipality.html#MunicipalityReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.municipality.MunicipalityReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The central reader for municipalities. It is directly bound to a so called source
 which is defined by a pythonic dotted string to the class definition of this source.
 An instance of the passed source will be created on instantiation of this reader class by passing through
 the parameter kwargs.</p>
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.municipality.MunicipalityReader.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/municipality.html#MunicipalityReader.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.municipality.MunicipalityReader.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dotted_source_class_path</strong> &#8211; (str or pyramid_oereb.core.sources.municipality.MunicipalityBaseSource): The
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.municipality.MunicipalityReader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/municipality.html#MunicipalityReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.municipality.MunicipalityReader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.municipality.MunicipalityBaseSource): The
 path to the class which represents the source used by this reader. This class
 must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-municipality-municipalitybasesource"><span class="std std-ref">Municipality MunicipalityBaseSource</span></a>.</li>
-<li><strong>(</strong><strong>kwargs</strong><strong>)</strong> &#8211; kwargs, which are necessary as configuration parameter for the above by
-dotted name defined class.</li>
+<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-municipality-municipalitybasesource"><span class="std std-ref">Municipality MunicipalityBaseSource</span></a>.</p></li>
+<li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
+dotted name defined class.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.municipality.MunicipalityReader.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>params</em>, <em>fosnr=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/municipality.html#MunicipalityReader.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.municipality.MunicipalityReader.read" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.municipality.MunicipalityReader.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/municipality.html#MunicipalityReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.municipality.MunicipalityReader.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>The central read accessor method to get all desired records from configured source.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you subclass this class your implementation needs to offer this method in the same
+<p class="admonition-title">Note</p>
+<p>If you subclass this class your implementation needs to offer this method in the same
 signature. Means the parameters must be the same and the return must be a list of
 <a class="reference internal" href="records.html#api-pyramid-oereb-core-records-municipality-municipalityrecord"><span class="std std-ref">MunicipalityRecord</span></a>. Otherwise the API like way
 the server works would be broken.</p>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</li>
-<li><strong>fosnr</strong> (<em>int</em><em> or </em><em>None</em>) &#8211; The federal number of the municipality defined by the statistics office.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The list of all found records. Since these are not filtered by any criteria the list simply
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The list of all found records. Since these are not filtered by any criteria the list simply
 contains all records delivered by the source.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pyramid_oereb.lib.records.municipality.MunicipalityRecord</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list of pyramid_oereb.lib.records.municipality.MunicipalityRecord</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.readers.office"><span id="api-pyramid-oereb-core-readers-office"></span></span></div>
-<div class="section" id="officereader">
+<span class="target" id="module-pyramid_oereb.core.readers.office"><span id="api-pyramid-oereb-core-readers-office"></span></span></section>
+<section id="officereader">
 <span id="api-pyramid-oereb-core-readers-office-officereader"></span><h2><em>OfficeReader</em><a class="headerlink" href="#officereader" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.core.readers.office.OfficeReader">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.core.readers.office.</code><code class="descname">OfficeReader</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/office.html#OfficeReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.office.OfficeReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.office.OfficeReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.office.</span></span><span class="sig-name descname"><span class="pre">OfficeReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/office.html#OfficeReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.office.OfficeReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The central reader for the office definitions. It is directly bound to a so called source
 which is defined by a pythonic dotted string to the class definition of this source.
 An instance of the passed source will be created on instantiation of this reader class by passing through
 the parameter kwargs.</p>
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.office.OfficeReader.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/office.html#OfficeReader.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.office.OfficeReader.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dotted_source_class_path</strong> &#8211; (str or pyramid_oereb.core.sources.office.OfficeBaseSource): The path to
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.office.OfficeReader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/office.html#OfficeReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.office.OfficeReader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.office.OfficeBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-office-officebasesource"><span class="std std-ref">Office OfficeBaseSource</span></a>.</li>
-<li><strong>(</strong><strong>kwargs</strong><strong>)</strong> &#8211; kwargs, which are necessary as configuration parameter for the above by
-dotted name defined class.</li>
+<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-office-officebasesource"><span class="std std-ref">Office OfficeBaseSource</span></a>.</p></li>
+<li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
+dotted name defined class.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.office.OfficeReader.read">
-<code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/office.html#OfficeReader.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.office.OfficeReader.read" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.office.OfficeReader.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/office.html#OfficeReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.office.OfficeReader.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>The central read accessor method to get all desired records from configured source.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you subclass this class your implementation needs to offer this method in the same
+<p class="admonition-title">Note</p>
+<p>If you subclass this class your implementation needs to offer this method in the same
 signature. Means the parameters must be the same and the return must be a list of
 <a class="reference internal" href="records.html#api-pyramid-oereb-core-records-office-officerecord"><span class="std std-ref">OfficeRecord</span></a>. Otherwise the API like way
 the server works would be broken.</p>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The list of found records. Since these are not filtered by any criteria the list simply
-contains all records delivered by the source.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of pyramid_oereb.core.records.office.OfficeRecord</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
+contains all records delivered by the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list of pyramid_oereb.core.records.office.OfficeRecord</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.readers.real_estate"><span id="api-pyramid-oereb-core-readers-real-estate"></span></span></div>
-<div class="section" id="realestatereader">
+<span class="target" id="module-pyramid_oereb.core.readers.real_estate"><span id="api-pyramid-oereb-core-readers-real-estate"></span></span></section>
+<section id="realestatereader">
 <span id="api-pyramid-oereb-core-readers-real-estate-realestatereader"></span><h2><em>RealEstateReader</em><a class="headerlink" href="#realestatereader" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.core.readers.real_estate.RealEstateReader">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.core.readers.real_estate.</code><code class="descname">RealEstateReader</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/real_estate.html#RealEstateReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.real_estate.RealEstateReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.real_estate.RealEstateReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.real_estate.</span></span><span class="sig-name descname"><span class="pre">RealEstateReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/real_estate.html#RealEstateReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.real_estate.RealEstateReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The central reader for real estates. It is directly bound to a so called source
 which is defined by a pythonic dotted string to the class definition of this source.
 An instance of the passed source will be created on instantiation of this reader class by passing through
 the parameter kwargs.</p>
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.real_estate.RealEstateReader.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/real_estate.html#RealEstateReader.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.real_estate.RealEstateReader.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dotted_source_class_path</strong> (<em>str</em><em> or </em><em>pyramid_oereb.lib.sources.real_estate.RealEstateBaseSource</em>) &#8211; The
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.real_estate.RealEstateReader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/real_estate.html#RealEstateReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.real_estate.RealEstateReader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dotted_source_class_path</strong> (<em>str</em><em> or </em><em>pyramid_oereb.lib.sources.real_estate.RealEstateBaseSource</em>) – The
 path to the class which represents the source used by this reader. This class must exist and
 it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-real-estate-realestatebasesource"><span class="std std-ref">Real Estate RealEstateBaseSource</span></a>.</li>
-<li><strong>(</strong><strong>kwargs</strong><strong>)</strong> &#8211; kwargs, which are necessary as configuration parameter for the above by
-dotted name defined class.</li>
+<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-real-estate-realestatebasesource"><span class="std std-ref">Real Estate RealEstateBaseSource</span></a>.</p></li>
+<li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
+dotted name defined class.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.real_estate.RealEstateReader.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>params</em>, <em>nb_ident=None</em>, <em>number=None</em>, <em>egrid=None</em>, <em>geometry=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/real_estate.html#RealEstateReader.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.real_estate.RealEstateReader.read" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.real_estate.RealEstateReader.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_ident</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">egrid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geometry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/real_estate.html#RealEstateReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.real_estate.RealEstateReader.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>The central read accessor method to get all desired records from configured source.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you subclass this class your implementation needs to offer this method in the same
+<p class="admonition-title">Note</p>
+<p>If you subclass this class your implementation needs to offer this method in the same
 signature. Means the parameters must be the same and the return must be a list of
 <a class="reference internal" href="records.html#api-pyramid-oereb-core-records-real-estate-realestaterecord"><span class="std std-ref">RealEstateRecord</span></a>. Otherwise the API like way the
 server works would be broken.</p>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) &#8211; The parameters of the extract request.</li>
-<li><strong>nb_ident</strong> (<em>int</em><em> or </em><em>None</em>) &#8211; The identification number of the desired real estate. This
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) – The parameters of the extract request.</p></li>
+<li><p><strong>nb_ident</strong> (<em>int</em><em> or </em><em>None</em>) – The identification number of the desired real estate. This
 parameter is directly related to the number parameter and both must be set!
-Combination will deliver only one result or crashes.</li>
-<li><strong>number</strong> (<em>str</em><em> or </em><em>None</em>) &#8211; The number of parcel or also known real estate. This parameter
+Combination will deliver only one result or crashes.</p></li>
+<li><p><strong>number</strong> (<em>str</em><em> or </em><em>None</em>) – The number of parcel or also known real estate. This parameter
 is directly related to the nb_ident parameter and both must be set!
-Combination will deliver only one result or crashes.</li>
-<li><strong>egrid</strong> (<em>str</em><em> or </em><em>None</em>) &#8211; The unique identifier of the desired real estate. This will deliver
-only one result or crashes.</li>
-<li><strong>geometry</strong> (<em>str</em><em> or </em><em>None</em>) &#8211; A geometry as WKT string which is used to obtain intersected real
-estates. This may deliver several results.</li>
+Combination will deliver only one result or crashes.</p></li>
+<li><p><strong>egrid</strong> (<em>str</em><em> or </em><em>None</em>) – The unique identifier of the desired real estate. This will deliver
+only one result or crashes.</p></li>
+<li><p><strong>geometry</strong> (<em>str</em><em> or </em><em>None</em>) – A geometry as WKT string which is used to obtain intersected real
+estates. This may deliver several results.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The list of all found records filtered by the passed criteria.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of pyramid_oereb.core.records.real_estate.RealEstateRecord</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list of all found records filtered by the passed criteria.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of pyramid_oereb.core.records.real_estate.RealEstateRecord</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.readers.real_estate_type"><span id="api-pyramid-oereb-core-readers-real-estate-type"></span></span></div>
-<div class="section" id="realestatetypereader">
+<span class="target" id="module-pyramid_oereb.core.readers.real_estate_type"><span id="api-pyramid-oereb-core-readers-real-estate-type"></span></span></section>
+<section id="realestatetypereader">
 <span id="api-pyramid-oereb-core-readers-real-estate-type-realestatetypereader"></span><h2><em>RealEstateTypeReader</em><a class="headerlink" href="#realestatetypereader" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.core.readers.real_estate_type.RealEstateTypeReader">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.core.readers.real_estate_type.</code><code class="descname">RealEstateTypeReader</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/real_estate_type.html#RealEstateTypeReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.real_estate_type.RealEstateTypeReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.real_estate_type.RealEstateTypeReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.real_estate_type.</span></span><span class="sig-name descname"><span class="pre">RealEstateTypeReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/real_estate_type.html#RealEstateTypeReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.real_estate_type.RealEstateTypeReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The central reader for the real estate type definitions. It is directly bound to a so called source
 which is defined by a pythonic dotted string to the class definition of this source.
 An instance of the passed source will be created on instantiation of this reader class by passing through
 the parameter kwargs.</p>
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.real_estate_type.RealEstateTypeReader.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/real_estate_type.html#RealEstateTypeReader.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.real_estate_type.RealEstateTypeReader.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dotted_source_class_path</strong> &#8211; (str or pyramid_oereb.core.sources.realestatetype.RealEstateTypeBaseSource): The path to
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.real_estate_type.RealEstateTypeReader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/real_estate_type.html#RealEstateTypeReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.real_estate_type.RealEstateTypeReader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.realestatetype.RealEstateTypeBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<span class="xref std std-ref">api-pyramid_oereb-core-sources-realestatetype-realestatetypebasesource</span>.</li>
-<li><strong>(</strong><strong>kwargs</strong><strong>)</strong> &#8211; kwargs, which are necessary as configuration parameter for the above by
-dotted name defined class.</li>
+<span class="xref std std-ref">api-pyramid_oereb-core-sources-realestatetype-realestatetypebasesource</span>.</p></li>
+<li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
+dotted name defined class.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.real_estate_type.RealEstateTypeReader.read">
-<code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/real_estate_type.html#RealEstateTypeReader.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.real_estate_type.RealEstateTypeReader.read" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.real_estate_type.RealEstateTypeReader.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/real_estate_type.html#RealEstateTypeReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.real_estate_type.RealEstateTypeReader.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>The central read accessor method to get all desired records from configured source.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you subclass this class your implementation needs to offer this method in the same
+<p class="admonition-title">Note</p>
+<p>If you subclass this class your implementation needs to offer this method in the same
 signature. Means the parameters must be the same and the return must be a list of
 <span class="xref std std-ref">api-pyramid_oereb-core-records-realestatetype-realestatetyperecord</span>.
 Otherwise the API like way the server works would be broken.</p>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The list of found records. Since these are not filtered by any criteria the list simply
-contains all records delivered by the source.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of pyramid_oereb.core.records.realestatetype.RealEstateTypeRecord</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
+contains all records delivered by the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list of pyramid_oereb.core.records.realestatetype.RealEstateTypeRecord</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.readers.theme"><span id="api-pyramid-oereb-core-readers-theme"></span></span></div>
-<div class="section" id="themereader">
+<span class="target" id="module-pyramid_oereb.core.readers.theme"><span id="api-pyramid-oereb-core-readers-theme"></span></span></section>
+<section id="themereader">
 <span id="api-pyramid-oereb-core-readers-theme-themereader"></span><h2><em>ThemeReader</em><a class="headerlink" href="#themereader" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.core.readers.theme.ThemeReader">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.core.readers.theme.</code><code class="descname">ThemeReader</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/theme.html#ThemeReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.theme.ThemeReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.theme.ThemeReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.theme.</span></span><span class="sig-name descname"><span class="pre">ThemeReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/theme.html#ThemeReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.theme.ThemeReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The central reader for the theme definitions. It is directly bound to a so called source
 which is defined by a pythonic dotted string to the class definition of this source.
 An instance of the passed source will be created on instantiation of this reader class by passing through
 the parameter kwargs.</p>
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.theme.ThemeReader.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/theme.html#ThemeReader.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.theme.ThemeReader.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dotted_source_class_path</strong> &#8211; (str or pyramid_oereb.core.sources.theme.ThemeBaseSource): The path to
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.theme.ThemeReader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/theme.html#ThemeReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.theme.ThemeReader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.theme.ThemeBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-theme-themebasesource"><span class="std std-ref">Theme ThemeBaseSource</span></a>.</li>
-<li><strong>(</strong><strong>kwargs</strong><strong>)</strong> &#8211; kwargs, which are necessary as configuration parameter for the above by
-dotted name defined class.</li>
+<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-theme-themebasesource"><span class="std std-ref">Theme ThemeBaseSource</span></a>.</p></li>
+<li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
+dotted name defined class.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.theme.ThemeReader.read">
-<code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/theme.html#ThemeReader.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.theme.ThemeReader.read" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.theme.ThemeReader.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/theme.html#ThemeReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.theme.ThemeReader.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>The central read accessor method to get all desired records from configured source.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you subclass this class your implementation needs to offer this method in the same
+<p class="admonition-title">Note</p>
+<p>If you subclass this class your implementation needs to offer this method in the same
 signature. Means the parameters must be the same and the return must be a list of
 <a class="reference internal" href="records.html#api-pyramid-oereb-core-records-theme-themerecord"><span class="std std-ref">ThemeRecord</span></a>. Otherwise the API like way
 the server works would be broken.</p>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The list of found records. Since these are not filtered by any criteria the list simply
-contains all records delivered by the source.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of pyramid_oereb.core.records.theme.ThemeRecord</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
+contains all records delivered by the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list of pyramid_oereb.core.records.theme.ThemeRecord</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.readers.theme_document"><span id="api-pyramid-oereb-core-readers-theme-document"></span></span></div>
-<div class="section" id="themedocumentreader">
+<span class="target" id="module-pyramid_oereb.core.readers.theme_document"><span id="api-pyramid-oereb-core-readers-theme-document"></span></span></section>
+<section id="themedocumentreader">
 <span id="api-pyramid-oereb-core-readers-theme-document-themedocumentreader"></span><h2><em>ThemeDocumentReader</em><a class="headerlink" href="#themedocumentreader" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.core.readers.theme_document.ThemeDocumentReader">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.core.readers.theme_document.</code><code class="descname">ThemeDocumentReader</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/theme_document.html#ThemeDocumentReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.theme_document.ThemeDocumentReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.theme_document.ThemeDocumentReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.theme_document.</span></span><span class="sig-name descname"><span class="pre">ThemeDocumentReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/theme_document.html#ThemeDocumentReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.theme_document.ThemeDocumentReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The central reader for the theme_document definitions. It is directly bound to a so called source
 which is defined by a pythonic dotted string to the class definition of this source.
 An instance of the passed source will be created on instantiation of this reader class by passing through
 the parameter kwargs.</p>
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.theme_document.ThemeDocumentReader.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>dotted_source_class_path</em>, <em>**params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/theme_document.html#ThemeDocumentReader.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.theme_document.ThemeDocumentReader.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>dotted_source_class_path</strong> &#8211; (str or pyramid_oereb.core.sources.theme_document.ThemeDocumentBaseSource): The path to
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.theme_document.ThemeDocumentReader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/theme_document.html#ThemeDocumentReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.theme_document.ThemeDocumentReader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.theme_document.ThemeDocumentBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-theme-document-themedocumentbasesource"><span class="std std-ref">Theme Document ThemeDocumentBaseSource</span></a>.</li>
-<li><strong>(</strong><strong>kwargs</strong><strong>)</strong> &#8211; kwargs, which are necessary as configuration parameter for the above by
-dotted name defined class.</li>
+<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-theme-document-themedocumentbasesource"><span class="std std-ref">Theme Document ThemeDocumentBaseSource</span></a>.</p></li>
+<li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
+dotted name defined class.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.core.readers.theme_document.ThemeDocumentReader.read">
-<code class="descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/theme_document.html#ThemeDocumentReader.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.core.readers.theme_document.ThemeDocumentReader.read" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.theme_document.ThemeDocumentReader.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/theme_document.html#ThemeDocumentReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.theme_document.ThemeDocumentReader.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>The central read accessor method to get all desired records from configured source.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you subclass this class your implementation needs to offer this method in the same
+<p class="admonition-title">Note</p>
+<p>If you subclass this class your implementation needs to offer this method in the same
 signature. Means the parameters must be the same and the return must be a list of
 <a class="reference internal" href="records.html#api-pyramid-oereb-core-records-theme-document-themedocumentrecord"><span class="std std-ref">ThemeDocumentRecord</span></a>. Otherwise the
 API like way the server works would be broken.</p>
 </div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The list of found records. Since these are not filtered by any criteria the list simply
-contains all records delivered by the source.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list of pyramid_oereb.core.records.theme_document.ThemeDocumentRecord</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
+contains all records delivered by the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list of pyramid_oereb.core.records.theme_document.ThemeDocumentRecord</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="records.html" class="btn btn-neutral float-right" title="Records" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Core" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="records.html" class="btn btn-neutral float-right" title="Records" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2017-2022, openoereb community.
-
-    </p>
+    <p>&#169; Copyright 2017-2022, openoereb community.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

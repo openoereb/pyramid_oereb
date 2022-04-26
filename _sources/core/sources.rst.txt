@@ -49,6 +49,22 @@ Sources
 
    .. automethod:: __init__
 
+.. _api-pyramid_oereb-core-sources-availability:
+
+.. automodule:: pyramid_oereb.core.sources.availability
+
+
+.. _api-pyramid_oereb-core-sources-availability-availabilitybasesource:
+
+*AvailabilityBaseSource*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.sources.availability.AvailabilityBaseSource
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
 .. _api-pyramid_oereb-core-sources-disclaimer:
 
 .. automodule:: pyramid_oereb.core.sources.disclaimer

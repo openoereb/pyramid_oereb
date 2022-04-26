@@ -1,80 +1,34 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Statistics &mdash; pyramid_oereb  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'',
-              LANGUAGE:'en',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Contributing to pyramid_oereb" href="contributing.html" />
     <link rel="prev" title="Print Proxy" href="print_proxy.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> pyramid_oereb
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -82,19 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
@@ -121,72 +64,31 @@
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">pyramid_oereb</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="index.html">Contribution</a> &raquo;</li>
-        
       <li>Statistics</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="statistics">
+             
+  <section id="statistics">
 <span id="contrib-stats"></span><h1>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h1>
 <p>The statistics functionality allows you to gather usage information within pyramid_oereb
 itself. The data gathered will be persisted in user defined configured database,
@@ -196,9 +98,9 @@ the usage statistics for that database.</p>
 first usage of the functionality. Once this structure has been generated, you may wish
 to run in addition the script <em>create_stats_tables</em> which will generate database structures
 convenient for querying the results.</p>
-<p>The functionality is configured via the server&#8217;s ini file; see the project repository for a
+<p>The functionality is configured via the server’s ini file; see the project repository for a
 complete example of such an ini file. Example of a configuration:</p>
-<div class="highlight-ini"><div class="highlight"><pre><span></span><span class="k">[loggers]</span><span class="w"></span>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[loggers]</span><span class="w"></span>
 <span class="na">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">root, json</span><span class="w"></span>
 
 <span class="k">[logger_json]</span><span class="w"></span>
@@ -217,157 +119,150 @@ complete example of such an ini file. Example of a configuration:</p>
 </div>
 <p><strong>args</strong> is a tuple containing two elements:</p>
 <ul class="simple">
-<li>a dictionary: the db connection information</li>
-<li>a string: the blacklist regex</li>
+<li><p>a dictionary: the db connection information</p></li>
+<li><p>a string: the blacklist regex</p></li>
 </ul>
-<div class="section" id="db-connection-information">
+<section id="db-connection-information">
 <h2>db connection information<a class="headerlink" href="#db-connection-information" title="Permalink to this headline">¶</a></h2>
 <p>The db connection information is a dictionary containing:</p>
 <ul class="simple">
-<li><em>url</em> (mandatory): a db connection string compatible with sqlalchemy. Currently only sqlite and postgresql are supported. If using Docker, the db connection information has to be supplied in a file named <em>.env</em> at the root of the project (see file <em>sample.env</em> for an example)</li>
-<li><em>tablename</em> (optional): if a special tablename has to be used within the database and will be mapped with <em>__tablename__</em> sqlalchemy class property</li>
-<li><em>tableargs</em> (optional): another usual sqlalchemy class property (<em>__tableargs__</em>). In the above example we use it mainly to set a particular schema</li>
+<li><p><em>url</em> (mandatory): a db connection string compatible with sqlalchemy. Currently only sqlite and postgresql are supported. If using Docker, the db connection information has to be supplied in a file named <em>.env</em> at the root of the project (see file <em>sample.env</em> for an example)</p></li>
+<li><p><em>tablename</em> (optional): if a special tablename has to be used within the database and will be mapped with <em>__tablename__</em> sqlalchemy class property</p></li>
+<li><p><em>tableargs</em> (optional): another usual sqlalchemy class property (<em>__tableargs__</em>). In the above example we use it mainly to set a particular schema</p></li>
 </ul>
 <p>The default values for the above optional arguments are:</p>
 <ul class="simple">
-<li>tablename = &#8216;logs&#8217;</li>
-<li>tableargs = None (i.e. it will create the table in the <em>public</em> schema of the DB)</li>
+<li><p>tablename = ‘logs’</p></li>
+<li><p>tableargs = None (i.e. it will create the table in the <em>public</em> schema of the DB)</p></li>
 </ul>
 <p>The sql logger source code with its documentation can be found here: <a class="reference external" href="https://github.com/camptocamp/c2cwsgiutils/tree/3.9.0/c2cwsgiutils/sqlalchemylogger">https://github.com/camptocamp/c2cwsgiutils/tree/3.9.0/c2cwsgiutils/sqlalchemylogger</a></p>
-</div>
-<div class="section" id="blacklisting">
+</section>
+<section id="blacklisting">
 <h2>Blacklisting<a class="headerlink" href="#blacklisting" title="Permalink to this headline">¶</a></h2>
 <p>This is useful to avoid gathering statistics for non-relevant access logs, such as healthchecks.</p>
 <p>The blacklist regex is any string compatible with the python module <em>re</em>. It will be compiled and used to avoid writing in the DB the logs that
 match the given regex.  Please bear in mind that anything within the log that matches the
 regex will prevent the log to be written. It is therefore discouraged to use regexes based on url path, which could match also user traffic
 requests, which should be accounted in the statistics instead.</p>
-<p>For example if <em>user-agent</em> http header of an healthcheck is set to some particular string (e.g. &#8216;healthcheck&#8217; like in the above example),
-then you should at least set &#8216;healtcheck&#8217; explicitely and the logger will avoid writing any log containing the word healthcheck.</p>
-</div>
-<div class="section" id="implementation">
+<p>For example if <em>user-agent</em> http header of an healthcheck is set to some particular string (e.g. ‘healthcheck’ like in the above example),
+then you should at least set ‘healtcheck’ explicitely and the logger will avoid writing any log containing the word healthcheck.</p>
+</section>
+<section id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-pyramid_oereb.contrib.stats"><span id="api-pyramid-oereb-contrib-stats"></span></span><span class="target" id="module-pyramid_oereb.contrib.stats.decorators"><span id="api-pyramid-oereb-contrib-stats-decorators"></span></span><div class="section" id="decorators-oerebstats">
+<span class="target" id="module-pyramid_oereb.contrib.stats"><span id="api-pyramid-oereb-contrib-stats"></span></span><span class="target" id="module-pyramid_oereb.contrib.stats.decorators"><span id="api-pyramid-oereb-contrib-stats-decorators"></span></span><section id="decorators-oerebstats">
 <span id="api-pyramid-oereb-contrib-stats-decorators-oerebstats"></span><h3><em>Decorators OerebStats</em><a class="headerlink" href="#decorators-oerebstats" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt id="pyramid_oereb.contrib.stats.decorators.OerebStats">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.stats.decorators.</code><code class="descname">OerebStats</code><span class="sig-paren">(</span><em>service=None</em>, <em>output_format=None</em>, <em>params=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/stats/decorators.html#OerebStats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.stats.decorators.OerebStats">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.stats.decorators.</span></span><span class="sig-name descname"><span class="pre">OerebStats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/stats/decorators.html#OerebStats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats" title="Permalink to this definition">¶</a></dt>
 <dd><p>class OerebStats(dict)
 this class is used to provide a serializable object that can be
 used to provide insight of application usage in the logs.</p>
-<dl class="method">
-<dt id="pyramid_oereb.contrib.stats.decorators.OerebStats.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>service=None</em>, <em>output_format=None</em>, <em>params=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/stats/decorators.html#OerebStats.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.__init__" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.stats.decorators.OerebStats.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/stats/decorators.html#OerebStats.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.stats.decorators.OerebStats.clear">
-<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None.  Remove all items from D.<a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.clear" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.stats.decorators.OerebStats.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None.</span>&#160; <span class="pre">Remove</span> <span class="pre">all</span> <span class="pre">items</span> <span class="pre">from</span> <span class="pre">D.</span></span></span><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.clear" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.stats.decorators.OerebStats.copy">
-<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; a shallow copy of D<a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.copy" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.stats.decorators.OerebStats.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">a</span> <span class="pre">shallow</span> <span class="pre">copy</span> <span class="pre">of</span> <span class="pre">D</span></span></span><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.copy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.stats.decorators.OerebStats.fromkeys">
-<code class="descname">fromkeys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.fromkeys" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.stats.decorators.OerebStats.fromkeys">
+<span class="sig-name descname"><span class="pre">fromkeys</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.fromkeys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new dictionary with keys from iterable and values set to value.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.stats.decorators.OerebStats.get">
-<code class="descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.get" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.stats.decorators.OerebStats.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the value for key if key is in the dictionary, else default.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.stats.decorators.OerebStats.items">
-<code class="descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; a set-like object providing a view on D's items<a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.items" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.stats.decorators.OerebStats.items">
+<span class="sig-name descname"><span class="pre">items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">a</span> <span class="pre">set-like</span> <span class="pre">object</span> <span class="pre">providing</span> <span class="pre">a</span> <span class="pre">view</span> <span class="pre">on</span> <span class="pre">D's</span> <span class="pre">items</span></span></span><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.items" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.stats.decorators.OerebStats.pop">
-<code class="descname">pop</code><span class="sig-paren">(</span><em>k</em><span class="optional">[</span>, <em>d</em><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; v, remove specified key and return the corresponding value.<a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.pop" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.stats.decorators.OerebStats.keys">
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">a</span> <span class="pre">set-like</span> <span class="pre">object</span> <span class="pre">providing</span> <span class="pre">a</span> <span class="pre">view</span> <span class="pre">on</span> <span class="pre">D's</span> <span class="pre">keys</span></span></span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/stats/decorators.html#OerebStats.keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.stats.decorators.OerebStats.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">d</span></span></em><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">v,</span> <span class="pre">remove</span> <span class="pre">specified</span> <span class="pre">key</span> <span class="pre">and</span> <span class="pre">return</span> <span class="pre">the</span> <span class="pre">corresponding</span> <span class="pre">value.</span></span></span><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.pop" title="Permalink to this definition">¶</a></dt>
 <dd><p>If key is not found, d is returned if given, otherwise KeyError is raised</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.stats.decorators.OerebStats.popitem">
-<code class="descname">popitem</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.popitem" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.stats.decorators.OerebStats.popitem">
+<span class="sig-name descname"><span class="pre">popitem</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.popitem" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove and return a (key, value) pair as a 2-tuple.</p>
 <p>Pairs are returned in LIFO (last-in, first-out) order.
 Raises KeyError if the dict is empty.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.stats.decorators.OerebStats.setdefault">
-<code class="descname">setdefault</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.setdefault" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.stats.decorators.OerebStats.setdefault">
+<span class="sig-name descname"><span class="pre">setdefault</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.setdefault" title="Permalink to this definition">¶</a></dt>
 <dd><p>Insert key with a value of default if key is not in the dictionary.</p>
 <p>Return the value for key if key is in the dictionary, else default.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.stats.decorators.OerebStats.update">
-<code class="descname">update</code><span class="sig-paren">(</span><span class="optional">[</span><em>E</em>, <span class="optional">]</span><em>**F</em><span class="sig-paren">)</span> &#x2192; None.  Update D from dict/iterable E and F.<a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.update" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.stats.decorators.OerebStats.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="n"><span class="pre">E</span></span></em>, <span class="optional">]</span><em class="sig-param"><span class="n"><span class="pre">**F</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None.</span>&#160; <span class="pre">Update</span> <span class="pre">D</span> <span class="pre">from</span> <span class="pre">dict/iterable</span> <span class="pre">E</span> <span class="pre">and</span> <span class="pre">F.</span></span></span><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>If E is present and has a .keys() method, then does:  for k in E: D[k] = E[k]
 If E is present and lacks a .keys() method, then does:  for k, v in E: D[k] = v
 In either case, this is followed by: for k in F:  D[k] = F[k]</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.stats.decorators.OerebStats.values">
+<span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">an</span> <span class="pre">object</span> <span class="pre">providing</span> <span class="pre">a</span> <span class="pre">view</span> <span class="pre">on</span> <span class="pre">D's</span> <span class="pre">values</span></span></span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/stats/decorators.html#OerebStats.values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats.values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="contributing.html" class="btn btn-neutral float-right" title="Contributing to pyramid_oereb" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="print_proxy.html" class="btn btn-neutral float-left" title="Print Proxy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="contributing.html" class="btn btn-neutral float-right" title="Contributing to pyramid_oereb" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2017-2022, openoereb community.
-
-    </p>
+    <p>&#169; Copyright 2017-2022, openoereb community.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

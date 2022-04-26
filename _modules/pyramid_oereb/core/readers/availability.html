@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyramid_oereb.core.readers.law_status &mdash; pyramid_oereb  documentation</title>
+  <title>pyramid_oereb.core.readers.availability &mdash; pyramid_oereb  documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -60,7 +60,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
-      <li>pyramid_oereb.core.readers.law_status</li>
+      <li>pyramid_oereb.core.readers.availability</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -69,48 +69,45 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for pyramid_oereb.core.readers.law_status</h1><div class="highlight"><pre>
+  <h1>Source code for pyramid_oereb.core.readers.availability</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="kn">import</span> <span class="n">DottedNameResolver</span>
 
 
-<div class="viewcode-block" id="LawStatusReader"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.law_status.LawStatusReader">[docs]</a><span class="k">class</span> <span class="nc">LawStatusReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="AvailabilityReader"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.availability.AvailabilityReader">[docs]</a><span class="k">class</span> <span class="nc">AvailabilityReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The central reader for the law status definitions. It is directly bound to a so called source</span>
+<span class="sd">    The central reader for the disclaimer definitions. It is directly bound to a so called source</span>
 <span class="sd">    which is defined by a pythonic dotted string to the class definition of this source.</span>
 <span class="sd">    An instance of the passed source will be created on instantiation of this reader class by passing through</span>
 <span class="sd">    the parameter kwargs.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="LawStatusReader.__init__"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.law_status.LawStatusReader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dotted_source_class_path</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+<div class="viewcode-block" id="AvailabilityReader.__init__"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.availability.AvailabilityReader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dotted_source_class_path</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
-<span class="sd">            dotted_source_class_path</span>
-<span class="sd">                (str or pyramid_oereb.core.sources.lawstatus.LawStatusBaseSource): The path to</span>
-<span class="sd">                the class which represents the source used by this reader. This class must</span>
-<span class="sd">                exist and it must implement basic source behaviour of the</span>
-<span class="sd">                :ref:`api-pyramid_oereb-core-sources-lawstatus-lawstatusbasesource`.</span>
+<span class="sd">            dotted_source_class_path (str or</span>
+<span class="sd">                pyramid_oereb.core.sources.availability.AvailabilityBaseSource):</span>
+<span class="sd">                The path to the class which represents the source used by this reader. This</span>
+<span class="sd">                class must exist and it must implement basic source behaviour of the</span>
+<span class="sd">                :ref:`api-pyramid_oereb-core-sources-disclaimer-disclaimerbasesource`.</span>
 <span class="sd">            (kwargs): kwargs, which are necessary as configuration parameter for the above by</span>
 <span class="sd">                dotted name defined class.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">source_class</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">maybe_resolve</span><span class="p">(</span><span class="n">dotted_source_class_path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span> <span class="o">=</span> <span class="n">source_class</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="LawStatusReader.read"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.law_status.LawStatusReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="AvailabilityReader.read"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.availability.AvailabilityReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        The central read accessor method to get all desired records from configured source.</span>
+<span class="sd">        The read method of this reader. There we invoke the read method of the bound source.</span>
 
 <span class="sd">        Note:</span>
-<span class="sd">            If you subclass this class your implementation needs to offer this method in the same</span>
-<span class="sd">            signature. Means the parameters must be the same and the return must be a list of</span>
-<span class="sd">            :ref:`api-pyramid_oereb-core-records-lawstatus-lawstatusrecord`.</span>
+<span class="sd">            If you construct a subclass of this class your implementation needs to offer this</span>
+<span class="sd">            method in the same signature. Means the parameters must be the same and the return</span>
+<span class="sd">            must be a list of :ref:`api-pyramid_oereb-core-records-availability-availabilityrecord`.</span>
 <span class="sd">            Otherwise the API like way the server works would be broken.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.</span>
-
 <span class="sd">        Returns:</span>
-<span class="sd">            list of pyramid_oereb.core.records.lawstatus.LawStatusRecord:</span>
+<span class="sd">            list of pyramid_oereb.core.records.availability.AvailabilityRecord:</span>
 <span class="sd">                The list of found records. Since these are not filtered by any criteria the list simply</span>
 <span class="sd">                contains all records delivered by the source.</span>
 <span class="sd">        &quot;&quot;&quot;</span>

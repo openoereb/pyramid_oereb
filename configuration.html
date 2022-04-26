@@ -1,80 +1,34 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Configuration &mdash; pyramid_oereb  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'',
-              LANGUAGE:'en',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Changes/Hints for migration" href="changes.html" />
     <link rel="prev" title="Installation" href="installation.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> pyramid_oereb
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -82,19 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
@@ -111,110 +54,70 @@
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">pyramid_oereb</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Configuration</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="configuration">
+             
+  <section id="configuration">
 <span id="id1"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
 <p>You are looking at a highly configurable piece of software. To get the right understanding of the server it
 is recommended to read this part carefully.</p>
-<p>Since the swiss confederation&#8217;s definition and the specification for the <a class="reference external" href="https://www.cadastre.ch/content/cadastre-internet/de/manual-oereb/publication/publication.download/cadastre-internet/de/documents/oereb-weisungen/OEREB-Data-Extract_de.pdf">OEREB Data Extract</a> is really straight,
+<p>Since the swiss confederation’s definition and the specification for the <a class="reference external" href="https://www.cadastre.ch/content/cadastre-internet/de/manual-oereb/publication/publication.download/cadastre-internet/de/documents/oereb-weisungen/OEREB-Data-Extract_de.pdf">OEREB Data Extract</a> is really straight,
 we had very narrow margins to develop the code. Using this pyramid plugin, you will get a running server
 providing the services to satisfy the federal specification. But to get this extract, you need to bind your
 data to this server. And this is basically what you need to configure.</p>
 <p>This section describes the different possibilities to adapt the application on different data structures or
 even custom data sources. If you are planning to use such modifications, we suggest to check all possible
 solutions first, as the necessary effort can vary significantly depending on your specific needs.</p>
-<div class="section" id="add-additional-topics">
+<section id="add-additional-topics">
 <span id="configuration-additional-topics"></span><h2>Add additional topics<a class="headerlink" href="#add-additional-topics" title="Permalink to this headline">¶</a></h2>
 <p>If you only need to add one or more additional cantonal topics and want to use the standard database structure
 for these too, you can run a provided script to generate the required models.</p>
-<div class="highlight-shell"><div class="highlight"><pre><span></span>create_standard_model -c &lt;YOUR_NEW_TOPIC_CODE&gt; -g &lt;GEOMETRY_TYPE&gt; -p &lt;TARGET_PATH&gt; -k TRUE
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>create_standard_model -c &lt;YOUR_NEW_TOPIC_CODE&gt; -g &lt;GEOMETRY_TYPE&gt; -p &lt;TARGET_PATH&gt; -k TRUE
 </pre></div>
 </div>
 <p>The first parameter is the code of your new topic and has to be defined in camelcase. The geometry type for
 the theme can be one of the following:</p>
 <blockquote>
 <div><ul class="simple">
-<li><cite>POINT</cite>,</li>
-<li><cite>LINESTRING</cite>,</li>
-<li><cite>POLYGON</cite></li>
-<li><cite>MULTIPOINT</cite></li>
-<li><cite>MULTILINESTRING</cite></li>
-<li><cite>MULTIPOLYGON</cite> or</li>
-<li><cite>GEOMETRYCOLLECTION</cite>.</li>
+<li><p><cite>POINT</cite>,</p></li>
+<li><p><cite>LINESTRING</cite>,</p></li>
+<li><p><cite>POLYGON</cite></p></li>
+<li><p><cite>MULTIPOINT</cite></p></li>
+<li><p><cite>MULTILINESTRING</cite></p></li>
+<li><p><cite>MULTIPOLYGON</cite> or</p></li>
+<li><p><cite>GEOMETRYCOLLECTION</cite>.</p></li>
 </ul>
 </div></blockquote>
 <p>The geometry collection is only meant for topics that can consist of different geometry types. We <strong>strongly</strong>
 recommend to use it <strong>only if a simple geometry cannot be used</strong> and to put <strong>only one geometry</strong> in each
 record. Do not use it as a bucket for everything! The third parameter defines the output directory in which
 the new file will be created, e.g. a module directory of your application.</p>
-<p>To use strings as primary key type, add the &#8216;-k TRUE&#8217; parameter. If not supplied, the default primary key type
+<p>To use strings as primary key type, add the ‘-k TRUE’ parameter. If not supplied, the default primary key type
 of integer will be used instead.</p>
 <p>After creating the models you have to create its configuration. Open the configuration file
 (pyramid_oereb_standard.yml) and copy the section from one of the existing topics which usually looks like
 this:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch.BaulinienNationalstrassen</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch.BaulinienNationalstrassen</span><span class="w"></span>
 <span class="w">  </span><span class="nt">geometry_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LINESTRING</span><span class="w"></span>
 <span class="w">  </span><span class="nt">thresholds</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="nt">length</span><span class="p">:</span><span class="w"></span>
@@ -244,16 +147,16 @@ this:</p>
 definitions and of course the models property within the source parameters. It should point to the module
 with the generated models of the former step.</p>
 <p>Now you have set up an empty additional topic and you can continued with deploying your data into it.</p>
-</div>
-<div class="section" id="add-an-oereblex-topic">
+</section>
+<section id="add-an-oereblex-topic">
 <h2>Add an oereblex topic<a class="headerlink" href="#add-an-oereblex-topic" title="Permalink to this headline">¶</a></h2>
 <p>If you want to use oereblex for a topic, you can proceed as described in the previous section,
 but using a different script to generate the required models.</p>
-<div class="highlight-shell"><div class="highlight"><pre><span></span>create_oereblex_model -c &lt;YOUR_NEW_TOPIC_CODE&gt; -g &lt;GEOMETRY_TYPE&gt; -p &lt;TARGET_PATH&gt; -k TRUE
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>create_oereblex_model -c &lt;YOUR_NEW_TOPIC_CODE&gt; -g &lt;GEOMETRY_TYPE&gt; -p &lt;TARGET_PATH&gt; -k TRUE
 </pre></div>
 </div>
-</div>
-<div class="section" id="adapt-existing-models">
+</section>
+<section id="adapt-existing-models">
 <span id="configuration-adapt-models"></span><h2>Adapt existing models<a class="headerlink" href="#adapt-existing-models" title="Permalink to this headline">¶</a></h2>
 <p>Another option to modify the standard configuration, is to adapt the existing models to fit another database
 structure. This method is recommended if you are using an existing database supported by GeoAlchemy 2 and
@@ -262,7 +165,7 @@ is possible to transform the data by extending the existing models with a mappin
 <p>The easiest example is a simple mapping of table and column names, if you use a different language. Using the
 possibilities of SQLAlchemy, you could extend the existing
 <span class="xref std std-ref">api-pyramid_oereb-standard-models-motorways_building_lines-office</span> like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyramid_oereb.lib.standard.models</span> <span class="kn">import</span> <span class="n">motorways_building_lines</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyramid_oereb.lib.standard.models</span> <span class="kn">import</span> <span class="n">motorways_building_lines</span>
 
 <span class="k">class</span> <span class="nc">Office</span><span class="p">(</span><span class="n">motorways_building_lines</span><span class="o">.</span><span class="n">Office</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -298,9 +201,9 @@ possibilities of SQLAlchemy, you could extend the existing
 </div>
 <p>The only thing, you have to care about, if you want to stay using the standard sources, is to keep the class
 name, the names of the properties and their data types.</p>
-<p>After extending the models, do not forget to change the models module in the configuration of the topic&#8217;s
+<p>After extending the models, do not forget to change the models module in the configuration of the topic’s
 source.</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plr88</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plr88</span><span class="w"></span>
 <span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">code</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch.BaulinienNationalstrassen</span><span class="w"></span>
 <span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">(...)</span><span class="w"></span>
 <span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">source</span><span class="p p-Indicator">:</span><span class="w"></span>
@@ -311,8 +214,8 @@ source.</p>
 <span class="w">  </span><span class="w w-Error">  </span><span class="nt">get_symbol_method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.standard.methods.get_symbol</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="create-custom-sources">
+</section>
+<section id="create-custom-sources">
 <span id="configuration-create-sources"></span><h2>Create custom sources<a class="headerlink" href="#create-custom-sources" title="Permalink to this headline">¶</a></h2>
 <p>If the possibilities described above do not fit your needs, you can implement your own sources. This is the
 only possible way, if their are no existing sources available to access your data. For example, this could be
@@ -322,7 +225,7 @@ source is defined by a <cite>class</cite> property, pointing on the class that s
 <cite>params</cite> property containing keyword arguments passed to its constructor.</p>
 <p>For example, the real estate source for the standard database is configured with two parameters, the database
 connection and the model class, which looks like the following.</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="nt">real_estate</span><span class="p">:</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">real_estate</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">(...)</span><span class="w"></span>
 <span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">source</span><span class="p p-Indicator">:</span><span class="w"></span>
 <span class="w">    </span><span class="c1"># The source must have a class which represents the accessor to the source. In this case it</span><span class="w"></span>
@@ -341,70 +244,53 @@ parameters passed as keyword arguments, you are free to pass as many arguments y
 restrictions on implementing a custom source:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>The source has to implement the method <cite>read()</cite> with the arguments used in its base source. For
+<li><p>The source has to implement the method <cite>read()</cite> with the arguments used in its base source. For
 example, your custom real estate source has to accept the arguments defined in
-<span class="xref std std-ref">api-pyramid_oereb-lib-sources-real_estate-realestatebasesource</span>.</li>
-<li>The method <cite>read()</cite> has to add records of the corresponding type to the source&#8217; records list. Every
+<span class="xref std std-ref">api-pyramid_oereb-lib-sources-real_estate-realestatebasesource</span>.</p></li>
+<li><p>The method <cite>read()</cite> has to add records of the corresponding type to the source’ records list. Every
 source has list property called <cite>records</cite>. In case of a real estate source, the method <cite>read()</cite> has to
 create one or more instances of the <span class="xref std std-ref">api-pyramid_oereb-lib-records-real_estate-realestaterecord</span>
-and add them to this list.</li>
+and add them to this list.</p></li>
 </ol>
 </div></blockquote>
 <p>This way, you should be able to create sources for nearly every possible data source.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Implementing a custom source for public law restrictions, requires to create public law restriction
+<p class="admonition-title">Note</p>
+<p>Implementing a custom source for public law restrictions, requires to create public law restriction
 records with all referenced records of other classes according to the <a class="reference external" href="https://www.cadastre.ch/content/cadastre-internet/de/manual-oereb/publication/publication.download/cadastre-internet/de/documents/oereb-weisungen/OEREB-Data-Extract_de.pdf">OEREB Data Extract</a> model (page 5).</p>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="changes.html" class="btn btn-neutral float-right" title="Changes/Hints for migration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="changes.html" class="btn btn-neutral float-right" title="Changes/Hints for migration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2017-2022, openoereb community.
-
-    </p>
+    <p>&#169; Copyright 2017-2022, openoereb community.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

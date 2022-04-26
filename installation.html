@@ -1,80 +1,34 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Installation &mdash; pyramid_oereb  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'',
-              LANGUAGE:'en',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Configuration" href="configuration.html" />
     <link rel="prev" title="pyramid_oereb (ÖREB-Server) documentation" href="index.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> pyramid_oereb
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -82,19 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
@@ -118,172 +61,132 @@
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">pyramid_oereb</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Installation</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="installation">
+             
+  <section id="installation">
 <span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>This section will guide you through the steps to install and run an own instance of <code class="docutils literal"><span class="pre">pyramid_oereb</span></code> using
+<p>This section will guide you through the steps to install and run an own instance of <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code> using
 the standard configuration. If you are planning to adapt the application to fit a custom data source, the
 possibilities and additional steps are described in the section <a class="reference internal" href="configuration.html#configuration"><span class="std std-ref">Configuration</span></a>.</p>
-<div class="section" id="requirements">
+<section id="requirements">
 <span id="installation-requirements"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<p>In order to install and run an instance of <code class="docutils literal"><span class="pre">pyramid_oereb</span></code>, the following requirements have to be met.</p>
+<p>In order to install and run an instance of <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code>, the following requirements have to be met.</p>
 <ol class="arabic simple">
-<li><strong>A running Pyramid application:</strong>
-You need a running Pyramid application, in which you can include <code class="docutils literal"><span class="pre">pyramid_oereb</span></code>. If you are not
+<li><p><strong>A running Pyramid application:</strong>
+You need a running Pyramid application, in which you can include <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code>. If you are not
 familiar with setting up such an application, please follow the instructions in the official <a class="reference external" href="http://docs.pylonsproject.org/projects/pyramid/en/latest/#getting-started">Pyramid
-documentation</a>.</li>
-<li><strong>A running Database:</strong>
+documentation</a>.</p></li>
+<li><p><strong>A running Database:</strong>
 For the standard configuration you need a running database with a role which is allowed to create schemata
 and tables and to manipulate data. We recommend to use PostgreSQL with PostGIS, but theoretically you
-should be able to use any spatial database, that is supported by <a class="reference external" href="https://www.sqlalchemy.org/">SQLAlchemy</a> and <a class="reference external" href="https://geoalchemy-2.readthedocs.io/en/latest/">GeoAlchemy 2</a>.</li>
+should be able to use any spatial database, that is supported by <a class="reference external" href="https://www.sqlalchemy.org/">SQLAlchemy</a> and <a class="reference external" href="https://geoalchemy-2.readthedocs.io/en/latest/">GeoAlchemy 2</a>.</p></li>
 </ol>
-</div>
-<div class="section" id="installation-steps">
+</section>
+<section id="installation-steps">
 <span id="installation-step"></span><h2>Installation steps<a class="headerlink" href="#installation-steps" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>Activate virtual environment before, if you use one.</p>
-<div class="last highlight-shell"><div class="highlight"><pre><span></span><span class="nb">source</span> &lt;path_to_your_venv&gt;/bin/activate
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> &lt;path_to_your_venv&gt;/bin/activate
 </pre></div>
 </div>
 </div>
-<div class="section" id="add-package">
+<section id="add-package">
 <span id="installation-step-add-package"></span><h3>1. Add package<a class="headerlink" href="#add-package" title="Permalink to this headline">¶</a></h3>
-<p>Add <code class="docutils literal"><span class="pre">pyramid_oereb</span></code> to the list of requirements in your application&#8217;s <code class="docutils literal"><span class="pre">setup.py</span></code>.
-In your <code class="docutils literal"><span class="pre">setup.py</span></code>, you should depend on <code class="docutils literal"><span class="pre">pyramid_oereb[recommend]</span></code> to get the recommended versions of
-the dependencies of <code class="docutils literal"><span class="pre">pyramid_oereb</span></code>, or <code class="docutils literal"><span class="pre">pyramid_oereb[no-version]</span></code> to get the dependencies of
-<code class="docutils literal"><span class="pre">pyramid_oereb</span></code> without specifying which versions of these dependencies shall be used. You shouldn&#8217;t just
-depend on <code class="docutils literal"><span class="pre">pyramid_oereb</span></code> because this will not take into account the dependencies of <code class="docutils literal"><span class="pre">pyramid_oereb</span></code>.</p>
-</div>
-<div class="section" id="install-dependencies">
+<p>Add <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code> to the list of requirements in your application’s <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>.
+In your <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>, you should depend on <code class="docutils literal notranslate"><span class="pre">pyramid_oereb[recommend]</span></code> to get the recommended versions of
+the dependencies of <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code>, or <code class="docutils literal notranslate"><span class="pre">pyramid_oereb[no-version]</span></code> to get the dependencies of
+<code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code> without specifying which versions of these dependencies shall be used. You shouldn’t just
+depend on <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code> because this will not take into account the dependencies of <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code>.</p>
+</section>
+<section id="install-dependencies">
 <span id="installation-step-dependencies"></span><h3>2. Install dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this headline">¶</a></h3>
 <p>Install the newly added dependencies using <em>pip</em>:</p>
-<div class="highlight-shell"><div class="highlight"><pre><span></span>pip install -e .
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install -e .
 </pre></div>
 </div>
-</div>
-<div class="section" id="create-standard-configuration">
+</section>
+<section id="create-standard-configuration">
 <span id="installation-step-configuration"></span><h3>3. Create standard configuration<a class="headerlink" href="#create-standard-configuration" title="Permalink to this headline">¶</a></h3>
 <p>Create the necessary configuration for the application. The easiest way to achieve this, is to use the script
-<code class="docutils literal"><span class="pre">create_standard_yaml</span></code>. It creates the basic YAML file in your current directory, which can be customized
-afterwards. Executing <code class="docutils literal"><span class="pre">create_standard_yaml</span> <span class="pre">--help</span></code> shows you the two possible commandline arguments for
+<code class="docutils literal notranslate"><span class="pre">create_standard_yaml</span></code>. It creates the basic YAML file in your current directory, which can be customized
+afterwards. Executing <code class="docutils literal notranslate"><span class="pre">create_standard_yaml</span> <span class="pre">--help</span></code> shows you the two possible commandline arguments for
 adjusting the file name and the database connection parameters. So you should at least set the right
 connection string for your database:</p>
-<div class="highlight-shell"><div class="highlight"><pre><span></span>create_standard_yaml --database<span class="o">=</span>&lt;YOUR_DATABASE_CONNECTION&gt;
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>create_standard_yaml --database<span class="o">=</span>&lt;YOUR_DATABASE_CONNECTION&gt;
 </pre></div>
 </div>
 <p>You could also integrate this configuration into an existing YAML file, but we suggest to keep it
 separated because it is already very complex on its own.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Not familiar with YAML? Please have a look at its <a class="reference external" href="http://www.yaml.org/spec/1.2/spec.html">specification</a>.</p>
+<p class="admonition-title">Note</p>
+<p>Not familiar with YAML? Please have a look at its <a class="reference external" href="http://www.yaml.org/spec/1.2/spec.html">specification</a>.</p>
 </div>
-</div>
-<div class="section" id="set-up-database">
+</section>
+<section id="set-up-database">
 <span id="installation-step-database"></span><h3>4. Set up database<a class="headerlink" href="#set-up-database" title="Permalink to this headline">¶</a></h3>
 <p>Use the generated configuration file to create the needed database structure. The standard database structure,
-defined in the module <code class="docutils literal"><span class="pre">pyramid_oereb.standard.models</span></code>, can be created automatically using the provided
+defined in the module <code class="docutils literal notranslate"><span class="pre">pyramid_oereb.standard.models</span></code>, can be created automatically using the provided
 script:</p>
-<div class="highlight-shell"><div class="highlight"><pre><span></span>create_standard_tables -c pyramid_oereb_standard.yml
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>create_standard_tables -c pyramid_oereb_standard.yml
 </pre></div>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">We assume you did not specify a custom name for the configuration file. If you have used a custom
+<p class="admonition-title">Warning</p>
+<p>We assume you did not specify a custom name for the configuration file. If you have used a custom
 name, you will have to replace <cite>pyramid_oereb_standard.yml</cite> with your specified name in this and all
 following steps.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Run <code class="docutils literal"><span class="pre">create_standard_tables</span> <span class="pre">--help</span></code> for further information.</p>
+<p class="admonition-title">Note</p>
+<p>Run <code class="docutils literal notranslate"><span class="pre">create_standard_tables</span> <span class="pre">--help</span></code> for further information.</p>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Depending on your system setup, you may need to install pyyaml in order to use this script.
-For example, if you are using a virtual environment in a directory <code class="docutils literal"><span class="pre">.venv</span></code>, you would do:
-<code class="docutils literal"><span class="pre">.venv/bin/pip3</span> <span class="pre">install</span> <span class="pre">pyyaml</span></code></p>
+<p class="admonition-title">Note</p>
+<p>Depending on your system setup, you may need to install pyyaml in order to use this script.
+For example, if you are using a virtual environment in a directory <code class="docutils literal notranslate"><span class="pre">.venv</span></code>, you would do:
+<code class="docutils literal notranslate"><span class="pre">.venv/bin/pip3</span> <span class="pre">install</span> <span class="pre">pyyaml</span></code></p>
 </div>
-</div>
-<div class="section" id="load-data-optional">
+</section>
+<section id="load-data-optional">
 <span id="installation-step-sample-data"></span><h3>5. Load data (optional)<a class="headerlink" href="#load-data-optional" title="Permalink to this headline">¶</a></h3>
 <p>The easiest way to add some data, is to import the data of an available federal topic using the provided
 script.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This exmple shows the import for the topic <cite>ch.Sicherheitszonenplan</cite>, but you can use any federal
+<p class="admonition-title">Note</p>
+<p>This exmple shows the import for the topic <cite>ch.Sicherheitszonenplan</cite>, but you can use any federal
 topic you like to. You should ensure, that the topic contains some data within the perimeter (canton) you
 want to show.</p>
 </div>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">The import script only works for topics using the standard database. Any modifications to the
+<p class="admonition-title">Warning</p>
+<p>The import script only works for topics using the standard database. Any modifications to the
 database structure may cause the import to fail.</p>
 </div>
 <p>First you have to ensure, that the correct download URL is defined for the topic in
 <cite>pyramid_oereb_standard.yml</cite>. The configuration for the topic should contain the following download property:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="nt">plrs</span><span class="p">:</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">plrs</span><span class="p">:</span><span class="w"></span>
 
 <span class="nn">...</span><span class="w"></span>
 
@@ -294,114 +197,97 @@ database structure may cause the import to fail.</p>
 </pre></div>
 </div>
 <p>If this is the case, you can run the import script for this topic:</p>
-<div class="highlight-shell"><div class="highlight"><pre><span></span>import_federal_topic -c pyramid_oereb_standard.yml -t ch.Sicherheitszonenplan
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>import_federal_topic -c pyramid_oereb_standard.yml -t ch.Sicherheitszonenplan
 </pre></div>
 </div>
 <p>The data for this federal topic should now be available in your standard database. For an overview of the
-available import options, please run <code class="docutils literal"><span class="pre">import_federal_topic</span> <span class="pre">--help</span></code>.</p>
+available import options, please run <code class="docutils literal notranslate"><span class="pre">import_federal_topic</span> <span class="pre">--help</span></code>.</p>
 <p>Alternatively, a set of sample data is available in the <a class="reference external" href="https://github.com/openoereb/pyramid_oereb/">repository</a> in the directory <cite>sample_data</cite>. After
 downloading it, you can import the sample data into the configured database using the following script:</p>
-<div class="highlight-shell"><div class="highlight"><pre><span></span>python &lt;PATH TO VENV SITE_PACKAGES&gt;/pyramid_oereb/standard/load_sample_data.py -c pyramid_oereb_standard.yml
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python &lt;PATH TO VENV SITE_PACKAGES&gt;/pyramid_oereb/standard/load_sample_data.py -c pyramid_oereb_standard.yml
 </pre></div>
 </div>
-<p>We assume you have put your downloaded sample data in a folder named <cite>sample_data</cite> in your project&#8217;s root
+<p>We assume you have put your downloaded sample data in a folder named <cite>sample_data</cite> in your project’s root
 directory, as found in the <a class="reference external" href="https://github.com/openoereb/pyramid_oereb/">repository</a>. Otherwise you have to specify the location of your sample data using
-the <code class="docutils literal"><span class="pre">-d</span></code> or <code class="docutils literal"><span class="pre">--dir=</span></code> argument.</p>
+the <code class="docutils literal notranslate"><span class="pre">-d</span></code> or <code class="docutils literal notranslate"><span class="pre">--dir=</span></code> argument.</p>
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Use the sample data corresponding to the installed version of <code class="docutils literal"><span class="pre">pyramid_oereb</span></code> by selecting the
+<p class="admonition-title">Warning</p>
+<p>Use the sample data corresponding to the installed version of <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code> by selecting the
 matching release.</p>
 </div>
-</div>
-<div class="section" id="include-in-application">
+</section>
+<section id="include-in-application">
 <span id="installation-step-application"></span><h3>6. Include in application<a class="headerlink" href="#include-in-application" title="Permalink to this headline">¶</a></h3>
-<p>To include <code class="docutils literal"><span class="pre">pyramid_oereb</span></code> into your existing Pyramid application, you have to include the plugin in
-your application&#8217;s main method.
-Open the <code class="docutils literal"><span class="pre">__init__.py</span></code> of your main module and add the following statement
-in the main method somewhere before <code class="docutils literal"><span class="pre">config.scan()</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">route_prefix</span><span class="o">=</span><span class="s1">&#39;oereb&#39;</span><span class="p">)</span>
+<p>To include <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code> into your existing Pyramid application, you have to include the plugin in
+your application’s main method.
+Open the <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> of your main module and add the following statement
+in the main method somewhere before <code class="docutils literal notranslate"><span class="pre">config.scan()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">route_prefix</span><span class="o">=</span><span class="s1">&#39;oereb&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>You can specify a different <a class="reference external" href="https://docs.pylonsproject.org/projects/pyramid/en/stable/narr/urldispatch.html#using-a-route-prefix-to-compose-applications">route prefix</a> or omit it, if you are running a dedicated
-server for <code class="docutils literal"><span class="pre">pyramid_oereb</span></code>.</p>
-<p>Additionally, you have to specify the created configuration in your application&#8217;s INI file (e.g.
-<code class="docutils literal"><span class="pre">development.ini</span></code>). Add the following lines in the <code class="docutils literal"><span class="pre">[app:main]</span></code> section:</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>pyramid_oereb.cfg.file = pyramid_oereb_standard.yml
+server for <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code>.</p>
+<p>Additionally, you have to specify the created configuration in your application’s INI file (e.g.
+<code class="docutils literal notranslate"><span class="pre">development.ini</span></code>). Add the following lines in the <code class="docutils literal notranslate"><span class="pre">[app:main]</span></code> section:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pyramid_oereb.cfg.file = pyramid_oereb_standard.yml
 pyramid_oereb.cfg.section = pyramid_oereb
 </pre></div>
 </div>
-<p>After modifying these two files, you have to start/restart your application&#8217;s server, e.g. using <cite>pserve</cite>:</p>
-<div class="highlight-none"><div class="highlight"><pre><span></span>pserve development.ini
+<p>After modifying these two files, you have to start/restart your application’s server, e.g. using <cite>pserve</cite>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pserve development.ini
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>If you have imported the sample data, you should now be able to request the sample extract by
 calling the extract service:</p>
-<div class="last highlight-none"><div class="highlight"><pre><span></span>http://&lt;YOUR_APPLICATION_URL&gt;/oereb/extract/embeddable/json/CH113928077734
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>http://&lt;YOUR_APPLICATION_URL&gt;/oereb/extract/embeddable/json/CH113928077734
 </pre></div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="next-steps">
+</section>
+</section>
+<section id="next-steps">
 <span id="installation-next-steps"></span><h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
-<p>Now you should be able to set up a running <code class="docutils literal"><span class="pre">pyramid_oereb</span></code> server using the standard configuration. If this
+<p>Now you should be able to set up a running <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code> server using the standard configuration. If this
 configuration fits your needs, you can now continue with importing your data into the created database. A
 detailed description of each table can be found in the documentation of the
 <a class="reference internal" href="standard/models/index.html#api-pyramid-oereb-standard-models"><span class="std std-ref">Models</span></a>.</p>
 <p>If your data is already available in an existing database with a different structure or you need to use a
 custom data source, the possible ways to adapt the models or to extend the application are described in the
 section <a class="reference internal" href="configuration.html#configuration"><span class="std std-ref">Configuration</span></a>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="configuration.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="pyramid_oereb (ÖREB-Server) documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="configuration.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2017-2022, openoereb community.
-
-    </p>
+    <p>&#169; Copyright 2017-2022, openoereb community.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

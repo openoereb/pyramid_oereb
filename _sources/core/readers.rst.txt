@@ -26,6 +26,22 @@ Readers
 
    .. automethod:: __init__
 
+.. _api-pyramid_oereb-core-readers-availability:
+
+.. automodule:: pyramid_oereb.core.readers.availability
+
+.. _api-pyramid_oereb-core-readers-availability-availabilityreader:
+
+*AvailabilityReader*
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.readers.availability.AvailabilityReader
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
 .. _api-pyramid_oereb-core-readers-disclaimer:
 
 .. automodule:: pyramid_oereb.core.readers.disclaimer

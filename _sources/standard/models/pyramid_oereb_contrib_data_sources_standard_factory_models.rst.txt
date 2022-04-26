@@ -12,14 +12,6 @@ The classes below are generated through a class builder factory and are customiz
 .. autoclass:: pyramid_oereb.contrib.data_sources.standard.factory_models
 
 
-.. _api-pyramid_oereb-contrib-data_sources-standard-factory_models-availability:
-
-Availability
-~~~~~~~~~~~~
-
-.. autoclass:: pyramid_oereb.contrib.data_sources.standard.factory_models.Availability
-
-
 .. _api-pyramid_oereb-contrib-data_sources-standard-factory_models-dataintegration:
 
 DataIntegration

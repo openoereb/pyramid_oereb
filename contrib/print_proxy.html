@@ -1,80 +1,34 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Print Proxy &mdash; pyramid_oereb  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../',
-              VERSION:'',
-              LANGUAGE:'en',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Statistics" href="stats.html" />
     <link rel="prev" title="Sources" href="sources.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> pyramid_oereb
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -82,19 +36,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
@@ -118,972 +61,850 @@
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">pyramid_oereb</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="index.html">Contribution</a> &raquo;</li>
-        
       <li>Print Proxy</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="print-proxy">
+             
+  <section id="print-proxy">
 <span id="contrib-print-proxy"></span><h1>Print Proxy<a class="headerlink" href="#print-proxy" title="Permalink to this headline">¶</a></h1>
-<span class="target" id="module-pyramid_oereb.contrib.print_proxy.mapfish_print"><span id="api-pyramid-oereb-contrib-print-proxy-mapfish-print"></span></span><span class="target" id="module-pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print"><span id="api-pyramid-oereb-contrib-print-proxy-mapfish-print-mapfish-print"></span></span><div class="section" id="mapfish-print-renderer">
+<span class="target" id="module-pyramid_oereb.contrib.print_proxy.mapfish_print"><span id="api-pyramid-oereb-contrib-print-proxy-mapfish-print"></span></span><span class="target" id="module-pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print"><span id="api-pyramid-oereb-contrib-print-proxy-mapfish-print-mapfish-print"></span></span><section id="mapfish-print-renderer">
 <span id="api-pyramid-oereb-contrib-print-proxy-mapfish-print-mapfish-print-renderer"></span><h2><em>Mapfish Print Renderer</em><a class="headerlink" href="#mapfish-print-renderer" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.</code><code class="descname">Renderer</code><span class="sig-paren">(</span><em>info</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>info</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.__init__" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.</span></span><span class="sig-name descname"><span class="pre">Renderer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new JSON renderer instance for extract rendering.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>info</strong> (<em>pyramid.interfaces.IRendererInfo</em>) &#8211; Info object.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>info</strong> (<em>pyramid.interfaces.IRendererInfo</em>) – Info object.</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.convert_to_printable_extract">
-<code class="descname">convert_to_printable_extract</code><span class="sig-paren">(</span><em>extract_dict</em>, <em>feature_geometry</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.convert_to_printable_extract"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.convert_to_printable_extract" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.convert_to_printable_extract">
+<span class="sig-name descname"><span class="pre">convert_to_printable_extract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extract_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_geometry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.convert_to_printable_extract"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.convert_to_printable_extract" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts an oereb extract into a form suitable for printing by mapfish print.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>extract_dict</strong> &#8211; the oereb extract, will get converted by this function into a form
-convenient for mapfish-print</li>
-<li><strong>feature_geometry</strong> &#8211; the geometry for this extract, will get added to the extract information</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>extract_dict</strong> – the oereb extract, will get converted by this function into a form
+convenient for mapfish-print</p></li>
+<li><p><strong>feature_geometry</strong> – the geometry for this extract, will get added to the extract information</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.date_time">
-<code class="descname">date_time</code><span class="sig-paren">(</span><em>dt</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.date_time" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.date_time">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">date_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.date_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Formats the date/time according to the specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dt</strong> (<em>datetime.dateordatetime.timeordatetime.datetime</em>) &#8211; The datetime object.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted date/time.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dt</strong> (<em>datetime.dateordatetime.timeordatetime.datetime</em>) – The datetime object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The formatted date/time.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_document">
-<code class="descname">format_document</code><span class="sig-paren">(</span><em>document</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_document"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_document" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_document">
+<span class="sig-name descname"><span class="pre">format_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_document"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_document" title="Permalink to this definition">¶</a></dt>
 <dd><p>Formats a document record for rendering according to the federal specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>document</strong> (<em>pyramid_oereb.lib.records.documents.DocumentRecord</em>) &#8211; The document
-record to be formatted.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted dictionary for rendering.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>document</strong> (<em>pyramid_oereb.lib.records.documents.DocumentRecord</em>) – The document
+record to be formatted.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The formatted dictionary for rendering.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_geometry">
-<code class="descname">format_geometry</code><span class="sig-paren">(</span><em>geometry</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_geometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_geometry" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_geometry">
+<span class="sig-name descname"><span class="pre">format_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geometry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_geometry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Formats a geometry record for rendering according to the federal specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>geometry</strong> (<em>pyramid_oereb.lib.records.geometry.GeometryRecord</em>) &#8211; The geometry record to
-be formatted.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted dictionary for rendering.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>geometry</strong> (<em>pyramid_oereb.lib.records.geometry.GeometryRecord</em>) – The geometry record to
+be formatted.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The formatted dictionary for rendering.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_legend_entry">
-<code class="descname">format_legend_entry</code><span class="sig-paren">(</span><em>legend_entry</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_legend_entry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_legend_entry" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_legend_entry">
+<span class="sig-name descname"><span class="pre">format_legend_entry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">legend_entry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_legend_entry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_legend_entry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Formats a legend entry record for rendering according to the federal specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>legend_entry</strong> (<em>pyramid_oereb.lib.records.view_service.LegendEntryRecord</em>) &#8211; The legend
-entry record to be formatted.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted dictionary for rendering.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>legend_entry</strong> (<em>pyramid_oereb.lib.records.view_service.LegendEntryRecord</em>) – The legend
+entry record to be formatted.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The formatted dictionary for rendering.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_map">
-<code class="descname">format_map</code><span class="sig-paren">(</span><em>map_</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_map" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_map">
+<span class="sig-name descname"><span class="pre">format_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_map" title="Permalink to this definition">¶</a></dt>
 <dd><p>Formats a view service record for rendering according to the federal specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>map</strong> (<em>pyramid_oereb.lib.records.view_service.ViewServiceRecord</em>) &#8211; The view service
-record to be formatted.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted dictionary for rendering.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>map</strong> (<em>pyramid_oereb.lib.records.view_service.ViewServiceRecord</em>) – The view service
+record to be formatted.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The formatted dictionary for rendering.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_office">
-<code class="descname">format_office</code><span class="sig-paren">(</span><em>office</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_office"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_office" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_office">
+<span class="sig-name descname"><span class="pre">format_office</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">office</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_office"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_office" title="Permalink to this definition">¶</a></dt>
 <dd><p>Formats an office record for rendering according to the federal specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>office</strong> (<em>pyramid_oereb.lib.records.office.OfficeRecord</em>) &#8211; The office record to be
-formatted.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted dictionary for rendering.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>office</strong> (<em>pyramid_oereb.lib.records.office.OfficeRecord</em>) – The office record to be
+formatted.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The formatted dictionary for rendering.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_plr">
-<code class="descname">format_plr</code><span class="sig-paren">(</span><em>plrs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_plr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_plr" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_plr">
+<span class="sig-name descname"><span class="pre">format_plr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plrs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_plr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_plr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Formats a public law restriction record for rendering according to the federal specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>plrs</strong> (<em>list of pyramid_oereb.lib.records.plr.PlrRecord</em>) &#8211; The public law restriction
-records to be formatted.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted dictionaries for rendering.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of dict</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>plrs</strong> (<em>list of pyramid_oereb.lib.records.plr.PlrRecord</em>) – The public law restriction
+records to be formatted.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The formatted dictionaries for rendering.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of dict</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_real_estate">
-<code class="descname">format_real_estate</code><span class="sig-paren">(</span><em>real_estate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_real_estate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_real_estate" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_real_estate">
+<span class="sig-name descname"><span class="pre">format_real_estate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">real_estate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_real_estate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_real_estate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Formats a real estate record for rendering according to the federal specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>real_estate</strong> (<em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em>) &#8211; The real
-estate record to be formatted.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted dictionary for rendering.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>real_estate</strong> (<em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em>) – The real
+estate record to be formatted.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The formatted dictionary for rendering.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_theme">
-<code class="descname">format_theme</code><span class="sig-paren">(</span><em>theme</em>, <em>sub_theme=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_theme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_theme" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_theme">
+<span class="sig-name descname"><span class="pre">format_theme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theme</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_theme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_theme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_theme" title="Permalink to this definition">¶</a></dt>
 <dd><p>Formats a theme record for rendering according to the federal specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>theme</strong> (<em>pyramid_oereb.lib.records.theme.ThemeRecord</em>) &#8211; The theme record to be
-formatted.</li>
-<li><strong>sub_theme</strong> (<em>pyramid_oereb.lib.records.theme.ThemeRecord</em>) &#8211; The optional sub
-theme record.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>theme</strong> (<em>pyramid_oereb.lib.records.theme.ThemeRecord</em>) – The theme record to be
+formatted.</p></li>
+<li><p><strong>sub_theme</strong> (<em>pyramid_oereb.lib.records.theme.ThemeRecord</em>) – The optional sub
+theme record.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The formatted dictionary for rendering.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The formatted dictionary for rendering.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.from_shapely">
-<code class="descname">from_shapely</code><span class="sig-paren">(</span><em>geom</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.from_shapely" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.from_shapely">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_shapely</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geom</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.from_shapely" title="Permalink to this definition">¶</a></dt>
 <dd><p>Formats shapely geometry for rendering according to the federal specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>geom</strong> (<em>shapely.geometry.base.BaseGeometry</em>) &#8211; The geometry object to be formatted.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted geometry.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>geom</strong> (<em>shapely.geometry.base.BaseGeometry</em>) – The geometry object to be formatted.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The formatted geometry.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_custom_wms_params">
-<code class="descname">get_custom_wms_params</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.get_custom_wms_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_custom_wms_params" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_custom_wms_params">
+<span class="sig-name descname"><span class="pre">get_custom_wms_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.get_custom_wms_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_custom_wms_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>From a given dictionary filter out all the parameters that are specified in the config
 and return these.
 Only values which exist in the given params are added.
 If there is nothing configured or the config is not a list
 the configured wms_url_params are used as fallback.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>params</strong> (<em>dict</em>) &#8211; Parameters available in the URL</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dictionary of filtered params</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">custom_params (dict)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>params</strong> (<em>dict</em>) – Parameters available in the URL</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>dictionary of filtered params</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>custom_params (dict)</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_localized_image">
-<code class="descname">get_localized_image</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_localized_image" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_localized_image">
+<span class="sig-name descname"><span class="pre">get_localized_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_localized_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the requested language of a multilingual binary image dictionary.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>values</strong> (<em>dict</em>) &#8211; The multilingual values encoded as JSON.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Dictionary containing the localized representation.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict of str</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>values</strong> (<em>dict</em>) – The multilingual values encoded as JSON.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary containing the localized representation.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict of str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_localized_text">
-<code class="descname">get_localized_text</code><span class="sig-paren">(</span><em>values</em>, <em>not_null=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_localized_text" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_localized_text">
+<span class="sig-name descname"><span class="pre">get_localized_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">not_null</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_localized_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the requested language of a multilingual text element.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>values</strong> (<em>str</em><em> or </em><em>dict</em>) &#8211; The multilingual values encoded as JSON.</li>
-<li><strong>not_null</strong> (<em>boolean</em>) &#8211; Throws an error if there is no value for this language.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>values</strong> (<em>str</em><em> or </em><em>dict</em>) – The multilingual values encoded as JSON.</p></li>
+<li><p><strong>not_null</strong> (<em>boolean</em>) – Throws an error if there is no value for this language.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Dictionary containing the localized representation.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict of str</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary containing the localized representation.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict of str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_multilingual_text">
-<code class="descname">get_multilingual_text</code><span class="sig-paren">(</span><em>values</em>, <em>not_null=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_multilingual_text" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_multilingual_text">
+<span class="sig-name descname"><span class="pre">get_multilingual_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">not_null</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_multilingual_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the set language of a multilingual text element.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>values</strong> (<em>str</em><em> or </em><em>dict</em>) &#8211; The multilingual values encoded as JSON.</li>
-<li><strong>not_null</strong> (<em>boolean</em>) &#8211; Throws an error if there is no value for this language.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>values</strong> (<em>str</em><em> or </em><em>dict</em>) – The multilingual values encoded as JSON.</p></li>
+<li><p><strong>not_null</strong> (<em>boolean</em>) – Throws an error if there is no value for this language.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List of dictionaries containing the multilingual representation.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of dict</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of dictionaries containing the multilingual representation.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of dict</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_request">
-<code class="descname">get_request</code><span class="sig-paren">(</span><em>system</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_request" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_request">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">system</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_request" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the request object if available.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>system</strong> (<em>dict</em>) &#8211; The available system properties.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The request object.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid.request.Request or None</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>system</strong> (<em>dict</em>) – The available system properties.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The request object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pyramid.request.Request or None</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_response">
-<code class="descname">get_response</code><span class="sig-paren">(</span><em>system</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_response" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_response">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">system</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the response object if available.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>system</strong> (<em>dict</em>) &#8211; The available system properties.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The response object.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response or None</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>system</strong> (<em>dict</em>) – The available system properties.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The response object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pyramid.response.Response or None</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_symbol_ref">
-<code class="descname">get_symbol_ref</code><span class="sig-paren">(</span><em>request</em>, <em>record</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_symbol_ref" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_symbol_ref">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_symbol_ref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_symbol_ref" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the link to the symbol of the specified public law restriction.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>request</strong> (<em>pyramid.request.Request</em>) &#8211; The current request instance.</li>
-<li><strong>(</strong><strong>pyramid_oereb.core.records.plr.PlrRecord or</strong> (<em>record</em>) &#8211; pyramid_oereb.core.records.view_service.LegendEntryRecord): The record of the public law
-restriction to get the symbol reference for.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>pyramid.request.Request</em>) – The current request instance.</p></li>
+<li><p><strong>or</strong> (<em>record</em><em> (</em><a class="reference internal" href="../core/records.html#pyramid_oereb.core.records.plr.PlrRecord" title="pyramid_oereb.core.records.plr.PlrRecord"><em>pyramid_oereb.core.records.plr.PlrRecord</em></a>) – pyramid_oereb.core.records.view_service.LegendEntryRecord): The record of the public law
+restriction to get the symbol reference for.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The link to the symbol for the specified public law restriction.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">uri</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The link to the symbol for the specified public law restriction.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>uri</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="staticmethod">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_wms_url_params">
-<em class="property">static </em><code class="descname">get_wms_url_params</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.get_wms_url_params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_wms_url_params" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_wms_url_params">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_wms_url_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.get_wms_url_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_wms_url_params" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the list of additionally configured wms_url_params.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The configured wms_url_params.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">(dict)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The configured wms_url_params.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>(dict)</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.info">
-<code class="descname">info</code><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.info" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>pyramid.interfaces.IRendererInfo</em> &#8211; The passed renderer info object.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.info">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">info</span></span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>The passed renderer info object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>pyramid.interfaces.IRendererInfo</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="staticmethod">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_index">
-<em class="property">static </em><code class="descname">sort_by_index</code><span class="sig-paren">(</span><em>elem</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_by_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_index" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_index">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort_by_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_by_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_index" title="Permalink to this definition">¶</a></dt>
 <dd><p>Provides the sort key for the supplied hint / law / legal provision
 element as a tuple consisting of:</p>
 <blockquote>
 <div><ul class="simple">
-<li>index</li>
+<li><p>index</p></li>
 </ul>
 </div></blockquote>
 <p>Notes
 - index is defined by Interlis model OeREBKRM_V2_0 as range -1000..1000
-- &#8220;Index = None&#8221; if geolink_formatter processes entry from OEREBLEX that has no index</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>elem</strong> (<em>dict</em>) &#8211; one element of the hints / laws / legal provisions list</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">sort key (tuple)</td>
-</tr>
-</tbody>
-</table>
+- “Index = None” if geolink_formatter processes entry from OEREBLEX that has no index</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>elem</strong> (<em>dict</em>) – one element of the hints / laws / legal provisions list</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>sort key (tuple)</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_localized_text">
-<code class="descname">sort_by_localized_text</code><span class="sig-paren">(</span><em>multilingual_elements</em>, <em>value_accessor</em>, <em>not_null=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_localized_text" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_localized_text">
+<span class="sig-name descname"><span class="pre">sort_by_localized_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multilingual_elements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_accessor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">not_null</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_localized_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sort a list of translated text elements alphabetically.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>multilingual_elements</strong> (<em>list of dict</em>) &#8211; A list of multilingual elements</li>
-<li><strong>dict that contains multilingual elements.</strong> (<em>or</em>) &#8211; </li>
-<li><strong>value_accessor</strong> (<em>function</em><em>(</em><em>dict</em><em>)</em><em>-&gt;string</em>) &#8211; A function to access the
-text of a multilingual object to us to sort the list</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>multilingual_elements</strong> (<em>list of dict</em>) – A list of multilingual elements</p></li>
+<li><p><strong>elements.</strong> (<em>or dict that contains multilingual</em>) – </p></li>
+<li><p><strong>value_accessor</strong> (<em>function</em><em>(</em><em>dict</em><em>)</em><em>-&gt;string</em>) – A function to access the
+text of a multilingual object to us to sort the list</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
-<dt>Alphabetically and language specific sorted elements</dt>
-<dd><p class="first last">if translations exist or the list of unsorted element if
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Alphabetically and language specific sorted elements</dt><dd><p>if translations exist or the list of unsorted element if
 sorting failed.</p>
 </dd>
 </dl>
 </p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of dict</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of dict</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="staticmethod">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_dict_list">
-<em class="property">static </em><code class="descname">sort_dict_list</code><span class="sig-paren">(</span><em>legend_list</em>, <em>sort_keys</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_dict_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_dict_list" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_dict_list">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort_dict_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">legend_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_dict_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_dict_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sorts list of dictionaries by one or more sort keys.
 This function makes it possible to run test on the sorted list and assure the
 correctness of the sorting.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>legend_list</strong> (<em>list</em><em>(</em><em>dict</em><em>)</em>) &#8211; list of legend dictionaries</li>
-<li><strong>sort_keys</strong> (<em>tuple/any</em>) &#8211; tuple of keys according to which the list of dictionaries will be</li>
-<li><strong>sorted</strong> (<em>at least one is needed</em>) &#8211; </li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>legend_list</strong> (<em>list</em><em>(</em><em>dict</em><em>)</em>) – list of legend dictionaries</p></li>
+<li><p><strong>sort_keys</strong> (<em>tuple/any</em>) – tuple of keys according to which the list of dictionaries will be</p></li>
+<li><p><strong>sorted</strong> (<em>at least one is needed</em>) – </p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">sorted list of legend dictionaries</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>sorted list of legend dictionaries</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="staticmethod">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_legal_provision">
-<em class="property">static </em><code class="descname">sort_legal_provision</code><span class="sig-paren">(</span><em>elem</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_legal_provision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_legal_provision" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Provides the sort key for the supplied legal provision element as a tuple consisting of:</dt>
-<dd><ul class="first last simple">
-<li>title</li>
-<li>Official number</li>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_legal_provision">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort_legal_provision</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_legal_provision"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_legal_provision" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Provides the sort key for the supplied legal provision element as a tuple consisting of:</dt><dd><ul class="simple">
+<li><p>title</p></li>
+<li><p>Official number</p></li>
 </ul>
 </dd>
 </dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>elem</strong> (<em>dict</em>) &#8211; one element of the legal provision list</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">sort key (tuple)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>elem</strong> (<em>dict</em>) – one element of the legal provision list</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>sort key (tuple)</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="staticmethod">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_legend_elem">
-<em class="property">static </em><code class="descname">sort_legend_elem</code><span class="sig-paren">(</span><em>elem</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_legend_elem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_legend_elem" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Provides the sort key for the supplied legend element as a tuple consisting of:</dt>
-<dd><ul class="first last simple">
-<li>rank of the geometry type as defined in LEGEND_ELEMENT_SORT_ORDER</li>
-<li>value of the geometry if available (AreaShare and LengthShare)</li>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_legend_elem">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort_legend_elem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_legend_elem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_legend_elem" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Provides the sort key for the supplied legend element as a tuple consisting of:</dt><dd><ul class="simple">
+<li><p>rank of the geometry type as defined in LEGEND_ELEMENT_SORT_ORDER</p></li>
+<li><p>value of the geometry if available (AreaShare and LengthShare)</p></li>
 </ul>
 </dd>
 </dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>elem</strong> (<em>dict</em>) &#8211; legend entry</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">sort key (tuple)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>elem</strong> (<em>dict</em>) – legend entry</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>sort key (tuple)</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="staticmethod">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_restriction_on_landownership_documents">
-<em class="property">static </em><code class="descname">sort_restriction_on_landownership_documents</code><span class="sig-paren">(</span><em>restriction_on_landownership</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_restriction_on_landownership_documents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_restriction_on_landownership_documents" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_restriction_on_landownership_documents">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort_restriction_on_landownership_documents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">restriction_on_landownership</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_restriction_on_landownership_documents"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_restriction_on_landownership_documents" title="Permalink to this definition">¶</a></dt>
 <dd><p>sort legal provisioning, hints and laws on restriction_on_landownership</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>restriction_on_landownership</strong> (<em>list</em><em>(</em><em>dict</em><em>)</em>) &#8211; restrictions on landownership</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>restriction_on_landownership</strong> (<em>list</em><em>(</em><em>dict</em><em>)</em>) – restrictions on landownership</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="staticmethod">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.string_check">
-<em class="property">static </em><code class="descname">string_check</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.string_check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.string_check" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.string_check">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">string_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.string_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.string_check" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if the value given is a string.
 If it is not, assume it is a list and join the values using comma separator.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str</em><em> or </em><em>list</em>) &#8211; value to be treated.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">converted value</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(str)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em><em> or </em><em>list</em>) – value to be treated.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>converted value</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(str)</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.unaccent_lower">
-<code class="descname">unaccent_lower</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.unaccent_lower" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.unaccent_lower">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unaccent_lower</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.unaccent_lower" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replaces all special characters so that an alphabetical sorting can be done.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>text</strong> (<em>str</em>) &#8211; The text value.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The text value converted to lower case and striped of special characters.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">new_text (str)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The text value.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The text value converted to lower case and striped of special characters.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>new_text (str)</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages"><span id="api-pyramid-oereb-contrib-print-proxy-mapfish-print-toc-pages"></span></span></div>
-<div class="section" id="toc-pages-tocpages">
+<span class="target" id="module-pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages"><span id="api-pyramid-oereb-contrib-print-proxy-mapfish-print-toc-pages"></span></span></section>
+<section id="toc-pages-tocpages">
 <span id="api-pyramid-oereb-contrib-print-proxy-mapfish-print-toc-pages-tocpages"></span><h2><em>Toc Pages TocPages</em><a class="headerlink" href="#toc-pages-tocpages" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.</code><code class="descname">TocPages</code><span class="sig-paren">(</span><em>extract</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/toc_pages.html#TocPages"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>extract</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/toc_pages.html#TocPages.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages.__init__" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.</span></span><span class="sig-name descname"><span class="pre">TocPages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extract</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/toc_pages.html#TocPages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extract</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/toc_pages.html#TocPages.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.contrib.print_proxy.xml_2_pdf"><span id="api-pyramid-oereb-contrib-print-proxy-xml-2-pdf"></span></span><span class="target" id="module-pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf"><span id="api-pyramid-oereb-contrib-print-proxy-xml-2-pdf-xml-2-pdf"></span></span></div>
-<div class="section" id="xml-2-pdf-renderer">
+<span class="target" id="module-pyramid_oereb.contrib.print_proxy.xml_2_pdf"><span id="api-pyramid-oereb-contrib-print-proxy-xml-2-pdf"></span></span><span class="target" id="module-pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf"><span id="api-pyramid-oereb-contrib-print-proxy-xml-2-pdf-xml-2-pdf"></span></span></section>
+<section id="xml-2-pdf-renderer">
 <span id="api-pyramid-oereb-contrib-print-proxy-xml-2-pdf-xml-2-pdf-renderer"></span><h2><em>Xml 2 Pdf Renderer</em><a class="headerlink" href="#xml-2-pdf-renderer" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer">
-<em class="property">class </em><code class="descclassname">pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.</code><code class="descname">Renderer</code><span class="sig-paren">(</span><em>info</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/xml_2_pdf/xml_2_pdf.html#Renderer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>info</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/xml_.html#Renderer.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.__init__" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.</span></span><span class="sig-name descname"><span class="pre">Renderer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/xml_2_pdf/xml_2_pdf.html#Renderer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/xml_.html#Renderer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new XML renderer instance for extract rendering.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>info</strong> (<em>pyramid.interfaces.IRendererInfo</em>) &#8211; Info object.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>info</strong> (<em>pyramid.interfaces.IRendererInfo</em>) – Info object.</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.date_time">
-<code class="descname">date_time</code><span class="sig-paren">(</span><em>dt</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.date_time" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.date_time">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">date_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.date_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Formats the date/time according to the specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dt</strong> (<em>datetime.dateordatetime.timeordatetime.datetime</em>) &#8211; The datetime object.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted date/time.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dt</strong> (<em>datetime.dateordatetime.timeordatetime.datetime</em>) – The datetime object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The formatted date/time.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.from_shapely">
-<code class="descname">from_shapely</code><span class="sig-paren">(</span><em>geom</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.from_shapely" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.from_shapely">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_shapely</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geom</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.from_shapely" title="Permalink to this definition">¶</a></dt>
 <dd><p>Formats shapely geometry for rendering according to the federal specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>geom</strong> (<em>shapely.geometry.base.BaseGeometry</em>) &#8211; The geometry object to be formatted.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The formatted geometry.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>geom</strong> (<em>shapely.geometry.base.BaseGeometry</em>) – The geometry object to be formatted.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The formatted geometry.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_localized_image">
-<code class="descname">get_localized_image</code><span class="sig-paren">(</span><em>values</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_localized_image" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_localized_image">
+<span class="sig-name descname"><span class="pre">get_localized_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_localized_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the requested language of a multilingual binary image dictionary.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>values</strong> (<em>dict</em>) &#8211; The multilingual values encoded as JSON.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Dictionary containing the localized representation.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict of str</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>values</strong> (<em>dict</em>) – The multilingual values encoded as JSON.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary containing the localized representation.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict of str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_localized_text">
-<code class="descname">get_localized_text</code><span class="sig-paren">(</span><em>values</em>, <em>not_null=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_localized_text" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_localized_text">
+<span class="sig-name descname"><span class="pre">get_localized_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">not_null</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_localized_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the requested language of a multilingual text element.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>values</strong> (<em>str</em><em> or </em><em>dict</em>) &#8211; The multilingual values encoded as JSON.</li>
-<li><strong>not_null</strong> (<em>boolean</em>) &#8211; Throws an error if there is no value for this language.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>values</strong> (<em>str</em><em> or </em><em>dict</em>) – The multilingual values encoded as JSON.</p></li>
+<li><p><strong>not_null</strong> (<em>boolean</em>) – Throws an error if there is no value for this language.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Dictionary containing the localized representation.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict of str</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary containing the localized representation.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict of str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_multilingual_text">
-<code class="descname">get_multilingual_text</code><span class="sig-paren">(</span><em>values</em>, <em>not_null=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_multilingual_text" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_multilingual_text">
+<span class="sig-name descname"><span class="pre">get_multilingual_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">not_null</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_multilingual_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the set language of a multilingual text element.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>values</strong> (<em>str</em><em> or </em><em>dict</em>) &#8211; The multilingual values encoded as JSON.</li>
-<li><strong>not_null</strong> (<em>boolean</em>) &#8211; Throws an error if there is no value for this language.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>values</strong> (<em>str</em><em> or </em><em>dict</em>) – The multilingual values encoded as JSON.</p></li>
+<li><p><strong>not_null</strong> (<em>boolean</em>) – Throws an error if there is no value for this language.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">List of dictionaries containing the multilingual representation.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of dict</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of dictionaries containing the multilingual representation.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of dict</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_request">
-<code class="descname">get_request</code><span class="sig-paren">(</span><em>system</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_request" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_request">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">system</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_request" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the request object if available.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>system</strong> (<em>dict</em>) &#8211; The available system properties.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The request object.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid.request.Request or None</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>system</strong> (<em>dict</em>) – The available system properties.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The request object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pyramid.request.Request or None</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_response">
-<code class="descname">get_response</code><span class="sig-paren">(</span><em>system</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_response" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_response">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">system</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the response object if available.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>system</strong> (<em>dict</em>) &#8211; The available system properties.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The response object.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pyramid.response.Response or None</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>system</strong> (<em>dict</em>) – The available system properties.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The response object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pyramid.response.Response or None</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_symbol_ref">
-<code class="descname">get_symbol_ref</code><span class="sig-paren">(</span><em>request</em>, <em>record</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_symbol_ref" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_symbol_ref">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_symbol_ref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_symbol_ref" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the link to the symbol of the specified public law restriction.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>request</strong> (<em>pyramid.request.Request</em>) &#8211; The current request instance.</li>
-<li><strong>(</strong><strong>pyramid_oereb.core.records.plr.PlrRecord or</strong> (<em>record</em>) &#8211; pyramid_oereb.core.records.view_service.LegendEntryRecord): The record of the public law
-restriction to get the symbol reference for.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>pyramid.request.Request</em>) – The current request instance.</p></li>
+<li><p><strong>or</strong> (<em>record</em><em> (</em><a class="reference internal" href="../core/records.html#pyramid_oereb.core.records.plr.PlrRecord" title="pyramid_oereb.core.records.plr.PlrRecord"><em>pyramid_oereb.core.records.plr.PlrRecord</em></a>) – pyramid_oereb.core.records.view_service.LegendEntryRecord): The record of the public law
+restriction to get the symbol reference for.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The link to the symbol for the specified public law restriction.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">uri</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The link to the symbol for the specified public law restriction.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>uri</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.info">
-<code class="descname">info</code><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.info" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>pyramid.interfaces.IRendererInfo</em> &#8211; The passed renderer info object.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.info">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">info</span></span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>The passed renderer info object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>pyramid.interfaces.IRendererInfo</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="staticmethod">
-<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.prepare_xml">
-<em class="property">static </em><code class="descname">prepare_xml</code><span class="sig-paren">(</span><em>extract_as_xml</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/xml_2_pdf/xml_2_pdf.html#Renderer.prepare_xml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.prepare_xml" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.prepare_xml">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">prepare_xml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extract_as_xml</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/xml_2_pdf/xml_2_pdf.html#Renderer.prepare_xml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.prepare_xml" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hook method in order to manipulate xml that is sent to print webservice.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>extract_as_xml</strong> (<em>xml</em>) &#8211; Variable containing the xml content for print werbservice.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Data of extract.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>extract_as_xml</strong> (<em>xml</em>) – Variable containing the xml content for print werbservice.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Data of extract.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="staticmethod">
-<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.request_pdf">
-<em class="property">static </em><code class="descname">request_pdf</code><span class="sig-paren">(</span><em>url</em>, <em>data_extract</em>, <em>headers</em>, <em>parameters</em>, <em>verify_certificate</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/xml_2_pdf/xml_2_pdf.html#Renderer.request_pdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.request_pdf" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.request_pdf">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">request_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_extract</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verify_certificate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/xml_2_pdf/xml_2_pdf.html#Renderer.request_pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.request_pdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Posts the print request to the configured print server to return the pdf extract.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>url</strong> (<em>str</em>) &#8211; URl to the print webservice.</li>
-<li><strong>data_extract</strong> (<em>xml</em>) &#8211; The rendered xml extract.</li>
-<li><strong>headers</strong> (<em>dict</em>) &#8211; Request headers for print request.</li>
-<li><strong>parameters</strong> (<em>dict</em>) &#8211; Additional print parameters, such as language or flavour.</li>
-<li><strong>verify_certificate</strong> (<em>boolean</em>) &#8211; Define if certificate should be verified.</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>str</em>) – URl to the print webservice.</p></li>
+<li><p><strong>data_extract</strong> (<em>xml</em>) – The rendered xml extract.</p></li>
+<li><p><strong>headers</strong> (<em>dict</em>) – Request headers for print request.</p></li>
+<li><p><strong>parameters</strong> (<em>dict</em>) – Additional print parameters, such as language or flavour.</p></li>
+<li><p><strong>verify_certificate</strong> (<em>boolean</em>) – Define if certificate should be verified.</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The pdf file as received from configured mapfish print instance url.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><a class="reference internal" href="../core/records.html#pyramid_oereb.core.records.documents.DocumentRecord.file" title="pyramid_oereb.core.records.documents.DocumentRecord.file">file</a></p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">Exception</span></code> &#8211; Request failed.</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The pdf file as received from configured mapfish print instance url.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>file</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>Exception</strong> – Request failed.</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.sort_by_localized_text">
-<code class="descname">sort_by_localized_text</code><span class="sig-paren">(</span><em>multilingual_elements</em>, <em>value_accessor</em>, <em>not_null=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.sort_by_localized_text" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.sort_by_localized_text">
+<span class="sig-name descname"><span class="pre">sort_by_localized_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multilingual_elements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_accessor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">not_null</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.sort_by_localized_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sort a list of translated text elements alphabetically.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>multilingual_elements</strong> (<em>list of dict</em>) &#8211; A list of multilingual elements</li>
-<li><strong>dict that contains multilingual elements.</strong> (<em>or</em>) &#8211; </li>
-<li><strong>value_accessor</strong> (<em>function</em><em>(</em><em>dict</em><em>)</em><em>-&gt;string</em>) &#8211; A function to access the
-text of a multilingual object to us to sort the list</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>multilingual_elements</strong> (<em>list of dict</em>) – A list of multilingual elements</p></li>
+<li><p><strong>elements.</strong> (<em>or dict that contains multilingual</em>) – </p></li>
+<li><p><strong>value_accessor</strong> (<em>function</em><em>(</em><em>dict</em><em>)</em><em>-&gt;string</em>) – A function to access the
+text of a multilingual object to us to sort the list</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
-<dt>Alphabetically and language specific sorted elements</dt>
-<dd><p class="first last">if translations exist or the list of unsorted element if
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Alphabetically and language specific sorted elements</dt><dd><p>if translations exist or the list of unsorted element if
 sorting failed.</p>
 </dd>
 </dl>
 </p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of dict</p>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of dict</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.unaccent_lower">
-<code class="descname">unaccent_lower</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.unaccent_lower" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.unaccent_lower">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unaccent_lower</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.unaccent_lower" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replaces all special characters so that an alphabetical sorting can be done.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>text</strong> (<em>str</em>) &#8211; The text value.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The text value converted to lower case and striped of special characters.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">new_text (str)</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The text value.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The text value converted to lower case and striped of special characters.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>new_text (str)</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-</div>
-</div>
-<div class="section" id="sub-themes">
+</section>
+</section>
+<section id="sub-themes">
 <h1>Sub themes<a class="headerlink" href="#sub-themes" title="Permalink to this headline">¶</a></h1>
 <p>To enable separate pages per sub theme, enable the option <cite>split_sub_themes</cite> in the <cite>print</cite> section of your
 configuration.</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="nt">print</span><span class="p">:</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">print</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="nt">split_sub_themes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </pre></div>
 </div>
 <p>You can influence the sort order for each theme separately. Per default, the sub themes are unsorted.</p>
 <p>Example for alphabetic sort:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plr119</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plr119</span><span class="w"></span>
 <span class="w">  </span><span class="nt">sub_themes</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="nt">sorter</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.contrib.print_proxy.sub_themes.sorting</span><span class="w"></span>
@@ -1092,7 +913,7 @@ configuration.</p>
 </div>
 <p>The list sort provides a fix, non-alphabetic order. A ordered list as parameter defines the order. The sub theme names
 have to match exactly, otherwise they will be added at the end. Example configuration:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plr119</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plr119</span><span class="w"></span>
 <span class="w">  </span><span class="nt">sub_themes</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="nt">sorter</span><span class="p">:</span><span class="w"></span>
 <span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.contrib.print_proxy.sub_themes.sorting</span><span class="w"></span>
@@ -1104,62 +925,45 @@ have to match exactly, otherwise they will be added at the end. Example configur
 <span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Last sub theme</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="print-configuration">
+</section>
+<section id="print-configuration">
 <h1>Print configuration<a class="headerlink" href="#print-configuration" title="Permalink to this headline">¶</a></h1>
 <p><strong>XML2PDF</strong></p>
 <p>To properly configure the XML2PDF print service of GISDATEN AG, you need specific configuration in the section
-<code class="docutils literal"><span class="pre">print</span></code> of your <code class="docutils literal"><span class="pre">yaml</span></code> file.
+<code class="docutils literal notranslate"><span class="pre">print</span></code> of your <code class="docutils literal notranslate"><span class="pre">yaml</span></code> file.
 Please see the <a class="reference external" href="https://github.com/openoereb/pyramid_oereb/blob/master/pyramid_oereb/standard/pyramid_oereb.yml.mako">standard configuration file</a>
-as an example, or use the <code class="docutils literal"><span class="pre">create_standard_yaml</span></code> script to regenerate your configuration file with the desired options.</p>
-</div>
+as an example, or use the <code class="docutils literal notranslate"><span class="pre">create_standard_yaml</span></code> script to regenerate your configuration file with the desired options.</p>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="stats.html" class="btn btn-neutral float-right" title="Statistics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="sources.html" class="btn btn-neutral float-left" title="Sources" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="stats.html" class="btn btn-neutral float-right" title="Statistics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2017-2022, openoereb community.
-
-    </p>
+    <p>&#169; Copyright 2017-2022, openoereb community.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

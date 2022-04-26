@@ -1,78 +1,31 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr &mdash; pyramid_oereb  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../../../../../../',
-              VERSION:'',
-              LANGUAGE:'en',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="../../../../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../../../../_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
-
-    
+        <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
+        <script src="../../../../../../_static/jquery.js"></script>
+        <script src="../../../../../../_static/underscore.js"></script>
+        <script src="../../../../../../_static/doctools.js"></script>
+    <script src="../../../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../../../../index.html" class="icon icon-home"> pyramid_oereb
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -80,19 +33,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../../configuration.html">Configuration</a></li>
@@ -103,69 +45,30 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../../../faq.html">FAQ</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../../../../index.html">pyramid_oereb</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../../../../index.html">Module code</a> &raquo;</li>
-        
       <li>pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <h1>Source code for pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">logging</span>
@@ -175,11 +78,10 @@
 <span class="kn">from</span> <span class="nn">geoalchemy2.shape</span> <span class="kn">import</span> <span class="n">to_shape</span><span class="p">,</span> <span class="n">from_shape</span>
 <span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">,</span> <span class="n">MultiPoint</span><span class="p">,</span> <span class="n">MultiLineString</span><span class="p">,</span> <span class="n">MultiPolygon</span><span class="p">,</span> \
     <span class="n">GeometryCollection</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">text</span><span class="p">,</span> <span class="n">or_</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">or_</span>
 
 <span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="kn">import</span> <span class="n">Config</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.core</span> <span class="kn">import</span> <span class="n">b64</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.availability</span> <span class="kn">import</span> <span class="n">AvailabilityRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.image</span> <span class="kn">import</span> <span class="n">ImageRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.plr</span> <span class="kn">import</span> <span class="n">EmptyPlrRecord</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.core.sources</span> <span class="kn">import</span> <span class="n">BaseDatabaseSource</span>
@@ -273,33 +175,17 @@
 <span class="sd">                as key and text as value.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">config_parser</span> <span class="o">=</span> <span class="n">StandardThemeConfigParser</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">models</span> <span class="o">=</span> <span class="n">config_parser</span><span class="o">.</span><span class="n">get_models</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">models</span> <span class="o">=</span> <span class="n">config_parser</span><span class="o">.</span><span class="n">get_models</span><span class="p">()</span>
         <span class="n">bds_kwargs</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="n">models</span><span class="o">.</span><span class="n">Geometry</span><span class="p">,</span>
+            <span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Geometry</span><span class="p">,</span>
             <span class="s1">&#39;db_connection&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">)</span>
         <span class="p">}</span>
 
         <span class="n">BaseDatabaseSource</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">bds_kwargs</span><span class="p">)</span>
         <span class="n">PlrBaseSource</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">legend_entry_model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">LegendEntry</span>
-        <span class="n">availability_model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Availability</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">availabilities</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">datasource</span> <span class="o">=</span> <span class="p">[]</span>
-
-        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
-
-        <span class="k">try</span><span class="p">:</span>
-
-            <span class="n">availabilities_from_db</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">availability_model</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
-            <span class="k">for</span> <span class="n">availability</span> <span class="ow">in</span> <span class="n">availabilities_from_db</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">availabilities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="n">AvailabilityRecord</span><span class="p">(</span><span class="n">availability</span><span class="o">.</span><span class="n">fosnr</span><span class="p">,</span> <span class="n">available</span><span class="o">=</span><span class="n">availability</span><span class="o">.</span><span class="n">available</span><span class="p">)</span>
-                <span class="p">)</span>
-
-        <span class="k">finally</span><span class="p">:</span>
-            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">legend_entry_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">LegendEntry</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datasource</span> <span class="o">=</span> <span class="p">[]</span></div>
 
     <span class="k">def</span> <span class="nf">from_db_to_legend_entry_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legend_entry_from_db</span><span class="p">):</span>
         <span class="n">theme</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span><span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">sub_theme</span><span class="p">)</span>
@@ -590,49 +476,6 @@
         <span class="n">document_records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_document_records</span><span class="p">(</span><span class="n">documents_from_db</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">document_records</span>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="DatabaseSource.extract_geometry_collection_db"><a class="viewcode-back" href="../../../../../../contrib/sources.html#pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.DatabaseSource.extract_geometry_collection_db">[docs]</a>    <span class="k">def</span> <span class="nf">extract_geometry_collection_db</span><span class="p">(</span><span class="n">db_path</span><span class="p">,</span> <span class="n">real_estate_geometry</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Decides the geometry collection cases of geometric filter operations when the database contains multi</span>
-<span class="sd">        geometries but the passed geometry does not.</span>
-<span class="sd">        The multi geometry will be extracted to it&#39;s sub parts for operation.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            db_path (str): The point separated string of schema_name.table_name.column_name from</span>
-<span class="sd">                which we can construct a correct SQL statement.</span>
-<span class="sd">            real_estate_geometry (shapely.geometry.base.BaseGeometry): The shapely geometry</span>
-<span class="sd">                representation which is used for comparison.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            sqlalchemy.sql.elements.BooleanClauseList: The clause element.</span>
-
-<span class="sd">        Raises:</span>
-<span class="sd">            HTTPBadRequest</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">srid</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">)</span>
-        <span class="n">sql_text_point</span> <span class="o">=</span> <span class="s1">&#39;ST_Intersects(ST_CollectionExtract(</span><span class="si">{0}</span><span class="s1">, 1), ST_GeomFromText(</span><span class="se">\&#39;</span><span class="si">{1}</span><span class="se">\&#39;</span><span class="s1">, </span><span class="si">{2}</span><span class="s1">))&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">db_path</span><span class="p">,</span>
-            <span class="n">real_estate_geometry</span><span class="o">.</span><span class="n">wkt</span><span class="p">,</span>
-            <span class="n">srid</span>
-        <span class="p">)</span>
-        <span class="n">sql_text_line</span> <span class="o">=</span> <span class="s1">&#39;ST_Intersects(ST_CollectionExtract(</span><span class="si">{0}</span><span class="s1">, 2), ST_GeomFromText(</span><span class="se">\&#39;</span><span class="si">{1}</span><span class="se">\&#39;</span><span class="s1">, </span><span class="si">{2}</span><span class="s1">))&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">db_path</span><span class="p">,</span>
-            <span class="n">real_estate_geometry</span><span class="o">.</span><span class="n">wkt</span><span class="p">,</span>
-            <span class="n">srid</span>
-        <span class="p">)</span>
-        <span class="n">sql_text_polygon</span> <span class="o">=</span> <span class="s1">&#39;ST_Intersects(ST_CollectionExtract(</span><span class="si">{0}</span><span class="s1">, 3), &#39;</span> \
-                           <span class="s1">&#39;ST_GeomFromText(</span><span class="se">\&#39;</span><span class="si">{1}</span><span class="se">\&#39;</span><span class="s1">, </span><span class="si">{2}</span><span class="s1">))&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                                <span class="n">db_path</span><span class="p">,</span>
-                                <span class="n">real_estate_geometry</span><span class="o">.</span><span class="n">wkt</span><span class="p">,</span>
-                                <span class="n">srid</span>
-                            <span class="p">)</span>
-        <span class="n">clause_blocks</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">text</span><span class="p">(</span><span class="n">sql_text_point</span><span class="p">),</span>
-            <span class="n">text</span><span class="p">(</span><span class="n">sql_text_line</span><span class="p">),</span>
-            <span class="n">text</span><span class="p">(</span><span class="n">sql_text_polygon</span><span class="p">)</span>
-        <span class="p">]</span>
-        <span class="k">return</span> <span class="n">or_</span><span class="p">(</span><span class="o">*</span><span class="n">clause_blocks</span><span class="p">)</span></div>
-
 <div class="viewcode-block" id="DatabaseSource.collect_related_geometries_by_real_estate"><a class="viewcode-back" href="../../../../../../contrib/sources.html#pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.DatabaseSource.collect_related_geometries_by_real_estate">[docs]</a>    <span class="k">def</span> <span class="nf">collect_related_geometries_by_real_estate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extracts all geometries in the topic which have spatial relation with the passed real estate</span>
@@ -692,7 +535,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Check if the plr is marked as available</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_available</span><span class="p">(</span><span class="n">real_estate</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">Config</span><span class="o">.</span><span class="n">availability_by_theme_code_municipality_fosnr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">],</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">fosnr</span><span class="p">):</span>
             <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -732,66 +575,37 @@
 
         <span class="c1"># Add empty record if topic is not available</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="p">[</span><span class="n">EmptyPlrRecord</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme_record</span><span class="p">,</span> <span class="n">has_data</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span></div>
-
-    <span class="k">def</span> <span class="nf">_is_available</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks if the topic is available for the specified real estate.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real</span>
-<span class="sd">                estate in its record representation.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">             bool: True if the topic is available, false otherwise.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">availability</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">availabilities</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">fosnr</span><span class="p">)</span> <span class="o">==</span> <span class="nb">int</span><span class="p">(</span><span class="n">availability</span><span class="o">.</span><span class="n">fosnr</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">availability</span><span class="o">.</span><span class="n">available</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">return</span> <span class="kc">True</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="p">[</span><span class="n">EmptyPlrRecord</span><span class="p">(</span>
+                <span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">]),</span>
+                <span class="n">has_data</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)]</span></div></div>
 </pre></div>
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2017-2022, openoereb community.
-
-    </p>
+    <p>&#169; Copyright 2017-2022, openoereb community.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

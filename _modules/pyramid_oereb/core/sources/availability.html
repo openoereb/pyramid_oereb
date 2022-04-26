@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyramid_oereb.core.sources.glossary &mdash; pyramid_oereb  documentation</title>
+  <title>pyramid_oereb.core.sources.availability &mdash; pyramid_oereb  documentation</title>
       <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -61,7 +61,7 @@
       <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
           <li><a href="../sources.html">pyramid_oereb.core.sources</a> &raquo;</li>
-      <li>pyramid_oereb.core.sources.glossary</li>
+      <li>pyramid_oereb.core.sources.availability</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -70,26 +70,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for pyramid_oereb.core.sources.glossary</h1><div class="highlight"><pre>
+  <h1>Source code for pyramid_oereb.core.sources.availability</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.core.sources</span> <span class="kn">import</span> <span class="n">Base</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.glossary</span> <span class="kn">import</span> <span class="n">GlossaryRecord</span>
+<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.availability</span> <span class="kn">import</span> <span class="n">AvailabilityRecord</span>
 
 
-<div class="viewcode-block" id="GlossaryBaseSource"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.core.sources.glossary.GlossaryBaseSource">[docs]</a><span class="k">class</span> <span class="nc">GlossaryBaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="AvailabilityBaseSource"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.core.sources.availability.AvailabilityBaseSource">[docs]</a><span class="k">class</span> <span class="nc">AvailabilityBaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Base class for address sources.</span>
+<span class="sd">    Base class for availability sources.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        records (list of pyramid_oereb.lib.records.glossary.GlossaryRecord): List of glossary records.</span>
+<span class="sd">        records (list of pyramid_oereb.core.records.availability.AvailabilityRecord): List</span>
+<span class="sd">            of availability records.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">_record_class_</span> <span class="o">=</span> <span class="n">GlossaryRecord</span>
+    <span class="n">_record_class_</span> <span class="o">=</span> <span class="n">AvailabilityRecord</span>
 
-<div class="viewcode-block" id="GlossaryBaseSource.read"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.core.sources.glossary.GlossaryBaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="AvailabilityBaseSource.read"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.core.sources.availability.AvailabilityBaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Every glossary source has to implement a read method. This method must accept no parameters. Because</span>
-<span class="sd">        it should deliver all items available.</span>
-<span class="sd">        If you want adapt to your own source for glossaries, this is the point where to hook in.</span>
+<span class="sd">        Every availability source has to implement a read method. This method must accept no</span>
+<span class="sd">        parameters. Because it should deliver all items available.</span>
+<span class="sd">        If you want to adapt to your own source for availability, this is the point where to hook in.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>  <span class="c1"># pragma: no cover</span></div></div>
 </pre></div>

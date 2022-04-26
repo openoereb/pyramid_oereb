@@ -1,80 +1,34 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html4" lang="en" >
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Changes/Hints for migration &mdash; pyramid_oereb  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'',
-              LANGUAGE:'en',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Standard" href="standard/index.html" />
     <link rel="prev" title="Configuration" href="configuration.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> pyramid_oereb
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -82,23 +36,13 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes/Hints for migration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-2-0-1">Version 2.0.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-0-0">Version 2.0.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-9-2">Version 1.9.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-1-9-1">Version 1.9.1</a></li>
@@ -178,490 +122,465 @@
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">pyramid_oereb</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Changes/Hints for migration</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="changes-hints-for-migration">
+             
+  <section id="changes-hints-for-migration">
 <span id="changes"></span><h1>Changes/Hints for migration<a class="headerlink" href="#changes-hints-for-migration" title="Permalink to this headline">¶</a></h1>
 <p>This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.</p>
-<div class="section" id="version-2-0-0">
+<section id="version-2-0-1">
+<span id="changes-version-2-0-1"></span><h2>Version 2.0.1<a class="headerlink" href="#version-2-0-1" title="Permalink to this headline">¶</a></h2>
+<p>Bug-fix and performance optimization release:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Disclaimer, glossary and municipality are now read only on startup (#1544)</p></li>
+<li><p>Add support for OEREBlex prepubs URL (#1546)</p></li>
+<li><p>Fix real estate type in XML for GetEgrid (#1545)</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="version-2-0-0">
 <span id="changes-version-2-0-0"></span><h2>Version 2.0.0<a class="headerlink" href="#version-2-0-0" title="Permalink to this headline">¶</a></h2>
 <p>Version 2 is the implementation of the new federal requirements 2021. Because the data model specified by
 the federation is not compatible with the model in the previous version, a migration to version 2
 requires a new setup.</p>
-</div>
-<div class="section" id="version-1-9-2">
+</section>
+<section id="version-1-9-2">
 <span id="changes-version-1-9-2"></span><h2>Version 1.9.2<a class="headerlink" href="#version-1-9-2" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
-<li>Oereblex: improve testing functionality for Oereblex (#1197)</li>
-<li>Various library updates</li>
+<li><p>Oereblex: improve testing functionality for Oereblex (#1197)</p></li>
+<li><p>Various library updates</p></li>
 </ul>
 </div></blockquote>
-</div>
-<div class="section" id="version-1-9-1">
+</section>
+<section id="version-1-9-1">
 <span id="changes-version-1-9-1"></span><h2>Version 1.9.1<a class="headerlink" href="#version-1-9-1" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
-<li>Oereblex: support new Oereblex API version 1.2.1</li>
-<li>Various library updates</li>
+<li><p>Oereblex: support new Oereblex API version 1.2.1</p></li>
+<li><p>Various library updates</p></li>
 </ul>
 </div></blockquote>
-</div>
-<div class="section" id="version-1-9-0">
+</section>
+<section id="version-1-9-0">
 <span id="changes-version-1-9-0"></span><h2>Version 1.9.0<a class="headerlink" href="#version-1-9-0" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
-<li>Oereblex: add configuration option to pass URL parameters to the oereblex call (#1117)</li>
-<li>Various library updates</li>
-<li>Improve handling of empty geometries, in preparation of additional library updates (#1107)</li>
+<li><p>Oereblex: add configuration option to pass URL parameters to the oereblex call (#1117)</p></li>
+<li><p>Various library updates</p></li>
+<li><p>Improve handling of empty geometries, in preparation of additional library updates (#1107)</p></li>
 </ul>
 </div></blockquote>
-<div class="section" id="mapfish-print-related-changes">
+<section id="mapfish-print-related-changes">
 <h3>MapFish Print related changes<a class="headerlink" href="#mapfish-print-related-changes" title="Permalink to this headline">¶</a></h3>
 <p>If you are using MapFish Print, you must update your print templates and configuration to v1.9.0.
 The following improvements have been made:</p>
 <blockquote>
 <div><ul class="simple">
-<li>The inclusion of the cantonal logo is now configurable (#1139).
+<li><p>The inclusion of the cantonal logo is now configurable (#1139).
 MapFish Print users who do not want the cantonal logo should set the print configuration parameter
-<code class="docutils literal"><span class="pre">print_canton_logo</span></code> to <code class="docutils literal"><span class="pre">false</span></code>.</li>
+<code class="docutils literal notranslate"><span class="pre">print_canton_logo</span></code> to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p></li>
 </ul>
 </div></blockquote>
-</div>
-</div>
-<div class="section" id="version-1-8-1">
+</section>
+</section>
+<section id="version-1-8-1">
 <span id="changes-version-1-8-1"></span><h2>Version 1.8.1<a class="headerlink" href="#version-1-8-1" title="Permalink to this headline">¶</a></h2>
 <p>This is a maintenance release with minor updates:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Update of external libraries such as numpy, SQLAlchemy, lxml, and more.</li>
-<li>oereblex support: avoid extract failure upon missing enactment_date in oereblex (#1093)</li>
-<li>Improve support of Python 3.7 in template Makefile and sample data loading (#1104, #1106)</li>
+<li><p>Update of external libraries such as numpy, SQLAlchemy, lxml, and more.</p></li>
+<li><p>oereblex support: avoid extract failure upon missing enactment_date in oereblex (#1093)</p></li>
+<li><p>Improve support of Python 3.7 in template Makefile and sample data loading (#1104, #1106)</p></li>
 </ul>
 </div></blockquote>
-</div>
-<div class="section" id="version-1-8-0">
+</section>
+<section id="version-1-8-0">
 <span id="changes-version-1-8-0"></span><h2>Version 1.8.0<a class="headerlink" href="#version-1-8-0" title="Permalink to this headline">¶</a></h2>
 <p>This release contains the following bug-fixes and improvements:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Fix bug affecting concurrent requests (#1068)</li>
-<li>Enhance federal data import script to make it more usable with Docker (#1078)</li>
-<li>For full extracts, add configuration parameter to make additional sld usage optional (#1077)</li>
+<li><p>Fix bug affecting concurrent requests (#1068)</p></li>
+<li><p>Enhance federal data import script to make it more usable with Docker (#1078)</p></li>
+<li><p>For full extracts, add configuration parameter to make additional sld usage optional (#1077)</p></li>
 </ul>
 </div></blockquote>
 <p>Note that this release requires Python 3.6 or higher.</p>
-</div>
-<div class="section" id="version-1-7-6">
+</section>
+<section id="version-1-7-6">
 <span id="changes-version-1-7-6"></span><h2>Version 1.7.6<a class="headerlink" href="#version-1-7-6" title="Permalink to this headline">¶</a></h2>
 <p>This is a maintenance release with the following changes:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Improve federal data import script (#1057)</li>
-<li>Update of all libraries used by pyramid_oereb that still work with Python2</li>
+<li><p>Improve federal data import script (#1057)</p></li>
+<li><p>Update of all libraries used by pyramid_oereb that still work with Python2</p></li>
 </ul>
 </div></blockquote>
 <p>This is the final maintenance release that includes Python2 compatibility.</p>
-</div>
-<div class="section" id="version-1-7-4">
+</section>
+<section id="version-1-7-4">
 <span id="changes-version-1-7-4"></span><h2>Version 1.7.4<a class="headerlink" href="#version-1-7-4" title="Permalink to this headline">¶</a></h2>
 <p>This is a maintenance release with the following changes:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Federal data import script: add SLD_VERSION for legend_at_web (#1022)</li>
-<li>Oereblex integration: add optional configuration &#8216;validation&#8217; to be able to deactivate
-XML validation (#1034)</li>
-<li>Restrict the version of the Shapely library used to 1.6 (#1037), to avoid problems with
-geometries which are valid according to INTERLIS but invalid according to OGC.</li>
+<li><p>Federal data import script: add SLD_VERSION for legend_at_web (#1022)</p></li>
+<li><p>Oereblex integration: add optional configuration ‘validation’ to be able to deactivate
+XML validation (#1034)</p></li>
+<li><p>Restrict the version of the Shapely library used to 1.6 (#1037), to avoid problems with
+geometries which are valid according to INTERLIS but invalid according to OGC.</p></li>
 </ul>
 </div></blockquote>
-</div>
-<div class="section" id="version-1-7-3">
+</section>
+<section id="version-1-7-3">
 <span id="changes-version-1-7-3"></span><h2>Version 1.7.3<a class="headerlink" href="#version-1-7-3" title="Permalink to this headline">¶</a></h2>
 <p>This is a maintenance release, with some bug-fixes (#1005, #1012) and library dependency updates,
 and the following new functionality:</p>
-<div class="section" id="oereblex-related-changes">
+<section id="oereblex-related-changes">
 <h3>Oereblex related changes<a class="headerlink" href="#oereblex-related-changes" title="Permalink to this headline">¶</a></h3>
 <p>pyramid_oereb now supports and uses by default the Oereblex geoLink schema version 1.2.0 (#1010):</p>
 <ul class="simple">
-<li>New doctype &#8216;notice&#8217; (will be classified as &#8216;HintRecord&#8217;). If you want to add related notices as
+<li><p>New doctype ‘notice’ (will be classified as ‘HintRecord’). If you want to add related notices as
 additional legal provisions directly on public law restrictions, you should set the new oereblex
-&#8216;related_notice_as_main&#8217; flag in the config of the project.</li>
-<li>&#8216;Notice&#8217; can have no authority nor enactment_date. In this case, the enactment date will be
-&#8216;01.01.1970&#8217; and the authority &#8216;-&#8216;.</li>
-<li>&#8216;Notice&#8217; can have no authority_at_web. In previous versions, this was not supported by MapFish Print.
-If you use MapFish Print with Oereblex 1.2.0, you must update your MapFish Print templates.</li>
-<li>The new document attribute &#8216;language&#8217; and the new file attribute &#8216;description&#8217; are currently not used by
-pyramid_oereb, but are now available to custom code, for example for document title generation.</li>
+‘related_notice_as_main’ flag in the config of the project.</p></li>
+<li><p>‘Notice’ can have no authority nor enactment_date. In this case, the enactment date will be
+‘01.01.1970’ and the authority ‘-‘.</p></li>
+<li><p>‘Notice’ can have no authority_at_web. In previous versions, this was not supported by MapFish Print.
+If you use MapFish Print with Oereblex 1.2.0, you must update your MapFish Print templates.</p></li>
+<li><p>The new document attribute ‘language’ and the new file attribute ‘description’ are currently not used by
+pyramid_oereb, but are now available to custom code, for example for document title generation.</p></li>
 </ul>
-</div>
-<div class="section" id="id1">
+</section>
+<section id="id1">
 <h3>MapFish Print related changes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>If you are using MapFish Print, you must update your print templates and configuration to v1.7.3.
 The following improvements have been made:</p>
 <ul class="simple">
-<li>The inclusion of all geometry data in the print payload is now configurable (#1006).
-MapFish Print users should set the print configuration parameter <code class="docutils literal"><span class="pre">`with_geometry`</span></code> to <code class="docutils literal"><span class="pre">`False`</span></code>
-to improve performance.</li>
-<li>It is now allowed to print reports with missing OfficeAtWeb information in documents, because
-OfficeAtWeb is an optional attribute in the specification (#62).</li>
+<li><p>The inclusion of all geometry data in the print payload is now configurable (#1006).
+MapFish Print users should set the print configuration parameter <code class="docutils literal notranslate"><span class="pre">`with_geometry`</span></code> to <code class="docutils literal notranslate"><span class="pre">`False`</span></code>
+to improve performance.</p></li>
+<li><p>It is now allowed to print reports with missing OfficeAtWeb information in documents, because
+OfficeAtWeb is an optional attribute in the specification (#62).</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="version-1-7-1">
+</section>
+</section>
+<section id="version-1-7-1">
 <span id="changes-version-1-7-1"></span><h2>Version 1.7.1<a class="headerlink" href="#version-1-7-1" title="Permalink to this headline">¶</a></h2>
 <p>This is a bug-fix release, relevant only for users of MapFish Print.</p>
-<div class="section" id="id2">
+<section id="id2">
 <h3>MapFish Print related changes<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>The computation of the &#8220;nr_of_points&#8221; used in the PDF generation has been fixed (#1002),
+<p>The computation of the “nr_of_points” used in the PDF generation has been fixed (#1002),
 and a redundant comma has been removed from the templates (pyramid_oereb_mfp #59).
 You should update your print templates and print configuration to release v1.7.1 of pyramid_oereb_mfp.</p>
-</div>
-</div>
-<div class="section" id="version-1-7-0">
+</section>
+</section>
+<section id="version-1-7-0">
 <span id="changes-version-1-7-0"></span><h2>Version 1.7.0<a class="headerlink" href="#version-1-7-0" title="Permalink to this headline">¶</a></h2>
 <p>This release includes some features requested by the user group, as well as bug-fixes:</p>
 <ul class="simple">
-<li>The performance of the Oereblex integration was improved, by using a per topic store (#993). No change in
-configuration is needed.</li>
-<li>A new statistics functionality was added (#987). If you wish to use this functionality, see <a class="reference internal" href="contrib/stats.html#contrib-stats"><span class="std std-ref">Statistics</span></a>.</li>
-<li>If you are using MapFish Print, you must update your configuration as described in the following section.</li>
+<li><p>The performance of the Oereblex integration was improved, by using a per topic store (#993). No change in
+configuration is needed.</p></li>
+<li><p>A new statistics functionality was added (#987). If you wish to use this functionality, see <a class="reference internal" href="contrib/stats.html#contrib-stats"><span class="std std-ref">Statistics</span></a>.</p></li>
+<li><p>If you are using MapFish Print, you must update your configuration as described in the following section.</p></li>
 </ul>
-<div class="section" id="id3">
+<section id="id3">
 <h3>MapFish Print related changes<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>In the print via MapFish Print, the table of contents page numbering was fixed (#983). The following configuration
 changes are necessary:</p>
 <ul class="simple">
-<li>In your pyramid_oereb project configuration, replace the print configuration parameter <code class="docutils literal"><span class="pre">multi_page_TOC</span></code>
-with the parameter <code class="docutils literal"><span class="pre">compute_toc_pages</span></code>; see the standard configuration file for an example and the description.</li>
-<li>In your print application, update your print templates and print configuration to release v1.7.0 of pyramid_oereb_mfp.</li>
+<li><p>In your pyramid_oereb project configuration, replace the print configuration parameter <code class="docutils literal notranslate"><span class="pre">multi_page_TOC</span></code>
+with the parameter <code class="docutils literal notranslate"><span class="pre">compute_toc_pages</span></code>; see the standard configuration file for an example and the description.</p></li>
+<li><p>In your print application, update your print templates and print configuration to release v1.7.0 of pyramid_oereb_mfp.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="version-1-6-0">
+</section>
+</section>
+<section id="version-1-6-0">
 <span id="changes-version-1-6-0"></span><h2>Version 1.6.0<a class="headerlink" href="#version-1-6-0" title="Permalink to this headline">¶</a></h2>
 <p>This release includes some features requested by the user group, as well as bug-fixes,
 please see the release notes for a complete list. In this page, we list the changes
 which potentially affect your project configuration or custom code:</p>
 <ul class="simple">
-<li>The OEREB logo is now multilingual (#915). See standard project configuration template for how to configure it.</li>
-<li>Logo and symbol URLs now have file extensions (#917).
+<li><p>The OEREB logo is now multilingual (#915). See standard project configuration template for how to configure it.</p></li>
+<li><p>Logo and symbol URLs now have file extensions (#917).
 Image types are now restricted to <em>PNG</em> and <em>SVG</em>, according to the federal specification.
-If you are using other image formats, you must convert them to one of the allowed types when migrating.</li>
-<li>Extract parameters are now passed to all readers and sources, to support multilingual oereblex integration (#943).
-If you have custom readers or sources (for example, to customize oereblex responses), you will need to adapt your code.</li>
-<li>An optional sorting of PLRs can be used via parameter <code class="docutils literal"><span class="pre">sort_within_themes_method</span></code> (#979).</li>
+If you are using other image formats, you must convert them to one of the allowed types when migrating.</p></li>
+<li><p>Extract parameters are now passed to all readers and sources, to support multilingual oereblex integration (#943).
+If you have custom readers or sources (for example, to customize oereblex responses), you will need to adapt your code.</p></li>
+<li><p>An optional sorting of PLRs can be used via parameter <code class="docutils literal notranslate"><span class="pre">sort_within_themes_method</span></code> (#979).</p></li>
 </ul>
-<div class="section" id="id4">
+<section id="id4">
 <h3>MapFish Print related changes<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>If you are using MapFish Print, you must update your print templates and configuration to v1.6.0.
 The following functionality is now available for configuration:</p>
 <ul class="simple">
-<li>You can group LegalProvisions by using the new parameter <code class="docutils literal"><span class="pre">group_legal_provisions</span></code> (#948).</li>
-<li>If you wish to keep generated PDFs on the server, use the new parameter <code class="docutils literal"><span class="pre">pdf_archive_path</span></code> (#982).</li>
-<li>If you need to keep specific parameters from your WMS URLs when printing, use the new section <code class="docutils literal"><span class="pre">wms_url_keep_params</span></code> (#986).</li>
+<li><p>You can group LegalProvisions by using the new parameter <code class="docutils literal notranslate"><span class="pre">group_legal_provisions</span></code> (#948).</p></li>
+<li><p>If you wish to keep generated PDFs on the server, use the new parameter <code class="docutils literal notranslate"><span class="pre">pdf_archive_path</span></code> (#982).</p></li>
+<li><p>If you need to keep specific parameters from your WMS URLs when printing, use the new section <code class="docutils literal notranslate"><span class="pre">wms_url_keep_params</span></code> (#986).</p></li>
 </ul>
-</div>
-<div class="section" id="xml2pdf-related-changes">
+</section>
+<section id="xml2pdf-related-changes">
 <h3>XML2PDF related changes<a class="headerlink" href="#xml2pdf-related-changes" title="Permalink to this headline">¶</a></h3>
 <p>If you are using XML2PDF, you have the following new configuration options:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">verify_certificate</span></code> (#905)</li>
-<li>proxy configuration (#938)</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">verify_certificate</span></code> (#905)</p></li>
+<li><p>proxy configuration (#938)</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="version-1-5-1">
+</section>
+</section>
+<section id="version-1-5-1">
 <span id="changes-version-1-5-1"></span><h2>Version 1.5.1<a class="headerlink" href="#version-1-5-1" title="Permalink to this headline">¶</a></h2>
 <p>This version contains bug-fixes and provides additional functionality: the integration of the XML2PDF
 service. The usage of this service is optional, if you do not use it, you do not need to change anything in your setup
 (as compared to version <a class="reference internal" href="#changes-version-1-5-0"><span class="std std-ref">Version 1.5.0</span></a>). Significant changes:</p>
 <ul class="simple">
-<li>Ensure XML Schema compliance (#872, #891)</li>
-<li>Fix polygon GML rendering (#830)</li>
-<li>Integration of XML2PDF service (#631, #883, #887)</li>
+<li><p>Ensure XML Schema compliance (#872, #891)</p></li>
+<li><p>Fix polygon GML rendering (#830)</p></li>
+<li><p>Integration of XML2PDF service (#631, #883, #887)</p></li>
 </ul>
-<div class="section" id="id5">
+<section id="id5">
 <h3>MapFish Print related changes<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>If you are using MapFish Print, you need to also update your print configuration when updating to pyramid_oereb version 1.5.1.
 <a class="reference external" href="https://github.com/openoereb/pyramid_oereb_mfp/releases/tag/v1.5.1">Check the files here</a>.</p>
-</div>
-</div>
-<div class="section" id="version-1-5-0">
+</section>
+</section>
+<section id="version-1-5-0">
 <span id="changes-version-1-5-0"></span><h2>Version 1.5.0<a class="headerlink" href="#version-1-5-0" title="Permalink to this headline">¶</a></h2>
 <p>The main focus of this release is improvements for the PDF generation with MapFish Print. In addition, there are
 some minor changes, bug-fixes and regular maintenance. If you are not using MapFish Print, you can upgrade to
 this version without changing your project setup as compared to version <a class="reference internal" href="#changes-version-1-4-3"><span class="std std-ref">Version 1.4.3</span></a>.
 If you are using MapFish Print, please read the following subsection carefully when upgrading your version.</p>
-<div class="section" id="id6">
+<section id="id6">
 <h3>MapFish Print related changes<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>This section lists those improvements for the PDF generation (when using MapFish Print) for which a change in your
 project setup is necessary:</p>
 <ul class="simple">
-<li>MapFish Print configuration and templates have been moved to their
+<li><p>MapFish Print configuration and templates have been moved to their
 <a class="reference external" href="https://github.com/openoereb/pyramid_oereb_mfp">own repository</a>.
-Be sure to check the version requirements stated on that project page.</li>
-<li>Additional URL parameters for WMS calls can now be configured (PR#831)</li>
-<li>Certification section can now be disabled in the configuration (PR#841)</li>
-<li>In some cases, the table of contents is longer than one page, however, the federal specification does not foresee
+Be sure to check the version requirements stated on that project page.</p></li>
+<li><p>Additional URL parameters for WMS calls can now be configured (PR#831)</p></li>
+<li><p>Certification section can now be disabled in the configuration (PR#841)</p></li>
+<li><p>In some cases, the table of contents is longer than one page, however, the federal specification does not foresee
 this situation. In previous releases, this lead to wrong page numbers displayed in the table of contents.
-PR#859 provides a solution by introducing <code class="docutils literal"><span class="pre">multi_page_TOC</span></code> property in the <code class="docutils literal"><span class="pre">print</span></code> section of the
-configuration. If you set this property to <code class="docutils literal"><span class="pre">true</span></code> (see <code class="docutils literal"><span class="pre">pyramid_oereb/standard/pyramid_oereb.yml.mako</span></code> as
+PR#859 provides a solution by introducing <code class="docutils literal notranslate"><span class="pre">multi_page_TOC</span></code> property in the <code class="docutils literal notranslate"><span class="pre">print</span></code> section of the
+configuration. If you set this property to <code class="docutils literal notranslate"><span class="pre">true</span></code> (see <code class="docutils literal notranslate"><span class="pre">pyramid_oereb/standard/pyramid_oereb.yml.mako</span></code> as
 an example), this will split the table of contents into separate pages: one for the available themes and another
-page for the remaining content of the table of content page. This feature is disabled by default.</li>
-<li>The Oereb PDF produced by MapFish Print is now PDF/A compliant; please see the following section for details.</li>
+page for the remaining content of the table of content page. This feature is disabled by default.</p></li>
+<li><p>The Oereb PDF produced by MapFish Print is now PDF/A compliant; please see the following section for details.</p></li>
 </ul>
-<div class="section" id="mapfish-print-pdf-a-conformance">
+<section id="mapfish-print-pdf-a-conformance">
 <h4>MapFish Print PDF/A conformance<a class="headerlink" href="#mapfish-print-pdf-a-conformance" title="Permalink to this headline">¶</a></h4>
 <p>For MapFish Print PDF files, PDF/A conformance is now enabled by default (PR#852). This is likely to break PDF printing
 in existing installations. To fix your configuration and data, make the following adaptations:</p>
 <ul class="simple">
-<li>All images (like logos for canton, confederation, municipality and OEREB) must not contain any transparency. If you
-use PNG, make sure to remove the alpha channel.</li>
-<li>Custom formatting may not include color values with transparency. For example, change all RGBA color values to RGB.</li>
+<li><p>All images (like logos for canton, confederation, municipality and OEREB) must not contain any transparency. If you
+use PNG, make sure to remove the alpha channel.</p></li>
+<li><p>Custom formatting may not include color values with transparency. For example, change all RGBA color values to RGB.</p></li>
 </ul>
-<p>You can disable PDF/A conformance by deleting the <code class="docutils literal"><span class="pre">net.sf.jasperreports.export.pdfa.conformance</span></code> property in
-<code class="docutils literal"><span class="pre">print/print-apps/oereb/pdfextract.jrxml</span></code>.</p>
-</div>
-</div>
-</div>
-<div class="section" id="version-1-4-3">
+<p>You can disable PDF/A conformance by deleting the <code class="docutils literal notranslate"><span class="pre">net.sf.jasperreports.export.pdfa.conformance</span></code> property in
+<code class="docutils literal notranslate"><span class="pre">print/print-apps/oereb/pdfextract.jrxml</span></code>.</p>
+</section>
+</section>
+</section>
+<section id="version-1-4-3">
 <span id="changes-version-1-4-3"></span><h2>Version 1.4.3<a class="headerlink" href="#version-1-4-3" title="Permalink to this headline">¶</a></h2>
 <p>This is a maintenance and bug-fix release.</p>
 <ul class="simple">
-<li>Fixed import script for federal topics (PR#821)</li>
-<li>Added test for ordering of non-concerned themes (PR#817)</li>
-<li>Fixed footer with disappearing page numbers with MapFish print 3.18 (PR#814)</li>
+<li><p>Fixed import script for federal topics (PR#821)</p></li>
+<li><p>Added test for ordering of non-concerned themes (PR#817)</p></li>
+<li><p>Fixed footer with disappearing page numbers with MapFish print 3.18 (PR#814)</p></li>
 </ul>
-</div>
-<div class="section" id="version-1-4-2">
+</section>
+<section id="version-1-4-2">
 <span id="changes-version-1-4-2"></span><h2>Version 1.4.2<a class="headerlink" href="#version-1-4-2" title="Permalink to this headline">¶</a></h2>
 <p>This is a maintenance and bug-fix release.</p>
 <ul class="simple">
-<li>Fixed an issue by downgrading a dependency which produces wrong coordinate reprojections (PR#810). We
+<li><p>Fixed an issue by downgrading a dependency which produces wrong coordinate reprojections (PR#810). We
 strongly recommend deleting your local dependencies and re-installing them to ensure a version lower than
 2.0.0 of pyproj is installed. By the time of this release, version 1.9.6 of pyproj is the most recent
-working version.</li>
+working version.</p></li>
 </ul>
-</div>
-<div class="section" id="version-1-4-1">
+</section>
+<section id="version-1-4-1">
 <span id="changes-version-1-4-1"></span><h2>Version 1.4.1<a class="headerlink" href="#version-1-4-1" title="Permalink to this headline">¶</a></h2>
 <p>This is a maintenance and bug-fix release.</p>
 <ul class="simple">
-<li>Fixed id types in oereblex models and model template, fixed documentation errors in standard models
+<li><p>Fixed id types in oereblex models and model template, fixed documentation errors in standard models
 and model template (PR#807).
 We strongly recommend re-generating any custom oereblex models using the create_oereblex_model script.
 Furthermore, we suggest that you re-generate any custom non-oereblex models using the create_standard_model
-script in order to have an accurate model documentation.</li>
+script in order to have an accurate model documentation.</p></li>
 </ul>
-</div>
-<div class="section" id="version-1-4-0">
+</section>
+<section id="version-1-4-0">
 <span id="changes-version-1-4-0"></span><h2>Version 1.4.0<a class="headerlink" href="#version-1-4-0" title="Permalink to this headline">¶</a></h2>
 <ul>
-<li><p class="first">properties <code class="docutils literal"><span class="pre">map.legend_at_web</span></code> and <code class="docutils literal"><span class="pre">sub_theme</span></code> are now multilingual:
-<code class="docutils literal"><span class="pre">legend_at_web</span></code> now supports one link per language. The <code class="docutils literal"><span class="pre">sub_theme</span></code> is shown in the requested (or default)
+<li><p>properties <code class="docutils literal notranslate"><span class="pre">map.legend_at_web</span></code> and <code class="docutils literal notranslate"><span class="pre">sub_theme</span></code> are now multilingual:
+<code class="docutils literal notranslate"><span class="pre">legend_at_web</span></code> now supports one link per language. The <code class="docutils literal notranslate"><span class="pre">sub_theme</span></code> is shown in the requested (or default)
 language.</p>
-<p>In the database, the field types changed from <code class="docutils literal"><span class="pre">VARCHAR</span></code> to <code class="docutils literal"><span class="pre">JSON</span></code>. You need to adapt your data
+<p>In the database, the field types changed from <code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code> to <code class="docutils literal notranslate"><span class="pre">JSON</span></code>. You need to adapt your data
 generation or existing data:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">legend_at_web</span></code> changes from <code class="docutils literal"><span class="pre">http://your_link</span></code> to <code class="docutils literal"><span class="pre">{'language':</span> <span class="pre">'http://your_link'}</span></code>
+<li><p><code class="docutils literal notranslate"><span class="pre">legend_at_web</span></code> changes from <code class="docutils literal notranslate"><span class="pre">http://your_link</span></code> to <code class="docutils literal notranslate"><span class="pre">{'language':</span> <span class="pre">'http://your_link'}</span></code>
 if you have only one language, or
-<code class="docutils literal"><span class="pre">{'languageA':</span> <span class="pre">'http://link_A',</span> <span class="pre">'languageB':</span> <span class="pre">'http://link_B'}</span></code> if you have multiple languages.</li>
-<li><code class="docutils literal"><span class="pre">sub_theme</span></code> changes from <code class="docutils literal"><span class="pre">Sub</span> <span class="pre">theme</span> <span class="pre">title</span></code> to <code class="docutils literal"><span class="pre">{'language':</span> <span class="pre">'Sub</span> <span class="pre">theme</span> <span class="pre">title'}</span></code>
+<code class="docutils literal notranslate"><span class="pre">{'languageA':</span> <span class="pre">'http://link_A',</span> <span class="pre">'languageB':</span> <span class="pre">'http://link_B'}</span></code> if you have multiple languages.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sub_theme</span></code> changes from <code class="docutils literal notranslate"><span class="pre">Sub</span> <span class="pre">theme</span> <span class="pre">title</span></code> to <code class="docutils literal notranslate"><span class="pre">{'language':</span> <span class="pre">'Sub</span> <span class="pre">theme</span> <span class="pre">title'}</span></code>
 if you have only one language, or
-<code class="docutils literal"><span class="pre">{'languageA':</span> <span class="pre">'Sub</span> <span class="pre">theme</span> <span class="pre">title</span> <span class="pre">A',</span> <span class="pre">'languageB':</span> <span class="pre">'Sub</span> <span class="pre">theme</span> <span class="pre">title</span> <span class="pre">B'}</span></code> if you have multiple languages.</li>
+<code class="docutils literal notranslate"><span class="pre">{'languageA':</span> <span class="pre">'Sub</span> <span class="pre">theme</span> <span class="pre">title</span> <span class="pre">A',</span> <span class="pre">'languageB':</span> <span class="pre">'Sub</span> <span class="pre">theme</span> <span class="pre">title</span> <span class="pre">B'}</span></code> if you have multiple languages.</p></li>
 </ul>
-<p>Language may be &#8216;de&#8217;, &#8216;fr&#8217;, &#8216;it&#8217;, &#8216;rm&#8217; or &#8216;en&#8217;.</p>
-<p>All models (standard and oereblex) have been adjusted to use <code class="docutils literal"><span class="pre">JSONType</span></code> instead of <code class="docutils literal"><span class="pre">sa.String</span></code> in each model.
-If you have custom models, adapt them accordingly. See <code class="docutils literal"><span class="pre">pyramid_oereb/contrib/templates/plr_oereb.py.mako</span></code>
+<p>Language may be ‘de’, ‘fr’, ‘it’, ‘rm’ or ‘en’.</p>
+<p>All models (standard and oereblex) have been adjusted to use <code class="docutils literal notranslate"><span class="pre">JSONType</span></code> instead of <code class="docutils literal notranslate"><span class="pre">sa.String</span></code> in each model.
+If you have custom models, adapt them accordingly. See <code class="docutils literal notranslate"><span class="pre">pyramid_oereb/contrib/templates/plr_oereb.py.mako</span></code>
 as reference. Remember that if these custom models are oereblex models which were generated by script without
 any further customization, you can remove these from your custom and switch to the already bundled models,
 see <a class="reference internal" href="#changes-version-1-3-1"><span class="std std-ref">Version 1.3.1</span></a>, to simplify your upgrade (and all future upgrades).</p>
-<p>The extracts and mapfish print templates are not affected. They only include the <code class="docutils literal"><span class="pre">legend_at_web</span></code> or <code class="docutils literal"><span class="pre">sub_theme</span></code>
+<p>The extracts and mapfish print templates are not affected. They only include the <code class="docutils literal notranslate"><span class="pre">legend_at_web</span></code> or <code class="docutils literal notranslate"><span class="pre">sub_theme</span></code>
 of the currently requested language.</p>
 </li>
 </ul>
-</div>
-<div class="section" id="version-1-3-1">
+</section>
+<section id="version-1-3-1">
 <span id="changes-version-1-3-1"></span><h2>Version 1.3.1<a class="headerlink" href="#version-1-3-1" title="Permalink to this headline">¶</a></h2>
 <p>This is a maintenance and bug-fix release. Amonst other changes, this version includes changes to the
 standard models and improvements to the standard configuration:</p>
 <ul class="simple">
-<li>fix of srid usage: if you have custom models in your project, you need to update them in analogy
+<li><p>fix of srid usage: if you have custom models in your project, you need to update them in analogy
 to the changes in the standard models in PR#736. Please note that if these custom models are oereblex
 models which were generated by script, you can now remove your custom models and switch
 to the already bundled oereblex models (available in the contrib/oereblex/models package); if you do
 this, the necessary changes will already be included and future updates will be easier.
-Alternatively, you can re-generate models from the scripts and re-apply your customization.</li>
-<li>standard translations: the standard configuration now contains all official theme translations.
+Alternatively, you can re-generate models from the scripts and re-apply your customization.</p></li>
+<li><p>standard translations: the standard configuration now contains all official theme translations.
 If your project configuration differs from these translations, we recommend you update your configuration
-accordingly.</li>
+accordingly.</p></li>
 </ul>
-</div>
-<div class="section" id="version-1-3-0">
+</section>
+<section id="version-1-3-0">
 <span id="changes-version-1-3-0"></span><h2>Version 1.3.0<a class="headerlink" href="#version-1-3-0" title="Permalink to this headline">¶</a></h2>
 <p>This version introduces an import facility for <strong>federal data</strong>. To support this, a new database attribute
 was needed, you therefore need to apply some changes to your project if you have been using
 <a class="reference internal" href="#changes-version-1-2-3"><span class="std std-ref">Version 1.2.3</span></a> or earlier.</p>
-<div class="section" id="configuration">
+<section id="configuration">
 <h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
 <p>Add a download link in each oereb theme where you want to use the download script.
 See the pyramid_oereb standard configuration file for an example. Or read optional installation hints chapter
 <a class="reference internal" href="installation.html#installation-step-sample-data"><span class="std std-ref">5. Load data (optional)</span></a>.</p>
-</div>
-<div class="section" id="models">
+</section>
+<section id="models">
 <h3>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h3>
-<p>If you have custom models (for example, for oereblex), you need to add an attribute <code class="docutils literal"><span class="pre">checksum</span></code> of type
+<p>If you have custom models (for example, for oereblex), you need to add an attribute <code class="docutils literal notranslate"><span class="pre">checksum</span></code> of type
 String to these (in class definition of <em>DataIntegration</em> model). Alternatively, you can recreate your models
 using the standard scripts. This will solve it for you.</p>
-</div>
-<div class="section" id="database">
+</section>
+<section id="database">
 <h3>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h3>
-<p>New column <code class="docutils literal"><span class="pre">checksum</span></code> in all oereb theme <em>DataIntegration</em> tables.</p>
-</div>
-</div>
-<div class="section" id="version-1-2-3">
+<p>New column <code class="docutils literal notranslate"><span class="pre">checksum</span></code> in all oereb theme <em>DataIntegration</em> tables.</p>
+</section>
+</section>
+<section id="version-1-2-3">
 <span id="changes-version-1-2-3"></span><h2>Version 1.2.3<a class="headerlink" href="#version-1-2-3" title="Permalink to this headline">¶</a></h2>
 <p>The version 1.2.3 fixes a print template bug present in <a class="reference internal" href="#changes-version-1-2-2"><span class="std std-ref">Version 1.2.2</span></a>. You do not need to change your configuration
 or schema.</p>
-</div>
-<div class="section" id="version-1-2-2">
+</section>
+<section id="version-1-2-2">
 <span id="changes-version-1-2-2"></span><h2>Version 1.2.2<a class="headerlink" href="#version-1-2-2" title="Permalink to this headline">¶</a></h2>
 <p>The version 1.2.2 is a bug-fix release for <a class="reference internal" href="#changes-version-1-2-1"><span class="std std-ref">Version 1.2.1</span></a>. You do not need to change your configuration
-or schema. However, you may wish to use the new optional configuration parameter <code class="docutils literal"><span class="pre">type_mapping</span></code> within
-<code class="docutils literal"><span class="pre">real_estate</span></code>, as this allows you to define the texts to be used for the types in the configuration, instead of
+or schema. However, you may wish to use the new optional configuration parameter <code class="docutils literal notranslate"><span class="pre">type_mapping</span></code> within
+<code class="docutils literal notranslate"><span class="pre">real_estate</span></code>, as this allows you to define the texts to be used for the types in the configuration, instead of
 needing to have them in the data.</p>
-</div>
-<div class="section" id="version-1-2-1">
+</section>
+<section id="version-1-2-1">
 <span id="changes-version-1-2-1"></span><h2>Version 1.2.1<a class="headerlink" href="#version-1-2-1" title="Permalink to this headline">¶</a></h2>
 <p>The version 1.2.1 is the first stable version that implements the new federal specification (published november 2017).
 Because this specification contains some new attributes (including mandatory attributes), and some renaming
 of attributes as compared to the previous version of the specification (implemented by pyramid_oereb
 in <a class="reference internal" href="#changes-version-1-1-0"><span class="std std-ref">Version 1.1.0</span></a>), you need to adapt your configuration and your models if you have used the previous version.</p>
-<div class="section" id="new-configuration-options-in-yml">
+<section id="new-configuration-options-in-yml">
 <span id="changes-new-config-options-1-2-1"></span><h3>New configuration options in yml<a class="headerlink" href="#new-configuration-options-in-yml" title="Permalink to this headline">¶</a></h3>
 <p>These are the new configuration options for your project (yml file):</p>
 <ul class="simple">
-<li>within the <code class="docutils literal"><span class="pre">plan_for_land_register</span></code> section:<ul>
-<li><code class="docutils literal"><span class="pre">layer_index</span></code></li>
-<li><code class="docutils literal"><span class="pre">layer_opacity</span></code></li>
+<li><p>within the <code class="docutils literal notranslate"><span class="pre">plan_for_land_register</span></code> section:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">layer_index</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">layer_opacity</span></code></p></li>
 </ul>
 </li>
-<li><code class="docutils literal"><span class="pre">plan_for_land_register_main_page</span></code>: new section, content like <code class="docutils literal"><span class="pre">plan_for_land_register</span></code></li>
-<li>within the <code class="docutils literal"><span class="pre">extract</span></code> section:<ul>
-<li><code class="docutils literal"><span class="pre">certification</span></code> (replaces certificationText)</li>
-<li><code class="docutils literal"><span class="pre">certification_at_web</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plan_for_land_register_main_page</span></code>: new section, content like <code class="docutils literal notranslate"><span class="pre">plan_for_land_register</span></code></p></li>
+<li><p>within the <code class="docutils literal notranslate"><span class="pre">extract</span></code> section:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">certification</span></code> (replaces certificationText)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">certification_at_web</span></code></p></li>
 </ul>
 </li>
-<li>within each theme, in the <code class="docutils literal"><span class="pre">view_service</span></code> section:<ul>
-<li><code class="docutils literal"><span class="pre">layer_index</span></code></li>
-<li><code class="docutils literal"><span class="pre">layer_opacity</span></code></li>
+<li><p>within each theme, in the <code class="docutils literal notranslate"><span class="pre">view_service</span></code> section:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">layer_index</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">layer_opacity</span></code></p></li>
 </ul>
 </li>
-<li>within the <code class="docutils literal"><span class="pre">print</span></code> section:<ul>
-<li><code class="docutils literal"><span class="pre">furtherInformationText</span></code> was removed. This information is not existing any longer regarding to changed
-federal specification for the static extract.</li>
+<li><p>within the <code class="docutils literal notranslate"><span class="pre">print</span></code> section:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">furtherInformationText</span></code> was removed. This information is not existing any longer regarding to changed
+federal specification for the static extract.</p></li>
 </ul>
 </li>
 </ul>
 <p>See the <a class="reference external" href="https://github.com/openoereb/pyramid_oereb/blob/v1.2.1/pyramid_oereb/standard/pyramid_oereb.yml.mako">pyramid_oereb_standard yml template</a>
 for the correct style of the configuration and an explanation of the new attributes.</p>
-<div class="section" id="mapfish-print">
+<section id="mapfish-print">
 <span id="changes-new-config-mapfish-print-1-2-1"></span><h4>MapFish Print<a class="headerlink" href="#mapfish-print" title="Permalink to this headline">¶</a></h4>
 <p>These are the new configuration options for the printing of your extracts:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">display_real_estate_subunit_of_land_register</span></code>: flag whether to display the RealEstate_SubunitOfLandRegister (Grundbuchkreis)
-in the pdf extract or not</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">display_real_estate_subunit_of_land_register</span></code>: flag whether to display the RealEstate_SubunitOfLandRegister (Grundbuchkreis)
+in the pdf extract or not</p></li>
 </ul>
-<p>See the <code class="docutils literal"><span class="pre">print</span></code> section at this place in the
+<p>See the <code class="docutils literal notranslate"><span class="pre">print</span></code> section at this place in the
 <a class="reference external" href="https://github.com/openoereb/pyramid_oereb/blob/v1.2.1/pyramid_oereb/standard/pyramid_oereb.yml.mako#L65">pyramid_oereb_standard yml template</a>
 for the correct style of the configuration.</p>
-</div>
-</div>
-<div class="section" id="id7">
+</section>
+</section>
+<section id="id7">
 <h3>Database<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <p>In the standard database schema, the following has changed:</p>
 <ul class="simple">
-<li>Primary keys in the standard tables are now of type <code class="docutils literal"><span class="pre">VARCHAR</span></code> (not <code class="docutils literal"><span class="pre">INTEGER</span></code>). Foreign key types need to be adapted accordingly as well.</li>
-<li>In the <code class="docutils literal"><span class="pre">document</span></code> table of each theme (i.e. <code class="docutils literal"><span class="pre">land_use_plans</span></code> scheme etc.), new attribute <code class="docutils literal"><span class="pre">document_type</span></code>.</li>
-<li>The <code class="docutils literal"><span class="pre">document_type</span></code> replaces the table <code class="docutils literal"><span class="pre">legal_provision</span></code> for each theme (i.e. <code class="docutils literal"><span class="pre">land_use_plans</span></code> scheme etc.), which no longer exists.</li>
+<li><p>Primary keys in the standard tables are now of type <code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code> (not <code class="docutils literal notranslate"><span class="pre">INTEGER</span></code>). Foreign key types need to be adapted accordingly as well.</p></li>
+<li><p>In the <code class="docutils literal notranslate"><span class="pre">document</span></code> table of each theme (i.e. <code class="docutils literal notranslate"><span class="pre">land_use_plans</span></code> scheme etc.), new attribute <code class="docutils literal notranslate"><span class="pre">document_type</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">document_type</span></code> replaces the table <code class="docutils literal notranslate"><span class="pre">legal_provision</span></code> for each theme (i.e. <code class="docutils literal notranslate"><span class="pre">land_use_plans</span></code> scheme etc.), which no longer exists.</p></li>
 </ul>
-</div>
-</div>
-<div class="section" id="version-1-1-0">
+</section>
+</section>
+<section id="version-1-1-0">
 <span id="changes-version-1-1-0"></span><h2>Version 1.1.0<a class="headerlink" href="#version-1-1-0" title="Permalink to this headline">¶</a></h2>
 <p>The stable version 1.1.0 contains a lot of changes. It can be counted as the first version to be used in
 production mode. When you are updating from previous version to 1.1.0 you will have to adjust your yml file.
 Description below will try to classify new options whether they are <em>optional</em> or <strong>mandatory</strong> to use the
 new version.
-Of course you also could use the way described in the <code class="docutils literal"><span class="pre">installation-step-configuration</span></code>. But then it will
+Of course you also could use the way described in the <code class="docutils literal notranslate"><span class="pre">installation-step-configuration</span></code>. But then it will
 create a completely new yml but valid file. In order to do that its up to your decision: Migrate new options
 to your existing configuration or migrate your custom configuration into a newly created file.</p>
 <p>Here is a list of features this version additionally implements compared to
 <a class="reference external" href="https://github.com/openoereb/pyramid_oereb/releases/tag/v1.0.1">1.0.1</a>:</p>
-<div class="section" id="oereblex">
+<section id="oereblex">
 <span id="changes-oereb-lex"></span><h3>OEREBlex<a class="headerlink" href="#oereblex" title="Permalink to this headline">¶</a></h3>
 <p>This version includes binding/adapter to oereb lex. The code can be found
 <a class="reference external" href="https://github.com/openoereb/pyramid_oereb/blob/v1.1.0/pyramid_oereb/contrib/sources/plr_oereblex.py">here</a>.
@@ -672,8 +591,8 @@ You can configure this per theme. If you have a theme which has all documents st
 will need a link to the dedicated set of documents for every public law restriction in this theme. You will
 end up with an attribute in the database table for your public law restriction which contains the link.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">OREBlex uses unique ids for the document sets. To prevent from storing redundant data and for
+<p class="admonition-title">Note</p>
+<p>OREBlex uses unique ids for the document sets. To prevent from storing redundant data and for
 simplifying things we decided to not store the complete link in database attribute but the id only!</p>
 </div>
 <p>Regarding to the note above we assume you have stored the correct id of your OEREBlex document set per public
@@ -681,19 +600,19 @@ law restriction in your database table.</p>
 <p>The next step is to define the sqlalchemy mappings. This works like normal mapping definition described here:
 <a class="reference internal" href="configuration.html#configuration-adapt-models"><span class="std std-ref">Adapt existing models</span></a>. The difference to the standard database configuration is here:</p>
 <ul class="simple">
-<li>All document related model classes are obsolete.</li>
-<li>The public law restriction class gets an attribute which is called geolink.</li>
-<li>Since all document related mapping can be ignored the mapping is slightly shorter than standard mapping.</li>
+<li><p>All document related model classes are obsolete.</p></li>
+<li><p>The public law restriction class gets an attribute which is called geolink.</p></li>
+<li><p>Since all document related mapping can be ignored the mapping is slightly shorter than standard mapping.</p></li>
 </ul>
 <p>Below you can find an example mapping.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>Have a detailed look at the PublicLawRestriction class and its attribute geolink. The name geolink
 must exist in the class to be able to use the prepared OEREBlex adapter. If you use different name in
 your database you can map it the known way:</p>
-<p class="last"><cite>geolink = sa.Column(&#8216;meine_eigene_spaltenbezeichnung&#8217;, sa.Integer, nullable=True)</cite></p>
+<p><cite>geolink = sa.Column(‘meine_eigene_spaltenbezeichnung’, sa.Integer, nullable=True)</cite></p>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sqlalchemy</span> <span class="k">as</span> <span class="nn">sa</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sqlalchemy</span> <span class="k">as</span> <span class="nn">sa</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.standard.models</span> <span class="kn">import</span> <span class="n">NAMING_CONVENTION</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="kn">import</span> <span class="n">srid</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="kn">import</span> <span class="n">declarative_base</span>
@@ -1032,45 +951,44 @@ your database you can map it the known way:</p>
 </div>
 <p>Next step would be configuration of the theme which is same like known. Only difference will be the use of
 oereb lex source. See chapter <a class="reference internal" href="#changes-new-config-oereb-lex"><span class="std std-ref">OEREBlex</span></a> to know how.</p>
-</div>
-<div class="section" id="changes-new-config-options">
+</section>
+<section id="changes-new-config-options">
 <span id="id8"></span><h3>New configuration options in yml<a class="headerlink" href="#changes-new-config-options" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="changes-new-config-mapfish-print">
+<section id="changes-new-config-mapfish-print">
 <span id="id9"></span><h4>MapFish Print<a class="headerlink" href="#changes-new-config-mapfish-print" title="Permalink to this headline">¶</a></h4>
 <p>See the <a class="reference external" href="https://github.com/openoereb/pyramid_oereb/blob/v1.1.0/pyramid_oereb/standard/pyramid_oereb.yml.mako#L65">pyramid_oereb_standard.yml</a>
 for the correct style of the configuration.</p>
 <ul class="simple">
-<li>improved print templates to fit federal definitions as good as possible</li>
-<li><dl class="first docutils">
-<dt>improved configuration in the <code class="docutils literal"><span class="pre">pyramid_oereb.yml</span></code> to better support requirements of different operators (multilingual)</dt>
-<dd><ul class="first last">
-<li><dl class="first docutils">
-<dt><strong>template_name</strong>:</dt>
-<dd>Defines the name of the mapfish print template which is used to provide static extract.</dd>
+<li><p>improved print templates to fit federal definitions as good as possible</p></li>
+<li><dl class="simple">
+<dt>improved configuration in the <code class="docutils literal notranslate"><span class="pre">pyramid_oereb.yml</span></code> to better support requirements of different operators (multilingual)</dt><dd><ul>
+<li><dl class="simple">
+<dt><strong>template_name</strong>:</dt><dd><p>Defines the name of the mapfish print template which is used to provide static extract.</p>
+</dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt><strong>headers</strong>:</dt>
-<dd>Defines the content type which is sent to mapfish print service by mapfish print proxy.
-This must be set to <cite>Content-Type: application/json; charset=UTF-8</cite></dd>
+<li><dl class="simple">
+<dt><strong>headers</strong>:</dt><dd><p>Defines the content type which is sent to mapfish print service by mapfish print proxy.
+This must be set to <cite>Content-Type: application/json; charset=UTF-8</cite></p>
+</dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt><strong>furtherInformationText</strong>:</dt>
-<dd>It must contain at least one of the following sub items which can contain a
+<li><dl class="simple">
+<dt><strong>furtherInformationText</strong>:</dt><dd><p>It must contain at least one of the following sub items which can contain a
 free text. It is used to point user to more cantonal information about the oereb. It can contain
 simple html markup. As sub item at least the configured default language must be defined: <em>de</em>, <em>fr</em>,
 <em>it</em>, <em>rm</em>
-Otherwise a &#8216;-&#8216; will be shown in resulting PDF.</dd>
+Otherwise a ‘-’ will be shown in resulting PDF.</p>
+</dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt><strong>certificationText</strong> :</dt>
-<dd>It must contain at least one of the following sub items which can contain a
+<li><dl class="simple">
+<dt><strong>certificationText</strong> :</dt><dd><p>It must contain at least one of the following sub items which can contain a
 free text. It is used to specify cantonal information about certification. It can contain
 simple html markup. As sub item at least the configured default language must be defined: <em>de</em>, <em>fr</em>,
 <em>it</em>, <em>rm</em>
-Otherwise a &#8216;-&#8216; will be shown in resulting PDF.</dd>
+Otherwise a ‘-’ will be shown in resulting PDF.</p>
+</dd>
 </dl>
 </li>
 </ul>
@@ -1080,11 +998,11 @@ Otherwise a &#8216;-&#8216; will be shown in resulting PDF.</dd>
 </ul>
 <p>Since behaviour of mapfish print service was updated you may want have a more detailed look at the docs of
 this package.</p>
-</div>
-<div class="section" id="theme-configuration">
+</section>
+<section id="theme-configuration">
 <span id="changes-new-config-themes"></span><h4>Theme configuration<a class="headerlink" href="#theme-configuration" title="Permalink to this headline">¶</a></h4>
 <p>Each theme configuration block included a threshold configuration like this:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="nt">thresholds</span><span class="p">:</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">thresholds</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">length</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w"></span>
 <span class="w">    </span><span class="c1"># Unit used internally only until now!</span><span class="w"></span>
@@ -1101,25 +1019,25 @@ this package.</p>
 </div>
 <p>Due to many code reorganisations and cleaning it turned out that this is not needed any longer. So now the
 block looks ways simpler as follows:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="nt">thresholds</span><span class="p">:</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">thresholds</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="nt">length</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w"></span>
 <span class="w">  </span><span class="nt">area</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="changes-new-config-oereb-lex">
+</section>
+<section id="changes-new-config-oereb-lex">
 <span id="id10"></span><h4>OEREBlex<a class="headerlink" href="#changes-new-config-oereb-lex" title="Permalink to this headline">¶</a></h4>
 <p>We assume you already defined your model mapping definition and your data is organized like described in
 chapter <a class="reference internal" href="#changes-oereb-lex"><span class="std std-ref">OEREBlex</span></a>. Then you only need to add/adjust your config in little details.</p>
 <p>The OEREBlex configuration is done in two places:</p>
 <ol class="arabic simple">
-<li>dedicated configuration block for OEREBlex common config</li>
-<li>inside of each theme configuration block which should use OEREBlex</li>
+<li><p>dedicated configuration block for OEREBlex common config</p></li>
+<li><p>inside of each theme configuration block which should use OEREBlex</p></li>
 </ol>
 <p>Find an example configuration for OEREBlex below:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="c1"># Configuration for OEREBlex</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configuration for OEREBlex</span><span class="w"></span>
 <span class="nt">oereblex</span><span class="p">:</span><span class="w"></span>
 <span class="w">  </span><span class="c1"># OEREBlex host</span><span class="w"></span>
 <span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://oereblex.bl.ch</span><span class="w"></span>
@@ -1150,14 +1068,14 @@ chapter <a class="reference internal" href="#changes-oereb-lex"><span class="std
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The configuration above is an example only. If you want to know more in detail what to configure
+<p class="admonition-title">Note</p>
+<p>The configuration above is an example only. If you want to know more in detail what to configure
 and why please have a detailed look at the documentation of the used package
 <a class="reference external" href="https://gf-bl.gitlab.io/python-geolink-formatter/v1.3.0/index.html">python_geolink_formatter</a> and
-<code class="docutils literal"><span class="pre">api.pyramid_oereb.contrib.sources.document.oereblexsource</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">api.pyramid_oereb.contrib.sources.document.oereblexsource</span></code>.</p>
 </div>
 <p>Find an example configuration for land use plans below:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plr73</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plr73</span><span class="w"></span>
 <span class="w">  </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch.Nutzungsplanung</span><span class="w"></span>
 <span class="w">  </span><span class="nt">geometry_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GEOMETRYCOLLECTION</span><span class="w"></span>
 <span class="w">  </span><span class="c1"># Define the minmal area and length for public law restrictions that should be considered as &#39;true&#39; restrictions</span><span class="w"></span>
@@ -1186,57 +1104,40 @@ and why please have a detailed look at the documentation of the used package
 <span class="w">    </span><span class="nt">AenderungOhneVorwirkung</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AenderungOhneVorwirkung</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="standard/index.html" class="btn btn-neutral float-right" title="Standard" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="configuration.html" class="btn btn-neutral float-left" title="Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="standard/index.html" class="btn btn-neutral float-right" title="Standard" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2017-2022, openoereb community.
-
-    </p>
+    <p>&#169; Copyright 2017-2022, openoereb community.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
