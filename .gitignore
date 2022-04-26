@@ -65,6 +65,7 @@ DataExtract.json
 
 #dynamic data
 .fed/
+.fed_check/
 /pyramid_oereb_dev/config/pyramid_oereb.yml
 /dev/database/structure/03_fill_dev_tables.sql
 /dev/database/structure/02_create_dev_tables.sql
@@ -75,5 +76,3 @@ DataExtract.json
 /coverage.core.xml
 /coverage.contrib-stats.xml
 /coverage.xml
-
-/.fed_check
