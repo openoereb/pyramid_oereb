@@ -3,8 +3,8 @@ flake8==4.0.1
 pycodestyle==2.8.0
 psycopg2==2.9.3
 McCabe==0.6.1
-Sphinx<1.6
-sphinx_rtd_theme
+Sphinx==4.3.2
+sphinx_rtd_theme==1.0.0
 c2c.template==2.3.0
 yappi
 -e .
