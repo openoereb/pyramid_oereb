@@ -13,12 +13,11 @@ from pyramid_oereb.contrib.data_sources.standard.models import (
 
 class Models(object):
 
-    def __init__(self, office, data_integration, view_service,
+    def __init__(self, office, view_service,
                  legend_entry, public_law_restriction, geometry, base,
                  db_connection, schema_name):
 
         self.Office = office
-        self.DataIntegration = data_integration
         self.ViewService = view_service
         self.LegendEntry = legend_entry
         self.PublicLawRestriction = public_law_restriction
