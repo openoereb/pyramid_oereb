@@ -267,7 +267,7 @@
                 <span class="s1">&#39;document_type&#39;</span><span class="p">:</span> <span class="n">document_type</span><span class="p">,</span>
                 <span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
                 <span class="s1">&#39;law_status&#39;</span><span class="p">:</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_law_status_by_data_code</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_code</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;inKraft&#39;</span><span class="p">),</span>
-                <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_multilingual</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">title</span> <span class="ow">or</span> <span class="n">document</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">language</span><span class="p">),</span>
+                <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_document_title</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">language</span><span class="p">),</span>
                 <span class="s1">&#39;responsible_office&#39;</span><span class="p">:</span> <span class="n">office</span><span class="p">,</span>
                 <span class="s1">&#39;published_from&#39;</span><span class="p">:</span> <span class="n">enactment_date</span><span class="p">,</span>  <span class="c1"># TODO: Use &quot;publication_date&quot; instead?</span>
                 <span class="s1">&#39;published_until&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># TODO: Use &quot;abrogation_date&quot;?</span>
@@ -280,6 +280,23 @@
             <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DocumentRecord</span><span class="p">(</span><span class="o">**</span><span class="n">arguments</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="n">records</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_get_document_title</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">current_file</span><span class="p">,</span> <span class="n">language</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the title of the document/file. Extracting this logic allows</span>
+<span class="sd">        easier customization of the file title.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            document (geolink_formatter.entity.Document): The document entity.</span>
+<span class="sd">            current_file (geolink_formatter.entity.File): The file, which gets annotated with a title.</span>
+<span class="sd">            language (str): The language of the document title.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: Title of document.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Assign multilingual values</span>
+        <span class="k">return</span> <span class="n">OEREBlexSource</span><span class="o">.</span><span class="n">_get_multilingual</span><span class="p">(</span><span class="n">current_file</span><span class="o">.</span><span class="n">title</span> <span class="ow">or</span> <span class="n">document</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">language</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_mapped_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">language</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
