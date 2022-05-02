@@ -1,0 +1,99 @@
+
+[
+    {
+        "id": "CHE304459014",
+        "uid": "CHE304459014",
+        "name": {
+            "de": "Bundesamt für Strassen ASTRA",
+            "fr": "Office fédérale des routes OFROU",
+            "it": "Ufficio federale delle strade USTRA",
+            "en": "https://www.astra.admin.ch/astra/en/home.html"
+        },
+        "office_at_web": {
+            "de": "https://www.astra.admin.ch/astra/de/home.html",
+            "fr": "https://www.astra.admin.ch/astra/fr/home.html",
+            "it": "https://www.astra.admin.ch/astra/it/home.html",
+            "en": "https://www.astra.admin.ch/astra/en/home.html"
+        }
+    },
+    {
+        "id": "CHE123456789",
+        "uid": "CHE123456789",
+        "name": {
+            "de": "Amt für kantonale Raumplanung",
+            "fr": "Office cantonale",
+            "it": "Ufficio cantonale",
+            "en": "Cantonal office"
+        },
+        "office_at_web": {
+            "de": "https://123456789.canton.ch/de",
+            "fr": "https://123456789.canton.ch/fr",
+            "it": "https://123456789.canton.ch/it",
+            "en": "https://123456789.canton.ch/en"
+        }
+    },
+    {
+        "id": "amt375954115",
+        "uid": "CHE132071565",
+        "name": {
+            "de": "Generalsekretariat VBS",
+            "fr": "Secrétariat général du DDPS",
+            "it": "Segreteria generale del DDPS",
+            "en": "General Secretariat DDPS"
+        },
+        "office_at_web": {
+            "de": "https://www.vbs.admin.ch/de/vbs/organisation/verwaltungseinheiten/generalsekretariat.html",
+            "fr": "https://www.vbs.admin.ch/fr/ddps/organisation/unites-administratives/secretariat-general.html",
+            "it": "https://www.vbs.admin.ch/it/ddps/organizzazione/unita-amministrative/segreteria-generale.html",
+            "en": "https://www.vbs.admin.ch/en/ddps/organisation/administrative-units/general-secretariat.html"
+        }
+    },
+    {
+        "id": "amt40",
+        "uid": "CHE264708255",
+        "name": {
+            "de": "Bundesamt für Verkehr BAV",
+            "fr": "Office fédéral des transports OFT",
+            "it": "Ufficio federale dei trasporti UFT",
+            "en": "Federal Office of Transport FOT"
+        },
+        "office_at_web": {
+            "de": "https://www.bav.admin.ch/bav/de/home/contact.html",
+            "fr": "https://www.bav.admin.ch/bav/fr/home/contact.html",
+            "it": "https://www.bav.admin.ch/bav/it/home/contact.html",
+            "en": "https://www.bav.admin.ch/bav/en/home/contact.html"
+        }
+    },
+    {
+        "id": "amt132",
+        "uid": "CHE132",
+        "name": {
+            "de": "Amt für kantonale Waldplanung",
+            "fr": "Office cantonale",
+            "it": "Ufficio cantonale",
+            "en": "Cantonal office"
+        },
+        "office_at_web": {
+            "de": "https://123456789.canton.ch/de",
+            "fr": "https://123456789.canton.ch/fr",
+            "it": "https://123456789.canton.ch/it",
+            "en": "https://123456789.canton.ch/en"
+        }
+    },
+    {
+        "id": "amt321",
+        "uid": "CHE321",
+        "name": {
+            "de": "Amt für kantonale Gewässerschutz",
+            "fr": "Office cantonale",
+            "it": "Ufficio cantonale",
+            "en": "Cantonal office"
+        },
+        "office_at_web": {
+            "de": "https://123456789.canton.ch/de",
+            "fr": "https://123456789.canton.ch/fr",
+            "it": "https://123456789.canton.ch/it",
+            "en": "https://123456789.canton.ch/en"
+        }
+    }
+]
