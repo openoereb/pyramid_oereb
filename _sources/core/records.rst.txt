@@ -42,6 +42,22 @@ Records
 
    .. automethod:: __init__
 
+.. _api-pyramid_oereb-core-records-data_integration:
+
+.. automodule:: pyramid_oereb.core.records.data_integration
+
+.. _api-pyramid_oereb-core-records-data_integration-dataintegrationrecord:
+
+*DataIntegrationRecord*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.records.data_integration.DataIntegrationRecord
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
 .. _api-pyramid_oereb-core-records-disclaimer:
 
 .. automodule:: pyramid_oereb.core.records.disclaimer

@@ -32,6 +32,18 @@ Availability
    .. automethod:: __init__
 
 
+.. _api-pyramid_oereb-contrib-data_sources-standard-models-main-dataintegration:
+
+DataIntegration
+~~~~~~~~~~~~~~~
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.models.main.DataIntegration
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+
 .. _api-pyramid_oereb-contrib-data_sources-standard-models-main-disclaimer:
 
 Disclaimer

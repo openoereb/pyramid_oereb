@@ -48,6 +48,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Readers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#addressreader"><em>AddressReader</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#availabilityreader"><em>AvailabilityReader</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dataintegrationreader"><em>DataIntegrationReader</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#disclaimerreader"><em>DisclaimerReader</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#documentreader"><em>DocumentReader</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#documenttypereader"><em>DocumentTypeReader</em></a></li>
@@ -208,6 +209,59 @@ contains all records delivered by the source.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>list of pyramid_oereb.core.records.availability.AvailabilityRecord</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.core.readers.data_integration"><span id="api-pyramid-oereb-core-readers-data-integration"></span></span></section>
+<section id="dataintegrationreader">
+<span id="api-pyramid-oereb-core-readers-data-integration-dataintegrationreader"></span><h2><em>DataIntegrationReader</em><a class="headerlink" href="#dataintegrationreader" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.data_integration.DataIntegrationReader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.data_integration.</span></span><span class="sig-name descname"><span class="pre">DataIntegrationReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/data_integration.html#DataIntegrationReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.data_integration.DataIntegrationReader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The central reader for the data integration definitions. It is directly bound to a so called source
+which is defined by a pythonic dotted string to the class definition of this source.
+An instance of the passed source will be created on instantiation of this reader class by passing through
+the parameter kwargs.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.data_integration.DataIntegrationReader.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/data_integration.html#DataIntegrationReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.data_integration.DataIntegrationReader.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>or</strong> (<em>dotted_source_class_path</em><em> (</em><em>str</em>) – pyramid_oereb.core.sources.data_integration.DataIntegrationBaseSource):
+The path to the class which represents the source used by this reader. This
+class must exist and it must implement basic source behaviour of the
+<span class="xref std std-ref">api-pyramid_oereb-core-sources-data_integration-dataintegrationbasesource</span>.</p></li>
+<li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
+dotted name defined class.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.readers.data_integration.DataIntegrationReader.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/data_integration.html#DataIntegrationReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.data_integration.DataIntegrationReader.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>The read method of this reader. There we invoke the read method of the bound source.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you construct a subclass of this class your implementation needs to offer this
+method in the same signature. Means the parameters must be the same and the return
+must be a list of
+<span class="xref std std-ref">api-pyramid_oereb-core-records-data_integration-dataintegrationbaserecord</span>.
+Otherwise the API like way the server works would be broken.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
+contains all records delivered by the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list of pyramid_oereb.core.records.data_integration.DataIntegrationRecord</p>
 </dd>
 </dl>
 </dd></dl>

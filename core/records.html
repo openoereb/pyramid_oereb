@@ -49,6 +49,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Records</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#addressrecord"><em>AddressRecord</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#availabilityrecord"><em>AvailabilityRecord</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dataintegrationrecord"><em>DataIntegrationRecord</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#disclaimerrecord"><em>DisclaimerRecord</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#documenttyperecord"><em>DocumentTypeRecord</em></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#documentrecord"><em>DocumentRecord</em></a></li>
@@ -201,6 +202,38 @@ the shapely library (<a class="reference external" href="https://pypi.python.org
 <li><p><strong>fosnr</strong> (<em>int</em>) – The unique id of the municipality.</p></li>
 <li><p><strong>theme_code</strong> (<em>str</em>) – The theme_code which is affected to be available or not.</p></li>
 <li><p><strong>available</strong> (<em>bool</em>) – Switch if data is available in municipality and theme/sub theme or not.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.core.records.data_integration"><span id="api-pyramid-oereb-core-records-data-integration"></span></span></section>
+<section id="dataintegrationrecord">
+<span id="api-pyramid-oereb-core-records-data-integration-dataintegrationrecord"></span><h2><em>DataIntegrationRecord</em><a class="headerlink" href="#dataintegrationrecord" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.core.records.data_integration.DataIntegrationRecord">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.records.data_integration.</span></span><span class="sig-name descname"><span class="pre">DataIntegrationRecord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checksum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">office</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theme_identifier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">office_identifier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/data_integration.html#DataIntegrationRecord"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.records.data_integration.DataIntegrationRecord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.core.records.data_integration.DataIntegrationRecord.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checksum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">office</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theme_identifier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">office_identifier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/data_integration.html#DataIntegrationRecord.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.records.data_integration.DataIntegrationRecord.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>The record to check if data is available for municipality.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> (<em>datetime.date</em>) – The date when data for the theme was delivered.</p></li>
+<li><p><strong>theme</strong> (<em>pyramid_oereb.core.records.ThemeRecord</em><em> or </em><em>None</em>) – The theme code
+which this element belongs to.</p></li>
+<li><p><strong>office</strong> (<a class="reference internal" href="#pyramid_oereb.core.records.office.OfficeRecord" title="pyramid_oereb.core.records.office.OfficeRecord"><em>pyramid_oereb.core.records.office.OfficeRecord</em></a><em> or </em><em>None</em>) – The office
+this element belongs to.</p></li>
+<li><p><strong>checksum</strong> (<em>str</em><em> or </em><em>None</em>) – A checksum to persist the data state which is in the
+db. It is thought to be a helper field to check if import is necessary.</p></li>
+<li><p><strong>theme_identifier</strong> (<em>str</em><em>|</em><em>int</em><em>|</em><em>None</em>) – The identifier which can be used to match the
+corresponding theme.</p></li>
+<li><p><strong>office_identifier</strong> (<em>str</em><em>|</em><em>int</em><em>|</em><em>None</em>) – The identifier which can be used to match the
+corresponding office.</p></li>
 </ul>
 </dd>
 </dl>

@@ -97,7 +97,7 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.contrib.data_sources.standard.models</span> <span class="kn">import</span> <span class="n">get_office</span><span class="p">,</span> <span class="n">get_document</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">PrimaryKeyConstraint</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">,</span> <span class="n">UniqueConstraint</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">PrimaryKeyConstraint</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">,</span> <span class="n">UniqueConstraint</span><span class="p">,</span> <span class="n">DateTime</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Unicode</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">Boolean</span><span class="p">,</span> <span class="n">Float</span>
 <span class="kn">from</span> <span class="nn">geoalchemy2</span> <span class="kn">import</span> <span class="n">Geometry</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="kn">import</span> <span class="n">declarative_base</span>
@@ -424,6 +424,32 @@
     <span class="n">municipality_fosnr</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Municipality</span><span class="o">.</span><span class="n">fosnr</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">theme_code</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">available</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">Boolean</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DataIntegration"><a class="viewcode-back" href="../../../../../../standard/models/pyramid_oereb_contrib_data_sources_standard_models_main.html#pyramid_oereb.contrib.data_sources.standard.models.main.DataIntegration">[docs]</a><span class="k">class</span> <span class="nc">DataIntegration</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The bucket to fill in the date when this whole schema was updated. It has a relation to the</span>
+<span class="sd">    office to be able to find out who was the delivering instance.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        id (str): The identifier. This is used in the database only and must not be set manually. If</span>
+<span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">        date (datetime.date): The date when this data set was delivered.</span>
+<span class="sd">        theme_code (str): the theme code which this switch element belongs to.</span>
+<span class="sd">        office_id (str): A foreign key which points to the actual office instance.</span>
+<span class="sd">        office (pyramid_oereb.standard.models.airports_building_lines.Office):</span>
+<span class="sd">            The actual office instance which the id points to.</span>
+<span class="sd">        checksum (str): A checksum to persist the data state which is in the db. It is thought</span>
+<span class="sd">            to be a helper field to check if import is necessary.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="n">app_schema_name</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;data_integration&#39;</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">autoincrement</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">DateTime</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">theme_code</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">office_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Office</span><span class="o">.</span><span class="n">id</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">office</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="n">Office</span><span class="p">)</span>
+    <span class="n">checksum</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

@@ -42,6 +42,22 @@ Readers
 
    .. automethod:: __init__
 
+.. _api-pyramid_oereb-core-readers-data_integration:
+
+.. automodule:: pyramid_oereb.core.readers.data_integration
+
+.. _api-pyramid_oereb-core-readers-data_integration-dataintegrationreader:
+
+*DataIntegrationReader*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.core.readers.data_integration.DataIntegrationReader
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
 .. _api-pyramid_oereb-core-readers-disclaimer:
 
 .. automodule:: pyramid_oereb.core.readers.disclaimer
