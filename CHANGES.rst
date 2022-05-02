@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.0.2
+-----
+- Oereblex integration: facilitate customization of title logic (#1556)
+- Fix automated documentation publication (#1555)
+- Improve automated testing of federal data (#1548)
+
 2.0.1
 -----
 - Disclaimer, glossary and municipality are now read only on startup, to improve performance (#1544)

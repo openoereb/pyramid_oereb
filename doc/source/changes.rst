@@ -6,6 +6,16 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+.. _changes-version-2.0.2:
+
+Version 2.0.2
+-------------
+Bug-fix release:
+
+ * Oereblex integration: facilitate customization of title logic (#1556)
+ * Fix automated documentation publication (#1555)
+ * Improve automated testing of federal data (#1548)
+
 .. _changes-version-2.0.1:
 
 Version 2.0.1
