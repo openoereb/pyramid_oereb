@@ -3,7 +3,7 @@ from pyramid_oereb.core.sources import Base
 from pyramid_oereb.core.records.data_integration import DataIntegrationRecord
 
 
-class AvailabilityBaseSource(Base):
+class DataIntegrationBaseSource(Base):
     """
     Base class for data integration sources.
 
