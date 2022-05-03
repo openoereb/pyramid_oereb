@@ -78,6 +78,7 @@ Some local files may remain from previous builds, and the regular user may not b
 In this case cleanup can be done like:
 
 .. code-block:: bash
+
   docker-compose run --rm oereb-make clean-all
 
 
