@@ -70,12 +70,12 @@ Sources
 .. automodule:: pyramid_oereb.core.sources.data_integration
 
 
-.. _api-pyramid_oereb-core-sources-data_integration-availabilitybasesource:
+.. _api-pyramid_oereb-core-sources-data_integration-dataintegrationbasesource:
 
-*AvailabilityBaseSource*
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+*DataIntegrationBaseSource*
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. autoclass:: pyramid_oereb.core.sources.data_integration.AvailabilityBaseSource
+.. autoclass:: pyramid_oereb.core.sources.data_integration.DataIntegrationBaseSource
    :members:
    :inherited-members:
 
