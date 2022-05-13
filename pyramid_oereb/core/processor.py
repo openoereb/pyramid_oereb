@@ -54,6 +54,26 @@ class Processor(object):
             record.documents = published_docs
         return record
 
+    def filter_documents_by_fosnr(self, record, fosnr):
+        """
+        Filter documents that are only relevant for one municipality.
+
+        Args:
+            record (pyramid_oereb.core.records.plr.PlrRecord or
+                pyramid_oereb.core.records.documents.DocumentRecord): The public law restriction or
+                document record.
+            fosnr (int): The fosnr (= id bfs) of the municipality.
+        """
+        relevant_docs = list()
+        if isinstance(record, PlrRecord):
+            for doc in record.documents:
+                if doc.only_in_municipality in [None, fosnr]:
+                    relevant_docs.append(doc)
+                else:
+                    log.debug("filtering out document (not relevant for this municipality) {}".format(doc))
+            record.documents = relevant_docs
+        return record
+
     def plr_tolerance_check(self, extract):
         """
         The function checking if the found plr results exceed the minimal surface or length
@@ -78,7 +98,10 @@ class Processor(object):
                 if public_law_restriction.calculate(real_estate, Config.get('geometry_types')):
                     log.debug("plr_tolerance_check: keeping as potentially concerned plr {}".
                               format(public_law_restriction))
-                    inside_plrs.append(self.filter_published_documents(public_law_restriction))
+                    public_law_restriction = self.filter_documents_by_fosnr(public_law_restriction,
+                                                                            real_estate.fosnr)
+                    public_law_restriction = self.filter_published_documents(public_law_restriction)
+                    inside_plrs.append(public_law_restriction)
                 else:
                     log.debug("plr_tolerance_check: removing from the concerned plrs {}".
                               format(public_law_restriction))
