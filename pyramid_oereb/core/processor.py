@@ -76,9 +76,11 @@ class Processor(object):
 
     def plr_tolerance_check(self, extract):
         """
-        The function checking if the found plr results exceed the minimal surface or length
-        value defined in the configuration and should therefor be represented in the extract
-        or considered 'false trues' and be removed from the results.
+        The function checks if the found plr results exceed the minimal surface or length
+        value defined in the configuration and therefore should be represented in the extract
+        or if they should be considered as 'false trues' and be removed from the results.
+        In addition, this function filters these documents out that are not published or that are not
+        relevant for the municipality the real estate is located in.
 
         Args:
             extract (pyramid_oereb.lib.records.extract.ExtractRecord): The extract in it's
