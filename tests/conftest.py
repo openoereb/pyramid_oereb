@@ -458,6 +458,34 @@ def land_use_plans(pyramid_oereb_test_config, dbsession, transact, wms_url_conta
             'text_at_web': {'de': 'http://www.admin.ch/ch/d/sr/c814_01.html'},
             'abbreviation': {'de': 'USG', 'fr': 'LPE', 'it': 'LPAmb', 'en': 'EPA'},
             'official_number': {'de': 'SR 814.01'},
+        }),
+        models.Document(**{
+            'id': 3,
+            'document_type': 'GesetzlicheGrundlage',
+            'index': 1,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'title': {'de': 'First level document'},
+            'office_id': 1,
+            'text_at_web': {'de': 'http://www.admin.ch/ch/d/sr/c814_01.html'},
+            'abbreviation': {'de': 'USG', 'fr': 'LPE', 'it': 'LPAmb', 'en': 'EPA'},
+            'official_number': {'de': 'SR 814.01'},
+            'only_in_municipality': 1234
+        }),
+        models.Document(**{
+            'id': 4,
+            'document_type': 'GesetzlicheGrundlage',
+            'index': 1,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'title': {'de': 'First level document'},
+            'office_id': 1,
+            'text_at_web': {'de': 'http://www.admin.ch/ch/d/sr/c814_01.html'},
+            'abbreviation': {'de': 'USG', 'fr': 'LPE', 'it': 'LPAmb', 'en': 'EPA'},
+            'official_number': {'de': 'SR 814.01'},
+            'only_in_municipality': 1235
         })
     }
     dbsession.add_all(documents)
@@ -472,6 +500,16 @@ def land_use_plans(pyramid_oereb_test_config, dbsession, transact, wms_url_conta
             'id': 2,
             'public_law_restriction_id': 1,
             'document_id': 2,
+        }),
+        models.PublicLawRestrictionDocument(**{
+            'id': 3,
+            'public_law_restriction_id': 1,
+            'document_id': 3,
+        }),
+        models.PublicLawRestrictionDocument(**{
+            'id': 4,
+            'public_law_restriction_id': 1,
+            'document_id': 4,
         })
     }
     dbsession.add_all(plr_documents)

@@ -203,5 +203,37 @@
       "fr": "B61001",
       "it": "B61001"
     }
+  }, {
+    "office_id": 1,
+    "published_from": "2016-02-25",
+    "id": 1297,
+    "document_type": "Rechtsvorschrift",
+    "index": 2,
+    "text_at_web": {
+      "de": "https://www.bav.admin.ch/dam/bav/de/dokumente/das-bav/finanzierung/faktenblatt_fernverkehr_konzessionierung.pdf.download.pdf/d_Faktenblatt_Fernverkehr_und_Konzessionierung%20.pdf"
+    },
+    "law_status": "inKraft",
+    "title": {
+      "de": "Rechtsvorschrift für Gemeinde 2771",
+      "fr": "Dispositions juridiques pour commune 2771",
+      "it": "Prescrizione legale per commune 2771"
+    },
+    "only_in_municipality": 2771
+  }, {
+    "office_id": 1,
+    "published_from": "2016-02-25",
+    "id": 1298,
+    "document_type": "Rechtsvorschrift",
+    "index": 2,
+    "text_at_web": {
+      "de": "https://www.bav.admin.ch/dam/bav/de/dokumente/das-bav/finanzierung/faktenblatt_fernverkehr_konzessionierung.pdf.download.pdf/d_Faktenblatt_Fernverkehr_und_Konzessionierung%20.pdf"
+    },
+    "law_status": "inKraft",
+    "title": {
+      "de": "Rechtsvorschrift für Gemeinde 2772",
+      "fr": "Dispositions juridiques pour commune 2772",
+      "it": "Prescrizione legale per commune 2772"
+    },
+    "only_in_municipality": 2772
   }
 ]

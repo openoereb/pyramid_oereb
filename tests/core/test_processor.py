@@ -80,7 +80,7 @@ def test_process_geometry_testing(processor_data, real_estate_data, land_use_pla
             assert g._test_passed
 
 
-def test_filter_published_documents(processor_data, real_estate_data, main_schema, land_use_plans):
+def test_filter_documents(processor_data, real_estate_data, main_schema, land_use_plans):
     request = MockRequest()
     request.matchdict.update(request_matchdict)
     request.params.update(request_params)
@@ -93,7 +93,9 @@ def test_filter_published_documents(processor_data, real_estate_data, main_schem
     assert len(plrs) == 1
     for plr in plrs:
         if plr.theme.code == u'ch.Nutzungsplanung':
-            assert len(plr.documents) == 1
+            assert len(plr.documents) == 2
+            for document in plr.documents:
+                assert document.only_in_municipality in [None, 1234]
 
 
 def test_processor_with_images(processor_data, real_estate_data):
