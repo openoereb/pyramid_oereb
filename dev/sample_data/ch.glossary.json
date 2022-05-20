@@ -59,7 +59,7 @@
         "content": {
             "de": "Eidgenössischer Grundstücksidentifikator; Aus einem Präfix und einer Nummer bestehende Bezeichnung, die es erlaubt, jedes in das Grundbuch aufgenommene Grundstück landesweit eindeutig zu identifizieren, und die zum Datenaustausch zwischen Informatiksystemen dient.",
             "fr": "Identificateur fédéral des immeubles; Désignation composée d'un préfixe et d'un numéro qui permet l'identification univoque pour tout le pays de chaque immeuble immatriculé au registre foncier et sert à l'échange des données entre les systèmes informatiques.",
-            "it": "Identificatore federale dei fondi; Identificatore federale dei fondi; designazione composta da un prefisso e da un numero che permette di identificare in modo univoco ogni fondo iscritto nel registro fondiario in tutto il Paese e che viene utilizzato per lo scambio di dati tra sistemi informatici.",
+            "it": "Identificatore federale dei fondi; designazione composta da un prefisso e da un numero che permette di identificare in modo univoco ogni fondo iscritto nel registro fondiario in tutto il Paese e che viene utilizzato per lo scambio di dati tra sistemi informatici.",
             "rm": "Identificaziun federala dals bains immobigliars; Indicaziun che consista d'in prefix e d'in numer che permetta d'identifitgar precis mintga immobiglia registrada en il cudesch funsil e che serva al barat da datas tranter ils sistems d'informatica.",
             "en": "Official real estate identifier: A designation comprising a prefix and a number by means of which every plot recorded in the land register throughout the country can be unequivocally identified; these identifiers are also used for exchanging data between IT systems."
         }
