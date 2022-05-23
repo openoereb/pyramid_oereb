@@ -68,11 +68,11 @@ class DatabaseOEREBlexSource(DatabaseSource):
         """
         oereblex_params = None
         url_param_config = self._oereblex_source._url_param_config
+        plr_code = self._plr_info.get('code')
         if url_param_config:
-            plr_code = self._theme_record.code
             oereblex_params = DatabaseOEREBlexSource.get_config_value_for_plr_code(url_param_config, plr_code)
         law_status = Config.get_law_status_by_data_code(
-            self._plr_info.get('code'),
+            plr_code,
             public_law_restriction_from_db.law_status
         )
         return self.document_records_from_oereblex(params, public_law_restriction_from_db.geolink,
