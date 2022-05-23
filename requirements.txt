@@ -1,12 +1,12 @@
-PyPDF2==1.27.5
-filetype==1.0.10
-geoalchemy2==0.10.2
+PyPDF2==1.28.1
+filetype==1.0.13
+geoalchemy2==0.11.1
 pyramid==1.10.8 # rq.filter: <2
 pyramid-debugtoolbar==4.9
-shapely==1.8.1
-SQLAlchemy==1.4.31
-pyaml-env==1.1.4
-urllib3[secure]==1.26.8
+shapely==1.8.2
+SQLAlchemy==1.4.36
+pyaml-env==1.1.5
+urllib3[secure]==1.26.9
 waitress==2.1.1
 pyreproj==2.0.0
 mako-render==0.1.0
