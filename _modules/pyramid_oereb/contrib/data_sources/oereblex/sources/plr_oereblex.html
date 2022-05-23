@@ -140,11 +140,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">oereblex_params</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">url_param_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oereblex_source</span><span class="o">.</span><span class="n">_url_param_config</span>
+        <span class="n">plr_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">url_param_config</span><span class="p">:</span>
-            <span class="n">plr_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme_record</span><span class="o">.</span><span class="n">code</span>
             <span class="n">oereblex_params</span> <span class="o">=</span> <span class="n">DatabaseOEREBlexSource</span><span class="o">.</span><span class="n">get_config_value_for_plr_code</span><span class="p">(</span><span class="n">url_param_config</span><span class="p">,</span> <span class="n">plr_code</span><span class="p">)</span>
         <span class="n">law_status</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_law_status_by_data_code</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span>
+            <span class="n">plr_code</span><span class="p">,</span>
             <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">law_status</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">document_records_from_oereblex</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">geolink</span><span class="p">,</span>
