@@ -195,7 +195,7 @@ class OEREBlexSource(Base):
                 'document_type': document_type,
                 'index': document.index,
                 'law_status': Config.get_law_status_by_data_code(self._code, u'inKraft'),
-                'title': self._get_multilingual(f.title or document.title, language),
+                'title': self._get_document_title(document, f, language),
                 'responsible_office': office,
                 'published_from': enactment_date,  # TODO: Use "publication_date" instead?
                 'published_until': None,  # TODO: Use "abrogation_date"?
@@ -208,6 +208,23 @@ class OEREBlexSource(Base):
             records.append(DocumentRecord(**arguments))
 
         return records
+
+    @staticmethod
+    def _get_document_title(document, current_file, language):
+        """
+        Returns the title of the document/file. Extracting this logic allows
+        easier customization of the file title.
+
+        Args:
+            document (geolink_formatter.entity.Document): The document entity.
+            current_file (geolink_formatter.entity.File): The file, which gets annotated with a title.
+            language (str): The language of the document title.
+
+        Returns:
+            str: Title of document.
+        """
+        # Assign multilingual values
+        return OEREBlexSource._get_multilingual(current_file.title or document.title, language)
 
     def _get_mapped_value(self, document, key, language=None):
         """

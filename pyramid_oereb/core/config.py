@@ -1840,7 +1840,7 @@ class Config(object):
             if lookup[key] == code:
                 return lookup
         raise ConfigurationError(
-            'Document type lookup with key "{}" and code "{}" is not '
+            'Real estate type lookup with key "{}" and code "{}" is not '
             'defined in configuration!'.format(key, code)
         )
 

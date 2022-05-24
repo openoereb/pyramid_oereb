@@ -1,5 +1,5 @@
 from sqlalchemy import Column, ForeignKey
-from sqlalchemy import LargeBinary, String, Integer, DateTime, Date, Text
+from sqlalchemy import LargeBinary, String, Integer, Date, Text
 from sqlalchemy.ext.declarative import declarative_base
 from geoalchemy2.types import Geometry as GeoAlchemyGeometry
 from sqlalchemy.orm import relationship
@@ -7,13 +7,12 @@ from sqlalchemy.orm import relationship
 
 class Models(object):
 
-    def __init__(self, data_integration, office, document, view_service,
+    def __init__(self, office, document, view_service,
                  legend_entry, public_law_restriction, geometry,
                  public_law_restriction_document,
                  localised_blob, localised_uri, multilingual_blob, multilingual_uri,
                  base, db_connection, schema_name):
 
-        self.DataIntegration = data_integration
         self.Office = office
         self.Document = document
         self.ViewService = view_service
@@ -189,27 +188,6 @@ def model_factory(schema_name, pk_type, srid, db_connection):
     Base = declarative_base()
 
     Office, Document = generic_models(Base, schema_name, pk_type)
-
-    class DataIntegration(Base):
-        """
-        The bucket to fill in the date when this whole schema was updated. It has a relation to the
-        office to be able to find out who was the delivering instance.
-
-        Attributes:
-            id (str): The identifier. This is used in the database only and must not be set manually. If
-                you  don't like it - don't care about.
-            date (datetime.date): The date when this data set was delivered.
-            office_id (str): A foreign key which points to the actual office instance.
-            office (pyramid_oereb.standard.models.airports_building_lines.Office):
-                The actual office instance which the id points to.
-        """
-        __table_args__ = {'schema': schema_name}
-        __tablename__ = 'datenintegration'
-        t_id = Column(pk_type, primary_key=True, autoincrement=False)
-        date = Column('datum', DateTime, nullable=False)
-        office_id = Column('amt', ForeignKey(Office.t_id), nullable=False)
-        office = relationship(Office)
-        checksum = Column(String, nullable=True)
 
     class ViewService(Base):
         """
@@ -538,7 +516,6 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         )
 
     return Models(
-        DataIntegration,
         Office, Document, ViewService,
         LegendEntry, PublicLawRestriction, Geometry, PublicLawRestrictionDocument,
         LocalisedBlob, LocalisedUri, MultilingualBlob, MultilingualUri,
