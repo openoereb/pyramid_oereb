@@ -42,6 +42,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes/Hints for migration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-2-1-0">Version 2.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-0-2">Version 2.0.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-0-1">Version 2.0.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-0-0">Version 2.0.0</a></li>
@@ -150,6 +151,19 @@
 <span id="changes"></span><h1>Changes/Hints for migration<a class="headerlink" href="#changes-hints-for-migration" title="Permalink to this headline">¶</a></h1>
 <p>This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.</p>
+<section id="version-2-1-0">
+<span id="changes-version-2-1-0"></span><h2>Version 2.1.0<a class="headerlink" href="#version-2-1-0" title="Permalink to this headline">¶</a></h2>
+<p>To update to this version, if you are using data_integration tables, you must consolidate this content in
+the main application schema instead. Full list of changes in this version:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Move DataIntegration to application schema (#1549)</p></li>
+<li><p>Bug fix for document relevant only for one municipality (#1561)</p></li>
+<li><p>Bug fix for oereblex optional parameters (#1565)</p></li>
+<li><p>Library updates (#1567</p></li>
+</ul>
+</div></blockquote>
+</section>
 <section id="version-2-0-2">
 <span id="changes-version-2-0-2"></span><h2>Version 2.0.2<a class="headerlink" href="#version-2-0-2" title="Permalink to this headline">¶</a></h2>
 <p>Bug-fix release:</p>

@@ -6,6 +6,18 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+.. _changes-version-2.1.0:
+
+Version 2.1.0
+-------------
+To update to this version, if you are using data_integration tables, you must consolidate this content in
+the main application schema instead. Full list of changes in this version:
+
+ * Move DataIntegration to application schema (#1549)
+ * Bug fix for document relevant only for one municipality (#1561)
+ * Bug fix for oereblex optional parameters (#1565)
+ * Library updates (#1567
+
 .. _changes-version-2.0.2:
 
 Version 2.0.2
