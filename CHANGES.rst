@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2.1.0
+-----
+- Move DataIntegration to application schema (#1549)
+- Bug fix for document relevant only for one municipality (#1561)
+- Bug fix for oereblex optional parameters (#1565)
+- Library updates (#1567)
+
 2.0.2
 -----
 - Oereblex integration: facilitate customization of title logic (#1556)
