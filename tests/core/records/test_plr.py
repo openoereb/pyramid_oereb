@@ -4,7 +4,7 @@ from datetime import date, timedelta
 from sys import float_info as fi
 import pytest
 from unittest.mock import patch
-from shapely.geometry import Point, LineString, Polygon
+from shapely.geometry import Point, LineString, Polygon, GeometryCollection
 from shapely.wkt import loads
 
 from pyramid_oereb.core.processor import create_processor
@@ -276,8 +276,8 @@ def test_linestring_calculation(geometry_types,
     assert oblique_geometry_plr_record.length_share > 0
 
 
-@pytest.fixture
-def oblique_land_use_plan(pyramid_oereb_test_config, dbsession, transact, land_use_plans):
+@pytest.fixture(params=['SRID=2056;LINESTRING (1 0.1, 2 0.2)'])
+def oblique_land_use_plan(request, pyramid_oereb_test_config, dbsession, transact, land_use_plans):
     del transact
 
     theme_config = pyramid_oereb_test_config.get_theme_config_by_code('ch.Nutzungsplanung')
@@ -292,7 +292,7 @@ def oblique_land_use_plan(pyramid_oereb_test_config, dbsession, transact, land_u
     dbsession.add(models.Geometry(id=6, law_status='inKraft', public_law_restriction_id=5,
                                   published_from=(date.today() - timedelta(days=7)).isoformat(),
                                   published_until=(date.today() + timedelta(days=100)).isoformat(),
-                                  geom='SRID=2056;LINESTRING (1 0.1, 2 0.2)'))
+                                  geom=request.param))
     dbsession.flush()
 
 
@@ -327,6 +327,36 @@ def test_linestring_process_with_tol(real_estate_data, main_schema, land_use_pla
     municipality = Config.municipality_by_fosnr(oblique_limit_real_estate_record.fosnr)
     extract_raw = processor._extract_reader_.read(
         request_params, oblique_limit_real_estate_record, municipality
+    )
+    extract = processor.plr_tolerance_check(extract_raw)
+    plrs = extract.real_estate.public_law_restrictions
+    assert len(plrs) == 1
+    assert plrs[0].length_share == 1
+
+
+@pytest.fixture
+def oblique_limit_collection_real_estate_record():
+    return RealEstateRecord(
+        'test_type', 'BL', 'Nusshof', 1234, land_registry_area=3.2,
+        limit=GeometryCollection([Polygon(((0, 0), (3, 0), (3, 0.3)))])
+    )
+
+
+def test_linestring_collection_process(real_estate_data, main_schema, land_use_plans, processor_data,
+                                       oblique_land_use_plan, oblique_limit_collection_real_estate_record):
+    from pyramid_oereb.core.views.webservice import Parameter
+    from pyramid_oereb.core.config import Config
+
+    for i, plr in enumerate(Config._config["plrs"]):
+        Config._config["plrs"][i]["tolerance"] = fi.epsilon
+        Config._config["plrs"][i]["geometry_type"] = "GEOMETRYCOLLECTION"
+
+    processor = create_processor()
+    request_params = Parameter('json', egrid='TEST')
+
+    municipality = Config.municipality_by_fosnr(oblique_limit_collection_real_estate_record.fosnr)
+    extract_raw = processor._extract_reader_.read(
+        request_params, oblique_limit_collection_real_estate_record, municipality
     )
     extract = processor.plr_tolerance_check(extract_raw)
     plrs = extract.real_estate.public_law_restrictions
