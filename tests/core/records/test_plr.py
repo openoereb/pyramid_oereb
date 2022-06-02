@@ -207,7 +207,9 @@ def test_sum_points(geometry_record, test, method, geometry_types):
 @pytest.fixture
 def oblique_geometry_plr_record():
     theme = ThemeRecord('code', dict(), 100)
-    geometry_records = [GeometryRecord(law_status, datetime.date.today(), None, LineString(((1, 0.1), (2, 0.2))))]
+    geometry_records = [
+        GeometryRecord(law_status, datetime.date.today(), None, LineString(((1, 0.1), (2, 0.2))))
+    ]
     return PlrRecord(
         theme,
         LegendEntryRecord(
@@ -266,7 +268,9 @@ def processor_data(pyramid_oereb_test_config, main_schema):
         yield pyramid_oereb_test_config
 
 
-def test_linestring_calculation(geometry_types, oblique_geometry_plr_record, oblique_limit_real_estate_record):
+def test_linestring_calculation(geometry_types,
+                                oblique_geometry_plr_record,
+                                oblique_limit_real_estate_record):
     oblique_geometry_plr_record.tolerance = fi.epsilon
     oblique_geometry_plr_record.calculate(oblique_limit_real_estate_record, geometry_types)
     assert oblique_geometry_plr_record.length_share > 0
@@ -282,7 +286,7 @@ def oblique_land_use_plan(pyramid_oereb_test_config, dbsession, transact, land_u
 
     dbsession.add(models.PublicLawRestriction(id=5, law_status='inKraft',
                                               published_from=(date.today() - timedelta(days=7)).isoformat(),
-                                              published_until=(date.today() + timedelta(days=100)).isoformat(),
+                                              published_until=(date.today() + timedelta(days=7)).isoformat(),
                                               view_service_id=1,
                                               legend_entry_id=1, office_id=1))
     dbsession.add(models.Geometry(id=6, law_status='inKraft', public_law_restriction_id=5,
@@ -301,7 +305,9 @@ def test_linestring_process_no_tol(real_estate_data, main_schema, land_use_plans
     request_params = Parameter('json', egrid='TEST')
 
     municipality = Config.municipality_by_fosnr(oblique_limit_real_estate_record.fosnr)
-    extract_raw = processor._extract_reader_.read(request_params, oblique_limit_real_estate_record, municipality)
+    extract_raw = processor._extract_reader_.read(
+        request_params, oblique_limit_real_estate_record, municipality
+    )
     extract = processor.plr_tolerance_check(extract_raw)
     plrs = extract.real_estate.public_law_restrictions
     assert len(plrs) == 0
@@ -319,7 +325,9 @@ def test_linestring_process_with_tol(real_estate_data, main_schema, land_use_pla
     request_params = Parameter('json', egrid='TEST')
 
     municipality = Config.municipality_by_fosnr(oblique_limit_real_estate_record.fosnr)
-    extract_raw = processor._extract_reader_.read(request_params, oblique_limit_real_estate_record, municipality)
+    extract_raw = processor._extract_reader_.read(
+        request_params, oblique_limit_real_estate_record, municipality
+    )
     extract = processor.plr_tolerance_check(extract_raw)
     plrs = extract.real_estate.public_law_restrictions
     assert len(plrs) == 1

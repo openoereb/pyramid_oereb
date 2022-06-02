@@ -138,7 +138,8 @@ class GeometryRecord(object):
         self._test_passed = False
         self.calculated = False
 
-    def calculate(self, real_estate, min_length, min_area, length_unit, area_unit, geometry_types, tolerance=None):
+    def calculate(self, real_estate, min_length, min_area, length_unit, area_unit, geometry_types,
+                  tolerance=None):
         """
         Entry method for calculation. It checks if the geometry type of this instance is a geometry
         collection which has to be unpacked first in case of collection.
