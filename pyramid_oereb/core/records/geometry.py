@@ -130,7 +130,15 @@ class GeometryRecord(object):
         else:
             return result
 
-    def calculate(self, real_estate, min_length, min_area, length_unit, area_unit, geometry_types):
+    def reset_calculation(self):
+        self._units = None
+        self._area_share = None
+        self._length_share = None
+        self._nr_of_points = None
+        self._test_passed = False
+        self.calculated = False
+
+    def calculate(self, real_estate, min_length, min_area, length_unit, area_unit, geometry_types, tolerance=None):
         """
         Entry method for calculation. It checks if the geometry type of this instance is a geometry
         collection which has to be unpacked first in case of collection.
@@ -147,11 +155,15 @@ class GeometryRecord(object):
         Returns:
             bool: True if intersection fits the limits.
         """
+        if tolerance is None:
+            re_limit = real_estate.limit
+        else:
+            re_limit = real_estate.limit.buffer(tolerance)
         line_types = geometry_types.get('line').get('types')
         polygon_types = geometry_types.get('polygon').get('types')
         point_types = geometry_types.get('point').get('types')
         if self.published:
-            intersection = self.geom.intersection(real_estate.limit)
+            intersection = self.geom.intersection(re_limit)
             if not intersection.is_empty:
                 result = self._extract_collection(intersection)
                 if self.geom.type not in point_types + line_types + polygon_types:

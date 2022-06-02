@@ -112,6 +112,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         self.legend_entry_model = self.models.LegendEntry
 
+        self._tolerance = self._plr_info.get('tolerance')
+
     def from_db_to_legend_entry_record(self, legend_entry_from_db):
         theme = Config.get_theme_by_code_sub_code(legend_entry_from_db.theme)
         if legend_entry_from_db.sub_theme:
@@ -347,7 +349,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             min_length=min_length,
             area_unit=area_unit,
             length_unit=length_unit,
-            view_service_id=public_law_restriction_from_db.view_service.id
+            view_service_id=public_law_restriction_from_db.view_service.id,
+            tolerance=self._tolerance
         )
 
         return plr_record
@@ -441,9 +444,14 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         else:
             # The PLR is not problematic at all cause we do not have a collection type here
-            query = session.query(self._model_).filter(self._model_.geom.ST_Intersects(
-                from_shape(geometry_to_check, srid=Config.get('srid'))
-            ))
+            if self._tolerance is None:
+                query = session.query(self._model_).filter(self._model_.geom.ST_Intersects(
+                    from_shape(geometry_to_check, srid=Config.get('srid'))
+                ))
+            else:
+                query = session.query(self._model_).filter(self._model_.geom.ST_Distance(
+                    from_shape(geometry_to_check, srid=Config.get('srid'))
+                ) < self._tolerance)
         return query
 
     def collect_related_geometries_by_real_estate(self, session, real_estate):
