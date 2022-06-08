@@ -101,7 +101,7 @@ If necessary the application is re-installed and the database is filled when run
 
 There are further make targets to check the validity of federal data:
 
-- ``make check_federal_data`` downloads currently known federal data definitions and compares them with the active ones
+- ``make check_fed_data`` downloads currently known federal data definitions and compares them with the active ones
 - ``make update_fed_data_urls`` try to retrieve the new urls from the server's index page. The file fed.urls must then be committed to the repo
 - ``make update_fed_data_urls`` generate new json files in the repo. The modified files must then be committed
 - ``make auto_update_fed_data`` automagic command which finds the new URLs, generates json data, copies json to project. The files fed.urls and dev/sample_data/ch.*.json must be committed if changed
