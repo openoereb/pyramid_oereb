@@ -6,6 +6,7 @@ from geoalchemy2.shape import to_shape, from_shape
 from shapely.geometry import Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, \
     GeometryCollection
 from sqlalchemy import text, or_
+from sqlalchemy.orm import subqueryload
 
 from pyramid_oereb import Config
 from pyramid_oereb.core import b64
@@ -458,6 +459,10 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         """
         return self.handle_collection(session, real_estate.limit).distinct(
             self._model_.public_law_restriction_id
+        ).options(
+            subqueryload(self.models.Geometry.public_law_restriction)
+            .subqueryload(self.models.PublicLawRestriction.legal_provisions)
+            .subqueryload(self.models.PublicLawRestrictionDocument.document)
         ).all()
 
     def collect_legend_entries_by_bbox(self, session, bbox):
@@ -474,7 +479,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         """
 
         distinct_legend_entry_ids = []
-        geometries = self.handle_collection(session, bbox).all()
+        geometries = self.handle_collection(session, bbox).options(
+            subqueryload(self.models.Geometry.public_law_restriction)
+        ).all()
         for geometry in geometries:
             if geometry.public_law_restriction.legend_entry_id not in distinct_legend_entry_ids:
                 distinct_legend_entry_ids.append(geometry.public_law_restriction.legend_entry_id)
