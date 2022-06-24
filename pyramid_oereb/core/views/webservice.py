@@ -2,6 +2,8 @@
 
 import logging
 # import yappi
+import qrcode
+import io
 
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPInternalServerError, HTTPNoContent, \
     HTTPNotFound
@@ -279,7 +281,7 @@ class PlrWebservice(object):
                 raise HTTPBadRequest("Missing required argument")
             # check if result is strictly one (we queried with primary keys)
             if len(real_estate_records) == 1:
-                
+
                 # Redirect for format URL
                 if params.format == 'url':
                     log.debug("get_extract_by_id() calling url")
@@ -771,7 +773,7 @@ class Parameter(object):
 
         if self.egrid is not None:
             extract_url = u'{}/extract/pdf/?EGRID={}'.format(
-                self.appurl, 
+                self.appurl,
                 self.egrid)
             log.debug("get_qr_code_by_id EGRID" + extract_url)
         elif self.nb_ident is not None and self.number is not None:
@@ -938,6 +940,7 @@ class Sld(object):
         method_path = visualisation_config.get('method')
         return dnr.resolve(method_path)
 
+
 class QRcode(object):
     """
     Webservice to deliver a QR code image to recall the PDF extract of the defined real estate.
@@ -966,16 +969,40 @@ class QRcode(object):
 
         if egrid is not None:
             qr_code_url = u'{0}/{1}/extract/pdf/?EGRID={2}'.format(
-                base_url, 
-                route_prefix, 
+                base_url,
+                route_prefix,
                 egrid)
             log.debug("get_qr_code_by_id EGRID" + qr_code_url)
         elif nb_ident is not None and number is not None:
             qr_code_url = u'{0}/{1}/extract/pdf/?IDENTDN={2}&NUMBER={3}'.format(
-                base_url, 
+                base_url,
                 route_prefix,
                 nb_ident,
                 number)
             log.debug("get_qr_code_by_id IDENTDN and NUMBER" + qr_code_url)
 
+        if qr_code_url is not None:
+            # Create an object to the qrcode using the QRCode() function and store it in a
+            # variable.
+            qr = qrcode.QRCode()
+            # Add data to the above QRcode uisng the add_data() function by passing some
+            # random string as an argument.
+            qr.add_data(qr_code_url)
+            # Get or build the QRcode using the make() function
+            qr.make()
+            # Convert the QRcode into an image using the make_image() function
+            # store it in another variable.
+            qr_img = qr.make_image()
+            # Save the above image with some random name using the save() function
+            # qr_img.save('myqrcode.png')
+            buffered = io.BytesIO()
+            qr_img.save(buffered, format="PNG")
+            qr_code = buffered.getvalue()
 
+            response = self._request_.response
+            response.status_int = 200
+            response.body = qr_code
+            response.content_type = 'image/png' # buffered.mimetype
+            return response
+        else:
+            raise HTTPNoContent("No QR code could be generated")  

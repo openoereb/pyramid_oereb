@@ -206,5 +206,5 @@ class ExtractReader(object):
         buffered = io.BytesIO()
         qr_img.save(buffered, format="PNG")
         qr_code = buffered.getvalue()
-        
+
         return qr_code

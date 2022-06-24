@@ -162,16 +162,15 @@ class Renderer(Base):
             extract_dict['QRCode'] = extract.qr_code
         else:
             if extract.real_estate.egrid is not None:
-                egrid = extract.real_estate.egrid
                 extract_dict.update({
                             'QRCodeRef': self._request.route_url(
-                                '{0}/image/qrcode/egrid/'.format(route_prefix),
-                               egrid=egrid
+                                '{}/image/qrcode/egrid/{}'.format(route_prefix),
+                               egrid=extract.real_estate.egrid
                             )})
             elif extract.real_estate.nb_ident is not None and extract.real_estate.number is not None:
                 extract_dict.update({
                             'QRCodeRef': self._request.route_url(
-                                '{0}/image/qrcode/identdn/{1}/{2}'.format(route_prefix),
+                                '{}/image/qrcode/identdn/{}/{}'.format(route_prefix),
                                 identdn=extract.real_estate.nb_ident,
                                 number=extract.real_estate.number
                             )})

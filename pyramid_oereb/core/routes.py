@@ -35,12 +35,15 @@ def includeme(config):  # pragma: no cover
 
     # Service for QR code creation on egrid input
     config.add_route('{0}/image/qrcode/egrid/'.format(route_prefix), '/image/qrcode/egrid/{egrid}')
-    config.add_view(QRcode, attr='get_qr_code', route_name='{0}/image/qrcode/egrid/'.format(route_prefix),
+    config.add_view(QRcode, attr='get_qr_code', 
+                    route_name='{0}/image/qrcode/egrid/'.format(route_prefix),
                     request_method='GET',
                     decorator=log_response)
     # Service for QR code creation on identdn&number input
-    config.add_route('{0}/image/qrcode/identdn/'.format(route_prefix), '/image/qrcode/identdn/{identdn}/{number}')
-    config.add_view(QRcode, attr='get_qr_code', route_name='{0}/image/qrcode/identdn/'.format(route_prefix),
+    config.add_route('{0}/image/qrcode/identdn/'.format(route_prefix), 
+                    '/image/qrcode/identdn/{identdn}/{number}')
+    config.add_view(QRcode, attr='get_qr_code', 
+                    route_name='{0}/image/qrcode/identdn/'.format(route_prefix),
                     request_method='GET',
                     decorator=log_response)
 

@@ -105,4 +105,4 @@ class ExtractRecord(object):
             self.glossaries = glossaries
         else:
             self.glossaries = []
-        self.qr_code=qr_code
+        self.qr_code = qr_code
