@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
+import qrcode
+import io
 from pyramid.path import DottedNameResolver
 
 from shapely.geometry import box
@@ -133,7 +135,8 @@ class ExtractReader(object):
             concerned_theme=concerned_themes,
             not_concerned_theme=not_concerned_themes,
             theme_without_data=themes_without_data,
-            general_information=general_information
+            general_information=general_information,
+            qr_code=self._create_qr_code(params.extract_url)
         )
 
         log.debug("read() done")
@@ -183,3 +186,25 @@ class ExtractReader(object):
                 else plr_element.theme.extract_index
             return index
         return 10000
+
+    @staticmethod
+    def _create_qr_code(text):
+
+        # Create an object to the qrcode using the QRCode() function and store it in a
+        # variable.
+        qr = qrcode.QRCode()
+        # Add data to the above QRcode uisng the add_data() function by passing some
+        # random string as an argument.
+        qr.add_data(text)
+        # Get or build the QRcode using the make() function
+        qr.make()
+        # Convert the QRcode into an image using the make_image() function
+        # store it in another variable.
+        qr_img = qr.make_image()
+        # Save the above image with some random name using the save() function
+        # qr_img.save('myqrcode.png')
+        buffered = io.BytesIO()
+        qr_img.save(buffered, format="PNG")
+        qr_code = buffered.getvalue()
+        
+        return qr_code

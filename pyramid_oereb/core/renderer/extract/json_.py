@@ -160,6 +160,21 @@ class Renderer(Base):
             extract_dict['ElectronicSignature'] = extract.electronic_signature
         if extract.qr_code is not None:
             extract_dict['QRCode'] = extract.qr_code
+        else:
+            if extract.real_estate.egrid is not None:
+                egrid = extract.real_estate.egrid
+                extract_dict.update({
+                            'QRCodeRef': self._request.route_url(
+                                '{0}/image/qrcode/egrid/'.format(route_prefix),
+                               egrid=egrid
+                            )})
+            elif extract.real_estate.nb_ident is not None and extract.real_estate.number is not None:
+                extract_dict.update({
+                            'QRCodeRef': self._request.route_url(
+                                '{0}/image/qrcode/identdn/{1}/{2}'.format(route_prefix),
+                                identdn=extract.real_estate.nb_ident,
+                                number=extract.real_estate.number
+                            )})
 
         if isinstance(extract.general_information, list) and len(extract.general_information) > 0:
             general_information = list()

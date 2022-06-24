@@ -279,7 +279,7 @@ class PlrWebservice(object):
                 raise HTTPBadRequest("Missing required argument")
             # check if result is strictly one (we queried with primary keys)
             if len(real_estate_records) == 1:
-
+                
                 # Redirect for format URL
                 if params.format == 'url':
                     log.debug("get_extract_by_id() calling url")
@@ -375,11 +375,20 @@ class PlrWebservice(object):
         # Signed?
         signed = self._params.get('SIGNED', 'false').lower() == 'true'
 
+        if route_prefix:
+            appurl = u'{application}/{route_prefix}'.format(
+                application=self._request.application_url,
+                route_prefix=route_prefix
+            )
+        else:
+            appurl = u'{application}'.format(application=self._request.application_url)
+
         params = Parameter(
             extract_format,
             with_geometry=with_geometry,
             images=with_images,
-            signed=signed
+            signed=signed,
+            appurl=appurl
         )
 
         # Get id
@@ -600,7 +609,7 @@ class PlrWebservice(object):
 
 class Parameter(object):
     def __init__(self, response_format, with_geometry=False, images=False, signed=False, identdn=None,
-                 number=None, egrid=None, language=None, topics=None):
+                 number=None, egrid=None, language=None, topics=None, appurl=None):
         """
         Creates a new parameter instance.
 
@@ -614,6 +623,7 @@ class Parameter(object):
             egrid (str): The EGRID as real estate identifier.
             language (str): The requested language.
             topics (list of str): The list of requested topics.
+            appurl (str): The application's base url
         """
         self.__format__ = response_format
         self.__with_geometry__ = with_geometry
@@ -624,6 +634,7 @@ class Parameter(object):
         self.__egrid__ = egrid
         self.__language__ = language
         self.__topics__ = topics
+        self.__appurl__ = appurl
 
     def set_identdn(self, identdn):
         """
@@ -669,6 +680,15 @@ class Parameter(object):
             topics (list of str): The list of requested topics.
         """
         self.__topics__ = topics
+
+    def set_appurl(self, appurl):
+        """
+        Set the application base url
+
+        Args:
+            appurl (str): The baseurl of the application.
+        """
+        self.__appurl__ = appurl
 
     @property
     def format(self):
@@ -741,6 +761,27 @@ class Parameter(object):
             list of str: The requested topics.
         """
         return self.__topics__
+
+    @property
+    def extract_url(self):
+        """
+        Returns:
+            str: The extract call url.
+        """
+
+        if self.egrid is not None:
+            extract_url = u'{}/extract/pdf/?EGRID={}'.format(
+                self.appurl, 
+                self.egrid)
+            log.debug("get_qr_code_by_id EGRID" + extract_url)
+        elif self.nb_ident is not None and self.number is not None:
+            extract_url = u'{}/extract/pdf/?IDENTDN={}&NUMBER={}'.format(
+                self.appurl,
+                self.nb_ident,
+                self.number)
+            log.debug("get_qr_code_by_id IDENTDN and NUMBER" + extract_url)
+
+        return extract_url
 
     def skip_topic(self, theme_code):
         """
@@ -896,3 +937,45 @@ class Sld(object):
         visualisation_config = Config.get_real_estate_config().get('visualisation')
         method_path = visualisation_config.get('method')
         return dnr.resolve(method_path)
+
+class QRcode(object):
+    """
+    Webservice to deliver a QR code image to recall the PDF extract of the defined real estate.
+
+    """
+
+    def __init__(self, request):
+        """
+        Args:
+            request (pyramid.request.Request or pyramid.testing.DummyRequest): The pyramid request instance.
+        """
+        self._request_ = request
+
+    def get_qr_code(self):
+        """
+        Returns a response containing the binary image content of the QR code.
+
+        Returns:
+            pyramid.response.Response: Response containing the binary image content.
+        """
+        base_url=self._request_.application_url
+        qr_code_url = None
+        egrid = self._request_.matchdict.get('egrid')
+        nb_ident = self._request_.matchdict.get('identdn')
+        number = self._request_.matchdict.get('number')
+
+        if egrid is not None:
+            qr_code_url = u'{0}/{1}/extract/pdf/?EGRID={2}'.format(
+                base_url, 
+                route_prefix, 
+                egrid)
+            log.debug("get_qr_code_by_id EGRID" + qr_code_url)
+        elif nb_ident is not None and number is not None:
+            qr_code_url = u'{0}/{1}/extract/pdf/?IDENTDN={2}&NUMBER={3}'.format(
+                base_url, 
+                route_prefix,
+                nb_ident,
+                number)
+            log.debug("get_qr_code_by_id IDENTDN and NUMBER" + qr_code_url)
+
+

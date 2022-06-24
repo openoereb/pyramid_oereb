@@ -16,7 +16,6 @@ class ExtractRecord(object):
         theme_without_data (list of pyramid_oereb.core.records.theme.ThemeRecord): List of themes without
             data.
         extract_identifier (unicode): The extract identifier (UUID).
-        qr_code (binary or None): QR code for the extract as binary string.
         update_date_os (datetime): Last update of the official survey used as base map in the extract.
         general_information (list of dict): General information for the static extract as multilingual
             text.
@@ -41,12 +40,11 @@ class ExtractRecord(object):
     not_concerned_theme = None
     theme_without_data = None
     extract_identifier = None
-    qr_code = None
 
     def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo,
                  plr_cadastre_authority, update_date_os, disclaimers=None, glossaries=None,
                  concerned_theme=None, not_concerned_theme=None, theme_without_data=None,
-                 general_information=None):
+                 general_information=None, qr_code=None):
         """
         Args:
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate in its
@@ -70,6 +68,7 @@ class ExtractRecord(object):
                 data.
             general_information (list of dict): General information for the static extract as multilingual
                 text.
+            qr_code (binary or None): QR code for the extract as binary string.
         """
         if not isinstance(update_date_os, datetime):
             warnings.warn('Type of "update_date_os" should be "datetime.datetime"')
@@ -106,3 +105,4 @@ class ExtractRecord(object):
             self.glossaries = glossaries
         else:
             self.glossaries = []
+        self.qr_code=qr_code

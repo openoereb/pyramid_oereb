@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from pyramid_oereb import route_prefix
-from pyramid_oereb.core.views.webservice import PlrWebservice, Symbol, Logo, Sld
+from pyramid_oereb.core.views.webservice import PlrWebservice, Symbol, Logo, Sld, QRcode
 from pyramid_oereb.contrib.stats.decorators import log_response
 
 
@@ -30,6 +30,17 @@ def includeme(config):  # pragma: no cover
     # Service for sld creation on egrid input
     config.add_route('{0}/sld'.format(route_prefix), '/sld')
     config.add_view(Sld, attr='get_sld', route_name='{0}/sld'.format(route_prefix),
+                    request_method='GET',
+                    decorator=log_response)
+
+    # Service for QR code creation on egrid input
+    config.add_route('{0}/image/qrcode/egrid/'.format(route_prefix), '/image/qrcode/egrid/{egrid}')
+    config.add_view(QRcode, attr='get_qr_code', route_name='{0}/image/qrcode/egrid/'.format(route_prefix),
+                    request_method='GET',
+                    decorator=log_response)
+    # Service for QR code creation on identdn&number input
+    config.add_route('{0}/image/qrcode/identdn/'.format(route_prefix), '/image/qrcode/identdn/{identdn}/{number}')
+    config.add_view(QRcode, attr='get_qr_code', route_name='{0}/image/qrcode/identdn/'.format(route_prefix),
                     request_method='GET',
                     decorator=log_response)
 
