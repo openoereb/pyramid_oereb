@@ -6,6 +6,16 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+.. _changes-version-2.1.1:
+
+Version 2.1.1
+-------------
+Bug-fix release:
+
+ * Fix value for service version (#1576)
+ * Fix XML for localized image blob (#1577)
+ * Raise error in case of unsupported geometry type (#1578)
+
 .. _changes-version-2.1.0:
 
 Version 2.1.0
