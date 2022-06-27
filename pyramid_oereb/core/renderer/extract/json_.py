@@ -115,6 +115,8 @@ class Renderer(Base):
                         extract.municipality_logo.image_dict,
                         self._language
                     ).encode()
+                ,
+                'QRCode': extract.qr_code.encode()
             })
         else:
             extract_dict.update({
@@ -153,27 +155,12 @@ class Renderer(Base):
                             extract.municipality_logo.image_dict,
                             self._language
                         ).extension
-                ) + '?fosnr={}'.format(extract.real_estate.fosnr)
+                ) + '?fosnr={}'.format(extract.real_estate.fosnr),
+                'QRCodeRef': extract.qr_code_ref
             })
 
         if extract.electronic_signature is not None:
             extract_dict['ElectronicSignature'] = extract.electronic_signature
-        if extract.qr_code is not None:
-            extract_dict['QRCode'] = extract.qr_code
-        else:
-            if extract.real_estate.egrid is not None:
-                extract_dict.update({
-                            'QRCodeRef': self._request.route_url(
-                                '{}/image/qrcode/egrid/{}'.format(route_prefix),
-                               egrid=extract.real_estate.egrid
-                            )})
-            elif extract.real_estate.nb_ident is not None and extract.real_estate.number is not None:
-                extract_dict.update({
-                            'QRCodeRef': self._request.route_url(
-                                '{}/image/qrcode/identdn/{}/{}'.format(route_prefix),
-                                identdn=extract.real_estate.nb_ident,
-                                number=extract.real_estate.number
-                            )})
 
         if isinstance(extract.general_information, list) and len(extract.general_information) > 0:
             general_information = list()

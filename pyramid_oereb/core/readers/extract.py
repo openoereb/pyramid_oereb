@@ -9,6 +9,7 @@ from timeit import default_timer as timer
 
 from pyramid_oereb.core.config import Config
 from pyramid_oereb.core.records.extract import ExtractRecord
+from pyramid_oereb.core.records.image import ImageRecord
 from pyramid_oereb.core.records.plr import PlrRecord, EmptyPlrRecord
 
 log = logging.getLogger(__name__)
@@ -123,6 +124,7 @@ class ExtractReader(object):
         confederation_logo = Config.get_conferderation_logo()
         canton_logo = Config.get_canton_logo()
         municipality_logo = Config.get_municipality_logo(municipality.fosnr)
+        qr_code_image = ImageRecord(params.qr_code)
 
         self.extract = ExtractRecord(
             real_estate,
@@ -136,7 +138,8 @@ class ExtractReader(object):
             not_concerned_theme=not_concerned_themes,
             theme_without_data=themes_without_data,
             general_information=general_information,
-            qr_code=self._create_qr_code(params.extract_url)
+            qr_code=qr_code_image,
+            qr_code_ref=params.qr_code_ref
         )
 
         log.debug("read() done")
@@ -186,25 +189,3 @@ class ExtractReader(object):
                 else plr_element.theme.extract_index
             return index
         return 10000
-
-    @staticmethod
-    def _create_qr_code(text):
-
-        # Create an object to the qrcode using the QRCode() function and store it in a
-        # variable.
-        qr = qrcode.QRCode()
-        # Add data to the above QRcode uisng the add_data() function by passing some
-        # random string as an argument.
-        qr.add_data(text)
-        # Get or build the QRcode using the make() function
-        qr.make()
-        # Convert the QRcode into an image using the make_image() function
-        # store it in another variable.
-        qr_img = qr.make_image()
-        # Save the above image with some random name using the save() function
-        # qr_img.save('myqrcode.png')
-        buffered = io.BytesIO()
-        qr_img.save(buffered, format="PNG")
-        qr_code = buffered.getvalue()
-
-        return qr_code

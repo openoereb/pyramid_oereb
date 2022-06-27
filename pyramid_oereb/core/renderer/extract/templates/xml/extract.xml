@@ -62,16 +62,15 @@
         <data:FederalLogo>${get_multilingual_element(extract.federal_logo.image_dict, language).encode()}</data:FederalLogo>
         <data:CantonalLogo>${get_multilingual_element(extract.cantonal_logo.image_dict, language).encode()}</data:CantonalLogo>
         <data:MunicipalityLogo>${get_multilingual_element(extract.municipality_logo.image_dict, language).encode()}</data:MunicipalityLogo>
+        <data:QRCode>${extract.qr_code.encode()}</data:QRCode>
     %else:
         <data:LogoPLRCadastreRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='oereb', language=language, extension=get_multilingual_element(extract.logo_plr_cadastre.image_dict, language).extension) | x}</data:LogoPLRCadastreRef>
         <data:FederalLogoRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='confederation', language=language, extension=get_multilingual_element(extract.federal_logo.image_dict, language).extension) | x}</data:FederalLogoRef>
         <data:CantonalLogoRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='canton', language=language, extension=get_multilingual_element(extract.cantonal_logo.image_dict, language).extension) | x}</data:CantonalLogoRef>
         <data:MunicipalityLogoRef>${request.route_url('{0}/image/logo'.format(route_prefix), logo='municipality', language=language, extension=get_multilingual_element(extract.municipality_logo.image_dict, language).extension) + '?fosnr={}'.format(extract.real_estate.fosnr) | x}</data:MunicipalityLogoRef>
+        <data:QRCodeRef>${extract.qr_code_ref}</data:QRCodeRef>
     %endif
         <data:ExtractIdentifier>${extract.extract_identifier}</data:ExtractIdentifier>
-    %if extract.qr_code:
-        <data:QRCode>${extract.qr_code}</data:QRCode>
-    %endif
     %for general_information in extract.general_information:
         <%include file="general_information.xml" args="general_information=general_information"/>
     %endfor

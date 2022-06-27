@@ -4,6 +4,7 @@ import logging
 # import yappi
 import qrcode
 import io
+import re
 
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPInternalServerError, HTTPNoContent, \
     HTTPNotFound
@@ -17,6 +18,7 @@ from pyreproj import Reprojector
 
 from pyramid_oereb.core.processor import create_processor
 from pyramid_oereb.core.readers.address import AddressReader
+from pyramid_oereb.core.records.image import ImageRecord
 from pyramid_oereb.core.renderer import Base as Renderer
 from timeit import default_timer as timer
 
@@ -377,20 +379,16 @@ class PlrWebservice(object):
         # Signed?
         signed = self._params.get('SIGNED', 'false').lower() == 'true'
 
-        if route_prefix:
-            appurl = u'{application}/{route_prefix}'.format(
-                application=self._request.application_url,
-                route_prefix=route_prefix
-            )
-        else:
-            appurl = u'{application}'.format(application=self._request.application_url)
-
         params = Parameter(
             extract_format,
             with_geometry=with_geometry,
             images=with_images,
             signed=signed,
-            appurl=appurl
+            extract_url=self._request.url,
+            qr_code_ref=self._request.route_url(
+                '{0}/image/qrcode'.format(route_prefix),
+                _query={"extract_url": self._request.url}
+            )
         )
 
         # Get id
@@ -611,7 +609,7 @@ class PlrWebservice(object):
 
 class Parameter(object):
     def __init__(self, response_format, with_geometry=False, images=False, signed=False, identdn=None,
-                 number=None, egrid=None, language=None, topics=None, appurl=None):
+                 number=None, egrid=None, language=None, topics=None, extract_url=None, qr_code_ref=None):
         """
         Creates a new parameter instance.
 
@@ -625,7 +623,8 @@ class Parameter(object):
             egrid (str): The EGRID as real estate identifier.
             language (str): The requested language.
             topics (list of str): The list of requested topics.
-            appurl (str): The application's base url
+            extract_url (str): The URL which was used to create the extract.
+            qr_code_ref (str): The URL where the QR code can be downloaded from.
         """
         self.__format__ = response_format
         self.__with_geometry__ = with_geometry
@@ -636,7 +635,8 @@ class Parameter(object):
         self.__egrid__ = egrid
         self.__language__ = language
         self.__topics__ = topics
-        self.__appurl__ = appurl
+        self.__extract_url__ = extract_url
+        self.__qr_code_ref__ = qr_code_ref
 
     def set_identdn(self, identdn):
         """
@@ -767,23 +767,29 @@ class Parameter(object):
     @property
     def extract_url(self):
         """
+
         Returns:
-            str: The extract call url.
+            str: The extract url
+        """
+        return self.__extract_url__
+
+    @property
+    def qr_code(self):
+        """
+        Returns:
+            str: The QR code as binary encoded string.
         """
 
-        if self.egrid is not None:
-            extract_url = u'{}/extract/pdf/?EGRID={}'.format(
-                self.appurl,
-                self.egrid)
-            log.debug("get_qr_code_by_id EGRID" + extract_url)
-        elif self.nb_ident is not None and self.number is not None:
-            extract_url = u'{}/extract/pdf/?IDENTDN={}&NUMBER={}'.format(
-                self.appurl,
-                self.nb_ident,
-                self.number)
-            log.debug("get_qr_code_by_id IDENTDN and NUMBER" + extract_url)
+        return QRcode.create_qr_code(self.extract_url)
 
-        return extract_url
+    @property
+    def qr_code_ref(self):
+        """
+        Returns:
+            str: The QR code as binary encoded string.
+        """
+
+        return self.__qr_code_ref__
 
     def skip_topic(self, theme_code):
         """
@@ -955,54 +961,49 @@ class QRcode(object):
         self._request_ = request
 
     def get_qr_code(self):
-        """
-        Returns a response containing the binary image content of the QR code.
 
+        extract_url = self._request_.params.get('extract_url')
+
+        if extract_url is None:
+            raise HTTPNoContent('No URL for QR Code generation was passed')
+        extract_url = self.sanitize_url(extract_url)
+
+        qr_code = self.create_qr_code(extract_url)
+        response = self._request_.response
+        response.status_int = 200
+        response.body = qr_code
+        response.content_type = 'image/png'  # buffered.mimetype
+        return response
+
+    @staticmethod
+    def sanitize_url(url):
+        # TODO: implement
+        return url
+
+    @staticmethod
+    def create_qr_code(text):
+        """
+        Returns a binary image - the QR code.
+
+        Args:
+            url (text): The text which will be wrapped into the QR code.
         Returns:
-            pyramid.response.Response: Response containing the binary image content.
+            str: Binary image content as binary string.
         """
-        base_url=self._request_.application_url
-        qr_code_url = None
-        egrid = self._request_.matchdict.get('egrid')
-        nb_ident = self._request_.matchdict.get('identdn')
-        number = self._request_.matchdict.get('number')
-
-        if egrid is not None:
-            qr_code_url = u'{0}/{1}/extract/pdf/?EGRID={2}'.format(
-                base_url,
-                route_prefix,
-                egrid)
-            log.debug("get_qr_code_by_id EGRID" + qr_code_url)
-        elif nb_ident is not None and number is not None:
-            qr_code_url = u'{0}/{1}/extract/pdf/?IDENTDN={2}&NUMBER={3}'.format(
-                base_url,
-                route_prefix,
-                nb_ident,
-                number)
-            log.debug("get_qr_code_by_id IDENTDN and NUMBER" + qr_code_url)
-
-        if qr_code_url is not None:
-            # Create an object to the qrcode using the QRCode() function and store it in a
-            # variable.
-            qr = qrcode.QRCode()
-            # Add data to the above QRcode uisng the add_data() function by passing some
-            # random string as an argument.
-            qr.add_data(qr_code_url)
-            # Get or build the QRcode using the make() function
-            qr.make()
-            # Convert the QRcode into an image using the make_image() function
-            # store it in another variable.
-            qr_img = qr.make_image()
-            # Save the above image with some random name using the save() function
-            # qr_img.save('myqrcode.png')
-            buffered = io.BytesIO()
-            qr_img.save(buffered, format="PNG")
-            qr_code = buffered.getvalue()
-
-            response = self._request_.response
-            response.status_int = 200
-            response.body = qr_code
-            response.content_type = 'image/png' # buffered.mimetype
-            return response
-        else:
-            raise HTTPNoContent("No QR code could be generated")  
+        # Create an object to the qrcode using the QRCode() function and store it in a
+        # variable.
+        qr = qrcode.QRCode()
+        # Add data to the above QRcode uisng the add_data() function by passing some
+        # random string as an argument.
+        qr.add_data(text)
+        # Get or build the QRcode using the make() function
+        qr.make()
+        # Convert the QRcode into an image using the make_image() function
+        # store it in another variable.
+        qr_img = qr.make_image()
+        # Save the above image with some random name using the save() function
+        # qr_img.save('myqrcode.png')
+        buffered = io.BytesIO()
+        qr_img.save(buffered, format="PNG")
+        qr_code = buffered.getvalue()
+        return qr_code

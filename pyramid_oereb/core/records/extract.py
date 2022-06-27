@@ -44,7 +44,7 @@ class ExtractRecord(object):
     def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo,
                  plr_cadastre_authority, update_date_os, disclaimers=None, glossaries=None,
                  concerned_theme=None, not_concerned_theme=None, theme_without_data=None,
-                 general_information=None, qr_code=None):
+                 general_information=None, qr_code=None, qr_code_ref=None):
         """
         Args:
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate in its
@@ -68,7 +68,8 @@ class ExtractRecord(object):
                 data.
             general_information (list of dict): General information for the static extract as multilingual
                 text.
-            qr_code (binary or None): QR code for the extract as binary string.
+            qr_code (pyramid_oereb.lib.records.image.ImageRecord or None): QR code for the extract as ImageRecord.
+            qr_code_ref (str or None): The URL to retrieve the QR code.
         """
         if not isinstance(update_date_os, datetime):
             warnings.warn('Type of "update_date_os" should be "datetime.datetime"')
@@ -106,3 +107,4 @@ class ExtractRecord(object):
         else:
             self.glossaries = []
         self.qr_code = qr_code
+        self.qr_code_ref = qr_code_ref
