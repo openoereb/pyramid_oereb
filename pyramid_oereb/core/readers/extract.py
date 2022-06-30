@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 import logging
-import qrcode
-import io
 from pyramid.path import DottedNameResolver
 
 from shapely.geometry import box

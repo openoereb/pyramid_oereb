@@ -4,7 +4,7 @@ import logging
 # import yappi
 import qrcode
 import io
-import re
+# import re
 
 from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPInternalServerError, HTTPNoContent, \
     HTTPNotFound
@@ -18,7 +18,6 @@ from pyreproj import Reprojector
 
 from pyramid_oereb.core.processor import create_processor
 from pyramid_oereb.core.readers.address import AddressReader
-from pyramid_oereb.core.records.image import ImageRecord
 from pyramid_oereb.core.renderer import Base as Renderer
 from timeit import default_timer as timer
 

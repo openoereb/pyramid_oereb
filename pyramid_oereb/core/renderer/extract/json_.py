@@ -114,8 +114,7 @@ class Renderer(Base):
                 'MunicipalityLogo': get_multilingual_element(
                         extract.municipality_logo.image_dict,
                         self._language
-                    ).encode()
-                ,
+                    ).encode(),
                 'QRCode': extract.qr_code.encode()
             })
         else:

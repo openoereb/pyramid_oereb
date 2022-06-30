@@ -35,7 +35,7 @@ def includeme(config):  # pragma: no cover
 
     # Service for QR code creation
     config.add_route('{0}/image/qrcode'.format(route_prefix), '/image/qrcode')
-    config.add_view(QRcode, attr='get_qr_code', 
+    config.add_view(QRcode, attr='get_qr_code',
                     route_name='{0}/image/qrcode'.format(route_prefix),
                     request_method='GET',
                     decorator=log_response)

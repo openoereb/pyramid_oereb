@@ -68,7 +68,8 @@ class ExtractRecord(object):
                 data.
             general_information (list of dict): General information for the static extract as multilingual
                 text.
-            qr_code (pyramid_oereb.lib.records.image.ImageRecord or None): QR code for the extract as ImageRecord.
+            qr_code (pyramid_oereb.lib.records.image.ImageRecord or None): QR code for the extract
+                as ImageRecord.
             qr_code_ref (str or None): The URL to retrieve the QR code.
         """
         if not isinstance(update_date_os, datetime):
