@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.1.1
+-----
+- Fix value for service version (#1576)
+- Fix XML for localized image blob (#1577)
+- Raise error in case of unsupported geometry type (#1578)
+
 2.1.0
 -----
 - Move DataIntegration to application schema (#1549)

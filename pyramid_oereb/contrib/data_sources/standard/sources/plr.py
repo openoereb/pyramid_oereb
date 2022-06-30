@@ -229,9 +229,10 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             ))
 
         else:
-            log.warning('Received geometry with unsupported type: {0}. Skipped geometry.'.format(
+            log.error('Received geometry with unsupported type: {0}. Skipped geometry.'.format(
                 geom.type
             ))
+            raise TypeError
 
         return geometry_records
 

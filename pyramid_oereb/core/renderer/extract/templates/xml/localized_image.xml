@@ -2,5 +2,8 @@
 <%
     localized_image = get_localized_image(image)
 %>
-<data:Language>${localized_image.get('Language') | x}</data:Language>
-<data:Image>${localized_image.get('Image') | x}</data:Image>
+<data:LocalisedBlob>
+    <data:Language>${localized_image.get('Language') | x}</data:Language>
+    <data:Blob>${localized_image.get('Image') | x}</data:Blob>
+</data:LocalisedBlob>
+
