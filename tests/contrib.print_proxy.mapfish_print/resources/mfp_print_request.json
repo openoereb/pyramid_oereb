@@ -28,6 +28,7 @@
     "PLRCadastreAuthority_PostalCode": "3084",
     "PLRCadastreAuthority_Street": "Seftigenstrasse",
     "PrintCantonLogo": true,
+    "QRCodeRef": "http://example.com/image/qrcode?extract_url=http%3A%2F%2Fexample.com",
     "RealEstate_Canton": "BL",
     "RealEstate_EGRID": "TEST",
     "RealEstate_IdentDN": "BLTEST",

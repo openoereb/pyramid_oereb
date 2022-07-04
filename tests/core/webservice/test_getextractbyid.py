@@ -76,6 +76,7 @@ def test_invalid_params(matchdict, params):
         }
     )
 ])
+@patch.object(MockRequest, 'route_url', lambda *args, **kwargs : '')
 def test_matchdict(pyramid_oereb_test_config, matchdict, expected):
     request = MockRequest()
     request.matchdict.update(matchdict)
@@ -118,6 +119,7 @@ def test_matchdict(pyramid_oereb_test_config, matchdict, expected):
         }
     )
 ])
+@patch.object(MockRequest, 'route_url', lambda *args, **kwargs : '')
 def test_params(params, expected):
     request = MockRequest()
     request.matchdict.update({
@@ -130,6 +132,7 @@ def test_params(params, expected):
         assert getattr(params, k) == v
 
 
+@patch.object(MockRequest, 'route_url', lambda *args, **kwargs : '')
 def test_return_no_content():
     request = MockRequest()
     request.matchdict.update({
@@ -147,6 +150,7 @@ def test_return_no_content():
 @patch.object(pyramid_oereb.core.hook_methods, 'route_prefix', 'oereb')
 @patch.object(pyramid_oereb.core.renderer.extract.json_, 'route_prefix', 'oereb')
 @patch.object(pyramid_oereb.core.views.webservice, 'route_prefix', 'oereb')
+@patch.object(MockRequest, 'route_url', lambda *args, **kwargs : '')
 @pytest.mark.parametrize('egrid,topics', [
     ('TEST', 'ALL'),
     ('TEST', 'ALL_FEDERAL'),
@@ -223,6 +227,7 @@ def test_return_json(pyramid_oereb_test_config, pyramid_test_config, schema_json
         assert restrictions[2]['Lawstatus']['Code'] == 'inForce'
 
 
+@patch.object(MockRequest, 'route_url', lambda *args, **kwargs : '')
 def test_format_url(real_estate_data):
     request = MockRequest()
     request.matchdict.update({
