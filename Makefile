@@ -307,7 +307,7 @@ test-contrib-data_sources-standard: ${VENV_ROOT}/requirements-timestamp
 	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-data_sources-standard --cov $(PACKAGE)/contrib/data_sources/standard --cov-report=term-missing:skip-covered --cov-report=xml:coverage.contrib-data_sources-standard.xml tests/contrib.data_sources.standard
 
 .PHONY: test-contrib-stats
-test-contrib-stats: .venv/requirements-timestamp
+test-contrib-stats: ${VENV_ROOT}/requirements-timestamp
 	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-stats --cov $(PACKAGE)/contrib/stats --cov-report=xml:coverage.contrib-stats.xml tests/contrib.stats
 
 .PHONY: tests
