@@ -86,17 +86,17 @@ def _get_test_extract(config, glossary):
     (
             Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
             [GlossaryRecord({'de': u'Glossar'}, {'de': u'Test'})],  # 'get_default_extract'
-            4775
+            4821
     ),
     (
             Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
             [],  # 'get_empty_glossary_extract'
-            4407
+            4453
     ),
     (
             Parameter('reduced', 'xml', False, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
             None,  # 'get_none_glossary_extract'
-            4407
+            4453
     )
 ])
 def test_extract_against_schema(real_estate_test_data, logo_test_data, schema_xml_extract,

@@ -114,7 +114,8 @@ class Renderer(Base):
                 'MunicipalityLogo': get_multilingual_element(
                         extract.municipality_logo.image_dict,
                         self._language
-                    ).encode()
+                    ).encode(),
+                'QRCode': extract.qr_code.encode()
             })
         else:
             extract_dict.update({
@@ -153,13 +154,12 @@ class Renderer(Base):
                             extract.municipality_logo.image_dict,
                             self._language
                         ).extension
-                ) + '?fosnr={}'.format(extract.real_estate.fosnr)
+                ) + '?fosnr={}'.format(extract.real_estate.fosnr),
+                'QRCodeRef': extract.qr_code_ref
             })
 
         if extract.electronic_signature is not None:
             extract_dict['ElectronicSignature'] = extract.electronic_signature
-        if extract.qr_code is not None:
-            extract_dict['QRCode'] = extract.qr_code
 
         if isinstance(extract.general_information, list) and len(extract.general_information) > 0:
             general_information = list()
