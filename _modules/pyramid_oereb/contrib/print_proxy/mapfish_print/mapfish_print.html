@@ -167,6 +167,10 @@
             <span class="s1">&#39;display_certification&#39;</span><span class="p">,</span> <span class="kc">False</span>
         <span class="p">)</span>
 
+        <span class="n">extract_as_dict</span><span class="p">[</span><span class="s1">&#39;Display_QRCode&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">print_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s1">&#39;display_qrcode&#39;</span><span class="p">,</span> <span class="kc">False</span>
+        <span class="p">)</span>
+
         <span class="n">spec</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;layout&#39;</span><span class="p">:</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})[</span><span class="s1">&#39;template_name&#39;</span><span class="p">],</span>
             <span class="s1">&#39;outputFormat&#39;</span><span class="p">:</span> <span class="s1">&#39;pdf&#39;</span><span class="p">,</span>
