@@ -131,7 +131,7 @@ def test_render(pyramid_oereb_test_config, pyramid_test_config, DummyRenderInfo,
                 'Title': [{'Language': 'de', 'Text': 'Allgemeine Informationen'}],
                 'Content': [{'Language': 'de', 'Text': 'Inhalt der allgemeinen Informationen'}]
             }],
-            'QRCode': '1'.encode('utf-8'),
+            'QRCodeRef': None,
             'Disclaimer': [{
                 'Title': [{'Language': 'de', 'Text': 'Haftungsausschluss'}],
                 'Content': [{'Language': 'de', 'Text': 'Test'}]

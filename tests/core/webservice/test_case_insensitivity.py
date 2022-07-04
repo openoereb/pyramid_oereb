@@ -1,4 +1,5 @@
 import pytest
+from unittest.mock import patch
 from pyramid_oereb.core.views.webservice import PlrWebservice
 from tests.mockrequest import MockRequest
 
@@ -82,6 +83,7 @@ def test_get_egrid_coord(pyramid_oereb_test_config, params):
         'LanG': 'dE'
     }
 ])
+@patch.object(MockRequest, 'route_url', lambda *args, **kwargs: '')
 def test_get_extract_by_id(pyramid_test_config, params):
     with pyramid_test_config as pyramid_config:
         pyramid_config.add_renderer('pyramid_oereb_extract_json',

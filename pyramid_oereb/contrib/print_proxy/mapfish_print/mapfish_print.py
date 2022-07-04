@@ -95,6 +95,10 @@ class Renderer(JsonRenderer):
             'display_certification', False
         )
 
+        extract_as_dict['Display_QRCode'] = print_config.get(
+            'display_qrcode', False
+        )
+
         spec = {
             'layout': Config.get('print', {})['template_name'],
             'outputFormat': 'pdf',

@@ -18,7 +18,6 @@ def test_class_variables():
     assert ExtractRecord.not_concerned_theme is None
     assert ExtractRecord.theme_without_data is None
     assert ExtractRecord.extract_identifier is None
-    assert ExtractRecord.qr_code is None
 
 
 def test_mandatory_fields():

@@ -7,6 +7,7 @@ from timeit import default_timer as timer
 
 from pyramid_oereb.core.config import Config
 from pyramid_oereb.core.records.extract import ExtractRecord
+from pyramid_oereb.core.records.image import ImageRecord
 from pyramid_oereb.core.records.plr import PlrRecord, EmptyPlrRecord
 
 log = logging.getLogger(__name__)
@@ -121,6 +122,7 @@ class ExtractReader(object):
         confederation_logo = Config.get_conferderation_logo()
         canton_logo = Config.get_canton_logo()
         municipality_logo = Config.get_municipality_logo(municipality.fosnr)
+        qr_code_image = ImageRecord(params.qr_code)
 
         self.extract = ExtractRecord(
             real_estate,
@@ -133,7 +135,9 @@ class ExtractReader(object):
             concerned_theme=concerned_themes,
             not_concerned_theme=not_concerned_themes,
             theme_without_data=themes_without_data,
-            general_information=general_information
+            general_information=general_information,
+            qr_code=qr_code_image,
+            qr_code_ref=params.qr_code_ref
         )
 
         log.debug("read() done")

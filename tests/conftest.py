@@ -658,3 +658,9 @@ def general_information(pyramid_oereb_test_config, dbsession, transact):
     dbsession.add_all(general_information)
 
     dbsession.flush()
+
+
+@pytest.fixture(autouse=True)
+def set_route_prefix():
+    with patch('pyramid_oereb.core.hook_methods.route_prefix', 'oereb'):
+        yield
