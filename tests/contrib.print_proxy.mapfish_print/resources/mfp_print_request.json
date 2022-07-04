@@ -4,6 +4,7 @@
     "ConcernedTheme": [],
     "CreationDate": "05.01.2022",
     "Display_Certification": false,
+    "Display_QRCode": false,
     "Display_RealEstate_SubunitOfLandRegister": true,
     "ExtractIdentifier": "7201ed8f-c03a-4ede-8c63-315da317eb21",
     "FederalLogoRef": "http://example.com/image/logo/confederation/de.png",
