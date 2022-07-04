@@ -664,4 +664,3 @@ def general_information(pyramid_oereb_test_config, dbsession, transact):
 def set_route_prefix():
     with patch('pyramid_oereb.core.hook_methods.route_prefix', 'oereb'):
         yield
-

@@ -52,7 +52,7 @@ def test_properties(pyramid_oereb_test_config):
     assert isinstance(processor.real_estate_reader, RealEstateReader)
 
 
-@patch.object(MockRequest, 'route_url', lambda *args, **kwargs : '')
+@patch.object(MockRequest, 'route_url', lambda *args, **kwargs: '')
 def test_process(processor_data, real_estate_data):
     request = MockRequest()
     request.matchdict.update(request_matchdict)
@@ -65,7 +65,7 @@ def test_process(processor_data, real_estate_data):
     assert isinstance(extract, ExtractRecord)
 
 
-@patch.object(MockRequest, 'route_url', lambda *args, **kwargs : '')
+@patch.object(MockRequest, 'route_url', lambda *args, **kwargs: '')
 def test_process_geometry_testing(processor_data, real_estate_data, land_use_plans):
     request = MockRequest()
     request.matchdict.update(request_matchdict)
@@ -82,7 +82,7 @@ def test_process_geometry_testing(processor_data, real_estate_data, land_use_pla
             assert g._test_passed
 
 
-@patch.object(MockRequest, 'route_url', lambda *args, **kwargs : '')
+@patch.object(MockRequest, 'route_url', lambda *args, **kwargs: '')
 def test_filter_documents(processor_data, real_estate_data, main_schema, land_use_plans):
     request = MockRequest()
     request.matchdict.update(request_matchdict)
@@ -101,7 +101,7 @@ def test_filter_documents(processor_data, real_estate_data, main_schema, land_us
                 assert document.only_in_municipality in [None, 1234]
 
 
-@patch.object(MockRequest, 'route_url', lambda *args, **kwargs : '')
+@patch.object(MockRequest, 'route_url', lambda *args, **kwargs: '')
 def test_processor_with_images(processor_data, real_estate_data):
     request = MockRequest()
     request.matchdict.update(request_matchdict)
@@ -120,7 +120,7 @@ def test_processor_with_images(processor_data, real_estate_data):
         assert plr.view_service.image != {}
 
 
-@patch.object(MockRequest, 'route_url', lambda *args, **kwargs : '')
+@patch.object(MockRequest, 'route_url', lambda *args, **kwargs: '')
 def test_processor_without_images(processor_data, real_estate_data):
     request = MockRequest()
     request.matchdict.update(request_matchdict)
@@ -274,7 +274,7 @@ def test_processor_get_legend_entries(processor_data, real_estate_data):
     assert len(after_process) == 1
 
 
-@patch.object(MockRequest, 'route_url', lambda *args, **kwargs : '')
+@patch.object(MockRequest, 'route_url', lambda *args, **kwargs: '')
 def test_processor_sort_by_law_status(processor_data, real_estate_data,
                                       main_schema, land_use_plans, contaminated_sites):
 
