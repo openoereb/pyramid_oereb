@@ -316,7 +316,7 @@ test-contrib-data_sources-standard: ${VENV_ROOT}/requirements-timestamp
 
 .PHONY: test-contrib-data_sources-interlis
 test-contrib-data_sources-interlis: ${VENV_ROOT}/requirements-timestamp
-	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-data_sources-interlib --cov $(PACKAGE)/contrib/data_sources/interlis_2_3 --cov-report=term-missing:skip-covered --cov-report=xml:coverage.contrib-data_sources-interlis.xml tests/contrib.data_sources.interlis_2_3
+	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-data_sources-interlis --cov $(PACKAGE)/contrib/data_sources/interlis_2_3 --cov-report=term-missing:skip-covered --cov-report=xml:coverage.contrib-data_sources-interlis.xml tests/contrib.data_sources.interlis_2_3
 
 .PHONY: test-contrib-stats
 test-contrib-stats: ${VENV_ROOT}/requirements-timestamp

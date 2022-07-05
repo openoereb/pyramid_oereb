@@ -116,6 +116,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         self.legend_entry_model = self.models.LegendEntry
         self.datasource = []
 
+        self._tolerance = self._plr_info.get('tolerance')
+
     def from_db_to_legend_entry_record(self, legend_entry_from_db):
         theme = Config.get_theme_by_code_sub_code(legend_entry_from_db.theme, legend_entry_from_db.sub_theme)
         legend_entry_record = self._legend_entry_record_class(
@@ -389,7 +391,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             min_length=min_length,
             area_unit=area_unit,
             length_unit=length_unit,
-            view_service_id=public_law_restriction_from_db.view_service.t_id
+            view_service_id=public_law_restriction_from_db.view_service.t_id,
+            tolerance=self._tolerance
         )
 
         return plr_record
@@ -417,13 +420,13 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         Returns:
             list: The result of the related geometries unique by the public law restriction id
         """
-
-        return session.query(self._model_).filter(
-                 or_(
-                  self._model_.point.ST_Intersects(from_shape(real_estate.limit, srid=Config.get('srid'))),
-                  self._model_.line.ST_Intersects(from_shape(real_estate.limit, srid=Config.get('srid'))),
-                  self._model_.surface.ST_Intersects(from_shape(real_estate.limit, srid=Config.get('srid')))
-                 )).distinct(self._model_.public_law_restriction_id).options(
+        if self._tolerance is None:
+            return session.query(self._model_).filter(
+                or_(
+                    self._model_.point.ST_Intersects(from_shape(real_estate.limit, srid=Config.get('srid'))),
+                    self._model_.line.ST_Intersects(from_shape(real_estate.limit, srid=Config.get('srid'))),
+                    self._model_.surface.ST_Intersects(from_shape(real_estate.limit, srid=Config.get('srid')))
+                )).distinct(self._model_.public_law_restriction_id).options(
                         selectinload(self.models.Geometry.public_law_restriction)
                         .selectinload(self.models.PublicLawRestriction.geometries),
                         selectinload(self.models.Geometry.public_law_restriction)
@@ -441,7 +444,38 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         .selectinload(self.models.PublicLawRestriction.responsible_office)
                         .selectinload(self.models.Office.multilingual_uri)
                         .selectinload(self.models.MultilingualUri.localised_uri)
-                ).all()
+                )all()
+        else:
+            return session.query(self._model_).filter(
+                or_(
+                    self._model_.point.ST_Distance(
+                        from_shape(real_estate.limit, srid=Config.get('srid'))
+                    ) < self._tolerance,
+                    self._model_.line.ST_Distance(
+                        from_shape(real_estate.limit, srid=Config.get('srid'))
+                    ) < self._tolerance,
+                    self._model_.surface.ST_Distance(
+                        from_shape(real_estate.limit, srid=Config.get('srid'))
+                    ) < self._tolerance
+                )).distinct(self._model_.public_law_restriction_id).options(
+                        selectinload(self.models.Geometry.public_law_restriction)
+                        .selectinload(self.models.PublicLawRestriction.geometries),
+                        selectinload(self.models.Geometry.public_law_restriction)
+                        .selectinload(self.models.PublicLawRestriction.legal_provisions)
+                        .selectinload(self.models.PublicLawRestrictionDocument.document)
+                        .selectinload(self.models.Document.multilingual_uri)
+                        .selectinload(self.models.MultilingualUri.localised_uri),
+                        selectinload(self.models.Geometry.public_law_restriction)
+                        .selectinload(self.models.PublicLawRestriction.legend_entry),
+                        selectinload(self.models.Geometry.public_law_restriction)
+                        .selectinload(self.models.PublicLawRestriction.view_service)
+                        .selectinload(self.models.ViewService.multilingual_uri)
+                        .selectinload(self.models.MultilingualUri.localised_uri),
+                        selectinload(self.models.Geometry.public_law_restriction)
+                        .selectinload(self.models.PublicLawRestriction.responsible_office)
+                        .selectinload(self.models.Office.multilingual_uri)
+                        .selectinload(self.models.MultilingualUri.localised_uri)
+                )all()
 
     def collect_legend_entries_by_bbox(self, session, bbox):
         """

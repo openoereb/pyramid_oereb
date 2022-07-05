@@ -2,6 +2,7 @@ import pytest
 from unittest.mock import patch
 
 from datetime import date, timedelta
+from sys import float_info as fi
 
 from pyramid.path import DottedNameResolver
 
@@ -65,7 +66,7 @@ def interlis_dbsession(interlis_db_engine):
         yield session
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def interlis_transact(interlis_dbsession):
     transact = interlis_dbsession.begin_nested()
     yield transact
@@ -73,7 +74,7 @@ def interlis_transact(interlis_dbsession):
     interlis_dbsession.expire_all()
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def interlis_land_use_plans(pyramid_oereb_test_config,
                             interlis_db_engine, interlis_dbsession, interlis_transact):
     del interlis_transact
@@ -143,6 +144,15 @@ def interlis_land_use_plans(pyramid_oereb_test_config,
             'view_service_id': 1,
             'legend_entry_id': 1,
             'office_id': 1
+        }),
+        models.PublicLawRestriction(**{
+            't_id': 2,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'view_service_id': 1,
+            'legend_entry_id': 1,
+            'office_id': 1
         })
     }
     interlis_dbsession.add_all(plrs)
@@ -171,7 +181,7 @@ def interlis_land_use_plans(pyramid_oereb_test_config,
             'published_from': date.today().isoformat(),
             'published_until': (date.today() + timedelta(days=100)).isoformat(),
             'geo_metadata': 'Line',
-            'public_law_restriction_id': 1,
+            'public_law_restriction_id': 2,
             'line': 'SRID=2056;LINESTRING(1 0.1, 2 0.2)',
         }),
         models.Geometry(**{
@@ -235,10 +245,13 @@ def processor_data(pyramid_oereb_test_config, main_schema):
         yield pyramid_oereb_test_config
 
 
+@pytest.mark.parametrize('with_tolerance, nb_results', [(False, 1), (True, 2)])
 def test_related_geometries(processor_data, pyramid_oereb_test_config, interlis_land_use_plans,
-                            oblique_limit_real_estate_record):
+                            oblique_limit_real_estate_record, with_tolerance, nb_results):
     plr_cadastre_authority = pyramid_oereb_test_config.get_plr_cadastre_authority()
     plr = pyramid_oereb_test_config.get_theme_config_by_code('ch.Nutzungsplanung')
+    if with_tolerance:
+        plr["tolerance"] = fi.epsilon
     plr_source_class = DottedNameResolver().maybe_resolve(plr.get('source').get('class'))
     plr_sources = []
     plr_sources.append(plr_source_class(**plr))
@@ -249,6 +262,7 @@ def test_related_geometries(processor_data, pyramid_oereb_test_config, interlis_
     municipality = MunicipalityRecord(1234, 'test', True)
 
     from pyramid_oereb.core.readers.extract import ExtractReader
+
     extract_reader = ExtractReader(
         plr_sources,
         plr_cadastre_authority
@@ -266,6 +280,6 @@ def test_related_geometries(processor_data, pyramid_oereb_test_config, interlis_
         plr_sources=plr_sources,
         extract_reader=extract_reader,
     )
-    assert len(extract_raw.real_estate.public_law_restrictions[0].geometries) == 4
+    assert len(extract_raw.real_estate.public_law_restrictions) == nb_results
     extract = processor.plr_tolerance_check(extract_raw)
-    assert len(extract.real_estate.public_law_restrictions[0].geometries) == 1
+    assert len(extract.real_estate.public_law_restrictions) == nb_results
