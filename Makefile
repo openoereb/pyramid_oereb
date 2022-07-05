@@ -275,6 +275,7 @@ clean: clean_fed_data clean_dev_db_scripts
 	rm -f $(DEV_CONFIGURATION_YML)
 	rm -f coverage.core.xml
 	rm -f coverage.contrib-data_sources-standard.xml
+	rm -f coverage.contrib-data_sources-interlis.xml
 	rm -f coverage.contrib-print_proxy-mapfish_print.xml
 	rm -f coverage.contrib-stats.xml
 
@@ -302,7 +303,7 @@ test-postgis:
 
 .PHONY: test-core
 test-core: ${VENV_ROOT}/requirements-timestamp
-	$(VENV_BIN)/py.test --pdb -vv $(PYTEST_OPTS) --cov-config .coveragerc.core --cov $(PACKAGE)/core --cov-report=term-missing --cov-report=xml:coverage.core.xml tests/core
+	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.core --cov $(PACKAGE)/core --cov-report=term-missing --cov-report=xml:coverage.core.xml tests/core
 
 .PHONY: test-contrib-print_proxy-mapfish_print
 test-contrib-print_proxy-mapfish_print: ${VENV_ROOT}/requirements-timestamp
@@ -313,12 +314,16 @@ test-contrib-print_proxy-mapfish_print: ${VENV_ROOT}/requirements-timestamp
 test-contrib-data_sources-standard: ${VENV_ROOT}/requirements-timestamp
 	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-data_sources-standard --cov $(PACKAGE)/contrib/data_sources/standard --cov-report=term-missing:skip-covered --cov-report=xml:coverage.contrib-data_sources-standard.xml tests/contrib.data_sources.standard
 
+.PHONY: test-contrib-data_sources-interlis
+test-contrib-data_sources-interlis: ${VENV_ROOT}/requirements-timestamp
+	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-data_sources-interlib --cov $(PACKAGE)/contrib/data_sources/interlis_2_3 --cov-report=term-missing:skip-covered --cov-report=xml:coverage.contrib-data_sources-interlis.xml tests/contrib.data_sources.interlis_2_3
+
 .PHONY: test-contrib-stats
 test-contrib-stats: ${VENV_ROOT}/requirements-timestamp
 	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-stats --cov $(PACKAGE)/contrib/stats --cov-report=xml:coverage.contrib-stats.xml tests/contrib.stats
 
 .PHONY: tests
-tests: ${VENV_ROOT}/requirements-timestamp test-core test-contrib-data_sources-standard test-contrib-print_proxy-mapfish_print test-contrib-data_sources-standard test-contrib-stats
+tests: ${VENV_ROOT}/requirements-timestamp test-core test-contrib-data_sources-standard test-contrib-print_proxy-mapfish_print test-contrib-data_sources-standard test-contrib-data_sources-interlis test-contrib-stats
 
 .PHONY: docker-tests
 docker-tests:
