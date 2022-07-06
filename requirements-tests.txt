@@ -1,5 +1,5 @@
 jsonschema==4.5.1
-lxml==4.8.0
+lxml==4.9.1
 pytest==7.1.2
 pytest-cov==3.0.0
 pytest-ordering==0.6
