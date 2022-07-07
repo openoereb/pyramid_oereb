@@ -7,6 +7,7 @@ from geoalchemy2.shape import to_shape, from_shape
 from shapely.geometry import Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, \
     GeometryCollection
 from sqlalchemy import or_
+from sqlalchemy.orm import selectinload
 
 from pyramid_oereb import Config
 from pyramid_oereb.core import b64
@@ -422,7 +423,25 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                   self._model_.point.ST_Intersects(from_shape(real_estate.limit, srid=Config.get('srid'))),
                   self._model_.line.ST_Intersects(from_shape(real_estate.limit, srid=Config.get('srid'))),
                   self._model_.surface.ST_Intersects(from_shape(real_estate.limit, srid=Config.get('srid')))
-                 )).distinct(self._model_.public_law_restriction_id).all()
+                 )).distinct(self._model_.public_law_restriction_id).options(
+                        selectinload(self.models.Geometry.public_law_restriction)
+                        .selectinload(self.models.PublicLawRestriction.geometries),
+                        selectinload(self.models.Geometry.public_law_restriction)
+                        .selectinload(self.models.PublicLawRestriction.legal_provisions)
+                        .selectinload(self.models.PublicLawRestrictionDocument.document)
+                        .selectinload(self.models.Document.multilingual_uri)
+                        .selectinload(self.models.MultilingualUri.localised_uri),
+                        selectinload(self.models.Geometry.public_law_restriction)
+                        .selectinload(self.models.PublicLawRestriction.legend_entry),
+                        selectinload(self.models.Geometry.public_law_restriction)
+                        .selectinload(self.models.PublicLawRestriction.view_service)
+                        .selectinload(self.models.ViewService.multilingual_uri)
+                        .selectinload(self.models.MultilingualUri.localised_uri),
+                        selectinload(self.models.Geometry.public_law_restriction)
+                        .selectinload(self.models.PublicLawRestriction.responsible_office)
+                        .selectinload(self.models.Office.multilingual_uri)
+                        .selectinload(self.models.MultilingualUri.localised_uri)
+                ).all()
 
     def collect_legend_entries_by_bbox(self, session, bbox):
         """
@@ -442,7 +461,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                        self._model_.point.ST_Intersects(from_shape(bbox, srid=Config.get('srid'))),
                        self._model_.line.ST_Intersects(from_shape(bbox, srid=Config.get('srid'))),
                        self._model_.surface.ST_Intersects(from_shape(bbox, srid=Config.get('srid')))
-                      )).distinct(self._model_.public_law_restriction_id).all()
+                      )).distinct(self._model_.public_law_restriction_id).options(
+                        selectinload(self.models.Geometry.public_law_restriction)
+                      ).all()
 
         for geometry in geometries:
             if geometry.public_law_restriction.legend_entry_id not in distinct_legend_entry_ids:
