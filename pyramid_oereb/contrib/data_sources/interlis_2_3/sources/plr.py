@@ -424,7 +424,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                   self._model_.surface.ST_Intersects(from_shape(real_estate.limit, srid=Config.get('srid')))
                  )).distinct(self._model_.public_law_restriction_id).all()
 
-    def collect_legend_entries_by_bbox(self, session, bbox):
+    def collect_legend_entries_by_bbox(self, session, bbox, law_status):
         """
         Extracts all legend entries in the topic which have spatial relation with the passed bounding box of
         visible extent.
@@ -445,7 +445,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                       )).distinct(self._model_.public_law_restriction_id).all()
 
         for geometry in geometries:
-            if geometry.public_law_restriction.legend_entry_id not in distinct_legend_entry_ids:
+            if geometry.public_law_restriction.legend_entry_id not in distinct_legend_entry_ids\
+                    and geometry.public_law_restriction.law_status == law_status:
                 distinct_legend_entry_ids.append(geometry.public_law_restriction.legend_entry_id)
 
         return session.query(self.legend_entry_model).filter(
@@ -488,8 +489,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         # We found spatially related elements. This means we need to extract the actual plr
                         # information related to the found geometries.
                         self.records = []
-                        legend_entries_from_db = self.collect_legend_entries_by_bbox(session, bbox)
                         for geometry_result in geometry_results:
+                            legend_entries_from_db = self.collect_legend_entries_by_bbox(
+                                session, bbox, geometry_result.public_law_restriction.law_status)
                             self.records.append(
                                 self.from_db_to_plr_record(
                                     params,
