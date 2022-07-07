@@ -4,6 +4,7 @@ import logging
 from pyramid_oereb import Config
 from pyramid_oereb.contrib.data_sources.oereblex.sources.document import OEREBlexSource
 from pyramid_oereb.contrib.data_sources.standard.sources.plr import DatabaseSource
+from sqlalchemy.orm import selectinload
 
 log = logging.getLogger(__name__)
 
@@ -105,3 +106,28 @@ class DatabaseOEREBlexSource(DatabaseSource):
                       .format(len(self._oereblex_source.records)))
             self._queried_geolinks[identifier] = self._oereblex_source.records
         return self._queried_geolinks[identifier]
+
+    def collect_related_geometries_by_real_estate(self, session, real_estate):
+        """
+        Extracts all geometries in the topic which have spatial relation with the passed real estate
+
+        Args:
+            session (sqlalchemy.orm.Session): The requested clean session instance ready for use
+            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
+                estate in its record representation.
+
+        Returns:
+            list: The result of the related geometries unique by the public law restriction id
+        """
+        return self.handle_collection(session, real_estate.limit).distinct(
+            self._model_.public_law_restriction_id
+        ).options(
+            selectinload(self.models.Geometry.public_law_restriction)
+            .selectinload(self.models.PublicLawRestriction.geometries),
+            selectinload(self.models.Geometry.public_law_restriction)
+            .selectinload(self.models.PublicLawRestriction.legend_entry),
+            selectinload(self.models.Geometry.public_law_restriction)
+            .selectinload(self.models.PublicLawRestriction.view_service),
+            selectinload(self.models.Geometry.public_law_restriction)
+            .selectinload(self.models.PublicLawRestriction.responsible_office),
+        ).all()
