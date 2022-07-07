@@ -171,7 +171,12 @@ class Renderer(JsonRenderer):
 
         time_info = (datetime.utcnow() + timedelta(hours=2)).strftime('%Y%m%d%H%M%S')  # UTC+2
         egrid = extract_as_dict.get('RealEstate_EGRID', 'no_egrid')
-        path_and_filename = pdf_archive_path + time_info + '_' + egrid + '.pdf'
+        if egrid == 'no_egrid':
+            identdn = extract_as_dict.get('RealEstate_IdentDN', 'no_identdn')
+            number = extract_as_dict.get('RealEstate_Number', 'no_number')
+            path_and_filename = pdf_archive_path + time_info + '_' + identdn + '_' + number + '.pdf'
+        else:
+            path_and_filename = pdf_archive_path + time_info + '_' + egrid + '.pdf'
 
         archive = open(path_and_filename, 'ab')
         archive.write(binary_content)
