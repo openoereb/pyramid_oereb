@@ -509,15 +509,29 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     else:
                         # We found spatially related elements. This means we need to extract the actual plr
                         # information related to the found geometries.
+                        law_status_of_geometry = []
+                        # get distinct values of law_status for all geometries found
+                        for geometry in geometry_results:
+                            if(geometry.public_law_restriction.law_status not in law_status_of_geometry):
+                                law_status_of_geometry.append(geometry.public_law_restriction.law_status)
+
+                        legend_entries_from_db = []
+                        # get legend_entries per law_status
+                        for law_status in law_status_of_geometry:
+                            legend_entry_with_law_status = [
+                                self.collect_legend_entries_by_bbox(session, bbox, law_status),
+                                law_status
+                            ]
+                            legend_entries_from_db.append(legend_entry_with_law_status)
+
                         self.records = []
                         for geometry_result in geometry_results:
-                            legend_entries_from_db = self.collect_legend_entries_by_bbox(
-                                session, bbox, geometry_result.public_law_restriction.law_status)
                             self.records.append(
                                 self.from_db_to_plr_record(
                                     params,
                                     geometry_result.public_law_restriction,
-                                    legend_entries_from_db
+                                    next(elem for elem in legend_entries_from_db
+                                         if elem[1] == geometry_result.public_law_restriction.law_status)[0]
                                 )
                             )
 
