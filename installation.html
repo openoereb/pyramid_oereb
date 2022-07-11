@@ -149,9 +149,12 @@ separated because it is already very complex on its own.</p>
 <p>Use the generated configuration file to create the needed database structure. The standard database structure,
 defined in the module <code class="docutils literal notranslate"><span class="pre">pyramid_oereb.standard.models</span></code>, can be created automatically using the provided
 script:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>create_standard_tables -c pyramid_oereb_standard.yml
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>create_main_schema_tables -c pyramid_oereb_standard.yml --sql-file<span class="o">=</span>sqlFile.sql
+create_standard_tables -c pyramid_oereb_standard.yml --sql-file<span class="o">=</span>sqlFile.sql
+create_oereblex_tables -c pyramid_oereb_standard.yml --sql-file<span class="o">=</span>sqlFile.sql
 </pre></div>
 </div>
+<p>Then load the generated sql file into your DB</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>We assume you did not specify a custom name for the configuration file. If you have used a custom

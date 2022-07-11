@@ -305,10 +305,14 @@ pyramid_oereb.cfg.section <span class="o">=</span> pyramid_oereb
 <li><p>Configure the database settings and install standard tables</p>
 <p>Make sure (eg using pgAdmin) the configured database exists and has the postgis extensions installed
 (create extension postgis). Set the db parameters in your pyramid_oereb.yml config or use
-pyramid_oereb_standard.yml for your test environnement then</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\c</span>reate_standard_tables.exe -c pyramid_oereb_standard.yml
-</pre></div>
-</div>
+pyramid_oereb_standard.yml for your test environnement then
+.. code-block:: shell</p>
+<blockquote>
+<div><p>.buildvenvScriptscreate_main_schema_tables.exe -c pyramid_oereb_standard.yml –sql-file=sqlFile.sql
+.buildvenvScriptscreate_standard_tables.exe -c pyramid_oereb_standard.yml –sql-file=sqlFile.sql
+.buildvenvScriptscreate_oereblex_tables.exe -c pyramid_oereb_standard.yml –sql-file=sqlFile.sql</p>
+</div></blockquote>
+<p>Then load the generate sql file into your DB</p>
 </li>
 <li><p>Load sample data in the standard db or connect your own PLR database for standard sample data:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ython pyramid_oereb<span class="se">\s</span>tandard<span class="se">\l</span>oad_sample_data.py -c pyramid_oereb_standard.yml

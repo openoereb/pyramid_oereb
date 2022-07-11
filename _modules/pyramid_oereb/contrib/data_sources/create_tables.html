@@ -90,8 +90,12 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        theme_config (dict): The configuration section for the specific theme.</span>
+<span class="sd">        source_class (): The source from which the table is created.</span>
+<span class="sd">                         This can be the standard source or the oereblex source.</span>
+<span class="sd">                         Only the Themes configured with this source are created.</span>
 <span class="sd">        tables_only (bool): True to skip creation of schema. Default is False.</span>
 <span class="sd">        sql_file (file): The file to generate. Default is None (in the database).</span>
+<span class="sd">        if_not_exists (bool): create Schema with the flag `IF NOT EXISTS`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">theme_config</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">][</span><span class="s1">&#39;class&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">source_class</span><span class="p">:</span>
         <span class="n">config_parser</span> <span class="o">=</span> <span class="n">StandardThemeConfigParser</span><span class="p">(</span><span class="o">**</span><span class="n">theme_config</span><span class="p">)</span>
@@ -107,8 +111,13 @@
 
 
 <div class="viewcode-block" id="create_tables_from_standard_configuration"><a class="viewcode-back" href="../../../../standard/index.html#pyramid_oereb.contrib.data_sources.create_tables.create_tables_from_standard_configuration">[docs]</a><span class="k">def</span> <span class="nf">create_tables_from_standard_configuration</span><span class="p">(</span>
-        <span class="n">configuration_yaml_path</span><span class="p">,</span> <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">c2ctemplate_style</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">tables_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">sql_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">if_not_exists</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">configuration_yaml_path</span><span class="p">,</span>
+        <span class="n">source_class</span><span class="p">,</span>
+        <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span>
+        <span class="n">c2ctemplate_style</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">tables_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">sql_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">if_not_exists</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates all schemas which are defined in the passed yaml file: &lt;section&gt;.&lt;plrs&gt;.[&lt;plr&gt;.&lt;code&gt;]. The code</span>
 <span class="sd">    must be camel case. It will be transformed to snake case and used as schema name.</span>
@@ -123,6 +132,43 @@
 <span class="sd">            Default is False.</span>
 <span class="sd">        tables_only (bool): True to skip creation of schema. Default is False.</span>
 <span class="sd">        sql_file (file): the file to generate. Default is None (in the database).</span>
+<span class="sd">        if_not_exists (bool): create Schema with the flag `IF NOT EXISTS`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">Config</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">configuration_yaml_path</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">c2ctemplate_style</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">theme_config</span> <span class="ow">in</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">):</span>
+        <span class="n">create_theme_tables_</span><span class="p">(</span>
+            <span class="n">theme_config</span><span class="p">,</span>
+            <span class="n">source_class</span><span class="p">,</span>
+            <span class="n">tables_only</span><span class="o">=</span><span class="n">tables_only</span><span class="p">,</span>
+            <span class="n">sql_file</span><span class="o">=</span><span class="n">sql_file</span><span class="p">,</span>
+            <span class="n">if_not_exists</span><span class="o">=</span><span class="n">if_not_exists</span>
+        <span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">create_main_schema_from_configuration_</span><span class="p">(</span>
+        <span class="n">configuration_yaml_path</span><span class="p">,</span>
+        <span class="n">section</span><span class="o">=</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span>
+        <span class="n">c2ctemplate_style</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">tables_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">sql_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">if_not_exists</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates all schemas which are defined in the passed yaml file: &lt;section&gt;.&lt;plrs&gt;.[&lt;plr&gt;.&lt;code&gt;]. The code</span>
+<span class="sd">    must be camel case. It will be transformed to snake case and used as schema name.</span>
+<span class="sd">    Creates all tables inside the created schemas. This only affects the sqlalchemy models which are defined</span>
+<span class="sd">    with the Base class from pyramid_oereb.standard.models.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        configuration_yaml_path (str): The absolute path to the yaml file which contains the plr</span>
+<span class="sd">            definitions.</span>
+<span class="sd">        section (str): The section in yaml file where the plrs are configured in. Default is &#39;pyramid_oereb&#39;.</span>
+<span class="sd">        c2ctemplate_style (bool): True if the yaml use a c2c template style (vars.[section]).</span>
+<span class="sd">            Default is False.</span>
+<span class="sd">        tables_only (bool): True to skip creation of schema. Default is False.</span>
+<span class="sd">        sql_file (file): the file to generate. Default is None (in the database).</span>
+<span class="sd">        if_not_exists (bool): create Schema with the flag `IF NOT EXISTS`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">Config</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">configuration_yaml_path</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">c2ctemplate_style</span><span class="p">)</span>
@@ -139,20 +185,12 @@
 
     <span class="n">sql_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">theme_config</span> <span class="ow">in</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">):</span>
-        <span class="n">create_theme_tables_</span><span class="p">(</span>
-            <span class="n">theme_config</span><span class="p">,</span>
-            <span class="s1">&#39;pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource&#39;</span><span class="p">,</span>
-            <span class="n">tables_only</span><span class="o">=</span><span class="n">tables_only</span><span class="p">,</span>
-            <span class="n">sql_file</span><span class="o">=</span><span class="n">sql_file</span><span class="p">,</span>
-            <span class="n">if_not_exists</span><span class="o">=</span><span class="n">if_not_exists</span>
-        <span class="p">)</span></div>
 
-
-<span class="k">def</span> <span class="nf">create_standard_tables</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">create_main_schema_tables</span><span class="p">():</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">optparse</span><span class="o">.</span><span class="n">OptionParser</span><span class="p">(</span>
         <span class="n">usage</span><span class="o">=</span><span class="s1">&#39;usage: %prog [options]&#39;</span><span class="p">,</span>
-        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Create all content for the standard database&#39;</span>
+        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Create the main schema with table and its content </span><span class="se">\</span>
+<span class="s1">            used in the standard database&#39;</span>
     <span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
         <span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;--configuration&#39;</span><span class="p">,</span>
@@ -188,20 +226,40 @@
         <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Is the yaml file using a c2ctemplate style (starting with vars)&#39;</span>
     <span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_option</span><span class="p">(</span>
+        <span class="s1">&#39;-w&#39;</span><span class="p">,</span> <span class="s1">&#39;--over-write&#39;</span><span class="p">,</span>
+        <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;append_to_sql&#39;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Setting this will overwrite the given sql-file (defaults to append to the file).&#39;</span>
+    <span class="p">)</span>
+
     <span class="n">options</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">:</span>
         <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;No configuration file set.&#39;</span><span class="p">)</span>
 
+    <span class="k">if</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">Config</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
+            <span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
+            <span class="n">options</span><span class="o">.</span><span class="n">c2ctemplate_style</span>
+        <span class="p">)</span>
+
+    <span class="n">main_config</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">main_config</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;The main config is not found in configuration.&#39;</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">sql_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">create_tables_from_standard_configuration</span><span class="p">(</span>
+        <span class="n">create_main_schema_from_configuration_</span><span class="p">(</span>
             <span class="n">configuration_yaml_path</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span>
             <span class="n">section</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
             <span class="n">c2ctemplate_style</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">c2ctemplate_style</span><span class="p">,</span>
             <span class="n">tables_only</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">tables_only</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">sql_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sql_file</span><span class="p">:</span>
-            <span class="n">create_tables_from_standard_configuration</span><span class="p">(</span>
+        <span class="n">append_to_sql</span> <span class="o">=</span> <span class="s1">&#39;w&#39;</span> <span class="k">if</span> <span class="n">options</span><span class="o">.</span><span class="n">append_to_sql</span> <span class="k">else</span> <span class="s1">&#39;a&#39;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">sql_file</span><span class="p">,</span> <span class="n">append_to_sql</span><span class="p">)</span> <span class="k">as</span> <span class="n">sql_file</span><span class="p">:</span>
+            <span class="n">create_main_schema_from_configuration_</span><span class="p">(</span>
                 <span class="n">configuration_yaml_path</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span>
                 <span class="n">section</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">section</span><span class="p">,</span>
                 <span class="n">c2ctemplate_style</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">c2ctemplate_style</span><span class="p">,</span>
