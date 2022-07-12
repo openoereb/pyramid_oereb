@@ -451,9 +451,10 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         Args:
             session (sqlalchemy.orm.Session): The requested clean session instance ready for use
             bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
+            law_status (str): String of the law status for which the legend entries should be queried.
 
         Returns:
-            list: The result of the related geometries unique by the public law restriction id
+            list: The result of the related geometries unique by the public law restriction id and law status
         """
         distinct_legend_entry_ids = []
         geometries = session.query(self._model_).filter(
