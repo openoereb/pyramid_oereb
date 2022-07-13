@@ -11,6 +11,12 @@ def app_config():
             "name": "test",
             "models": "pyramid_oereb.contrib.data_sources.standard.models.main",
             "db_connection": "postgresql://postgres:postgres@123.123.123.123:5432/pyramid_oereb_test"
+        },
+        'geometry_types': {
+            'point': {'types': []},
+            'line': {'types': []},
+            'polygon': {'types': []},
+            'collection': {'types': ['GeometryCollection']}
         }
     }
 

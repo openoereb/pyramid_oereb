@@ -112,6 +112,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         self.legend_entry_model = self.models.LegendEntry
 
+        self._tolerance = self._plr_info.get('tolerance')
+
     def from_db_to_legend_entry_record(self, legend_entry_from_db):
         theme = Config.get_theme_by_code_sub_code(legend_entry_from_db.theme)
         if legend_entry_from_db.sub_theme:
@@ -347,7 +349,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             min_length=min_length,
             area_unit=area_unit,
             length_unit=length_unit,
-            view_service_id=public_law_restriction_from_db.view_service.id
+            view_service_id=public_law_restriction_from_db.view_service.id,
+            tolerance=self._tolerance
         )
 
         return plr_record
@@ -370,7 +373,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return document_records
 
     @staticmethod
-    def extract_geometry_collection_db(db_path, real_estate_geometry):
+    def extract_geometry_collection_db(db_path, real_estate_geometry, tolerance=None):
         """
         Decides the geometry collection cases of geometric filter operations when the database contains multi
         geometries but the passed geometry does not.
@@ -389,27 +392,20 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             HTTPBadRequest
         """
         srid = Config.get('srid')
-        sql_text_point = 'ST_Intersects(ST_CollectionExtract({0}, 1), ST_GeomFromText(\'{1}\', {2}))'.format(
-            db_path,
-            real_estate_geometry.wkt,
-            srid
-        )
-        sql_text_line = 'ST_Intersects(ST_CollectionExtract({0}, 2), ST_GeomFromText(\'{1}\', {2}))'.format(
-            db_path,
-            real_estate_geometry.wkt,
-            srid
-        )
-        sql_text_polygon = 'ST_Intersects(ST_CollectionExtract({0}, 3), ' \
-                           'ST_GeomFromText(\'{1}\', {2}))'.format(
-                                db_path,
-                                real_estate_geometry.wkt,
-                                srid
-                            )
-        clause_blocks = [
-            text(sql_text_point),
-            text(sql_text_line),
-            text(sql_text_polygon)
-        ]
+        extract_point = f"ST_CollectionExtract({db_path}, 1)"
+        extract_line = f"ST_CollectionExtract({db_path}, 2)"
+        extract_polygon = f"ST_CollectionExtract({db_path}, 3)"
+        geometry_string = f'ST_GeomFromText(\'{real_estate_geometry.wkt}\', {srid})'
+        if tolerance is None:
+            clause_blocks = [
+                text(f'ST_Intersects({extract}, {geometry_string})')
+                for extract in [extract_point, extract_line, extract_polygon]
+            ]
+        else:
+            clause_blocks = [
+                text(f'ST_Distance({extract}, {geometry_string}) < {tolerance}')
+                for extract in [extract_point, extract_line, extract_polygon]
+            ]
         return or_(*clause_blocks)
 
     def handle_collection(self, session, geometry_to_check):
@@ -435,15 +431,21 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         schema=self._model_.__table__.schema,
                         table=self._model_.__table__.name
                     ),
-                    geometry_to_check
+                    geometry_to_check,
+                    self._tolerance
                 )
             )
 
         else:
             # The PLR is not problematic at all cause we do not have a collection type here
-            query = session.query(self._model_).filter(self._model_.geom.ST_Intersects(
-                from_shape(geometry_to_check, srid=Config.get('srid'))
-            ))
+            if self._tolerance is None:
+                query = session.query(self._model_).filter(self._model_.geom.ST_Intersects(
+                    from_shape(geometry_to_check, srid=Config.get('srid'))
+                ))
+            else:
+                query = session.query(self._model_).filter(self._model_.geom.ST_Distance(
+                    from_shape(geometry_to_check, srid=Config.get('srid'))
+                ) < self._tolerance)
         return query
 
     def collect_related_geometries_by_real_estate(self, session, real_estate):
@@ -474,7 +476,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             .selectinload(self.models.PublicLawRestriction.responsible_office),
         ).all()
 
-    def collect_legend_entries_by_bbox(self, session, bbox):
+    def collect_legend_entries_by_bbox(self, session, bbox, law_status):
         """
         Extracts all legend entries in the topic which have spatial relation with the passed bounding box of
         visible extent.
@@ -482,9 +484,10 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         Args:
             session (sqlalchemy.orm.Session): The requested clean session instance ready for use
             bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
+            law_status (str): String of the law status for which the legend entries should be queried.
 
         Returns:
-            list: The result of the related geometries unique by the public law restriction id
+            list: The result of the related geometries unique by the public law restriction id and law status
         """
 
         distinct_legend_entry_ids = []
@@ -492,7 +495,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             selectinload(self.models.Geometry.public_law_restriction)
         ).all()
         for geometry in geometries:
-            if geometry.public_law_restriction.legend_entry_id not in distinct_legend_entry_ids:
+            if geometry.public_law_restriction.legend_entry_id not in distinct_legend_entry_ids \
+                    and geometry.public_law_restriction.law_status == law_status:
                 distinct_legend_entry_ids.append(geometry.public_law_restriction.legend_entry_id)
         return session.query(self.legend_entry_model).filter(
             self.legend_entry_model.id.in_((distinct_legend_entry_ids))).all()
@@ -531,14 +535,30 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     else:
                         # We found spatially related elements. This means we need to extract the actual plr
                         # information related to the found geometries.
+
+                        law_status_of_geometry = []
+                        # get distinct values of law_status for all geometries found
+                        for geometry in geometry_results:
+                            if(geometry.public_law_restriction.law_status not in law_status_of_geometry):
+                                law_status_of_geometry.append(geometry.public_law_restriction.law_status)
+
+                        legend_entries_from_db = []
+                        # get legend_entries per law_status
+                        for law_status in law_status_of_geometry:
+                            legend_entry_with_law_status = [
+                                self.collect_legend_entries_by_bbox(session, bbox, law_status),
+                                law_status
+                            ]
+                            legend_entries_from_db.append(legend_entry_with_law_status)
+
                         self.records = []
-                        legend_entries_from_db = self.collect_legend_entries_by_bbox(session, bbox)
                         for geometry_result in geometry_results:
                             self.records.append(
                                 self.from_db_to_plr_record(
                                     params,
                                     geometry_result.public_law_restriction,
-                                    legend_entries_from_db
+                                    next(elem for elem in legend_entries_from_db
+                                         if elem[1] == geometry_result.public_law_restriction.law_status)[0]
                                 )
                             )
 

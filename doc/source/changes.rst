@@ -6,6 +6,18 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+.. _changes-version-2.2.0:
+
+Version 2.2.0
+-------------
+This version introduces new features, performance improvements and include a bug-fix:
+
+ * Performance improvements (#1580)
+ * Add QR-Code functionality (#1579)
+ * Bug-fix for Other Legend (#1586)
+ * Add optional tolerance on geometric operations (#1571)
+ * Improve PDF filename when not using egrid (#1585)
+
 .. _changes-version-2.1.1:
 
 Version 2.1.1

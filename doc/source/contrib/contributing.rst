@@ -240,10 +240,13 @@ NOTE
    Make sure (eg using pgAdmin) the configured database exists and has the postgis extensions installed
    (create extension postgis). Set the db parameters in your pyramid\_oereb.yml config or use
    pyramid\_oereb\_standard.yml for your test environnement then
-
    .. code-block:: shell
 
-    .build\venv\Scripts\create_standard_tables.exe -c pyramid_oereb_standard.yml
+    .build\venv\Scripts\create_main_schema_tables.exe -c pyramid_oereb_standard.yml --sql-file=sqlFile.sql
+    .build\venv\Scripts\create_standard_tables.exe -c pyramid_oereb_standard.yml --sql-file=sqlFile.sql
+    .build\venv\Scripts\create_oereblex_tables.exe -c pyramid_oereb_standard.yml --sql-file=sqlFile.sql
+
+   Then load the generate sql file into your DB
 
 #. Load sample data in the standard db or connect your own PLR database for standard sample data:
 

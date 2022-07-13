@@ -1,18 +1,23 @@
 # -*- coding: utf-8 -*-
 import datetime
 from datetime import date, timedelta
+from sys import float_info as fi
 import pytest
-from shapely.geometry import Point, LineString, Polygon
+from unittest.mock import patch
+from shapely.geometry import Point, LineString, Polygon, GeometryCollection
 from shapely.wkt import loads
 
+from pyramid_oereb.core.processor import create_processor
 from pyramid_oereb.core.records.geometry import GeometryRecord
 from pyramid_oereb.core.records.image import ImageRecord
 from pyramid_oereb.core.records.law_status import LawStatusRecord
+from pyramid_oereb.core.records.municipality import MunicipalityRecord
 from pyramid_oereb.core.records.office import OfficeRecord
 from pyramid_oereb.core.records.plr import PlrRecord
 from pyramid_oereb.core.records.real_estate import RealEstateRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.view_service import ViewServiceRecord, LegendEntryRecord
+from pyramid_oereb.contrib.data_sources.standard.sources.plr import StandardThemeConfigParser
 
 
 law_status = LawStatusRecord(
@@ -197,3 +202,163 @@ def test_sum_points(geometry_record, test, method, geometry_types):
         documents=[]
     )
     assert getattr(plr_record, method)() == test
+
+
+@pytest.fixture
+def oblique_geometry_plr_record():
+    theme = ThemeRecord('code', dict(), 100)
+    geometry_records = [
+        GeometryRecord(law_status, datetime.date.today(), None, LineString(((1, 0.1), (2, 0.2))))
+    ]
+    return PlrRecord(
+        theme,
+        LegendEntryRecord(
+            ImageRecord('1'.encode('utf-8')),
+            {'en': 'Content'},
+            'CodeA',
+            None,
+            theme,
+            view_service_id=1
+        ),
+        law_status,
+        date.today() + timedelta(days=0),
+        date.today() + timedelta(days=2),
+        OfficeRecord({'en': 'Office'}),
+        ImageRecord('1'.encode('utf-8')),
+        ViewServiceRecord({'de': 'http://my.wms.com'}, 1, 1.0, 'de', 2056, None, None),
+        geometry_records,
+        documents=[]
+    )
+
+
+@pytest.fixture
+def oblique_limit_real_estate_record():
+    return RealEstateRecord(
+        'test_type', 'BL', 'Nusshof', 1234, land_registry_area=3.2,
+        limit=Polygon(((0, 0), (3, 0), (3, 0.3)))
+    )
+
+
+def test_tolerance_outside(geometry_types, oblique_geometry_plr_record, oblique_limit_real_estate_record):
+    oblique_geometry_plr_record.geometries[0].reset_calculation()
+    assert not oblique_geometry_plr_record.geometries[0].calculate(
+        oblique_limit_real_estate_record,
+        oblique_geometry_plr_record.min_length, oblique_geometry_plr_record.min_area,
+        oblique_geometry_plr_record.length_unit, oblique_geometry_plr_record.area_unit,
+        geometry_types
+    )
+
+
+def test_tolerance_inside(geometry_types, oblique_geometry_plr_record, oblique_limit_real_estate_record):
+    oblique_geometry_plr_record.geometries[0].reset_calculation()
+    assert oblique_geometry_plr_record.geometries[0].calculate(
+        oblique_limit_real_estate_record,
+        oblique_geometry_plr_record.min_length, oblique_geometry_plr_record.min_area,
+        oblique_geometry_plr_record.length_unit, oblique_geometry_plr_record.area_unit,
+        geometry_types, tolerance=fi.epsilon
+    )
+
+
+@pytest.fixture
+def processor_data(pyramid_oereb_test_config, main_schema):
+    with patch(
+        'pyramid_oereb.core.config.Config.municipalities',
+        [MunicipalityRecord(1234, 'test', True)]
+    ):
+        yield pyramid_oereb_test_config
+
+
+def test_linestring_calculation(geometry_types,
+                                oblique_geometry_plr_record,
+                                oblique_limit_real_estate_record):
+    oblique_geometry_plr_record.tolerance = fi.epsilon
+    oblique_geometry_plr_record.calculate(oblique_limit_real_estate_record, geometry_types)
+    assert oblique_geometry_plr_record.length_share > 0
+
+
+@pytest.fixture(params=['SRID=2056;LINESTRING (1 0.1, 2 0.2)'])
+def oblique_land_use_plan(request, pyramid_oereb_test_config, dbsession, transact, land_use_plans):
+    del transact
+
+    theme_config = pyramid_oereb_test_config.get_theme_config_by_code('ch.Nutzungsplanung')
+    config_parser = StandardThemeConfigParser(**theme_config)
+    models = config_parser.get_models()
+
+    dbsession.add(models.PublicLawRestriction(id=5, law_status='inKraft',
+                                              published_from=(date.today() - timedelta(days=7)).isoformat(),
+                                              published_until=(date.today() + timedelta(days=7)).isoformat(),
+                                              view_service_id=1,
+                                              legend_entry_id=1, office_id=1))
+    dbsession.add(models.Geometry(id=6, law_status='inKraft', public_law_restriction_id=5,
+                                  published_from=(date.today() - timedelta(days=7)).isoformat(),
+                                  published_until=(date.today() + timedelta(days=100)).isoformat(),
+                                  geom=request.param))
+    dbsession.flush()
+
+
+def test_linestring_process_no_tol(real_estate_data, main_schema, land_use_plans, processor_data,
+                                   oblique_land_use_plan, oblique_limit_real_estate_record):
+    from pyramid_oereb.core.views.webservice import Parameter
+    from pyramid_oereb.core.config import Config
+
+    processor = create_processor()
+    request_params = Parameter('json', egrid='TEST')
+
+    municipality = Config.municipality_by_fosnr(oblique_limit_real_estate_record.fosnr)
+    extract_raw = processor._extract_reader_.read(
+        request_params, oblique_limit_real_estate_record, municipality
+    )
+    extract = processor.plr_tolerance_check(extract_raw)
+    plrs = extract.real_estate.public_law_restrictions
+    assert len(plrs) == 0
+
+
+def test_linestring_process_with_tol(real_estate_data, main_schema, land_use_plans, processor_data,
+                                     oblique_land_use_plan, oblique_limit_real_estate_record):
+    from pyramid_oereb.core.views.webservice import Parameter
+    from pyramid_oereb.core.config import Config
+
+    for i, plr in enumerate(Config._config["plrs"]):
+        Config._config["plrs"][i]["tolerance"] = fi.epsilon
+
+    processor = create_processor()
+    request_params = Parameter('json', egrid='TEST')
+
+    municipality = Config.municipality_by_fosnr(oblique_limit_real_estate_record.fosnr)
+    extract_raw = processor._extract_reader_.read(
+        request_params, oblique_limit_real_estate_record, municipality
+    )
+    extract = processor.plr_tolerance_check(extract_raw)
+    plrs = extract.real_estate.public_law_restrictions
+    assert len(plrs) == 1
+    assert plrs[0].length_share == 1
+
+
+@pytest.fixture
+def oblique_limit_collection_real_estate_record():
+    return RealEstateRecord(
+        'test_type', 'BL', 'Nusshof', 1234, land_registry_area=3.2,
+        limit=GeometryCollection([Polygon(((0, 0), (3, 0), (3, 0.3)))])
+    )
+
+
+def test_linestring_collection_process(real_estate_data, main_schema, land_use_plans, processor_data,
+                                       oblique_land_use_plan, oblique_limit_collection_real_estate_record):
+    from pyramid_oereb.core.views.webservice import Parameter
+    from pyramid_oereb.core.config import Config
+
+    for i, plr in enumerate(Config._config["plrs"]):
+        Config._config["plrs"][i]["tolerance"] = fi.epsilon
+        Config._config["plrs"][i]["geometry_type"] = "GEOMETRYCOLLECTION"
+
+    processor = create_processor()
+    request_params = Parameter('json', egrid='TEST')
+
+    municipality = Config.municipality_by_fosnr(oblique_limit_collection_real_estate_record.fosnr)
+    extract_raw = processor._extract_reader_.read(
+        request_params, oblique_limit_collection_real_estate_record, municipality
+    )
+    extract = processor.plr_tolerance_check(extract_raw)
+    plrs = extract.real_estate.public_law_restrictions
+    assert len(plrs) == 1
+    assert plrs[0].length_share == 1
