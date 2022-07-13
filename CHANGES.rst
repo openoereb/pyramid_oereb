@@ -1,6 +1,14 @@
 Changelog
 =========
 
+2.2.0
+-----
+- Performance improvements (#1580)
+- Add QR-Code functionality (#1579)
+- Bug-fix for Other Legend (#1586)
+- Add optional tolerance on geometric operations (#1571)
+- Improve PDF filename when not using egrid (#1585)
+
 2.1.1
 -----
 - Fix value for service version (#1576)
