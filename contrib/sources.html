@@ -133,7 +133,7 @@ as key and text as value.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.DatabaseSource.collect_legend_entries_by_bbox">
-<span class="sig-name descname"><span class="pre">collect_legend_entries_by_bbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/interlis_2_3/sources/plr.html#DatabaseSource.collect_legend_entries_by_bbox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.DatabaseSource.collect_legend_entries_by_bbox" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">collect_legend_entries_by_bbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">law_status</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/interlis_2_3/sources/plr.html#DatabaseSource.collect_legend_entries_by_bbox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.DatabaseSource.collect_legend_entries_by_bbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extracts all legend entries in the topic which have spatial relation with the passed bounding box of
 visible extent.</p>
 <dl class="field-list simple">
@@ -141,10 +141,11 @@ visible extent.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>session</strong> (<em>sqlalchemy.orm.Session</em>) – The requested clean session instance ready for use</p></li>
 <li><p><strong>bbox</strong> (<em>shapely.geometry.base.BaseGeometry</em>) – The bbox to search the records.</p></li>
+<li><p><strong>law_status</strong> (<em>str</em>) – String of the law status for which the legend entries should be queried.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The result of the related geometries unique by the public law restriction id</p>
+<dd class="field-even"><p>The result of the related geometries unique by the public law restriction id and law status</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>list</p>
@@ -310,7 +311,7 @@ or “AenderungOhneVorwirkung”.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.collect_legend_entries_by_bbox">
-<span class="sig-name descname"><span class="pre">collect_legend_entries_by_bbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.collect_legend_entries_by_bbox" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">collect_legend_entries_by_bbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">law_status</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.collect_legend_entries_by_bbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extracts all legend entries in the topic which have spatial relation with the passed bounding box of
 visible extent.</p>
 <dl class="field-list simple">
@@ -318,10 +319,11 @@ visible extent.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>session</strong> (<em>sqlalchemy.orm.Session</em>) – The requested clean session instance ready for use</p></li>
 <li><p><strong>bbox</strong> (<em>shapely.geometry.base.BaseGeometry</em>) – The bbox to search the records.</p></li>
+<li><p><strong>law_status</strong> (<em>str</em>) – String of the law status for which the legend entries should be queried.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The result of the related geometries unique by the public law restriction id</p>
+<dd class="field-even"><p>The result of the related geometries unique by the public law restriction id and law status</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>list</p>
