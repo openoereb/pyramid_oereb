@@ -112,6 +112,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         self.legend_entry_model = self.models.LegendEntry
 
+        self._tolerance = self._plr_info.get('tolerance')
+
     def from_db_to_legend_entry_record(self, legend_entry_from_db):
         theme = Config.get_theme_by_code_sub_code(legend_entry_from_db.theme)
         if legend_entry_from_db.sub_theme:
@@ -347,7 +349,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             min_length=min_length,
             area_unit=area_unit,
             length_unit=length_unit,
-            view_service_id=public_law_restriction_from_db.view_service.id
+            view_service_id=public_law_restriction_from_db.view_service.id,
+            tolerance=self._tolerance
         )
 
         return plr_record
@@ -370,7 +373,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return document_records
 
     @staticmethod
-    def extract_geometry_collection_db(db_path, real_estate_geometry):
+    def extract_geometry_collection_db(db_path, real_estate_geometry, tolerance=None):
         """
         Decides the geometry collection cases of geometric filter operations when the database contains multi
         geometries but the passed geometry does not.
@@ -389,27 +392,20 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             HTTPBadRequest
         """
         srid = Config.get('srid')
-        sql_text_point = 'ST_Intersects(ST_CollectionExtract({0}, 1), ST_GeomFromText(\'{1}\', {2}))'.format(
-            db_path,
-            real_estate_geometry.wkt,
-            srid
-        )
-        sql_text_line = 'ST_Intersects(ST_CollectionExtract({0}, 2), ST_GeomFromText(\'{1}\', {2}))'.format(
-            db_path,
-            real_estate_geometry.wkt,
-            srid
-        )
-        sql_text_polygon = 'ST_Intersects(ST_CollectionExtract({0}, 3), ' \
-                           'ST_GeomFromText(\'{1}\', {2}))'.format(
-                                db_path,
-                                real_estate_geometry.wkt,
-                                srid
-                            )
-        clause_blocks = [
-            text(sql_text_point),
-            text(sql_text_line),
-            text(sql_text_polygon)
-        ]
+        extract_point = f"ST_CollectionExtract({db_path}, 1)"
+        extract_line = f"ST_CollectionExtract({db_path}, 2)"
+        extract_polygon = f"ST_CollectionExtract({db_path}, 3)"
+        geometry_string = f'ST_GeomFromText(\'{real_estate_geometry.wkt}\', {srid})'
+        if tolerance is None:
+            clause_blocks = [
+                text(f'ST_Intersects({extract}, {geometry_string})')
+                for extract in [extract_point, extract_line, extract_polygon]
+            ]
+        else:
+            clause_blocks = [
+                text(f'ST_Distance({extract}, {geometry_string}) < {tolerance}')
+                for extract in [extract_point, extract_line, extract_polygon]
+            ]
         return or_(*clause_blocks)
 
     def handle_collection(self, session, geometry_to_check):
@@ -435,15 +431,21 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         schema=self._model_.__table__.schema,
                         table=self._model_.__table__.name
                     ),
-                    geometry_to_check
+                    geometry_to_check,
+                    self._tolerance
                 )
             )
 
         else:
             # The PLR is not problematic at all cause we do not have a collection type here
-            query = session.query(self._model_).filter(self._model_.geom.ST_Intersects(
-                from_shape(geometry_to_check, srid=Config.get('srid'))
-            ))
+            if self._tolerance is None:
+                query = session.query(self._model_).filter(self._model_.geom.ST_Intersects(
+                    from_shape(geometry_to_check, srid=Config.get('srid'))
+                ))
+            else:
+                query = session.query(self._model_).filter(self._model_.geom.ST_Distance(
+                    from_shape(geometry_to_check, srid=Config.get('srid'))
+                ) < self._tolerance)
         return query
 
     def collect_related_geometries_by_real_estate(self, session, real_estate):

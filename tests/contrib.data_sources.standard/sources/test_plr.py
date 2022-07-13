@@ -4,6 +4,8 @@ from unittest.mock import patch
 from sqlalchemy import String
 from sqlalchemy.orm import declarative_base
 
+from shapely.geometry import Polygon, GeometryCollection
+
 from pyramid_oereb.contrib.data_sources.standard.models import get_view_service, get_legend_entry
 from pyramid_oereb.contrib.data_sources.standard.sources.plr import DatabaseSource
 from pyramid_oereb.core import b64
@@ -93,7 +95,11 @@ def config(app_config):
             "ch.Subcode"
         )
     ]
-    with patch('pyramid_oereb.core.config.Config.themes', themes):
+    with patch(
+            'pyramid_oereb.core.config.Config.themes', themes
+    ), patch(
+        'pyramid_oereb.core.config.Config._config', app_config
+    ):
         yield
 
 
@@ -104,6 +110,10 @@ def all_result_session(session, query):
 
         def all(self):
             return []
+
+        def filter(self, clause):
+            self.received_clause = clause
+            return self
 
     class Session(session):
 
@@ -145,3 +155,49 @@ def test_from_db_to_legend_entry_record(source_params, all_result_session, legen
         legend_entry_record = source.from_db_to_legend_entry_record(legend_entry_from_db)
         assert isinstance(legend_entry_record, LegendEntryRecord)
         assert legend_entry_record.theme.code == 'ch.Nutzungsplanung'
+
+
+@pytest.mark.parametrize('with_tolerance', [False, True])
+@pytest.mark.parametrize('with_collection', [False, True])
+def test_handle_collection(with_tolerance, with_collection, config, source_params, all_result_session):
+    with patch(
+        'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+        return_value=all_result_session()
+    ):
+        if with_tolerance:
+            source_params["tolerance"] = 0.1
+        else:
+            source_params.pop("tolerance", None)
+        geom = Polygon(((0, 0), (0, 1), (1, 1)))
+        if with_collection:
+            geom = GeometryCollection([geom])
+            source_params["geometry_type"] = "GEOMETRYCOLLECTION"
+        else:
+            source_params["geometry_type"] = "POLYGON"
+
+        source = DatabaseSource(**source_params)
+        query = source.handle_collection(all_result_session(), geom)
+
+        # check results for 4 combinations of with_collection + with_tolerance
+        from sqlalchemy.sql.annotation import AnnotatedColumn
+        from sqlalchemy.sql.elements import BinaryExpression, BooleanClauseList, TextClause
+        from geoalchemy2.functions import ST_Intersects, ST_Distance, ST_GeomFromWKB
+        if with_collection:
+            assert type(query.received_clause) is BooleanClauseList
+            for clause in query.received_clause.clauses:
+                assert type(clause) is TextClause
+                if with_tolerance:
+                    assert 'ST_Distance' in clause.text
+                else:
+                    assert 'ST_Intersects' in clause.text
+        else:
+            if with_tolerance:
+                assert type(query.received_clause) is BinaryExpression
+                test_clause = query.received_clause.left
+                assert type(test_clause) is ST_Distance
+            else:
+                test_clause = query.received_clause
+                assert type(test_clause) is ST_Intersects
+            assert {
+                type(el) for el in test_clause.clause_expr.element.clauses
+            } == {AnnotatedColumn, ST_GeomFromWKB}
