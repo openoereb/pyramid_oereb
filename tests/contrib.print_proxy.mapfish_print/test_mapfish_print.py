@@ -666,6 +666,15 @@ def test_archive_pdf(DummyRenderInfo):
     assert os.path.isfile(path_and_filename)
 
 
+def test_archive_pdf_identdn(DummyRenderInfo):
+    renderer = Renderer(DummyRenderInfo())
+    extract = {
+        'RealEstate_IdentDN': 'BL0200002771',
+        'RealEstate_Number': '70'}
+    path_and_filename = renderer.archive_pdf_file('/tmp', bytes(), extract)
+    assert os.path.isfile(path_and_filename)
+
+
 @pytest.fixture
 def mock_responses(dummy_pdf):
     """
