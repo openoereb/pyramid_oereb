@@ -116,6 +116,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         self.legend_entry_model = self.models.LegendEntry
         self.datasource = []
 
+        self._tolerance = self._plr_info.get('tolerance')
+
     def from_db_to_legend_entry_record(self, legend_entry_from_db):
         theme = Config.get_theme_by_code_sub_code(legend_entry_from_db.theme, legend_entry_from_db.sub_theme)
         legend_entry_record = self._legend_entry_record_class(
@@ -389,7 +391,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             min_length=min_length,
             area_unit=area_unit,
             length_unit=length_unit,
-            view_service_id=public_law_restriction_from_db.view_service.t_id
+            view_service_id=public_law_restriction_from_db.view_service.t_id,
+            tolerance=self._tolerance
         )
 
         return plr_record
@@ -417,33 +420,47 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         Returns:
             list: The result of the related geometries unique by the public law restriction id
         """
+        if self._tolerance is None:
+            query = session.query(self._model_).filter(
+                or_(
+                    self._model_.point.ST_Intersects(from_shape(real_estate.limit, srid=Config.get('srid'))),
+                    self._model_.line.ST_Intersects(from_shape(real_estate.limit, srid=Config.get('srid'))),
+                    self._model_.surface.ST_Intersects(from_shape(real_estate.limit, srid=Config.get('srid')))
+                ))
+        else:
+            query = session.query(self._model_).filter(
+                or_(
+                    self._model_.point.ST_Distance(
+                        from_shape(real_estate.limit, srid=Config.get('srid'))
+                    ) < self._tolerance,
+                    self._model_.line.ST_Distance(
+                        from_shape(real_estate.limit, srid=Config.get('srid'))
+                    ) < self._tolerance,
+                    self._model_.surface.ST_Distance(
+                        from_shape(real_estate.limit, srid=Config.get('srid'))
+                    ) < self._tolerance
+                ))
+        return query.distinct(self._model_.public_law_restriction_id).options(
+            selectinload(self.models.Geometry.public_law_restriction)
+            .selectinload(self.models.PublicLawRestriction.geometries),
+            selectinload(self.models.Geometry.public_law_restriction)
+            .selectinload(self.models.PublicLawRestriction.legal_provisions)
+            .selectinload(self.models.PublicLawRestrictionDocument.document)
+            .selectinload(self.models.Document.multilingual_uri)
+            .selectinload(self.models.MultilingualUri.localised_uri),
+            selectinload(self.models.Geometry.public_law_restriction)
+            .selectinload(self.models.PublicLawRestriction.legend_entry),
+            selectinload(self.models.Geometry.public_law_restriction)
+            .selectinload(self.models.PublicLawRestriction.view_service)
+            .selectinload(self.models.ViewService.multilingual_uri)
+            .selectinload(self.models.MultilingualUri.localised_uri),
+            selectinload(self.models.Geometry.public_law_restriction)
+            .selectinload(self.models.PublicLawRestriction.responsible_office)
+            .selectinload(self.models.Office.multilingual_uri)
+            .selectinload(self.models.MultilingualUri.localised_uri)
+        ).all()
 
-        return session.query(self._model_).filter(
-                 or_(
-                  self._model_.point.ST_Intersects(from_shape(real_estate.limit, srid=Config.get('srid'))),
-                  self._model_.line.ST_Intersects(from_shape(real_estate.limit, srid=Config.get('srid'))),
-                  self._model_.surface.ST_Intersects(from_shape(real_estate.limit, srid=Config.get('srid')))
-                 )).distinct(self._model_.public_law_restriction_id).options(
-                        selectinload(self.models.Geometry.public_law_restriction)
-                        .selectinload(self.models.PublicLawRestriction.geometries),
-                        selectinload(self.models.Geometry.public_law_restriction)
-                        .selectinload(self.models.PublicLawRestriction.legal_provisions)
-                        .selectinload(self.models.PublicLawRestrictionDocument.document)
-                        .selectinload(self.models.Document.multilingual_uri)
-                        .selectinload(self.models.MultilingualUri.localised_uri),
-                        selectinload(self.models.Geometry.public_law_restriction)
-                        .selectinload(self.models.PublicLawRestriction.legend_entry),
-                        selectinload(self.models.Geometry.public_law_restriction)
-                        .selectinload(self.models.PublicLawRestriction.view_service)
-                        .selectinload(self.models.ViewService.multilingual_uri)
-                        .selectinload(self.models.MultilingualUri.localised_uri),
-                        selectinload(self.models.Geometry.public_law_restriction)
-                        .selectinload(self.models.PublicLawRestriction.responsible_office)
-                        .selectinload(self.models.Office.multilingual_uri)
-                        .selectinload(self.models.MultilingualUri.localised_uri)
-                ).all()
-
-    def collect_legend_entries_by_bbox(self, session, bbox):
+    def collect_legend_entries_by_bbox(self, session, bbox, law_status):
         """
         Extracts all legend entries in the topic which have spatial relation with the passed bounding box of
         visible extent.
@@ -451,9 +468,10 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         Args:
             session (sqlalchemy.orm.Session): The requested clean session instance ready for use
             bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
+            law_status (str): String of the law status for which the legend entries should be queried.
 
         Returns:
-            list: The result of the related geometries unique by the public law restriction id
+            list: The result of the related geometries unique by the public law restriction id and law status
         """
         distinct_legend_entry_ids = []
         geometries = session.query(self._model_).filter(
@@ -466,7 +484,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                       ).all()
 
         for geometry in geometries:
-            if geometry.public_law_restriction.legend_entry_id not in distinct_legend_entry_ids:
+            if geometry.public_law_restriction.legend_entry_id not in distinct_legend_entry_ids\
+                    and geometry.public_law_restriction.law_status == law_status:
                 distinct_legend_entry_ids.append(geometry.public_law_restriction.legend_entry_id)
 
         return session.query(self.legend_entry_model).filter(
@@ -508,14 +527,29 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     else:
                         # We found spatially related elements. This means we need to extract the actual plr
                         # information related to the found geometries.
+                        law_status_of_geometry = []
+                        # get distinct values of law_status for all geometries found
+                        for geometry in geometry_results:
+                            if(geometry.public_law_restriction.law_status not in law_status_of_geometry):
+                                law_status_of_geometry.append(geometry.public_law_restriction.law_status)
+
+                        legend_entries_from_db = []
+                        # get legend_entries per law_status
+                        for law_status in law_status_of_geometry:
+                            legend_entry_with_law_status = [
+                                self.collect_legend_entries_by_bbox(session, bbox, law_status),
+                                law_status
+                            ]
+                            legend_entries_from_db.append(legend_entry_with_law_status)
+
                         self.records = []
-                        legend_entries_from_db = self.collect_legend_entries_by_bbox(session, bbox)
                         for geometry_result in geometry_results:
                             self.records.append(
                                 self.from_db_to_plr_record(
                                     params,
                                     geometry_result.public_law_restriction,
-                                    legend_entries_from_db
+                                    next(elem for elem in legend_entries_from_db
+                                         if elem[1] == geometry_result.public_law_restriction.law_status)[0]
                                 )
                             )
 

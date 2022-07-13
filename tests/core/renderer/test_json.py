@@ -235,7 +235,7 @@ def test_format_real_estate(DummyRenderInfo, real_estate_test_data):
     default_param(),
     Parameter('json', False, True, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
 ])
-def test_format_plr(DummyRenderInfo, parameter):
+def test_format_plr(DummyRenderInfo, parameter, pyramid_oereb_test_config):
     renderer = Renderer(DummyRenderInfo())
     renderer._language = 'de'
     renderer._params = parameter

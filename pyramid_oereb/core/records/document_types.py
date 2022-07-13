@@ -19,3 +19,7 @@ class DocumentTypeRecord(object):
 
         self.code = code
         self.title = title
+
+    def __str__(self):
+        return '<{} -- code: {} title: {}>'.format(
+            self.__class__.__name__, self.code, self.title)

@@ -9,7 +9,8 @@
             "rm": "Planisaziun d’utilisaziun (chantunal/communal)",
             "en": "Land use plans (cantonal/municipal)"
         },
-        "extract_index": 1
+        "extract_index": 1,
+        "document_records": []
     },
     {
         "code": "ch.BelasteteStandorte",

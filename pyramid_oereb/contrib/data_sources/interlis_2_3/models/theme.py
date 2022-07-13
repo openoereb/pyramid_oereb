@@ -537,3 +537,19 @@ def model_factory_integer_pk(schema_name, geometry_type, srid, db_connection):
     if geometry_type is not None:
         geometry_type = None
     return model_factory(schema_name, Integer, srid, db_connection)
+
+
+def model_factory_string_pk(schema_name, geometry_type, srid, db_connection):
+    """
+    Args:
+        schema_name (str): The name of the database schema where this models belong to.
+        geometry_type (str): The geoalchemy geometry type defined as well known string.
+        srid (int): The SRID defining the projection of the geometries stored in standard db schema.
+        db_connection (str): the db connection string
+
+    Returns:
+        Models: the produced set of standard models
+    """
+    if geometry_type is not None:
+        geometry_type = None
+    return model_factory(schema_name, String, srid, db_connection)
