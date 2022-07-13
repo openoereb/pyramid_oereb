@@ -202,7 +202,16 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">result</span>
 
-<div class="viewcode-block" id="GeometryRecord.calculate"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.geometry.GeometryRecord.calculate">[docs]</a>    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">min_length</span><span class="p">,</span> <span class="n">min_area</span><span class="p">,</span> <span class="n">length_unit</span><span class="p">,</span> <span class="n">area_unit</span><span class="p">,</span> <span class="n">geometry_types</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">reset_calculation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_units</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_area_share</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_length_share</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_nr_of_points</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_test_passed</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calculated</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="GeometryRecord.calculate"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.geometry.GeometryRecord.calculate">[docs]</a>    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">min_length</span><span class="p">,</span> <span class="n">min_area</span><span class="p">,</span> <span class="n">length_unit</span><span class="p">,</span> <span class="n">area_unit</span><span class="p">,</span> <span class="n">geometry_types</span><span class="p">,</span>
+                  <span class="n">tolerance</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Entry method for calculation. It checks if the geometry type of this instance is a geometry</span>
 <span class="sd">        collection which has to be unpacked first in case of collection.</span>
@@ -219,11 +228,15 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: True if intersection fits the limits.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">tolerance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">re_limit</span> <span class="o">=</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">re_limit</span> <span class="o">=</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">tolerance</span><span class="p">)</span>
         <span class="n">line_types</span> <span class="o">=</span> <span class="n">geometry_types</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;line&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;types&#39;</span><span class="p">)</span>
         <span class="n">polygon_types</span> <span class="o">=</span> <span class="n">geometry_types</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;polygon&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;types&#39;</span><span class="p">)</span>
         <span class="n">point_types</span> <span class="o">=</span> <span class="n">geometry_types</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;point&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;types&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">published</span><span class="p">:</span>
-            <span class="n">intersection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="p">)</span>
+            <span class="n">intersection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">re_limit</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">intersection</span><span class="o">.</span><span class="n">is_empty</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_collection</span><span class="p">(</span><span class="n">intersection</span><span class="p">)</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">point_types</span> <span class="o">+</span> <span class="n">line_types</span> <span class="o">+</span> <span class="n">polygon_types</span><span class="p">:</span>
