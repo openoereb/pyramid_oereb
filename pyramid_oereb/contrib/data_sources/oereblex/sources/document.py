@@ -193,7 +193,7 @@ class OEREBlexSource(Base):
         for f in document.files:
             arguments = {
                 'document_type': document_type,
-                'index': document.index,
+                'index': document.index if document.index is not None else 0,
                 'law_status': Config.get_law_status_by_data_code(self._code, u'inKraft'),
                 'title': self._get_document_title(document, f, language),
                 'responsible_office': office,
