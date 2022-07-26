@@ -663,7 +663,7 @@ def test_archive_pdf(DummyRenderInfo):
     renderer = Renderer(DummyRenderInfo())
     extract = {'RealEstate_EGRID': 'CH113928077734'}
     path_and_filename = renderer.archive_pdf_file('/tmp', bytes(), extract)
-    partial_filename =  str('_') + extract['RealEstate_EGRID'] + '.pdf'
+    partial_filename = str('_') + extract['RealEstate_EGRID'] + '.pdf'
     assert partial_filename in path_and_filename
     assert os.path.isfile(path_and_filename)
 
@@ -674,7 +674,7 @@ def test_archive_pdf_identdn(DummyRenderInfo):
         'RealEstate_IdentDN': 'BL0200002771',
         'RealEstate_Number': '70'}
     path_and_filename = renderer.archive_pdf_file('/tmp', bytes(), extract)
-    partial_filename =  extract['RealEstate_IdentDN'] + str('_') + extract['RealEstate_Number'] + '.pdf'
+    partial_filename = extract['RealEstate_IdentDN'] + str('_') + extract['RealEstate_Number'] + '.pdf'
     assert partial_filename in path_and_filename
     assert os.path.isfile(path_and_filename)
 
