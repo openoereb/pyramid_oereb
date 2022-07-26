@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.2.1
+-----
+- Add library needed for QR-Code (#1589)
+- Various library updates (#1590)
+
 2.2.0
 -----
 - Performance improvements (#1580)
