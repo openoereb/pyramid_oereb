@@ -6,6 +6,15 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+.. _changes-version-2.2.1:
+
+Version 2.2.1
+-------------
+Maintenance release building on the features introduced in 2.2.0:
+
+ * Add library needed for QR-Code (#1589)
+ * Various library updates (#1590)
+
 .. _changes-version-2.2.0:
 
 Version 2.2.0
