@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
+from operator import attrgetter
 from pyramid.path import DottedNameResolver
 
 from shapely.geometry import box
@@ -101,6 +102,11 @@ class ExtractReader(object):
         else:
             for plr_source in self._plr_sources_:
                 themes_without_data.append(Config.get_theme_by_code_sub_code(plr_source.info.get('code')))
+
+        # sort theme lists
+        concerned_themes.sort(key=attrgetter('extract_index'))
+        not_concerned_themes.sort(key=attrgetter('extract_index'))
+        themes_without_data.sort(key=attrgetter('extract_index'))
 
         # sort plr according to theme, sub-theme and law-status
         start_time = timer()
