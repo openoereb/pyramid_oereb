@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.2.2
+-----
+- Default index for oereblex documents (#1591)
+- Sort theme lists (#1592)
+- Library updates (#1593, #1595)
+
 2.2.1
 -----
 - Add library needed for QR-Code (#1589)
