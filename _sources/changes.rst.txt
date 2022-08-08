@@ -6,6 +6,16 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+.. _changes-version-2.2.2:
+
+Version 2.2.2
+-------------
+Bug-fix and maintenance release:
+
+* Default index for oereblex documents (#1591)
+* Sort theme lists (#1592)
+* Library updates (#1593, #1595)
+
 .. _changes-version-2.2.1:
 
 Version 2.2.1
