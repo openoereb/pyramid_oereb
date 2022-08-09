@@ -1,8 +1,8 @@
-pyflakes==2.4.0
-flake8==4.0.1
-pycodestyle==2.8.0
+pyflakes==2.5.0
+flake8==5.0.4
+pycodestyle==2.9.1
 psycopg2==2.9.3
-McCabe==0.6.1
+McCabe==0.7.0
 Sphinx==4.3.2
 sphinx_rtd_theme==1.0.0
 c2c.template==2.3.0
