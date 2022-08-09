@@ -835,13 +835,13 @@ class Logo(object):
         """
         logo_key = self._request.matchdict.get('logo')
         logo_language = self._request.matchdict.get('language')
-        if(logo_key.upper() == 'CONFEDERATION'):
+        if (logo_key.upper() == 'CONFEDERATION'):
             logo = Config.get_conferderation_logo()
-        elif(logo_key.upper() == 'OEREB'):
+        elif (logo_key.upper() == 'OEREB'):
             logo = Config.get_oereb_logo()
-        elif(logo_key.upper() == 'CANTON'):
+        elif (logo_key.upper() == 'CANTON'):
             logo = Config.get_canton_logo()
-        elif(logo_key.upper() == 'MUNICIPALITY'):
+        elif (logo_key.upper() == 'MUNICIPALITY'):
             fosnr = self._request.params['fosnr']
             logo = Config.get_municipality_logo(fosnr)
         else:
