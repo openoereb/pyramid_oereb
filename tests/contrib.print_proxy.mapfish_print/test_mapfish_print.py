@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 import os
+import io
 import re
 import json
 import codecs
 import pytest
 import responses
+from PyPDF2 import PdfWriter
 
 from pyramid_oereb.core.records.municipality import MunicipalityRecord
 from tests.mockrequest import MockRequest
@@ -836,8 +838,12 @@ def themes(pyramid_oereb_test_config):
 
 @pytest.fixture
 def dummy_pdf():
-    with open('./tests/contrib.print_proxy.mapfish_print/resources/dummy.pdf', 'rb') as f:
-        return f.read()
+    with io.BytesIO() as pdf:
+        pdf_writer = PdfWriter()
+        pdf_writer.add_blank_page(width=1, height=1)
+        pdf_writer.write(pdf)
+        pdf.seek(0)
+        return pdf.read()
 
 
 @patch.object(pyramid_oereb.core.views.webservice, 'route_prefix', 'oereb')

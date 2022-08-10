@@ -12,8 +12,8 @@ from pyramid_oereb import Config
 from pyramid_oereb.core.renderer.extract.json_ import Renderer as JsonRenderer
 from pyramid_oereb.core.url import parse_url
 from pyramid.httpexceptions import HTTPInternalServerError
-from PyPDF2 import PdfFileReader
-from PyPDF2.utils import PdfReadError
+from PyPDF2 import PdfReader
+from PyPDF2.errors import PdfReadError
 from pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages import TocPages
 
 
@@ -122,7 +122,7 @@ class Renderer(JsonRenderer):
             if Config.get('print', {}).get('compute_toc_pages', False):
                 with io.BytesIO() as pdf:
                     pdf.write(print_result.content)
-                    pdf_reader = PdfFileReader(pdf)
+                    pdf_reader = PdfReader(pdf)
                     x = []
                     for i in range(len(pdf_reader.getOutlines())):
                         x.append(pdf_reader.getOutlines()[i]['/Page']['/StructParents'])
