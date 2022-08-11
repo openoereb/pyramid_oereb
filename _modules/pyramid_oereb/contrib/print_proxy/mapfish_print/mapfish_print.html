@@ -84,8 +84,8 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.core.renderer.extract.json_</span> <span class="kn">import</span> <span class="n">Renderer</span> <span class="k">as</span> <span class="n">JsonRenderer</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.core.url</span> <span class="kn">import</span> <span class="n">parse_url</span>
 <span class="kn">from</span> <span class="nn">pyramid.httpexceptions</span> <span class="kn">import</span> <span class="n">HTTPInternalServerError</span>
-<span class="kn">from</span> <span class="nn">PyPDF2</span> <span class="kn">import</span> <span class="n">PdfFileReader</span>
-<span class="kn">from</span> <span class="nn">PyPDF2.utils</span> <span class="kn">import</span> <span class="n">PdfReadError</span>
+<span class="kn">from</span> <span class="nn">PyPDF2</span> <span class="kn">import</span> <span class="n">PdfReader</span>
+<span class="kn">from</span> <span class="nn">PyPDF2.errors</span> <span class="kn">import</span> <span class="n">PdfReadError</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages</span> <span class="kn">import</span> <span class="n">TocPages</span>
 
 
@@ -194,7 +194,7 @@
             <span class="k">if</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;compute_toc_pages&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
                 <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">pdf</span><span class="p">:</span>
                     <span class="n">pdf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">print_result</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
-                    <span class="n">pdf_reader</span> <span class="o">=</span> <span class="n">PdfFileReader</span><span class="p">(</span><span class="n">pdf</span><span class="p">)</span>
+                    <span class="n">pdf_reader</span> <span class="o">=</span> <span class="n">PdfReader</span><span class="p">(</span><span class="n">pdf</span><span class="p">)</span>
                     <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
                     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pdf_reader</span><span class="o">.</span><span class="n">getOutlines</span><span class="p">())):</span>
                         <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pdf_reader</span><span class="o">.</span><span class="n">getOutlines</span><span class="p">()[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;/Page&#39;</span><span class="p">][</span><span class="s1">&#39;/StructParents&#39;</span><span class="p">])</span>
