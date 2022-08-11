@@ -530,7 +530,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         law_status_of_geometry = []
                         # get distinct values of law_status for all geometries found
                         for geometry in geometry_results:
-                            if(geometry.public_law_restriction.law_status not in law_status_of_geometry):
+                            if (geometry.public_law_restriction.law_status not in law_status_of_geometry):
                                 law_status_of_geometry.append(geometry.public_law_restriction.law_status)
 
                         legend_entries_from_db = []
