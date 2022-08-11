@@ -7,7 +7,7 @@ from webtest import TestApp
 from pyramid_oereb.core.config import Config
 from sqlalchemy import create_engine
 from psycopg2.errors import UndefinedTable
-from sqlalchemy.exc import OperationalError
+from sqlalchemy.exc import OperationalError, ProgrammingError
 
 from pyramid_oereb.contrib.stats.scripts.create_stats_tables import _create_views
 
@@ -42,7 +42,7 @@ def test_log_app(webtestapp, logo_test_data, clear_stats_db_engine, stats_db_url
             ).first()
             if log_result is not None:
                 break
-        except (OperationalError, UndefinedTable):
+        except (OperationalError, ProgrammingError, UndefinedTable):
             pass  # if DB does not exist yet or table does not exist yet, try again
         time.sleep(.5)
         print(f"Waiting for async logs - {i}")
