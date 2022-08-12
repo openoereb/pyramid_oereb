@@ -44,7 +44,7 @@ pyramid_oereb:
     # service and returns the result to the user.
 % if print_backend == 'XML2PDF':
     # Configuration for XML2PDF print service
-    renderer: pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer
+    renderer: pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer
     # Define whether all geometry data must be included when sending the data to the print service
     with_geometry: True
     # Base URL with application of the print server

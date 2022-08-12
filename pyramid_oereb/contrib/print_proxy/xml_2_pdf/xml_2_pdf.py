@@ -59,7 +59,7 @@ class Renderer(XmlRenderer):
             self._language = self._request.GET.get('lang')
 
         self.parameters['language'] = self._language
-        self.parameters['flavour'] = self._request.matchdict['flavour']
+        self.parameters['flavour'] = self._request.params.get('flavour', 'reduced')
 
         # Based on extract record and webservice parameter, render the extract data as JSON
         extract_record = value[0]
