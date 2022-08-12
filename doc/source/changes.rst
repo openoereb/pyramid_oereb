@@ -6,6 +6,15 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+.. _changes-version-2.2.3:
+
+Version 2.2.3
+-------------
+Bug-fix and maintenance release:
+
+* Fix xml2pdf proxy (#1596)
+* Library updates (#1597, #1598)
+
 .. _changes-version-2.2.2:
 
 Version 2.2.2

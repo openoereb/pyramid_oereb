@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.2.3
+-----
+- Fix xml2pdf proxy (#1596)
+- Library updates (#1597, #1598)
+
 2.2.2
 -----
 - Default index for oereblex documents (#1591)
