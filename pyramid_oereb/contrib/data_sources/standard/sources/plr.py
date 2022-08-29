@@ -113,6 +113,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         self.legend_entry_model = self.models.LegendEntry
 
         self._tolerances = self._plr_info.get('tolerances')
+        if not self._tolerances and self._plr_info.get('tolerance'):
+            # use backup value tolerance for retro compatibility
+            self._tolerances = {'ALL': self._plr_info.get('tolerance')}
 
     def from_db_to_legend_entry_record(self, legend_entry_from_db):
         theme = Config.get_theme_by_code_sub_code(legend_entry_from_db.theme)
