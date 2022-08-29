@@ -165,9 +165,9 @@ def test_handle_collection(with_tolerance, with_collection, config, source_param
         return_value=all_result_session()
     ):
         if with_tolerance:
-            source_params["tolerance"] = 0.1
+            source_params["tolerances"] = {'Point': 0.2, 'LineString': 0.5, 'Polygon': 0.1}
         else:
-            source_params.pop("tolerance", None)
+            source_params.pop("tolerances", None)
         geom = Polygon(((0, 0), (0, 1), (1, 1)))
         if with_collection:
             geom = GeometryCollection([geom])
@@ -195,6 +195,7 @@ def test_handle_collection(with_tolerance, with_collection, config, source_param
                 assert type(query.received_clause) is BinaryExpression
                 test_clause = query.received_clause.left
                 assert type(test_clause) is ST_Distance
+                query.received_clause.right.value == 0.1
             else:
                 test_clause = query.received_clause
                 assert type(test_clause) is ST_Intersects

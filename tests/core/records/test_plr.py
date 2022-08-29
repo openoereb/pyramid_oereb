@@ -255,7 +255,7 @@ def test_tolerance_inside(geometry_types, oblique_geometry_plr_record, oblique_l
         oblique_limit_real_estate_record,
         oblique_geometry_plr_record.min_length, oblique_geometry_plr_record.min_area,
         oblique_geometry_plr_record.length_unit, oblique_geometry_plr_record.area_unit,
-        geometry_types, tolerance=fi.epsilon
+        geometry_types, tolerances={'ALL': fi.epsilon}
     )
 
 
@@ -271,7 +271,7 @@ def processor_data(pyramid_oereb_test_config, main_schema):
 def test_linestring_calculation(geometry_types,
                                 oblique_geometry_plr_record,
                                 oblique_limit_real_estate_record):
-    oblique_geometry_plr_record.tolerance = fi.epsilon
+    oblique_geometry_plr_record.tolerances = {'ALL': fi.epsilon}
     oblique_geometry_plr_record.calculate(oblique_limit_real_estate_record, geometry_types)
     assert oblique_geometry_plr_record.length_share > 0
 
@@ -319,7 +319,7 @@ def test_linestring_process_with_tol(real_estate_data, main_schema, land_use_pla
     from pyramid_oereb.core.config import Config
 
     for i, plr in enumerate(Config._config["plrs"]):
-        Config._config["plrs"][i]["tolerance"] = fi.epsilon
+        Config._config["plrs"][i]["tolerances"] = {'ALL': fi.epsilon}
 
     processor = create_processor()
     request_params = Parameter('json', egrid='TEST')
@@ -348,7 +348,7 @@ def test_linestring_collection_process(real_estate_data, main_schema, land_use_p
     from pyramid_oereb.core.config import Config
 
     for i, plr in enumerate(Config._config["plrs"]):
-        Config._config["plrs"][i]["tolerance"] = fi.epsilon
+        Config._config["plrs"][i]["tolerances"] = {'ALL': fi.epsilon}
         Config._config["plrs"][i]["geometry_type"] = "GEOMETRYCOLLECTION"
 
     processor = create_processor()
