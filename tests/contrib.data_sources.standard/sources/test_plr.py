@@ -157,7 +157,8 @@ def test_from_db_to_legend_entry_record(source_params, all_result_session, legen
         assert legend_entry_record.theme.code == 'ch.Nutzungsplanung'
 
 
-@pytest.mark.parametrize('tolerances', [None, 0.1, {'ALL': 0.1}, {'Point': 0.2, 'LineString': 0.5, 'Polygon': 0.1}])
+@pytest.mark.parametrize('tolerances', [None, 0.1, {'ALL': 0.1},
+                                        {'Point': 0.2, 'LineString': 0.5, 'Polygon': 0.1}])
 @pytest.mark.parametrize('with_collection', [False, True])
 def test_handle_collection(tolerances, with_collection, config, source_params, all_result_session):
     with patch(
