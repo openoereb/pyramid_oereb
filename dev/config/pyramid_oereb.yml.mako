@@ -48,7 +48,7 @@ pyramid_oereb:
     # Define whether all geometry data must be included when sending the data to the print service
     with_geometry: True
     # Base URL with application of the print server
-    base_url: https://oereb-pdf.gis-daten.ch/oereb/report/create
+    base_url: https://oereb-dev.gis-daten.ch/oereb/report/create
     token: 24ba4328-a306-4832-905d-b979388d4cab
     use_wms: "true"
     validate: "false"
