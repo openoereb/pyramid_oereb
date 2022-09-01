@@ -62,7 +62,8 @@ class PlrRecord(EmptyPlrRecord):
     def __init__(self, theme, legend_entry, law_status, published_from, published_until, responsible_office,
                  symbol, view_service, geometries, sub_theme=None, type_code=None,
                  type_code_list=None, documents=None, info=None, min_length=0.0,
-                 min_area=0.0, length_unit=u'm', area_unit=u'm2', view_service_id=None, tolerance=None):
+                 min_area=0.0, length_unit=u'm', area_unit=u'm2', view_service_id=None,
+                 tolerance=None, tolerances=None):
         """
         Args:
             theme (pyramid_oereb.lib.records.theme.ThemeRecord): The theme to which the PLR belongs to.
@@ -120,7 +121,7 @@ class PlrRecord(EmptyPlrRecord):
         self.min_area = min_area
         self.area_unit = area_unit
         self.length_unit = length_unit
-        self.tolerance = tolerance
+        self.tolerances = tolerances if tolerances else {'ALL': tolerance} if tolerance else None
         self._area_share = None
         self._part_in_percent = None
         self._length_share = None
@@ -238,7 +239,7 @@ class PlrRecord(EmptyPlrRecord):
                     self.min_length, self.min_area,
                     self.length_unit, self.area_unit,
                     geometry_types,
-                    self.tolerance
+                    self.tolerances
             ):
                 tested_geometries.append(geometry)
                 inside = True

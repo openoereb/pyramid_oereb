@@ -6,6 +6,7 @@ from shapely.ops import linemerge, cascaded_union
 
 from shapely.geometry import Point, MultiPoint, LineString, Polygon, GeometryCollection, MultiLineString, \
     MultiPolygon
+from shapely.ops import unary_union
 
 log = logging.getLogger(__name__)
 
@@ -139,7 +140,7 @@ class GeometryRecord(object):
         self.calculated = False
 
     def calculate(self, real_estate, min_length, min_area, length_unit, area_unit, geometry_types,
-                  tolerance=None):
+                  tolerances=None):
         """
         Entry method for calculation. It checks if the geometry type of this instance is a geometry
         collection which has to be unpacked first in case of collection.
@@ -156,15 +157,30 @@ class GeometryRecord(object):
         Returns:
             bool: True if intersection fits the limits.
         """
-        if tolerance is None:
-            re_limit = real_estate.limit
-        else:
-            re_limit = real_estate.limit.buffer(tolerance)
         line_types = geometry_types.get('line').get('types')
         polygon_types = geometry_types.get('polygon').get('types')
         point_types = geometry_types.get('point').get('types')
         if self.published:
-            intersection = self.geom.intersection(re_limit)
+            if tolerances is None:
+                intersection = self.geom.intersection(real_estate.limit)
+            else:
+                try:
+                    # if geometry is a collection
+                    collection = []
+                    for g in self.geom:
+                        tolerance = tolerances.get('ALL', tolerances.get(g.geom_type))
+                        if tolerance:
+                            collection.append(g.intersection(real_estate.limit.buffer(tolerance)))
+                        else:
+                            collection.append(g.intersection(real_estate.limit))
+                    intersection = unary_union(collection)
+                except TypeError:
+                    tolerance = tolerances.get('ALL', tolerances.get(self.geom.geom_type))
+                    if tolerance:
+                        intersection = self.geom.intersection(real_estate.limit.buffer(tolerance))
+                    else:
+                        intersection = self.geom.intersection(real_estate.limit)
+
             if not intersection.is_empty:
                 result = self._extract_collection(intersection)
                 if self.geom.type not in point_types + line_types + polygon_types:

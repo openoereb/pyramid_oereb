@@ -157,17 +157,23 @@ def test_from_db_to_legend_entry_record(source_params, all_result_session, legen
         assert legend_entry_record.theme.code == 'ch.Nutzungsplanung'
 
 
-@pytest.mark.parametrize('with_tolerance', [False, True])
+@pytest.mark.parametrize('tolerances', [None, 0.1, {'ALL': 0.1},
+                                        {'Point': 0.2, 'LineString': 0.5, 'Polygon': 0.1}])
 @pytest.mark.parametrize('with_collection', [False, True])
-def test_handle_collection(with_tolerance, with_collection, config, source_params, all_result_session):
+def test_handle_collection(tolerances, with_collection, config, source_params, all_result_session):
     with patch(
         'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
         return_value=all_result_session()
     ):
-        if with_tolerance:
-            source_params["tolerance"] = 0.1
+        if tolerances:
+            if isinstance(tolerances, float):
+                source_params["tolerance"] = tolerances
+                source_params.pop("tolerances", None)
+            else:
+                source_params["tolerances"] = tolerances
         else:
             source_params.pop("tolerance", None)
+            source_params.pop("tolerances", None)
         geom = Polygon(((0, 0), (0, 1), (1, 1)))
         if with_collection:
             geom = GeometryCollection([geom])
@@ -178,7 +184,7 @@ def test_handle_collection(with_tolerance, with_collection, config, source_param
         source = DatabaseSource(**source_params)
         query = source.handle_collection(all_result_session(), geom)
 
-        # check results for 4 combinations of with_collection + with_tolerance
+        # check results for 8 combinations of with_collection + tolerances
         from sqlalchemy.sql.annotation import AnnotatedColumn
         from sqlalchemy.sql.elements import BinaryExpression, BooleanClauseList, TextClause
         from geoalchemy2.functions import ST_Intersects, ST_Distance, ST_GeomFromWKB
@@ -186,15 +192,16 @@ def test_handle_collection(with_tolerance, with_collection, config, source_param
             assert type(query.received_clause) is BooleanClauseList
             for clause in query.received_clause.clauses:
                 assert type(clause) is TextClause
-                if with_tolerance:
+                if tolerances:
                     assert 'ST_Distance' in clause.text
                 else:
                     assert 'ST_Intersects' in clause.text
         else:
-            if with_tolerance:
+            if tolerances:
                 assert type(query.received_clause) is BinaryExpression
                 test_clause = query.received_clause.left
                 assert type(test_clause) is ST_Distance
+                query.received_clause.right.value == 0.1
             else:
                 test_clause = query.received_clause
                 assert type(test_clause) is ST_Intersects
