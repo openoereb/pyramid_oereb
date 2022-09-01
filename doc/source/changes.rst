@@ -6,6 +6,15 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+.. _changes-version-2.2.4:
+
+Version 2.2.4
+-------------
+New functionality for configuring tolerance (optional):
+
+* Support tolerance per geometry type (#1603). See example definitions in the example project configuration file. 
+* Library updates (#1604)
+
 .. _changes-version-2.2.3:
 
 Version 2.2.3

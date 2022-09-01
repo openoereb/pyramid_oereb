@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.2.4
+-----
+- Support tolerance per geometry type (#1603)
+- Library updates (#1604)
+
 2.2.3
 -----
 - Fix xml2pdf proxy (#1596)
