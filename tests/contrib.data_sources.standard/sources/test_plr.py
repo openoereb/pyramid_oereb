@@ -1225,4 +1225,15 @@ def test_handle_collection(plr_source_params, all_plr_result_session, real_estat
 
 
         query = source.handle_collection(session, real_estate_shapely_geom)
-        assert str(query) == 'test'
+        assert str(query).replace('\n', '').replace(' ', '') == '''
+            SELECT 
+                land_use_plans.geometry.id AS land_use_plans_geometry_id,
+                land_use_plans.geometry.law_status AS land_use_plans_geometry_law_status,
+                land_use_plans.geometry.published_from AS land_use_plans_geometry_published_from,
+                land_use_plans.geometry.published_until AS land_use_plans_geometry_published_until,
+                land_use_plans.geometry.geo_metadata AS land_use_plans_geometry_geo_metadata,
+                ST_AsEWKB(land_use_plans.geometry.geom) AS land_use_plans_geometry_geom,
+                land_use_plans.geometry.public_law_restriction_id AS land_use_plans_geometry_public_law_restriction_id
+            FROM land_use_plans.geometry
+            WHERE ST_Intersects(land_use_plans.geometry.geom, ST_GeomFromWKB(%(ST_GeomFromWKB_1)s, %(ST_GeomFromWKB_2)s))
+        '''.replace('\n', '').replace(' ', '')
