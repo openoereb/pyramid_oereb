@@ -354,7 +354,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         """
 
         Args:
-            documents_from_db (pyramid_oereb.contrib.data_sources.standard.models.get_document.<locals>.Document):
+            documents_from_db
+                (pyramid_oereb.contrib.data_sources.standard.models.get_document.<locals>.Document):
                 The element read out of the database.
 
         Returns:
@@ -397,14 +398,16 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         Args:
             params (pyramid_oereb.core.views.webservice.Parameter): The parameters of the extract request.
-            public_law_restriction_from_db (pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction.<locals>.PublicLawRestriction):
+            public_law_restriction_from_db
+                (pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction.<locals>.PublicLawRestriction):
                 The element read out of the database.
-            legend_entries_from_db (pyramid_oereb.contrib.data_sources.standard.models.get_legend_entry.<locals>.LegendEntry):
+            legend_entries_from_db
+                (pyramid_oereb.contrib.data_sources.standard.models.get_legend_entry.<locals>.LegendEntry):
                 The elements read out of the database.
 
         Returns:
-            pyramid_oereb.core.records.plr.PlrRecord: The public law restriction record utilizing all attributes
-                read from db entity and its relations.
+            pyramid_oereb.core.records.plr.PlrRecord: The public law restriction record utilizing all
+                attributes read from db entity and its relations.
         """
         thresholds = self._plr_info.get('thresholds')
         min_length = thresholds.get('length').get('limit')
@@ -466,11 +469,13 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         Args:
             params (pyramid_oereb.core.views.webservice.Parameter): The parameters of the extract request.
-            public_law_restriction_from_db (pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction.<locals>.PublicLawRestriction):
+            public_law_restriction_from_db
+                (pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction.<locals>.PublicLawRestriction):
                 The element read out of the database.
 
         Returns:
-            list of pyramid_oereb.core.records.documents.DocumentRecord: The document records related to the passed PLR.
+            list of pyramid_oereb.core.records.documents.DocumentRecord: The document records related to
+                the passed PLR.
         """
         documents_from_db = []
         if not hasattr(public_law_restriction_from_db, 'legal_provisions'):

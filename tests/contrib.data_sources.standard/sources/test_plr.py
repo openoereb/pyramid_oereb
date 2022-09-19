@@ -4,12 +4,11 @@ import pytest
 from unittest.mock import patch
 
 from geoalchemy2 import WKTElement
-from shapely.geometry import Polygon, Point, LineString
+from shapely.geometry import Polygon, Point, LineString, GeometryCollection
 from shapely.wkt import loads
 from sqlalchemy import String, text, create_engine, orm
 from sqlalchemy.orm import declarative_base
 
-from shapely.geometry import Polygon, GeometryCollection
 from pyramid_oereb.core.config import Config
 from pyramid_oereb.core.records.documents import DocumentRecord
 from pyramid_oereb.core.records.geometry import GeometryRecord
@@ -457,7 +456,8 @@ def patch_from_db_to_legend_entry_record(legend_entry_records):
     def from_db_to_legend_entry_record(obj, legend_entry_from_db):
         return legend_entry_records[0]
     with patch(
-            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_legend_entry_record',
+            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource'
+            '.from_db_to_legend_entry_record',
             from_db_to_legend_entry_record):
         yield
 
@@ -467,7 +467,8 @@ def patch_from_db_to_legend_entry_records(legend_entry_records):
     def from_db_to_legend_entry_records(obj, legend_entries_from_db, legend_entry_record):
         return legend_entry_records
     with patch(
-            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_legend_entry_records',
+            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.'
+            'from_db_to_legend_entry_records',
             from_db_to_legend_entry_records):
         yield
 
@@ -477,7 +478,8 @@ def patch_from_db_to_view_service_record(view_service_record):
     def from_db_to_view_service_record(obj, public_law_restriction_from_db, legend_entry_records):
         return view_service_record
     with patch(
-            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_view_service_record',
+            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.'
+            'from_db_to_view_service_record',
             from_db_to_view_service_record):
         yield
 
@@ -487,7 +489,8 @@ def patch_from_db_to_geometry_records(geometry_records):
     def from_db_to_geometry_records(obj, public_law_restriction_from_db):
         return geometry_records
     with patch(
-            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_geometry_records',
+            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.'
+            'from_db_to_geometry_records',
             from_db_to_geometry_records):
         yield
 
@@ -497,7 +500,8 @@ def patch_from_db_to_document_records(document_records):
     def from_db_to_document_records(obj, documents_from_db):
         return document_records
     with patch(
-            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_document_records',
+            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.'
+            'from_db_to_document_records',
             from_db_to_document_records):
         yield
 
@@ -789,29 +793,30 @@ def test_from_db_to_view_service_record(plr_source_params, all_plr_result_sessio
 @pytest.mark.parametrize('tolerances', [None, 0.1, {'ALL': 0.1},
                                         {'Point': 0.2, 'LineString': 0.5, 'Polygon': 0.1}])
 @pytest.mark.parametrize('with_collection', [False, True])
-def test_handle_collection(tolerances, with_collection, config, source_params, all_result_session):
+def test_handle_collection_tolerance(tolerances, with_collection, config_config, plr_source_params,
+                                     all_plr_result_session):
     with patch(
         'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
-        return_value=all_result_session()
+        return_value=all_plr_result_session()
     ):
         if tolerances:
             if isinstance(tolerances, float):
-                source_params["tolerance"] = tolerances
-                source_params.pop("tolerances", None)
+                plr_source_params["tolerance"] = tolerances
+                plr_source_params.pop("tolerances", None)
             else:
-                source_params["tolerances"] = tolerances
+                plr_source_params["tolerances"] = tolerances
         else:
-            source_params.pop("tolerance", None)
-            source_params.pop("tolerances", None)
+            plr_source_params.pop("tolerance", None)
+            plr_source_params.pop("tolerances", None)
         geom = Polygon(((0, 0), (0, 1), (1, 1)))
         if with_collection:
             geom = GeometryCollection([geom])
-            source_params["geometry_type"] = "GEOMETRYCOLLECTION"
+            plr_source_params["geometry_type"] = "GEOMETRYCOLLECTION"
         else:
-            source_params["geometry_type"] = "POLYGON"
+            plr_source_params["geometry_type"] = "POLYGON"
 
-        source = DatabaseSource(**source_params)
-        query = source.handle_collection(all_result_session(), geom)
+        source = DatabaseSource(**plr_source_params)
+        query = source.handle_collection(all_plr_result_session(), geom)
 
         # check results for 8 combinations of with_collection + tolerances
         from sqlalchemy.sql.annotation import AnnotatedColumn
@@ -1119,7 +1124,8 @@ def test_from_db_to_document_records(plr_source_params, all_plr_result_session, 
             assert record.file == document_db_values[index]['file']
 
 
-def test_from_db_to_plr_record(plr_source_params, all_plr_result_session, patch_from_db_to_legend_entry_record,
+def test_from_db_to_plr_record(plr_source_params, all_plr_result_session,
+                               patch_from_db_to_legend_entry_record,
                                patch_from_db_to_legend_entry_records, patch_from_db_to_office_record,
                                patch_from_db_to_view_service_record, patch_from_db_to_geometry_records,
                                patch_config_get_law_status_by_data_code,
@@ -1223,17 +1229,20 @@ def test_handle_collection(plr_source_params, all_plr_result_session, real_estat
         source = DatabaseSource(**plr_source_params)
         source._plr_info['geometry_type'] = 'Point'
 
-
         query = source.handle_collection(session, real_estate_shapely_geom)
         assert str(query).replace('\n', '').replace(' ', '') == '''
-            SELECT 
+            SELECT
                 land_use_plans.geometry.id AS land_use_plans_geometry_id,
                 land_use_plans.geometry.law_status AS land_use_plans_geometry_law_status,
                 land_use_plans.geometry.published_from AS land_use_plans_geometry_published_from,
                 land_use_plans.geometry.published_until AS land_use_plans_geometry_published_until,
                 land_use_plans.geometry.geo_metadata AS land_use_plans_geometry_geo_metadata,
                 ST_AsEWKB(land_use_plans.geometry.geom) AS land_use_plans_geometry_geom,
-                land_use_plans.geometry.public_law_restriction_id AS land_use_plans_geometry_public_law_restriction_id
+                land_use_plans.geometry.public_law_restriction_id AS
+                 land_use_plans_geometry_public_law_restriction_id
             FROM land_use_plans.geometry
-            WHERE ST_Intersects(land_use_plans.geometry.geom, ST_GeomFromWKB(%(ST_GeomFromWKB_1)s, %(ST_GeomFromWKB_2)s))
+            WHERE ST_Intersects(
+                land_use_plans.geometry.geom,
+                ST_GeomFromWKB(%(ST_GeomFromWKB_1)s, %(ST_GeomFromWKB_2)s)
+            )
         '''.replace('\n', '').replace(' ', '')
