@@ -4,7 +4,7 @@ import logging
 import pytest
 from unittest.mock import patch
 from jsonschema import Draft4Validator
-from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPNoContent
+from pyramid.httpexceptions import HTTPBadRequest, HTTPSeeOther, HTTPNoContent
 
 from tests.mockrequest import MockRequest
 from pyramid_oereb.core.views.webservice import PlrWebservice
@@ -238,5 +238,5 @@ def test_format_url(real_estate_data):
     })
     service = PlrWebservice(request)
     response = service.get_extract_by_id()
-    assert isinstance(response, HTTPFound)
+    assert isinstance(response, HTTPSeeOther)
     assert response.location == 'https://geoview.bl.ch/oereb/?egrid=TEST'
