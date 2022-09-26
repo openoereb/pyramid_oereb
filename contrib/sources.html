@@ -353,6 +353,35 @@ estate in its record representation.</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.create_geometry_records_">
+<span class="sig-name descname"><span class="pre">create_geometry_records_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">law_status</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">published_from</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">published_until</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geo_metadata</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.create_geometry_records_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produces an array of pyramid_oereb geometry records representing simple shapely geometries POINT,
+LINE, POLYGON out of a passed shapely (multi)point, (multi)line, (multi)polygon or collection geometry
+and assigns all attributes to them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>law_status</strong> (<a class="reference internal" href="../core/records.html#pyramid_oereb.core.records.law_status.LawStatusRecord" title="pyramid_oereb.core.records.law_status.LawStatusRecord"><em>pyramid_oereb.core.records.law_status.LawStatusRecord</em></a>) – </p></li>
+<li><p><strong>published_from</strong> (<em>datetime.datetime.date</em>) – Date from/since when the PLR record is published.</p></li>
+<li><p><strong>published_until</strong> (<em>datetime.datetime.date</em>) – Date until the PLR record is published.</p></li>
+<li><p><strong>geom</strong> (<em>shapely.geometry.GeometryCollection</em>) – The geometry which will be unwrapped.</p></li>
+<li><p><strong>geo_metadata</strong> (<em>str</em>) – The metadata uri.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The list of unwrapped basic geometry</dt><dd><p>records. Each record has the same attribute values as the original one.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of pyramid_oereb.core.records.geometry.GeometryRecord</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.document_records_from_oereblex">
 <span class="sig-name descname"><span class="pre">document_records_from_oereblex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geolink</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">law_status</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oereblex_params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/oereblex/sources/plr_oereblex.html#DatabaseOEREBlexSource.document_records_from_oereblex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.document_records_from_oereblex" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create document records parsed from the OEREBlex response with the specified geoLink ID and appends
@@ -403,6 +432,101 @@ representation which is used for comparison.</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.from_db_to_document_records">
+<span class="sig-name descname"><span class="pre">from_db_to_document_records</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">documents_from_db</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.from_db_to_document_records" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>documents_from_db</strong> – (pyramid_oereb.contrib.data_sources.standard.models.get_document.&lt;locals&gt;.Document):
+The element read out of the database.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The document record utilizing all attributes</dt><dd><p>read from db entity.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pyramid_oereb.core.records.document.DocumentRecord</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.from_db_to_geometry_records">
+<span class="sig-name descname"><span class="pre">from_db_to_geometry_records</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geometries_from_db</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.from_db_to_geometry_records" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates a geometry element read from database (SQLAlchemy) into the internal record format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>geometries_from_db</strong> – <dl class="simple">
+<dt>(list of pyramid_oereb.contrib.data_sources.standard.models.get_geometry.&lt;locals&gt;.Geometry):</dt><dd><p>The element read out of the database.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The geometry record utilizing all attributes</dt><dd><p>read from db entity.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../core/records.html#pyramid_oereb.core.records.geometry.GeometryRecord" title="pyramid_oereb.core.records.geometry.GeometryRecord">pyramid_oereb.core.records.geometry.GeometryRecord</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.from_db_to_office_record">
+<span class="sig-name descname"><span class="pre">from_db_to_office_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">office_from_db</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.from_db_to_office_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates an office element read from database (SQLAlchemy) into the internal record format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>office_from_db</strong> (<em>pyramid_oereb.contrib.data_sources.standard.models.get_office.&lt;locals&gt;.Office</em>) – The element read out of the database.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The office record utilizing all attributes</dt><dd><p>read from db entity.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../core/records.html#pyramid_oereb.core.records.office.OfficeRecord" title="pyramid_oereb.core.records.office.OfficeRecord">pyramid_oereb.core.records.office.OfficeRecord</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.from_db_to_plr_record">
+<span class="sig-name descname"><span class="pre">from_db_to_plr_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">public_law_restriction_from_db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_entries_from_db</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.from_db_to_plr_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produces out of the passed DB elements a PublicLawRestriction record. It heavily utilizes the
+instance methods to extract the nested information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>pyramid_oereb.core.views.webservice.Parameter</em>) – The parameters of the extract request.</p></li>
+<li><p><strong>public_law_restriction_from_db</strong> – (pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction.&lt;locals&gt;.PublicLawRestriction):
+The element read out of the database.</p></li>
+<li><p><strong>legend_entries_from_db</strong> – (pyramid_oereb.contrib.data_sources.standard.models.get_legend_entry.&lt;locals&gt;.LegendEntry):
+The elements read out of the database.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The public law restriction record utilizing all</dt><dd><p>attributes read from db entity and its relations.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../core/records.html#pyramid_oereb.core.records.plr.PlrRecord" title="pyramid_oereb.core.records.plr.PlrRecord">pyramid_oereb.core.records.plr.PlrRecord</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.get_config_value_for_plr_code">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_config_value_for_plr_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url_param_config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plr_code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/oereblex/sources/plr_oereblex.html#DatabaseOEREBlexSource.get_config_value_for_plr_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.get_config_value_for_plr_code" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the appropriate configuration entry for a plr within a url_param_config section.</p>
@@ -441,8 +565,9 @@ representation which is used for comparison.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>session</strong> (<em>sqlalchemy.orm.Session</em>) – The requested clean session instance ready for use</p></li>
-<li><p><strong>geometry_to_check</strong> (<a class="reference internal" href="../core/records.html#pyramid_oereb.core.records.geometry.GeometryRecord" title="pyramid_oereb.core.records.geometry.GeometryRecord"><em>GeometryRecord</em></a>) – geometry to be queried</p></li>
+<li><p><strong>session</strong> (<em>sqlalchemy.orm.Session</em><em> or </em><em>sqlalchemy.orm.scoped_session</em>) – The requested clean
+session instance ready for use</p></li>
+<li><p><strong>geometry_to_check</strong> (<em>shapely.geometry.base.BaseGeometry</em>) – geometry to be queried</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -475,11 +600,70 @@ representation which is used for comparison.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) – The parameters of the extract request.</p></li>
+<li><p><strong>params</strong> (<em>pyramid_oereb.core.views.webservice.Parameter</em>) – The parameters of the extract request.</p></li>
 <li><p><strong>real_estate</strong> (<em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em>) – The real
 estate in its record representation.</p></li>
 <li><p><strong>bbox</strong> (<em>shapely.geometry.base.BaseGeometry</em>) – The bbox to search the records.</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.unwrap_geometry_collection_">
+<span class="sig-name descname"><span class="pre">unwrap_geometry_collection_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">law_status</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">published_from</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">published_until</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geo_metadata</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.unwrap_geometry_collection_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produces an array of geometry records representing simple shapely geometries POINT,
+LINE, POLYGON out of a passed shapely collection geometry and assigns all attributes to them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>law_status</strong> (<a class="reference internal" href="../core/records.html#pyramid_oereb.core.records.law_status.LawStatusRecord" title="pyramid_oereb.core.records.law_status.LawStatusRecord"><em>pyramid_oereb.core.records.law_status.LawStatusRecord</em></a>) – </p></li>
+<li><p><strong>published_from</strong> (<em>datetime.datetime.date</em>) – Date from/since when the PLR record is published.</p></li>
+<li><p><strong>published_until</strong> (<em>datetime.datetime.date</em>) – Date until the PLR record is published.</p></li>
+<li><p><strong>collection</strong> (<em>shapely.geometry.GeometryCollection</em>) – The geometry which will be unwrapped.</p></li>
+<li><p><strong>geo_metadata</strong> (<em>str</em>) – The metadata uri.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The list of unwrapped basic geometry</dt><dd><p>records. Each record has the same attribute values as the original one.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of pyramid_oereb.core.records.geometry.GeometryRecord</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.unwrap_multi_geometry_">
+<span class="sig-name descname"><span class="pre">unwrap_multi_geometry_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">law_status</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">published_from</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">published_until</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_geom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geo_metadata</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.unwrap_multi_geometry_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produces an array of geometry records representing simple shapely geometries POINT,
+LINE, POLYGON out of a passed shapely multi geometry and assigns all attributes to them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>law_status</strong> (<a class="reference internal" href="../core/records.html#pyramid_oereb.core.records.law_status.LawStatusRecord" title="pyramid_oereb.core.records.law_status.LawStatusRecord"><em>pyramid_oereb.core.records.law_status.LawStatusRecord</em></a>) – The law status.</p></li>
+<li><p><strong>published_from</strong> (<em>datetime.datetime.date</em>) – Date from/since when the PLR record is published.</p></li>
+<li><p><strong>published_until</strong> (<em>datetime.datetime.date</em>) – Date until the PLR record is published.</p></li>
+<li><p><strong>(</strong> (<em>multi_geom</em>) – shapely.geometry.MultiPoint or
+shapely.geometry.MultiLineString or
+shapely.geometry.MultiPolygon</p></li>
+<li><p><strong>)</strong> – The geometry which will be unwrapped.</p></li>
+<li><p><strong>geo_metadata</strong> (<em>str</em>) – The metadata uri.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The list of unwrapped basic geometry</dt><dd><p>records. Each record has the same attribute values as the original one.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of pyramid_oereb.core.records.geometry.GeometryRecord</p>
 </dd>
 </dl>
 </dd></dl>
