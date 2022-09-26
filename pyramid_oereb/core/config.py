@@ -1634,7 +1634,7 @@ class Config(object):
             data_code (str): Value of the desired law status code.
 
         Returns:
-            pyramid_oereb.core.records.lawstatus.LawStatusRecord: The law status record.
+            pyramid_oereb.core.records.law_status.LawStatusRecord: The law status record.
 
         """
         lookup = Config.get_law_status_lookup_by_data_code(theme_code, data_code)

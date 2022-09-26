@@ -167,6 +167,25 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
     def unwrap_multi_geometry_(self, law_status, published_from, published_until,
                                multi_geom, geo_metadata):
+        """
+        Produces an array of geometry records representing simple shapely geometries POINT,
+        LINE, POLYGON out of a passed shapely multi geometry and assigns all attributes to them.
+
+        Args:
+            law_status (pyramid_oereb.core.records.law_status.LawStatusRecord): The law status.
+            published_from (datetime.datetime.date): Date from/since when the PLR record is published.
+            published_until (datetime.datetime.date): Date until the PLR record is published.
+            multi_geom (
+                shapely.geometry.MultiPoint or
+                shapely.geometry.MultiLineString or
+                shapely.geometry.MultiPolygon
+            ): The geometry which will be unwrapped.
+            geo_metadata (str): The metadata uri.
+
+        Returns:
+            list of pyramid_oereb.core.records.geometry.GeometryRecord: The list of unwrapped basic geometry
+                records. Each record has the same attribute values as the original one.
+        """
         unwrapped = []
         for geom in multi_geom.geoms:
             unwrapped.append(
@@ -182,6 +201,21 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
     def unwrap_geometry_collection_(self, law_status, published_from, published_until,
                                     collection, geo_metadata):
+        """
+        Produces an array of geometry records representing simple shapely geometries POINT,
+        LINE, POLYGON out of a passed shapely collection geometry and assigns all attributes to them.
+
+        Args:
+            law_status (pyramid_oereb.core.records.law_status.LawStatusRecord):
+            published_from (datetime.datetime.date): Date from/since when the PLR record is published.
+            published_until (datetime.datetime.date): Date until the PLR record is published.
+            collection (shapely.geometry.GeometryCollection): The geometry which will be unwrapped.
+            geo_metadata (str): The metadata uri.
+
+        Returns:
+            list of pyramid_oereb.core.records.geometry.GeometryRecord: The list of unwrapped basic geometry
+                records. Each record has the same attribute values as the original one.
+        """
         unwrapped = []
         if len(collection.geoms) > 1:
             raise AttributeError(u'There was more than one element in the GeometryCollection. '
@@ -200,6 +234,22 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
     def create_geometry_records_(self, law_status, published_from, published_until,
                                  geom, geo_metadata):
+        """
+        Produces an array of pyramid_oereb geometry records representing simple shapely geometries POINT,
+        LINE, POLYGON out of a passed shapely (multi)point, (multi)line, (multi)polygon or collection geometry
+        and assigns all attributes to them.
+
+        Args:
+            law_status (pyramid_oereb.core.records.law_status.LawStatusRecord):
+            published_from (datetime.datetime.date): Date from/since when the PLR record is published.
+            published_until (datetime.datetime.date): Date until the PLR record is published.
+            geom (shapely.geometry.GeometryCollection): The geometry which will be unwrapped.
+            geo_metadata (str): The metadata uri.
+
+        Returns:
+            list of pyramid_oereb.core.records.geometry.GeometryRecord: The list of unwrapped basic geometry
+                records. Each record has the same attribute values as the original one.
+        """
         geometry_records = []
 
         # Process single geometries
@@ -243,6 +293,18 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return geometry_records
 
     def from_db_to_geometry_records(self, geometries_from_db):
+        """
+        Translates a geometry element read from database (SQLAlchemy) into the internal record format.
+
+        Args:
+            geometries_from_db
+                (list of pyramid_oereb.contrib.data_sources.standard.models.get_geometry.<locals>.Geometry):
+                    The element read out of the database.
+
+        Returns:
+            pyramid_oereb.core.records.geometry.GeometryRecord: The geometry record utilizing all attributes
+                read from db entity.
+        """
         geometry_records = []
         for geometry_from_db in geometries_from_db:
             # Create law status record
@@ -262,22 +324,45 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         return geometry_records
 
-    def from_db_to_office_record(self, offices_from_db):
+    def from_db_to_office_record(self, office_from_db):
+        """
+        Translates an office element read from database (SQLAlchemy) into the internal record format.
+
+        Args:
+            office_from_db (pyramid_oereb.contrib.data_sources.standard.models.get_office.<locals>.Office):
+                The element read out of the database.
+
+        Returns:
+            pyramid_oereb.core.records.office.OfficeRecord: The office record utilizing all attributes
+                read from db entity.
+        """
         office_record = self._office_record_class(
-            offices_from_db.name,
-            offices_from_db.uid,
-            offices_from_db.office_at_web,
-            offices_from_db.line1,
-            offices_from_db.line2,
-            offices_from_db.street,
-            offices_from_db.number,
-            offices_from_db.postal_code,
-            offices_from_db.city
+            office_from_db.name,
+            office_from_db.uid,
+            office_from_db.office_at_web,
+            office_from_db.line1,
+            office_from_db.line2,
+            office_from_db.street,
+            office_from_db.number,
+            office_from_db.postal_code,
+            office_from_db.city
         )
 
         return office_record
 
     def from_db_to_document_records(self, documents_from_db):
+        """
+
+        Args:
+            documents_from_db
+                (pyramid_oereb.contrib.data_sources.standard.models.get_document.<locals>.Document):
+                The element read out of the database.
+
+        Returns:
+            pyramid_oereb.core.records.document.DocumentRecord: The document record utilizing all attributes
+                read from db entity.
+        """
+
         document_records = []
         for document in documents_from_db:
             office_record = self.from_db_to_office_record(document.responsible_office)
@@ -300,12 +385,30 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                 abbreviation=document.abbreviation,
                 official_number=document.official_number,
                 only_in_municipality=document.only_in_municipality,
+                # Documents in themes can't have article numbers (fed spec model)
                 article_numbers=None,
                 file=document.file
             ))
         return document_records
 
     def from_db_to_plr_record(self, params, public_law_restriction_from_db, legend_entries_from_db):
+        """
+        Produces out of the passed DB elements a PublicLawRestriction record. It heavily utilizes the
+        instance methods to extract the nested information.
+
+        Args:
+            params (pyramid_oereb.core.views.webservice.Parameter): The parameters of the extract request.
+            public_law_restriction_from_db
+                (pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction.<locals>.PublicLawRestriction):
+                The element read out of the database.
+            legend_entries_from_db
+                (pyramid_oereb.contrib.data_sources.standard.models.get_legend_entry.<locals>.LegendEntry):
+                The elements read out of the database.
+
+        Returns:
+            pyramid_oereb.core.records.plr.PlrRecord: The public law restriction record utilizing all
+                attributes read from db entity and its relations.
+        """
         thresholds = self._plr_info.get('thresholds')
         min_length = thresholds.get('length').get('limit')
         length_unit = thresholds.get('length').get('unit')
@@ -359,6 +462,21 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return plr_record
 
     def get_document_records(self, params, public_law_restriction_from_db):
+        """
+        Here the M:N relation between Document and PLR through the relation table
+        pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction_document.<locals>.PublicLawRestrictionDocument
+        is resolved to real document records.
+
+        Args:
+            params (pyramid_oereb.core.views.webservice.Parameter): The parameters of the extract request.
+            public_law_restriction_from_db
+                (pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction.<locals>.PublicLawRestriction):
+                The element read out of the database.
+
+        Returns:
+            list of pyramid_oereb.core.records.documents.DocumentRecord: The document records related to
+                the passed PLR.
+        """
         documents_from_db = []
         if not hasattr(public_law_restriction_from_db, 'legal_provisions'):
             raise AttributeError(
@@ -415,8 +533,9 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         Handles geometry collection in the geometry query if needed.
 
         Args:
-            session (sqlalchemy.orm.Session): The requested clean session instance ready for use
-            geometry_to_check (GeometryRecord): geometry to be queried
+            session (sqlalchemy.orm.Session or sqlalchemy.orm.scoped_session): The requested clean
+                session instance ready for use
+            geometry_to_check (shapely.geometry.base.BaseGeometry): geometry to be queried
 
         Returns:
             sqlalchemy.orm.Query : the query based on the geometry_to_check
@@ -512,7 +631,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         The read point which creates an extract, depending on a passed real estate.
 
         Args:
-            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
+            params (pyramid_oereb.core.views.webservice.Parameter): The parameters of the extract request.
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate in its record representation.
             bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
