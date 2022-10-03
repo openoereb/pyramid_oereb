@@ -85,8 +85,6 @@
         <data:PLRCadastreAuthority>
             <%include file="office.xml" args="office=extract.plr_cadastre_authority"/>
         </data:PLRCadastreAuthority>
-        <data:UpdateDateCS>
-            ${extract.creation_date.strftime(date_format)}
-        </data:UpdateDateCS>
+        <data:UpdateDateCS>${extract.creation_date.strftime(date_format)}</data:UpdateDateCS>
     </data:Extract>
 </extract:GetExtractByIdResponse>
