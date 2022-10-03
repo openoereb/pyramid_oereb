@@ -2,6 +2,7 @@ import datetime
 import re
 from mako.template import Template
 from pyramid.path import AssetResolver
+from functools import cmp_to_key
 
 from pyramid_oereb import route_prefix
 from pyramid_oereb.core.records.office import OfficeRecord
@@ -136,4 +137,27 @@ def plr_sort_within_themes(extract):
     Returns:
         pyramid_oereb.lib.records.extract.ExtractRecord: Returns the updated extract
     """
+
+    real_estate = extract.real_estate
+
+    def cmp(a, b):
+        if a.theme.code == b.theme.code and a.sub_theme == b.sub_theme:
+            # Only impact the order of elements which are in the same sub_code
+            value_a = a.law_status.code
+            value_b = b.law_status.code
+            if value_a and value_b:
+                if value_a > value_b:
+                    ret = -1
+                elif value_a == value_b:
+                    ret = 0
+                else:
+                    ret = 1
+            else:
+                ret = 0
+        else:
+            ret = 0
+        return ret
+
+    real_estate.public_law_restrictions = sorted(real_estate.public_law_restrictions, key=cmp_to_key(cmp))
+
     return extract
