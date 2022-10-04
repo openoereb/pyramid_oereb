@@ -479,6 +479,22 @@
             "rm": "L'exposiziun publica generescha in effect anticipà: a partir da quest termin dastgan projects da construcziun vegnir permess per regla mo, sch'els na stattan betg en cuntradicziun cun la planisaziun exponida publicamain.",
             "en": "The publication of plans results in a pre-effect: From that moment onwards, construction projects may normally only be approved if they do not conflict with the published planning."
         }
+    },
+    {
+        "title": {
+            "de": "Änderungen",
+            "fr": "Modifications",
+            "it": "Modifiche",
+            "rm": "Midadas",
+            "en": "Modifications"
+        },
+        "content": {
+            "de": "Bei Änderungen handelt es sich um geplante oder neue ÖREB, welche ab der öffentlichen Auflage im ÖREB-Kataster geführt werden können. Änderungen können je nach rechtlicher Grundlage mit der öffentlichen Auflage bereits eine Vorwirkung entfalten.",
+            "fr": "il est question ici de RDPPF prévues ou de nouvelles RDPPF pouvant figurer dans le cadastre RDPPF dès l‘enquête publique. Suivant la base légale sur laquelle elles se fondent, les modifications peuvent déjà déployer un effet anticipé lors de l’enquête publique.",
+            "it": "Nel caso delle modifiche si tratta di RDPP pianificate o nuove che possono essere tenute dal momento della pubblicazione nel Catasto RDPP. A seconda della base legale, le modifiche possono avere un effetto preliminare già con la pubblicazione.",
+            "rm": "Las midadas en las restricziuns RDPP èn novas u previsas. Quellas pon a partir da l'exposiziun publica figurar en il cataster RDPP. Tut tenor la basa giuridica pon las midadas gia avair in effect anticipà il mument da l'exposiziun publica.",
+            "en": "These concern planned or new public law restrictions on landownership that can be incorporated in the PLR Cadastre after their official publication. Depending on the applicable legal basis, such changes may already have an antecedent effect directly after their official publication."
+        }
     }
 ]
 

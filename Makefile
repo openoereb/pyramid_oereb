@@ -156,7 +156,7 @@ $(NEW_URL_INDEX):
 
 .PHONY: update_url_%
 update_url_%: $(NEW_URL_INDEX)
-	sed -i "s/OeREBKRM_V2_0_$*_.*.xml/$(shell grep -Po OeREBKRM_V2_0_$*_.*xml $<)/" fed.urls	
+	sed -i "s/OeREBKRM_V2_0_$*\(_.*\)\?\.xml/$(shell grep -Po OeREBKRM_V2_0_$*\(_.*\)?\.xml $<)/" fed.urls
 
 .PHONY: remove_url_index
 remove_url_index:
@@ -178,7 +178,7 @@ update_fed_data_urls: prepare_fed_data
 
 # do everything automatically: find the new URLs, generate json data, copy json to project
 .PHONY: auto_update_fed_data
-auto_update_fed_data: clean_fed_data update_fed_data_urls update_fed_data_urls
+auto_update_fed_data: clean_fed_data update_fed_data_urls update_fed_data
 
 clean_fed_xmls:
 	rm -f $(THEMES_XML) $(LAWS_XML) $(LOGOS_XML) $(TEXTS_XML)
