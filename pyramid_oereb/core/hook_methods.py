@@ -125,11 +125,42 @@ def produce_sld_content(params, real_estate_config):
     return template.render(**template_params)
 
 
+def compare(a, b):
+    """
+    This is the method to sort a plr list (while respecting the theme order).
+    This standard sorts the plrs within themes, you can set your configuration
+    to a different method if you need a specific sorting.
+
+    Args:
+        a: Public law restriction to be compared to b
+        b: Public law restriction to be compared to a
+
+    Returns:
+        Integer: is 1 if b comes before a -> reorder
+    """
+    if a.theme.code == b.theme.code and a.sub_theme == b.sub_theme:
+        # Only impact the order of elements which are in the same sub_code
+        value_a = a.law_status.code
+        value_b = b.law_status.code
+        if value_a and value_b:
+            if value_a > value_b:
+                ret = -1
+            elif value_a == value_b:
+                ret = 0
+            else:
+                ret = 1
+        else:
+            ret = 0
+    else:
+        ret = 0
+    return ret
+
+
 def plr_sort_within_themes(extract):
     """
     This is the standard hook method to sort a plr list (while respecting the theme order).
-    This standard hook does no sorting, you can set your configuration to a different method if you need a
-    specific sorting.
+    This standard hook sorts the plrs within themes, you can set your configuration to a
+    different method if you need a specific sorting.
 
     Args:
         extract (pyramid_oereb.lib.records.extract.ExtractRecord): The unsorted extract
@@ -140,24 +171,6 @@ def plr_sort_within_themes(extract):
 
     real_estate = extract.real_estate
 
-    def cmp(a, b):
-        if a.theme.code == b.theme.code and a.sub_theme == b.sub_theme:
-            # Only impact the order of elements which are in the same sub_code
-            value_a = a.law_status.code
-            value_b = b.law_status.code
-            if value_a and value_b:
-                if value_a > value_b:
-                    ret = -1
-                elif value_a == value_b:
-                    ret = 0
-                else:
-                    ret = 1
-            else:
-                ret = 0
-        else:
-            ret = 0
-        return ret
-
-    real_estate.public_law_restrictions = sorted(real_estate.public_law_restrictions, key=cmp_to_key(cmp))
+    real_estate.public_law_restrictions = sorted(real_estate.public_law_restrictions, key=cmp_to_key(compare))
 
     return extract
