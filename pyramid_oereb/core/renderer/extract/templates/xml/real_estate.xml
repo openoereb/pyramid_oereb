@@ -20,13 +20,13 @@
     </data:Type>
     <data:Canton>${real_estate.canton | x}</data:Canton>
     <data:MunicipalityName>${real_estate.municipality | x}</data:MunicipalityName>
+    <data:MunicipalityCode>${real_estate.fosnr}</data:MunicipalityCode>
 %if extract.real_estate.subunit_of_land_register:
     <data:SubunitOfLandRegister>${real_estate.subunit_of_land_register | x}</data:SubunitOfLandRegister>
 %endif
 %if extract.real_estate.subunit_of_land_register_designation:
     <data:SubunitOfLandRegisterDesignation>${real_estate.subunit_of_land_register_designation | x}</data:SubunitOfLandRegisterDesignation>
 %endif
-    <data:MunicipalityCode>${real_estate.fosnr}</data:MunicipalityCode>
 %if extract.real_estate.metadata_of_geographical_base_data:
     <data:MetadataOfGeographicalBaseData>${real_estate.metadata_of_geographical_base_data | x}</data:MetadataOfGeographicalBaseData>
 %endif
