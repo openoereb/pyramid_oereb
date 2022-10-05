@@ -6,7 +6,7 @@ import qrcode
 import io
 # import re
 
-from pyramid.httpexceptions import HTTPBadRequest, HTTPFound, HTTPInternalServerError, HTTPNoContent, \
+from pyramid.httpexceptions import HTTPBadRequest, HTTPSeeOther, HTTPInternalServerError, HTTPNoContent, \
     HTTPNotFound
 from pyramid.path import DottedNameResolver
 from shapely.geometry import Point
@@ -598,12 +598,12 @@ class PlrWebservice(object):
                 The found real estate.
 
         Returns:
-            pyramid.httpexceptions.HTTPFound: The redirect response.
+            pyramid.httpexceptions.HTTPSeeOther: The redirect response.
         """
         url = Config.get_extract_config().get('redirect')
         if url is None:
             raise HTTPInternalServerError('Missing configuration for redirect to dynamic client.')
-        return HTTPFound(url.format(**vars(real_estate)))
+        return HTTPSeeOther(url.format(**vars(real_estate)))
 
 
 class Parameter(object):
@@ -835,13 +835,13 @@ class Logo(object):
         """
         logo_key = self._request.matchdict.get('logo')
         logo_language = self._request.matchdict.get('language')
-        if(logo_key.upper() == 'CONFEDERATION'):
+        if (logo_key.upper() == 'CONFEDERATION'):
             logo = Config.get_conferderation_logo()
-        elif(logo_key.upper() == 'OEREB'):
+        elif (logo_key.upper() == 'OEREB'):
             logo = Config.get_oereb_logo()
-        elif(logo_key.upper() == 'CANTON'):
+        elif (logo_key.upper() == 'CANTON'):
             logo = Config.get_canton_logo()
-        elif(logo_key.upper() == 'MUNICIPALITY'):
+        elif (logo_key.upper() == 'MUNICIPALITY'):
             fosnr = self._request.params['fosnr']
             logo = Config.get_municipality_logo(fosnr)
         else:

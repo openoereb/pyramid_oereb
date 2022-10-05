@@ -44,7 +44,7 @@ pyramid_oereb:
     # service and returns the result to the user.
 % if print_backend == 'XML2PDF':
     # Configuration for XML2PDF print service
-    renderer: pyramid_oereb.contrib.print_proxy.xml_2_pdf.Renderer
+    renderer: pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer
     # Define whether all geometry data must be included when sending the data to the print service
     with_geometry: True
     # Base URL with application of the print server
@@ -612,6 +612,18 @@ pyramid_oereb:
           precision: 2
         percentage:
           precision: 1
+      # You can define a TOLERANCE for intersections on a per geometry base.
+      # To enable a tolerance for all geometry types uncomment the section below
+      # tolerance: 0.001
+      # The section below has the same effect in another formulation
+      # tolerances:
+      #   ALL: 0.001
+      # To configure tolerances per geometry type, use
+      # tolerances:
+      #   Point: 0.001
+      #   LineString: 0.002
+      #   Polygon: 0.0005
+      # Geometry collections use the relevant tolerance for each basic type in their geometry set
       language: de
       federal: false
       view_service:

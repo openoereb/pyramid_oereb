@@ -6,6 +6,34 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+.. _changes-version-2.2.4:
+
+Version 2.2.4
+-------------
+New functionality for configuring tolerance (optional):
+
+* Support tolerance per geometry type (#1603). See example definitions in the example project configuration file. 
+* Library updates (#1604)
+
+.. _changes-version-2.2.3:
+
+Version 2.2.3
+-------------
+Bug-fix and maintenance release:
+
+* Fix xml2pdf proxy (#1596)
+* Library updates (#1597, #1598)
+
+.. _changes-version-2.2.2:
+
+Version 2.2.2
+-------------
+Bug-fix and maintenance release:
+
+* Default index for oereblex documents (#1591)
+* Sort theme lists (#1592)
+* Library updates (#1593, #1595)
+
 .. _changes-version-2.2.1:
 
 Version 2.2.1

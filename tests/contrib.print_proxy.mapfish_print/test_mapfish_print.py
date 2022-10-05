@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 import os
+import io
 import re
 import json
 import codecs
 import pytest
 import responses
+from PyPDF2 import PdfWriter
 
 from pyramid_oereb.core.records.municipality import MunicipalityRecord
 from tests.mockrequest import MockRequest
@@ -663,6 +665,19 @@ def test_archive_pdf(DummyRenderInfo):
     renderer = Renderer(DummyRenderInfo())
     extract = {'RealEstate_EGRID': 'CH113928077734'}
     path_and_filename = renderer.archive_pdf_file('/tmp', bytes(), extract)
+    partial_filename = str('_') + extract['RealEstate_EGRID'] + '.pdf'
+    assert partial_filename in path_and_filename
+    assert os.path.isfile(path_and_filename)
+
+
+def test_archive_pdf_identdn(DummyRenderInfo):
+    renderer = Renderer(DummyRenderInfo())
+    extract = {
+        'RealEstate_IdentDN': 'BL0200002771',
+        'RealEstate_Number': '70'}
+    path_and_filename = renderer.archive_pdf_file('/tmp', bytes(), extract)
+    partial_filename = extract['RealEstate_IdentDN'] + str('_') + extract['RealEstate_Number'] + '.pdf'
+    assert partial_filename in path_and_filename
     assert os.path.isfile(path_and_filename)
 
 
@@ -823,8 +838,12 @@ def themes(pyramid_oereb_test_config):
 
 @pytest.fixture
 def dummy_pdf():
-    with open('./tests/contrib.print_proxy.mapfish_print/resources/dummy.pdf', 'rb') as f:
-        return f.read()
+    with io.BytesIO() as pdf:
+        pdf_writer = PdfWriter()
+        pdf_writer.add_blank_page(width=1, height=1)
+        pdf_writer.write(pdf)
+        pdf.seek(0)
+        return pdf.read()
 
 
 @patch.object(pyramid_oereb.core.views.webservice, 'route_prefix', 'oereb')

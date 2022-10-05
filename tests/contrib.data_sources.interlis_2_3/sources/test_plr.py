@@ -251,7 +251,7 @@ def test_related_geometries(processor_data, pyramid_oereb_test_config, interlis_
     plr_cadastre_authority = pyramid_oereb_test_config.get_plr_cadastre_authority()
     plr = pyramid_oereb_test_config.get_theme_config_by_code('ch.Nutzungsplanung')
     if with_tolerance:
-        plr["tolerance"] = fi.epsilon
+        plr["tolerances"] = {'Point': 0.2, 'LineString': 0.5, 'Polygon': fi.epsilon}
     plr_source_class = DottedNameResolver().maybe_resolve(plr.get('source').get('class'))
     plr_sources = []
     plr_sources.append(plr_source_class(**plr))

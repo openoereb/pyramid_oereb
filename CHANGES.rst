@@ -1,6 +1,22 @@
 Changelog
 =========
 
+2.2.4
+-----
+- Support tolerance per geometry type (#1603)
+- Library updates (#1604)
+
+2.2.3
+-----
+- Fix xml2pdf proxy (#1596)
+- Library updates (#1597, #1598)
+
+2.2.2
+-----
+- Default index for oereblex documents (#1591)
+- Sort theme lists (#1592)
+- Library updates (#1593, #1595)
+
 2.2.1
 -----
 - Add library needed for QR-Code (#1589)
