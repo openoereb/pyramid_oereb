@@ -1,3 +1,5 @@
+from pyramid_oereb.core.records.extract import ExtractRecord
+from pyramid_oereb.core.records.law_status import LawStatusRecord
 import pytest
 import datetime
 
@@ -12,10 +14,12 @@ from pyramid_oereb.core.records.image import ImageRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.view_service import LegendEntryRecord
 from pyramid_oereb.core.records.real_estate import RealEstateRecord
-from pyramid_oereb.core.hook_methods import get_symbol, get_symbol_ref, \
-    get_surveying_data_update_date
+from pyramid_oereb.core.hook_methods import compare, get_symbol, get_symbol_ref, \
+    get_surveying_data_update_date, plr_sort_within_themes
 from pyramid_oereb.contrib.data_sources.standard.sources.plr import StandardThemeConfigParser
 import pyramid_oereb.contrib.data_sources.standard.hook_methods
+from tests.core.records.test_extract import create_dummy_extract
+from tests.core.records.test_plr import create_dummy_plr
 
 try:
     from urllib.parse import urlparse
@@ -83,3 +87,28 @@ def test_get_surveying_data_date():
                                    loads('POLYGON((0 0, 0 1, 1 1, 1 0, 0 0))'))
     update_date_os = get_surveying_data_update_date(real_estate)
     assert isinstance(update_date_os, datetime.datetime)
+
+
+def test_plr_sort_within_themes():
+    record = create_dummy_extract()
+    sorted_extract = plr_sort_within_themes(record)
+    assert isinstance(sorted_extract, ExtractRecord)
+
+
+def test_compare():
+    assert compare(create_dummy_plr(), create_dummy_plr()) == 0
+
+    plr1 = create_dummy_plr()
+    plr1.law_status = LawStatusRecord('AenderungMitVorwirkung', {})
+    plr1.theme.code = 'ch.Nutzungsplanung'
+    plr1.sub_theme = ''
+    plr2 = create_dummy_plr()
+    plr2.law_status = LawStatusRecord('inKraft', {})
+    plr2.theme.code = 'ch.Nutzungsplanung'
+    plr2.sub_theme = ''
+
+    assert compare(plr1, plr2) == 1
+    assert compare(plr2, plr1) == -1
+
+    plr1.law_status = LawStatusRecord('inKraft', {})
+    assert compare(plr1, plr2) == 0
