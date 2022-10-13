@@ -132,11 +132,13 @@ def compare(a, b):
     to a different method if you need a specific sorting.
 
     Args:
-        a: Public law restriction to be compared to b
-        b: Public law restriction to be compared to a
+        a (pyramid_oereb.core.records.plr.PlrRecord): Public law restriction to be compared to b
+        b (pyramid_oereb.core.records.plr.PlrRecord): Public law restriction to be compared to a
 
     Returns:
-        Integer: is 1 if b comes before a -> reorder
+        result (Integer): Returns 0 if the order of the elemens must not be changed,
+                          returns -1 if a comes before b,
+                          returns 1 if b comes before a
     """
     if a.theme.code == b.theme.code and a.sub_theme == b.sub_theme:
         # Only impact the order of elements which are in the same sub_code
