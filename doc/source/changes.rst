@@ -6,6 +6,17 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+.. _changes-version-2.2.5:
+
+Version 2.2.5
+-------------
+Bug-fix and maintenance release:
+
+* Fix response code for parameter "url" (#1605)
+* Fix order of change order of ExtractIdentifier & MunicipalityCode (#1606)
+* Sort plr within themes (#1607)
+* Minor library updates (#1609)
+
 .. _changes-version-2.2.4:
 
 Version 2.2.4
