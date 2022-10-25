@@ -293,16 +293,17 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the address database table.
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Address
-        # Alternatively, you can use the search service of the GeoAdmin API to look up the real estate by
-        # address. Replace the configuration above with the following lines:
-        # class: pyramid_oereb.lib.sources.address.AddressGeoAdminSource
-        # # Optional referer to use.
-        # referer: http://my.referer.ch
-        # params:
-          # # URL of the GeoAdmin API SearchServer
-          # geoadmin_search_api: https://api3.geo.admin.ch/rest/services/api/SearchServer
-          # # Origins to use (should be "address" only)
-          # origins: address
+      # Alternatively, you can use the search service of the GeoAdmin API to look up the real estate by
+      # address. Replace the configuration above with the following lines:
+      # class: pyramid_oereb.contrib.data_sources.swisstopo.address.AddressGeoAdminSource
+      # # Optional referer to use.
+      # # referer: http://my.referer.ch
+      # params:
+        # model: pyramid_oereb.contrib.data_sources.standard.models.main.Address
+        # # URL of the GeoAdmin API SearchServer
+        # geoadmin_search_api: https://api3.geo.admin.ch/rest/services/api/SearchServer
+        # # Origins to use (should be "address" only)
+        # origins: address
 
   # The processor of the oereb project needs access to municipality data. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the municipality out of an existing
