@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2.2.5
+-----
+- Fix response code for parameter "url" (#1605)
+- Fix order of change order of ExtractIdentifier & MunicipalityCode (#1606)
+- Sort plr within themes (#1607)
+- Minor library updates (#1609)
+
 2.2.4
 -----
 - Support tolerance per geometry type (#1603)
