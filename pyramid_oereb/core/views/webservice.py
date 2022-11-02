@@ -375,7 +375,7 @@ class PlrWebservice(object):
         # 2. use images if use_wms is not true
         if extract_format == 'pdf':
             with_geometry = Config.get('print', {}).get('with_geometry', True) or with_geometry
-            with_images = (Config.get('print', {}).get('use_wms', 'false') == 'false') or with_images
+            with_images = (Config.get('print', {}).get('use_wms', 'true') == 'false') or with_images
 
         # Signed?
         signed = self._params.get('SIGNED', 'false').lower() == 'true'
