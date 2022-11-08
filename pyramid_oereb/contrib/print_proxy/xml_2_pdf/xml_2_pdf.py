@@ -116,11 +116,13 @@ class Renderer(XmlRenderer):
                 proxies=Config.get('proxies')
             )
             if backend_answer.status_code != requests.codes.ok:
-                log.warning("request_pdf failed for url {}, data_extract was {}".format(url, data_extract))
+                log.warning("request_pdf failed for url {}".format(url))
+                log.debug("data extract for failed request was {}".format(data_extract))
             return backend_answer
         except Exception as e:
             log.exception(e)
-            log.warning("request_pdf failed for url {}, data_extract was {}".format(url, data_extract))
+            log.warning("request_pdf failed for url {}".format(url))
+            log.debug("data extract for failed request was {}".format(data_extract))
             raise e
 
     @staticmethod
