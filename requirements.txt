@@ -7,7 +7,7 @@ qrcode==7.3.1
 image==1.5.33
 shapely==1.8.4
 SQLAlchemy==1.4.44
-pyaml-env==1.2.0
+pyaml-env==1.1.5 # rq.filter: <1.2
 urllib3==1.26.12
 waitress==2.1.2
 pyreproj==2.0.0
