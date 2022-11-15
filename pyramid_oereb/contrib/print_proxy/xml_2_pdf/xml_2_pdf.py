@@ -50,9 +50,6 @@ class Renderer(XmlRenderer):
 
         log.debug("Parameter webservice is {}".format(value[1]))
 
-        if value[1].images:
-            raise HTTPBadRequest('With image is not allowed in the print')
-
         self._request = self.get_request(system)
         # If language present in request, use that. Otherwise, keep language from base class
         if 'lang' in self._request.GET:
