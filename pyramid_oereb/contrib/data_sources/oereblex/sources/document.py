@@ -99,9 +99,9 @@ class OEREBlexSource(Base):
         Requests the geoLink for the specified ID and returns records for the received documents.
 
         Args:
-            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
+            params (pyramid_oereb.core.views.webservice.Parameter): The parameters of the extract request.
             geolink_id (int): The geoLink ID.
-            law_status (pyramid_oereb.core.records.lawstatus.LawStatusRecord): The restriction's law status.
+            law_status (pyramid_oereb.core.records.law_status.LawStatusRecord): The restriction's law status.
             oereblex_params (string or None): Any additional parameters to pass to Oereblex
         """
         log.debug("read() start for geolink_id {}, oereblex_params {}".format(geolink_id, oereblex_params))
