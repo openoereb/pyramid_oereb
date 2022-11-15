@@ -6,6 +6,12 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+.. _changes-version-2.2.6:
+
+Version 2.2.6
+-------------
+Bug-fix release to allow usage of xml2pdf service with embedded images (#1612, #1614)
+
 .. _changes-version-2.2.5:
 
 Version 2.2.5

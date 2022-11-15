@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.2.6
+-----
+- Allow usage of xml2pdf service with embedded images (#1612, #1614)
+
 2.2.5
 -----
 - Fix response code for parameter "url" (#1605)
