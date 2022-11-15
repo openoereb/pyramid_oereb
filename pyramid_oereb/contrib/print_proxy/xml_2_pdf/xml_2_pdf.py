@@ -3,7 +3,6 @@ import requests
 import logging
 
 from pyramid.exceptions import ConfigurationError
-from pyramid.httpexceptions import HTTPBadRequest
 from pyramid_oereb import Config
 from pyramid_oereb.core.renderer.extract.xml_ import Renderer as XmlRenderer
 
