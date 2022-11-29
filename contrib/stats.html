@@ -99,9 +99,9 @@ first usage of the functionality. Once this structure has been generated, you ma
 to run in addition the script <em>create_stats_tables</em> which will generate database structures
 convenient for querying the results.</p>
 <p>The functionality is configured via the server’s ini file; see the project repository for a
-complete example of such an ini file. Example of a configuration:</p>
+complete example of such an ini file. Example of a configuration suitable for usage with Gunicorn:</p>
 <div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[loggers]</span><span class="w"></span>
-<span class="na">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">root, json</span><span class="w"></span>
+<span class="na">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">root, json, gunicorn.error</span><span class="w"></span>
 
 <span class="k">[logger_json]</span><span class="w"></span>
 <span class="na">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">INFO</span><span class="w"></span>
@@ -115,6 +115,12 @@ complete example of such an ini file. Example of a configuration:</p>
 <span class="na">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">NOTSET</span><span class="w"></span>
 <span class="na">formatter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">generic</span><span class="w"></span>
 <span class="na">propagate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0</span><span class="w"></span>
+
+<span class="k">[logger_gunicorn.error]</span><span class="w"></span>
+<span class="na">level</span><span class="o">=</span><span class="s">ERROR</span><span class="w"></span>
+<span class="na">handlers</span><span class="o">=</span><span class="s">console</span><span class="w"></span>
+<span class="na">propagate</span><span class="o">=</span><span class="s">0</span><span class="w"></span>
+<span class="na">qualname</span><span class="o">=</span><span class="s">gunicorn.error</span><span class="w"></span>
 </pre></div>
 </div>
 <p><strong>args</strong> is a tuple containing two elements:</p>
