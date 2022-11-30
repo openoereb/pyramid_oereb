@@ -14,7 +14,8 @@ RUN apt-get update && \
   zsh \
   vim \
   xsltproc \
-  postgresql-client
+  postgresql-client \
+  git
 
 ENV SHELL /bin/zsh
 
