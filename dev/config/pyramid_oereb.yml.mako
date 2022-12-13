@@ -175,6 +175,9 @@ pyramid_oereb:
   # Configuration option for full extract: apply SLD on land register WMS (defaults to true)
   full_extract_use_sld: true
 
+  # Configuration option for always outputting real estate geometry in XML extract
+  # xml_extract_use_real_estate_geometry: true
+
   # Configuration for OEREBlex
   oereblex:
     # OEREBlex host

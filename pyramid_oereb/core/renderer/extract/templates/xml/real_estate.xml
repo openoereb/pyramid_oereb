@@ -4,6 +4,7 @@
     from pyramid_oereb import Config
 
     real_estate_type = Config.get_real_estate_type_by_data_code(real_estate.type)
+    real_estate_with_geometry = Config.get_xml_extract_use_real_estate_geometry()
 %>
 <data:RealEstate>
 %if real_estate.number:
@@ -31,7 +32,7 @@
     <data:MetadataOfGeographicalBaseData>${real_estate.metadata_of_geographical_base_data | x}</data:MetadataOfGeographicalBaseData>
 %endif
     <data:LandRegistryArea>${int(real_estate.land_registry_area)}</data:LandRegistryArea>
-%if extract.real_estate.limit and params.with_geometry:
+%if extract.real_estate.limit and (params.with_geometry or real_estate_with_geometry):
     <data:Limit>
         <geometry:surface>
             %for polygon in real_estate.limit.geoms:
