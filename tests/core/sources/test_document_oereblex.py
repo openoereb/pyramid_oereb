@@ -15,7 +15,6 @@ from pyramid_oereb.core.records.document_types import DocumentTypeRecord
 from pyramid_oereb.core.records.documents import DocumentRecord
 from pyramid_oereb.core.records.office import OfficeRecord
 from pyramid_oereb.core.config import Config
-from pyramid.config import ConfigurationError
 from tests.mockrequest import MockParameter
 
 
@@ -150,21 +149,31 @@ def test_get_mapped_value(key, language, result):
         index=2
     )),
     (3, Document(
-        id='doc1',
-        title='Document 1',
+        id='doc3',
+        title='Document 3',
         category='main',
-        doctype='invalid',
+        doctype='prepublication',
         authority='Office',
-        files=[File(href='/api/attachments/1', category='main')],
-        enactment_date=datetime.date.today()
+        files=[File(href='/api/attachments/3', category='main')],
+        status_start_date=datetime.date.today(),
+        index=1
     )),
     (4, Document(
-        id='doc1',
-        title='Document 1',
+        id='doc4',
+        title='Document 4',
         category='main',
         doctype='decree',
         authority='Office',
         files=[],
+        enactment_date=datetime.date.today()
+    )),
+    (5, Document(
+        id='doc5',
+        title='Document 5',
+        category='main',
+        doctype='invalid',
+        authority='Office',
+        files=[File(href='/api/attachments/1', category='main')],
         enactment_date=datetime.date.today()
     ))
 ])
@@ -175,14 +184,19 @@ def test_get_document_records(oereblex_test_config, i, document):
     source = OEREBlexSource(host='http://oereblex.example.com', language='de', canton='BL',
                             code='ch.Waldabstandslinien')
 
-    if i == 3:
-        with pytest.raises(ConfigurationError):
+    if i == 5:
+        with pytest.raises(RuntimeError):
             source._get_document_records(document, language)
     elif i == 4:
         assert source._get_document_records(document, language) == []
     else:
         records = source._get_document_records(document, language)
-        assert len(records) == i
+        if i == 1:
+            assert len(records) == 1
+        elif i == 2:
+            assert len(records) == 2
+        elif i == 3:
+            assert len(records) == 1
         for idx, record in enumerate(records):
             assert isinstance(record, DocumentRecord)
             if i == 1:
@@ -191,6 +205,9 @@ def test_get_document_records(oereblex_test_config, i, document):
             elif i == 2:
                 record.document_type == 'Rechtsvorschrift'
                 assert record.index == 2
+            elif i == 3:
+                record.document_type == 'Rechtsvorschrift'
+                assert record.index == 1
             else:
                 assert record.index is None
             assert record.title == {'de': 'Document {0}'.format(i)}
