@@ -1,4 +1,3 @@
-pyflakes==2.5.0 
 flake8==5.0.4  # flake >= 6 requires higher versions of Python
 pyflakes==2.5.0 # update to >= 2.6 depends on flake8 update
 pycodestyle==2.9.1 # update to pycodestyle<2.10.0 depends on flake8 update
