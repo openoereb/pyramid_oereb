@@ -4,7 +4,7 @@ pyflakes==2.5.0 # update to >= 2.6 depends on flake8 update
 pycodestyle==2.9.1 # update to pycodestyle<2.10.0 depends on flake8 update
 psycopg2==2.9.5
 McCabe==0.7.0
-Sphinx==4.3.0  #  sphinx >= 4.4.0 conflicts with flake due to changes in importlib-metadata
+Sphinx==4.3.2  #  sphinx >= 4.4.0 conflicts with flake due to changes in importlib-metadata
 sphinx_rtd_theme==1.1.1
 c2c.template==2.3.0
 yappi
