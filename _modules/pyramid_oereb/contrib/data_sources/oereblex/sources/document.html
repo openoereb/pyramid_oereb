@@ -230,22 +230,38 @@
             <span class="p">))</span>
             <span class="k">return</span> <span class="p">[]</span>
 
-        <span class="n">enactment_date</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">enactment_date</span>
-        <span class="n">authority</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">authority</span>
-        <span class="k">if</span> <span class="n">document</span><span class="o">.</span><span class="n">doctype</span> <span class="o">==</span> <span class="s1">&#39;notice&#39;</span><span class="p">:</span>
-            <span class="c1"># Oereblex notices documents can have no enactment_date while it is require by pyramid_oereb to</span>
-            <span class="c1"># have one. Add a fake default one that is identifiable and always older than now (01.0.1.1970).</span>
-            <span class="k">if</span> <span class="n">enactment_date</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">enactment_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">1970</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># discriminate different doctypes</span>
+        <span class="k">if</span> <span class="n">document</span><span class="o">.</span><span class="n">doctype</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;decree&#39;</span><span class="p">,</span> <span class="s1">&#39;edict&#39;</span><span class="p">]:</span>
+            <span class="n">authority</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">authority</span>
+            <span class="n">published_from</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">enactment_date</span>
+            <span class="n">oereblex_doctype</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">doctype</span>
+        <span class="k">elif</span> <span class="n">document</span><span class="o">.</span><span class="n">doctype</span> <span class="o">==</span> <span class="s1">&#39;prepublication&#39;</span><span class="p">:</span>
+            <span class="n">authority</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">authority</span>
+            <span class="c1"># OerebLex prepublinks do not have an enactment date</span>
+            <span class="n">published_from</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">status_start_date</span>
+            <span class="c1"># MODEL OeREBKRM_V2_0 does not have a document type corresponding to &quot;prepublication&quot;</span>
+            <span class="n">oereblex_doctype</span> <span class="o">=</span> <span class="s1">&#39;decree&#39;</span>
+        <span class="k">elif</span> <span class="n">document</span><span class="o">.</span><span class="n">doctype</span> <span class="o">==</span> <span class="s1">&#39;notice&#39;</span><span class="p">:</span>
             <span class="c1"># Oereblex notices documents can have no `authority` while it is require by pyramid_oereb to</span>
             <span class="c1"># have one. Replace None by &#39;-&#39; in this case.</span>
-            <span class="k">if</span> <span class="n">authority</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">document</span><span class="o">.</span><span class="n">authority</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">authority</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">authority</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">authority</span>
+            <span class="c1"># Oereblex notices documents can have no enactment_date while it is require by pyramid_oereb to</span>
+            <span class="c1"># have one. Add a fake default one that is identifiable and always older than now (01.0.1.1970).</span>
+            <span class="k">if</span> <span class="n">document</span><span class="o">.</span><span class="n">enactment_date</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">published_from</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">1970</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">published_from</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">enactment_date</span>
+            <span class="n">oereblex_doctype</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">doctype</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Unsupported doctype for document #</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
 
         <span class="c1"># Cancel if enactment_date is not set</span>
-        <span class="k">if</span> <span class="n">enactment_date</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Document with OEREBlex ID </span><span class="si">{0}</span><span class="s1"> has been skipped because of missing enactment_date.&#39;</span>
-                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">published_from</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">((</span><span class="s1">&#39;Document with OEREBlex ID </span><span class="si">{0}</span><span class="s1"> has been skipped because of missing &#39;</span>
+                         <span class="s1">&#39;enactment_date / status_start_date.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">id</span><span class="p">)))</span>
             <span class="k">return</span> <span class="p">[]</span>
 
         <span class="c1"># Check mandatory attributes</span>
@@ -253,9 +269,11 @@
             <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s1">&#39;Missing title for document #</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">authority</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s1">&#39;Missing authority for document #</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">oereblex_doctype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s1">&#39;Missing type for document #</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
 
         <span class="c1"># Get document type</span>
-        <span class="n">document_type</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_document_type_by_data_code</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_code</span><span class="p">,</span> <span class="n">document</span><span class="o">.</span><span class="n">doctype</span><span class="p">)</span>
+        <span class="n">document_type</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_document_type_by_data_code</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_code</span><span class="p">,</span> <span class="n">oereblex_doctype</span><span class="p">)</span>
 
         <span class="c1"># Create related office record</span>
         <span class="n">office</span> <span class="o">=</span> <span class="n">OfficeRecord</span><span class="p">({</span><span class="n">language</span><span class="p">:</span> <span class="n">authority</span><span class="p">},</span> <span class="n">office_at_web</span><span class="o">=</span><span class="n">document</span><span class="o">.</span><span class="n">authority_url</span><span class="p">)</span>
@@ -269,7 +287,7 @@
                 <span class="s1">&#39;law_status&#39;</span><span class="p">:</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_law_status_by_data_code</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_code</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;inKraft&#39;</span><span class="p">),</span>
                 <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_document_title</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">language</span><span class="p">),</span>
                 <span class="s1">&#39;responsible_office&#39;</span><span class="p">:</span> <span class="n">office</span><span class="p">,</span>
-                <span class="s1">&#39;published_from&#39;</span><span class="p">:</span> <span class="n">enactment_date</span><span class="p">,</span>  <span class="c1"># TODO: Use &quot;publication_date&quot; instead?</span>
+                <span class="s1">&#39;published_from&#39;</span><span class="p">:</span> <span class="n">published_from</span><span class="p">,</span>  <span class="c1"># TODO: Use &quot;publication_date&quot; instead?</span>
                 <span class="s1">&#39;published_until&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># TODO: Use &quot;abrogation_date&quot;?</span>
                 <span class="s1">&#39;text_at_web&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_multilingual</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">href</span><span class="p">,</span> <span class="n">language</span><span class="p">),</span>
                 <span class="s1">&#39;abbreviation&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_multilingual</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">abbreviation</span><span class="p">,</span> <span class="n">language</span><span class="p">),</span>
