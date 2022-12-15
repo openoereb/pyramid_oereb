@@ -1236,6 +1236,12 @@ class Config(object):
         return Config._config.get('real_estate_type')
 
     @staticmethod
+    def get_xml_extract_use_real_estate_geometry():
+        assert Config._config is not None
+
+        return Config._config.get('xml_extract_use_real_estate_geometry')
+
+    @staticmethod
     def get_plan_for_land_register_main_page_config():
         """
         Returns dictionary of plan for land register for the main page from the config file.
