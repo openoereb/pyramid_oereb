@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.3.0
+-----
+- Add support for prepublinks (#1618)
+- Allow to force real estate geometry output (#1619)
+- Library updates (#1615, #1622)
+
 2.2.6
 -----
 - Allow usage of xml2pdf service with embedded images (#1612, #1614)
