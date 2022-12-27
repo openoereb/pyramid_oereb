@@ -144,9 +144,3 @@ Code Quality Status:
 .. image:: https://api.codacy.com/project/badge/Grade/cf50094a4e84434d837babf1106f9fcb
    :alt: Codacy Badge
    :target: https://app.codacy.com/gh/openoereb/pyramid_oereb?utm_source=github.com&utm_medium=referral&utm_content=openoereb/pyramid_oereb&utm_campaign=Badge_Grade_Settings
-
-Requirement status:
-
-.. image:: https://requires.io/github/openoereb/pyramid_oereb/requirements.svg?branch=master
-   :target: https://requires.io/github/openoereb/pyramid_oereb/requirements/?branch=master
-   :alt: Requirements Status
