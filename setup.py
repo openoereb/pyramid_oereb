@@ -14,7 +14,7 @@ with open('requirements.txt') as f:
     recommend = f.read().splitlines()
 requires = [re_.match(r).group(1) for r in recommend]
 
-with open('requirements-tests.txt') as f:
+with open('tests-requirements.txt') as f:
     re_ = a = re.compile(r'(.+)==')
     tests_require = f.read().splitlines()
 
