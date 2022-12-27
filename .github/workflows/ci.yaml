@@ -7,7 +7,7 @@ jobs:
     name: Check style (lint)
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
       - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
@@ -18,7 +18,7 @@ jobs:
     name: Check style (git-attributes)
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
       - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
@@ -53,7 +53,7 @@ jobs:
           - '3.10'
           - '3.11'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up Python v${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
@@ -79,7 +79,7 @@ jobs:
     name: Check federal data definitions
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
       - run: sudo apt-get install xsltproc
@@ -96,7 +96,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Make documentation
         run: |
           sudo rm /etc/apt/sources.list.d/*.list
