@@ -22,10 +22,12 @@ If you are interested in contributing or extending the project, take a look at t
 Starting the development server
 ===============================
 
-1. Build run the initial build depending on you OS:
-  * Linux: ``docker-compose run --rm -u $(id -u):$(id -g) oereb-make build``
-  * MAC/Windows: ``docker-compose run --rm oereb-make build``
-2. ``docker-compose up``
+#. Build run the initial build depending on your OS:
+
+   * Linux: ``docker-compose run --rm -u $(id -u):$(id -g) oereb-make build``
+   * MAC/Windows: ``docker-compose run --rm oereb-make build``
+
+#. ``docker-compose up``
 
 Running ``docker-compose up`` will start the DB (it will automatically import the test/dev data on startup) and start
 a running instance of the pyramid_oereb DEV server connected to the DB. The project folder is mounted
@@ -116,10 +118,11 @@ The Docker network ``print-network`` is also required and can be created with:
 
   docker network create print-network
 
-It is also possible to launch a mapfish print service on a local URL (via docker or not) and then run the server via `make serve`. The correct print url must be provided:
-```
-PRINT_URL="http://localhost:8680/print/oereb" EXPOSED_PGPORT=5433 PGPORT=5433 make serve-dev
-```
+It is also possible to launch a Mapfish Print service on a local URL (via Docker or not) and then run the server via `make serve`. The correct print url must be provided:
+
+.. code-block:: bash
+
+  PRINT_URL="http://localhost:8680/print/oereb" EXPOSED_PGPORT=5433 PGPORT=5433 make serve-dev
 
 The sample static extract should then be available at http://localhost:6543/oereb/extract/pdf?EGRID=CH113928077734
 
