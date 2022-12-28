@@ -28,20 +28,6 @@ LEGEND_ELEMENT_SORT_ORDER = [
 
 class Renderer(JsonRenderer):
 
-    def lpra_flatten(self, items):
-        for item in items:
-            self._flatten_object(item, 'Lawstatus')
-            self._multilingual_text(item, 'Lawstatus_Text')
-            self._multilingual_text(item, 'OfficialNumber')
-            self._flatten_object(item, 'ResponsibleOffice')
-            self._multilingual_text(item, 'ResponsibleOffice_Name')
-            self._multilingual_text(item, 'ResponsibleOffice_OfficeAtWeb')
-            self._multilingual_text_at_web(item)
-
-            self._multilingual_m_text(item, 'Text')
-            self._multilingual_text(item, 'Title')
-            self._multilingual_text(item, 'Abbreviation')
-
     def __call__(self, value, system):
         """
         Implements a subclass of pyramid_oereb.core.renderer.extract.json_.Renderer to create a print result
@@ -53,7 +39,11 @@ class Renderer(JsonRenderer):
             system (dict): The available system properties.
 
         Returns:
-            buffer: The pdf content as received from configured mapfish print instance url.
+            pyramid.response.Response.content: The pdf content as received from mapfish print.
+
+        Raises:
+            HTTPBadRequest: when the print was called with illegal parameters.
+            HTTPInternalServerError: when the pdf content could not be produced successfully.
         """
         log.debug("Parameter webservice is {}".format(value[1]))
 
@@ -166,6 +156,19 @@ class Renderer(JsonRenderer):
 
     @staticmethod
     def archive_pdf_file(pdf_archive_path, binary_content, extract_as_dict):
+        """
+        Writes the static extract (pdf) into a dedicated file; this functionality can thus be used
+        for archiving.
+
+        Args:
+            pdf_archive_path (str): directory path where the file shall be stored.
+            binary_content (): the contents of the pdf.
+            extract_as_dict (): the extract contents, used to retrieve metadata in order to produce
+                the filename.
+
+        Returns:
+            str: the name of the file that was written, including the path.
+        """
         pdf_archive_path = pdf_archive_path if pdf_archive_path[-1:] == '/' else pdf_archive_path + '/'
         log.debug('Start to archive pdf file at path: ' + pdf_archive_path)
 
@@ -206,6 +209,26 @@ class Renderer(JsonRenderer):
             result = {'TRANSPARENT': 'true'}
         return result
 
+    def lpra_flatten(self, items):
+        """
+        Flattens a list of PLRs.
+
+        Args:
+            items (tuple): a list of PLR documents.
+        """
+        for item in items:
+            self._flatten_object(item, 'Lawstatus')
+            self._multilingual_text(item, 'Lawstatus_Text')
+            self._multilingual_text(item, 'OfficialNumber')
+            self._flatten_object(item, 'ResponsibleOffice')
+            self._multilingual_text(item, 'ResponsibleOffice_Name')
+            self._multilingual_text(item, 'ResponsibleOffice_OfficeAtWeb')
+            self._multilingual_text_at_web(item)
+
+            self._multilingual_m_text(item, 'Text')
+            self._multilingual_text(item, 'Title')
+            self._multilingual_text(item, 'Abbreviation')
+
     def convert_to_printable_extract(self, extract_dict, feature_geometry):
         """
         Converts an oereb extract into a form suitable for printing by mapfish print.
@@ -215,7 +238,6 @@ class Renderer(JsonRenderer):
                             convenient for mapfish-print
             feature_geometry: the geometry for this extract, will get added to the extract information
         """
-
         log.debug("Starting transformation, extract_dict is {}".format(extract_dict))
         log.debug("Parameter feature_geometry is {}".format(feature_geometry))
 
@@ -554,6 +576,15 @@ class Renderer(JsonRenderer):
 
     @staticmethod
     def group_legal_provisions(legal_provisions):
+        """
+        Group PLR documents which have the same title together.
+
+        Args:
+            legal_provisions (list): the list of legal provision documents for a PLR
+
+        Returns:
+            list: the list of grouped legal provision documents
+        """
         merged_provision = []
         for element in legal_provisions:
             # get element with same title if existing
