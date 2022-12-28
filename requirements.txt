@@ -1,4 +1,4 @@
-PyPDF2==2.12.1
+PyPDF2==3.0.0
 filetype==1.2.0
 geoalchemy2==0.12.5
 pyramid==2.0.0
@@ -7,7 +7,7 @@ qrcode==7.3.1
 image==1.5.33
 shapely==1.8.5.post1
 SQLAlchemy==1.4.45
-pyaml-env==1.1.5 # rq.filter: <1.2
+pyaml-env==1.2.1
 urllib3==1.26.13
 waitress==2.1.2
 pyreproj==2.0.0
