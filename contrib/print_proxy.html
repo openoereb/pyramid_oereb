@@ -104,6 +104,29 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.archive_pdf_file">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">archive_pdf_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_archive_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary_content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extract_as_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.archive_pdf_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.archive_pdf_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the static extract (pdf) into a dedicated file; this functionality can thus be used
+for archiving.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pdf_archive_path</strong> (<em>str</em>) – directory path where the file shall be stored.</p></li>
+<li><p><strong>(</strong><strong>)</strong> (<em>extract_as_dict</em>) – the contents of the pdf.</p></li>
+<li><p><strong>(</strong><strong>)</strong> – the extract contents, used to retrieve metadata in order to produce
+the filename.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the name of the file that was written, including the path.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.convert_to_printable_extract">
 <span class="sig-name descname"><span class="pre">convert_to_printable_extract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extract_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_geometry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.convert_to_printable_extract"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.convert_to_printable_extract" title="Permalink to this definition">¶</a></dt>
 <dd><p>Converts an oereb extract into a form suitable for printing by mapfish print.</p>
@@ -447,6 +470,23 @@ restriction to get the symbol reference for.</p></li>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.group_legal_provisions">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">group_legal_provisions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">legal_provisions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.group_legal_provisions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.group_legal_provisions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Group PLR documents which have the same title together.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>legal_provisions</strong> (<em>list</em>) – the list of legal provision documents for a PLR</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the list of grouped legal provision documents</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.info">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">info</span></span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.info" title="Permalink to this definition">¶</a></dt>
@@ -454,6 +494,17 @@ restriction to get the symbol reference for.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>pyramid.interfaces.IRendererInfo</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.lpra_flatten">
+<span class="sig-name descname"><span class="pre">lpra_flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.lpra_flatten"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.lpra_flatten" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flattens a list of PLRs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>items</strong> (<em>tuple</em>) – a list of PLR documents.</p>
 </dd>
 </dl>
 </dd></dl>

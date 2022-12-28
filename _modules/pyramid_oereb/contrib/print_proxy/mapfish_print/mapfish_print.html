@@ -100,20 +100,6 @@
 
 <div class="viewcode-block" id="Renderer"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer">[docs]</a><span class="k">class</span> <span class="nc">Renderer</span><span class="p">(</span><span class="n">JsonRenderer</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">lpra_flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Lawstatus&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Lawstatus_Text&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;OfficialNumber&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;ResponsibleOffice&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;ResponsibleOffice_Name&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;ResponsibleOffice_OfficeAtWeb&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text_at_web</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Text&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Title&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Abbreviation&#39;</span><span class="p">)</span>
-
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Implements a subclass of pyramid_oereb.core.renderer.extract.json_.Renderer to create a print result</span>
@@ -125,7 +111,11 @@
 <span class="sd">            system (dict): The available system properties.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            buffer: The pdf content as received from configured mapfish print instance url.</span>
+<span class="sd">            pyramid.response.Response.content: The pdf content as received from mapfish print.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            HTTPBadRequest: when the print was called with illegal parameters.</span>
+<span class="sd">            HTTPInternalServerError: when the pdf content could not be produced successfully.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Parameter webservice is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
 
@@ -236,8 +226,21 @@
             <span class="k">del</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Connection&#39;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">content</span>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Renderer.archive_pdf_file"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.archive_pdf_file">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">archive_pdf_file</span><span class="p">(</span><span class="n">pdf_archive_path</span><span class="p">,</span> <span class="n">binary_content</span><span class="p">,</span> <span class="n">extract_as_dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes the static extract (pdf) into a dedicated file; this functionality can thus be used</span>
+<span class="sd">        for archiving.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            pdf_archive_path (str): directory path where the file shall be stored.</span>
+<span class="sd">            binary_content (): the contents of the pdf.</span>
+<span class="sd">            extract_as_dict (): the extract contents, used to retrieve metadata in order to produce</span>
+<span class="sd">                the filename.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: the name of the file that was written, including the path.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pdf_archive_path</span> <span class="o">=</span> <span class="n">pdf_archive_path</span> <span class="k">if</span> <span class="n">pdf_archive_path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;/&#39;</span> <span class="k">else</span> <span class="n">pdf_archive_path</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Start to archive pdf file at path: &#39;</span> <span class="o">+</span> <span class="n">pdf_archive_path</span><span class="p">)</span>
 
@@ -254,7 +257,7 @@
         <span class="n">archive</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_and_filename</span><span class="p">,</span> <span class="s1">&#39;ab&#39;</span><span class="p">)</span>
         <span class="n">archive</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">binary_content</span><span class="p">)</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Pdf file archived at: &#39;</span> <span class="o">+</span> <span class="n">path_and_filename</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">path_and_filename</span>
+        <span class="k">return</span> <span class="n">path_and_filename</span></div>
 
 <div class="viewcode-block" id="Renderer.get_wms_url_params"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_wms_url_params">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_wms_url_params</span><span class="p">():</span>
@@ -278,6 +281,25 @@
             <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;TRANSPARENT&#39;</span><span class="p">:</span> <span class="s1">&#39;true&#39;</span><span class="p">}</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
+<div class="viewcode-block" id="Renderer.lpra_flatten"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.lpra_flatten">[docs]</a>    <span class="k">def</span> <span class="nf">lpra_flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Flattens a list of PLRs.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            items (tuple): a list of PLR documents.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Lawstatus&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Lawstatus_Text&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;OfficialNumber&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;ResponsibleOffice&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;ResponsibleOffice_Name&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;ResponsibleOffice_OfficeAtWeb&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text_at_web</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Text&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Title&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Abbreviation&#39;</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Renderer.convert_to_printable_extract"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.convert_to_printable_extract">[docs]</a>    <span class="k">def</span> <span class="nf">convert_to_printable_extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extract_dict</span><span class="p">,</span> <span class="n">feature_geometry</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts an oereb extract into a form suitable for printing by mapfish print.</span>
@@ -287,7 +309,6 @@
 <span class="sd">                            convenient for mapfish-print</span>
 <span class="sd">            feature_geometry: the geometry for this extract, will get added to the extract information</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Starting transformation, extract_dict is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">))</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Parameter feature_geometry is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feature_geometry</span><span class="p">))</span>
 
@@ -624,8 +645,17 @@
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;After transformation, extract_dict is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)))</span>
         <span class="k">return</span> <span class="n">extract_dict</span></div>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Renderer.group_legal_provisions"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.group_legal_provisions">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">group_legal_provisions</span><span class="p">(</span><span class="n">legal_provisions</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Group PLR documents which have the same title together.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            legal_provisions (list): the list of legal provision documents for a PLR</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: the list of grouped legal provision documents</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">merged_provision</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">legal_provisions</span><span class="p">:</span>
             <span class="c1"># get element with same title if existing</span>
@@ -637,15 +667,30 @@
 
             <span class="c1"># join the the existing list with the new one</span>
             <span class="n">existing_element</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">merged_provision</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">merged_provision</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">legal_provisions</span>
+        <span class="k">return</span> <span class="n">merged_provision</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">merged_provision</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">legal_provisions</span></div>
 
     <span class="k">def</span> <span class="nf">_flatten_array_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">array_name</span><span class="p">,</span> <span class="n">object_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Replace an array&#39;s hierarchy by flattened entries, more suitable for print templates</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent (dict): extract data</span>
+<span class="sd">            array_name (str): the name of the element in the extract data</span>
+<span class="sd">            object_name (str): the name of an entry whose hierarchy shall be flattened</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">array_name</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">[</span><span class="n">array_name</span><span class="p">]:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_flatten_object</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">object_name</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_flatten_object</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Replace a hierarchy by flattened entries, more suitable for print templates</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent (dict): a dictionary of entries</span>
+<span class="sd">            name (str): the name of an entry whose hierarchy shall be flattened</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="n">parent</span><span class="p">[</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">key</span><span class="p">)]</span> <span class="o">=</span> <span class="n">value</span>
@@ -700,6 +745,12 @@
         <span class="k">return</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">unique_key</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_multilingual_text_at_web</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Translate the value of a TextAtWeb entry to the appropriate language</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent: the structure containing values to be translated</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;TextAtWeb&#39;</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">:</span>
             <span class="n">lang_obj</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;Language&#39;</span><span class="p">],</span> <span class="n">e</span><span class="p">[</span><span class="s1">&#39;Text&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">]])</span>
@@ -709,6 +760,13 @@
                 <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;URL&#39;</span><span class="p">:</span> <span class="n">lang_obj</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_fallback_language</span><span class="p">]}]</span>
 
     <span class="k">def</span> <span class="nf">_multilingual_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Translate a value to the appropriate language</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent: the structure containing values to be translated</span>
+<span class="sd">            name: the entry name to be translated</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">:</span>
             <span class="n">lang_obj</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;Language&#39;</span><span class="p">],</span> <span class="n">e</span><span class="p">[</span><span class="s1">&#39;Text&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">]])</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span> <span class="ow">in</span> <span class="n">lang_obj</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
