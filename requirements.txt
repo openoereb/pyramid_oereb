@@ -1,7 +1,7 @@
 PyPDF2==3.0.0
 filetype==1.2.0
 geoalchemy2==0.12.5
-pyramid==1.10.8 # rq.filter: <2
+pyramid==1.10.8
 pyramid-debugtoolbar==4.9
 qrcode==7.3.1
 image==1.5.33
