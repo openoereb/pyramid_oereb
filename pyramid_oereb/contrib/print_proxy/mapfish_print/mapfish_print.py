@@ -124,8 +124,8 @@ class Renderer(JsonRenderer):
                     pdf.write(print_result.content)
                     pdf_reader = PdfReader(pdf)
                     x = []
-                    for i in range(len(pdf_reader.getOutlines())):
-                        x.append(pdf_reader.getOutlines()[i]['/Page']['/StructParents'])
+                    for i in range(len(pdf_reader.outline)):
+                        x.append(pdf_reader.outline[i]['/Page']['/StructParents'])
                     try:
                         true_nb_of_toc = min(x)-1
                     except ValueError:
