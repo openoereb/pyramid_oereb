@@ -63,7 +63,7 @@ def all_document_result_session(session, query, document, date_today, png_binary
                     'document_type': 'Hinweis',
                     'index': 1,
                     'law_status': 'inKraft',
-                    'title': {'de', 'Titel1'},
+                    'title': {'de': 'Titel1'},
                     'office_id': 1,
                     'published_from': date_today - datetime.timedelta(days=5),
                     'published_until': date_today + datetime.timedelta(days=5),
@@ -77,7 +77,7 @@ def all_document_result_session(session, query, document, date_today, png_binary
                     'document_type': 'Gesetz',
                     'index': 2,
                     'law_status': 'inKraft',
-                    'title': {'de', 'Titel2'},
+                    'title': {'de': 'Titel2'},
                     'office_id': 1,
                     'published_from': date_today - datetime.timedelta(days=5),
                     'published_until': date_today + datetime.timedelta(days=5),
@@ -133,7 +133,7 @@ def test_read_all(document_source_params, all_document_result_session, office_re
         assert isinstance(test_document.document_type, DocumentTypeRecord)
         assert test_document.index == 1
         assert isinstance(test_document.law_status, DocumentTypeRecord)
-        assert test_document.title == {'de', 'Titel1'}
+        assert test_document.title == {'de': 'Titel1'}
         assert isinstance(test_document.responsible_office, OfficeRecord)
         assert test_document.published_from == date_today - datetime.timedelta(days=5)
         assert test_document.published_until == date_today + datetime.timedelta(days=5)

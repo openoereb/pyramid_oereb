@@ -35,7 +35,8 @@ class OfficeRecord(object):
                 elements.
         """
         if not isinstance(name, dict):
-            warnings.warn('Type of "name" should be "dict"')
+            warnings.warn('Type of "name" should be "dict"'
+                          ', is {}, value {}'.format(type(name), name))
 
         self.name = name
         self.uid = uid

@@ -63,9 +63,11 @@ class DocumentRecord(object):
             warnings.warn('Type of "index" should be "int"')
         if not isinstance(law_status, LawStatusRecord):
             warnings.warn('Type of "law_status" should be '
-                          '"pyramid_oereb.core.records.law_status.LawStatusRecord"')
+                          '"pyramid_oereb.core.records.law_status.LawStatusRecord"'
+                          ', is {}, value {}'.format(type(law_status), law_status))
         if not isinstance(title, dict):
-            warnings.warn('Type of "title" should be "dict"')
+            warnings.warn('Type of "title" should be "dict", is '
+                          '{}, value {}'.format(type(title), title))
         if not isinstance(responsible_office, OfficeRecord):
             warnings.warn('Type of "responsible_office" should be '
                           '"pyramid_oereb.core.records.office.OfficeRecord"')
