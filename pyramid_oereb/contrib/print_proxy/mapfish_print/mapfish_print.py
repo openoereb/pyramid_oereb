@@ -38,7 +38,7 @@ class Renderer(JsonRenderer):
             self._multilingual_text(item, 'ResponsibleOffice_OfficeAtWeb')
             self._multilingual_text_at_web(item)
 
-            self._multilingual_m_text(item, 'Text')
+            self._multilingual_text(item, 'Text')
             self._multilingual_text(item, 'Title')
             self._multilingual_text(item, 'Abbreviation')
 
@@ -289,8 +289,8 @@ class Renderer(JsonRenderer):
         extract_dict['GeneralInformation'] = flattened_general_info
         update_date_cs = datetime.strptime(extract_dict['UpdateDateCS'], '%Y-%m-%dT%H:%M:%S')
         extract_dict['UpdateDateCS'] = update_date_cs.strftime('%d.%m.%Y')
-        self._multilingual_m_text(extract_dict, 'Certification')
-        self._multilingual_m_text(extract_dict, 'CertificationAtWeb')
+        self._multilingual_text(extract_dict, 'Certification')
+        self._multilingual_text(extract_dict, 'CertificationAtWeb')
 
         for item in extract_dict.get('Glossary', []):
             self._multilingual_text(item, 'Title')
@@ -305,7 +305,7 @@ class Renderer(JsonRenderer):
             self._multilingual_text(restriction_on_landownership, 'Theme_Text')
             self._multilingual_text(restriction_on_landownership, 'SubTheme_Text')
             self._multilingual_text(restriction_on_landownership, 'Lawstatus_Text')
-            self._multilingual_m_text(restriction_on_landownership, 'LegendText')
+            self._multilingual_text(restriction_on_landownership, 'LegendText')
 
             self._multilingual_text(restriction_on_landownership['ResponsibleOffice'], 'Name')
             self._multilingual_text(restriction_on_landownership['ResponsibleOffice'], 'OfficeAtWeb')
@@ -626,14 +626,6 @@ class Renderer(JsonRenderer):
             unique_key.append(element['TextAtWeb'][0]['Text'])
         unique_key.append(element['Title'][0]['Text'])
         return '_'.join(unique_key)
-
-    @staticmethod
-    def _localised_text(parent, name):
-        if name in parent:
-            parent[name] = parent[name]['Text']
-
-    def _multilingual_m_text(self, parent, name):
-        self._multilingual_text(parent, name)
 
     def _multilingual_text_at_web(self, parent):
         name = 'TextAtWeb'
