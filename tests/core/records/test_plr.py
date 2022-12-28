@@ -97,6 +97,7 @@ def test_published(published_from, published_until, published):
     assert plr_record.published == published
 
 
+@pytest.mark.filterwarnings("ignore:Type of")
 def test_wrong_legend_entry_text_type():
     theme = ThemeRecord('code', dict(), 100)
     plr_record = PlrRecord(

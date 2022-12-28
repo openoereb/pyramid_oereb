@@ -125,6 +125,7 @@ def test_legal_provision(law_test_data, law_status_record, office_record, docume
     assert legal_provision.document_type.code == 'GesetzlicheGrundlage'
 
 
+@pytest.mark.filterwarnings("ignore:Type of")
 def test_wrong_types(document_type_record):
     record = DocumentRecord(
         document_type_record,

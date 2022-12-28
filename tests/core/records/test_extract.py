@@ -74,6 +74,7 @@ def test_init(pyramid_oereb_test_config):
     assert isinstance(record.update_date_os, datetime.datetime)
 
 
+@pytest.mark.filterwarnings("ignore:Type of")
 def test_wrong_types():
     record = ExtractRecord(
         'real_estate',

@@ -36,6 +36,7 @@ def test_init(record_correct):
     assert isinstance(record_correct.content, dict)
 
 
+@pytest.mark.filterwarnings("ignore:Type of")
 def test_wrong_types(record_incorrect):
     assert isinstance(record_incorrect.title, str)
     assert isinstance(record_incorrect.content, str)
