@@ -110,7 +110,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;ResponsibleOffice_OfficeAtWeb&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text_at_web</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_m_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Text&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Text&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Title&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Abbreviation&#39;</span><span class="p">)</span>
 
@@ -361,8 +361,8 @@
         <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;GeneralInformation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">flattened_general_info</span>
         <span class="n">update_date_cs</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;UpdateDateCS&#39;</span><span class="p">],</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S&#39;</span><span class="p">)</span>
         <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;UpdateDateCS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">update_date_cs</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">.%m.%Y&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_m_text</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="s1">&#39;Certification&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_m_text</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="s1">&#39;CertificationAtWeb&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="s1">&#39;Certification&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="s1">&#39;CertificationAtWeb&#39;</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">extract_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Glossary&#39;</span><span class="p">,</span> <span class="p">[]):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Title&#39;</span><span class="p">)</span>
@@ -377,7 +377,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">,</span> <span class="s1">&#39;Theme_Text&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">,</span> <span class="s1">&#39;SubTheme_Text&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">,</span> <span class="s1">&#39;Lawstatus_Text&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_m_text</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">,</span> <span class="s1">&#39;LegendText&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">,</span> <span class="s1">&#39;LegendText&#39;</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;ResponsibleOffice&#39;</span><span class="p">],</span> <span class="s1">&#39;Name&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;ResponsibleOffice&#39;</span><span class="p">],</span> <span class="s1">&#39;OfficeAtWeb&#39;</span><span class="p">)</span>
@@ -698,14 +698,6 @@
             <span class="n">unique_key</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="s1">&#39;TextAtWeb&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Text&#39;</span><span class="p">])</span>
         <span class="n">unique_key</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">element</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Text&#39;</span><span class="p">])</span>
         <span class="k">return</span> <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">unique_key</span><span class="p">)</span>
-
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_localised_text</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">parent</span><span class="p">:</span>
-            <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;Text&#39;</span><span class="p">]</span>
-
-    <span class="k">def</span> <span class="nf">_multilingual_m_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_multilingual_text_at_web</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
         <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;TextAtWeb&#39;</span>
