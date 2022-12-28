@@ -224,8 +224,7 @@ class Renderer(JsonRenderer):
             self._multilingual_text(item, 'ResponsibleOffice_Name')
             self._multilingual_text(item, 'ResponsibleOffice_OfficeAtWeb')
             self._multilingual_text_at_web(item)
-
-            self._multilingual_m_text(item, 'Text')
+            self._multilingual_text(item, 'Text')
             self._multilingual_text(item, 'Title')
             self._multilingual_text(item, 'Abbreviation')
 
@@ -311,8 +310,8 @@ class Renderer(JsonRenderer):
         extract_dict['GeneralInformation'] = flattened_general_info
         update_date_cs = datetime.strptime(extract_dict['UpdateDateCS'], '%Y-%m-%dT%H:%M:%S')
         extract_dict['UpdateDateCS'] = update_date_cs.strftime('%d.%m.%Y')
-        self._multilingual_m_text(extract_dict, 'Certification')
-        self._multilingual_m_text(extract_dict, 'CertificationAtWeb')
+        self._multilingual_text(extract_dict, 'Certification')
+        self._multilingual_text(extract_dict, 'CertificationAtWeb')
 
         for item in extract_dict.get('Glossary', []):
             self._multilingual_text(item, 'Title')
@@ -327,7 +326,7 @@ class Renderer(JsonRenderer):
             self._multilingual_text(restriction_on_landownership, 'Theme_Text')
             self._multilingual_text(restriction_on_landownership, 'SubTheme_Text')
             self._multilingual_text(restriction_on_landownership, 'Lawstatus_Text')
-            self._multilingual_m_text(restriction_on_landownership, 'LegendText')
+            self._multilingual_text(restriction_on_landownership, 'LegendText')
 
             self._multilingual_text(restriction_on_landownership['ResponsibleOffice'], 'Name')
             self._multilingual_text(restriction_on_landownership['ResponsibleOffice'], 'OfficeAtWeb')
@@ -599,12 +598,27 @@ class Renderer(JsonRenderer):
         return merged_provision if len(merged_provision) > 0 else legal_provisions
 
     def _flatten_array_object(self, parent, array_name, object_name):
+        """
+        Replace an array's hierarchy by flattened entries, more suitable for print templates
+
+        Args:
+            parent (dict): extract data
+            array_name (str): the name of the element in the extract data
+            object_name (str): the name of an entry whose hierarchy shall be flattened
+        """
         if array_name in parent:
             for item in parent[array_name]:
                 self._flatten_object(item, object_name)
 
     @staticmethod
     def _flatten_object(parent, name):
+        """
+        Replace a hierarchy by flattened entries, more suitable for print templates
+
+        Args:
+            parent (dict): a dictionary of entries
+            name (str): the name of an entry whose hierarchy shall be flattened
+        """
         if name in parent:
             for key, value in parent[name].items():
                 parent['{}_{}'.format(name, key)] = value
@@ -658,15 +672,13 @@ class Renderer(JsonRenderer):
         unique_key.append(element['Title'][0]['Text'])
         return '_'.join(unique_key)
 
-    @staticmethod
-    def _localised_text(parent, name):
-        if name in parent:
-            parent[name] = parent[name]['Text']
-
-    def _multilingual_m_text(self, parent, name):
-        self._multilingual_text(parent, name)
-
     def _multilingual_text_at_web(self, parent):
+        """
+        Translate the value of a TextAtWeb entry to the appropriate language
+
+        Args:
+            parent: the structure containing values to be translated
+        """
         name = 'TextAtWeb'
         if name in parent:
             lang_obj = dict([(e['Language'], e['Text']) for e in parent[name]])
@@ -676,6 +688,13 @@ class Renderer(JsonRenderer):
                 parent[name] = [{'URL': lang_obj[self._fallback_language]}]
 
     def _multilingual_text(self, parent, name):
+        """
+        Translate a value to the appropriate language
+
+        Args:
+            parent: the structure containing values to be translated
+            name: the entry name to be translated
+        """
         if name in parent:
             lang_obj = dict([(e['Language'], e['Text']) for e in parent[name]])
             if self._language in lang_obj.keys():
