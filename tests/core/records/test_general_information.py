@@ -32,5 +32,9 @@ def test_wrong_types():
 
 
 def test_serialization():
-    record = GeneralInformationRecord('titel', 'content')
+    record = GeneralInformationRecord({
+        "de": "DEV TEST INFO"
+    }, {
+        "de": "Diese Info soll dazu dienen einen weiteren Textblock zu simulieren u..."
+    })
     assert isinstance(record.__str__(), str)
