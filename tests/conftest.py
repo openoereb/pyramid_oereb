@@ -330,7 +330,9 @@ def land_use_plans(pyramid_oereb_test_config, dbsession, transact, wms_url_conta
     offices = {
         models.Office(**{
             'id': 1,
-            'name': 'Test office',
+            'name': {
+               'de': 'Test office'
+            }
         })
     }
     dbsession.add_all(offices)
@@ -548,7 +550,9 @@ def contaminated_sites(pyramid_oereb_test_config, dbsession, transact, wms_url_c
     offices = {
         'office1': models.Office(**{
             'id': 1,
-            'name': 'Test office',
+            'name': {
+               'de': 'Test office'
+            }
         })
         }
     dbsession.add_all(offices.values())
