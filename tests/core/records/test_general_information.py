@@ -25,9 +25,9 @@ def test_init():
     assert isinstance(record.content, dict)
 
 
-@pytest.mark.filterwarnings("ignore:Type of")
 def test_wrong_types():
-    record = GeneralInformationRecord('titel', 'content')
+    with pytest.warns(UserWarning):
+        record = GeneralInformationRecord('titel', 'content')
     assert isinstance(record.title, str)
     assert isinstance(record.content, str)
 

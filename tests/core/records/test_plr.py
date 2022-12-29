@@ -97,19 +97,20 @@ def test_published(published_from, published_until, published):
     assert plr_record.published == published
 
 
-@pytest.mark.filterwarnings("ignore:Type of")
 def test_wrong_legend_entry_text_type():
     theme = ThemeRecord('code', dict(), 100)
-    plr_record = PlrRecord(
-        theme,
-        LegendEntryRecord(
+    with pytest.warns(UserWarning):
+        legendentry = LegendEntryRecord(
             ImageRecord('1'.encode('utf-8')),
             'legendentry',
             'CodeA',
             None,
             theme,
             view_service_id=1
-        ),
+        )
+    plr_record = PlrRecord(
+        theme,
+        legendentry,
         law_status,
         date.today() + timedelta(days=0),
         date.today() + timedelta(days=2),

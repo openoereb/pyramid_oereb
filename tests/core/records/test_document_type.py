@@ -12,8 +12,8 @@ def test_document_type_init():
     }
 
 
-@pytest.mark.filterwarnings("ignore:Type of")
 def test_wrong_types():
-    record = DocumentTypeRecord({'de': 'titel'}, 'content')
+    with pytest.warns(UserWarning):
+        record = DocumentTypeRecord({'de': 'titel'}, 'content')
     assert isinstance(record.code, dict)
     assert isinstance(record.title, str)
