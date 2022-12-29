@@ -60,7 +60,8 @@ class DocumentRecord(object):
                                  'pyramid_oereb.core.records.document_types.DocumentTypeRecord '
                                  'but was {0}'.format(type(document_type)))
         if not isinstance(index, int):
-            warnings.warn('Type of "index" should be "int"')
+            warnings.warn('Type of "index" should be "int"'
+                          ', is {}, value {}'.format(type(index), index))
         if not isinstance(law_status, LawStatusRecord):
             warnings.warn('Type of "law_status" should be '
                           '"pyramid_oereb.core.records.law_status.LawStatusRecord"'
@@ -74,22 +75,27 @@ class DocumentRecord(object):
         if not isinstance(published_from, datetime.date):
             warnings.warn('Type of "published_from" should be "datetime.date", not '
                           + str(type(published_from)))
-
         if published_until and not isinstance(published_until, datetime.date):
             warnings.warn('Type of "published_from" should be "datetime.date", not '
                           + str(type(published_until)))
         if text_at_web and not isinstance(text_at_web, dict):
-            warnings.warn('Type of "text_at_web" should be "dict"')
+            warnings.warn('Type of "text_at_web" should be "dict"'
+                          ', is {}, value {}'.format(type(text_at_web), text_at_web))
         if abbreviation and not isinstance(abbreviation, dict):
-            warnings.warn('Type of "abbreviation" should be "dict"')
+            warnings.warn('Type of "abbreviation" should be "dict"'
+                          ', is {}, value {}'.format(type(abbreviation), abbreviation))
         if official_number and not isinstance(official_number, dict):
-            warnings.warn('Type of "official_number" should be "dict"')
+            warnings.warn('Type of "official_number" should be "dict"'
+                          ', is {}, value {}'.format(type(official_number), official_number))
         if only_in_municipality and not isinstance(only_in_municipality, int):
-            warnings.warn('Type of "only_in_municipality" should be "int"')
+            warnings.warn('Type of "only_in_municipality" should be "int"'
+                          ', is {}, value {}'.format(type(only_in_municipality), only_in_municipality))
         if article_numbers and not isinstance(article_numbers, list):
-            warnings.warn('Type of "article_numbers" should be "list"')
+            warnings.warn('Type of "article_numbers" should be "list"'
+                          ', is {}, value {}'.format(type(article_numbers), article_numbers))
         if file and not isinstance(file, bytes):
-            warnings.warn('Type of "file" should be "bytes"')
+            warnings.warn('Type of "file" should be "bytes"'
+                          ', is {}'.format(type(file)))
 
         self.document_type = document_type
         self.title = title
