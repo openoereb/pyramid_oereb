@@ -63,9 +63,6 @@ pyramid_oereb:
   srid: 2056
   plrs:
     - code: ch.Nutzungsplanung
-      view_service:
-        layer_index: 1
-        layer_opacity: 0.25
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft
