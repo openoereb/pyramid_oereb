@@ -10,6 +10,7 @@ from pyramid_oereb.contrib.data_sources.standard.sources.document import Databas
 from pyramid_oereb.core.records.documents import DocumentRecord
 from pyramid_oereb.core.records.office import OfficeRecord
 from pyramid_oereb.core.records.document_types import DocumentTypeRecord
+from pyramid_oereb.core.records.law_status import LawStatusRecord
 
 
 @pytest.fixture
@@ -113,7 +114,7 @@ def mock_config_get_main_document_type_by_data_code(app_config):
 @pytest.fixture(autouse=True)
 def mock_config_get_main_law_status_by_data_code(app_config):
     def mock_get_main_law_status_by_data_code(law_status):
-        return DocumentTypeRecord('inKraft', {'de': 'In Kraft'})
+        return LawStatusRecord('inKraft', {'de': 'In Kraft'})
 
     with patch(
             'pyramid_oereb.core.config.Config.get_main_law_status_by_data_code',
@@ -132,7 +133,7 @@ def test_read_all(document_source_params, all_document_result_session, office_re
         assert test_document.identifier == 1
         assert isinstance(test_document.document_type, DocumentTypeRecord)
         assert test_document.index == 1
-        assert isinstance(test_document.law_status, DocumentTypeRecord)
+        assert isinstance(test_document.law_status, LawStatusRecord)
         assert test_document.title == {'de': 'Titel1'}
         assert isinstance(test_document.responsible_office, OfficeRecord)
         assert test_document.published_from == date_today - datetime.timedelta(days=5)
