@@ -21,7 +21,8 @@ def webtestapp(test_db_engine):
     return test_app
 
 
-def test_log_logo(webtestapp):
+@pytest.mark.filterwarnings("ignore:srid not enforced")
+def test_log_wrong_data(webtestapp):
     """
     Test webapp entrypoint with insufficiently initialized test data
     """
