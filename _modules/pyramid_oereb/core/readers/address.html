@@ -75,7 +75,7 @@
 
 
 <div class="viewcode-block" id="AddressReader"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.address.AddressReader">[docs]</a><span class="k">class</span> <span class="nc">AddressReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The central reader accessor for addresses. It is directly bound to a so called source which is defined by</span>
 <span class="sd">    a pythonic dotted string to the class definition of this source. An instance of the passed source will be</span>
 <span class="sd">    created on instantiation of this reader class by passing through the parameter kwargs.</span>
@@ -84,7 +84,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="AddressReader.__init__"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.address.AddressReader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dotted_source_class_path</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            dotted_source_class_path (str or pyramid_oereb.lib.sources.address.AddressBaseSource):</span>
 <span class="sd">                The path to the class which represents the source used by this reader. This</span>
@@ -97,7 +97,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span> <span class="o">=</span> <span class="n">source_class</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="AddressReader.read"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.address.AddressReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The read method of this reader. There we invoke the read method of the bound source.</span>
 
 <span class="sd">        Note:</span>

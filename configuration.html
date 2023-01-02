@@ -92,7 +92,7 @@ solutions first, as the necessary effort can vary significantly depending on you
 <span id="configuration-additional-topics"></span><h2>Add additional topics<a class="headerlink" href="#add-additional-topics" title="Permalink to this headline">¶</a></h2>
 <p>If you only need to add one or more additional cantonal topics and want to use the standard database structure
 for these too, you can run a provided script to generate the required models.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>create_standard_model -c &lt;YOUR_NEW_TOPIC_CODE&gt; -g &lt;GEOMETRY_TYPE&gt; -p &lt;TARGET_PATH&gt; -k TRUE
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>create_standard_model<span class="w"> </span>-c<span class="w"> </span>&lt;YOUR_NEW_TOPIC_CODE&gt;<span class="w"> </span>-g<span class="w"> </span>&lt;GEOMETRY_TYPE&gt;<span class="w"> </span>-p<span class="w"> </span>&lt;TARGET_PATH&gt;<span class="w"> </span>-k<span class="w"> </span>TRUE
 </pre></div>
 </div>
 <p>The first parameter is the code of your new topic and has to be defined in camelcase. The geometry type for
@@ -117,30 +117,30 @@ of integer will be used instead.</p>
 <p>After creating the models you have to create its configuration. Open the configuration file
 (pyramid_oereb_standard.yml) and copy the section from one of the existing topics which usually looks like
 this:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch.BaulinienNationalstrassen</span><span class="w"></span>
-<span class="w">  </span><span class="nt">geometry_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LINESTRING</span><span class="w"></span>
-<span class="w">  </span><span class="nt">thresholds</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">length</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w"></span>
-<span class="w">      </span><span class="nt">unit</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;m&#39;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-<span class="w">    </span><span class="nt">area</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w"></span>
-<span class="w">      </span><span class="nt">unit</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;m2&#39;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-<span class="w">    </span><span class="nt">percentage</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
-<span class="w">  </span><span class="nt">text</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">de</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Baulinien Nationalstrassen</span><span class="w"></span>
-<span class="w">  </span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">de</span><span class="w"></span>
-<span class="w">  </span><span class="nt">federal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="w">  </span><span class="nt">standard</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="w">  </span><span class="nt">source</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.lib.sources.plr.DatabaseSource</span><span class="w"></span>
-<span class="w">    </span><span class="nt">params</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">db_connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgresql://postgres:password@localhost:5432/pyramid_oereb</span><span class="w"></span>
-<span class="w">      </span><span class="nt">models</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.standard.models.motorways_building_lines</span><span class="w"></span>
-<span class="w">  </span><span class="nt">get_symbol_method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.standard.methods.get_symbol</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch.BaulinienNationalstrassen</span>
+<span class="w">  </span><span class="nt">geometry_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LINESTRING</span>
+<span class="w">  </span><span class="nt">thresholds</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">length</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">      </span><span class="nt">unit</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;m&#39;</span>
+<span class="w">      </span><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">area</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">      </span><span class="nt">unit</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;m2&#39;</span>
+<span class="w">      </span><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">    </span><span class="nt">percentage</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">text</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">de</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Baulinien Nationalstrassen</span>
+<span class="w">  </span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">de</span>
+<span class="w">  </span><span class="nt">federal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">standard</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">source</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.lib.sources.plr.DatabaseSource</span>
+<span class="w">    </span><span class="nt">params</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">db_connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgresql://postgres:password@localhost:5432/pyramid_oereb</span>
+<span class="w">      </span><span class="nt">models</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.standard.models.motorways_building_lines</span>
+<span class="w">  </span><span class="nt">get_symbol_method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.standard.methods.get_symbol</span>
 </pre></div>
 </div>
 <p>Apply the necessary modifications for the new topic. This should at least be the the name, code and text
@@ -152,7 +152,7 @@ with the generated models of the former step.</p>
 <h2>Add an oereblex topic<a class="headerlink" href="#add-an-oereblex-topic" title="Permalink to this headline">¶</a></h2>
 <p>If you want to use oereblex for a topic, you can proceed as described in the previous section,
 but using a different script to generate the required models.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>create_oereblex_model -c &lt;YOUR_NEW_TOPIC_CODE&gt; -g &lt;GEOMETRY_TYPE&gt; -p &lt;TARGET_PATH&gt; -k TRUE
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>create_oereblex_model<span class="w"> </span>-c<span class="w"> </span>&lt;YOUR_NEW_TOPIC_CODE&gt;<span class="w"> </span>-g<span class="w"> </span>&lt;GEOMETRY_TYPE&gt;<span class="w"> </span>-p<span class="w"> </span>&lt;TARGET_PATH&gt;<span class="w"> </span>-k<span class="w"> </span>TRUE
 </pre></div>
 </div>
 </section>
@@ -168,7 +168,7 @@ possibilities of SQLAlchemy, you could extend the existing
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyramid_oereb.lib.standard.models</span> <span class="kn">import</span> <span class="n">motorways_building_lines</span>
 
 <span class="k">class</span> <span class="nc">Office</span><span class="p">(</span><span class="n">motorways_building_lines</span><span class="o">.</span><span class="n">Office</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The bucket to fill in all the offices you need to reference from public law restriction,</span>
 <span class="sd">    document, geometry.</span>
 
@@ -203,15 +203,15 @@ possibilities of SQLAlchemy, you could extend the existing
 name, the names of the properties and their data types.</p>
 <p>After extending the models, do not forget to change the models module in the configuration of the topic’s
 source.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plr88</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">code</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch.BaulinienNationalstrassen</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">(...)</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">source</span><span class="p p-Indicator">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.lib.sources.plr.DatabaseSource</span><span class="w"></span>
-<span class="w">      </span><span class="nt">params</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">db_connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgresql://postgres:password@localhost:5432/pyramid_oereb</span><span class="w"></span>
-<span class="w">        </span><span class="nt">models</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_application.models.motorways_building_lines</span><span class="w"></span>
-<span class="w">  </span><span class="w w-Error">  </span><span class="nt">get_symbol_method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.standard.methods.get_symbol</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plr88</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">code</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch.BaulinienNationalstrassen</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">(...)</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">source</span><span class="p p-Indicator">:</span>
+<span class="w">      </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.lib.sources.plr.DatabaseSource</span>
+<span class="w">      </span><span class="nt">params</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">db_connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgresql://postgres:password@localhost:5432/pyramid_oereb</span>
+<span class="w">        </span><span class="nt">models</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_application.models.motorways_building_lines</span>
+<span class="w">  </span><span class="w w-Error">  </span><span class="nt">get_symbol_method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.standard.methods.get_symbol</span>
 </pre></div>
 </div>
 </section>
@@ -225,18 +225,18 @@ source is defined by a <cite>class</cite> property, pointing on the class that s
 <cite>params</cite> property containing keyword arguments passed to its constructor.</p>
 <p>For example, the real estate source for the standard database is configured with two parameters, the database
 connection and the model class, which looks like the following.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">real_estate</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">(...)</span><span class="w"></span>
-<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">source</span><span class="p p-Indicator">:</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># The source must have a class which represents the accessor to the source. In this case it</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># is a source already implemented which reads data from a database.</span><span class="w"></span>
-<span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.lib.sources.real_estate.DatabaseSource</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># The configured class accepts params which are also necessary to define</span><span class="w"></span>
-<span class="w">    </span><span class="nt">params</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="c1"># The connection path where the database can be found</span><span class="w"></span>
-<span class="w">      </span><span class="nt">db_connection</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;postgresql://postgres:password@localhost:5432/pyramid_oereb&quot;</span><span class="w"></span>
-<span class="w">      </span><span class="c1"># The model which maps the real estate database table.</span><span class="w"></span>
-<span class="w">      </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.standard.models.main.RealEstate</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">real_estate</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">(...)</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">source</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="c1"># The source must have a class which represents the accessor to the source. In this case it</span>
+<span class="w">    </span><span class="c1"># is a source already implemented which reads data from a database.</span>
+<span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.lib.sources.real_estate.DatabaseSource</span>
+<span class="w">    </span><span class="c1"># The configured class accepts params which are also necessary to define</span>
+<span class="w">    </span><span class="nt">params</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># The connection path where the database can be found</span>
+<span class="w">      </span><span class="nt">db_connection</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;postgresql://postgres:password@localhost:5432/pyramid_oereb&quot;</span>
+<span class="w">      </span><span class="c1"># The model which maps the real estate database table.</span>
+<span class="w">      </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.standard.models.main.RealEstate</span>
 </pre></div>
 </div>
 <p>You can use the base source and extend it to create your own customized source implementations. With the

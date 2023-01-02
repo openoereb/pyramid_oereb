@@ -82,13 +82,13 @@
 
 
 <div class="viewcode-block" id="DatabaseOEREBlexSource"><a class="viewcode-back" href="../../../../../../contrib/sources.html#pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource">[docs]</a><span class="k">class</span> <span class="nc">DatabaseOEREBlexSource</span><span class="p">(</span><span class="n">DatabaseSource</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A source to get models documents attached to public law restrictions in replacement</span>
 <span class="sd">    of standards documents. Be sure to use a model with an OEREBlex &quot;geolink&quot; integer</span>
 <span class="sd">    column for plrs that use this source.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="DatabaseOEREBlexSource.__init__"><a class="viewcode-back" href="../../../../../../contrib/sources.html#pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Keyword Arguments:</span>
 <span class="sd">            name (str): The name. You are free to choose one.</span>
 <span class="sd">            code (str): The official code. Regarding to the federal specifications.</span>
@@ -115,7 +115,7 @@
 
 <div class="viewcode-block" id="DatabaseOEREBlexSource.get_config_value_for_plr_code"><a class="viewcode-back" href="../../../../../../contrib/sources.html#pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.get_config_value_for_plr_code">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_config_value_for_plr_code</span><span class="p">(</span><span class="n">url_param_config</span><span class="p">,</span> <span class="n">plr_code</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the appropriate configuration entry for a plr within a url_param_config section.</span>
 
 <span class="sd">        Args:</span>
@@ -132,7 +132,7 @@
         <span class="k">return</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="DatabaseOEREBlexSource.get_document_records"><a class="viewcode-back" href="../../../../../../contrib/sources.html#pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.get_document_records">[docs]</a>    <span class="k">def</span> <span class="nf">get_document_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">public_law_restriction_from_db</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Override the parent&#39;s get_document_records method to obtain the models document instead.</span>
 
 <span class="sd">        Returns:</span>
@@ -152,7 +152,7 @@
                                                    <span class="n">law_status</span><span class="p">,</span> <span class="n">oereblex_params</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="DatabaseOEREBlexSource.document_records_from_oereblex"><a class="viewcode-back" href="../../../../../../contrib/sources.html#pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.document_records_from_oereblex">[docs]</a>    <span class="k">def</span> <span class="nf">document_records_from_oereblex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">geolink</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">oereblex_params</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create document records parsed from the OEREBlex response with the specified geoLink ID and appends</span>
 <span class="sd">        them to the current public law restriction.</span>
 
@@ -180,7 +180,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queried_geolinks</span><span class="p">[</span><span class="n">identifier</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="DatabaseOEREBlexSource.collect_related_geometries_by_real_estate"><a class="viewcode-back" href="../../../../../../contrib/sources.html#pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex.DatabaseOEREBlexSource.collect_related_geometries_by_real_estate">[docs]</a>    <span class="k">def</span> <span class="nf">collect_related_geometries_by_real_estate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extracts all geometries in the topic which have spatial relation with the passed real estate</span>
 
 <span class="sd">        Args:</span>

@@ -161,8 +161,8 @@ may also be used in a windows environment.</p>
 </ul>
 <p>After installing the listed requirements, clone the repository and enter
 its directory.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/openoereb/pyramid_oereb.git
-<span class="nb">cd</span> pyramid_oereb
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/openoereb/pyramid_oereb.git
+<span class="nb">cd</span><span class="w"> </span>pyramid_oereb
 </pre></div>
 </div>
 <p>Build and start your local installation using <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">serve</span></code>.
@@ -183,18 +183,18 @@ In your browser, check the following URL (the latter two are based on sample dat
 <h4>…on Windows<a class="headerlink" href="#on-windows" title="Permalink to this headline">¶</a></h4>
 <ol class="arabic">
 <li><p>Creation of base directory for the project:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mkdir oereb
-<span class="nb">cd</span> oereb
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>oereb
+<span class="nb">cd</span><span class="w"> </span>oereb
 </pre></div>
 </div>
 </li>
 <li><p>Prepare it for git:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git init
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>init
 </pre></div>
 </div>
 </li>
 <li><p>Install the virtual environnement (supposed you already have python installed)</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>virtualenv --setuptools --no-site-packages .build/venv
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>virtualenv<span class="w"> </span>--setuptools<span class="w"> </span>--no-site-packages<span class="w"> </span>.build/venv
 </pre></div>
 </div>
 </li>
@@ -208,19 +208,19 @@ In your browser, check the following URL (the latter two are based on sample dat
 install command.</p>
 </dd>
 </dl>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ip install <span class="nv">pyramid</span><span class="o">==</span><span class="m">1</span>.7.4
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ip<span class="w"> </span>install<span class="w"> </span><span class="nv">pyramid</span><span class="o">==</span><span class="m">1</span>.7.4
 </pre></div>
 </div>
 </li>
 <li><p>get one level up to create the empty project</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ..
-oereb<span class="se">\.</span>build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>create.exe -s alchemy oereb
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>..
+oereb<span class="se">\.</span>build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>create.exe<span class="w"> </span>-s<span class="w"> </span>alchemy<span class="w"> </span>oereb
 </pre></div>
 </div>
 </li>
 <li><p>Delete unused files for this project:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> oereb
-rm <span class="o">[</span>filename<span class="o">]</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>oereb
+rm<span class="w"> </span><span class="o">[</span>filename<span class="o">]</span>
 </pre></div>
 </div>
 <ul class="simple">
@@ -236,41 +236,41 @@ at least</p>
 <li><p>/.build</p></li>
 </ul>
 <p>as content - other files will follow…</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git add .gitignore
-git commit -m <span class="s2">&quot;added .gitignore&quot;</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>.gitignore
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;added .gitignore&quot;</span>
 </pre></div>
 </div>
 <p>Then create your git repository and add is as remote to the local directory:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git remote add upstream https://github.com/youraccount/oereb.git
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/youraccount/oereb.git
 </pre></div>
 </div>
 </li>
 <li><p>Collect complementary files created on github such as the README.md</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git fetch upstream
-git merge upstream/master
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>fetch<span class="w"> </span>upstream
+git<span class="w"> </span>merge<span class="w"> </span>upstream/master
 </pre></div>
 </div>
 </li>
 <li><p>Add your local files and push them to the repository to get an clean initial version</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git add -A
-git commit -m <span class="s2">&quot;commit message&quot;</span>
-git push upstream master
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>-A
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;commit message&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>upstream<span class="w"> </span>master
 </pre></div>
 </div>
 </li>
 <li><p>On windows there’s a problem with the shapely dependencies, so before installing all the other
 dependencies, one should manually install shapely and psycopg2 wheels:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ip install wheel <span class="o">[</span>path to psycopg2-2.5.5-cp27-none-win32.whl or newer version<span class="o">]</span>
-.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ip install wheel <span class="o">[</span>path to Shapely-1.5.13-cp27-none-win32.whl or newer version<span class="o">]</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ip<span class="w"> </span>install<span class="w"> </span>wheel<span class="w"> </span><span class="o">[</span>path<span class="w"> </span>to<span class="w"> </span>psycopg2-2.5.5-cp27-none-win32.whl<span class="w"> </span>or<span class="w"> </span>newer<span class="w"> </span>version<span class="o">]</span>
+.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ip<span class="w"> </span>install<span class="w"> </span>wheel<span class="w"> </span><span class="o">[</span>path<span class="w"> </span>to<span class="w"> </span>Shapely-1.5.13-cp27-none-win32.whl<span class="w"> </span>or<span class="w"> </span>newer<span class="w"> </span>version<span class="o">]</span>
 </pre></div>
 </div>
 </li>
 <li><p>Then install the pyramid_oereb egg and the dependencies</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ip install pyramid_oereb
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ip<span class="w"> </span>install<span class="w"> </span>pyramid_oereb
 </pre></div>
 </div>
 <p>In the setup.py add “pyramid_oereb” in the list of requirements then run</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ip install -e .
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </pre></div>
 </div>
 </li>
@@ -282,9 +282,9 @@ dependencies, one should manually install shapely and psycopg2 wheels:</p>
 <li><p>Now to the configuration - you could do a commit and push on git to have a clean project before
 configuration… :)</p>
 <p>You want to add *.egg-info/ in your .gitignore file first then add the new and changed files, commit</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git add <span class="o">[</span>files<span class="o">]</span>
-git commit -m <span class="s2">&quot;clean unconfigured standard project&quot;</span>
-git push upstream <span class="o">[</span>branch<span class="o">]</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span><span class="o">[</span>files<span class="o">]</span>
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;clean unconfigured standard project&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>upstream<span class="w"> </span><span class="o">[</span>branch<span class="o">]</span>
 </pre></div>
 </div>
 <p>With this proper instance we start messing around:</p>
@@ -292,13 +292,13 @@ git push upstream <span class="o">[</span>branch<span class="o">]</span>
 pyramid_oereb_standard.yml we created before in it and adapt the necessary parameters to your
 environment - p.ex db_connection and so on in the development.ini at the end of the
 [app:main] block add</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pyramid_oereb.cfg.file <span class="o">=</span> pyramid_oereb_standard.yml
-pyramid_oereb.cfg.section <span class="o">=</span> pyramid_oereb
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pyramid_oereb.cfg.file<span class="w"> </span><span class="o">=</span><span class="w"> </span>pyramid_oereb_standard.yml
+pyramid_oereb.cfg.section<span class="w"> </span><span class="o">=</span><span class="w"> </span>pyramid_oereb
 </pre></div>
 </div>
 </li>
 <li><p>Install all the standard test and db scripts in the project</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ython setup.py develop
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ython<span class="w"> </span>setup.py<span class="w"> </span>develop
 </pre></div>
 </div>
 </li>
@@ -315,23 +315,23 @@ pyramid_oereb_standard.yml for your test environnement then
 <p>Then load the generate sql file into your DB</p>
 </li>
 <li><p>Load sample data in the standard db or connect your own PLR database for standard sample data:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ython pyramid_oereb<span class="se">\s</span>tandard<span class="se">\l</span>oad_sample_data.py -c pyramid_oereb_standard.yml
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ython<span class="w"> </span>pyramid_oereb<span class="se">\s</span>tandard<span class="se">\l</span>oad_sample_data.py<span class="w"> </span>-c<span class="w"> </span>pyramid_oereb_standard.yml
 </pre></div>
 </div>
 </li>
 <li><p>Don’t forget to include the configuration adding</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>config.include<span class="o">(</span><span class="s1">&#39;pyramid_oereb&#39;</span>, <span class="nv">route_prefix</span><span class="o">=</span><span class="s1">&#39;oereb&#39;</span><span class="o">)</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>config.include<span class="o">(</span><span class="s1">&#39;pyramid_oereb&#39;</span>,<span class="w"> </span><span class="nv">route_prefix</span><span class="o">=</span><span class="s1">&#39;oereb&#39;</span><span class="o">)</span>
 </pre></div>
 </div>
 <p>in \oereb__init__.py just befor the line config.scan()</p>
 <p>For testing start the local instance with:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>serve --reload development.ini
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>serve<span class="w"> </span>--reload<span class="w"> </span>development.ini
 </pre></div>
 </div>
 <dl>
 <dt>WARNING</dt><dd><p>On windows you may have an error message regarding ‘encoding’. If that’s the case, remove the –reload
 from the command</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>serve development.ini
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>serve<span class="w"> </span>development.ini
 </pre></div>
 </div>
 </dd>
@@ -342,21 +342,21 @@ from the command</p>
 <h5>Update existing pyramid_oereb package<a class="headerlink" href="#update-existing-pyramid-oereb-package" title="Permalink to this headline">¶</a></h5>
 <ul>
 <li><p>Uninstall the existing package</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ip uninstall pyramid_oereb
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ip<span class="w"> </span>uninstall<span class="w"> </span>pyramid_oereb
 </pre></div>
 </div>
 </li>
 <li><p>Install the new version</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ip install pyramid_oereb
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ip<span class="w"> </span>install<span class="w"> </span>pyramid_oereb
 </pre></div>
 </div>
 <p>If for some reasons you need the latest version from git (master),
 use</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ip install git+https://github.com/openoereb/pyramid_oereb.git@master#egg<span class="o">=</span>pyramid_oereb
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/openoereb/pyramid_oereb.git@master#egg<span class="o">=</span>pyramid_oereb
 </pre></div>
 </div>
 <p>then rebuild the app with</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ython setup.py develop
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.build<span class="se">\v</span>env<span class="se">\S</span>cripts<span class="se">\p</span>ython<span class="w"> </span>setup.py<span class="w"> </span>develop
 </pre></div>
 </div>
 </li>

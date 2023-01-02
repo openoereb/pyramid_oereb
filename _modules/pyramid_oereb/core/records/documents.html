@@ -84,7 +84,7 @@
 
 
 <div class="viewcode-block" id="DocumentRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.documents.DocumentRecord">[docs]</a><span class="k">class</span> <span class="nc">DocumentRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    More specific document class representing real documents.</span>
 
 <span class="sd">    Attributes:</span>
@@ -106,7 +106,7 @@
 <div class="viewcode-block" id="DocumentRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.documents.DocumentRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">document_type</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">responsible_office</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span>
                  <span class="n">published_until</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">text_at_web</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">abbreviation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">official_number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">only_in_municipality</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">article_numbers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">identifier</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            document_type (pyramid_oereb.lib.records.document_types.DocumentTypeRecord): The document type.</span>
@@ -181,7 +181,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">published</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns true if its not a future or past document.</span>
 
 <span class="sd">        Returns:</span>
@@ -213,7 +213,7 @@
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
 
 <div class="viewcode-block" id="DocumentRecord.copy"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.documents.DocumentRecord.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns (DocumentRecord): A copy of this DocumentRecord element</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">DocumentRecord</span><span class="p">(</span>

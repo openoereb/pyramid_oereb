@@ -949,31 +949,31 @@ sorting failed.</p>
 <h1>Sub themes<a class="headerlink" href="#sub-themes" title="Permalink to this headline">¶</a></h1>
 <p>To enable separate pages per sub theme, enable the option <cite>split_sub_themes</cite> in the <cite>print</cite> section of your
 configuration.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">print</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">split_sub_themes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">print</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">split_sub_themes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </pre></div>
 </div>
 <p>You can influence the sort order for each theme separately. Per default, the sub themes are unsorted.</p>
 <p>Example for alphabetic sort:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plr119</span><span class="w"></span>
-<span class="w">  </span><span class="nt">sub_themes</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">sorter</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.contrib.print_proxy.sub_themes.sorting</span><span class="w"></span>
-<span class="w">        </span><span class="nt">class_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AlphabeticSort</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plr119</span>
+<span class="w">  </span><span class="nt">sub_themes</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">sorter</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.contrib.print_proxy.sub_themes.sorting</span>
+<span class="w">        </span><span class="nt">class_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AlphabeticSort</span>
 </pre></div>
 </div>
 <p>The list sort provides a fix, non-alphabetic order. A ordered list as parameter defines the order. The sub theme names
 have to match exactly, otherwise they will be added at the end. Example configuration:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plr119</span><span class="w"></span>
-<span class="w">  </span><span class="nt">sub_themes</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">sorter</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.contrib.print_proxy.sub_themes.sorting</span><span class="w"></span>
-<span class="w">        </span><span class="nt">class_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ListSort</span><span class="w"></span>
-<span class="w">        </span><span class="nt">params</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">list</span><span class="p">:</span><span class="w"></span>
-<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">First sub theme</span><span class="w"></span>
-<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Another sub theme</span><span class="w"></span>
-<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Last sub theme</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plr119</span>
+<span class="w">  </span><span class="nt">sub_themes</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">sorter</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">module</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.contrib.print_proxy.sub_themes.sorting</span>
+<span class="w">        </span><span class="nt">class_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ListSort</span>
+<span class="w">        </span><span class="nt">params</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">list</span><span class="p">:</span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">First sub theme</span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Another sub theme</span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Last sub theme</span>
 </pre></div>
 </div>
 </section>

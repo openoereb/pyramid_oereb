@@ -100,27 +100,27 @@ to run in addition the script <em>create_stats_tables</em> which will generate d
 convenient for querying the results.</p>
 <p>The functionality is configured via the server’s ini file; see the project repository for a
 complete example of such an ini file. Example of a configuration suitable for usage with Gunicorn:</p>
-<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[loggers]</span><span class="w"></span>
-<span class="na">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">root, json, gunicorn.error</span><span class="w"></span>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[loggers]</span>
+<span class="na">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">root, json, gunicorn.error</span>
 
-<span class="k">[logger_json]</span><span class="w"></span>
-<span class="na">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">INFO</span><span class="w"></span>
-<span class="na">handlers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">console, sqlalchemylogger</span><span class="w"></span>
-<span class="na">qualname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">JSON</span><span class="w"></span>
-<span class="na">propagate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0</span><span class="w"></span>
+<span class="k">[logger_json]</span>
+<span class="na">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">INFO</span>
+<span class="na">handlers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">console, sqlalchemylogger</span>
+<span class="na">qualname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">JSON</span>
+<span class="na">propagate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0</span>
 
-<span class="k">[handler_sqlalchemylogger]</span><span class="w"></span>
-<span class="na">class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">c2cwsgiutils.sqlalchemylogger.handlers.SQLAlchemyHandler</span><span class="w"></span>
-<span class="na">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">({&#39;url&#39;:&#39;postgresql://postgres:password@oereb-db:5432/oereb_stats&#39;,&#39;tablename&#39;:&#39;logs&#39;,&#39;tableargs&#39;: {&#39;schema&#39;:&#39;oereb_logs&#39;}},&#39;healthcheck&#39;)</span><span class="w"></span>
-<span class="na">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">NOTSET</span><span class="w"></span>
-<span class="na">formatter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">generic</span><span class="w"></span>
-<span class="na">propagate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0</span><span class="w"></span>
+<span class="k">[handler_sqlalchemylogger]</span>
+<span class="na">class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">c2cwsgiutils.sqlalchemylogger.handlers.SQLAlchemyHandler</span>
+<span class="na">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">({&#39;url&#39;:&#39;postgresql://postgres:password@oereb-db:5432/oereb_stats&#39;,&#39;tablename&#39;:&#39;logs&#39;,&#39;tableargs&#39;: {&#39;schema&#39;:&#39;oereb_logs&#39;}},&#39;healthcheck&#39;)</span>
+<span class="na">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">NOTSET</span>
+<span class="na">formatter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">generic</span>
+<span class="na">propagate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">0</span>
 
-<span class="k">[logger_gunicorn.error]</span><span class="w"></span>
-<span class="na">level</span><span class="o">=</span><span class="s">ERROR</span><span class="w"></span>
-<span class="na">handlers</span><span class="o">=</span><span class="s">console</span><span class="w"></span>
-<span class="na">propagate</span><span class="o">=</span><span class="s">0</span><span class="w"></span>
-<span class="na">qualname</span><span class="o">=</span><span class="s">gunicorn.error</span><span class="w"></span>
+<span class="k">[logger_gunicorn.error]</span>
+<span class="na">level</span><span class="o">=</span><span class="s">ERROR</span>
+<span class="na">handlers</span><span class="o">=</span><span class="s">console</span>
+<span class="na">propagate</span><span class="o">=</span><span class="s">0</span>
+<span class="na">qualname</span><span class="o">=</span><span class="s">gunicorn.error</span>
 </pre></div>
 </div>
 <p><strong>args</strong> is a tuple containing two elements:</p>

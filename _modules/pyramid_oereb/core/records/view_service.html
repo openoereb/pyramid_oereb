@@ -85,7 +85,7 @@
 
 
 <div class="viewcode-block" id="LegendEntryRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.LegendEntryRecord">[docs]</a><span class="k">class</span> <span class="nc">LegendEntryRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a legend entry with it&#39;s text as well as it&#39;s image.</span>
 
 <span class="sd">    Attributes:</span>
@@ -105,7 +105,7 @@
 
 <div class="viewcode-block" id="LegendEntryRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.LegendEntryRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">legend_text</span><span class="p">,</span> <span class="n">type_code</span><span class="p">,</span> <span class="n">type_code_list</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span>
                  <span class="n">view_service_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sub_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">identifier</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            symbol (pyramid_oereb.lib.records.image.ImageRecord): The binary content of the legend symbol.</span>
 <span class="sd">            legend_text (dict of unicode): The multilingual description text for the legend entry.</span>
@@ -141,7 +141,7 @@
 
 
 <div class="viewcode-block" id="ViewServiceRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord">[docs]</a><span class="k">class</span> <span class="nc">ViewServiceRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A view service contains a valid WMS URL with a defined set of layers.</span>
 
 <span class="sd">    Attributes:</span>
@@ -152,7 +152,7 @@
 
 <div class="viewcode-block" id="ViewServiceRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference_wms</span><span class="p">,</span> <span class="n">layer_index</span><span class="p">,</span> <span class="n">layer_opacity</span><span class="p">,</span> <span class="n">default_language</span><span class="p">,</span>
                  <span class="n">srid</span><span class="p">,</span> <span class="n">proxies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legends</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            reference_wms (dict): Multilingual dict with URLs to the actual service (WMS)</span>
@@ -186,7 +186,7 @@
 
 <div class="viewcode-block" id="ViewServiceRecord.sanitize_layer_index"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord.sanitize_layer_index">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">sanitize_layer_index</span><span class="p">(</span><span class="n">layer_index</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks the validity of the layer index</span>
 <span class="sd">        Arg:</span>
 <span class="sd">           layer_index (int): index of the layer</span>
@@ -208,7 +208,7 @@
 
 <div class="viewcode-block" id="ViewServiceRecord.sanitize_layer_opacity"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord.sanitize_layer_opacity">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">sanitize_layer_opacity</span><span class="p">(</span><span class="n">layer_opacity</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks the validity of the layer opacity</span>
 <span class="sd">        Args:</span>
 <span class="sd">            layer_opacity (float): the opacity used to draw the layer.</span>
@@ -230,7 +230,7 @@
 
 <div class="viewcode-block" id="ViewServiceRecord.check_min_max_attributes"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord.check_min_max_attributes">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">check_min_max_attributes</span><span class="p">(</span><span class="n">min_point</span><span class="p">,</span> <span class="n">min_name</span><span class="p">,</span> <span class="n">max_point</span><span class="p">,</span> <span class="n">max_name</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks the validity of a min and max point:</span>
 <span class="sd">            - type check</span>
 <span class="sd">            - min_point &lt; max_point</span>
@@ -261,7 +261,7 @@
             <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ViewServiceRecord.get_full_wms_url"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord.get_full_wms_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_full_wms_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">language</span><span class="p">,</span> <span class="n">map_width</span><span class="p">,</span> <span class="n">map_height</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the WMS URL to get the image.</span>
 
 <span class="sd">        Args:</span>
@@ -292,7 +292,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span></div>
 
 <div class="viewcode-block" id="ViewServiceRecord.download_wms_content"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord.download_wms_content">[docs]</a>    <span class="k">def</span> <span class="nf">download_wms_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">language</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Downloads the image found behind the URL stored in the instance attribute &quot;reference_wms&quot;</span>
 <span class="sd">        for the requested language</span>
 
@@ -342,7 +342,7 @@
 
 <div class="viewcode-block" id="ViewServiceRecord.get_bbox_from_url"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord.get_bbox_from_url">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_bbox_from_url</span><span class="p">(</span><span class="n">wms_url</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parses wms url for BBOX parameter an returns these points as suitable values for ViewServiceRecord.</span>
 <span class="sd">        Args:</span>
 <span class="sd">            wms_url (str): wms url which includes a BBOX parameter to parse.</span>

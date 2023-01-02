@@ -139,7 +139,7 @@
 
 
 <span class="k">def</span> <span class="nf">parse_multiple_standard_themes</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Args:</span>
 <span class="sd">        config (pyramid_oereb.standard.config.Config): The config object of the application.</span>
 
@@ -156,7 +156,7 @@
 
 <div class="viewcode-block" id="DatabaseSource"><a class="viewcode-back" href="../../../../../../contrib/sources.html#pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.DatabaseSource">[docs]</a><span class="k">class</span> <span class="nc">DatabaseSource</span><span class="p">(</span><span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">PlrBaseSource</span><span class="p">):</span>
 <div class="viewcode-block" id="DatabaseSource.__init__"><a class="viewcode-back" href="../../../../../../contrib/sources.html#pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.DatabaseSource.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Keyword Arguments:</span>
 <span class="sd">            name (str): The name. You are free to choose one.</span>
 <span class="sd">            code (str): The official code. Regarding to the federal specifications.</span>
@@ -484,7 +484,7 @@
         <span class="k">return</span> <span class="n">document_records</span>
 
 <div class="viewcode-block" id="DatabaseSource.collect_related_geometries_by_real_estate"><a class="viewcode-back" href="../../../../../../contrib/sources.html#pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.DatabaseSource.collect_related_geometries_by_real_estate">[docs]</a>    <span class="k">def</span> <span class="nf">collect_related_geometries_by_real_estate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extracts all geometries in the topic which have spatial relation with the passed real estate</span>
 
 <span class="sd">        Args:</span>
@@ -536,7 +536,7 @@
         <span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="DatabaseSource.collect_legend_entries_by_bbox"><a class="viewcode-back" href="../../../../../../contrib/sources.html#pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.DatabaseSource.collect_legend_entries_by_bbox">[docs]</a>    <span class="k">def</span> <span class="nf">collect_legend_entries_by_bbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">law_status</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extracts all legend entries in the topic which have spatial relation with the passed bounding box of</span>
 <span class="sd">        visible extent.</span>
 
@@ -567,7 +567,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">legend_entry_model</span><span class="o">.</span><span class="n">t_id</span><span class="o">.</span><span class="n">in_</span><span class="p">((</span><span class="n">distinct_legend_entry_ids</span><span class="p">)))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="DatabaseSource.read"><a class="viewcode-back" href="../../../../../../contrib/sources.html#pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.DatabaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The read point which creates a extract, depending on a passed real estate.</span>
 
 <span class="sd">        Args:</span>

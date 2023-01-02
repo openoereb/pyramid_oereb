@@ -87,7 +87,7 @@
 
 
 <div class="viewcode-block" id="ExtractReader"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.extract.ExtractReader">[docs]</a><span class="k">class</span> <span class="nc">ExtractReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The class which generates *the extract* as a record</span>
 <span class="sd">    (:ref:`api-pyramid_oereb-core-records-extract-extractrecord`). This is the point where all necessary</span>
 <span class="sd">    and extract related components are bound together.</span>
@@ -99,7 +99,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="ExtractReader.__init__"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.extract.ExtractReader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plr_sources</span><span class="p">,</span> <span class="n">plr_cadastre_authority</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            plr_sources (list of pyramid_oereb.lib.sources.plr.PlrBaseSource): The list of PLR source</span>
 <span class="sd">                instances which the achieved extract should be about.</span>
@@ -113,7 +113,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">plr_cadastre_authority</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            pyramid_oereb.lib.records.office.OfficeRecord: The authority responsible for the PLR</span>
 <span class="sd">            cadastre.</span>
@@ -121,7 +121,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_cadastre_authority_</span>
 
 <div class="viewcode-block" id="ExtractReader.read"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.extract.ExtractReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">municipality</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method finally creates the extract.</span>
 
 <span class="sd">        Note:</span>
@@ -222,7 +222,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract</span></div>
 
     <span class="k">def</span> <span class="nf">_sort_plr_law_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plr_element</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method generates the sorting key for plr_elements according to their law_status code.</span>
 <span class="sd">        The value is generated from the index the plr_element.law_status.code has in the law_status</span>
 <span class="sd">        list. The law_status list corresponds to the law status taken from the DB</span>
@@ -244,7 +244,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_sort_plr_theme</span><span class="p">(</span><span class="n">plr_element</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method generates a sorting key to sort PLRs in to themes and sub-themes.</span>
 <span class="sd">        The value is generated using the extract_index given for each theme.</span>
 <span class="sd">        Currently it is assumed that the extract_index for a sub-theme is in accord to</span>

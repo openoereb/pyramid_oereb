@@ -84,7 +84,7 @@
 
 
 <div class="viewcode-block" id="GeometryRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.geometry.GeometryRecord">[docs]</a><span class="k">class</span> <span class="nc">GeometryRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Geometry record</span>
 
 <span class="sd">    Attributes:</span>
@@ -103,7 +103,7 @@
 <div class="viewcode-block" id="GeometryRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.geometry.GeometryRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">published_until</span><span class="p">,</span> <span class="n">geom</span><span class="p">,</span> <span class="n">geo_metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">public_law_restriction</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            law_status (pyramid_oereb.lib.records.law_status.LawStatusRecord): The law status of this record.</span>
 <span class="sd">            published_from (datetime.date): Date from/since when the PLR record is published.</span>
@@ -133,7 +133,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">published</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            bool: True if geometry is published.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -145,7 +145,7 @@
 
 <div class="viewcode-block" id="GeometryRecord.geom_dim"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.geometry.GeometryRecord.geom_dim">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">geom_dim</span><span class="p">(</span><span class="n">geom</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the topological dimension of the specified geometry.</span>
 
 <span class="sd">        Args:</span>
@@ -167,14 +167,14 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">dim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            int: The topological dimension.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">geom_dim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">geom</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_extract_collection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extracts all geometries with the same topological dimension as the input geometry from a collection.</span>
 
 <span class="sd">        Args:</span>
@@ -213,7 +213,7 @@
 
 <div class="viewcode-block" id="GeometryRecord.calculate"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.geometry.GeometryRecord.calculate">[docs]</a>    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">min_length</span><span class="p">,</span> <span class="n">min_area</span><span class="p">,</span> <span class="n">length_unit</span><span class="p">,</span> <span class="n">area_unit</span><span class="p">,</span> <span class="n">geometry_types</span><span class="p">,</span>
                   <span class="n">tolerances</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Entry method for calculation. It checks if the geometry type of this instance is a geometry</span>
 <span class="sd">        collection which has to be unpacked first in case of collection.</span>
 
@@ -300,7 +300,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">area_share</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            float or None: the area of this geometry.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -310,7 +310,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">length_share</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            float or None: the length of this geometry.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -320,7 +320,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">nr_of_points</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            float or None: the total amount of points/this geometry.</span>
 <span class="sd">        &quot;&quot;&quot;</span>

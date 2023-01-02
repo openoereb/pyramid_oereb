@@ -744,7 +744,7 @@ your database you can map it the known way:</p>
 
 
 <span class="k">class</span> <span class="nc">Availability</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A simple bucket for achieving a switch per municipality. Here you can configure via the imported data if</span>
 <span class="sd">    a public law restriction is available or not. You need to fill it with the data you provided in the</span>
 <span class="sd">    app schemas municipality table (fosnr).</span>
@@ -761,7 +761,7 @@ your database you can map it the known way:</p>
 
 
 <span class="k">class</span> <span class="nc">Office</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The bucket to fill in all the offices you need to reference from public law restriction, document,</span>
 <span class="sd">    geometry.</span>
 <span class="sd">    Attributes:</span>
@@ -792,7 +792,7 @@ your database you can map it the known way:</p>
 
 
 <span class="k">class</span> <span class="nc">DataIntegration</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be</span>
 <span class="sd">    able to find out who was the delivering instance.</span>
 <span class="sd">    Attributes:</span>
@@ -812,7 +812,7 @@ your database you can map it the known way:</p>
 
 
 <span class="k">class</span> <span class="nc">ViewService</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A view service aka WM(T)S which can deliver a cartographic representation via web.</span>
 <span class="sd">    Attributes:</span>
 <span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
@@ -828,7 +828,7 @@ your database you can map it the known way:</p>
 
 
 <span class="k">class</span> <span class="nc">LegendEntry</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class based legend system which is directly related to</span>
 <span class="sd">    :meth:`oereb_server.models.land_use_plans.ViewService`.</span>
 <span class="sd">    Attributes:</span>
@@ -871,7 +871,7 @@ your database you can map it the known way:</p>
 
 
 <span class="k">class</span> <span class="nc">PublicLawRestriction</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The container where you can fill in all your public law restrictions to the topic.</span>
 <span class="sd">    Attributes:</span>
 <span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
@@ -937,7 +937,7 @@ your database you can map it the known way:</p>
 
 
 <span class="k">class</span> <span class="nc">Geometry</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The dedicated model for all geometries in relation to their public law restriction.</span>
 <span class="sd">    Attributes:</span>
 <span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
@@ -987,7 +987,7 @@ your database you can map it the known way:</p>
 
 
 <span class="k">class</span> <span class="nc">PublicLawRestrictionBase</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Meta bucket (join table) for public law restrictions which acts as a base for other public law</span>
 <span class="sd">    restrictions.</span>
 <span class="sd">    Attributes:</span>
@@ -1027,7 +1027,7 @@ your database you can map it the known way:</p>
 
 
 <span class="k">class</span> <span class="nc">PublicLawRestrictionRefinement</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Meta bucket (join table) for public law restrictions which acts as a refinement for other public law</span>
 <span class="sd">    restrictions.</span>
 <span class="sd">    Attributes:</span>
@@ -1119,28 +1119,28 @@ this package.</p>
 <section id="theme-configuration">
 <span id="changes-new-config-themes"></span><h4>Theme configuration<a class="headerlink" href="#theme-configuration" title="Permalink to this headline">¶</a></h4>
 <p>Each theme configuration block included a threshold configuration like this:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">thresholds</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">length</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># Unit used internally only until now!</span><span class="w"></span>
-<span class="w">    </span><span class="nt">unit</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;m&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-<span class="w">  </span><span class="nt">area</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w"></span>
-<span class="w">    </span><span class="c1"># Unit used internally only until now!</span><span class="w"></span>
-<span class="w">    </span><span class="nt">unit</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;m²&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-<span class="w">  </span><span class="nt">percentage</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">thresholds</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">length</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">    </span><span class="c1"># Unit used internally only until now!</span>
+<span class="w">    </span><span class="nt">unit</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;m&#39;</span>
+<span class="w">    </span><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">area</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">    </span><span class="c1"># Unit used internally only until now!</span>
+<span class="w">    </span><span class="nt">unit</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;m²&#39;</span>
+<span class="w">    </span><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">percentage</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
 </pre></div>
 </div>
 <p>Due to many code reorganisations and cleaning it turned out that this is not needed any longer. So now the
 block looks ways simpler as follows:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">thresholds</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">length</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w"></span>
-<span class="w">  </span><span class="nt">area</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">thresholds</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">length</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">  </span><span class="nt">area</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
 </pre></div>
 </div>
 </section>
@@ -1154,34 +1154,34 @@ chapter <a class="reference internal" href="#changes-oereb-lex"><span class="std
 <li><p>inside of each theme configuration block which should use OEREBlex</p></li>
 </ol>
 <p>Find an example configuration for OEREBlex below:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configuration for OEREBlex</span><span class="w"></span>
-<span class="nt">oereblex</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># OEREBlex host</span><span class="w"></span>
-<span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://oereblex.bl.ch</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># geoLink schema version</span><span class="w"></span>
-<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.1.0</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># Pass schema version in URL</span><span class="w"></span>
-<span class="w">  </span><span class="nt">pass_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># Language of returned values</span><span class="w"></span>
-<span class="w">  </span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">de</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># Value for canton attribute</span><span class="w"></span>
-<span class="w">  </span><span class="nt">canton</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BL</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># Mapping for other optional attributes</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># mapping:</span><span class="w"></span>
-<span class="w">  </span><span class="c1">#   official_number: number</span><span class="w"></span>
-<span class="w">  </span><span class="c1">#   abbreviation: abbreviation</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># Handle related decree also as main document</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># By default a related decree will be added as reference of the type &quot;legal provision&quot; to the main</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># document. Set this flag to true, if you want the related decree to be added as additional legal</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># provision directly to the public law restriction. This might have an impact on client side rendering.</span><span class="w"></span>
-<span class="w">  </span><span class="nt">related_decree_as_main</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># Proxy to be used for web requests</span><span class="w"></span>
-<span class="w">  </span><span class="nt">proxy</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">http</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://xxx:xxx@proxy.ch:8088</span><span class="w"></span>
-<span class="w">    </span><span class="nt">https</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://xxx:xxx@proxy.ch:8088</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># auth:</span><span class="w"></span>
-<span class="w">  </span><span class="c1">#   username: preview</span><span class="w"></span>
-<span class="w">  </span><span class="c1">#   password: preview</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configuration for OEREBlex</span>
+<span class="nt">oereblex</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># OEREBlex host</span>
+<span class="w">  </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://oereblex.bl.ch</span>
+<span class="w">  </span><span class="c1"># geoLink schema version</span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.1.0</span>
+<span class="w">  </span><span class="c1"># Pass schema version in URL</span>
+<span class="w">  </span><span class="nt">pass_version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="c1"># Language of returned values</span>
+<span class="w">  </span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">de</span>
+<span class="w">  </span><span class="c1"># Value for canton attribute</span>
+<span class="w">  </span><span class="nt">canton</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">BL</span>
+<span class="w">  </span><span class="c1"># Mapping for other optional attributes</span>
+<span class="w">  </span><span class="c1"># mapping:</span>
+<span class="w">  </span><span class="c1">#   official_number: number</span>
+<span class="w">  </span><span class="c1">#   abbreviation: abbreviation</span>
+<span class="w">  </span><span class="c1"># Handle related decree also as main document</span>
+<span class="w">  </span><span class="c1"># By default a related decree will be added as reference of the type &quot;legal provision&quot; to the main</span>
+<span class="w">  </span><span class="c1"># document. Set this flag to true, if you want the related decree to be added as additional legal</span>
+<span class="w">  </span><span class="c1"># provision directly to the public law restriction. This might have an impact on client side rendering.</span>
+<span class="w">  </span><span class="nt">related_decree_as_main</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="c1"># Proxy to be used for web requests</span>
+<span class="w">  </span><span class="nt">proxy</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">http</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://xxx:xxx@proxy.ch:8088</span>
+<span class="w">    </span><span class="nt">https</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://xxx:xxx@proxy.ch:8088</span>
+<span class="w">  </span><span class="c1"># auth:</span>
+<span class="w">  </span><span class="c1">#   username: preview</span>
+<span class="w">  </span><span class="c1">#   password: preview</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -1192,33 +1192,33 @@ and why please have a detailed look at the documentation of the used package
 <code class="docutils literal notranslate"><span class="pre">api.pyramid_oereb.contrib.sources.document.oereblexsource</span></code>.</p>
 </div>
 <p>Find an example configuration for land use plans below:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plr73</span><span class="w"></span>
-<span class="w">  </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch.Nutzungsplanung</span><span class="w"></span>
-<span class="w">  </span><span class="nt">geometry_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GEOMETRYCOLLECTION</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># Define the minmal area and length for public law restrictions that should be considered as &#39;true&#39; restrictions</span><span class="w"></span>
-<span class="w">  </span><span class="c1"># and not as calculation errors (false true&#39;s) due to topological imperfections</span><span class="w"></span>
-<span class="w">  </span><span class="nt">thresholds</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">length</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w"></span>
-<span class="w">    </span><span class="nt">area</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span><span class="w"></span>
-<span class="w">  </span><span class="nt">text</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">de</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Nutzungsplanung kommunal</span><span class="w"></span>
-<span class="w">  </span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">de</span><span class="w"></span>
-<span class="w">  </span><span class="nt">federal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
-<span class="w">  </span><span class="nt">standard</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="w">  </span><span class="nt">source</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource</span><span class="w"></span>
-<span class="w">    </span><span class="nt">params</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">db_connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your db connection&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">models</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;path_to_your_models&gt;.land_use_plans</span><span class="w"></span>
-<span class="w">  </span><span class="nt">hooks</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">get_symbol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.standard.hook_methods.get_symbol</span><span class="w"></span>
-<span class="w">    </span><span class="nt">get_symbol_ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.standard.hook_methods.get_symbol_ref</span><span class="w"></span>
-<span class="w">  </span><span class="nt">law_status</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">inKraft</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inKraft</span><span class="w"></span>
-<span class="w">    </span><span class="nt">AenderungMitVorwirkung</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AenderungMitVorwirkung</span><span class="w"></span>
-<span class="w">    </span><span class="nt">AenderungOhneVorwirkung</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AenderungOhneVorwirkung</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plr73</span>
+<span class="w">  </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch.Nutzungsplanung</span>
+<span class="w">  </span><span class="nt">geometry_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GEOMETRYCOLLECTION</span>
+<span class="w">  </span><span class="c1"># Define the minmal area and length for public law restrictions that should be considered as &#39;true&#39; restrictions</span>
+<span class="w">  </span><span class="c1"># and not as calculation errors (false true&#39;s) due to topological imperfections</span>
+<span class="w">  </span><span class="nt">thresholds</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">length</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">    </span><span class="nt">area</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">  </span><span class="nt">text</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">de</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Nutzungsplanung kommunal</span>
+<span class="w">  </span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">de</span>
+<span class="w">  </span><span class="nt">federal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">standard</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">source</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.contrib.sources.plr_oereblex.DatabaseOEREBlexSource</span>
+<span class="w">    </span><span class="nt">params</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">db_connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your db connection&gt;</span>
+<span class="w">      </span><span class="nt">models</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;path_to_your_models&gt;.land_use_plans</span>
+<span class="w">  </span><span class="nt">hooks</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">get_symbol</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.standard.hook_methods.get_symbol</span>
+<span class="w">    </span><span class="nt">get_symbol_ref</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyramid_oereb.standard.hook_methods.get_symbol_ref</span>
+<span class="w">  </span><span class="nt">law_status</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">inKraft</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inKraft</span>
+<span class="w">    </span><span class="nt">AenderungMitVorwirkung</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AenderungMitVorwirkung</span>
+<span class="w">    </span><span class="nt">AenderungOhneVorwirkung</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AenderungOhneVorwirkung</span>
 </pre></div>
 </div>
 </section>

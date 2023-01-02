@@ -75,7 +75,7 @@
 
 
 <div class="viewcode-block" id="GeneralInformationReader"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.general_information.GeneralInformationReader">[docs]</a><span class="k">class</span> <span class="nc">GeneralInformationReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The central reader for the OEREB general information. It is directly bound to a so called source</span>
 <span class="sd">    which is defined by a pythonic dotted string to the class definition of this source.</span>
 <span class="sd">    An instance of the passed source will be created on instantiation of this reader class by passing through</span>
@@ -83,7 +83,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="GeneralInformationReader.__init__"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.general_information.GeneralInformationReader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dotted_source_class_path</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            dotted_source_class_path</span>
 <span class="sd">                (str or pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource): The path</span>
@@ -97,7 +97,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span> <span class="o">=</span> <span class="n">source_class</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="GeneralInformationReader.read"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.general_information.GeneralInformationReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The central read accessor method to get all desired records from configured source.</span>
 
 <span class="sd">        Note:</span>
