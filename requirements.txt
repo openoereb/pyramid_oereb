@@ -1,4 +1,4 @@
-PyPDF2==3.0.0
+PyPDF2==3.0.1
 filetype==1.2.0
 geoalchemy2==0.12.5
 pyramid==2.0.0
