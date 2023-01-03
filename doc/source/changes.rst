@@ -6,6 +6,20 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+Version 2.3.0
+-------------
+New functionality for prepub, and maintenance issues:
+
+* Add support for prepublinks (#1618)
+* Allow to force real estate geometry output (#1619), useful for xml2pdf
+* Library updates (#1615, #1622)
+
+.. _changes-version-2.2.6:
+
+Version 2.2.6
+-------------
+Bug-fix release to allow usage of xml2pdf service with embedded images (#1612, #1614)
+
 .. _changes-version-2.2.5:
 
 Version 2.2.5

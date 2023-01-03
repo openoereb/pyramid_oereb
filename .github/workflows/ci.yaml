@@ -7,7 +7,7 @@ jobs:
     name: Check style (lint)
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
       - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
@@ -18,7 +18,7 @@ jobs:
     name: Check style (git-attributes)
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
       - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
@@ -51,10 +51,11 @@ jobs:
           - '3.8'
           - '3.9'
           - '3.10'
+          - '3.11'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up Python v${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
@@ -64,7 +65,7 @@ jobs:
       - name: Run tests for Python ${{ matrix.python-version }}
         run: make tests
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           env_vars: OS,PYTHON
@@ -78,7 +79,7 @@ jobs:
     name: Check federal data definitions
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
       - run: sudo apt-get install xsltproc
@@ -95,7 +96,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Make documentation
         run: |
           sudo rm /etc/apt/sources.list.d/*.list
@@ -103,7 +104,7 @@ jobs:
           sudo apt-get install virtualenv libpq-dev libgeos-dev
           make doc-html
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.1
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: doc/build/html # The folder the action should deploy.
@@ -115,7 +116,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Set up Python 3.7
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v4
       with:
         python-version: 3.7
     - name: Install pypa/build

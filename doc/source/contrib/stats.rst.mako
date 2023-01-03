@@ -14,12 +14,12 @@ to run in addition the script *create_stats_tables* which will generate database
 convenient for querying the results.
 
 The functionality is configured via the server's ini file; see the project repository for a
-complete example of such an ini file. Example of a configuration:
+complete example of such an ini file. Example of a configuration suitable for usage with Gunicorn:
 
 .. code-block:: ini
 
     [loggers]
-    keys = root, json
+    keys = root, json, gunicorn.error
 
     [logger_json]
     level = INFO
@@ -33,6 +33,12 @@ complete example of such an ini file. Example of a configuration:
     level = NOTSET
     formatter = generic
     propagate = 0
+
+    [logger_gunicorn.error]
+    level=ERROR
+    handlers=console
+    propagate=0
+    qualname=gunicorn.error
 
 **args** is a tuple containing two elements:
 

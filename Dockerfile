@@ -30,7 +30,7 @@ COPY . /workspace/
 
 WORKDIR /workspace
 
-RUN pip install -r requirements.txt -r requirements-tests.txt -r dev-requirements.txt
+RUN pip install -r requirements.txt -r tests-requirements.txt -r dev-requirements.txt
 
 # keep container running until killed - For DEV use only
 CMD [ "pserve", "development.ini", "--reload"]

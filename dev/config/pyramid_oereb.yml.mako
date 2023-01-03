@@ -46,7 +46,7 @@ pyramid_oereb:
     # Configuration for XML2PDF print service
     renderer: pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer
     # Define whether all geometry data must be included when sending the data to the print service
-    with_geometry: True
+    with_geometry: False
     # Base URL with application of the print server
     base_url: https://oereb-dev.gis-daten.ch/oereb/report/create
     token: 24ba4328-a306-4832-905d-b979388d4cab
@@ -174,6 +174,9 @@ pyramid_oereb:
 
   # Configuration option for full extract: apply SLD on land register WMS (defaults to true)
   full_extract_use_sld: true
+
+  # Configuration option for always outputting real estate geometry in XML extract
+  # xml_extract_use_real_estate_geometry: true
 
   # Configuration for OEREBlex
   oereblex:
@@ -627,9 +630,6 @@ pyramid_oereb:
       # Geometry collections use the relevant tolerance for each basic type in their geometry set
       language: de
       federal: false
-      view_service:
-        layer_index: 1
-        layer_opacity: 1.0
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:
@@ -677,9 +677,6 @@ pyramid_oereb:
           precision: 1
       language: de
       federal: true
-      view_service:
-        layer_index: 1
-        layer_opacity: 0.75
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:
@@ -727,9 +724,6 @@ pyramid_oereb:
           precision: 1
       language: de
       federal: true
-      view_service:
-        layer_index: 1
-        layer_opacity: 0.75
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:
@@ -777,9 +771,6 @@ pyramid_oereb:
           precision: 1
       language: de
       federal: true
-      view_service:
-        layer_index: 1
-        layer_opacity: 0.75
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:
@@ -827,9 +818,6 @@ pyramid_oereb:
           precision: 1
       language: de
       federal: true
-      view_service:
-        layer_index: 1
-        layer_opacity: 0.75
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:
@@ -877,9 +865,6 @@ pyramid_oereb:
           precision: 1
       language: de
       federal: true
-      view_service:
-        layer_index: 1
-        layer_opacity: 0.75
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:
@@ -927,9 +912,6 @@ pyramid_oereb:
           precision: 1
       language: de
       federal: true
-      view_service:
-        layer_index: 1
-        layer_opacity: 0.75
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:
@@ -977,9 +959,6 @@ pyramid_oereb:
           precision: 1
       language: de
       federal: true
-      view_service:
-        layer_index: 1
-        layer_opacity: 0.75
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:
@@ -1028,9 +1007,6 @@ pyramid_oereb:
           precision: 1
       language: de
       federal: false
-      view_service:
-        layer_index: 1
-        layer_opacity: 1.0
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:
@@ -1078,9 +1054,6 @@ pyramid_oereb:
           precision: 1
       language: de
       federal: true
-      view_service:
-        layer_index: 1
-        layer_opacity: 0.75
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:
@@ -1128,9 +1101,6 @@ pyramid_oereb:
           precision: 1
       language: de
       federal: true
-      view_service:
-        layer_index: 1
-        layer_opacity: 0.75
       source:
         class: pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.DatabaseSource
         params:
@@ -1178,9 +1148,6 @@ pyramid_oereb:
           precision: 1
       language: de
       federal: true
-      view_service:
-        layer_index: 1
-        layer_opacity: 0.75
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:
@@ -1228,9 +1195,6 @@ pyramid_oereb:
           precision: 1
       language: de
       federal: false
-      view_service:
-        layer_index: 1
-        layer_opacity: 1.0
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:
@@ -1278,9 +1242,6 @@ pyramid_oereb:
           precision: 1
       language: de
       federal: false
-      view_service:
-        layer_index: 1
-        layer_opacity: 1.0
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:
@@ -1328,9 +1289,6 @@ pyramid_oereb:
           precision: 1
       language: de
       federal: false
-      view_service:
-        layer_index: 1
-        layer_opacity: 1.0
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:
@@ -1378,9 +1336,6 @@ pyramid_oereb:
           precision: 1
       language: de
       federal: false
-      view_service:
-        layer_index: 1
-        layer_opacity: 1.0
       source:
         # Standard data model
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
@@ -1431,9 +1386,6 @@ pyramid_oereb:
           precision: 1
       language: de
       federal: false
-      view_service:
-        layer_index: 1
-        layer_opacity: 1.0
       source:
         class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
         params:

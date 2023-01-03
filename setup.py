@@ -14,17 +14,16 @@ with open('requirements.txt') as f:
     recommend = f.read().splitlines()
 requires = [re_.match(r).group(1) for r in recommend]
 
-with open('requirements-tests.txt') as f:
+with open('tests-requirements.txt') as f:
     re_ = a = re.compile(r'(.+)==')
     tests_require = f.read().splitlines()
 
 setup(
     name='pyramid_oereb',
-    version='2.2.5',
+    version='2.3.0',
     description='pyramid_oereb, extension for pyramid web frame work to provide '
             'a basic server part for the oereb project',
-    long_description='FIXME',
-    # long_description='{readme}\n\n{changes}'.format(readme=README, changes=CHANGES),
+    long_description='{readme}\n\n{changes}'.format(readme=README, changes=CHANGES),
     long_description_content_type='text/x-rst',
     classifiers=[
         "Development Status :: 5 - Production/Stable",

@@ -10,5 +10,5 @@
 !MANIFEST.in
 !pytest.ini
 !.coveragerc
-!requirements-tests.txt
+!tests-requirements.txt
 !dev-requirements.txt

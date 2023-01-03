@@ -99,9 +99,9 @@ class OEREBlexSource(Base):
         Requests the geoLink for the specified ID and returns records for the received documents.
 
         Args:
-            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
+            params (pyramid_oereb.core.views.webservice.Parameter): The parameters of the extract request.
             geolink_id (int): The geoLink ID.
-            law_status (pyramid_oereb.core.records.lawstatus.LawStatusRecord): The restriction's law status.
+            law_status (pyramid_oereb.core.records.law_status.LawStatusRecord): The restriction's law status.
             oereblex_params (string or None): Any additional parameters to pass to Oereblex
         """
         log.debug("read() start for geolink_id {}, oereblex_params {}".format(geolink_id, oereblex_params))
@@ -158,22 +158,38 @@ class OEREBlexSource(Base):
             ))
             return []
 
-        enactment_date = document.enactment_date
-        authority = document.authority
-        if document.doctype == 'notice':
-            # Oereblex notices documents can have no enactment_date while it is require by pyramid_oereb to
-            # have one. Add a fake default one that is identifiable and always older than now (01.0.1.1970).
-            if enactment_date is None:
-                enactment_date = datetime.date(1970, 1, 1)
+        # discriminate different doctypes
+        if document.doctype in ['decree', 'edict']:
+            authority = document.authority
+            published_from = document.enactment_date
+            oereblex_doctype = document.doctype
+        elif document.doctype == 'prepublication':
+            authority = document.authority
+            # OerebLex prepublinks do not have an enactment date
+            published_from = document.status_start_date
+            # MODEL OeREBKRM_V2_0 does not have a document type corresponding to "prepublication"
+            oereblex_doctype = 'decree'
+        elif document.doctype == 'notice':
             # Oereblex notices documents can have no `authority` while it is require by pyramid_oereb to
             # have one. Replace None by '-' in this case.
-            if authority is None:
+            if document.authority is None:
                 authority = '-'
+            else:
+                authority = document.authority
+            # Oereblex notices documents can have no enactment_date while it is require by pyramid_oereb to
+            # have one. Add a fake default one that is identifiable and always older than now (01.0.1.1970).
+            if document.enactment_date is None:
+                published_from = datetime.date(1970, 1, 1)
+            else:
+                published_from = document.enactment_date
+            oereblex_doctype = document.doctype
+        else:
+            raise RuntimeError('Unsupported doctype for document #{0}'.format(document.id))
 
         # Cancel if enactment_date is not set
-        if enactment_date is None:
-            log.warning('Document with OEREBlex ID {0} has been skipped because of missing enactment_date.'
-                        .format(document.id))
+        if published_from is None:
+            log.warning(('Document with OEREBlex ID {0} has been skipped because of missing '
+                         'enactment_date / status_start_date.'.format(document.id)))
             return []
 
         # Check mandatory attributes
@@ -181,9 +197,11 @@ class OEREBlexSource(Base):
             raise AssertionError('Missing title for document #{0}'.format(document.id))
         if authority is None:
             raise AssertionError('Missing authority for document #{0}'.format(document.id))
+        if oereblex_doctype is None:
+            raise AssertionError('Missing type for document #{0}'.format(document.id))
 
         # Get document type
-        document_type = Config.get_document_type_by_data_code(self._code, document.doctype)
+        document_type = Config.get_document_type_by_data_code(self._code, oereblex_doctype)
 
         # Create related office record
         office = OfficeRecord({language: authority}, office_at_web=document.authority_url)
@@ -197,7 +215,7 @@ class OEREBlexSource(Base):
                 'law_status': Config.get_law_status_by_data_code(self._code, u'inKraft'),
                 'title': self._get_document_title(document, f, language),
                 'responsible_office': office,
-                'published_from': enactment_date,  # TODO: Use "publication_date" instead?
+                'published_from': published_from,  # TODO: Use "publication_date" instead?
                 'published_until': None,  # TODO: Use "abrogation_date"?
                 'text_at_web': self._get_multilingual(f.href, language),
                 'abbreviation': self._get_multilingual(document.abbreviation, language),

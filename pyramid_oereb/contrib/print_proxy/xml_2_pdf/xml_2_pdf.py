@@ -3,7 +3,6 @@ import requests
 import logging
 
 from pyramid.exceptions import ConfigurationError
-from pyramid.httpexceptions import HTTPBadRequest
 from pyramid_oereb import Config
 from pyramid_oereb.core.renderer.extract.xml_ import Renderer as XmlRenderer
 
@@ -49,9 +48,6 @@ class Renderer(XmlRenderer):
         }
 
         log.debug("Parameter webservice is {}".format(value[1]))
-
-        if value[1].images:
-            raise HTTPBadRequest('With image is not allowed in the print')
 
         self._request = self.get_request(system)
         # If language present in request, use that. Otherwise, keep language from base class
@@ -116,11 +112,13 @@ class Renderer(XmlRenderer):
                 proxies=Config.get('proxies')
             )
             if backend_answer.status_code != requests.codes.ok:
-                log.warning("request_pdf failed for url {}, data_extract was {}".format(url, data_extract))
+                log.warning("request_pdf failed for url {}".format(url))
+                log.debug("data extract for failed request was {}".format(data_extract))
             return backend_answer
         except Exception as e:
             log.exception(e)
-            log.warning("request_pdf failed for url {}, data_extract was {}".format(url, data_extract))
+            log.warning("request_pdf failed for url {}".format(url))
+            log.debug("data extract for failed request was {}".format(data_extract))
             raise e
 
     @staticmethod

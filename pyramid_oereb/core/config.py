@@ -1236,6 +1236,12 @@ class Config(object):
         return Config._config.get('real_estate_type')
 
     @staticmethod
+    def get_xml_extract_use_real_estate_geometry():
+        assert Config._config is not None
+
+        return Config._config.get('xml_extract_use_real_estate_geometry')
+
+    @staticmethod
     def get_plan_for_land_register_main_page_config():
         """
         Returns dictionary of plan for land register for the main page from the config file.
@@ -1768,37 +1774,6 @@ class Config(object):
                 if theme.get('code').lower() == theme_code.lower():
                     return theme
         return None
-
-    @staticmethod
-    def get_layer_config(theme_code):
-        """
-        Obtaining the layer configuration of a theme from config.
-
-        Args:
-            theme_code (str): The theme code.
-
-        Returns:
-            list: Layer index (int) and layer opacity (float).
-        """
-        assert Config._config is not None
-        themes = Config._config.get('plrs')
-        if themes and isinstance(themes, list):
-            for theme in themes:
-                if theme.get('code') == theme_code:
-                    view_service = theme.get('view_service')
-                    if view_service and isinstance(view_service, dict):
-                        layer_index = view_service.get('layer_index')
-                        layer_opacity = view_service.get('layer_opacity')
-                        if layer_opacity is None:
-                            raise ConfigurationError(
-                                'For {} the "layer_opacity" was not found!'.format(theme_code)
-                            )
-                        if layer_index is None:
-                            raise ConfigurationError(
-                                'For {} the "layer_index" was not found!'.format(theme_code)
-                            )
-                        return layer_index, layer_opacity
-        return None, None
 
     @staticmethod
     def get_real_estate_type_lookups():
