@@ -101,18 +101,6 @@ def test_get_oereblex_config(config_path):
 
 
 @pytest.mark.run(order=-1)
-def test_get_layer_config(config_path):
-    Config._config = None
-    Config.init(config_path, 'pyramid_oereb')
-    layer_index, layer_opacity = Config.get_layer_config('ch.Nutzungsplanung')
-    assert layer_index == 1
-    assert layer_opacity == 0.25
-    layer_index, layer_opacity = Config.get_layer_config('ch.BelasteteStandorte')
-    assert layer_index is None
-    assert layer_opacity is None
-
-
-@pytest.mark.run(order=-1)
 def test_get_real_estate_main_page_config(config_path):
     Config._config = None
     Config.init(config_path, 'pyramid_oereb')
