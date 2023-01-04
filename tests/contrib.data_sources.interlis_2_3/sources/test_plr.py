@@ -131,7 +131,8 @@ def interlis_land_use_plans(pyramid_oereb_test_config,
     interlis_dbsession.add_all(legend_entries)
     offices = {
         models.Office(**{
-            't_id': 1
+            't_id': 1,
+            'name_de': 'Amt'
         })
     }
     interlis_dbsession.add_all(offices)
