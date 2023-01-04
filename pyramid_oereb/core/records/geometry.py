@@ -2,11 +2,10 @@
 import logging
 from datetime import datetime
 
-from shapely.ops import linemerge, cascaded_union
+from shapely.ops import linemerge, unary_union
 
 from shapely.geometry import Point, MultiPoint, LineString, Polygon, GeometryCollection, MultiLineString, \
     MultiPolygon
-from shapely.ops import unary_union
 
 log = logging.getLogger(__name__)
 
@@ -113,7 +112,7 @@ class GeometryRecord(object):
         """
         if isinstance(result, GeometryCollection):
             matching_geometries = list()
-            for part in result:
+            for part in result.geoms:
                 if self.geom_dim(part) == self.dim:
                     matching_geometries.append(part)
             if self.dim == 0:
@@ -127,7 +126,7 @@ class GeometryRecord(object):
             elif self.dim == 1:
                 return linemerge(matching_geometries)
             elif self.dim == 2:
-                return cascaded_union(matching_geometries)
+                return unary_union(matching_geometries)
         else:
             return result
 
