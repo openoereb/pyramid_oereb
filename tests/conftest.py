@@ -650,6 +650,74 @@ def contaminated_sites(pyramid_oereb_test_config, dbsession, transact, wms_url_c
 
 
 @pytest.fixture
+def forest_perimeters(pyramid_oereb_test_config, dbsession, transact, wms_url_contaminated_sites,
+                      file_adapter):
+    del transact
+
+    theme_config = pyramid_oereb_test_config.get_theme_config_by_code('ch.StatischeWaldgrenzen')
+    config_parser = StandardThemeConfigParser(**theme_config)
+    models = config_parser.get_models()
+
+    view_services = {
+        models.ViewService(**{
+            'id': 1,
+            'reference_wms': wms_url_contaminated_sites,
+            'layer_index': 1,
+            'layer_opacity': .75,
+        })
+        }
+    dbsession.add_all(view_services)
+
+    offices = {
+        'office1': models.Office(**{
+            'id': 1,
+            'name': 'Test office',
+        })
+        }
+    dbsession.add_all(offices.values())
+
+    legend_entries = {
+        'legend_entry1': models.LegendEntry(**{
+            'id': 1,
+            'symbol': b64.encode(file_adapter.read('tests/resources/symbol.png')),
+            'legend_text': {'de': 'Test'},
+            'type_code': 'StaoTyp1',
+            'type_code_list': 'https://models.geo.admin.ch/BAFU/KbS_Codetexte_V1_4.xml',
+            'theme': 'ch.StatischeWaldgrenzen',
+            'view_service_id': 1,
+        })
+        }
+    dbsession.add_all(legend_entries.values())
+
+    plrs = {
+        'plr1': models.PublicLawRestriction(**{
+            'id': 1,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'view_service_id': 1,
+            'legend_entry_id': 1,
+            'office_id': 1,
+        }),
+        }
+    dbsession.add_all(plrs.values())
+
+    geometries = {
+        models.Geometry(**{
+            'id': 1,
+            'law_status': 'inKraft',
+            'published_from': date.today().isoformat(),
+            'published_until': (date.today() + timedelta(days=100)).isoformat(),
+            'geo_metadata': 'Simple linestring',
+            'public_law_restriction_id': 1,
+            'geom': 'SRID=2056;LINESTRING(1 0.1, 2 0.2)',
+        }),
+        }
+    dbsession.add_all(geometries)
+    dbsession.flush()
+
+
+@pytest.fixture
 def general_information(pyramid_oereb_test_config, dbsession, transact):
     del transact
 

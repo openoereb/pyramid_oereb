@@ -276,11 +276,11 @@ def test_linestring_calculation(geometry_types,
     assert oblique_geometry_plr_record.length_share > 0
 
 
-@pytest.fixture(params=['SRID=2056;LINESTRING (1 0.1, 2 0.2)'])
-def oblique_land_use_plan(request, pyramid_oereb_test_config, dbsession, transact, land_use_plans):
+@pytest.fixture(params=['SRID=2056;LINESTRING(1 0.1, 2 0.2)'])
+def oblique_forest_perimeter(request, pyramid_oereb_test_config, dbsession, transact, forest_perimeters):
     del transact
 
-    theme_config = pyramid_oereb_test_config.get_theme_config_by_code('ch.Nutzungsplanung')
+    theme_config = pyramid_oereb_test_config.get_theme_config_by_code('ch.StatischeWaldgrenzen')
     config_parser = StandardThemeConfigParser(**theme_config)
     models = config_parser.get_models()
 
@@ -296,8 +296,8 @@ def oblique_land_use_plan(request, pyramid_oereb_test_config, dbsession, transac
     dbsession.flush()
 
 
-def test_linestring_process_no_tol(real_estate_data, main_schema, land_use_plans, processor_data,
-                                   oblique_land_use_plan, oblique_limit_real_estate_record):
+def test_linestring_process_no_tol(real_estate_data, main_schema, forest_perimeters, processor_data,
+                                   oblique_forest_perimeter, oblique_limit_real_estate_record):
     from pyramid_oereb.core.views.webservice import Parameter
     from pyramid_oereb.core.config import Config
 
@@ -313,8 +313,8 @@ def test_linestring_process_no_tol(real_estate_data, main_schema, land_use_plans
     assert len(plrs) == 0
 
 
-def test_linestring_process_with_tol(real_estate_data, main_schema, land_use_plans, processor_data,
-                                     oblique_land_use_plan, oblique_limit_real_estate_record):
+def test_linestring_process_with_tol(real_estate_data, main_schema, forest_perimeters, processor_data,
+                                     oblique_forest_perimeter, oblique_limit_real_estate_record):
     from pyramid_oereb.core.views.webservice import Parameter
     from pyramid_oereb.core.config import Config
 
@@ -342,14 +342,13 @@ def oblique_limit_collection_real_estate_record():
     )
 
 
-def test_linestring_collection_process(real_estate_data, main_schema, land_use_plans, processor_data,
-                                       oblique_land_use_plan, oblique_limit_collection_real_estate_record):
+def test_linestring_collection_process(real_estate_data, main_schema, forest_perimeters, processor_data,
+                                       oblique_forest_perimeter, oblique_limit_collection_real_estate_record):
     from pyramid_oereb.core.views.webservice import Parameter
     from pyramid_oereb.core.config import Config
 
     for i, plr in enumerate(Config._config["plrs"]):
         Config._config["plrs"][i]["tolerances"] = {'ALL': fi.epsilon}
-        Config._config["plrs"][i]["geometry_type"] = "GEOMETRYCOLLECTION"
 
     processor = create_processor()
     request_params = Parameter('json', egrid='TEST')
