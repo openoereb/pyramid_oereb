@@ -330,7 +330,7 @@ def test_linestring_process_with_tol(real_estate_data, main_schema, forest_perim
     )
     extract = processor.plr_tolerance_check(extract_raw)
     plrs = extract.real_estate.public_law_restrictions
-    assert len(plrs) == 1
+    assert len(plrs) == 2
     assert plrs[0].length_share == 1
 
 
@@ -359,5 +359,5 @@ def test_linestring_collection_process(real_estate_data, main_schema, forest_per
     )
     extract = processor.plr_tolerance_check(extract_raw)
     plrs = extract.real_estate.public_law_restrictions
-    assert len(plrs) == 1
+    assert len(plrs) == 2
     assert plrs[0].length_share == 1

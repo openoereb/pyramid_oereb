@@ -690,8 +690,8 @@ def forest_perimeters(pyramid_oereb_test_config, dbsession, transact, wms_url_co
     dbsession.add_all(legend_entries.values())
 
     plrs = {
-        'plr1': models.PublicLawRestriction(**{
-            'id': 1,
+        'plr3001': models.PublicLawRestriction(**{
+            'id': 3001,
             'law_status': 'inKraft',
             'published_from': date.today().isoformat(),
             'published_until': (date.today() + timedelta(days=100)).isoformat(),
@@ -704,12 +704,12 @@ def forest_perimeters(pyramid_oereb_test_config, dbsession, transact, wms_url_co
 
     geometries = {
         models.Geometry(**{
-            'id': 1,
+            'id': 3001,
             'law_status': 'inKraft',
             'published_from': date.today().isoformat(),
             'published_until': (date.today() + timedelta(days=100)).isoformat(),
             'geo_metadata': 'Simple linestring',
-            'public_law_restriction_id': 1,
+            'public_law_restriction_id': 3001,
             'geom': 'SRID=2056;LINESTRING(1 0.1, 2 0.2)',
         }),
         }

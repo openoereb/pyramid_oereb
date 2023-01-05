@@ -136,7 +136,11 @@ def config_themes(app_config):
             {"de": "Nutzungsplanung (kantonal/kommunal)"},
             20,
             "ch.Subcode"
-        )
+        ), ThemeRecord(
+            "ch.StatischeWaldgrenzen",
+            {"de": "Test Thema Linestring"},
+            300
+        ),
     ]
     with patch(
             'pyramid_oereb.core.config.Config.themes', themes

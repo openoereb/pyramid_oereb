@@ -24,5 +24,14 @@
         },
         "extract_index": 200,
         "document_records": []
+    },
+    {
+        "code": "ch.StatischeWaldgrenzen",
+        "sub_code": null,
+        "title": {
+            "de": "Thema mit Linestring"
+        },
+        "extract_index": 300,
+        "document_records": []
     }
 ]

@@ -191,12 +191,12 @@ def test_return_json(pyramid_oereb_test_config, pyramid_test_config, schema_json
     if topics == 'ALL' and egrid == 'TEST':
         assert len(real_estate.get('RestrictionOnLandownership')) == 2
         assert len(extract.get('ConcernedTheme')) == 2
-        assert len(extract.get('NotConcernedTheme')) == 0
+        assert len(extract.get('NotConcernedTheme')) == 1
         assert len(extract.get('ThemeWithoutData')) == 0
         restrictions = real_estate.get('RestrictionOnLandownership')
         assert restrictions[0]['Theme']['Code'] == 'ch.Nutzungsplanung'
         assert restrictions[1]['Theme']['Code'] == 'ch.BelasteteStandorte'
-        # simplified dataset, containing only two restrictions insetead of previously 14
+        # simplified dataset, containing only two restrictions instead of previously 14
 
     if topics == 'ALL_FEDERAL':
         assert len(real_estate.get('RestrictionOnLandownership')) == 2
