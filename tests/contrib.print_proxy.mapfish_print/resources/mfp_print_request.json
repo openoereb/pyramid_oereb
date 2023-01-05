@@ -20,6 +20,10 @@
       {
         "Code": "ch.BelasteteStandorte",
         "Text": "Kataster der belasteten Standorte"
+      },
+      {
+	"Code": "ch.StatischeWaldgrenzen",
+	"Text": "Statische Waldgrenzen"
       }
     ],
     "PLRCadastreAuthority_City": "Wabern",
