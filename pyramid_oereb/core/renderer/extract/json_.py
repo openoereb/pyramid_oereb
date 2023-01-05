@@ -394,15 +394,15 @@ class Renderer(Base):
             dict: The formatted dictionary for rendering.
         """
         geometry_types = Config.get('geometry_types')
-        if geometry.geom.type in geometry_types.get('point').get('types'):
+        if geometry.geom.geom_type in geometry_types.get('point').get('types'):
             geometry_type = 'Point'
-        elif geometry.geom.type in geometry_types.get('line').get('types'):
+        elif geometry.geom.geom_type in geometry_types.get('line').get('types'):
             geometry_type = 'Line'
-        elif geometry.geom.type in geometry_types.get('polygon').get('types'):
+        elif geometry.geom.geom_type in geometry_types.get('polygon').get('types'):
             geometry_type = 'Surface'
         else:
             raise TypeError('The geometry type {gtype} is not configured in "geometry_types"'.format(
-                gtype=geometry.geom.type
+                gtype=geometry.geom.geom_type
             ))
 
         geometry_dict = {
