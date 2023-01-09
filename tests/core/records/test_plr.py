@@ -125,7 +125,7 @@ def test_documents_not_none():
         theme,
         LegendEntryRecord(
             ImageRecord('1'.encode('utf-8')),
-            'legendentry',
+            {'en': 'Content'},
             'CodeA',
             None,
             theme,

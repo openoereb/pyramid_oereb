@@ -49,7 +49,8 @@ class LegendEntryRecord(object):
                     other elements.
         """
         if not isinstance(legend_text, dict):
-            warnings.warn('Type of "legend_text" should be "dict"')
+            warnings.warn('Type of "legend_text" should be "dict"'
+                          ', is {}, value {}'.format(type(legend_text), legend_text))
 
         self.symbol = symbol
         self.legend_text = legend_text
