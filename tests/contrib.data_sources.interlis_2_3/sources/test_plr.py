@@ -267,7 +267,6 @@ def test_related_geometries(processor_data, pyramid_oereb_test_config, interlis_
         plr_sources,
         plr_cadastre_authority
     )
-    # TODO: clarify UserWarning about missing OfficeRecord data in the following line
     extract_raw = extract_reader.read(
         request_params, oblique_limit_real_estate_record, municipality
     )
