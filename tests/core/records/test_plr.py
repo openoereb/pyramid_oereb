@@ -276,7 +276,7 @@ def test_linestring_calculation(geometry_types,
     assert oblique_geometry_plr_record.length_share > 0
 
 
-@pytest.fixture(params=['SRID=2056;LINESTRING (1 0.1, 2 0.2)'])
+@pytest.fixture(params=['SRID=2056;GEOMETRYCOLLECTION(LINESTRING (1 0.1, 2 0.2))'])
 def oblique_land_use_plan(request, pyramid_oereb_test_config, dbsession, transact, land_use_plans):
     del transact
 
