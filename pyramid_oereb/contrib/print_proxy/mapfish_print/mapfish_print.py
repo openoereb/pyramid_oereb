@@ -12,8 +12,8 @@ from pyramid_oereb import Config
 from pyramid_oereb.core.renderer.extract.json_ import Renderer as JsonRenderer
 from pyramid_oereb.core.url import parse_url
 from pyramid.httpexceptions import HTTPInternalServerError
-from PyPDF2 import PdfReader
-from PyPDF2.errors import PdfReadError
+from pypdf import PdfReader
+from pypdf.errors import PdfReadError
 from pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages import TocPages
 
 
