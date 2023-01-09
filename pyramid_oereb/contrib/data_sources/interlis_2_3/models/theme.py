@@ -1,8 +1,7 @@
 from sqlalchemy import Column, ForeignKey
 from sqlalchemy import LargeBinary, String, Integer, Date, Text
-from sqlalchemy.ext.declarative import declarative_base
 from geoalchemy2.types import Geometry as GeoAlchemyGeometry
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import declarative_base, relationship
 
 
 class Models(object):

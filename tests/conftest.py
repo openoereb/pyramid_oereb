@@ -7,7 +7,7 @@ from unittest.mock import patch
 from datetime import date, timedelta
 
 from pyramid.testing import testConfig
-from sqlalchemy import create_engine, orm
+from sqlalchemy import create_engine, orm, text
 from sqlalchemy.engine.url import URL, make_url
 from sqlalchemy.exc import OperationalError
 
@@ -138,8 +138,8 @@ def test_db_url(config_path):
 def clear_stats_db_engine(stats_db_url):
     try:
         stats_connection = create_engine(stats_db_url).connect()
-        stats_connection.execute('DELETE FROM oereb_logs.logs')
-        stats_connection.execute('COMMIT')
+        stats_connection.execute(text('DELETE FROM oereb_logs.logs'))
+        stats_connection.execute(text('COMMIT'))
         stats_connection.close()
     except OperationalError:
         pass  # if DB does not exist yet, it shall not be cleared
@@ -149,13 +149,14 @@ def clear_stats_db_engine(stats_db_url):
 def drop_stats_db_engine(base_engine):
     base_connection = base_engine.connect()
     # terminate existing connections to be able to DROP the DB
-    base_connection.execute('SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE '
-                            'pg_stat_activity.datname = \'oereb_stats_test\' AND pid <> pg_backend_pid();')
+    term_stmt = 'SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE ' \
+        'pg_stat_activity.datname = \'oereb_stats_test\' AND pid <> pg_backend_pid();'
+    base_connection.execute(text(term_stmt))
     # sqlalchemy uses transactions by default, COMMIT end the current transaction and allows
     # creation and destruction of DB
-    base_connection.execute('COMMIT')
-    base_connection.execute("DROP DATABASE if EXISTS oereb_stats_test")
-    base_connection.execute('COMMIT')
+    base_connection.execute(text('COMMIT'))
+    base_connection.execute(text("DROP DATABASE if EXISTS oereb_stats_test"))
+    base_connection.execute(text('COMMIT'))
 
 
 @pytest.fixture(scope='session')
@@ -163,17 +164,15 @@ def test_db_engine(base_engine, test_db_name, config_path):
     """
     create a new test DB called test_db_name and its engine
     """
-
-    base_connection = base_engine.connect()
-    # terminate existing connections to be able to DROP the DB
-    base_connection.execute('SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE '
-                            f'pg_stat_activity.datname = \'{test_db_name}\' AND pid <> pg_backend_pid();')
-    # sqlalchemy uses transactions by default, COMMIT end the current transaction and allows
-    # creation and destruction of DB
-    base_connection.execute('COMMIT')
-    base_connection.execute(f"DROP DATABASE if EXISTS {test_db_name}")
-    base_connection.execute('COMMIT')
-    base_connection.execute(f"CREATE DATABASE {test_db_name}")
+    with base_engine.begin() as base_connection:
+        # terminate existing connections to be able to DROP the DB
+        term_stmt = 'SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE ' \
+            f'pg_stat_activity.datname = \'{test_db_name}\' AND pid <> pg_backend_pid();'
+        base_connection.execute(text(term_stmt))
+        base_connection.execute(text('COMMIT'))
+        base_connection.execute(text(f"DROP DATABASE if EXISTS {test_db_name}"))
+        base_connection.execute(text('COMMIT'))
+        base_connection.execute(text(f"CREATE DATABASE {test_db_name}"))
 
     test_db_url = URL.create(
         base_engine.url.get_backend_name(),
@@ -184,22 +183,23 @@ def test_db_engine(base_engine, test_db_name, config_path):
         database=test_db_name
     )
     engine = create_engine(test_db_url)
-    engine.execute("CREATE EXTENSION POSTGIS")
+    with engine.begin() as connection:
+        connection.execute(text("CREATE EXTENSION POSTGIS"))
 
-    # initialize the DB with standard tables via a temp string buffer to hold SQL commands
+        # initialize the DB with standard tables via a temp string buffer to hold SQL commands
 
-    # crate the main schema
-    sql_file_main = StringIO()
-    create_main_schema_from_configuration_(config_path, sql_file=sql_file_main)
-    sql_file_main.seek(0)
-    engine.execute(sql_file_main.read())
+        # create the main schema
+        sql_file_main = StringIO()
+        create_main_schema_from_configuration_(config_path, sql_file=sql_file_main)
+        sql_file_main.seek(0)
+        connection.execute(text(sql_file_main.read()))
 
-    # create the schemas for the themes
-    sql_file = StringIO()
-    standart_table_source = 'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource'
-    create_tables_from_standard_configuration(config_path, standart_table_source, sql_file=sql_file)
-    sql_file.seek(0)
-    engine.execute(sql_file.read())
+        # create the schemas for the themes
+        sql_file = StringIO()
+        standart_table_source = 'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource'
+        create_tables_from_standard_configuration(config_path, standart_table_source, sql_file=sql_file)
+        sql_file.seek(0)
+        connection.execute(text(sql_file.read()))
 
     return engine
 

@@ -1,5 +1,5 @@
 from sqlalchemy import String, Integer
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import declarative_base
 
 from pyramid_oereb.contrib.data_sources.standard.models import (
     get_office,
