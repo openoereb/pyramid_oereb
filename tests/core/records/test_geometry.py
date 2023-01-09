@@ -7,6 +7,7 @@ import os
 
 from shapely.geometry import Polygon, MultiPolygon, LineString, Point, \
     MultiPoint, MultiLineString, GeometryCollection
+from shapely.errors import GEOSException, TopologicalError
 import shapely.wkt
 
 import pytest
@@ -335,7 +336,7 @@ def test_validity(geometry, valid, fixable):
                 assert is_multi_polygon or has_additional_rings
         # unrepairable geometries should have raised an error up to here
         assert fixable
-    except shapely.errors.TopologicalError:
+    except (TopologicalError, GEOSException):
         if not fixable:
             # this is an expected error
             pass
