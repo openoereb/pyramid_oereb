@@ -162,13 +162,13 @@
 <span class="sd">            min_area (float): The threshold for area calculation.</span>
 <span class="sd">            length_unit (unicode): The threshold for area calculation.</span>
 <span class="sd">            area_unit (unicode): The threshold for area calculation.</span>
-<span class="sd">            view_service_id (int): The id to the connected view service. This is very important to be able to</span>
-<span class="sd">            solve bug https://github.com/openoereb/pyramid_oereb/issues/521</span>
+<span class="sd">            view_service_id (int): The id to the connected view service.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">PlrRecord</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">legend_entry</span><span class="o">.</span><span class="n">legend_text</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;legend_text&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;legend_entry.legend_text&quot; should be &quot;dict&quot;, is </span><span class="si">{}</span><span class="s1">, value </span><span class="si">{}</span><span class="s1">&#39;</span>
+                          <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">legend_entry</span><span class="o">.</span><span class="n">legend_text</span><span class="p">),</span> <span class="n">legend_entry</span><span class="o">.</span><span class="n">legend_text</span><span class="p">))</span>
 
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geometries</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
         <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">geometries</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
