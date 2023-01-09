@@ -6,7 +6,7 @@ import json
 import codecs
 import pytest
 import responses
-from PyPDF2 import PdfWriter
+from pypdf import PdfWriter
 
 from pyramid_oereb.core.records.municipality import MunicipalityRecord
 from tests.mockrequest import MockRequest
