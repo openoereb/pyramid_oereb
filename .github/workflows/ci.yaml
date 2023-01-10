@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v3
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
-      - run: sudo apt-get install virtualenv libpq-dev
+      - run: sudo apt-get install libpq-dev
       - name: Run make lint
         run: make lint
 
@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v3
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
-      - run: sudo apt-get install virtualenv libpq-dev
+      - run: sudo apt-get install libpq-dev
       - name: Run make git-attributes
         run: make git-attributes
 
@@ -60,7 +60,7 @@ jobs:
           architecture: x64
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
-      - run: sudo apt-get install virtualenv libpq-dev
+      - run: sudo apt-get install libpq-dev
       - name: Run tests for Python ${{ matrix.python-version }}
         run: make tests
       - name: Upload coverage to Codecov
@@ -100,7 +100,7 @@ jobs:
         run: |
           sudo rm /etc/apt/sources.list.d/*.list
           sudo apt update
-          sudo apt-get install virtualenv libpq-dev
+          sudo apt-get install libpq-dev
           make doc-html
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.4.1
