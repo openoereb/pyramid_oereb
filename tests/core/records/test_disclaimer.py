@@ -28,7 +28,8 @@ def record_correct():
 
 @pytest.fixture
 def record_incorrect():
-    yield DisclaimerRecord('title', 'content')
+    with pytest.warns(UserWarning):
+        yield DisclaimerRecord('title', 'content')
 
 
 def test_init(record_correct):

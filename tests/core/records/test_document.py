@@ -126,21 +126,22 @@ def test_legal_provision(law_test_data, law_status_record, office_record, docume
 
 
 def test_wrong_types(document_type_record):
-    record = DocumentRecord(
-        document_type_record,
-        'wrong_type',
-        'law_status',
-        'wrong_title',
-        'office_record',
-        'date_from',
-        'date_until',
-        'text_at_web',
-        'abbreviation',
-        'official_number',
-        'only_in_municipality',
-        'article_numbers',
-        1
-    )
+    with pytest.warns(UserWarning):
+        record = DocumentRecord(
+            document_type_record,
+            'wrong_type',
+            'law_status',
+            'wrong_title',
+            'office_record',
+            'date_from',
+            'date_until',
+            'text_at_web',
+            'abbreviation',
+            'official_number',
+            'only_in_municipality',
+            'article_numbers',
+            1
+        )
     assert isinstance(record.title, str)
     assert isinstance(record.index, str)
     assert isinstance(record.responsible_office, str)

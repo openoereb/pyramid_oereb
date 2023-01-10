@@ -26,7 +26,8 @@ def test_init():
 
 
 def test_wrong_types():
-    record = GeneralInformationRecord('titel', 'content')
+    with pytest.warns(UserWarning):
+        record = GeneralInformationRecord('titel', 'content')
     assert isinstance(record.title, str)
     assert isinstance(record.content, str)
 

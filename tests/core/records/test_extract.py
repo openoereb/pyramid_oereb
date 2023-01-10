@@ -75,21 +75,22 @@ def test_init(pyramid_oereb_test_config):
 
 
 def test_wrong_types():
-    record = ExtractRecord(
-        'real_estate',
-        'logo_plr_cadastre',
-        'federal_logo',
-        'cantonal_logo',
-        'municipality_logo',
-        'plr_cadastre_authority',
-        'update_date_os',
-        'disclaimers',
-        'glossaries',
-        'concerned_theme',
-        'not_concerned_theme',
-        'theme_without_data',
-        'general_information'
-    )
+    with pytest.warns(UserWarning):
+        record = ExtractRecord(
+            'real_estate',
+            'logo_plr_cadastre',
+            'federal_logo',
+            'cantonal_logo',
+            'municipality_logo',
+            'plr_cadastre_authority',
+            'update_date_os',
+            'disclaimers',
+            'glossaries',
+            'concerned_theme',
+            'not_concerned_theme',
+            'theme_without_data',
+            'general_information'
+        )
     assert isinstance(record.real_estate, str)
     assert isinstance(record.logo_plr_cadastre, str)
     assert isinstance(record.federal_logo, str)
