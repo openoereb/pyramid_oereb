@@ -3,7 +3,7 @@ FROM python:3.8-buster
 ENV DEBIAN_FRONTEND=noninteractive
 ENV VIRTUALENV_PYTHON=/usr/bin/python3.8
 
-ARG DEV_PACKAGES="build-essential libgeos-dev"
+ARG DEV_PACKAGES="build-essential"
 
 RUN apt-get update && \
   apt-get install --yes --no-install-recommends \
