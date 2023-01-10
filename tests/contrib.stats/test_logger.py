@@ -5,7 +5,7 @@ from unittest.mock import patch
 from pyramid.paster import get_app, setup_logging
 from webtest import TestApp
 from pyramid_oereb.core.config import Config
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from psycopg2.errors import UndefinedTable
 from sqlalchemy.exc import OperationalError, ProgrammingError
 
@@ -21,7 +21,8 @@ def webtestapp(test_db_engine):
     return test_app
 
 
-def test_log_logo(webtestapp):
+@pytest.mark.filterwarnings("ignore:srid not enforced")
+def test_log_wrong_data(webtestapp):
     """
     Test webapp entrypoint with insufficiently initialized test data
     """
@@ -33,13 +34,14 @@ def test_log_app(webtestapp, logo_test_data, clear_stats_db_engine, stats_db_url
     with patch.object(Config, 'logos', logo_test_data):
         webtestapp.get("/oereb/image/logo/oereb/de.png")
 
-    # wait maximum 15s for async log handler to complete its oprations (db creation and log message)
+    # wait maximum 15s for async log handler to complete its operations (db creation and log message)
     eng = create_engine(stats_db_url)
     for i in range(30):
         try:
-            log_result = eng.execute(
-                "select logger, level, msg from oereb_logs.logs order by created_at desc"
-            ).first()
+            with eng.begin() as connection:
+                log_result = connection.execute(
+                    text("select logger, level, msg from oereb_logs.logs order by created_at desc")
+                ).first()
             if log_result is not None:
                 break
         except (OperationalError, ProgrammingError, UndefinedTable):

@@ -63,6 +63,7 @@ pyramid_oereb:
   srid: 2056
   plrs:
     - code: ch.Nutzungsplanung
+      geometry_type: GEOMETRYCOLLECTION
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft
@@ -102,6 +103,7 @@ pyramid_oereb:
         transfer_code: Hinweis
         extract_code: Hint
     - code: ch.BelasteteStandorte
+      geometry_type: GEOMETRYCOLLECTION
       law_status_lookup:
         - data_code: inKraft
           transfer_code: inKraft

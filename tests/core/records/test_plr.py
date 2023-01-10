@@ -99,16 +99,18 @@ def test_published(published_from, published_until, published):
 
 def test_wrong_legend_entry_text_type():
     theme = ThemeRecord('code', dict(), 100)
-    plr_record = PlrRecord(
-        theme,
-        LegendEntryRecord(
+    with pytest.warns(UserWarning):
+        legendentry = LegendEntryRecord(
             ImageRecord('1'.encode('utf-8')),
             'legendentry',
             'CodeA',
             None,
             theme,
             view_service_id=1
-        ),
+        )
+    plr_record = PlrRecord(
+        theme,
+        legendentry,
         law_status,
         date.today() + timedelta(days=0),
         date.today() + timedelta(days=2),
@@ -125,7 +127,7 @@ def test_documents_not_none():
         theme,
         LegendEntryRecord(
             ImageRecord('1'.encode('utf-8')),
-            'legendentry',
+            {'en': 'Content'},
             'CodeA',
             None,
             theme,
@@ -276,7 +278,7 @@ def test_linestring_calculation(geometry_types,
     assert oblique_geometry_plr_record.length_share > 0
 
 
-@pytest.fixture(params=['SRID=2056;LINESTRING (1 0.1, 2 0.2)'])
+@pytest.fixture(params=['SRID=2056;GEOMETRYCOLLECTION(LINESTRING (1 0.1, 2 0.2))'])
 def oblique_land_use_plan(request, pyramid_oereb_test_config, dbsession, transact, land_use_plans):
     del transact
 

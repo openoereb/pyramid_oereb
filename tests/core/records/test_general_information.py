@@ -26,11 +26,16 @@ def test_init():
 
 
 def test_wrong_types():
-    record = GeneralInformationRecord('titel', 'content')
+    with pytest.warns(UserWarning):
+        record = GeneralInformationRecord('titel', 'content')
     assert isinstance(record.title, str)
     assert isinstance(record.content, str)
 
 
 def test_serialization():
-    record = GeneralInformationRecord('titel', 'content')
+    record = GeneralInformationRecord({
+        "de": "DEV TEST INFO"
+    }, {
+        "de": "Diese Info soll dazu dienen einen weiteren Textblock zu simulieren u..."
+    })
     assert isinstance(record.__str__(), str)

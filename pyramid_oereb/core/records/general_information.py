@@ -17,9 +17,12 @@ class GeneralInformationRecord(object):
         """
 
         if not isinstance(title, dict):
-            warnings.warn('Type of "title" should be "dict"')
+            warnings.warn('Type of "title" should be "dict", is {}, value {}'
+                          .format(type(title), title))
+
         if not isinstance(content, dict):
-            warnings.warn('Type of "content" should be "dict"')
+            warnings.warn('Type of "content" should be "dict", is {}, value {}'
+                          .format(type(content), content))
 
         self.title = title
         self.content = content

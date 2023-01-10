@@ -28,9 +28,8 @@ from pyramid_oereb.contrib.data_sources.standard.models import get_office, get_d
 from sqlalchemy import Column, PrimaryKeyConstraint, ForeignKey, UniqueConstraint, DateTime
 from sqlalchemy import Unicode, String, text, Integer, Boolean, Float
 from geoalchemy2 import Geometry
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy_utils import JSONType
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import declarative_base, relationship
 
 from pyramid_oereb.core.config import Config
 

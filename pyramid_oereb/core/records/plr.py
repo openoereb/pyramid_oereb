@@ -90,13 +90,13 @@ class PlrRecord(EmptyPlrRecord):
             min_area (float): The threshold for area calculation.
             length_unit (unicode): The threshold for area calculation.
             area_unit (unicode): The threshold for area calculation.
-            view_service_id (int): The id to the connected view service. This is very important to be able to
-            solve bug https://github.com/openoereb/pyramid_oereb/issues/521
+            view_service_id (int): The id to the connected view service.
         """
         super(PlrRecord, self).__init__(theme)
 
         if not isinstance(legend_entry.legend_text, dict):
-            warnings.warn('Type of "legend_text" should be "dict"')
+            warnings.warn('Type of "legend_entry.legend_text" should be "dict", is {}, value {}'
+                          .format(type(legend_entry.legend_text), legend_entry.legend_text))
 
         assert isinstance(geometries, list)
         assert len(geometries) > 0
