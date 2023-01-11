@@ -25,7 +25,7 @@ def test_getcapabilities(pyramid_oereb_test_config, schema_json_extract, municip
     assert isinstance(caps[u'topic'], list)
     assert len(caps[u'topic']) == 4
     assert caps[u'topic'][1][u'Code'] == u'ch.StatischeWaldgrenzen'
-    forest_perimeter_languages = list(map(lambda l: l[u'Language'], caps[u'topic'][1][u'Text']))
+    forest_perimeter_languages = list(map(lambda x: x[u'Language'], caps[u'topic'][1][u'Text']))
     assert u'de' in forest_perimeter_languages
     assert u'fr' in forest_perimeter_languages
     assert u'it' in forest_perimeter_languages
