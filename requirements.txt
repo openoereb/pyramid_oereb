@@ -8,7 +8,7 @@ image==1.5.33
 shapely==2.0.0
 SQLAlchemy==1.4.46
 pyaml-env==1.2.1
-urllib3==1.26.13
+urllib3==1.26.14
 waitress==2.1.2
 pyreproj==2.0.0
 mako-render==0.1.0
