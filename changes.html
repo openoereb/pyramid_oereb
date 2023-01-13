@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Changes/Hints for migration &mdash; pyramid_oereb  documentation</title>
@@ -12,9 +12,8 @@
   <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -31,7 +30,7 @@
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -146,7 +145,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Changes/Hints for migration</li>
       <li class="wy-breadcrumbs-aside">
       </li>
@@ -157,11 +156,11 @@
            <div itemprop="articleBody">
              
   <section id="changes-hints-for-migration">
-<span id="changes"></span><h1>Changes/Hints for migration<a class="headerlink" href="#changes-hints-for-migration" title="Permalink to this headline">¶</a></h1>
+<span id="changes"></span><h1>Changes/Hints for migration<a class="headerlink" href="#changes-hints-for-migration" title="Permalink to this heading">¶</a></h1>
 <p>This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.</p>
 <section id="version-2-3-0">
-<h2>Version 2.3.0<a class="headerlink" href="#version-2-3-0" title="Permalink to this headline">¶</a></h2>
+<h2>Version 2.3.0<a class="headerlink" href="#version-2-3-0" title="Permalink to this heading">¶</a></h2>
 <p>New functionality for prepub, and maintenance issues:</p>
 <ul class="simple">
 <li><p>Add support for prepublinks (#1618)</p></li>
@@ -170,11 +169,11 @@ to adapt in your project configuration, database etc. when upgrading to a new ve
 </ul>
 </section>
 <section id="version-2-2-6">
-<span id="changes-version-2-2-6"></span><h2>Version 2.2.6<a class="headerlink" href="#version-2-2-6" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-2-2-6"></span><h2>Version 2.2.6<a class="headerlink" href="#version-2-2-6" title="Permalink to this heading">¶</a></h2>
 <p>Bug-fix release to allow usage of xml2pdf service with embedded images (#1612, #1614)</p>
 </section>
 <section id="version-2-2-5">
-<span id="changes-version-2-2-5"></span><h2>Version 2.2.5<a class="headerlink" href="#version-2-2-5" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-2-2-5"></span><h2>Version 2.2.5<a class="headerlink" href="#version-2-2-5" title="Permalink to this heading">¶</a></h2>
 <p>Bug-fix and maintenance release:</p>
 <ul class="simple">
 <li><p>Fix response code for parameter “url” (#1605)</p></li>
@@ -184,7 +183,7 @@ to adapt in your project configuration, database etc. when upgrading to a new ve
 </ul>
 </section>
 <section id="version-2-2-4">
-<span id="changes-version-2-2-4"></span><h2>Version 2.2.4<a class="headerlink" href="#version-2-2-4" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-2-2-4"></span><h2>Version 2.2.4<a class="headerlink" href="#version-2-2-4" title="Permalink to this heading">¶</a></h2>
 <p>New functionality for configuring tolerance (optional):</p>
 <ul class="simple">
 <li><p>Support tolerance per geometry type (#1603). See example definitions in the example project configuration file.</p></li>
@@ -192,7 +191,7 @@ to adapt in your project configuration, database etc. when upgrading to a new ve
 </ul>
 </section>
 <section id="version-2-2-3">
-<span id="changes-version-2-2-3"></span><h2>Version 2.2.3<a class="headerlink" href="#version-2-2-3" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-2-2-3"></span><h2>Version 2.2.3<a class="headerlink" href="#version-2-2-3" title="Permalink to this heading">¶</a></h2>
 <p>Bug-fix and maintenance release:</p>
 <ul class="simple">
 <li><p>Fix xml2pdf proxy (#1596)</p></li>
@@ -200,7 +199,7 @@ to adapt in your project configuration, database etc. when upgrading to a new ve
 </ul>
 </section>
 <section id="version-2-2-2">
-<span id="changes-version-2-2-2"></span><h2>Version 2.2.2<a class="headerlink" href="#version-2-2-2" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-2-2-2"></span><h2>Version 2.2.2<a class="headerlink" href="#version-2-2-2" title="Permalink to this heading">¶</a></h2>
 <p>Bug-fix and maintenance release:</p>
 <ul class="simple">
 <li><p>Default index for oereblex documents (#1591)</p></li>
@@ -209,7 +208,7 @@ to adapt in your project configuration, database etc. when upgrading to a new ve
 </ul>
 </section>
 <section id="version-2-2-1">
-<span id="changes-version-2-2-1"></span><h2>Version 2.2.1<a class="headerlink" href="#version-2-2-1" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-2-2-1"></span><h2>Version 2.2.1<a class="headerlink" href="#version-2-2-1" title="Permalink to this heading">¶</a></h2>
 <p>Maintenance release building on the features introduced in 2.2.0:</p>
 <blockquote>
 <div><ul class="simple">
@@ -219,7 +218,7 @@ to adapt in your project configuration, database etc. when upgrading to a new ve
 </div></blockquote>
 </section>
 <section id="version-2-2-0">
-<span id="changes-version-2-2-0"></span><h2>Version 2.2.0<a class="headerlink" href="#version-2-2-0" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-2-2-0"></span><h2>Version 2.2.0<a class="headerlink" href="#version-2-2-0" title="Permalink to this heading">¶</a></h2>
 <p>This version introduces new features, performance improvements and include a bug-fix:</p>
 <blockquote>
 <div><ul class="simple">
@@ -232,7 +231,7 @@ to adapt in your project configuration, database etc. when upgrading to a new ve
 </div></blockquote>
 </section>
 <section id="version-2-1-1">
-<span id="changes-version-2-1-1"></span><h2>Version 2.1.1<a class="headerlink" href="#version-2-1-1" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-2-1-1"></span><h2>Version 2.1.1<a class="headerlink" href="#version-2-1-1" title="Permalink to this heading">¶</a></h2>
 <p>Bug-fix release:</p>
 <blockquote>
 <div><ul class="simple">
@@ -243,7 +242,7 @@ to adapt in your project configuration, database etc. when upgrading to a new ve
 </div></blockquote>
 </section>
 <section id="version-2-1-0">
-<span id="changes-version-2-1-0"></span><h2>Version 2.1.0<a class="headerlink" href="#version-2-1-0" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-2-1-0"></span><h2>Version 2.1.0<a class="headerlink" href="#version-2-1-0" title="Permalink to this heading">¶</a></h2>
 <p>To update to this version, if you are using data_integration tables, you must consolidate this content in
 the main application schema instead. Full list of changes in this version:</p>
 <blockquote>
@@ -256,7 +255,7 @@ the main application schema instead. Full list of changes in this version:</p>
 </div></blockquote>
 </section>
 <section id="version-2-0-2">
-<span id="changes-version-2-0-2"></span><h2>Version 2.0.2<a class="headerlink" href="#version-2-0-2" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-2-0-2"></span><h2>Version 2.0.2<a class="headerlink" href="#version-2-0-2" title="Permalink to this heading">¶</a></h2>
 <p>Bug-fix release:</p>
 <blockquote>
 <div><ul class="simple">
@@ -267,7 +266,7 @@ the main application schema instead. Full list of changes in this version:</p>
 </div></blockquote>
 </section>
 <section id="version-2-0-1">
-<span id="changes-version-2-0-1"></span><h2>Version 2.0.1<a class="headerlink" href="#version-2-0-1" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-2-0-1"></span><h2>Version 2.0.1<a class="headerlink" href="#version-2-0-1" title="Permalink to this heading">¶</a></h2>
 <p>Bug-fix and performance optimization release:</p>
 <blockquote>
 <div><ul class="simple">
@@ -278,13 +277,13 @@ the main application schema instead. Full list of changes in this version:</p>
 </div></blockquote>
 </section>
 <section id="version-2-0-0">
-<span id="changes-version-2-0-0"></span><h2>Version 2.0.0<a class="headerlink" href="#version-2-0-0" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-2-0-0"></span><h2>Version 2.0.0<a class="headerlink" href="#version-2-0-0" title="Permalink to this heading">¶</a></h2>
 <p>Version 2 is the implementation of the new federal requirements 2021. Because the data model specified by
 the federation is not compatible with the model in the previous version, a migration to version 2
 requires a new setup.</p>
 </section>
 <section id="version-1-9-2">
-<span id="changes-version-1-9-2"></span><h2>Version 1.9.2<a class="headerlink" href="#version-1-9-2" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-9-2"></span><h2>Version 1.9.2<a class="headerlink" href="#version-1-9-2" title="Permalink to this heading">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Oereblex: improve testing functionality for Oereblex (#1197)</p></li>
@@ -293,7 +292,7 @@ requires a new setup.</p>
 </div></blockquote>
 </section>
 <section id="version-1-9-1">
-<span id="changes-version-1-9-1"></span><h2>Version 1.9.1<a class="headerlink" href="#version-1-9-1" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-9-1"></span><h2>Version 1.9.1<a class="headerlink" href="#version-1-9-1" title="Permalink to this heading">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Oereblex: support new Oereblex API version 1.2.1</p></li>
@@ -302,7 +301,7 @@ requires a new setup.</p>
 </div></blockquote>
 </section>
 <section id="version-1-9-0">
-<span id="changes-version-1-9-0"></span><h2>Version 1.9.0<a class="headerlink" href="#version-1-9-0" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-9-0"></span><h2>Version 1.9.0<a class="headerlink" href="#version-1-9-0" title="Permalink to this heading">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Oereblex: add configuration option to pass URL parameters to the oereblex call (#1117)</p></li>
@@ -311,7 +310,7 @@ requires a new setup.</p>
 </ul>
 </div></blockquote>
 <section id="mapfish-print-related-changes">
-<h3>MapFish Print related changes<a class="headerlink" href="#mapfish-print-related-changes" title="Permalink to this headline">¶</a></h3>
+<h3>MapFish Print related changes<a class="headerlink" href="#mapfish-print-related-changes" title="Permalink to this heading">¶</a></h3>
 <p>If you are using MapFish Print, you must update your print templates and configuration to v1.9.0.
 The following improvements have been made:</p>
 <blockquote>
@@ -324,7 +323,7 @@ MapFish Print users who do not want the cantonal logo should set the print confi
 </section>
 </section>
 <section id="version-1-8-1">
-<span id="changes-version-1-8-1"></span><h2>Version 1.8.1<a class="headerlink" href="#version-1-8-1" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-8-1"></span><h2>Version 1.8.1<a class="headerlink" href="#version-1-8-1" title="Permalink to this heading">¶</a></h2>
 <p>This is a maintenance release with minor updates:</p>
 <blockquote>
 <div><ul class="simple">
@@ -335,7 +334,7 @@ MapFish Print users who do not want the cantonal logo should set the print confi
 </div></blockquote>
 </section>
 <section id="version-1-8-0">
-<span id="changes-version-1-8-0"></span><h2>Version 1.8.0<a class="headerlink" href="#version-1-8-0" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-8-0"></span><h2>Version 1.8.0<a class="headerlink" href="#version-1-8-0" title="Permalink to this heading">¶</a></h2>
 <p>This release contains the following bug-fixes and improvements:</p>
 <blockquote>
 <div><ul class="simple">
@@ -347,7 +346,7 @@ MapFish Print users who do not want the cantonal logo should set the print confi
 <p>Note that this release requires Python 3.6 or higher.</p>
 </section>
 <section id="version-1-7-6">
-<span id="changes-version-1-7-6"></span><h2>Version 1.7.6<a class="headerlink" href="#version-1-7-6" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-7-6"></span><h2>Version 1.7.6<a class="headerlink" href="#version-1-7-6" title="Permalink to this heading">¶</a></h2>
 <p>This is a maintenance release with the following changes:</p>
 <blockquote>
 <div><ul class="simple">
@@ -358,7 +357,7 @@ MapFish Print users who do not want the cantonal logo should set the print confi
 <p>This is the final maintenance release that includes Python2 compatibility.</p>
 </section>
 <section id="version-1-7-4">
-<span id="changes-version-1-7-4"></span><h2>Version 1.7.4<a class="headerlink" href="#version-1-7-4" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-7-4"></span><h2>Version 1.7.4<a class="headerlink" href="#version-1-7-4" title="Permalink to this heading">¶</a></h2>
 <p>This is a maintenance release with the following changes:</p>
 <blockquote>
 <div><ul class="simple">
@@ -371,11 +370,11 @@ geometries which are valid according to INTERLIS but invalid according to OGC.</
 </div></blockquote>
 </section>
 <section id="version-1-7-3">
-<span id="changes-version-1-7-3"></span><h2>Version 1.7.3<a class="headerlink" href="#version-1-7-3" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-7-3"></span><h2>Version 1.7.3<a class="headerlink" href="#version-1-7-3" title="Permalink to this heading">¶</a></h2>
 <p>This is a maintenance release, with some bug-fixes (#1005, #1012) and library dependency updates,
 and the following new functionality:</p>
 <section id="oereblex-related-changes">
-<h3>Oereblex related changes<a class="headerlink" href="#oereblex-related-changes" title="Permalink to this headline">¶</a></h3>
+<h3>Oereblex related changes<a class="headerlink" href="#oereblex-related-changes" title="Permalink to this heading">¶</a></h3>
 <p>pyramid_oereb now supports and uses by default the Oereblex geoLink schema version 1.2.0 (#1010):</p>
 <ul class="simple">
 <li><p>New doctype ‘notice’ (will be classified as ‘HintRecord’). If you want to add related notices as
@@ -390,7 +389,7 @@ pyramid_oereb, but are now available to custom code, for example for document ti
 </ul>
 </section>
 <section id="id1">
-<h3>MapFish Print related changes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3>MapFish Print related changes<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
 <p>If you are using MapFish Print, you must update your print templates and configuration to v1.7.3.
 The following improvements have been made:</p>
 <ul class="simple">
@@ -403,17 +402,17 @@ OfficeAtWeb is an optional attribute in the specification (#62).</p></li>
 </section>
 </section>
 <section id="version-1-7-1">
-<span id="changes-version-1-7-1"></span><h2>Version 1.7.1<a class="headerlink" href="#version-1-7-1" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-7-1"></span><h2>Version 1.7.1<a class="headerlink" href="#version-1-7-1" title="Permalink to this heading">¶</a></h2>
 <p>This is a bug-fix release, relevant only for users of MapFish Print.</p>
 <section id="id2">
-<h3>MapFish Print related changes<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<h3>MapFish Print related changes<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
 <p>The computation of the “nr_of_points” used in the PDF generation has been fixed (#1002),
 and a redundant comma has been removed from the templates (pyramid_oereb_mfp #59).
 You should update your print templates and print configuration to release v1.7.1 of pyramid_oereb_mfp.</p>
 </section>
 </section>
 <section id="version-1-7-0">
-<span id="changes-version-1-7-0"></span><h2>Version 1.7.0<a class="headerlink" href="#version-1-7-0" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-7-0"></span><h2>Version 1.7.0<a class="headerlink" href="#version-1-7-0" title="Permalink to this heading">¶</a></h2>
 <p>This release includes some features requested by the user group, as well as bug-fixes:</p>
 <ul class="simple">
 <li><p>The performance of the Oereblex integration was improved, by using a per topic store (#993). No change in
@@ -422,7 +421,7 @@ configuration is needed.</p></li>
 <li><p>If you are using MapFish Print, you must update your configuration as described in the following section.</p></li>
 </ul>
 <section id="id3">
-<h3>MapFish Print related changes<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h3>MapFish Print related changes<a class="headerlink" href="#id3" title="Permalink to this heading">¶</a></h3>
 <p>In the print via MapFish Print, the table of contents page numbering was fixed (#983). The following configuration
 changes are necessary:</p>
 <ul class="simple">
@@ -433,7 +432,7 @@ with the parameter <code class="docutils literal notranslate"><span class="pre">
 </section>
 </section>
 <section id="version-1-6-0">
-<span id="changes-version-1-6-0"></span><h2>Version 1.6.0<a class="headerlink" href="#version-1-6-0" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-6-0"></span><h2>Version 1.6.0<a class="headerlink" href="#version-1-6-0" title="Permalink to this heading">¶</a></h2>
 <p>This release includes some features requested by the user group, as well as bug-fixes,
 please see the release notes for a complete list. In this page, we list the changes
 which potentially affect your project configuration or custom code:</p>
@@ -447,7 +446,7 @@ If you have custom readers or sources (for example, to customize oereblex respon
 <li><p>An optional sorting of PLRs can be used via parameter <code class="docutils literal notranslate"><span class="pre">sort_within_themes_method</span></code> (#979).</p></li>
 </ul>
 <section id="id4">
-<h3>MapFish Print related changes<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3>MapFish Print related changes<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
 <p>If you are using MapFish Print, you must update your print templates and configuration to v1.6.0.
 The following functionality is now available for configuration:</p>
 <ul class="simple">
@@ -457,7 +456,7 @@ The following functionality is now available for configuration:</p>
 </ul>
 </section>
 <section id="xml2pdf-related-changes">
-<h3>XML2PDF related changes<a class="headerlink" href="#xml2pdf-related-changes" title="Permalink to this headline">¶</a></h3>
+<h3>XML2PDF related changes<a class="headerlink" href="#xml2pdf-related-changes" title="Permalink to this heading">¶</a></h3>
 <p>If you are using XML2PDF, you have the following new configuration options:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">verify_certificate</span></code> (#905)</p></li>
@@ -466,7 +465,7 @@ The following functionality is now available for configuration:</p>
 </section>
 </section>
 <section id="version-1-5-1">
-<span id="changes-version-1-5-1"></span><h2>Version 1.5.1<a class="headerlink" href="#version-1-5-1" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-5-1"></span><h2>Version 1.5.1<a class="headerlink" href="#version-1-5-1" title="Permalink to this heading">¶</a></h2>
 <p>This version contains bug-fixes and provides additional functionality: the integration of the XML2PDF
 service. The usage of this service is optional, if you do not use it, you do not need to change anything in your setup
 (as compared to version <a class="reference internal" href="#changes-version-1-5-0"><span class="std std-ref">Version 1.5.0</span></a>). Significant changes:</p>
@@ -476,19 +475,19 @@ service. The usage of this service is optional, if you do not use it, you do not
 <li><p>Integration of XML2PDF service (#631, #883, #887)</p></li>
 </ul>
 <section id="id5">
-<h3>MapFish Print related changes<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h3>MapFish Print related changes<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
 <p>If you are using MapFish Print, you need to also update your print configuration when updating to pyramid_oereb version 1.5.1.
 <a class="reference external" href="https://github.com/openoereb/pyramid_oereb_mfp/releases/tag/v1.5.1">Check the files here</a>.</p>
 </section>
 </section>
 <section id="version-1-5-0">
-<span id="changes-version-1-5-0"></span><h2>Version 1.5.0<a class="headerlink" href="#version-1-5-0" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-5-0"></span><h2>Version 1.5.0<a class="headerlink" href="#version-1-5-0" title="Permalink to this heading">¶</a></h2>
 <p>The main focus of this release is improvements for the PDF generation with MapFish Print. In addition, there are
 some minor changes, bug-fixes and regular maintenance. If you are not using MapFish Print, you can upgrade to
 this version without changing your project setup as compared to version <a class="reference internal" href="#changes-version-1-4-3"><span class="std std-ref">Version 1.4.3</span></a>.
 If you are using MapFish Print, please read the following subsection carefully when upgrading your version.</p>
 <section id="id6">
-<h3>MapFish Print related changes<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3>MapFish Print related changes<a class="headerlink" href="#id6" title="Permalink to this heading">¶</a></h3>
 <p>This section lists those improvements for the PDF generation (when using MapFish Print) for which a change in your
 project setup is necessary:</p>
 <ul class="simple">
@@ -506,7 +505,7 @@ page for the remaining content of the table of content page. This feature is dis
 <li><p>The Oereb PDF produced by MapFish Print is now PDF/A compliant; please see the following section for details.</p></li>
 </ul>
 <section id="mapfish-print-pdf-a-conformance">
-<h4>MapFish Print PDF/A conformance<a class="headerlink" href="#mapfish-print-pdf-a-conformance" title="Permalink to this headline">¶</a></h4>
+<h4>MapFish Print PDF/A conformance<a class="headerlink" href="#mapfish-print-pdf-a-conformance" title="Permalink to this heading">¶</a></h4>
 <p>For MapFish Print PDF files, PDF/A conformance is now enabled by default (PR#852). This is likely to break PDF printing
 in existing installations. To fix your configuration and data, make the following adaptations:</p>
 <ul class="simple">
@@ -520,7 +519,7 @@ use PNG, make sure to remove the alpha channel.</p></li>
 </section>
 </section>
 <section id="version-1-4-3">
-<span id="changes-version-1-4-3"></span><h2>Version 1.4.3<a class="headerlink" href="#version-1-4-3" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-4-3"></span><h2>Version 1.4.3<a class="headerlink" href="#version-1-4-3" title="Permalink to this heading">¶</a></h2>
 <p>This is a maintenance and bug-fix release.</p>
 <ul class="simple">
 <li><p>Fixed import script for federal topics (PR#821)</p></li>
@@ -529,7 +528,7 @@ use PNG, make sure to remove the alpha channel.</p></li>
 </ul>
 </section>
 <section id="version-1-4-2">
-<span id="changes-version-1-4-2"></span><h2>Version 1.4.2<a class="headerlink" href="#version-1-4-2" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-4-2"></span><h2>Version 1.4.2<a class="headerlink" href="#version-1-4-2" title="Permalink to this heading">¶</a></h2>
 <p>This is a maintenance and bug-fix release.</p>
 <ul class="simple">
 <li><p>Fixed an issue by downgrading a dependency which produces wrong coordinate reprojections (PR#810). We
@@ -539,7 +538,7 @@ working version.</p></li>
 </ul>
 </section>
 <section id="version-1-4-1">
-<span id="changes-version-1-4-1"></span><h2>Version 1.4.1<a class="headerlink" href="#version-1-4-1" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-4-1"></span><h2>Version 1.4.1<a class="headerlink" href="#version-1-4-1" title="Permalink to this heading">¶</a></h2>
 <p>This is a maintenance and bug-fix release.</p>
 <ul class="simple">
 <li><p>Fixed id types in oereblex models and model template, fixed documentation errors in standard models
@@ -550,7 +549,7 @@ script in order to have an accurate model documentation.</p></li>
 </ul>
 </section>
 <section id="version-1-4-0">
-<span id="changes-version-1-4-0"></span><h2>Version 1.4.0<a class="headerlink" href="#version-1-4-0" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-4-0"></span><h2>Version 1.4.0<a class="headerlink" href="#version-1-4-0" title="Permalink to this heading">¶</a></h2>
 <ul>
 <li><p>properties <code class="docutils literal notranslate"><span class="pre">map.legend_at_web</span></code> and <code class="docutils literal notranslate"><span class="pre">sub_theme</span></code> are now multilingual:
 <code class="docutils literal notranslate"><span class="pre">legend_at_web</span></code> now supports one link per language. The <code class="docutils literal notranslate"><span class="pre">sub_theme</span></code> is shown in the requested (or default)
@@ -577,7 +576,7 @@ of the currently requested language.</p>
 </ul>
 </section>
 <section id="version-1-3-1">
-<span id="changes-version-1-3-1"></span><h2>Version 1.3.1<a class="headerlink" href="#version-1-3-1" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-3-1"></span><h2>Version 1.3.1<a class="headerlink" href="#version-1-3-1" title="Permalink to this heading">¶</a></h2>
 <p>This is a maintenance and bug-fix release. Amonst other changes, this version includes changes to the
 standard models and improvements to the standard configuration:</p>
 <ul class="simple">
@@ -593,47 +592,47 @@ accordingly.</p></li>
 </ul>
 </section>
 <section id="version-1-3-0">
-<span id="changes-version-1-3-0"></span><h2>Version 1.3.0<a class="headerlink" href="#version-1-3-0" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-3-0"></span><h2>Version 1.3.0<a class="headerlink" href="#version-1-3-0" title="Permalink to this heading">¶</a></h2>
 <p>This version introduces an import facility for <strong>federal data</strong>. To support this, a new database attribute
 was needed, you therefore need to apply some changes to your project if you have been using
 <a class="reference internal" href="#changes-version-1-2-3"><span class="std std-ref">Version 1.2.3</span></a> or earlier.</p>
 <section id="configuration">
-<h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
+<h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h3>
 <p>Add a download link in each oereb theme where you want to use the download script.
 See the pyramid_oereb standard configuration file for an example. Or read optional installation hints chapter
 <a class="reference internal" href="installation.html#installation-step-sample-data"><span class="std std-ref">5. Load data (optional)</span></a>.</p>
 </section>
 <section id="models">
-<h3>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h3>
+<h3>Models<a class="headerlink" href="#models" title="Permalink to this heading">¶</a></h3>
 <p>If you have custom models (for example, for oereblex), you need to add an attribute <code class="docutils literal notranslate"><span class="pre">checksum</span></code> of type
 String to these (in class definition of <em>DataIntegration</em> model). Alternatively, you can recreate your models
 using the standard scripts. This will solve it for you.</p>
 </section>
 <section id="database">
-<h3>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h3>
+<h3>Database<a class="headerlink" href="#database" title="Permalink to this heading">¶</a></h3>
 <p>New column <code class="docutils literal notranslate"><span class="pre">checksum</span></code> in all oereb theme <em>DataIntegration</em> tables.</p>
 </section>
 </section>
 <section id="version-1-2-3">
-<span id="changes-version-1-2-3"></span><h2>Version 1.2.3<a class="headerlink" href="#version-1-2-3" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-2-3"></span><h2>Version 1.2.3<a class="headerlink" href="#version-1-2-3" title="Permalink to this heading">¶</a></h2>
 <p>The version 1.2.3 fixes a print template bug present in <a class="reference internal" href="#changes-version-1-2-2"><span class="std std-ref">Version 1.2.2</span></a>. You do not need to change your configuration
 or schema.</p>
 </section>
 <section id="version-1-2-2">
-<span id="changes-version-1-2-2"></span><h2>Version 1.2.2<a class="headerlink" href="#version-1-2-2" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-2-2"></span><h2>Version 1.2.2<a class="headerlink" href="#version-1-2-2" title="Permalink to this heading">¶</a></h2>
 <p>The version 1.2.2 is a bug-fix release for <a class="reference internal" href="#changes-version-1-2-1"><span class="std std-ref">Version 1.2.1</span></a>. You do not need to change your configuration
 or schema. However, you may wish to use the new optional configuration parameter <code class="docutils literal notranslate"><span class="pre">type_mapping</span></code> within
 <code class="docutils literal notranslate"><span class="pre">real_estate</span></code>, as this allows you to define the texts to be used for the types in the configuration, instead of
 needing to have them in the data.</p>
 </section>
 <section id="version-1-2-1">
-<span id="changes-version-1-2-1"></span><h2>Version 1.2.1<a class="headerlink" href="#version-1-2-1" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-2-1"></span><h2>Version 1.2.1<a class="headerlink" href="#version-1-2-1" title="Permalink to this heading">¶</a></h2>
 <p>The version 1.2.1 is the first stable version that implements the new federal specification (published november 2017).
 Because this specification contains some new attributes (including mandatory attributes), and some renaming
 of attributes as compared to the previous version of the specification (implemented by pyramid_oereb
 in <a class="reference internal" href="#changes-version-1-1-0"><span class="std std-ref">Version 1.1.0</span></a>), you need to adapt your configuration and your models if you have used the previous version.</p>
 <section id="new-configuration-options-in-yml">
-<span id="changes-new-config-options-1-2-1"></span><h3>New configuration options in yml<a class="headerlink" href="#new-configuration-options-in-yml" title="Permalink to this headline">¶</a></h3>
+<span id="changes-new-config-options-1-2-1"></span><h3>New configuration options in yml<a class="headerlink" href="#new-configuration-options-in-yml" title="Permalink to this heading">¶</a></h3>
 <p>These are the new configuration options for your project (yml file):</p>
 <ul class="simple">
 <li><p>within the <code class="docutils literal notranslate"><span class="pre">plan_for_land_register</span></code> section:</p>
@@ -665,7 +664,7 @@ federal specification for the static extract.</p></li>
 <p>See the <a class="reference external" href="https://github.com/openoereb/pyramid_oereb/blob/v1.2.1/pyramid_oereb/standard/pyramid_oereb.yml.mako">pyramid_oereb_standard yml template</a>
 for the correct style of the configuration and an explanation of the new attributes.</p>
 <section id="mapfish-print">
-<span id="changes-new-config-mapfish-print-1-2-1"></span><h4>MapFish Print<a class="headerlink" href="#mapfish-print" title="Permalink to this headline">¶</a></h4>
+<span id="changes-new-config-mapfish-print-1-2-1"></span><h4>MapFish Print<a class="headerlink" href="#mapfish-print" title="Permalink to this heading">¶</a></h4>
 <p>These are the new configuration options for the printing of your extracts:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">display_real_estate_subunit_of_land_register</span></code>: flag whether to display the RealEstate_SubunitOfLandRegister (Grundbuchkreis)
@@ -677,7 +676,7 @@ for the correct style of the configuration.</p>
 </section>
 </section>
 <section id="id7">
-<h3>Database<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3>Database<a class="headerlink" href="#id7" title="Permalink to this heading">¶</a></h3>
 <p>In the standard database schema, the following has changed:</p>
 <ul class="simple">
 <li><p>Primary keys in the standard tables are now of type <code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code> (not <code class="docutils literal notranslate"><span class="pre">INTEGER</span></code>). Foreign key types need to be adapted accordingly as well.</p></li>
@@ -687,7 +686,7 @@ for the correct style of the configuration.</p>
 </section>
 </section>
 <section id="version-1-1-0">
-<span id="changes-version-1-1-0"></span><h2>Version 1.1.0<a class="headerlink" href="#version-1-1-0" title="Permalink to this headline">¶</a></h2>
+<span id="changes-version-1-1-0"></span><h2>Version 1.1.0<a class="headerlink" href="#version-1-1-0" title="Permalink to this heading">¶</a></h2>
 <p>The stable version 1.1.0 contains a lot of changes. It can be counted as the first version to be used in
 production mode. When you are updating from previous version to 1.1.0 you will have to adjust your yml file.
 Description below will try to classify new options whether they are <em>optional</em> or <strong>mandatory</strong> to use the
@@ -698,7 +697,7 @@ to your existing configuration or migrate your custom configuration into a newly
 <p>Here is a list of features this version additionally implements compared to
 <a class="reference external" href="https://github.com/openoereb/pyramid_oereb/releases/tag/v1.0.1">1.0.1</a>:</p>
 <section id="oereblex">
-<span id="changes-oereb-lex"></span><h3>OEREBlex<a class="headerlink" href="#oereblex" title="Permalink to this headline">¶</a></h3>
+<span id="changes-oereb-lex"></span><h3>OEREBlex<a class="headerlink" href="#oereblex" title="Permalink to this heading">¶</a></h3>
 <p>This version includes binding/adapter to oereb lex. The code can be found
 <a class="reference external" href="https://github.com/openoereb/pyramid_oereb/blob/v1.1.0/pyramid_oereb/contrib/sources/plr_oereblex.py">here</a>.
 This should enable you to use OEREBlex with a minimum of configuration.
@@ -1070,9 +1069,9 @@ your database you can map it the known way:</p>
 oereb lex source. See chapter <a class="reference internal" href="#changes-new-config-oereb-lex"><span class="std std-ref">OEREBlex</span></a> to know how.</p>
 </section>
 <section id="changes-new-config-options">
-<span id="id8"></span><h3>New configuration options in yml<a class="headerlink" href="#changes-new-config-options" title="Permalink to this headline">¶</a></h3>
+<span id="id8"></span><h3>New configuration options in yml<a class="headerlink" href="#changes-new-config-options" title="Permalink to this heading">¶</a></h3>
 <section id="changes-new-config-mapfish-print">
-<span id="id9"></span><h4>MapFish Print<a class="headerlink" href="#changes-new-config-mapfish-print" title="Permalink to this headline">¶</a></h4>
+<span id="id9"></span><h4>MapFish Print<a class="headerlink" href="#changes-new-config-mapfish-print" title="Permalink to this heading">¶</a></h4>
 <p>See the <a class="reference external" href="https://github.com/openoereb/pyramid_oereb/blob/v1.1.0/pyramid_oereb/standard/pyramid_oereb.yml.mako#L65">pyramid_oereb_standard.yml</a>
 for the correct style of the configuration.</p>
 <ul class="simple">
@@ -1117,7 +1116,7 @@ Otherwise a ‘-’ will be shown in resulting PDF.</p>
 this package.</p>
 </section>
 <section id="theme-configuration">
-<span id="changes-new-config-themes"></span><h4>Theme configuration<a class="headerlink" href="#theme-configuration" title="Permalink to this headline">¶</a></h4>
+<span id="changes-new-config-themes"></span><h4>Theme configuration<a class="headerlink" href="#theme-configuration" title="Permalink to this heading">¶</a></h4>
 <p>Each theme configuration block included a threshold configuration like this:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">thresholds</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">length</span><span class="p">:</span>
@@ -1145,7 +1144,7 @@ block looks ways simpler as follows:</p>
 </div>
 </section>
 <section id="changes-new-config-oereb-lex">
-<span id="id10"></span><h4>OEREBlex<a class="headerlink" href="#changes-new-config-oereb-lex" title="Permalink to this headline">¶</a></h4>
+<span id="id10"></span><h4>OEREBlex<a class="headerlink" href="#changes-new-config-oereb-lex" title="Permalink to this heading">¶</a></h4>
 <p>We assume you already defined your model mapping definition and your data is organized like described in
 chapter <a class="reference internal" href="#changes-oereb-lex"><span class="std std-ref">OEREBlex</span></a>. Then you only need to add/adjust your config in little details.</p>
 <p>The OEREBlex configuration is done in two places:</p>

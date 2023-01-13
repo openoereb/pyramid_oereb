@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Standard &mdash; pyramid_oereb  documentation</title>
@@ -12,9 +12,8 @@
   <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -31,7 +30,7 @@
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -45,8 +44,15 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Standard</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="sources.html">Sources</a></li>
 <li class="toctree-l2"><a class="reference internal" href="models/index.html">Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#functions-for-creating-standard-environment">Functions for creating standard environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#functions-used-as-configurable-hooks">Functions used as configurable hooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#functions-for-creating-standard-environment">Functions for creating standard environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pyramid_oereb.contrib.data_sources.create_tables.create_tables_from_standard_configuration"><code class="docutils literal notranslate"><span class="pre">create_tables_from_standard_configuration()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pyramid_oereb.contrib.data_sources.standard.load_legend_entries.create_legend_entries_in_standard_db"><code class="docutils literal notranslate"><span class="pre">create_legend_entries_in_standard_db()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#functions-used-as-configurable-hooks">Functions used as configurable hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol"><code class="docutils literal notranslate"><span class="pre">get_symbol()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../contrib/index.html">Contribution</a></li>
@@ -67,7 +73,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Standard</li>
       <li class="wy-breadcrumbs-aside">
       </li>
@@ -78,7 +84,7 @@
            <div itemprop="articleBody">
              
   <section id="standard">
-<h1>Standard<a class="headerlink" href="#standard" title="Permalink to this headline">¶</a></h1>
+<h1>Standard<a class="headerlink" href="#standard" title="Permalink to this heading">¶</a></h1>
 <p>The standard package is the part where all the database configuration is stored. It also provides really
 useful functions to integrate data, as well as creation of a YAML-configuration fitting this standard
 structure. In addition you will find here the hook methods which are used in several places in the
@@ -87,7 +93,7 @@ layer.</p>
 <div class="toctree-wrapper compound">
 </div>
 <section id="functions-for-creating-standard-environment">
-<h2>Functions for creating standard environment<a class="headerlink" href="#functions-for-creating-standard-environment" title="Permalink to this headline">¶</a></h2>
+<h2>Functions for creating standard environment<a class="headerlink" href="#functions-for-creating-standard-environment" title="Permalink to this heading">¶</a></h2>
 <span class="target" id="module-pyramid_oereb.contrib.data_sources.create_tables"><span id="api-pyramid-oereb-standard-create-tables"></span></span><dl class="py function">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.create_tables.create_tables_from_standard_configuration">
 <span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.create_tables.</span></span><span class="sig-name descname"><span class="pre">create_tables_from_standard_configuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configuration_yaml_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">section</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pyramid_oereb'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c2ctemplate_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tables_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sql_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">if_not_exists</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/create_tables.html#create_tables_from_standard_configuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.create_tables.create_tables_from_standard_configuration" title="Permalink to this definition">¶</a></dt>
@@ -96,7 +102,7 @@ must be camel case. It will be transformed to snake case and used as schema name
 Creates all tables inside the created schemas. This only affects the sqlalchemy models which are defined
 with the Base class from pyramid_oereb.standard.models.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>configuration_yaml_path</strong> (<em>str</em>) – The absolute path to the yaml file which contains the plr
 definitions.</p></li>
@@ -117,7 +123,7 @@ Default is False.</p></li>
 <dd><p>Uses the pyconizer core to create images out of the OEREB server configuration. It is creating symbols for
 a dedicated topic. This function will clean all previously created icons from database.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>config</strong> (<em>str</em>) – The path to the used OEREB server configuration YAML file.</p></li>
 <li><p><strong>topic_code</strong> (<em>str</em>) – The topic code for which the symbols should be created. It must be configured in
@@ -157,26 +163,26 @@ case insensitive.</p></li>
 
 </section>
 <section id="functions-used-as-configurable-hooks">
-<h2>Functions used as configurable hooks<a class="headerlink" href="#functions-used-as-configurable-hooks" title="Permalink to this headline">¶</a></h2>
+<h2>Functions used as configurable hooks<a class="headerlink" href="#functions-used-as-configurable-hooks" title="Permalink to this heading">¶</a></h2>
 <span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.hook_methods"><span id="api-pyramid-oereb-standard-hook-methods"></span></span><dl class="py function">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol">
 <span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.hook_methods.</span></span><span class="sig-name descname"><span class="pre">get_symbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theme_config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/data_sources/standard/hook_methods.html#get_symbol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the symbol for the requested theme and type code from database. It queries the model
 for the legend entry pyramid_oereb.contrib.data_sources.standard.models.get_legend_entry</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> (<em>dict</em>) – The URL parameters which were handed over via request.</p></li>
 <li><p><strong>theme_config</strong> (<em>dict</em>) – The configuration of the theme how it was set up in the YAML.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The image content and the mimetype of image.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>bytearray, str</p>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>HTTPNotFound</strong> – </p></li>
 <li><p><strong>HTTPServerError</strong> – </p></li>

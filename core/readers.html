@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Readers &mdash; pyramid_oereb  documentation</title>
@@ -12,9 +12,8 @@
   <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -31,7 +30,7 @@
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -46,24 +45,78 @@
 <li class="toctree-l1"><a class="reference internal" href="../contrib/index.html">Contribution</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Core</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Readers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#addressreader"><em>AddressReader</em></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#availabilityreader"><em>AvailabilityReader</em></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dataintegrationreader"><em>DataIntegrationReader</em></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#disclaimerreader"><em>DisclaimerReader</em></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#documentreader"><em>DocumentReader</em></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#documenttypereader"><em>DocumentTypeReader</em></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#extractreader"><em>ExtractReader</em></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#generalinformationreader"><em>GeneralInformationReader</em></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#glossaryreader"><em>GlossaryReader</em></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lawstatusreader"><em>LawStatusReader</em></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#logoreader"><em>LogoReader</em></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#maplayeringreader"><em>MapLayeringReader</em></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#municipalityreader"><em>MunicipalityReader</em></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#officereader"><em>OfficeReader</em></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#realestatereader"><em>RealEstateReader</em></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#realestatetypereader"><em>RealEstateTypeReader</em></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#themereader"><em>ThemeReader</em></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#themedocumentreader"><em>ThemeDocumentReader</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#addressreader"><em>AddressReader</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyramid_oereb.core.readers.address.AddressReader"><code class="docutils literal notranslate"><span class="pre">AddressReader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#availabilityreader"><em>AvailabilityReader</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyramid_oereb.core.readers.availability.AvailabilityReader"><code class="docutils literal notranslate"><span class="pre">AvailabilityReader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#dataintegrationreader"><em>DataIntegrationReader</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyramid_oereb.core.readers.data_integration.DataIntegrationReader"><code class="docutils literal notranslate"><span class="pre">DataIntegrationReader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#disclaimerreader"><em>DisclaimerReader</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyramid_oereb.core.readers.disclaimer.DisclaimerReader"><code class="docutils literal notranslate"><span class="pre">DisclaimerReader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#documentreader"><em>DocumentReader</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyramid_oereb.core.readers.document.DocumentReader"><code class="docutils literal notranslate"><span class="pre">DocumentReader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#documenttypereader"><em>DocumentTypeReader</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyramid_oereb.core.readers.document_types.DocumentTypeReader"><code class="docutils literal notranslate"><span class="pre">DocumentTypeReader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#extractreader"><em>ExtractReader</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyramid_oereb.core.readers.extract.ExtractReader"><code class="docutils literal notranslate"><span class="pre">ExtractReader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#generalinformationreader"><em>GeneralInformationReader</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyramid_oereb.core.readers.general_information.GeneralInformationReader"><code class="docutils literal notranslate"><span class="pre">GeneralInformationReader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#glossaryreader"><em>GlossaryReader</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyramid_oereb.core.readers.glossary.GlossaryReader"><code class="docutils literal notranslate"><span class="pre">GlossaryReader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#lawstatusreader"><em>LawStatusReader</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyramid_oereb.core.readers.law_status.LawStatusReader"><code class="docutils literal notranslate"><span class="pre">LawStatusReader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#logoreader"><em>LogoReader</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyramid_oereb.core.readers.logo.LogoReader"><code class="docutils literal notranslate"><span class="pre">LogoReader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#maplayeringreader"><em>MapLayeringReader</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyramid_oereb.core.readers.map_layering.MapLayeringReader"><code class="docutils literal notranslate"><span class="pre">MapLayeringReader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#municipalityreader"><em>MunicipalityReader</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyramid_oereb.core.readers.municipality.MunicipalityReader"><code class="docutils literal notranslate"><span class="pre">MunicipalityReader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#officereader"><em>OfficeReader</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyramid_oereb.core.readers.office.OfficeReader"><code class="docutils literal notranslate"><span class="pre">OfficeReader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#realestatereader"><em>RealEstateReader</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyramid_oereb.core.readers.real_estate.RealEstateReader"><code class="docutils literal notranslate"><span class="pre">RealEstateReader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#realestatetypereader"><em>RealEstateTypeReader</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyramid_oereb.core.readers.real_estate_type.RealEstateTypeReader"><code class="docutils literal notranslate"><span class="pre">RealEstateTypeReader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#themereader"><em>ThemeReader</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyramid_oereb.core.readers.theme.ThemeReader"><code class="docutils literal notranslate"><span class="pre">ThemeReader</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#themedocumentreader"><em>ThemeDocumentReader</em></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyramid_oereb.core.readers.theme_document.ThemeDocumentReader"><code class="docutils literal notranslate"><span class="pre">ThemeDocumentReader</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="records.html">Records</a></li>
@@ -86,7 +139,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Core</a></li>
       <li class="breadcrumb-item active">Readers</li>
       <li class="wy-breadcrumbs-aside">
@@ -98,7 +151,7 @@
            <div itemprop="articleBody">
              
   <section id="readers">
-<span id="id1"></span><h1>Readers<a class="headerlink" href="#readers" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>Readers<a class="headerlink" href="#readers" title="Permalink to this heading">¶</a></h1>
 <span class="target" id="module-pyramid_oereb.core.readers"><span id="api-pyramid-oereb-core-readers"></span></span><p>Regarding to the main documentation you find here all the stuff which is related to the reader layer. This
 layer is part of the core server application. It is addressed directly by the processor. Its main task is to
 call the user configured sources and read all the necessary records from them. This is the lowest core layer.</p>
@@ -107,7 +160,7 @@ call the user configured sources and read all the necessary records from them. T
 <p>This layer is not meant to be adapted in normal.</p>
 </div>
 <span class="target" id="module-pyramid_oereb.core.readers.address"><span id="api-pyramid-oereb-core-readers-address"></span></span><section id="addressreader">
-<span id="api-pyramid-oereb-core-readers-address-addressreader"></span><h2><em>AddressReader</em><a class="headerlink" href="#addressreader" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-core-readers-address-addressreader"></span><h2><em>AddressReader</em><a class="headerlink" href="#addressreader" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.address.AddressReader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.address.</span></span><span class="sig-name descname"><span class="pre">AddressReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/address.html#AddressReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.address.AddressReader" title="Permalink to this definition">¶</a></dt>
@@ -120,7 +173,7 @@ created on instantiation of this reader class by passing through the parameter k
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.address.AddressReader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/address.html#AddressReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.address.AddressReader.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dotted_source_class_path</strong> (<em>str</em><em> or </em><em>pyramid_oereb.lib.sources.address.AddressBaseSource</em>) – The path to the class which represents the source used by this reader. This
 class must exist and it must implement basic source behaviour of the
@@ -144,7 +197,7 @@ signature. Means the parameters must be the same and the return must be a list o
 works would be broken.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) – The parameters of the extract request.</p></li>
 <li><p><strong>street_name</strong> (<em>unicode</em>) – The name of the street for the desired address.</p></li>
@@ -152,11 +205,11 @@ works would be broken.</p>
 <li><p><strong>street_number</strong> (<em>str</em>) – The house or so called street number of the desired address.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The list of found records filtered by the passed criteria.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>list of pyramid_oereb.core.records.address.AddressRecord</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of <a class="reference internal" href="records.html#pyramid_oereb.core.records.address.AddressRecord" title="pyramid_oereb.core.records.address.AddressRecord">pyramid_oereb.core.records.address.AddressRecord</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -165,7 +218,7 @@ works would be broken.</p>
 
 <span class="target" id="module-pyramid_oereb.core.readers.availability"><span id="api-pyramid-oereb-core-readers-availability"></span></span></section>
 <section id="availabilityreader">
-<span id="api-pyramid-oereb-core-readers-availability-availabilityreader"></span><h2><em>AvailabilityReader</em><a class="headerlink" href="#availabilityreader" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-core-readers-availability-availabilityreader"></span><h2><em>AvailabilityReader</em><a class="headerlink" href="#availabilityreader" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.availability.AvailabilityReader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.availability.</span></span><span class="sig-name descname"><span class="pre">AvailabilityReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/availability.html#AvailabilityReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.availability.AvailabilityReader" title="Permalink to this definition">¶</a></dt>
@@ -178,7 +231,7 @@ the parameter kwargs.</p>
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.availability.AvailabilityReader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/availability.html#AvailabilityReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.availability.AvailabilityReader.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>or</strong> (<em>dotted_source_class_path</em><em> (</em><em>str</em>) – pyramid_oereb.core.sources.availability.AvailabilityBaseSource):
 The path to the class which represents the source used by this reader. This
@@ -203,12 +256,12 @@ must be a list of <a class="reference internal" href="records.html#api-pyramid-o
 Otherwise the API like way the server works would be broken.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
 contains all records delivered by the source.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>list of pyramid_oereb.core.records.availability.AvailabilityRecord</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of <a class="reference internal" href="records.html#pyramid_oereb.core.records.availability.AvailabilityRecord" title="pyramid_oereb.core.records.availability.AvailabilityRecord">pyramid_oereb.core.records.availability.AvailabilityRecord</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -217,7 +270,7 @@ contains all records delivered by the source.</p>
 
 <span class="target" id="module-pyramid_oereb.core.readers.data_integration"><span id="api-pyramid-oereb-core-readers-data-integration"></span></span></section>
 <section id="dataintegrationreader">
-<span id="api-pyramid-oereb-core-readers-data-integration-dataintegrationreader"></span><h2><em>DataIntegrationReader</em><a class="headerlink" href="#dataintegrationreader" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-core-readers-data-integration-dataintegrationreader"></span><h2><em>DataIntegrationReader</em><a class="headerlink" href="#dataintegrationreader" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.data_integration.DataIntegrationReader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.data_integration.</span></span><span class="sig-name descname"><span class="pre">DataIntegrationReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/data_integration.html#DataIntegrationReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.data_integration.DataIntegrationReader" title="Permalink to this definition">¶</a></dt>
@@ -230,7 +283,7 @@ the parameter kwargs.</p>
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.data_integration.DataIntegrationReader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/data_integration.html#DataIntegrationReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.data_integration.DataIntegrationReader.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>or</strong> (<em>dotted_source_class_path</em><em> (</em><em>str</em>) – pyramid_oereb.core.sources.data_integration.DataIntegrationBaseSource):
 The path to the class which represents the source used by this reader. This
@@ -256,12 +309,12 @@ must be a list of
 Otherwise the API like way the server works would be broken.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
 contains all records delivered by the source.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>list of pyramid_oereb.core.records.data_integration.DataIntegrationRecord</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of <a class="reference internal" href="records.html#pyramid_oereb.core.records.data_integration.DataIntegrationRecord" title="pyramid_oereb.core.records.data_integration.DataIntegrationRecord">pyramid_oereb.core.records.data_integration.DataIntegrationRecord</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -270,7 +323,7 @@ contains all records delivered by the source.</p>
 
 <span class="target" id="module-pyramid_oereb.core.readers.disclaimer"><span id="api-pyramid-oereb-core-readers-disclaimer"></span></span></section>
 <section id="disclaimerreader">
-<span id="api-pyramid-oereb-core-readers-disclaimer-disclaimerreader"></span><h2><em>DisclaimerReader</em><a class="headerlink" href="#disclaimerreader" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-core-readers-disclaimer-disclaimerreader"></span><h2><em>DisclaimerReader</em><a class="headerlink" href="#disclaimerreader" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.disclaimer.DisclaimerReader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.disclaimer.</span></span><span class="sig-name descname"><span class="pre">DisclaimerReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/disclaimer.html#DisclaimerReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.disclaimer.DisclaimerReader" title="Permalink to this definition">¶</a></dt>
@@ -283,7 +336,7 @@ the parameter kwargs.</p>
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.disclaimer.DisclaimerReader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/disclaimer.html#DisclaimerReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.disclaimer.DisclaimerReader.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>or</strong> (<em>dotted_source_class_path</em><em> (</em><em>str</em>) – pyramid_oereb.core.records.disclaimer.DisclaimerRecord):
 The path to the class which represents the source used by this reader. This
@@ -308,12 +361,12 @@ signature. Means the parameters must be the same and the return must be a list o
 the server works would be broken.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
 contains all records delivered by the source.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>list of pyramid_oereb.core.records.disclaimer.DisclaimerRecord</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of <a class="reference internal" href="records.html#pyramid_oereb.core.records.disclaimer.DisclaimerRecord" title="pyramid_oereb.core.records.disclaimer.DisclaimerRecord">pyramid_oereb.core.records.disclaimer.DisclaimerRecord</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -322,7 +375,7 @@ contains all records delivered by the source.</p>
 
 <span class="target" id="module-pyramid_oereb.core.readers.document"><span id="api-pyramid-oereb-core-readers-document"></span></span></section>
 <section id="documentreader">
-<span id="api-pyramid-oereb-core-readers-document-documentreader"></span><h2><em>DocumentReader</em><a class="headerlink" href="#documentreader" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-core-readers-document-documentreader"></span><h2><em>DocumentReader</em><a class="headerlink" href="#documentreader" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.document.DocumentReader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.document.</span></span><span class="sig-name descname"><span class="pre">DocumentReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/document.html#DocumentReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.document.DocumentReader" title="Permalink to this definition">¶</a></dt>
@@ -335,7 +388,7 @@ the parameter kwargs.</p>
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.document.DocumentReader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/document.html#DocumentReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.document.DocumentReader.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.document.DocumentBaseSource): The path to
 the class which represents the source used by this reader. This class must
@@ -360,12 +413,12 @@ signature. Means the parameters must be the same and the return must be a list o
 the server works would be broken.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
 contains all records delivered by the source.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>list of pyramid_oereb.core.records.documents.DocumentRecord</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of <a class="reference internal" href="records.html#pyramid_oereb.core.records.documents.DocumentRecord" title="pyramid_oereb.core.records.documents.DocumentRecord">pyramid_oereb.core.records.documents.DocumentRecord</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -374,7 +427,7 @@ contains all records delivered by the source.</p>
 
 <span class="target" id="module-pyramid_oereb.core.readers.document_types"><span id="api-pyramid-oereb-core-readers-document-types"></span></span></section>
 <section id="documenttypereader">
-<span id="api-pyramid-oereb-core-readers-document-types-documenttypereader"></span><h2><em>DocumentTypeReader</em><a class="headerlink" href="#documenttypereader" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-core-readers-document-types-documenttypereader"></span><h2><em>DocumentTypeReader</em><a class="headerlink" href="#documenttypereader" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.document_types.DocumentTypeReader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.document_types.</span></span><span class="sig-name descname"><span class="pre">DocumentTypeReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/document_types.html#DocumentTypeReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.document_types.DocumentTypeReader" title="Permalink to this definition">¶</a></dt>
@@ -387,7 +440,7 @@ the parameter kwargs.</p>
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.document_types.DocumentTypeReader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/document_types.html#DocumentTypeReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.document_types.DocumentTypeReader.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.document_types.DocumentTypesBaseSource): The path to
 the class which represents the source used by this reader. This class must
@@ -412,12 +465,12 @@ signature. Means the parameters must be the same and the return must be a list o
 API like way the server works would be broken.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
 contains all records delivered by the source.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>list of pyramid_oereb.core.records.document_types.DocumentTypeRecord</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of <a class="reference internal" href="records.html#pyramid_oereb.core.records.document_types.DocumentTypeRecord" title="pyramid_oereb.core.records.document_types.DocumentTypeRecord">pyramid_oereb.core.records.document_types.DocumentTypeRecord</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -426,7 +479,7 @@ contains all records delivered by the source.</p>
 
 <span class="target" id="module-pyramid_oereb.core.readers.extract"><span id="api-pyramid-oereb-core-readers-extract"></span></span></section>
 <section id="extractreader">
-<span id="api-pyramid-oereb-core-readers-extract-extractreader"></span><h2><em>ExtractReader</em><a class="headerlink" href="#extractreader" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-core-readers-extract-extractreader"></span><h2><em>ExtractReader</em><a class="headerlink" href="#extractreader" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.extract.ExtractReader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.extract.</span></span><span class="sig-name descname"><span class="pre">ExtractReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plr_sources</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plr_cadastre_authority</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/extract.html#ExtractReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.extract.ExtractReader" title="Permalink to this definition">¶</a></dt>
@@ -441,7 +494,7 @@ and extract related components are bound together.</p>
 representation. On initialisation this is None. It will be set by calling the read method of the
 instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pyramid_oereb.lib.records.extract.ExtractRecord or None</p>
 </dd>
 </dl>
@@ -451,9 +504,9 @@ instance.</p>
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.extract.ExtractReader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plr_sources</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plr_cadastre_authority</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/extract.html#ExtractReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.extract.ExtractReader.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>plr_sources</strong> (<em>list of pyramid_oereb.lib.sources.plr.PlrBaseSource</em>) – The list of PLR source
+<li><p><strong>plr_sources</strong> (<em>list</em><em> of </em><em>pyramid_oereb.lib.sources.plr.PlrBaseSource</em>) – The list of PLR source
 instances which the achieved extract should be about.</p></li>
 <li><p><strong>plr_cadastre_authority</strong> (<em>pyramid_oereb.lib.records.office.OfficeRecord</em>) – The authority responsible
 for the PLR cadastre.</p></li>
@@ -482,7 +535,7 @@ signature. Means the parameters must be the same and the return must be a
 works would be broken.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) – The parameters of the extract request.</p></li>
 <li><p><strong>real_estate</strong> (<em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em>) – The real
@@ -491,10 +544,10 @@ estate for which the report should be generated</p></li>
 record.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The extract record containing all gathered data.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pyramid_oereb.lib.records.extract.ExtractRecord</p>
 </dd>
 </dl>
@@ -504,7 +557,7 @@ record.</p></li>
 
 <span class="target" id="module-pyramid_oereb.core.readers.general_information"><span id="api-pyramid-oereb-core-readers-general-information"></span></span></section>
 <section id="generalinformationreader">
-<span id="api-pyramid-oereb-core-readers-general-information-generalinformationreader"></span><h2><em>GeneralInformationReader</em><a class="headerlink" href="#generalinformationreader" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-core-readers-general-information-generalinformationreader"></span><h2><em>GeneralInformationReader</em><a class="headerlink" href="#generalinformationreader" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.general_information.GeneralInformationReader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.general_information.</span></span><span class="sig-name descname"><span class="pre">GeneralInformationReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/general_information.html#GeneralInformationReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.general_information.GeneralInformationReader" title="Permalink to this definition">¶</a></dt>
@@ -517,7 +570,7 @@ the parameter kwargs.</p>
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.general_information.GeneralInformationReader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/general_information.html#GeneralInformationReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.general_information.GeneralInformationReader.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource): The path
 to the class which represents the source used by this reader. This class must
@@ -542,12 +595,12 @@ signature. Means the parameters must be the same and the return must be a list o
 Otherwise the API like way the server works would be broken.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
 contains all records delivered by the source.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>list of pyramid_oereb.core.records.general_information.GeneralInformationRecord</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of <a class="reference internal" href="records.html#pyramid_oereb.core.records.general_information.GeneralInformationRecord" title="pyramid_oereb.core.records.general_information.GeneralInformationRecord">pyramid_oereb.core.records.general_information.GeneralInformationRecord</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -556,7 +609,7 @@ contains all records delivered by the source.</p>
 
 <span class="target" id="module-pyramid_oereb.core.readers.glossary"><span id="api-pyramid-oereb-core-readers-glossary"></span></span></section>
 <section id="glossaryreader">
-<span id="api-pyramid-oereb-core-readers-glossary-glossaryreader"></span><h2><em>GlossaryReader</em><a class="headerlink" href="#glossaryreader" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-core-readers-glossary-glossaryreader"></span><h2><em>GlossaryReader</em><a class="headerlink" href="#glossaryreader" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.glossary.GlossaryReader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.glossary.</span></span><span class="sig-name descname"><span class="pre">GlossaryReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/glossary.html#GlossaryReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.glossary.GlossaryReader" title="Permalink to this definition">¶</a></dt>
@@ -569,7 +622,7 @@ the parameter kwargs.</p>
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.glossary.GlossaryReader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/glossary.html#GlossaryReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.glossary.GlossaryReader.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.glossary.GlossaryBaseSource): The path to
 the class which represents the source used by this reader. This class must
@@ -594,12 +647,12 @@ signature. Means the parameters must be the same and the return must be a list o
 the server works would be broken.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
 contains all records delivered by the source.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>list of pyramid_oereb.core.records.glossary.GlossaryRecord</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of <a class="reference internal" href="records.html#pyramid_oereb.core.records.glossary.GlossaryRecord" title="pyramid_oereb.core.records.glossary.GlossaryRecord">pyramid_oereb.core.records.glossary.GlossaryRecord</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -608,7 +661,7 @@ contains all records delivered by the source.</p>
 
 <span class="target" id="module-pyramid_oereb.core.readers.law_status"><span id="api-pyramid-oereb-core-readers-law-status"></span></span></section>
 <section id="lawstatusreader">
-<span id="api-pyramid-oereb-core-readers-law-status-lawstatusreader"></span><h2><em>LawStatusReader</em><a class="headerlink" href="#lawstatusreader" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-core-readers-law-status-lawstatusreader"></span><h2><em>LawStatusReader</em><a class="headerlink" href="#lawstatusreader" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.law_status.LawStatusReader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.law_status.</span></span><span class="sig-name descname"><span class="pre">LawStatusReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/law_status.html#LawStatusReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.law_status.LawStatusReader" title="Permalink to this definition">¶</a></dt>
@@ -621,7 +674,7 @@ the parameter kwargs.</p>
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.law_status.LawStatusReader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/law_status.html#LawStatusReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.law_status.LawStatusReader.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.lawstatus.LawStatusBaseSource): The path to
 the class which represents the source used by this reader. This class must
@@ -646,14 +699,14 @@ signature. Means the parameters must be the same and the return must be a list o
 Otherwise the API like way the server works would be broken.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) – The parameters of the extract request.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The list of found records. Since these are not filtered by any criteria the list simply
 contains all records delivered by the source.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list of pyramid_oereb.core.records.lawstatus.LawStatusRecord</p>
 </dd>
 </dl>
@@ -663,7 +716,7 @@ contains all records delivered by the source.</p>
 
 <span class="target" id="module-pyramid_oereb.core.readers.logo"><span id="api-pyramid-oereb-core-readers-logo"></span></span></section>
 <section id="logoreader">
-<span id="api-pyramid-oereb-core-readers-logo-logoreader"></span><h2><em>LogoReader</em><a class="headerlink" href="#logoreader" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-core-readers-logo-logoreader"></span><h2><em>LogoReader</em><a class="headerlink" href="#logoreader" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.logo.LogoReader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.logo.</span></span><span class="sig-name descname"><span class="pre">LogoReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/logo.html#LogoReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.logo.LogoReader" title="Permalink to this definition">¶</a></dt>
@@ -676,7 +729,7 @@ the parameter kwargs.</p>
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.logo.LogoReader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/logo.html#LogoReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.logo.LogoReader.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.logo.LogoBaseSource): The path to
 the class which represents the source used by this reader. This class must
@@ -701,12 +754,12 @@ signature. Means the parameters must be the same and the return must be a list o
 the server works would be broken.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
 contains all records delivered by the source.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>list of pyramid_oereb.core.records.logo.LogoRecord</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of <a class="reference internal" href="records.html#pyramid_oereb.core.records.logo.LogoRecord" title="pyramid_oereb.core.records.logo.LogoRecord">pyramid_oereb.core.records.logo.LogoRecord</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -715,7 +768,7 @@ contains all records delivered by the source.</p>
 
 <span class="target" id="module-pyramid_oereb.core.readers.map_layering"><span id="api-pyramid-oereb-core-readers-map-layering"></span></span></section>
 <section id="maplayeringreader">
-<span id="api-pyramid-oereb-core-readers-map-layering-maplayeringreader"></span><h2><em>MapLayeringReader</em><a class="headerlink" href="#maplayeringreader" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-core-readers-map-layering-maplayeringreader"></span><h2><em>MapLayeringReader</em><a class="headerlink" href="#maplayeringreader" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.map_layering.MapLayeringReader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.map_layering.</span></span><span class="sig-name descname"><span class="pre">MapLayeringReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/map_layering.html#MapLayeringReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.map_layering.MapLayeringReader" title="Permalink to this definition">¶</a></dt>
@@ -728,7 +781,7 @@ the parameter kwargs.</p>
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.map_layering.MapLayeringReader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/map_layering.html#MapLayeringReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.map_layering.MapLayeringReader.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.map_layering.MapLayeringBaseSource): The path to
 the class which represents the source used by this reader. This class must
@@ -753,15 +806,15 @@ signature. Means the parameters must be the same and the return must be a list o
 the server works would be broken.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) – The parameters of the extract request.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The list of found records. Since these are not filtered by any criteria the list simply
 contains all records delivered by the source.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>list of pyramid_oereb.core.records.map_layering.MapLayeringRecord</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of <a class="reference internal" href="records.html#pyramid_oereb.core.records.map_layering.MapLayeringRecord" title="pyramid_oereb.core.records.map_layering.MapLayeringRecord">pyramid_oereb.core.records.map_layering.MapLayeringRecord</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -770,7 +823,7 @@ contains all records delivered by the source.</p>
 
 <span class="target" id="module-pyramid_oereb.core.readers.municipality"><span id="api-pyramid-oereb-core-readers-municipality"></span></span></section>
 <section id="municipalityreader">
-<span id="api-pyramid-oereb-core-readers-municipality-municipalityreader"></span><h2><em>MunicipalityReader</em><a class="headerlink" href="#municipalityreader" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-core-readers-municipality-municipalityreader"></span><h2><em>MunicipalityReader</em><a class="headerlink" href="#municipalityreader" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.municipality.MunicipalityReader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.municipality.</span></span><span class="sig-name descname"><span class="pre">MunicipalityReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/municipality.html#MunicipalityReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.municipality.MunicipalityReader" title="Permalink to this definition">¶</a></dt>
@@ -783,7 +836,7 @@ the parameter kwargs.</p>
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.municipality.MunicipalityReader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/municipality.html#MunicipalityReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.municipality.MunicipalityReader.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.municipality.MunicipalityBaseSource): The
 path to the class which represents the source used by this reader. This class
@@ -808,11 +861,11 @@ signature. Means the parameters must be the same and the return must be a list o
 the server works would be broken.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The list of all found records. Since these are not filtered by any criteria the list simply
 contains all records delivered by the source.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>list of pyramid_oereb.lib.records.municipality.MunicipalityRecord</p>
 </dd>
 </dl>
@@ -822,7 +875,7 @@ contains all records delivered by the source.</p>
 
 <span class="target" id="module-pyramid_oereb.core.readers.office"><span id="api-pyramid-oereb-core-readers-office"></span></span></section>
 <section id="officereader">
-<span id="api-pyramid-oereb-core-readers-office-officereader"></span><h2><em>OfficeReader</em><a class="headerlink" href="#officereader" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-core-readers-office-officereader"></span><h2><em>OfficeReader</em><a class="headerlink" href="#officereader" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.office.OfficeReader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.office.</span></span><span class="sig-name descname"><span class="pre">OfficeReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/office.html#OfficeReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.office.OfficeReader" title="Permalink to this definition">¶</a></dt>
@@ -835,7 +888,7 @@ the parameter kwargs.</p>
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.office.OfficeReader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/office.html#OfficeReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.office.OfficeReader.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.office.OfficeBaseSource): The path to
 the class which represents the source used by this reader. This class must
@@ -860,12 +913,12 @@ signature. Means the parameters must be the same and the return must be a list o
 the server works would be broken.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
 contains all records delivered by the source.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>list of pyramid_oereb.core.records.office.OfficeRecord</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of <a class="reference internal" href="records.html#pyramid_oereb.core.records.office.OfficeRecord" title="pyramid_oereb.core.records.office.OfficeRecord">pyramid_oereb.core.records.office.OfficeRecord</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -874,7 +927,7 @@ contains all records delivered by the source.</p>
 
 <span class="target" id="module-pyramid_oereb.core.readers.real_estate"><span id="api-pyramid-oereb-core-readers-real-estate"></span></span></section>
 <section id="realestatereader">
-<span id="api-pyramid-oereb-core-readers-real-estate-realestatereader"></span><h2><em>RealEstateReader</em><a class="headerlink" href="#realestatereader" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-core-readers-real-estate-realestatereader"></span><h2><em>RealEstateReader</em><a class="headerlink" href="#realestatereader" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.real_estate.RealEstateReader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.real_estate.</span></span><span class="sig-name descname"><span class="pre">RealEstateReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/real_estate.html#RealEstateReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.real_estate.RealEstateReader" title="Permalink to this definition">¶</a></dt>
@@ -887,7 +940,7 @@ the parameter kwargs.</p>
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.real_estate.RealEstateReader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/real_estate.html#RealEstateReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.real_estate.RealEstateReader.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dotted_source_class_path</strong> (<em>str</em><em> or </em><em>pyramid_oereb.lib.sources.real_estate.RealEstateBaseSource</em>) – The
 path to the class which represents the source used by this reader. This class must exist and
@@ -912,7 +965,7 @@ signature. Means the parameters must be the same and the return must be a list o
 server works would be broken.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) – The parameters of the extract request.</p></li>
 <li><p><strong>nb_ident</strong> (<em>int</em><em> or </em><em>None</em>) – The identification number of the desired real estate. This
@@ -927,11 +980,11 @@ only one result or crashes.</p></li>
 estates. This may deliver several results.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The list of all found records filtered by the passed criteria.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>list of pyramid_oereb.core.records.real_estate.RealEstateRecord</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of <a class="reference internal" href="records.html#pyramid_oereb.core.records.real_estate.RealEstateRecord" title="pyramid_oereb.core.records.real_estate.RealEstateRecord">pyramid_oereb.core.records.real_estate.RealEstateRecord</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -940,7 +993,7 @@ estates. This may deliver several results.</p></li>
 
 <span class="target" id="module-pyramid_oereb.core.readers.real_estate_type"><span id="api-pyramid-oereb-core-readers-real-estate-type"></span></span></section>
 <section id="realestatetypereader">
-<span id="api-pyramid-oereb-core-readers-real-estate-type-realestatetypereader"></span><h2><em>RealEstateTypeReader</em><a class="headerlink" href="#realestatetypereader" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-core-readers-real-estate-type-realestatetypereader"></span><h2><em>RealEstateTypeReader</em><a class="headerlink" href="#realestatetypereader" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.real_estate_type.RealEstateTypeReader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.real_estate_type.</span></span><span class="sig-name descname"><span class="pre">RealEstateTypeReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/real_estate_type.html#RealEstateTypeReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.real_estate_type.RealEstateTypeReader" title="Permalink to this definition">¶</a></dt>
@@ -953,7 +1006,7 @@ the parameter kwargs.</p>
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.real_estate_type.RealEstateTypeReader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/real_estate_type.html#RealEstateTypeReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.real_estate_type.RealEstateTypeReader.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.realestatetype.RealEstateTypeBaseSource): The path to
 the class which represents the source used by this reader. This class must
@@ -978,11 +1031,11 @@ signature. Means the parameters must be the same and the return must be a list o
 Otherwise the API like way the server works would be broken.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
 contains all records delivered by the source.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>list of pyramid_oereb.core.records.realestatetype.RealEstateTypeRecord</p>
 </dd>
 </dl>
@@ -992,7 +1045,7 @@ contains all records delivered by the source.</p>
 
 <span class="target" id="module-pyramid_oereb.core.readers.theme"><span id="api-pyramid-oereb-core-readers-theme"></span></span></section>
 <section id="themereader">
-<span id="api-pyramid-oereb-core-readers-theme-themereader"></span><h2><em>ThemeReader</em><a class="headerlink" href="#themereader" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-core-readers-theme-themereader"></span><h2><em>ThemeReader</em><a class="headerlink" href="#themereader" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.theme.ThemeReader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.theme.</span></span><span class="sig-name descname"><span class="pre">ThemeReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/theme.html#ThemeReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.theme.ThemeReader" title="Permalink to this definition">¶</a></dt>
@@ -1005,7 +1058,7 @@ the parameter kwargs.</p>
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.theme.ThemeReader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/theme.html#ThemeReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.theme.ThemeReader.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.theme.ThemeBaseSource): The path to
 the class which represents the source used by this reader. This class must
@@ -1030,12 +1083,12 @@ signature. Means the parameters must be the same and the return must be a list o
 the server works would be broken.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
 contains all records delivered by the source.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>list of pyramid_oereb.core.records.theme.ThemeRecord</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of <a class="reference internal" href="records.html#pyramid_oereb.core.records.theme.ThemeRecord" title="pyramid_oereb.core.records.theme.ThemeRecord">pyramid_oereb.core.records.theme.ThemeRecord</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1044,7 +1097,7 @@ contains all records delivered by the source.</p>
 
 <span class="target" id="module-pyramid_oereb.core.readers.theme_document"><span id="api-pyramid-oereb-core-readers-theme-document"></span></span></section>
 <section id="themedocumentreader">
-<span id="api-pyramid-oereb-core-readers-theme-document-themedocumentreader"></span><h2><em>ThemeDocumentReader</em><a class="headerlink" href="#themedocumentreader" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-core-readers-theme-document-themedocumentreader"></span><h2><em>ThemeDocumentReader</em><a class="headerlink" href="#themedocumentreader" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.theme_document.ThemeDocumentReader">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.theme_document.</span></span><span class="sig-name descname"><span class="pre">ThemeDocumentReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/theme_document.html#ThemeDocumentReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.theme_document.ThemeDocumentReader" title="Permalink to this definition">¶</a></dt>
@@ -1057,7 +1110,7 @@ the parameter kwargs.</p>
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.theme_document.ThemeDocumentReader.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/theme_document.html#ThemeDocumentReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.theme_document.ThemeDocumentReader.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.theme_document.ThemeDocumentBaseSource): The path to
 the class which represents the source used by this reader. This class must
@@ -1082,12 +1135,12 @@ signature. Means the parameters must be the same and the return must be a list o
 API like way the server works would be broken.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The list of found records. Since these are not filtered by any criteria the list simply
 contains all records delivered by the source.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>list of pyramid_oereb.core.records.theme_document.ThemeDocumentRecord</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of <a class="reference internal" href="records.html#pyramid_oereb.core.records.theme_document.ThemeDocumentRecord" title="pyramid_oereb.core.records.theme_document.ThemeDocumentRecord">pyramid_oereb.core.records.theme_document.ThemeDocumentRecord</a></p>
 </dd>
 </dl>
 </dd></dl>

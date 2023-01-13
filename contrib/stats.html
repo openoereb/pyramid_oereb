@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Statistics &mdash; pyramid_oereb  documentation</title>
@@ -12,9 +12,8 @@
   <![endif]-->
   
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -31,7 +30,7 @@
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -77,7 +76,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Contribution</a></li>
       <li class="breadcrumb-item active">Statistics</li>
       <li class="wy-breadcrumbs-aside">
@@ -89,7 +88,7 @@
            <div itemprop="articleBody">
              
   <section id="statistics">
-<span id="contrib-stats"></span><h1>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h1>
+<span id="contrib-stats"></span><h1>Statistics<a class="headerlink" href="#statistics" title="Permalink to this heading">¶</a></h1>
 <p>The statistics functionality allows you to gather usage information within pyramid_oereb
 itself. The data gathered will be persisted in user defined configured database,
 allowing the operator or owner of the application to query at any time
@@ -129,7 +128,7 @@ complete example of such an ini file. Example of a configuration suitable for us
 <li><p>a string: the blacklist regex</p></li>
 </ul>
 <section id="db-connection-information">
-<h2>db connection information<a class="headerlink" href="#db-connection-information" title="Permalink to this headline">¶</a></h2>
+<h2>db connection information<a class="headerlink" href="#db-connection-information" title="Permalink to this heading">¶</a></h2>
 <p>The db connection information is a dictionary containing:</p>
 <ul class="simple">
 <li><p><em>url</em> (mandatory): a db connection string compatible with sqlalchemy. Currently only sqlite and postgresql are supported. If using Docker, the db connection information has to be supplied in a file named <em>.env</em> at the root of the project (see file <em>sample.env</em> for an example)</p></li>
@@ -144,7 +143,7 @@ complete example of such an ini file. Example of a configuration suitable for us
 <p>The sql logger source code with its documentation can be found here: <a class="reference external" href="https://github.com/camptocamp/c2cwsgiutils/tree/3.9.0/c2cwsgiutils/sqlalchemylogger">https://github.com/camptocamp/c2cwsgiutils/tree/3.9.0/c2cwsgiutils/sqlalchemylogger</a></p>
 </section>
 <section id="blacklisting">
-<h2>Blacklisting<a class="headerlink" href="#blacklisting" title="Permalink to this headline">¶</a></h2>
+<h2>Blacklisting<a class="headerlink" href="#blacklisting" title="Permalink to this heading">¶</a></h2>
 <p>This is useful to avoid gathering statistics for non-relevant access logs, such as healthchecks.</p>
 <p>The blacklist regex is any string compatible with the python module <em>re</em>. It will be compiled and used to avoid writing in the DB the logs that
 match the given regex.  Please bear in mind that anything within the log that matches the
@@ -154,9 +153,9 @@ requests, which should be accounted in the statistics instead.</p>
 then you should at least set ‘healtcheck’ explicitely and the logger will avoid writing any log containing the word healthcheck.</p>
 </section>
 <section id="implementation">
-<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h2>
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">¶</a></h2>
 <span class="target" id="module-pyramid_oereb.contrib.stats"><span id="api-pyramid-oereb-contrib-stats"></span></span><span class="target" id="module-pyramid_oereb.contrib.stats.decorators"><span id="api-pyramid-oereb-contrib-stats-decorators"></span></span><section id="decorators-oerebstats">
-<span id="api-pyramid-oereb-contrib-stats-decorators-oerebstats"></span><h3><em>Decorators OerebStats</em><a class="headerlink" href="#decorators-oerebstats" title="Permalink to this headline">¶</a></h3>
+<span id="api-pyramid-oereb-contrib-stats-decorators-oerebstats"></span><h3><em>Decorators OerebStats</em><a class="headerlink" href="#decorators-oerebstats" title="Permalink to this heading">¶</a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.stats.decorators.OerebStats">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.stats.decorators.</span></span><span class="sig-name descname"><span class="pre">OerebStats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/stats/decorators.html#OerebStats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats" title="Permalink to this definition">¶</a></dt>

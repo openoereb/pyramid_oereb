@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Configuration &mdash; pyramid_oereb  documentation</title>
@@ -12,9 +12,8 @@
   <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -31,7 +30,7 @@
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -67,7 +66,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Configuration</li>
       <li class="wy-breadcrumbs-aside">
       </li>
@@ -78,7 +77,7 @@
            <div itemprop="articleBody">
              
   <section id="configuration">
-<span id="id1"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h1>
 <p>You are looking at a highly configurable piece of software. To get the right understanding of the server it
 is recommended to read this part carefully.</p>
 <p>Since the swiss confederation’s definition and the specification for the <a class="reference external" href="https://www.cadastre.ch/content/cadastre-internet/de/manual-oereb/publication/publication.download/cadastre-internet/de/documents/oereb-weisungen/OEREB-Data-Extract_de.pdf">OEREB Data Extract</a> is really straight,
@@ -89,7 +88,7 @@ data to this server. And this is basically what you need to configure.</p>
 even custom data sources. If you are planning to use such modifications, we suggest to check all possible
 solutions first, as the necessary effort can vary significantly depending on your specific needs.</p>
 <section id="add-additional-topics">
-<span id="configuration-additional-topics"></span><h2>Add additional topics<a class="headerlink" href="#add-additional-topics" title="Permalink to this headline">¶</a></h2>
+<span id="configuration-additional-topics"></span><h2>Add additional topics<a class="headerlink" href="#add-additional-topics" title="Permalink to this heading">¶</a></h2>
 <p>If you only need to add one or more additional cantonal topics and want to use the standard database structure
 for these too, you can run a provided script to generate the required models.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>create_standard_model<span class="w"> </span>-c<span class="w"> </span>&lt;YOUR_NEW_TOPIC_CODE&gt;<span class="w"> </span>-g<span class="w"> </span>&lt;GEOMETRY_TYPE&gt;<span class="w"> </span>-p<span class="w"> </span>&lt;TARGET_PATH&gt;<span class="w"> </span>-k<span class="w"> </span>TRUE
@@ -149,7 +148,7 @@ with the generated models of the former step.</p>
 <p>Now you have set up an empty additional topic and you can continued with deploying your data into it.</p>
 </section>
 <section id="add-an-oereblex-topic">
-<h2>Add an oereblex topic<a class="headerlink" href="#add-an-oereblex-topic" title="Permalink to this headline">¶</a></h2>
+<h2>Add an oereblex topic<a class="headerlink" href="#add-an-oereblex-topic" title="Permalink to this heading">¶</a></h2>
 <p>If you want to use oereblex for a topic, you can proceed as described in the previous section,
 but using a different script to generate the required models.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>create_oereblex_model<span class="w"> </span>-c<span class="w"> </span>&lt;YOUR_NEW_TOPIC_CODE&gt;<span class="w"> </span>-g<span class="w"> </span>&lt;GEOMETRY_TYPE&gt;<span class="w"> </span>-p<span class="w"> </span>&lt;TARGET_PATH&gt;<span class="w"> </span>-k<span class="w"> </span>TRUE
@@ -157,7 +156,7 @@ but using a different script to generate the required models.</p>
 </div>
 </section>
 <section id="adapt-existing-models">
-<span id="configuration-adapt-models"></span><h2>Adapt existing models<a class="headerlink" href="#adapt-existing-models" title="Permalink to this headline">¶</a></h2>
+<span id="configuration-adapt-models"></span><h2>Adapt existing models<a class="headerlink" href="#adapt-existing-models" title="Permalink to this heading">¶</a></h2>
 <p>Another option to modify the standard configuration, is to adapt the existing models to fit another database
 structure. This method is recommended if you are using an existing database supported by GeoAlchemy 2 and
 already containing all the necessary data but in a different structure. In this case you should check, if it
@@ -216,7 +215,7 @@ source.</p>
 </div>
 </section>
 <section id="create-custom-sources">
-<span id="configuration-create-sources"></span><h2>Create custom sources<a class="headerlink" href="#create-custom-sources" title="Permalink to this headline">¶</a></h2>
+<span id="configuration-create-sources"></span><h2>Create custom sources<a class="headerlink" href="#create-custom-sources" title="Permalink to this heading">¶</a></h2>
 <p>If the possibilities described above do not fit your needs, you can implement your own sources. This is the
 only possible way, if their are no existing sources available to access your data. For example, this could be
 the case, if you are trying to access a kind of file system or some other proprietary data source.</p>

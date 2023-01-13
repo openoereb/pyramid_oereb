@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Main &mdash; pyramid_oereb  documentation</title>
@@ -12,9 +12,8 @@
   <![endif]-->
   
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -31,7 +30,7 @@
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -89,7 +88,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Standard</a></li>
           <li class="breadcrumb-item"><a href="index.html">Models</a></li>
       <li class="breadcrumb-item active"><em>Main</em></li>
@@ -102,7 +101,7 @@
            <div itemprop="articleBody">
              
   <section id="module-pyramid_oereb.contrib.data_sources.standard.models.main">
-<span id="main"></span><span id="api-pyramid-oereb-contrib-data-sources-standard-models-main"></span><h1><em>Main</em><a class="headerlink" href="#module-pyramid_oereb.contrib.data_sources.standard.models.main" title="Permalink to this headline">¶</a></h1>
+<span id="main"></span><span id="api-pyramid-oereb-contrib-data-sources-standard-models-main"></span><h1><em>Main</em><a class="headerlink" href="#module-pyramid_oereb.contrib.data_sources.standard.models.main" title="Permalink to this heading">¶</a></h1>
 <p>This is representing the applications working data schema. It provides buckets for general data you will need
 to run this application in standard mode.
 The buckets are:</p>
@@ -127,7 +126,7 @@ the behaviour of the ORM’s here. This means the names class variables as well 
 variables.</p>
 </div>
 <section id="address">
-<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-address"></span><h2>Address<a class="headerlink" href="#address" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-address"></span><h2>Address<a class="headerlink" href="#address" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.main.Address">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.main.</span></span><span class="sig-name descname"><span class="pre">Address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#Address"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Address" title="Permalink to this definition">¶</a></dt>
@@ -139,7 +138,7 @@ a service here but if you like you can use it.</p>
 <span class="sig-name descname"><span class="pre">street_name</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Address.street_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The street name for this address.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>unicode</p>
 </dd>
 </dl>
@@ -150,7 +149,7 @@ a service here but if you like you can use it.</p>
 <span class="sig-name descname"><span class="pre">street_number</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Address.street_number" title="Permalink to this definition">¶</a></dt>
 <dd><p>The house number of this address.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -161,7 +160,7 @@ a service here but if you like you can use it.</p>
 <span class="sig-name descname"><span class="pre">zip_code</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Address.zip_code" title="Permalink to this definition">¶</a></dt>
 <dd><p>The ZIP code for this address.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
@@ -175,7 +174,7 @@ see <a class="reference external" href="https://geoalchemy-2.readthedocs.io/en/0
 docs dependent on the
 configured type.  This concrete one is POINT</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>geoalchemy2.types.Geometry</p>
 </dd>
 </dl>
@@ -196,7 +195,7 @@ for example, any mapped columns or relationships.</p>
 
 </section>
 <section id="availability">
-<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-availability"></span><h2>Availability<a class="headerlink" href="#availability" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-availability"></span><h2>Availability<a class="headerlink" href="#availability" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.main.Availability">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.main.</span></span><span class="sig-name descname"><span class="pre">Availability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#Availability"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Availability" title="Permalink to this definition">¶</a></dt>
@@ -217,7 +216,7 @@ published to True (explicit configuration) or leave the table empty
 <span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Availability.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>The identifier of this list. It is used in DB only.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -228,7 +227,7 @@ published to True (explicit configuration) or leave the table empty
 <span class="sig-name descname"><span class="pre">municipality_fosnr</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Availability.municipality_fosnr" title="Permalink to this definition">¶</a></dt>
 <dd><p>The municipality identifier which the switch element belongs to.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
@@ -239,7 +238,7 @@ published to True (explicit configuration) or leave the table empty
 <span class="sig-name descname"><span class="pre">theme_code</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Availability.theme_code" title="Permalink to this definition">¶</a></dt>
 <dd><p>the theme code which this switch element belongs to.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -250,7 +249,7 @@ published to True (explicit configuration) or leave the table empty
 <span class="sig-name descname"><span class="pre">available</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Availability.available" title="Permalink to this definition">¶</a></dt>
 <dd><p>Switch wether the element is published or not.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
@@ -271,7 +270,7 @@ for example, any mapped columns or relationships.</p>
 
 </section>
 <section id="dataintegration">
-<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-dataintegration"></span><h2>DataIntegration<a class="headerlink" href="#dataintegration" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-dataintegration"></span><h2>DataIntegration<a class="headerlink" href="#dataintegration" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.main.DataIntegration">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.main.</span></span><span class="sig-name descname"><span class="pre">DataIntegration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#DataIntegration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.DataIntegration" title="Permalink to this definition">¶</a></dt>
@@ -283,7 +282,7 @@ office to be able to find out who was the delivering instance.</p>
 <dd><p>The identifier. This is used in the database only and must not be set manually. If
 you  don’t like it - don’t care about.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -294,7 +293,7 @@ you  don’t like it - don’t care about.</p>
 <span class="sig-name descname"><span class="pre">date</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.DataIntegration.date" title="Permalink to this definition">¶</a></dt>
 <dd><p>The date when this data set was delivered.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>datetime.date</p>
 </dd>
 </dl>
@@ -305,7 +304,7 @@ you  don’t like it - don’t care about.</p>
 <span class="sig-name descname"><span class="pre">theme_code</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.DataIntegration.theme_code" title="Permalink to this definition">¶</a></dt>
 <dd><p>the theme code which this switch element belongs to.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -316,7 +315,7 @@ you  don’t like it - don’t care about.</p>
 <span class="sig-name descname"><span class="pre">office_id</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.DataIntegration.office_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>A foreign key which points to the actual office instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -327,7 +326,7 @@ you  don’t like it - don’t care about.</p>
 <span class="sig-name descname"><span class="pre">office</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.DataIntegration.office" title="Permalink to this definition">¶</a></dt>
 <dd><p>The actual office instance which the id points to.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pyramid_oereb.standard.models.airports_building_lines.Office</p>
 </dd>
 </dl>
@@ -339,7 +338,7 @@ you  don’t like it - don’t care about.</p>
 <dd><p>A checksum to persist the data state which is in the db. It is thought
 to be a helper field to check if import is necessary.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -360,7 +359,7 @@ for example, any mapped columns or relationships.</p>
 
 </section>
 <section id="disclaimer">
-<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-disclaimer"></span><h2>Disclaimer<a class="headerlink" href="#disclaimer" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-disclaimer"></span><h2>Disclaimer<a class="headerlink" href="#disclaimer" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.main.</span></span><span class="sig-name descname"><span class="pre">Disclaimer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#Disclaimer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer" title="Permalink to this definition">¶</a></dt>
@@ -370,7 +369,7 @@ for example, any mapped columns or relationships.</p>
 <span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>identifier and primary key, used in the database only</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -381,7 +380,7 @@ for example, any mapped columns or relationships.</p>
 <span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer.title" title="Permalink to this definition">¶</a></dt>
 <dd><p>The title which the disclaimer item has.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -392,7 +391,7 @@ for example, any mapped columns or relationships.</p>
 <span class="sig-name descname"><span class="pre">content</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer.content" title="Permalink to this definition">¶</a></dt>
 <dd><p>The content which the disclaimer item has.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -413,7 +412,7 @@ for example, any mapped columns or relationships.</p>
 
 </section>
 <section id="documenttypetext">
-<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-documenttypetext"></span><h2>DocumentTypeText<a class="headerlink" href="#documenttypetext" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-documenttypetext"></span><h2>DocumentTypeText<a class="headerlink" href="#documenttypetext" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.main.</span></span><span class="sig-name descname"><span class="pre">DocumentTypeText</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#DocumentTypeText"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText" title="Permalink to this definition">¶</a></dt>
@@ -423,7 +422,7 @@ for example, any mapped columns or relationships.</p>
 <span class="sig-name descname"><span class="pre">code</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText.code" title="Permalink to this definition">¶</a></dt>
 <dd><p>The identifier given by a code</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -434,7 +433,7 @@ for example, any mapped columns or relationships.</p>
 <span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText.title" title="Permalink to this definition">¶</a></dt>
 <dd><p>The display name for the document type</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -455,7 +454,7 @@ for example, any mapped columns or relationships.</p>
 
 </section>
 <section id="generalinformation">
-<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-generalinformation"></span><h2>GeneralInformation<a class="headerlink" href="#generalinformation" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-generalinformation"></span><h2>GeneralInformation<a class="headerlink" href="#generalinformation" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.main.</span></span><span class="sig-name descname"><span class="pre">GeneralInformation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#GeneralInformation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation" title="Permalink to this definition">¶</a></dt>
@@ -465,7 +464,7 @@ for example, any mapped columns or relationships.</p>
 <span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>identifier and primary key, used in the database only</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -476,7 +475,7 @@ for example, any mapped columns or relationships.</p>
 <span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation.title" title="Permalink to this definition">¶</a></dt>
 <dd><p>The title of the general information (multilingual)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
@@ -487,7 +486,7 @@ for example, any mapped columns or relationships.</p>
 <span class="sig-name descname"><span class="pre">content</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation.content" title="Permalink to this definition">¶</a></dt>
 <dd><p>The actual information (multilingual)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
@@ -508,7 +507,7 @@ for example, any mapped columns or relationships.</p>
 
 </section>
 <section id="glossary">
-<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-glossary"></span><h2>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-glossary"></span><h2>Glossary<a class="headerlink" href="#glossary" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.main.Glossary">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.main.</span></span><span class="sig-name descname"><span class="pre">Glossary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#Glossary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Glossary" title="Permalink to this definition">¶</a></dt>
@@ -518,7 +517,7 @@ for example, any mapped columns or relationships.</p>
 <span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Glossary.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>identifier and primary key, used in the database only</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -529,7 +528,7 @@ for example, any mapped columns or relationships.</p>
 <span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Glossary.title" title="Permalink to this definition">¶</a></dt>
 <dd><p>The title or abbreviation of a glossary item.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -540,7 +539,7 @@ for example, any mapped columns or relationships.</p>
 <span class="sig-name descname"><span class="pre">content</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Glossary.content" title="Permalink to this definition">¶</a></dt>
 <dd><p>The description or definition of a glossary item.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -561,7 +560,7 @@ for example, any mapped columns or relationships.</p>
 
 </section>
 <section id="lawstatus">
-<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-lawstatus"></span><h2>LawStatus<a class="headerlink" href="#lawstatus" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-lawstatus"></span><h2>LawStatus<a class="headerlink" href="#lawstatus" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.main.</span></span><span class="sig-name descname"><span class="pre">LawStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#LawStatus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus" title="Permalink to this definition">¶</a></dt>
@@ -571,7 +570,7 @@ should have access to, for creating extracts.
 <blockquote>
 <div><p>The identifier on federal level.</p>
 <dl class="field-list simple">
-<dt class="field-odd">type</dt>
+<dt class="field-odd">type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -581,7 +580,7 @@ should have access to, for creating extracts.
 <span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus.title" title="Permalink to this definition">¶</a></dt>
 <dd><p>The text for the multilingual text.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>JSONType</p>
 </dd>
 </dl>
@@ -602,7 +601,7 @@ for example, any mapped columns or relationships.</p>
 
 </section>
 <section id="logo">
-<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-logo"></span><h2>Logo<a class="headerlink" href="#logo" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-logo"></span><h2>Logo<a class="headerlink" href="#logo" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.main.Logo">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.main.</span></span><span class="sig-name descname"><span class="pre">Logo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#Logo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Logo" title="Permalink to this definition">¶</a></dt>
@@ -612,7 +611,7 @@ for example, any mapped columns or relationships.</p>
 <span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Logo.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>identifier and primary key, used in the database only</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -623,7 +622,7 @@ for example, any mapped columns or relationships.</p>
 <span class="sig-name descname"><span class="pre">code</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Logo.code" title="Permalink to this definition">¶</a></dt>
 <dd><p>The identifier given by a code</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -634,7 +633,7 @@ for example, any mapped columns or relationships.</p>
 <span class="sig-name descname"><span class="pre">logo</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Logo.logo" title="Permalink to this definition">¶</a></dt>
 <dd><p>The image encoded in base64</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
@@ -655,7 +654,7 @@ for example, any mapped columns or relationships.</p>
 
 </section>
 <section id="maplayering">
-<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-maplayering"></span><h2>MapLayering<a class="headerlink" href="#maplayering" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-maplayering"></span><h2>MapLayering<a class="headerlink" href="#maplayering" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.main.</span></span><span class="sig-name descname"><span class="pre">MapLayering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#MapLayering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering" title="Permalink to this definition">¶</a></dt>
@@ -664,7 +663,7 @@ for example, any mapped columns or relationships.</p>
 <span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>identifier and primary key, used in the database only</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -675,7 +674,7 @@ for example, any mapped columns or relationships.</p>
 <span class="sig-name descname"><span class="pre">view_service</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering.view_service" title="Permalink to this definition">¶</a></dt>
 <dd><p>Darstellungsdienst</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
@@ -686,7 +685,7 @@ for example, any mapped columns or relationships.</p>
 <span class="sig-name descname"><span class="pre">layer_index</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering.layer_index" title="Permalink to this definition">¶</a></dt>
 <dd><p>Index for sorting the layering of the view services for a theme</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
@@ -697,7 +696,7 @@ for example, any mapped columns or relationships.</p>
 <span class="sig-name descname"><span class="pre">layer_opacity</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering.layer_opacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Opacity of a view service</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
 </dd>
 </dl>
@@ -718,7 +717,7 @@ for example, any mapped columns or relationships.</p>
 
 </section>
 <section id="municipality">
-<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-municipality"></span><h2>Municipality<a class="headerlink" href="#municipality" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-municipality"></span><h2>Municipality<a class="headerlink" href="#municipality" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.main.Municipality">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.main.</span></span><span class="sig-name descname"><span class="pre">Municipality</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#Municipality"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Municipality" title="Permalink to this definition">¶</a></dt>
@@ -731,7 +730,7 @@ a municipality is published or not.</p>
 <dd><p>The identifier of the municipality. It is the commonly known id_bfs or as or
 nofs in the  french part.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
@@ -742,7 +741,7 @@ nofs in the  french part.</p>
 <span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Municipality.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Name of the municipality.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -754,7 +753,7 @@ nofs in the  french part.</p>
 <dd><p>Switch whether a municipality is published or not. This has direct
 influence on extract  generation.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>bool</p>
 </dd>
 </dl>
@@ -768,7 +767,7 @@ information see <a class="reference external" href="https://geoalchemy-2.readthe
 docs dependent on the
 configured type.  This concrete one is MULTIPOLYGON</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>geoalchemy2.types.Geometry</p>
 </dd>
 </dl>
@@ -789,7 +788,7 @@ for example, any mapped columns or relationships.</p>
 
 </section>
 <section id="realestate">
-<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-realestate"></span><h2>RealEstate<a class="headerlink" href="#realestate" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-realestate"></span><h2>RealEstate<a class="headerlink" href="#realestate" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.main.</span></span><span class="sig-name descname"><span class="pre">RealEstate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#RealEstate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate" title="Permalink to this definition">¶</a></dt>
@@ -801,7 +800,7 @@ creating extracts.</p>
 <dd><p>The identifier. This is used in the database only and must not be set manually. If
 you  don’t like it - don’t care about.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
@@ -812,7 +811,7 @@ you  don’t like it - don’t care about.</p>
 <span class="sig-name descname"><span class="pre">identdn</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.identdn" title="Permalink to this definition">¶</a></dt>
 <dd><p>The identifier on cantonal level.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -823,7 +822,7 @@ you  don’t like it - don’t care about.</p>
 <span class="sig-name descname"><span class="pre">number</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.number" title="Permalink to this definition">¶</a></dt>
 <dd><p>The identifier on municipality level.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -834,7 +833,7 @@ you  don’t like it - don’t care about.</p>
 <span class="sig-name descname"><span class="pre">egrid</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.egrid" title="Permalink to this definition">¶</a></dt>
 <dd><p>The identifier on federal level (the all unique one…)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -845,7 +844,7 @@ you  don’t like it - don’t care about.</p>
 <span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.type" title="Permalink to this definition">¶</a></dt>
 <dd><p>The type of the real estate (This must base on DM01)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -857,7 +856,7 @@ you  don’t like it - don’t care about.</p>
 <dd><p>Which canton this real estate is situated in (use official shortened Version
 here. e.g. ‘BE’)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -868,7 +867,7 @@ here. e.g. ‘BE’)</p>
 <span class="sig-name descname"><span class="pre">municipality</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.municipality" title="Permalink to this definition">¶</a></dt>
 <dd><p>The name of the municipality this real estate is situated in.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -881,7 +880,7 @@ here. e.g. ‘BE’)</p>
 municipality in  combination with number does not offer a unique constraint.
 Else you can skip that.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -893,7 +892,7 @@ Else you can skip that.</p>
 <dd><p>The maybe existing cantonal description
 of the subunit_of_land_register e.g. «Grundbuchkreis», «Sektion», «Fraktion» etc.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -904,7 +903,7 @@ of the subunit_of_land_register e.g. «Grundbuchkreis», «Sektion», «Fraktion
 <span class="sig-name descname"><span class="pre">fosnr</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate.fosnr" title="Permalink to this definition">¶</a></dt>
 <dd><p>The identifier of the municipality. It is the commonly known id_bfs.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
@@ -916,7 +915,7 @@ of the subunit_of_land_register e.g. «Grundbuchkreis», «Sektion», «Fraktion
 <dd><p>A link to the metadata which this geometry is
 based on which is  delivering a machine readable response format (XML).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -928,7 +927,7 @@ based on which is  delivering a machine readable response format (XML).</p>
 <dd><p>The amount of the area of this real estate as it is declared in
 the land  registers information.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -942,7 +941,7 @@ information see <a class="reference external" href="https://geoalchemy-2.readthe
 docs dependent on the
 configured type. This concrete one is MULTIPOLYGON</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>geoalchemy2.types.Geometry</p>
 </dd>
 </dl>
@@ -963,7 +962,7 @@ for example, any mapped columns or relationships.</p>
 
 </section>
 <section id="realestatetype">
-<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-realestatetype"></span><h2>RealEstateType<a class="headerlink" href="#realestatetype" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-realestatetype"></span><h2>RealEstateType<a class="headerlink" href="#realestatetype" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.main.</span></span><span class="sig-name descname"><span class="pre">RealEstateType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#RealEstateType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType" title="Permalink to this definition">¶</a></dt>
@@ -974,7 +973,7 @@ should have access to, for creating extracts.</p>
 <span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>identifier and primary key, used in the database only</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -985,7 +984,7 @@ should have access to, for creating extracts.</p>
 <span class="sig-name descname"><span class="pre">code</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType.code" title="Permalink to this definition">¶</a></dt>
 <dd><p>The identifier on federal level.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -996,7 +995,7 @@ should have access to, for creating extracts.</p>
 <span class="sig-name descname"><span class="pre">text</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType.text" title="Permalink to this definition">¶</a></dt>
 <dd><p>The text for the multilingual text.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -1017,7 +1016,7 @@ for example, any mapped columns or relationships.</p>
 
 </section>
 <section id="theme">
-<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-theme"></span><h2>Theme<a class="headerlink" href="#theme" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-theme"></span><h2>Theme<a class="headerlink" href="#theme" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.main.Theme">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.main.</span></span><span class="sig-name descname"><span class="pre">Theme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#Theme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Theme" title="Permalink to this definition">¶</a></dt>
@@ -1027,7 +1026,7 @@ for example, any mapped columns or relationships.</p>
 <span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Theme.id" title="Permalink to this definition">¶</a></dt>
 <dd><p>identifier and primary key, used in the database only</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -1039,7 +1038,7 @@ for example, any mapped columns or relationships.</p>
 <dd><p>OEREB code of the theme - unique and used to link each PublicLawRestriction
 with the corresponding theme</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -1050,7 +1049,7 @@ with the corresponding theme</p>
 <span class="sig-name descname"><span class="pre">sub_code</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Theme.sub_code" title="Permalink to this definition">¶</a></dt>
 <dd><p>OEREB sub_code of the sub-theme: only available for sub themes.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -1061,7 +1060,7 @@ with the corresponding theme</p>
 <span class="sig-name descname"><span class="pre">title</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Theme.title" title="Permalink to this definition">¶</a></dt>
 <dd><p>the title of the theme as a multilingual dictionary</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
@@ -1072,7 +1071,7 @@ with the corresponding theme</p>
 <span class="sig-name descname"><span class="pre">extract_index</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Theme.extract_index" title="Permalink to this definition">¶</a></dt>
 <dd><p>index to sort the themes in the extract, defined in the specification</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
@@ -1093,7 +1092,7 @@ for example, any mapped columns or relationships.</p>
 
 </section>
 <section id="themedocument">
-<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-themedocument"></span><h2>ThemeDocument<a class="headerlink" href="#themedocument" title="Permalink to this headline">¶</a></h2>
+<span id="api-pyramid-oereb-contrib-data-sources-standard-models-main-themedocument"></span><h2>ThemeDocument<a class="headerlink" href="#themedocument" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.main.</span></span><span class="sig-name descname"><span class="pre">ThemeDocument</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/data_sources/standard/models/main.html#ThemeDocument"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument" title="Permalink to this definition">¶</a></dt>
@@ -1103,7 +1102,7 @@ for example, any mapped columns or relationships.</p>
 <div><p>The foreign key to the theme which has
 relation to  a document.</p>
 <dl class="field-list simple">
-<dt class="field-odd">type</dt>
+<dt class="field-odd">type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -1114,7 +1113,7 @@ relation to  a document.</p>
 <dd><p>The foreign key to the document which has relation to the public law
 restriction.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>
 </dd>
 </dl>
@@ -1125,7 +1124,7 @@ restriction.</p>
 <span class="sig-name descname"><span class="pre">theme</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument.theme" title="Permalink to this definition">¶</a></dt>
 <dd><p>The dedicated relation to the theme instance from database.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#pyramid_oereb.contrib.data_sources.standard.models.main.Theme" title="pyramid_oereb.contrib.data_sources.standard.models.main.Theme">Theme</a></p>
 </dd>
 </dl>
@@ -1136,7 +1135,7 @@ restriction.</p>
 <span class="sig-name descname"><span class="pre">document</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument.document" title="Permalink to this definition">¶</a></dt>
 <dd><p>The dedicated relation to the document instance from database.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="pyramid_oereb_contrib_data_sources_standard_factory_models.html#pyramid_oereb.contrib.data_sources.standard.factory_models.Document" title="pyramid_oereb.contrib.data_sources.standard.factory_models.Document">Document</a></p>
 </dd>
 </dl>
@@ -1147,7 +1146,7 @@ restriction.</p>
 <span class="sig-name descname"><span class="pre">article_numbers</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument.article_numbers" title="Permalink to this definition">¶</a></dt>
 <dd><p>relevant articles for the theme document relation</p>
 <dl class="field-list simple">
-<dt class="field-odd">Type</dt>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
