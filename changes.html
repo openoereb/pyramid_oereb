@@ -41,6 +41,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes/Hints for migration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-2-4-0">Version 2.4.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-3-0">Version 2.3.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-2-6">Version 2.2.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-2-5">Version 2.2.5</a></li>
@@ -159,8 +160,18 @@
 <span id="changes"></span><h1>Changes/Hints for migration<a class="headerlink" href="#changes-hints-for-migration" title="Permalink to this heading">¶</a></h1>
 <p>This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.</p>
+<section id="version-2-4-0">
+<h2>Version 2.4.0<a class="headerlink" href="#version-2-4-0" title="Permalink to this heading">¶</a></h2>
+<p>Maintenance release with major library updates:</p>
+<ul class="simple">
+<li><p>Upgrade to pyramid 2, shapely 2 (#1625, #1642, #1647, #1662)</p></li>
+<li><p>Various minor library upgrades</p></li>
+<li><p>Preparations for SQLAlchemy 2 upgrade (#1665)</p></li>
+<li><p>Python 3.8 is now the minimal recommended version of python</p></li>
+</ul>
+</section>
 <section id="version-2-3-0">
-<h2>Version 2.3.0<a class="headerlink" href="#version-2-3-0" title="Permalink to this heading">¶</a></h2>
+<span id="changes-version-2-3-0"></span><h2>Version 2.3.0<a class="headerlink" href="#version-2-3-0" title="Permalink to this heading">¶</a></h2>
 <p>New functionality for prepub, and maintenance issues:</p>
 <ul class="simple">
 <li><p>Add support for prepublinks (#1618)</p></li>
