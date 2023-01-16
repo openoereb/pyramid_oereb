@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2.4.0
+-----
+- Upgrade to pyramid 2, shapely 2 (#1625, #1642, #1647, #1662)
+- Various minor library upgrades
+- Preparations for SQLAlchemy 2 upgrade (#1665)
+- Python 3.8 is now the minimal recommended version of python
+
 2.3.0
 -----
 - Add support for prepublinks (#1618)

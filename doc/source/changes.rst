@@ -6,6 +6,17 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+Version 2.4.0
+-------------
+Maintenance release with major library updates:
+
+* Upgrade to pyramid 2, shapely 2 (#1625, #1642, #1647, #1662)
+* Various minor library upgrades
+* Preparations for SQLAlchemy 2 upgrade (#1665)
+* Python 3.8 is now the minimal recommended version of python
+
+.. _changes-version-2.3.0:
+
 Version 2.3.0
 -------------
 New functionality for prepub, and maintenance issues:
