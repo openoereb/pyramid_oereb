@@ -15,6 +15,7 @@ def theme_config():
     yield {
         "srid": 2056,
         "code": "ch.Nutzungsplanung",
+        "geometry_type": "GEOMETRYCOLLECTION",
         "view_service": {
             "layer_index": 1,
             "layer_opacity": 0.25,
@@ -194,7 +195,6 @@ def test_get_symbol_binary_content(theme_config, one_result_binary_session, png_
         assert body == b64.decode(binascii.b2a_base64(png_binary).decode('ascii'))
 
 
-@pytest.mark.filterwarnings("ignore:srid not enforced")
 def test_get_symbol_no_symbol_content(theme_config, one_result_no_symbol_session):
     with patch(
             'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
@@ -203,7 +203,6 @@ def test_get_symbol_no_symbol_content(theme_config, one_result_no_symbol_session
             get_symbol({'identifier': "1"}, theme_config)
 
 
-@pytest.mark.filterwarnings("ignore:srid not enforced")
 def test_get_symbol_wrong_param(theme_config, one_result_no_symbol_session):
     with patch(
             'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
@@ -212,7 +211,6 @@ def test_get_symbol_wrong_param(theme_config, one_result_no_symbol_session):
             get_symbol({'identif': "1"}, theme_config)
 
 
-@pytest.mark.filterwarnings("ignore:srid not enforced")
 def test_get_symbol_no_legend_entry(theme_config, no_result_session):
     with patch(
             'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
@@ -221,7 +219,6 @@ def test_get_symbol_no_legend_entry(theme_config, no_result_session):
             get_symbol({'identifier': "2"}, theme_config)
 
 
-@pytest.mark.filterwarnings("ignore:srid not enforced")
 def test_get_symbol_wrong_content(theme_config, one_result_wrong_content_session):
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
                return_value=one_result_wrong_content_session()):
