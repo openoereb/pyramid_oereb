@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2.4.1
+-----
+- Improve getegrid performance (#1680)
+- Remove unwanted URL encoding for symbol_ref (#1678)
+- Upgrade geolink_formatter library (#1682)
+- Various minor library upgrades (#1688, #1689)
+
 2.4.0
 -----
 - Upgrade to pyramid 2, shapely 2 (#1625, #1642, #1647, #1662)

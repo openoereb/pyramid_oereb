@@ -6,6 +6,17 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+Version 2.4.1
+-------------
+Maintenance release with performance improvement:
+
+* Improve getegrid performance (#1680)
+* Remove unwanted URL encoding for symbol_ref (#1678)
+* Upgrade geolink_formatter library (#1682)
+* Various minor library upgrades (#1688, #1689)
+
+.. _changes-version-2.4.0:
+
 Version 2.4.0
 -------------
 Maintenance release with major library updates:
