@@ -300,7 +300,7 @@ class Processor(object):
         return extract
 
 
-def create_processor():
+def create_processor(real_estate_only=False):
     """
     Creates and returns a processor based on the application configuration.
     You should use one (and only one) processor per request. Otherwise some results can be mixed or
@@ -311,23 +311,25 @@ def create_processor():
     """
 
     real_estate_config = Config.get_real_estate_config()
-
-    plr_cadastre_authority = Config.get_plr_cadastre_authority()
-
     real_estate_reader = RealEstateReader(
         real_estate_config.get('source').get('class'),
         **real_estate_config.get('source').get('params')
     )
 
-    plr_sources = []
-    for plr in Config.get('plrs'):
-        plr_source_class = DottedNameResolver().maybe_resolve(plr.get('source').get('class'))
-        plr_sources.append(plr_source_class(**plr))
+    plr_sources = None
+    extract_reader = None
 
-    extract_reader = ExtractReader(
-        plr_sources,
-        plr_cadastre_authority
-    )
+    if not real_estate_only:
+        plr_cadastre_authority = Config.get_plr_cadastre_authority()
+        plr_sources = []
+        for plr in Config.get('plrs'):
+            plr_source_class = DottedNameResolver().maybe_resolve(plr.get('source').get('class'))
+            plr_sources.append(plr_source_class(**plr))
+
+        extract_reader = ExtractReader(
+            plr_sources,
+            plr_cadastre_authority
+        )
 
     return Processor(
         real_estate_reader=real_estate_reader,
