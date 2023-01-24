@@ -3,7 +3,7 @@
 %if params.images:
 <data:Symbol>${legend_entry.symbol.encode()}</data:Symbol>
 %else:
-<data:SymbolRef>${get_symbol_ref(request, legend_entry)|u}</data:SymbolRef>
+<data:SymbolRef>${get_symbol_ref(request, legend_entry)| x}</data:SymbolRef>
 %endif
 <data:LegendText>
     <%include file="multilingual_text.xml" args="text=legend_entry.legend_text, not_null=True"/>

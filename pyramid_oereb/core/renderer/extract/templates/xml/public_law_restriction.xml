@@ -37,7 +37,7 @@
     %if params.images:
     <data:Symbol>${public_law_restriction.symbol.encode()}</data:Symbol>
     %else:
-    <data:SymbolRef>${get_symbol_ref(request, public_law_restriction.legend_entry)|u}</data:SymbolRef>
+    <data:SymbolRef>${get_symbol_ref(request, public_law_restriction.legend_entry)| x}</data:SymbolRef>
     %endif
     %for geometry in public_law_restriction.geometries:
     <%include file="geometry.xml" args="geometry=geometry"/>
