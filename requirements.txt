@@ -15,4 +15,4 @@ mako-render==0.1.0
 requests==2.28.2
 geolink-formatter==2.0.3
 pyconizer==0.1.4
-c2cwsgiutils[standard]==5.1.6
+c2cwsgiutils[standard]==5.2.1
