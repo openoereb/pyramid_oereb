@@ -6,8 +6,6 @@ from pyramid_oereb.core.adapter import DatabaseAdapter
 from pyramid_oereb.core.config import Config
 from pyramid.config import Configurator
 
-__version__ = '1.0.1'
-
 
 log = logging.getLogger(__name__)
 route_prefix = None

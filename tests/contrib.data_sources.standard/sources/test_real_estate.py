@@ -173,7 +173,7 @@ def test_read_all(real_estate_source_params, all_real_estate_result_session, wkb
         assert record.municipality == 'Oberwil (BL)'
         assert record.fosnr == 2771
         assert record.land_registry_area == 35121
-        assert record.limit.type == to_shape(wkb_multipolygons[0]).type
+        assert record.limit.geom_type == to_shape(wkb_multipolygons[0]).geom_type
         assert record.metadata_of_geographical_base_data == "https://testmetadata.url"
         assert record.number == '70'
         assert record.identdn == "BL0200002771"

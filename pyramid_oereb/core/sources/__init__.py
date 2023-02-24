@@ -6,6 +6,7 @@ import time
 import logging
 from pyramid.config import ConfigurationError
 from pyramid.path import DottedNameResolver
+from sqlalchemy import text
 
 log = logging.getLogger(__name__)
 
@@ -83,7 +84,7 @@ class BaseDatabaseSource(Base):
     def health_check(self):
         session = self._adapter_.get_session(self._key_)
         try:
-            session.execute('SELECT 1')
+            session.execute(text('SELECT 1'))
             return True
         except Exception:
             return False

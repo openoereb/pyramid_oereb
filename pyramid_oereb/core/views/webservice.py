@@ -62,7 +62,7 @@ class PlrWebservice(object):
             u'GetVersionsResponse': {
                 u'supportedVersion': [
                     {
-                        u'version': u'2.0',
+                        u'version': u'extract-2.0',
                         u'serviceEndpointBase': endpoint
                     }
                 ]
@@ -195,7 +195,7 @@ class PlrWebservice(object):
                     Config.get('srid'),
                     self.__parse_gnss__(gnss).wkt
                 )
-            processor = create_processor()
+            processor = create_processor(real_estate_only=True)
             return processor.real_estate_reader.read(params, **{'geometry': geom_wkt})
         else:
             raise HTTPBadRequest('EN or GNSS must be defined.')
@@ -214,7 +214,7 @@ class PlrWebservice(object):
         identdn = self._params.get('IDENTDN')
         number = self._params.get('NUMBER')
         if identdn and number:
-            processor = create_processor()
+            processor = create_processor(real_estate_only=True)
             return processor.real_estate_reader.read(
                 params,
                 **{
@@ -251,7 +251,7 @@ class PlrWebservice(object):
                 srid=Config.get('srid'),
                 wkt=addresses[0].geom.wkt
             )
-            processor = create_processor()
+            processor = create_processor(real_estate_only=True)
             return processor.real_estate_reader.read(params, **{'geometry': geometry})
         else:
             raise HTTPBadRequest('POSTALCODE, LOCALISATION and NUMBER must be defined.')

@@ -1,5 +1,5 @@
 import pytest
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import declarative_base
 from sqlalchemy import String, Integer, inspect
 from sqlalchemy_utils import JSONType
 from pyramid_oereb.contrib.data_sources.standard.models import get_office

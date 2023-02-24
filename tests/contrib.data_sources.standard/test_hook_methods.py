@@ -3,7 +3,7 @@ import binascii
 import pytest
 from unittest.mock import patch
 from sqlalchemy import Integer
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import declarative_base
 from pyramid.httpexceptions import HTTPNotFound, HTTPServerError
 from pyramid_oereb.contrib.data_sources.standard.hook_methods import get_symbol
 from pyramid_oereb.contrib.data_sources.standard.models import get_view_service, get_legend_entry
@@ -15,6 +15,7 @@ def theme_config():
     yield {
         "srid": 2056,
         "code": "ch.Nutzungsplanung",
+        "geometry_type": "GEOMETRYCOLLECTION",
         "view_service": {
             "layer_index": 1,
             "layer_opacity": 0.25,

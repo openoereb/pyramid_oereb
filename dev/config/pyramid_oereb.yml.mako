@@ -5,7 +5,7 @@
 # mind for later stuff. You can change it to your favorite name.
 pyramid_oereb:
 
-  # Here you can set a central proxy which can be used in the application.
+  # Proxy configuration for the standard pyramid_oereb functionality (not including functions such as oereblex)
   # proxies:
     # http: http://"username":"password"@your_proxy.com:8088
     # https: https://"username":"password"@your_proxy.com:8088
@@ -204,7 +204,7 @@ pyramid_oereb:
     related_decree_as_main: false
     # Same as related_decree_as_main but for related notice document.
     related_notice_as_main: false
-    # Proxy to be used for web requests
+    # Proxy configuration to be used for oereblex calls
     # proxy:
     #   http:
     #   https:
@@ -684,7 +684,7 @@ pyramid_oereb:
           # model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_integer_pk
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
-          schema_name: motorways_project_planing_zones
+          schema_name: motorways_project_planning_zones
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref

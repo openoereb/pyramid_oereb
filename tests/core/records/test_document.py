@@ -126,21 +126,22 @@ def test_legal_provision(law_test_data, law_status_record, office_record, docume
 
 
 def test_wrong_types(document_type_record):
-    record = DocumentRecord(
-        document_type_record,
-        'wrong_type',
-        'law_status',
-        'wrong_title',
-        'office_record',
-        'date_from',
-        'date_until',
-        'text_at_web',
-        'abbreviation',
-        'official_number',
-        'only_in_municipality',
-        'article_numbers',
-        1
-    )
+    with pytest.warns(UserWarning):
+        record = DocumentRecord(
+            document_type_record,
+            'wrong_type',
+            'law_status',
+            'wrong_title',
+            'office_record',
+            'date_from',
+            'date_until',
+            'text_at_web',
+            'abbreviation',
+            'official_number',
+            'only_in_municipality',
+            'article_numbers',
+            1
+        )
     assert isinstance(record.title, str)
     assert isinstance(record.index, str)
     assert isinstance(record.responsible_office, str)
@@ -155,87 +156,73 @@ def test_wrong_types(document_type_record):
     assert isinstance(record.file, int)
 
 
-def testarticle_numbers_init(document_type_record):
+def testarticle_numbers_init(law_status_record, office_record, document_type_record):
     record = DocumentRecord(
         document_type_record,
-        'wrong_type',
-        'law_status',
-        'wrong_title',
-        'office_record',
-        'date_from',
-        'date_until',
-        'text_at_web',
-        'abbreviation',
-        'official_number',
-        'only_in_municipality',
-        'article_numbers',
-        1
+        1,
+        law_status_record,
+        {'en': 'title'},
+        office_record,
+        datetime.date(1985, 8, 29),
+        text_at_web={'en': 'http://my.document.com'},
+        article_numbers=[]
     )
     assert len(record.article_numbers) == 0
     record = DocumentRecord(
         document_type_record,
-        'wrong_type',
-        'law_status',
-        'wrong_title',
-        'office_record',
-        'date_from',
-        'date_until',
-        'text_at_web',
-        'abbreviation',
-        'official_number',
-        'only_in_municipality',
-        [1],
-        1
+        1,
+        law_status_record,
+        {'en': 'title'},
+        office_record,
+        datetime.date(1985, 8, 29),
+        text_at_web={'en': 'http://my.document.com'},
+        article_numbers=[1]
     )
     assert len(record.article_numbers) == 1
 
 
-def test_serialize(document_type_record):
+def test_serialize(law_status_record, office_record, document_type_record):
     record = DocumentRecord(
         document_type_record,
-        'wrong_type',
-        'law_status',
-        'wrong_title',
-        'office_record',
-        'date_from',
-        'date_until',
-        'text_at_web',
-        'abbreviation',
-        'official_number',
-        'only_in_municipality',
-        'article_numbers',
-        1
+        1,
+        law_status_record,
+        {'en': 'title'},
+        office_record,
+        datetime.date(1985, 8, 29),
+        text_at_web={'en': 'http://my.document.com'},
+        article_numbers=[1]
     )
     assert isinstance(record.__str__(), str)
 
 
-def test_copy(document_type_record):
+def test_copy(law_status_record, office_record, document_type_record):
     record = DocumentRecord(
-        document_type_record,
-        'wrong_type',
-        'law_status',
-        'wrong_title',
-        'office_record',
-        'date_from',
-        'date_until',
-        'text_at_web',
-        'abbreviation',
-        'official_number',
-        'only_in_municipality',
-        'article_numbers',
-        1
+        document_type=document_type_record,
+        index=1,
+        law_status=law_status_record,
+        title={'en': 'title'},
+        responsible_office=office_record,
+        published_from=datetime.date(1985, 8, 29),
+        published_until=datetime.date(2121, 2, 12),
+        text_at_web={'en': 'http://my.document.com'},
+        abbreviation={'en': 'my abbreviation'},
+        official_number={'en': 'some official number'},
+        only_in_municipality=4600,
+        article_numbers=[1],
+        file=bytes(),
+        identifier=None
     )
     copy = record.copy()
     assert isinstance(copy.document_type, DocumentTypeRecord)
-    assert isinstance(copy.title, str)
-    assert isinstance(copy.index, str)
-    assert isinstance(copy.responsible_office, str)
-    assert isinstance(copy.abbreviation, str)
-    assert isinstance(copy.official_number, str)
-    assert isinstance(copy.only_in_municipality, str)
-    assert isinstance(copy.text_at_web, str)
-    assert isinstance(copy.law_status, str)
-    assert isinstance(copy.published_from, str)
-    assert isinstance(copy.published_until, str)
+    assert isinstance(copy.title, dict)
+    assert isinstance(copy.index, int)
+    assert isinstance(copy.responsible_office, OfficeRecord)
+    assert isinstance(copy.abbreviation, dict)
+    assert isinstance(copy.official_number, dict)
+    assert isinstance(copy.only_in_municipality, int)
+    assert isinstance(copy.text_at_web, dict)
+    assert isinstance(copy.law_status, LawStatusRecord)
+    assert isinstance(copy.published_from, datetime.date)
+    assert isinstance(copy.published_until, datetime.date)
     assert isinstance(copy.article_numbers, list)
-    assert isinstance(copy.file, int)
+    assert isinstance(copy.file, bytes)

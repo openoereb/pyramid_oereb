@@ -1,5 +1,5 @@
 import pytest
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import declarative_base
 from sqlalchemy import String, DateTime, Column
 from pyramid_oereb.contrib.data_sources.standard import create_schema_sql, tables, create_tables_sql,\
     create_sql

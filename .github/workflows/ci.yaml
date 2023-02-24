@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v3
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
-      - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
+      - run: sudo apt-get install libpq-dev
       - name: Run make lint
         run: make lint
 
@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v3
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
-      - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
+      - run: sudo apt-get install libpq-dev
       - name: Run make git-attributes
         run: make git-attributes
 
@@ -47,7 +47,6 @@ jobs:
     strategy:
       matrix:
         python-version:
-          - '3.7'
           - '3.8'
           - '3.9'
           - '3.10'
@@ -61,7 +60,7 @@ jobs:
           architecture: x64
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
-      - run: sudo apt-get install virtualenv libpq-dev libgeos-dev
+      - run: sudo apt-get install libpq-dev
       - name: Run tests for Python ${{ matrix.python-version }}
         run: make tests
       - name: Upload coverage to Codecov
@@ -101,7 +100,7 @@ jobs:
         run: |
           sudo rm /etc/apt/sources.list.d/*.list
           sudo apt update
-          sudo apt-get install virtualenv libpq-dev libgeos-dev
+          sudo apt-get install libpq-dev
           make doc-html
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.4.1
@@ -115,10 +114,10 @@ jobs:
     needs: [lint, gitattributes]
     steps:
     - uses: actions/checkout@master
-    - name: Set up Python 3.7
+    - name: Set up Python 3.8
       uses: actions/setup-python@v4
       with:
-        python-version: 3.7
+        python-version: 3.8
     - name: Install pypa/build
       run: >-
         python -m

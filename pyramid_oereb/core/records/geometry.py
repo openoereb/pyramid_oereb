@@ -2,11 +2,10 @@
 import logging
 from datetime import datetime
 
-from shapely.ops import linemerge, cascaded_union
+from shapely.ops import linemerge, unary_union
 
 from shapely.geometry import Point, MultiPoint, LineString, Polygon, GeometryCollection, MultiLineString, \
     MultiPolygon
-from shapely.ops import unary_union
 
 log = logging.getLogger(__name__)
 
@@ -50,7 +49,7 @@ class GeometryRecord(object):
         if isinstance(geom, (Point, MultiPoint, LineString, Polygon)):
             self.geom = geom
         else:
-            raise AttributeError(u'The passed geometry is not supported: {type}'.format(type=geom.type))
+            raise AttributeError(u'The passed geometry is not supported: {type}'.format(type=geom.geom_type))
         self.public_law_restriction = public_law_restriction
         self._units = None
         self._area_share = None
@@ -113,7 +112,7 @@ class GeometryRecord(object):
         """
         if isinstance(result, GeometryCollection):
             matching_geometries = list()
-            for part in result:
+            for part in result.geoms:
                 if self.geom_dim(part) == self.dim:
                     matching_geometries.append(part)
             if self.dim == 0:
@@ -127,7 +126,7 @@ class GeometryRecord(object):
             elif self.dim == 1:
                 return linemerge(matching_geometries)
             elif self.dim == 2:
-                return cascaded_union(matching_geometries)
+                return unary_union(matching_geometries)
         else:
             return result
 
@@ -183,29 +182,29 @@ class GeometryRecord(object):
 
             if not intersection.is_empty:
                 result = self._extract_collection(intersection)
-                if self.geom.type not in point_types + line_types + polygon_types:
+                if self.geom.geom_type not in point_types + line_types + polygon_types:
                     supported_types = ', '.join(point_types + line_types + polygon_types)
                     raise AttributeError(
                         u'The passed geometry is not supported: {type}. It should be one of: {types}'.format(
-                            type=self.geom.type, types=supported_types
+                            type=self.geom.geom_type, types=supported_types
                         )
                     )
-                elif self.geom.type in point_types:
-                    if result.type == point_types[1]:
+                elif self.geom.geom_type in point_types:
+                    if result.geom_type == point_types[1]:
                         # If it is a multipoint make a list and count the number of elements in the list
                         self._nr_of_points = len(list(result.geoms))
                         self._test_passed = True
-                    elif result.type == point_types[0]:
+                    elif result.geom_type == point_types[0]:
                         # If it is a single point the number of points is one
                         self._nr_of_points = 1
                         self._test_passed = True
-                elif self.geom.type in line_types and result.type in line_types:
+                elif self.geom.geom_type in line_types and result.geom_type in line_types:
                     self._units = length_unit
                     length_share = result.length
                     if length_share >= min_length:
                         self._length_share = length_share
                         self._test_passed = True
-                elif self.geom.type in polygon_types and result.type in polygon_types:
+                elif self.geom.geom_type in polygon_types and result.geom_type in polygon_types:
                     self._units = area_unit
                     area_share = result.area
                     compensated_area = area_share / real_estate.areas_ratio
@@ -219,8 +218,8 @@ class GeometryRecord(object):
                     log.debug(
                         u'Intersection result changed geometry type. '
                         u'Original geometry was {0} and result is {1}'.format(
-                            self.geom.type,
-                            result.type
+                            self.geom.geom_type,
+                            result.geom_type
                         )
                     )
         self.calculated = True
