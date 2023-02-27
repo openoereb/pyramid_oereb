@@ -644,6 +644,7 @@
                     <span class="n">legend</span><span class="p">[</span><span class="s1">&#39;NrOfPoints&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">legend</span><span class="p">[</span><span class="s1">&#39;NrOfPoints&#39;</span><span class="p">])</span>
 
         <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;PrintCantonLogo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print_canton_logo&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;PrintMunicipalityName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print_municipality_name&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;After transformation, extract_dict is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)))</span>
         <span class="k">return</span> <span class="n">extract_dict</span></div>
@@ -830,7 +831,6 @@
 <span class="sd">        Provides the sort key for the supplied hint / law / legal provision</span>
 <span class="sd">        element as a tuple consisting of:</span>
 <span class="sd">         * index</span>
-
 <span class="sd">        Notes</span>
 <span class="sd">        - index is defined by Interlis model OeREBKRM_V2_0 as range -1000..1000</span>
 <span class="sd">        - &quot;Index = None&quot; if geolink_formatter processes entry from OEREBLEX that has no index</span>
