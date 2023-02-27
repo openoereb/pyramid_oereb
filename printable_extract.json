@@ -1104,5 +1104,6 @@
       ]
     }
   },
-  "PrintCantonLogo": true
+  "PrintCantonLogo": true,
+  "PrintMunicipalityName": true
 }

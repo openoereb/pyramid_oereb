@@ -113,6 +113,8 @@ pyramid_oereb:
     #   - ogcserver
     # Flag to print or not the canton logo
     print_canton_logo: true
+    # Flag to print or not the municipality name
+    print_municipality_name: true
 % endif
 
   # The "app_schema" property contains only one sub property "name". This is directly related to the database

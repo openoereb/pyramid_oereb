@@ -569,6 +569,7 @@ class Renderer(JsonRenderer):
                     legend['NrOfPoints'] = '{0}'.format(legend['NrOfPoints'])
 
         extract_dict['PrintCantonLogo'] = Config.get('print', {}).get('print_canton_logo', True)
+        extract_dict['PrintMunicipalityName'] = Config.get('print', {}).get('print_municipality_name', True)
 
         log.debug("After transformation, extract_dict is {}".format(json.dumps(extract_dict, indent=4)))
         return extract_dict
@@ -755,7 +756,6 @@ class Renderer(JsonRenderer):
         Provides the sort key for the supplied hint / law / legal provision
         element as a tuple consisting of:
          * index
-
         Notes
         - index is defined by Interlis model OeREBKRM_V2_0 as range -1000..1000
         - "Index = None" if geolink_formatter processes entry from OEREBLEX that has no index

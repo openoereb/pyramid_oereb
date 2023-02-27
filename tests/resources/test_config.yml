@@ -289,8 +289,8 @@ pyramid_oereb:
     compute_toc_pages: true
     wms_url_params:
       TRANSPARENT: 'true'
-    # Flag to print or not the canton logo
     print_canton_logo: true
+    print_municipality_name: true
 
   geometry_types:
     point:
