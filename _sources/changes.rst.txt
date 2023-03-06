@@ -6,6 +6,15 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+Version 2.4.2
+-------------
+Maintenance release with new configuration option:
+
+* Add print configuration parameter for municipality name (#1703)
+* Various minor library upgrades (pyramid, shapely, grcode, pypdf)
+
+.. _changes-version-2.4.1:
+
 Version 2.4.1
 -------------
 Maintenance release with performance improvement:
