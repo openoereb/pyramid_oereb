@@ -61,7 +61,7 @@ Add additional topics
 If you like to add one or more additional topics based on the *pyramid_oereb standard* database structure
 you can use the internal command below to create an SQL script to establish the topic schema.
 
-But before creating the data structure you have to add its configuration. Open the configuration file
+But before creating any new topic structure you have to add its configuration. Open the configuration file
 (pyramid_oereb.yml) and copy the section from one of the existing **standard** topics which usually 
 looks like this:
 
@@ -119,9 +119,15 @@ looks like this:
           extract_code: Hint
 
 Apply the necessary modifications for the new topic. This should at least be the the name, code, geometry type
-and text definitions and of course the models property within the source parameters. 
+and text definitions and of course the models property within the source parameters:
+Make sure that this source class is `pyramid_oereb.contrib.data_sources.*standard*.sources.plr.DatabaseSource`
+and not interlis_2_3. - The same goes for the model_factory and the get_symbol element. It should be set to
+*standard*.
 
-The command to create the schema is as follows:
+Also set the language of the data and if it's a federal (true) or cantonal topic (false). You also want to
+define if it is the standard structure (true) and what lookup codes are for the law_status and document types.
+
+Once the the configuration set, run the following command:
 
 .. code-block:: shell
 
