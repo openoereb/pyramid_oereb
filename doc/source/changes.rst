@@ -6,6 +6,24 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+Version 2.4.2
+-------------
+Maintenance release, with a new configuration option:
+
+* Various minor library upgrades (pyramid, shapely, grcode, pypdf)
+
+MapFish Print related changes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+If you are using MapFish Print, you must update your print templates and configuration to v2.4.2.
+The following configuration option has been added:
+
+ * The output of the municipality name is now configurable (#1703).
+   MapFish Print users who do not want the municipality name should set the print configuration parameter
+   ``print_municipality_name`` to ``false``.
+
+
+.. _changes-version-2.4.1:
+
 Version 2.4.1
 -------------
 Maintenance release with performance improvement:

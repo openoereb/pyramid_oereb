@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.4.2
+-----
+- Add print configuration parameter for municipality name (#1703)
+- Various minor library upgrades (pyramid, shapely, grcode, pypdf)
+
 2.4.1
 -----
 - Improve getegrid performance (#1680)

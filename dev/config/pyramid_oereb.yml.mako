@@ -108,11 +108,14 @@ pyramid_oereb:
     # If you want the print to keep some custom URL parameters directly from the reference_wms you have defined,
     # then use the configuration option wms_url_keep_params.
     # In wms_url_keep_params, you can list which URL parameter values should be read from the reference_wms
-    # and used by the print.
+    # and used by the print. Because URL parameters are converted to upper-case (see #1463), you must use
+    # uppercase for the parameter names.
     # wms_url_keep_params:
-    #   - ogcserver
+    #   - OGCSERVER
     # Flag to print or not the canton logo
     print_canton_logo: true
+    # Flag to print or not the municipality name
+    print_municipality_name: true
 % endif
 
   # The "app_schema" property contains only one sub property "name". This is directly related to the database

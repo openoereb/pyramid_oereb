@@ -1,4 +1,4 @@
-pypdf==3.4.1
+pypdf==3.7.0
 filetype==1.2.0
 geoalchemy2==0.13.1
 pyramid==2.0.1
@@ -6,9 +6,9 @@ pyramid-debugtoolbar==4.10
 qrcode==7.4.2
 image==1.5.33
 shapely==2.0.1
-SQLAlchemy==1.4.46
+SQLAlchemy==2.0.7
 pyaml-env==1.2.1
-urllib3==1.26.14
+urllib3==1.26.15
 waitress==2.1.2
 pyreproj==2.0.0
 mako-render==0.1.0
