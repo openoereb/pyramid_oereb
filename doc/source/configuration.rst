@@ -55,8 +55,8 @@ the document related tables are omitted. Instead the documents are linked with t
 
 .. _configuration-additional-topics:
 
-Add additional topics
----------------------
+Add additional standard topics
+------------------------------
 
 If you like to add one or more additional topics based on the *pyramid_oereb standard* database structure
 you can use the internal command below to create an SQL script to establish the topic schema.
@@ -118,8 +118,8 @@ looks like this:
           transfer_code: Hinweis
           extract_code: Hint
 
-Apply the necessary modifications for the new topic. This should at least be the the name, code, geometry type
-and text definitions and of course the models property within the source parameters:
+Apply the necessary modifications for the new topic. This should at least be the the schema name, code, geometry type
+and of course the models property within the source parameters:
 Make sure that this source class is `pyramid_oereb.contrib.data_sources.*standard*.sources.plr.DatabaseSource`
 and not interlis_2_3. - The same goes for the model_factory and the get_symbol element. It should be set to
 *standard*.
@@ -134,24 +134,94 @@ Once the the configuration set, run the following command:
    create_standard_tables -c <YOUR_YAML_CONFIGURATION> -T [flag used to skip schema creation] 
     --sql-file=<PATH_AND_SQL_SCRIPTNAME> -w [to over-write existing sql instead of append]
 
-The first parameter *-c or --configuration=YAML* is the path to your YAML configuration file. 
+The first parameter ``-c or --configuration=YAML`` is the path to your YAML configuration file. 
 By default it's pyramid_oereb.yml
 
-The second optional parameter *-s or --section=SECTION* allows you to specify the section containing
+The second optional parameter ``-s or --section=SECTION`` allows you to specify the section containing
 the configuration part to use. Default is pyramid_oereb.
 
-The parameter *-T or --tables-only* skips the schema creation and creates only the tables.
+The parameter ``-T or --tables-only`` skips the schema creation and creates only the tables.
 
-The option *--sql-file=SQL_FILE* generates an SQL file containing the schema and table creation 
+The option ``--sql-file=SQL_FILE`` generates an SQL file containing the schema and table creation 
 commands. *SQL_FILE* should be the name or the absolute path of the file. E.g: my_sql_script.sql
 
 If your yaml file uses the c2ctemplate style (starting with vars) you need to add the
-*--c2ctemplate-style* parameter.
+``--c2ctemplate-style`` parameter.
 
-The option *-w or --over-write* allows you to overwrite an existing sql file. Default is append.
+The option ``-w or --over-write`` allows you to overwrite an existing sql file. Default is append.
 
 Now you have set up an empty additional topic and you can continued with deploying your data into it.
 
+Add additional interlis topics
+------------------------------
+
+Follow the `Ili2pg Oereb Data Import Manual <https://github.com/openoereb/ili2pg_oereb_data_import_manual>`__
+to create a new topic schema based on the OeREBKRM Transfer model and how to import the XML data.
+
+Once the schema is created do not forget to add the corresponding topic configuration in the pyramid_oereb.yml
+
+.. code-block:: yaml
+
+    - code: ch.BaulinienNationalstrassen
+      geometry_type: LINESTRING
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: de
+      federal: true
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
+      source:
+        class: pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          # model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.contrib.data_sources.interlis_2_3.models.theme.model_factory_integer_pk
+          schema_name: motorways_building_lines
+      hooks:
+        get_symbol: pyramid_oereb.contrib.data_sources.interlis_2_3.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          transfer_code: inKraft
+          extract_code: inForce
+        - data_code: AenderungMitVorwirkung
+          transfer_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+        - data_code: AenderungOhneVorwirkung
+          transfer_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+      document_types_lookup:
+        - data_code: Rechtsvorschrift
+          transfer_code: Rechtsvorschrift
+          extract_code: LegalProvision
+        - data_code: GesetzlicheGrundlage
+          transfer_code: GesetzlicheGrundlage
+          extract_code: Law
+        - data_code: Hinweis
+          transfer_code: Hinweis
+          extract_code: Hint
+
+Make sure to set the schema name to the one you defined using ili2pg, also set code, geometry type
+and of course the models property within the source parameters:
+Here the source class is `pyramid_oereb.contrib.data_sources.*interlis_2_3*.sources.plr.DatabaseSource`
+and not standard. - The same goes for the model_factory and the get_symbol element. It should be set to
+*interlis_2_3*.
+
+Also set the language of the data and if it's a federal (true) or cantonal topic (false). You also want to
+define that it is *NOT* the standard structure (false) and what lookup codes are used for the law_status 
+and document types.
 
 Add an oereblex topic
 ---------------------
