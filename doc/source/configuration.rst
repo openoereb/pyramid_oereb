@@ -3,28 +3,62 @@
 Configuration
 =============
 
-You are looking at a highly configurable piece of software. To get the right understanding of the server it
+You are looking at a highly configurable piece of software. To get a good understanding of the server it
 is recommended to read this part carefully.
 
 Since the swiss confederation's definition and the specification for the `OEREB Data Extract
-<https://www.cadastre.ch/content/cadastre-internet/de/manual-oereb/publication/publication.download
-/cadastre-internet/de/documents/oereb-weisungen/OEREB-Data-Extract_de.pdf>`__ is really straight,
+<https://www.cadastre.ch/content/cadastre-internet/de/manual-oereb/publication/instruction.download/
+cadastre-internet/de/documents/oereb-weisungen/Weisung-OEREB-Data-Extract-de.pdf>`__ is really tight,
 we had very narrow margins to develop the code. Using this pyramid plugin, you will get a running server
 providing the services to satisfy the federal specification. But to get this extract, you need to bind your
 data to this server. And this is basically what you need to configure.
 
-This section describes the different possibilities to adapt the application on different data structures or
-even custom data sources. If you are planning to use such modifications, we suggest to check all possible
+This section describes the different possibilities to adapt the application on various data structures or
+even custom data sources. If you are planning to implement such modifications, we suggest to check all possible
 solutions first, as the necessary effort can vary significantly depending on your specific needs.
 
+.. _configuration-initial-setup:
+
+Create the inital database setup
+--------------------------------
+
+Out of the box the pyramid_oereb server supports three different topic configuration in the database:
+
+  - the **pyramid_oereb standard model**
+  - the **interlis 2.3 OeREBKRMtrsfr model**
+  - the **oereblex topic model**
+
+
+Pyramid_oereb Standard Model
+----------------------------
+
+This schema and table structure is based on the initial topic structure used in the pyramid_oereb
+v1.x versions. It's mainly used for cantonal topics which are not (yet) stored in the interlis 2.3 OeREBKRM-
+Transfer structure and for cantons that do not use OeREB-Lex to manage the legal documents.
+
+Interlis 2.3 OeREBKRM Transfer Model
+------------------------------------
+
+All the federal data sets are provided in this data structure. So this is the schema and table model you
+want to use for all the federal topics unless you want to remap the data to a specific database structure.
+If your cantonal data is also stored according to this model, then you might want to use this structure 
+for all topics to homogenize your database content.
+The `Ili2pg Oereb Data Import Manual <https://github.com/openoereb/ili2pg_oereb_data_import_manual>`__
+explains how to use ili2pg tool to create the corresponding schema and how to import the XML data.
+
+
+OeREBlex Topic Model
+--------------------
+
+This third model is usefull if you maintain your legal documents using the OEREBlex application.
 
 .. _configuration-additional-topics:
 
 Add additional topics
 ---------------------
 
-If you only need to add one or more additional cantonal topics and want to use the standard database structure
-for these too, you can run a provided script to generate the required models.
+If you only plan to add one or more additional cantonal topics and want to use the standard database structure
+for these too, you can use the following internal command to create an SQL script to establish the needed.
 
 .. code-block:: shell
 
@@ -108,6 +142,49 @@ Another option to modify the standard configuration, is to adapt the existing mo
 structure. This method is recommended if you are using an existing database supported by GeoAlchemy 2 and
 already containing all the necessary data but in a different structure. In this case you should check, if it
 is possible to transform the data by extending the existing models with a mapping to fit your structure.
+
+The easiest example is a simple mapping of table and column names, if you use a different language. Using the
+possibilities of SQLAlchemy, you could extend the existing
+pyramid_oereb.core.models.motorways_building_lines.office
+:ref:`api-pyramid_oereb-core-models-motorways_building_lines-office` like this:
+
+.. code-block:: python
+
+   from pyramid_oereb.lib.standard.models import motorways_building_lines
+
+   class Office(motorways_building_lines.Office):
+       """
+       The bucket to fill in all the offices you need to reference from public law restriction,
+       document, geometry.
+
+       Attributes:
+           id (int): The identifier. This is used in the database only and must not be set manually.
+               If you don't like it - don't care about.
+           name (dict): The multilingual name of the office.
+           office_at_web (str): A web accessible url to a presentation of this office.
+           uid (str): The uid of this office from https
+           line1 (str): The first address line for this office.
+           line2 (str): The second address line for this office.
+           street (str): The streets name of the offices address.
+           number (str): The number on street.
+           postal_code (int): The ZIP-code.
+           city (str): The name of the city.
+       """
+       __table_args__ = {'schema': 'baulinien_nationalstrassen'}
+       __tablename__ = 'amt'
+       id = sa.Column('oid', sa.Integer, primary_key=True)
+       office_at_web = sa.Column('amt_im_web', sa.String, nullable=True)
+       line1 = sa.Column('zeile1', sa.String, nullable=True)
+       line2 = sa.Column('zeile2', sa.String, nullable=True)
+       street = sa.Column('strasse', sa.String, nullable=True)
+       number = sa.Column('hausnr', sa.String, nullable=True)
+       postal_code = sa.Column('plz', sa.Integer, nullable=True)
+       city = sa.Column('ort', sa.String, nullable=True)
+
+       (...)
+
+The only thing, you have to care about, if you want to stay using the standard sources, is to keep the class
+name, the names of the properties and their data types.
 
 After extending the models, do not forget to change the models module in the configuration of the topic's
 source.
