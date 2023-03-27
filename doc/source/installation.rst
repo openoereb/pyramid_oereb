@@ -26,6 +26,37 @@ In order to install and run an instance of ``pyramid_oereb``, the following requ
     should be able to use any spatial database, that is supported by `SQLAlchemy
     <https://www.sqlalchemy.org/>`__ and `GeoAlchemy 2 <https://geoalchemy-2.readthedocs.io/en/latest/>`__.
 
+Above requirements might be achieved by launching locally or by docker and docker-compose to encapsulate
+things. To get an idea how everything runs, we recommend to use the docker way. However the bare metal way
+is described here too.
+
+.. _installation-docker-docker-compose:
+
+Docker/Docker-Compose
+---------------------
+
+.. note:: We assume you have a working
+          `docker <https://docs.docker.com/engine/install/>`__/`docker-compose <https://docs.docker.com/compose/install/>`__
+          setup.
+
+.. code-block:: shell
+
+ git clone https://github.com/openoereb/pyramid_oereb.git
+
+.. code-block:: shell
+
+ # on Linux
+ docker-compose run --rm -u $(id -u):$(id -g) oereb-make build
+
+.. code-block:: shell
+
+ # on Windows
+ docker-compose run --rm oereb-make build
+
+This will download and build the necessary docker images.
+
+See the
+
 
 .. _installation-step:
 

@@ -48,11 +48,12 @@ The server provides access to the 4 services:
 * GetCapabilities
 * GetVersions
 
-The server is able to use ÖEREBlex, GeoAdmin API for gathering data. This needs to be configured and prepared
-by the integrator of this package. In addition a small tool for loading legend symbols for each used WMS layer
-is included.
+The server is able to use several specific external api endpoints to fetch data at runtime (e.g. ÖEREBlex or GeoAdmin
+API). These need to be configured and prepared by the integrator of this package. Please read the dedicated part
+of documentation.
 
-For the moment we provide an adapter to get the PDF static extract from mapfishprint.
+For the moment we provide an adapter to get the PDF static extract from mapfishprint and
+`xml2pdf <https://github.com/Geocloud-AG/oereb_xml_pdf_service>`__.
 
 .. image:: ../images/overview.png
    :align: center
