@@ -323,7 +323,7 @@ test-contrib-stats: ${VENV_ROOT}/requirements-timestamp
 	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-stats --cov $(PACKAGE)/contrib/stats --cov-report=xml:coverage.contrib-stats.xml tests/contrib.stats
 
 .PHONY: tests
-tests: ${VENV_ROOT}/requirements-timestamp test-core test-contrib-data_sources-standard test-contrib-print_proxy-mapfish_print test-contrib-data_sources-standard test-contrib-data_sources-interlis test-contrib-stats
+tests: ${VENV_ROOT}/requirements-timestamp test-core test-contrib-print_proxy-mapfish_print test-contrib-data_sources-standard test-contrib-data_sources-interlis test-contrib-stats
 
 .PHONY: docker-tests
 docker-tests:
