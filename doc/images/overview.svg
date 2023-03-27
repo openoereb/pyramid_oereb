@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="375.99719mm"
+   height="327.2764mm"
+   viewBox="0 0 375.99719 327.2764"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
+   sodipodi:docname="overview.svg"
+   inkscape:export-filename="overview.png"
+   inkscape:export-xdpi="150"
+   inkscape:export-ydpi="150"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title270">pyramid_oereb architecture overview</title>
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.2938725"
+     inkscape:cx="558.78767"
+     inkscape:cy="665.83067"
+     inkscape:window-width="3840"
+     inkscape:window-height="2069"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g5057" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(19.155072,-25.187967)">
+    <g
+       id="g5081">
+      <g
+         id="g4967">
+        <rect
+           style="fill:#faf6e1;fill-opacity:1;stroke:#8a8a8a;stroke-width:1.265;stop-color:#000000"
+           id="rect234"
+           width="181.50191"
+           height="56.414131"
+           x="18.568285"
+           y="32.84893" />
+        <text
+           xml:space="preserve"
+           style="font-size:22.5778px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro';stroke-width:0.264583"
+           x="44.475758"
+           y="69.454933"
+           id="text398"><tspan
+             sodipodi:role="line"
+             id="tspan396"
+             style="font-size:22.5778px;stroke-width:0.264583"
+             x="44.475758"
+             y="69.454933">Webservices</tspan></text>
+      </g>
+      <g
+         id="g4888">
+        <rect
+           style="fill:#f6cbb0;fill-opacity:1;stroke:#8a8a8a;stroke-width:1.265;stop-color:#000000"
+           id="rect234-3"
+           width="181.50191"
+           height="56.414131"
+           x="18.568285"
+           y="91.933556" />
+        <text
+           xml:space="preserve"
+           style="font-size:22.5778px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro';stroke-width:0.264583"
+           x="58.49659"
+           y="127.9977"
+           id="text398-3"><tspan
+             sodipodi:role="line"
+             id="tspan396-5"
+             style="font-size:22.5778px;stroke-width:0.264583"
+             x="58.49659"
+             y="127.9977">Processor</tspan></text>
+      </g>
+      <g
+         id="g4893">
+        <rect
+           style="fill:#fe9c75;fill-opacity:1;stroke:#8a8a8a;stroke-width:1.265;stop-color:#000000"
+           id="rect234-6"
+           width="181.50191"
+           height="56.414131"
+           x="18.568285"
+           y="150.93594" />
+        <text
+           xml:space="preserve"
+           style="font-size:22.5778px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro';stroke-width:0.264583"
+           x="66.997124"
+           y="187.54195"
+           id="text398-3-6"><tspan
+             sodipodi:role="line"
+             id="tspan396-5-2"
+             style="font-size:22.5778px;stroke-width:0.264583"
+             x="66.997124"
+             y="187.54195">Readers</tspan></text>
+      </g>
+    </g>
+    <g
+       id="g4898"
+       transform="translate(-1.0089912,11.112501)">
+      <rect
+         style="fill:#b09f97;fill-opacity:1;stroke:#8a8a8a;stroke-width:1.265;stop-color:#000000"
+         id="rect234-6-7"
+         width="181.50191"
+         height="56.414131"
+         x="19.577276"
+         y="220.67551" />
+      <text
+         xml:space="preserve"
+         style="font-size:22.5778px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro';stroke-width:0.264583"
+         x="32.694443"
+         y="256.87512"
+         id="text398-3-6-9"><tspan
+           sodipodi:role="line"
+           id="tspan396-5-2-1"
+           style="font-size:22.5778px;stroke-width:0.264583"
+           x="32.694443"
+           y="256.87512">Sources/Hooks</tspan></text>
+    </g>
+    <g
+       id="g4898-2"
+       transform="translate(185.19458,11.112501)">
+      <rect
+         style="fill:#b09f97;fill-opacity:1;stroke:#8a8a8a;stroke-width:1.265;stop-color:#000000"
+         id="rect234-6-7-8"
+         width="128.87329"
+         height="56.414124"
+         x="19.577276"
+         y="220.67551" />
+      <text
+         xml:space="preserve"
+         style="font-size:22.5778px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro';stroke-width:0.264583"
+         x="32.434956"
+         y="254.16577"
+         id="text398-3-6-9-9"><tspan
+           sodipodi:role="line"
+           id="tspan396-5-2-1-73"
+           style="font-size:22.5778px;stroke-width:0.264583"
+           x="32.434956"
+           y="254.16577">PrintProxy</tspan></text>
+    </g>
+    <g
+       id="g5057"
+       transform="translate(0,11.112501)">
+      <rect
+         style="fill:#49547c;fill-opacity:1;stroke:#8a8a8a;stroke-width:1.265;stop-color:#000000"
+         id="rect234-6-5"
+         width="181.50191"
+         height="56.414131"
+         x="18.568285"
+         y="279.94217" />
+      <text
+         xml:space="preserve"
+         style="font-size:22.5778px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro';stroke-width:0.264583"
+         x="34.259338"
+         y="316.54819"
+         id="text398-3-6-9-2"><tspan
+           sodipodi:role="line"
+           id="tspan396-5-2-1-7"
+           style="font-size:22.5778px;stroke-width:0.264583"
+           x="34.259338"
+           y="316.54819">Models (ORM)</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:22.5778px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro';stroke-width:0.264583"
+       x="-318.32056"
+       y="10.776828"
+       id="text398-3-6-9-2-0"
+       transform="rotate(-90)"><tspan
+         sodipodi:role="line"
+         id="tspan396-5-2-1-7-9"
+         style="font-size:22.5778px;stroke-width:0.264583"
+         x="-318.32056"
+         y="10.776828">Custom</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22.5778px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro';stroke-width:0.264583"
+       x="-145.30763"
+       y="10.776828"
+       id="text398-3-6-9-2-0-3"
+       transform="rotate(-90)"><tspan
+         sodipodi:role="line"
+         id="tspan396-5-2-1-7-9-6"
+         style="font-size:22.5778px;stroke-width:0.264583"
+         x="-145.30763"
+         y="10.776828">Core</tspan></text>
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#8a8a8a;stroke-width:1.3;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+       id="rect5182"
+       width="374.6972"
+       height="133.12248"
+       x="-18.505072"
+       y="218.69191" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#8a8a8a;stroke-width:1.3;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+       id="rect5182-2"
+       width="374.6972"
+       height="193.50389"
+       x="-18.505072"
+       y="25.187967" />
+    <g
+       id="g2207"
+       transform="translate(-0.6676877)">
+      <path
+         style="fill:none;stroke:#8a8a8a;stroke-width:13.851;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+         d="m 14.914559,218.56994 322.567931,0.12197"
+         id="path4959"
+         sodipodi:nodetypes="cc" />
+      <text
+         xml:space="preserve"
+         style="font-size:9.87778px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro';stroke-width:0.264583"
+         x="136.97382"
+         y="221.29964"
+         id="text2188"><tspan
+           sodipodi:role="line"
+           id="tspan2186"
+           style="font-size:9.87778px;stroke-width:0.264583"
+           x="136.97382"
+           y="221.29964">Config (YAML)</tspan></text>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:5.64444px;line-height:1.25;font-family:'Avenir Next LT Pro';-inkscape-font-specification:'Avenir Next LT Pro';stroke-width:0.264583"
+       x="278.65451"
+       y="348.22562"
+       id="text3899"><tspan
+         sodipodi:role="line"
+         id="tspan3897"
+         style="font-size:5.64444px;stroke-width:0.264583"
+         x="278.65451"
+         y="348.22562">© RUDERT-GEOINFORMATIK</tspan></text>
+  </g>
+  <metadata
+     id="metadata268">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>pyramid_oereb architecture overview</dc:title>
+        <dc:date>11.10.2022</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>RUDERT-GEOINFORMATIK</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:publisher>
+          <cc:Agent>
+            <dc:title>RUDERT-GEOINFORMATIK</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:contributor>
+          <cc:Agent>
+            <dc:title>Clemens Rudert</dc:title>
+          </cc:Agent>
+        </dc:contributor>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-sa/4.0/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-sa/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>
