@@ -25,19 +25,18 @@ Create the inital database setup
 Out of the box the pyramid_oereb server supports three different topic configuration in the database:
 
   - the **pyramid_oereb standard model**
-  - the **interlis 2.3 OeREBKRMtrsfr model**
+  - the **interlis 2.3 OeREBKRM transfer model**
   - the **oereblex topic model**
 
-
 Pyramid_oereb Standard Model
-----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This schema and table structure is based on the initial topic structure used in the pyramid_oereb
 v1.x versions. It's mainly used for cantonal topics which are not (yet) stored in the interlis 2.3 OeREBKRM-
 Transfer structure and for cantons that do not use OeREB-Lex to manage the legal documents.
 
 Interlis 2.3 OeREBKRM Transfer Model
-------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 All the federal data sets are provided in this data structure. So this is the schema and table model you
 want to use for all the federal topics unless you want to remap the data to a specific database structure.
@@ -48,76 +47,102 @@ explains how to use ili2pg tool to create the corresponding schema and how to im
 
 
 OeREBlex Topic Model
---------------------
+^^^^^^^^^^^^^^^^^^^^
 
-This third model is usefull if you maintain your legal documents using the OEREBlex application.
+This third model is usefull if you maintain your legal documents using the OEREBlex application and you
+have a specific cantonal model for your data. It is similar to the pyramid_oereb standard model, but all
+the document related tables are omitted. Instead the documents are linked with the geolink attribute. 
 
 .. _configuration-additional-topics:
 
 Add additional topics
 ---------------------
 
-If you only plan to add one or more additional cantonal topics and want to use the standard database structure
-for these too, you can use the following internal command to create an SQL script to establish the needed.
+If you like to add one or more additional topics based on the *pyramid_oereb standard* database structure
+you can use the internal command below to create an SQL script to establish the topic schema.
 
-.. code-block:: shell
-
-   create_standard_model -c <YOUR_NEW_TOPIC_CODE> -g <GEOMETRY_TYPE> -p <TARGET_PATH> -k TRUE
-
-The first parameter is the code of your new topic and has to be defined in camelcase. The geometry type for
-the theme can be one of the following:
-
-   - `POINT`,
-   - `LINESTRING`,
-   - `POLYGON`
-   - `MULTIPOINT`
-   - `MULTILINESTRING`
-   - `MULTIPOLYGON` or
-   - `GEOMETRYCOLLECTION`.
-
-The geometry collection is only meant for topics that can consist of different geometry types. We **strongly**
-recommend to use it **only if a simple geometry cannot be used** and to put **only one geometry** in each
-record. Do not use it as a bucket for everything! The third parameter defines the output directory in which
-the new file will be created, e.g. a module directory of your application.
-
-To use strings as primary key type, add the '-k TRUE' parameter. If not supplied, the default primary key type
-of integer will be used instead.
-
-After creating the models you have to create its configuration. Open the configuration file
-(pyramid_oereb_standard.yml) and copy the section from one of the existing topics which usually looks like
-this:
+But before creating the data structure you have to add its configuration. Open the configuration file
+(pyramid_oereb.yml) and copy the section from one of the existing **standard** topics which usually 
+looks like this:
 
 .. code-block:: yaml
 
-   - code: ch.BaulinienNationalstrassen
-     geometry_type: LINESTRING
-     thresholds:
-       length:
-         limit: 1.0
-         unit: 'm'
-         precision: 2
-       area:
-         limit: 1.0
-         unit: 'm2'
-         precision: 2
-       percentage:
-         precision: 1
-     text:
-       de: Baulinien Nationalstrassen
-     language: de
-     federal: true
-     standard: true
-     source:
-       class: pyramid_oereb.lib.sources.plr.DatabaseSource
-       params:
-         db_connection: postgresql://postgres:password@localhost:5432/pyramid_oereb
-         models: pyramid_oereb.standard.models.motorways_building_lines
-     get_symbol_method: pyramid_oereb.standard.methods.get_symbol
+    - code: ch.NE.Baulinien
+      geometry_type: LINESTRING
+      thresholds:
+        length:
+          limit: 1.0
+          unit: 'm'
+          precision: 2
+        area:
+          limit: 1.0
+          unit: 'm²'
+          precision: 2
+        percentage:
+          precision: 1
+      language: fr
+      federal: false
+      standard: true
+      view_service:
+        layer_index: 1
+        layer_opacity: 0.75
+      source:
+        class: pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource
+        params:
+          db_connection: *main_db_connection
+          # model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_integer_pk
+          # uncomment line above and comment line below to use integer type for primary keys
+          model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
+          schema_name: road_building_lines
+      hooks:
+        get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
+        get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
+      law_status_lookup:
+        - data_code: inKraft
+          transfer_code: inKraft
+          extract_code: inForce
+        - data_code: AenderungMitVorwirkung
+          transfer_code: AenderungMitVorwirkung
+          extract_code: changeWithPreEffect
+        - data_code: AenderungOhneVorwirkung
+          transfer_code: AenderungOhneVorwirkung
+          extract_code: changeWithoutPreEffect
+      document_types_lookup:
+        - data_code: LegalProvision
+          transfer_code: Rechtsvorschrift
+          extract_code: LegalProvision
+        - data_code: Law
+          transfer_code: GesetzlicheGrundlage
+          extract_code: Law
+        - data_code: Hint
+          transfer_code: Hinweis
+          extract_code: Hint
 
+Apply the necessary modifications for the new topic. This should at least be the the name, code, geometry type
+and text definitions and of course the models property within the source parameters. 
 
-Apply the necessary modifications for the new topic. This should at least be the the name, code and text
-definitions and of course the models property within the source parameters. It should point to the module
-with the generated models of the former step.
+The command to create the schema is as follows:
+
+.. code-block:: shell
+
+   create_standard_tables -c <YOUR_YAML_CONFIGURATION> -T [flag used to skip schema creation] 
+    --sql-file=<PATH_AND_SQL_SCRIPTNAME> -w [to over-write existing sql instead of append]
+
+The first parameter *-c or --configuration=YAML* is the path to your YAML configuration file. 
+By default it's pyramid_oereb.yml
+
+The second optional parameter *-s or --section=SECTION* allows you to specify the section containing
+the configuration part to use. Default is pyramid_oereb.
+
+The parameter *-T or --tables-only* skips the schema creation and creates only the tables.
+
+The option *--sql-file=SQL_FILE* generates an SQL file containing the schema and table creation 
+commands. *SQL_FILE* should be the name or the absolute path of the file. E.g: my_sql_script.sql
+
+If your yaml file uses the c2ctemplate style (starting with vars) you need to add the
+*--c2ctemplate-style* parameter.
+
+The option *-w or --over-write* allows you to overwrite an existing sql file. Default is append.
 
 Now you have set up an empty additional topic and you can continued with deploying your data into it.
 
@@ -130,7 +155,7 @@ but using a different script to generate the required models.
 
 .. code-block:: shell
 
-   create_oereblex_model -c <YOUR_NEW_TOPIC_CODE> -g <GEOMETRY_TYPE> -p <TARGET_PATH> -k TRUE
+   create_oereblex_tables -c <YOUR_NEW_TOPIC_CODE> -g <GEOMETRY_TYPE> -p <TARGET_PATH> -k TRUE
 
 
 .. _configuration-adapt-models:
