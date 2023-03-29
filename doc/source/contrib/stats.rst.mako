@@ -10,8 +10,11 @@ the usage statistics for that database.
 
 The database structure necessary to hold the data will automatically be generated upon
 first usage of the functionality. Once this structure has been generated, you may wish
-to run in addition the script *create_stats_tables* which will generate database structures
-convenient for querying the results.
+to define in addition standard reporting views, see :ref:`standard-reporting` for more information.
+
+
+Configuration
+-------------
 
 The functionality is configured via the server's ini file; see the project repository for a
 complete example of such an ini file. Example of a configuration suitable for usage with Gunicorn:
@@ -46,7 +49,7 @@ complete example of such an ini file. Example of a configuration suitable for us
 - a string: the blacklist regex
 
 db connection information
--------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The db connection information is a dictionary containing:
 
@@ -62,7 +65,7 @@ The default values for the above optional arguments are:
 The sql logger source code with its documentation can be found here: https://github.com/camptocamp/c2cwsgiutils/tree/3.9.0/c2cwsgiutils/sqlalchemylogger
 
 Blacklisting
-------------
+~~~~~~~~~~~~
 
 This is useful to avoid gathering statistics for non-relevant access logs, such as healthchecks.
 
@@ -73,6 +76,94 @@ requests, which should be accounted in the statistics instead.
 
 For example if *user-agent* http header of an healthcheck is set to some particular string (e.g. 'healthcheck' like in the above example),
 then you should at least set 'healtcheck' explicitely and the logger will avoid writing any log containing the word healthcheck.
+
+.. _standard-reporting:
+
+Standard reporting
+------------------
+
+To fulfill the most common needs for statistics reporting, we recommend the usage of database views
+based on the raw data table. You can create these views using the script *create_stats_tables*, or
+by creating the following views in your database manually, and adapting them if needed:
+
+.. code-block:: sql
+
+  /*GetVersions view*/
+  DROP VIEW IF EXISTS oereb_logs.stats_get_versions;
+  CREATE OR REPLACE VIEW oereb_logs.stats_get_versions AS
+    SELECT cast(msg AS json) -> 'response' -> 'extras' ->> 'service' AS service ,
+           cast(cast(msg AS json) -> 'response' ->> 'status_code' AS INTEGER) AS status_code,
+           cast(msg AS json) -> 'response' -> 'extras' ->> 'output_format' AS output_format,
+           created_at,
+           cast(msg AS json) -> 'request' ->> 'path' AS path
+    FROM oereb_logs.logs WHERE logger = 'JSON' AND cast(msg AS json) -> 'response' ->'extras' ->> 'service' = 'GetVersions';
+  /*GetCapabilities view*/
+  DROP VIEW IF EXISTS oereb_logs.stats_get_capabilities;
+  CREATE OR REPLACE VIEW oereb_logs.stats_get_capabilities AS
+    SELECT cast(msg AS json) -> 'response' -> 'extras' ->> 'service' AS service ,
+           cast(cast(msg AS json) -> 'response' ->> 'status_code' AS INTEGER) AS status_code,
+           cast(msg AS json) -> 'response' -> 'extras' ->> 'output_format' AS output_format,
+           created_at,
+           cast(msg AS json) -> 'request' ->> 'path' AS path
+    FROM oereb_logs.logs WHERE logger = 'JSON' AND cast(msg AS json) -> 'response' ->'extras' ->> 'service' = 'GetCapabilities';
+  /*GetEgridCoord view*/
+  DROP VIEW IF EXISTS oereb_logs.stats_get_egrid_coord;
+  CREATE OR REPLACE VIEW oereb_logs.stats_get_egrid_coord AS
+    SELECT cast(msg AS json) -> 'response' -> 'extras' ->> 'service' AS service ,
+           cast(cast(msg AS json) -> 'response' ->> 'status_code' AS INTEGER) AS status_code,
+           cast(msg AS json) -> 'response' -> 'extras' ->> 'output_format' AS output_format,
+           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'EN' AS en,
+           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'GNSS' AS gnss,
+           created_at,
+           cast(msg AS json) -> 'request' ->> 'path' AS path
+    FROM oereb_logs.logs WHERE logger = 'JSON' AND cast(msg AS json) -> 'response' ->'extras' ->> 'service' = 'GetEgridCoord';
+  /*GetEgridIdent view*/
+  DROP VIEW IF EXISTS oereb_logs.stats_get_egrid_ident;
+  CREATE OR REPLACE VIEW oereb_logs.stats_get_egrid_ident AS
+    SELECT cast(msg AS json) -> 'response' -> 'extras' ->> 'service' AS service ,
+           cast(cast(msg AS json) -> 'response' ->> 'status_code' AS INTEGER) AS status_code,
+           cast(msg AS json) -> 'response' -> 'extras' ->> 'output_format' AS output_format,
+           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'IDENTDN' AS identdn,
+           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'NUMBER' AS number,
+           created_at,
+           cast(msg AS json) -> 'request' ->> 'path' AS path
+    FROM oereb_logs.logs WHERE logger = 'JSON' AND cast(msg AS json) -> 'response' ->'extras' ->> 'service' = 'GetEgridIdent';
+  /*GetEgridAddress view*/
+  DROP VIEW IF EXISTS oereb_logs.stats_get_egrid_address;
+  CREATE OR REPLACE VIEW oereb_logs.stats_get_egrid_address AS
+    SELECT cast(msg AS json) -> 'response' -> 'extras' ->> 'service' AS service ,
+           cast(cast(msg AS json) -> 'response' ->> 'status_code' AS INTEGER) AS status_code,
+           cast(msg AS json) -> 'response' -> 'extras' ->> 'output_format' AS output_format,
+           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'POSTALCODE' AS postalcode,
+           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'LOCALISATION' AS localisation,
+           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> 'NUMBER' AS number,
+           created_at,
+           cast(msg AS json) -> 'request' ->> 'path' AS path
+    FROM oereb_logs.logs WHERE logger = 'JSON' AND cast(msg AS json) -> 'response' ->'extras' ->> 'service' = 'GetEgridAddress';
+  /*GetExtractById view*/
+  DROP VIEW IF EXISTS oereb_logs.stats_get_extract_by_id CASCADE;
+  CREATE OR REPLACE VIEW oereb_logs.stats_get_extract_by_id AS
+    SELECT cast(msg AS json) -> 'response' -> 'extras' ->> 'service' AS service ,
+           cast(cast(msg AS json) -> 'response' ->> 'status_code' AS INTEGER) AS status_code,
+           cast(msg AS json) -> 'response' -> 'extras' ->> 'output_format' AS output_format,
+           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> '__flavour__' AS flavour,
+           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> '__egrid__' AS egrid,
+           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> '__identdn__' AS identdn,
+           cast(msg AS json) -> 'response' -> 'extras' -> 'params' ->> '__number__' AS number,
+           created_at,
+           cast(msg AS json) -> 'request' ->> 'path' AS path
+    FROM oereb_logs.logs WHERE logger = 'JSON' AND cast(msg AS json) -> 'response' ->'extras' ->> 'service' = 'GetExtractById';
+  /*stats_daily_extract_by_id*/
+  DROP VIEW IF EXISTS oereb_logs.stats_daily_extract_by_id;
+  CREATE OR REPLACE VIEW oereb_logs.stats_daily_extract_by_id AS
+    SELECT
+        date_trunc('day', created_at) AS day,
+        COUNT(1) AS nb_requests,
+        COUNT(1) FILTER (WHERE  output_format = 'pdf') AS format_pdf,
+        COUNT(1) FILTER (WHERE  output_format = 'json') AS format_json,
+        COUNT(1) FILTER (WHERE  output_format = 'xml') AS format_xml
+    FROM oereb_logs.stats_get_extract_by_id WHERE cast(status_code as INTEGER) = 200
+    GROUP BY 1;
 
 
 Implementation
