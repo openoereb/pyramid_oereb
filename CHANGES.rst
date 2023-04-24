@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.4.3
+-----
+- Add support for newest oereblex API (via geolink-formatter, #1703)
+- Various minor library upgrades (SQLAlchemy, geoalchemy, psycopg2, pypdf)
+
 2.4.2
 -----
 - Add print configuration parameter for municipality name (#1703)
