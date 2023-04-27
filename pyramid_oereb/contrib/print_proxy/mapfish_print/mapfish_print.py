@@ -486,16 +486,21 @@ class Renderer(JsonRenderer):
             # add additionally map layer to the theme if not already there
             new_layer = restriction_on_landownership['baseLayers']['layers'][0]['layers'][0]
             new_base_url = restriction_on_landownership['baseLayers']['layers'][0]['baseURL']
-            existing_layer = [layer for layers in current['baseLayers']['layers'] for layer in layers['layers']]
+            existing_layer = [
+                layer for layers in current['baseLayers']['layers'] for layer in layers['layers']
+                ]
             if new_layer not in existing_layer:
-                # add it in the element with the same baseURL. The rest of the parameters should be the same as given by the theme
+                # add it in the element with the same baseURL.
+                # The rest of the parameters should be the same as given by the theme
                 for element in current['baseLayers']['layers']:
                     if new_base_url == element['baseURL']:
                         element['layers'].append(new_layer)
                         layer_added = True
                         break
                 if not layer_added:
-                    current['baseLayers']['layers'].append(restriction_on_landownership['baseLayers']['layers'][0])
+                    current['baseLayers']['layers'].append(
+                        restriction_on_landownership['baseLayers']['layers'][0]
+                    )
 
             # Text
             for element in text_element:
