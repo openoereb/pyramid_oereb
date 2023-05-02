@@ -492,6 +492,7 @@ class Renderer(JsonRenderer):
             if new_layer not in existing_layer:
                 # add it in the element with the same baseURL.
                 # The rest of the parameters should be the same as given by the theme
+                layer_added = False
                 for element in current['baseLayers']['layers']:
                     if new_base_url == element['baseURL']:
                         element['layers'].append(new_layer)

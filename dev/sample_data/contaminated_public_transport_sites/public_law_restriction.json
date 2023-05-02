@@ -45,7 +45,15 @@
     "published_until": "2100-01-01",
     "id": 401,
     "law_status": "inKraft",
-    "view_service_id": 1,
+    "view_service_id": 3,
+    "legend_entry_id": 1
+  }, {
+    "office_id": 1,
+    "published_from": "2016-02-25",
+    "published_until": "2100-01-01",
+    "id": 402,
+    "law_status": "inKraft",
+    "view_service_id": 2,
     "legend_entry_id": 1
   }
 ]
