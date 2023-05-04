@@ -6,7 +6,6 @@ from json import dumps
 from pyramid.request import Request
 from pyramid.response import Response
 from pyramid.testing import DummyRequest
-from pyramid.path import DottedNameResolver
 
 from pyramid_oereb import Config, route_prefix
 from pyramid_oereb.core import get_multilingual_element
@@ -119,16 +118,45 @@ class Renderer(Base):
                 'QRCode': extract.qr_code.encode()
             })
         else:
-            method = DottedNameResolver().resolve(str(extract.hooks.get('get_logo_ref')))
-            if callable(method):
-                extract_dict.update({
-                    'LogoPLRCadastreRef': method(self._request, 'oereb', self._language, extract.logo_plr_cadastre.image_dict),
-                    'FederalLogoRef': method(self._request, 'confederation', self._language, extract.federal_logo.image_dict),
-                    'CantonalLogoRef': method(self._request, 'canton', self._language, extract.cantonal_logo.image_dict),
-                    'MunicipalityLogoRef': method(self._request, 'municipality', self._language, extract.municipality_logo.image_dict) + '?fosnr={}'.format(extract.real_estate.fosnr),
-                    'QRCodeRef': extract.qr_code_ref
-                })
-                
+            extract_dict.update({
+                'LogoPLRCadastreRef': self._request.route_url(
+                    '{0}/image/logo'.format(route_prefix),
+                    logo='oereb',
+                    language=self._language,
+                    extension=get_multilingual_element(
+                            extract.logo_plr_cadastre.image_dict,
+                            self._language
+                        ).extension
+                ),
+                'FederalLogoRef': self._request.route_url(
+                    '{0}/image/logo'.format(route_prefix),
+                    logo='confederation',
+                    language=self._language,
+                    extension=get_multilingual_element(
+                            extract.federal_logo.image_dict,
+                            self._language
+                        ).extension
+                ),
+                'CantonalLogoRef': self._request.route_url(
+                    '{0}/image/logo'.format(route_prefix),
+                    logo='canton',
+                    language=self._language,
+                    extension=get_multilingual_element(
+                            extract.cantonal_logo.image_dict,
+                            self._language
+                        ).extension
+                ),
+                'MunicipalityLogoRef': self._request.route_url(
+                    '{0}/image/logo'.format(route_prefix),
+                    logo='municipality',
+                    language=self._language,
+                    extension=get_multilingual_element(
+                            extract.municipality_logo.image_dict,
+                            self._language
+                        ).extension
+                ) + '?fosnr={}'.format(extract.real_estate.fosnr),
+                'QRCodeRef': extract.qr_code_ref
+            })
 
         if extract.electronic_signature is not None:
             extract_dict['ElectronicSignature'] = extract.electronic_signature

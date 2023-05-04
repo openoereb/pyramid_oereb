@@ -358,8 +358,6 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the logo images database table.
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Logo
-    hooks: 
-      get_logo_ref: pyramid_oereb.core.hook_methods.get_logo_ref
 
   # The processor of the oereb project joins the document type labels. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
