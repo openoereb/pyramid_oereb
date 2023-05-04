@@ -52,7 +52,7 @@ def get_symbol_ref(request, record):
     )
 
 
-def get_logo_refs(request, logo_code, language, image_dict):
+def get_logo_ref(request, logo_code, language, image_dict):
     """
     Returns the link to the logos.
 
