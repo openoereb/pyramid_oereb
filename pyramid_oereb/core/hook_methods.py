@@ -3,10 +3,13 @@ import re
 from mako.template import Template
 from pyramid.path import AssetResolver
 from functools import cmp_to_key
+import logging
 
 from pyramid_oereb import route_prefix
+from pyramid_oereb.core import get_multilingual_element
 from pyramid_oereb.core.records.office import OfficeRecord
 
+log = logging.getLogger(__name__)
 
 def get_symbol(params, theme_config):
     """
@@ -47,6 +50,28 @@ def get_symbol_ref(request, record):
         _query=query
     )
 
+def get_logo_refs(request, logo_code, language, image_dict):
+    """
+    Returns the link to the logos.
+
+    Args:
+        request (pyramid.request.Request): The current request instance.
+        logo_code (str): Code of logo, eg. bs or ch.
+        language (str): language of extract.
+        image_dict (dict): dict of image
+
+    Returns:
+        uri: the link to the logos.
+    """
+    return request.route_url(
+        '{0}/image/logo'.format(route_prefix),
+        logo=logo_code,
+        language=language,
+        extension=get_multilingual_element(
+                image_dict,
+                language
+            ).extension
+    )
 
 def get_surveying_data_provider(real_estate):
     """

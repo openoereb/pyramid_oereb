@@ -129,6 +129,7 @@ class ExtractReader(object):
         canton_logo = Config.get_canton_logo()
         municipality_logo = Config.get_municipality_logo(municipality.fosnr)
         qr_code_image = ImageRecord(params.qr_code)
+        hooks = Config.get_logo_hooks()
 
         self.extract = ExtractRecord(
             real_estate,
@@ -143,7 +144,8 @@ class ExtractReader(object):
             theme_without_data=themes_without_data,
             general_information=general_information,
             qr_code=qr_code_image,
-            qr_code_ref=params.qr_code_ref
+            qr_code_ref=params.qr_code_ref,
+            hooks=hooks
         )
 
         log.debug("read() done")

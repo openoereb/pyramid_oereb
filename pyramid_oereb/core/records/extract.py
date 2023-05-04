@@ -32,6 +32,8 @@ class ExtractRecord(object):
             pyramid_oereb.core.records.disclaimer.DisclaimerRecord or None): Disclaimers for the extract.
         glossaries (list of pyramid_oereb.lib.records.glossary.GlossaryRecord): Glossaries for the
             extract.
+        hooks (dict of str): The hook methods: get_logo_ref. They have to be provided as
+                dotted string for further use with dotted name resolver of pyramid package.
     """
 
     creation_date = None
@@ -44,7 +46,7 @@ class ExtractRecord(object):
     def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo,
                  plr_cadastre_authority, update_date_os, disclaimers=None, glossaries=None,
                  concerned_theme=None, not_concerned_theme=None, theme_without_data=None,
-                 general_information=None, qr_code=None, qr_code_ref=None):
+                 general_information=None, qr_code=None, qr_code_ref=None, hooks=None):
         """
         Args:
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate in its
@@ -71,6 +73,8 @@ class ExtractRecord(object):
             qr_code (pyramid_oereb.lib.records.image.ImageRecord or None): QR code for the extract
                 as ImageRecord.
             qr_code_ref (str or None): The URL to retrieve the QR code.
+            hooks (dict of str): The hook methods: get_logo_ref. They have to be provided as
+                dotted string for further use with dotted name resolver of pyramid package.
         """
         if not isinstance(update_date_os, datetime):
             warnings.warn('Type of "update_date_os" should be "datetime.datetime"')
@@ -109,3 +113,4 @@ class ExtractRecord(object):
             self.glossaries = []
         self.qr_code = qr_code
         self.qr_code_ref = qr_code_ref
+        self.hooks = hooks
