@@ -22,6 +22,9 @@ pyramid_oereb:
       params:
         db_connection: postgresql://postgres:postgres@oereb-db:5432/pyramid_oereb_test
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Logo
+    hooks:
+      get_logo_ref: pyramid_oereb.core.hook_methods.get_logo_ref
+      get_qr_code_ref: pyramid_oereb.core.hook_methods.get_qr_code_ref
 
   document_types:
     source:
