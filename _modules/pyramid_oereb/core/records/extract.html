@@ -107,6 +107,8 @@
 <span class="sd">            pyramid_oereb.core.records.disclaimer.DisclaimerRecord or None): Disclaimers for the extract.</span>
 <span class="sd">        glossaries (list of pyramid_oereb.lib.records.glossary.GlossaryRecord): Glossaries for the</span>
 <span class="sd">            extract.</span>
+<span class="sd">        hooks (dict of str): The hook methods: get_logo_ref. They have to be provided as</span>
+<span class="sd">                dotted string for further use with dotted name resolver of pyramid package.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">creation_date</span> <span class="o">=</span> <span class="kc">None</span>
@@ -119,7 +121,7 @@
 <div class="viewcode-block" id="ExtractRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.extract.ExtractRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">logo_plr_cadastre</span><span class="p">,</span> <span class="n">federal_logo</span><span class="p">,</span> <span class="n">cantonal_logo</span><span class="p">,</span> <span class="n">municipality_logo</span><span class="p">,</span>
                  <span class="n">plr_cadastre_authority</span><span class="p">,</span> <span class="n">update_date_os</span><span class="p">,</span> <span class="n">disclaimers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">glossaries</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">concerned_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">not_concerned_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">theme_without_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">general_information</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qr_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qr_code_ref</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">general_information</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qr_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qr_code_ref</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">hooks</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate in its</span>
@@ -146,6 +148,8 @@
 <span class="sd">            qr_code (pyramid_oereb.lib.records.image.ImageRecord or None): QR code for the extract</span>
 <span class="sd">                as ImageRecord.</span>
 <span class="sd">            qr_code_ref (str or None): The URL to retrieve the QR code.</span>
+<span class="sd">            hooks (dict of str): The hook methods: get_logo_ref. They have to be provided as</span>
+<span class="sd">                dotted string for further use with dotted name resolver of pyramid package.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">update_date_os</span><span class="p">,</span> <span class="n">datetime</span><span class="p">):</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;update_date_os&quot; should be &quot;datetime.datetime&quot;&#39;</span><span class="p">)</span>
@@ -183,7 +187,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">glossaries</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">qr_code</span> <span class="o">=</span> <span class="n">qr_code</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">qr_code_ref</span> <span class="o">=</span> <span class="n">qr_code_ref</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">qr_code_ref</span> <span class="o">=</span> <span class="n">qr_code_ref</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hooks</span> <span class="o">=</span> <span class="n">hooks</span></div></div>
 </pre></div>
 
            </div>

@@ -204,6 +204,7 @@
         <span class="n">canton_logo</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_canton_logo</span><span class="p">()</span>
         <span class="n">municipality_logo</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_municipality_logo</span><span class="p">(</span><span class="n">municipality</span><span class="o">.</span><span class="n">fosnr</span><span class="p">)</span>
         <span class="n">qr_code_image</span> <span class="o">=</span> <span class="n">ImageRecord</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">qr_code</span><span class="p">)</span>
+        <span class="n">hooks</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_logo_hooks</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">extract</span> <span class="o">=</span> <span class="n">ExtractRecord</span><span class="p">(</span>
             <span class="n">real_estate</span><span class="p">,</span>
@@ -218,7 +219,8 @@
             <span class="n">theme_without_data</span><span class="o">=</span><span class="n">themes_without_data</span><span class="p">,</span>
             <span class="n">general_information</span><span class="o">=</span><span class="n">general_information</span><span class="p">,</span>
             <span class="n">qr_code</span><span class="o">=</span><span class="n">qr_code_image</span><span class="p">,</span>
-            <span class="n">qr_code_ref</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">qr_code_ref</span>
+            <span class="n">qr_code_ref</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">qr_code_ref</span><span class="p">,</span>
+            <span class="n">hooks</span><span class="o">=</span><span class="n">hooks</span>
         <span class="p">)</span>
 
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() done&quot;</span><span class="p">)</span>

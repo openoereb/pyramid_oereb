@@ -81,6 +81,7 @@
 <span class="kn">from</span> <span class="nn">pyramid.request</span> <span class="kn">import</span> <span class="n">Request</span>
 <span class="kn">from</span> <span class="nn">pyramid.response</span> <span class="kn">import</span> <span class="n">Response</span>
 <span class="kn">from</span> <span class="nn">pyramid.testing</span> <span class="kn">import</span> <span class="n">DummyRequest</span>
+<span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="kn">import</span> <span class="n">DottedNameResolver</span>
 
 <span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">route_prefix</span>
 <span class="kn">from</span> <span class="nn">pyramid_oereb.core</span> <span class="kn">import</span> <span class="n">get_multilingual_element</span>
@@ -193,45 +194,16 @@
                 <span class="s1">&#39;QRCode&#39;</span><span class="p">:</span> <span class="n">extract</span><span class="o">.</span><span class="n">qr_code</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
             <span class="p">})</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">extract_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-                <span class="s1">&#39;LogoPLRCadastreRef&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">route_url</span><span class="p">(</span>
-                    <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/image/logo&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">route_prefix</span><span class="p">),</span>
-                    <span class="n">logo</span><span class="o">=</span><span class="s1">&#39;oereb&#39;</span><span class="p">,</span>
-                    <span class="n">language</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">,</span>
-                    <span class="n">extension</span><span class="o">=</span><span class="n">get_multilingual_element</span><span class="p">(</span>
-                            <span class="n">extract</span><span class="o">.</span><span class="n">logo_plr_cadastre</span><span class="o">.</span><span class="n">image_dict</span><span class="p">,</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">_language</span>
-                        <span class="p">)</span><span class="o">.</span><span class="n">extension</span>
-                <span class="p">),</span>
-                <span class="s1">&#39;FederalLogoRef&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">route_url</span><span class="p">(</span>
-                    <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/image/logo&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">route_prefix</span><span class="p">),</span>
-                    <span class="n">logo</span><span class="o">=</span><span class="s1">&#39;confederation&#39;</span><span class="p">,</span>
-                    <span class="n">language</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">,</span>
-                    <span class="n">extension</span><span class="o">=</span><span class="n">get_multilingual_element</span><span class="p">(</span>
-                            <span class="n">extract</span><span class="o">.</span><span class="n">federal_logo</span><span class="o">.</span><span class="n">image_dict</span><span class="p">,</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">_language</span>
-                        <span class="p">)</span><span class="o">.</span><span class="n">extension</span>
-                <span class="p">),</span>
-                <span class="s1">&#39;CantonalLogoRef&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">route_url</span><span class="p">(</span>
-                    <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/image/logo&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">route_prefix</span><span class="p">),</span>
-                    <span class="n">logo</span><span class="o">=</span><span class="s1">&#39;canton&#39;</span><span class="p">,</span>
-                    <span class="n">language</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">,</span>
-                    <span class="n">extension</span><span class="o">=</span><span class="n">get_multilingual_element</span><span class="p">(</span>
-                            <span class="n">extract</span><span class="o">.</span><span class="n">cantonal_logo</span><span class="o">.</span><span class="n">image_dict</span><span class="p">,</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">_language</span>
-                        <span class="p">)</span><span class="o">.</span><span class="n">extension</span>
-                <span class="p">),</span>
-                <span class="s1">&#39;MunicipalityLogoRef&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="o">.</span><span class="n">route_url</span><span class="p">(</span>
-                    <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/image/logo&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">route_prefix</span><span class="p">),</span>
-                    <span class="n">logo</span><span class="o">=</span><span class="s1">&#39;municipality&#39;</span><span class="p">,</span>
-                    <span class="n">language</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">,</span>
-                    <span class="n">extension</span><span class="o">=</span><span class="n">get_multilingual_element</span><span class="p">(</span>
-                            <span class="n">extract</span><span class="o">.</span><span class="n">municipality_logo</span><span class="o">.</span><span class="n">image_dict</span><span class="p">,</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">_language</span>
-                        <span class="p">)</span><span class="o">.</span><span class="n">extension</span>
-                <span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;?fosnr=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extract</span><span class="o">.</span><span class="n">real_estate</span><span class="o">.</span><span class="n">fosnr</span><span class="p">),</span>
-                <span class="s1">&#39;QRCodeRef&#39;</span><span class="p">:</span> <span class="n">extract</span><span class="o">.</span><span class="n">qr_code_ref</span>
-            <span class="p">})</span>
+            <span class="n">method</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">extract</span><span class="o">.</span><span class="n">hooks</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;get_logo_ref&#39;</span><span class="p">)))</span>
+            <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">method</span><span class="p">):</span>
+                <span class="n">extract_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+                    <span class="s1">&#39;LogoPLRCadastreRef&#39;</span><span class="p">:</span> <span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">,</span> <span class="s1">&#39;oereb&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">,</span> <span class="n">extract</span><span class="o">.</span><span class="n">logo_plr_cadastre</span><span class="o">.</span><span class="n">image_dict</span><span class="p">),</span>
+                    <span class="s1">&#39;FederalLogoRef&#39;</span><span class="p">:</span> <span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">,</span> <span class="s1">&#39;confederation&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">,</span> <span class="n">extract</span><span class="o">.</span><span class="n">federal_logo</span><span class="o">.</span><span class="n">image_dict</span><span class="p">),</span>
+                    <span class="s1">&#39;CantonalLogoRef&#39;</span><span class="p">:</span> <span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">,</span> <span class="s1">&#39;canton&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">,</span> <span class="n">extract</span><span class="o">.</span><span class="n">cantonal_logo</span><span class="o">.</span><span class="n">image_dict</span><span class="p">),</span>
+                    <span class="s1">&#39;MunicipalityLogoRef&#39;</span><span class="p">:</span> <span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">,</span> <span class="s1">&#39;municipality&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_language</span><span class="p">,</span> <span class="n">extract</span><span class="o">.</span><span class="n">municipality_logo</span><span class="o">.</span><span class="n">image_dict</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;?fosnr=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extract</span><span class="o">.</span><span class="n">real_estate</span><span class="o">.</span><span class="n">fosnr</span><span class="p">),</span>
+                    <span class="s1">&#39;QRCodeRef&#39;</span><span class="p">:</span> <span class="n">extract</span><span class="o">.</span><span class="n">qr_code_ref</span>
+                <span class="p">})</span>
+                
 
         <span class="k">if</span> <span class="n">extract</span><span class="o">.</span><span class="n">electronic_signature</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;ElectronicSignature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">extract</span><span class="o">.</span><span class="n">electronic_signature</span>
