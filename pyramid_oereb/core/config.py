@@ -730,6 +730,25 @@ class Config(object):
         return Config.get_logo_lookup('confederation')
 
     @staticmethod
+    def get_logo_hooks():
+        """
+        Returns the hook methods specified in config file.
+
+        Returns:
+            list: list of hook methods provided in config in dotted names.
+        
+        Raises:
+            ConfigurationError
+        """
+
+        logo_config = Config.get_logo_config()
+        if logo_config is None:
+            raise ConfigurationError("Missing configuration for logos")
+        if logo_config.get('hooks') is None:
+            raise ConfigurationError("Missing configuration for logos hook methods")
+        return logo_config.get('hooks')
+
+    @staticmethod
     def init_document_types():
         """
         Initiates all document types configured in the config file.
