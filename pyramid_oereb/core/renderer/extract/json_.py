@@ -6,6 +6,7 @@ from json import dumps
 from pyramid.request import Request
 from pyramid.response import Response
 from pyramid.testing import DummyRequest
+from pyramid.httpexceptions import HTTPServerError
 from pyramid.path import DottedNameResolver
 
 from pyramid_oereb import Config, route_prefix
@@ -119,15 +120,24 @@ class Renderer(Base):
                 'QRCode': extract.qr_code.encode()
             })
         else:
-            method = DottedNameResolver().resolve(str(extract.hooks.get('get_logo_ref')))
-            if callable(method):
+            try:
+                method_logo = DottedNameResolver().resolve(str(extract.hooks.get('get_logo_ref')))
+                method_qr_code = DottedNameResolver().resolve(str(extract.hooks.get('get_qr_code_ref')))
+            except ModuleNotFoundError:
+                log.error('No "get_logo_ref" or "get_qr_code_ref" method found in logo config')
+                raise HTTPServerError()
+
+            if callable(method_logo) and callable(method_qr_code):
                 extract_dict.update({
-                    'LogoPLRCadastreRef': method(self._request, 'oereb', self._language, extract.logo_plr_cadastre.image_dict),
-                    'FederalLogoRef': method(self._request, 'confederation', self._language, extract.federal_logo.image_dict),
-                    'CantonalLogoRef': method(self._request, 'canton', self._language, extract.cantonal_logo.image_dict),
-                    'MunicipalityLogoRef': method(self._request, 'municipality', self._language, extract.municipality_logo.image_dict) + '?fosnr={}'.format(extract.real_estate.fosnr),
-                    'QRCodeRef': extract.qr_code_ref
+                    'LogoPLRCadastreRef': method_logo(self._request, 'oereb', self._language, extract.logo_plr_cadastre.image_dict),
+                    'FederalLogoRef': method_logo(self._request, 'confederation', self._language, extract.federal_logo.image_dict),
+                    'CantonalLogoRef': method_logo(self._request, 'canton', self._language, extract.cantonal_logo.image_dict),
+                    'MunicipalityLogoRef': method_logo(self._request, 'municipality', self._language, extract.municipality_logo.image_dict) + '?fosnr={}'.format(extract.real_estate.fosnr),
+                    'QRCodeRef': method_qr_code(self._request, extract.qr_code_ref)
                 })
+            else:
+                log.error('No "get_logo_ref" or "get_qr_code_ref" method found in logo config')
+                raise HTTPServerError()
 
         if extract.electronic_signature is not None:
             extract_dict['ElectronicSignature'] = extract.electronic_signature

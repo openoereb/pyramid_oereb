@@ -74,6 +74,20 @@ def get_logo_refs(request, logo_code, language, image_dict):
             ).extension
     )
 
+def get_qr_code_ref(request, qr_code_ref):
+    """
+    Returns the link for the qr_code.
+
+    Args:
+        request (pyramid.request.Request): The current request instance.
+        qr_code_ref (str): The string of qr-code url.
+    
+    Returns:
+        uri: the link to the qr_code.
+    """
+
+    return qr_code_ref
+
 def get_surveying_data_provider(real_estate):
     """
 
