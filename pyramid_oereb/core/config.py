@@ -736,7 +736,7 @@ class Config(object):
 
         Returns:
             list: list of hook methods provided in config in dotted names.
-        
+
         Raises:
             ConfigurationError
         """

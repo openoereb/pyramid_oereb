@@ -51,6 +51,7 @@ def get_symbol_ref(request, record):
         _query=query
     )
 
+
 def get_logo_refs(request, logo_code, language, image_dict):
     """
     Returns the link to the logos.
@@ -60,7 +61,7 @@ def get_logo_refs(request, logo_code, language, image_dict):
         logo_code (str): Code of logo, eg. bs or ch.
         language (str): language of extract.
         image_dict (dict): dict of image
-    
+
     Returns:
         uri: the link to the logos.
     """
@@ -73,6 +74,7 @@ def get_logo_refs(request, logo_code, language, image_dict):
                 language
             ).extension
     )
+
 
 def get_qr_code_ref(request, qr_code_ref):
     """
