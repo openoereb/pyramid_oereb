@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 
+from unittest.mock import patch
 from pyramid.config import ConfigurationError
 
 # from pyramid_oereb.core.adapter import FileAdapter
@@ -130,3 +131,16 @@ def test_get_real_estate_type_config_none():
     Config._config = None
     with pytest.raises(AssertionError):
         Config.get_real_estate_type_config()
+
+
+@pytest.mark.run(order=-1)
+def test_get_real_estate_type_lookups():
+    with patch.object(Config, 'get_real_estate_type_config', return_value={"lookup": {}}):
+        assert Config.get_real_estate_type_lookups() == {}
+
+
+@pytest.mark.run(order=-1)
+def test_get_real_estate_type_lookups_none():
+    with patch.object(Config, 'get_real_estate_type_config', return_value={}):
+        with pytest.raises(ConfigurationError):
+            Config.get_real_estate_type_lookups()
