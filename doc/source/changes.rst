@@ -6,6 +6,14 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+Version 2.4.3
+-------------
+Maintenance release:
+
+* Add support for newest oereblex API (via geolink-formatter, #1703)
+* Various minor library upgrades (SQLAlchemy, geoalchemy, psycopg2, pypdf)
+  
+
 Version 2.4.2
 -------------
 Maintenance release, with a new configuration option:
