@@ -165,14 +165,14 @@ def patch_config_get_theme_config_by_code(return_value):
 
 
 @pytest.mark.run(order=-1)
-@pytest.mark.parametrize('return_value', [{"document_types_lookup": [{}]}])
-def test_get_document_types_lookups(patch_config_get_theme_config_by_code, return_value):
-    result = Config.get_document_types_lookups('ch.Nutzungsplanung')
-    assert result == [{}]
+def test_get_document_types_lookups():
+    with patch.object(Config, 'get_theme_config_by_code', return_value={"document_types_lookup": [{}]}):
+        result = Config.get_document_types_lookups('ch.Nutzungsplanung')
+        assert result == [{}]
 
 
 @pytest.mark.run(order=-1)
-@pytest.mark.parametrize('return_value', [{}])
-def test_get_document_types_lookups_raises_error(patch_config_get_theme_config_by_code, return_value):
-    with pytest.raises(ConfigurationError):
-        Config.get_document_types_lookups('ch.Nutzungsplanung')
+def test_get_document_types_lookups_raises_error():
+    with patch.object(Config, 'get_theme_config_by_code', return_value={}):
+        with pytest.raises(ConfigurationError):
+            Config.get_document_types_lookups('ch.Nutzungsplanung')
