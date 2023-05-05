@@ -124,6 +124,7 @@ def test_get_real_estate_type_config(test_value, expected_value):
     Config._config = test_value
     assert Config.get_real_estate_type_config() == expected_value
 
+
 @pytest.mark.run(order=-1)
 def test_get_real_estate_type_config_none():
     Config._config = None
