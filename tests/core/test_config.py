@@ -79,10 +79,11 @@ def test_get_logo_config(config_path):
 
 @pytest.mark.run(order=-1)
 def test_init_logos():
-    with patch.object(Config, '_read_logos', return_value=['logo2','logo3']):
+    with patch.object(Config, '_read_logos', return_value=['logo2', 'logo3']):
         Config._config = None
         Config.init_logos()
         assert len(Config.logos) == 2
+
 
 @pytest.mark.run(order=-1)
 def test_init_logos_error():
