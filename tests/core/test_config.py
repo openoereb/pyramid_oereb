@@ -76,9 +76,9 @@ def test_get_logo_config(config_path):
     model = params.get('model')
     assert isinstance(model, str)
 
+
 @pytest.mark.run(order=-1)
 def test_init_logos():
-    
     with patch.object(Config, '_read_logos', return_value=['logo2','logo3']):
         Config._config = None
         Config.init_logos()
@@ -86,7 +86,6 @@ def test_init_logos():
 
 @pytest.mark.run(order=-1)
 def test_init_logos_error():
-
     def mock_read_logos():
         raise ProgrammingError('a', 'b', 'c')
 
@@ -94,6 +93,7 @@ def test_init_logos_error():
         Config._config = None
         Config.init_logos()
         assert Config.logos is None
+
 
 @pytest.mark.run(order=-1)
 def test_get_all_federal(config_path):
