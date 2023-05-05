@@ -236,7 +236,7 @@ but using a different script to generate the required models.
    create_oereblex_tables -c <YOUR_NEW_TOPIC_CODE> -g <GEOMETRY_TYPE> -p <TARGET_PATH> -k TRUE
 
 For all topics
-~~~~~~~~~~~~~~
+--------------
 
 Do not forget to add the availability information in the *pyramid_oereb_main.availability* table to activate (or not)
 the topic for a municipality.
