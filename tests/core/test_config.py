@@ -113,3 +113,21 @@ def test_get_real_estate_main_page_config(config_path):
     )
     assert plan_for_land_register_main_page_config.get('layer_index') == 2
     assert plan_for_land_register_main_page_config.get('layer_opacity') == 0.5
+
+
+@pytest.mark.parametrize('test_theme,expected_result', [
+    ({'theme': 'params_dict'}, 'params_dict'),
+    ({'wrong_key': {}}, None)
+    ])
+@pytest.mark.run(order=-1)
+def test_get_theme_config(test_theme, expected_result):
+    Config._config = None
+    Config._config = test_theme
+    assert Config.get_theme_config() == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_get_theme_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_theme_config()
