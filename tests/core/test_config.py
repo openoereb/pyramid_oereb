@@ -2,6 +2,7 @@
 import pytest
 
 from pyramid.config import ConfigurationError
+from unittest.mock import patch
 
 # from pyramid_oereb.core.adapter import FileAdapter
 from pyramid_oereb.core.config import Config
@@ -131,3 +132,21 @@ def test_get_theme_config_none():
     Config._config = None
     with pytest.raises(AssertionError):
         Config.get_theme_config()
+
+
+@pytest.mark.parametrize(
+        'test_theme_config,test_theme_code,expected_result',
+        [({'plrs': [{'code': 'ch.Nutzungsplanung'}]}, 'ch.Nutzungsplanung', {'code': 'ch.Nutzungsplanung'}),
+         ({'plrs': [{'code': 'ch.Nutzungsplanung'}]}, 'ch.Ne.Baulinien', None),
+         ({}, 'ch.Ne.Baulinien', None)])
+@pytest.mark.run(order=-1)
+def test_get_theme_config_by_code(test_theme_config, test_theme_code, expected_result):
+    with patch.object(Config, '_config', test_theme_config):
+        assert Config.get_theme_config_by_code(test_theme_code) == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_get_theme_config_by_code_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_theme_config_by_code('ch.NE.Baulinien')
