@@ -178,14 +178,15 @@ def test_get_document_types_lookups_raises_error():
             Config.get_document_types_lookups('ch.Nutzungsplanung')
 
 
-@pytest.mark.parametrize('test_value, expected_results',[
-    ({'glossary':{}},{}),
-    ({'not_te_excpected_glossary_key':{}},None)
+@pytest.mark.parametrize('test_value, expected_results', [
+    ({'glossary': {}}, {}),
+    ({'not_te_excpected_glossary_key': {}}, None)
     ])
 @pytest.mark.run(order=-1)
-def test_get_glossary_config(test_value,expected_results):
+def test_get_glossary_config(test_value, expected_results):
     Config._config = test_value
     assert Config.get_glossary_config() == expected_results
+
 
 @pytest.mark.run(order=-1)
 def test_get_document_config_none():
