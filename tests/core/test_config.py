@@ -230,8 +230,9 @@ def test_get_law_status_config_none():
 
 
 @pytest.mark.parametrize('test_value,expected_result', [
-    ({'extract': {}}, {}),
-    ({'not_the_expected_law_status_labels_key': {}}, None)
+
+    ({'extract':{}}, {}),
+    ({'not_the_expected_extract_key':{}}, None)
 ])
 @pytest.mark.run(order=-1)
 def test_get_extract_config(test_value, expected_result):
