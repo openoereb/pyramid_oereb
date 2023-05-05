@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 import pytest
+from sqlalchemy.exc import ProgrammingError
+
+from unittest.mock import patch
 
 from pyramid.config import ConfigurationError
 
@@ -73,6 +76,24 @@ def test_get_logo_config(config_path):
     model = params.get('model')
     assert isinstance(model, str)
 
+@pytest.mark.run(order=-1)
+def test_init_logos():
+    
+    with patch.object(Config, '_read_logos', return_value=['logo2','logo3']):
+        Config._config = None
+        Config.init_logos()
+        assert len(Config.logos) == 2
+
+@pytest.mark.run(order=-1)
+def test_init_logos_error():
+
+    def mock_read_logos():
+        raise ProgrammingError('a', 'b', 'c')
+
+    with patch.object(Config, '_read_logos', mock_read_logos):
+        Config._config = None
+        Config.init_logos()
+        assert Config.logos is None
 
 @pytest.mark.run(order=-1)
 def test_get_all_federal(config_path):
