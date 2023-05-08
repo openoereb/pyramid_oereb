@@ -172,6 +172,8 @@ def test_get_theme_config_by_code_none():
     Config._config = None
     with pytest.raises(AssertionError):
         Config.get_theme_config_by_code('ch.NE.Baulinien')
+
+
 @pytest.mark.parametrize('test_value,expected_value', [
     ({'real_estate_type': {}}, {}),
     ({'not_expecting_key': {}}, None)
