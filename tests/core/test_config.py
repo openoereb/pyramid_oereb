@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 import pytest
+from sqlalchemy.exc import ProgrammingError
+
+from unittest.mock import patch
 
 from pyramid.config import ConfigurationError
 
@@ -75,6 +78,25 @@ def test_get_logo_config(config_path):
 
 
 @pytest.mark.run(order=-1)
+def test_init_logos():
+    with patch.object(Config, '_read_logos', return_value=['logo2', 'logo3']):
+        Config._config = None
+        Config.init_logos()
+        assert len(Config.logos) == 2
+
+
+@pytest.mark.run(order=-1)
+def test_init_logos_error():
+    def mock_read_logos():
+        raise ProgrammingError('a', 'b', 'c')
+
+    with patch.object(Config, '_read_logos', mock_read_logos):
+        Config._config = None
+        Config.init_logos()
+        assert Config.logos is None
+
+
+@pytest.mark.run(order=-1)
 def test_get_all_federal(config_path):
     Config._config = None
     Config.init(config_path, 'pyramid_oereb')
@@ -113,3 +135,113 @@ def test_get_real_estate_main_page_config(config_path):
     )
     assert plan_for_land_register_main_page_config.get('layer_index') == 2
     assert plan_for_land_register_main_page_config.get('layer_opacity') == 0.5
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'real_estate_type': {}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_real_estate_type_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_real_estate_type_config() == expected_value
+
+
+@pytest.mark.parametrize('test_value,expected_result', [
+    ({'real_estate': {}}, {}),
+    ({'not_the_expected_real_estate_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_real_estate_config(test_value, expected_result):
+    Config._config = test_value
+    assert Config.get_real_estate_config() == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_get_real_estate_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_real_estate_config()
+
+
+@pytest.mark.run(order=-1)
+def test_get_real_estate_type_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_real_estate_type_config()
+
+
+@pytest.fixture
+def patch_config_get_theme_config_by_code(return_value):
+    def config_get_theme_config_by_code(theme_code):
+        return return_value
+    with patch.object(
+            Config, 'get_theme_config_by_code',
+            config_get_theme_config_by_code):
+        yield
+
+
+@pytest.mark.run(order=-1)
+def test_get_document_types_lookups():
+    with patch.object(Config, 'get_theme_config_by_code', return_value={"document_types_lookup": [{}]}):
+        result = Config.get_document_types_lookups('ch.Nutzungsplanung')
+        assert result == [{}]
+
+
+@pytest.mark.run(order=-1)
+def test_get_document_types_lookups_raises_error():
+    with patch.object(Config, 'get_theme_config_by_code', return_value={}):
+        with pytest.raises(ConfigurationError):
+            Config.get_document_types_lookups('ch.Nutzungsplanung')
+
+
+@pytest.mark.parametrize('test_value, expected_results', [
+    ({'glossary': {}}, {}),
+    ({'not_te_excpected_glossary_key': {}}, None)
+    ])
+@pytest.mark.run(order=-1)
+def test_get_glossary_config(test_value, expected_results):
+    Config._config = test_value
+    assert Config.get_glossary_config() == expected_results
+
+
+@pytest.mark.run(order=-1)
+def test_get_document_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_glossary_config()
+
+
+@pytest.mark.parametrize('test_value,expected_result', [
+    ({'law_status_labels': {}}, {}),
+    ({'not_the_expected_law_status_labels_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_law_status_config(test_value, expected_result):
+    Config._config = test_value
+    assert Config.get_law_status_config() == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_get_law_status_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_law_status_config()
+
+
+@pytest.mark.parametrize('test_value,expected_result', [
+
+    ({'extract': {}}, {}),
+    ({'not_the_expected_extract_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_extract_config(test_value, expected_result):
+    Config._config = test_value
+    assert Config.get_extract_config() == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_get_extract_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_extract_config()
