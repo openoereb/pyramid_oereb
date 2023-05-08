@@ -152,3 +152,27 @@ def test_get_real_estate_type_config_none():
     Config._config = None
     with pytest.raises(AssertionError):
         Config.get_real_estate_type_config()
+
+
+@pytest.fixture
+def patch_config_get_theme_config_by_code(return_value):
+    def config_get_theme_config_by_code(theme_code):
+        return return_value
+    with patch.object(
+            Config, 'get_theme_config_by_code',
+            config_get_theme_config_by_code):
+        yield
+
+
+@pytest.mark.run(order=-1)
+def test_get_document_types_lookups():
+    with patch.object(Config, 'get_theme_config_by_code', return_value={"document_types_lookup": [{}]}):
+        result = Config.get_document_types_lookups('ch.Nutzungsplanung')
+        assert result == [{}]
+
+
+@pytest.mark.run(order=-1)
+def test_get_document_types_lookups_raises_error():
+    with patch.object(Config, 'get_theme_config_by_code', return_value={}):
+        with pytest.raises(ConfigurationError):
+            Config.get_document_types_lookups('ch.Nutzungsplanung')
