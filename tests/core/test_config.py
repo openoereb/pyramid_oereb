@@ -5,7 +5,6 @@ from sqlalchemy.exc import ProgrammingError
 from unittest.mock import patch
 
 from pyramid.config import ConfigurationError
-from unittest.mock import patch
 
 # from pyramid_oereb.core.adapter import FileAdapter
 from pyramid_oereb.core.config import Config
