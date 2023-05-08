@@ -147,6 +147,23 @@ def test_get_real_estate_type_config(test_value, expected_value):
     assert Config.get_real_estate_type_config() == expected_value
 
 
+@pytest.mark.parametrize('test_value,expected_result', [
+    ({'real_estate': {}}, {}),
+    ({'not_the_expected_real_estate_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_real_estate_config(test_value, expected_result):
+    Config._config = test_value
+    assert Config.get_real_estate_config() == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_get_real_estate_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_real_estate_config()
+
+
 @pytest.mark.run(order=-1)
 def test_get_real_estate_type_config_none():
     Config._config = None
@@ -193,3 +210,38 @@ def test_get_document_config_none():
     Config._config = None
     with pytest.raises(AssertionError):
         Config.get_glossary_config()
+
+
+@pytest.mark.parametrize('test_value,expected_result', [
+    ({'law_status_labels': {}}, {}),
+    ({'not_the_expected_law_status_labels_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_law_status_config(test_value, expected_result):
+    Config._config = test_value
+    assert Config.get_law_status_config() == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_get_law_status_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_law_status_config()
+
+
+@pytest.mark.parametrize('test_value,expected_result', [
+
+    ({'extract': {}}, {}),
+    ({'not_the_expected_extract_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_extract_config(test_value, expected_result):
+    Config._config = test_value
+    assert Config.get_extract_config() == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_get_extract_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_extract_config()
