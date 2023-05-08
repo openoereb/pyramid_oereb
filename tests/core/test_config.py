@@ -192,4 +192,4 @@ def test_get_glossary_config(test_value, expected_results):
 def test_get_document_config_none():
     Config._config = None
     with pytest.raises(AssertionError):
-        Config.get_glossary_config
+        Config.get_glossary_config()
