@@ -7,7 +7,7 @@ from pyramid.request import Request
 from pyramid.response import Response
 from pyramid.testing import DummyRequest
 
-from pyramid_oereb import Config
+from pyramid_oereb import Config, route_prefix  # noqa: F401
 from pyramid_oereb.core import get_multilingual_element
 from pyramid_oereb.core.records.documents import DocumentRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
