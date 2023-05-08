@@ -6,10 +6,8 @@ from json import dumps
 from pyramid.request import Request
 from pyramid.response import Response
 from pyramid.testing import DummyRequest
-from pyramid.httpexceptions import HTTPServerError
-from pyramid.path import DottedNameResolver
 
-from pyramid_oereb import Config, route_prefix
+from pyramid_oereb import Config
 from pyramid_oereb.core import get_multilingual_element
 from pyramid_oereb.core.records.documents import DocumentRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
@@ -122,7 +120,7 @@ class Renderer(Base):
         else:
             extract_dict.update({
                 'LogoPLRCadastreRef': self.get_logo_ref(
-                        self._request, 
+                        self._request,
                         'oereb',
                         self._language,
                         extract.logo_plr_cadastre.image_dict

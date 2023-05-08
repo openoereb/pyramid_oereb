@@ -81,7 +81,7 @@ class Base(object):
         Args:
             request (pyramid.request.Request): The current request instance.
             qr_code_ref (str): The string of qr-code url.
-        
+
         Returns:
             uri: the link to the qr_code.
         """

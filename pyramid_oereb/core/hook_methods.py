@@ -83,12 +83,13 @@ def get_qr_code_ref(request, qr_code_ref):
     Args:
         request (pyramid.request.Request): The current request instance.
         qr_code_ref (str): The string of qr-code url.
-    
+
     Returns:
         uri: the link to the qr_code.
     """
 
     return qr_code_ref
+
 
 def get_surveying_data_provider(real_estate):
     """
