@@ -171,6 +171,19 @@ def test_get_real_estate_type_config_none():
         Config.get_real_estate_type_config()
 
 
+@pytest.mark.run(order=-1)
+def test_get_real_estate_type_lookups():
+    with patch.object(Config, 'get_real_estate_type_config', return_value={"lookup": {}}):
+        assert Config.get_real_estate_type_lookups() == {}
+
+
+@pytest.mark.run(order=-1)
+def test_get_real_estate_type_lookups_none():
+    with patch.object(Config, 'get_real_estate_type_config', return_value={}):
+        with pytest.raises(ConfigurationError):
+            Config.get_real_estate_type_lookups()
+
+
 @pytest.fixture
 def patch_config_get_theme_config_by_code(return_value):
     def config_get_theme_config_by_code(theme_code):
