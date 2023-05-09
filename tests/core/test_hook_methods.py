@@ -1,3 +1,4 @@
+import io
 from pyramid_oereb.core.records.extract import ExtractRecord
 from pyramid_oereb.core.records.law_status import LawStatusRecord
 import pytest
@@ -5,6 +6,7 @@ import datetime
 
 from shapely.wkt import loads
 from unittest.mock import patch
+from PIL import Image
 
 from pyramid.testing import DummyRequest
 
@@ -15,7 +17,7 @@ from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.view_service import LegendEntryRecord
 from pyramid_oereb.core.records.real_estate import RealEstateRecord
 from pyramid_oereb.core.hook_methods import compare, get_symbol, get_symbol_ref, \
-    get_surveying_data_update_date, plr_sort_within_themes
+    get_logo_ref, get_surveying_data_update_date, plr_sort_within_themes
 from pyramid_oereb.contrib.data_sources.standard.sources.plr import StandardThemeConfigParser
 import pyramid_oereb.contrib.data_sources.standard.hook_methods
 from tests.core.records.test_extract import create_dummy_extract
@@ -61,6 +63,18 @@ def legend_entry_data(pyramid_oereb_test_config, dbsession, transact, file_adapt
     yield legend_entries
 
 
+@pytest.fixture
+def png_image():
+    yield Image.new("RGB", (72, 36), (128, 128, 128))
+
+
+@pytest.fixture
+def png_binary(png_image):
+    output = io.BytesIO()
+    png_image.save(output, format='PNG')
+    yield output.getvalue()
+
+
 def test_get_symbol():
     with pytest.raises(NotImplementedError):
         binary_image, content_type = get_symbol({'identifier': "1"}, {})
@@ -80,6 +94,26 @@ def test_get_symbol_ref(pyramid_test_config):
     request = DummyRequest()
     url = urlparse(get_symbol_ref(request, record))
     assert url.path == '/image/symbol/ch.BelasteteStandorte/legend_entry.png'
+
+
+@pytest.mark.parametrize('test_value, expected_results', [
+    ({
+        'logo_code': 'ch',
+        'language': 'de',
+    }, '/image/logo/ch/de.png'),
+    ({
+        'logo_code': 'bs',
+        'language': 'fr',
+    }, '/image/logo/bs/fr.png')
+    ])
+def test_get_logo_ref(test_value, expected_results, png_binary):
+    request = DummyRequest()
+    url = urlparse(get_logo_ref(request,
+                                test_value.get('logo_code'),
+                                test_value.get('language'),
+                                {test_value.get('language'): ImageRecord(png_binary)}
+                                ))
+    assert url.path == expected_results
 
 
 def test_get_surveying_data_date():

@@ -65,6 +65,7 @@ def get_logo_ref(request, logo_code, language, image_dict):
     Returns:
         uri: the link to the logos.
     """
+
     return request.route_url(
         '{0}/image/logo'.format(route_prefix),
         logo=logo_code,
