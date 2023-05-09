@@ -17,7 +17,8 @@ from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.view_service import LegendEntryRecord
 from pyramid_oereb.core.records.real_estate import RealEstateRecord
 from pyramid_oereb.core.hook_methods import compare, get_symbol, get_symbol_ref, \
-    get_logo_ref, get_surveying_data_update_date, plr_sort_within_themes
+    get_logo_ref, get_qr_code_ref, get_surveying_data_update_date,\
+    plr_sort_within_themes
 from pyramid_oereb.contrib.data_sources.standard.sources.plr import StandardThemeConfigParser
 import pyramid_oereb.contrib.data_sources.standard.hook_methods
 from tests.core.records.test_extract import create_dummy_extract
@@ -114,6 +115,15 @@ def test_get_logo_ref(test_value, expected_results, png_binary):
                                 {test_value.get('language'): ImageRecord(png_binary)}
                                 ))
     assert url.path == expected_results
+
+
+@pytest.mark.parametrize('test_value, expected_results', [
+    ('', ''),
+    (None, None)
+    ])
+def test_get_qr_code_ref(test_value, expected_results):
+    request = DummyRequest()
+    assert get_qr_code_ref(request, test_value) == expected_results
 
 
 def test_get_surveying_data_date():
