@@ -4,7 +4,6 @@ from sqlalchemy.exc import ProgrammingError
 
 from unittest.mock import patch
 
-from unittest.mock import patch
 from pyramid.config import ConfigurationError
 
 # from pyramid_oereb.core.adapter import FileAdapter
@@ -183,6 +182,8 @@ def test_get_real_estate_type_lookups_none():
     with patch.object(Config, 'get_real_estate_type_config', return_value={}):
         with pytest.raises(ConfigurationError):
             Config.get_real_estate_type_lookups()
+
+
 @pytest.fixture
 def patch_config_get_theme_config_by_code(return_value):
     def config_get_theme_config_by_code(theme_code):
