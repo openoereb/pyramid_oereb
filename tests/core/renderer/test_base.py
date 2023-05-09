@@ -250,6 +250,6 @@ def test_get_logo_ref(test_value, expected_results, png_binary):
     ])
 def test_get_qr_code_ref(test_value, expected_results):
     with patch.object(Config, 'get_logo_hooks',
-                      return_value={"get_logo_ref": "pyramid_oereb.core.hook_methods.get_qr_code_ref"}):
+                      return_value={"get_qr_code_ref": "pyramid_oereb.core.hook_methods.get_qr_code_ref"}):
         request = DummyRequest()
         assert Base.get_qr_code_ref(request, test_value) == expected_results
