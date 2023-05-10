@@ -10,7 +10,7 @@ class DisclaimerRecord(object):
         title (dict of unicode): The multilingual disclaimer message label
         content (dict of unicode): The multilingual disclaimer message.
     """
-    def __init__(self, title, content):
+    def __init__(self, title, content, extract_index=None):
         """
         Attributes:
             title (dict of unicode): The multilingual disclaimer message label
@@ -23,3 +23,4 @@ class DisclaimerRecord(object):
 
         self.title = title
         self.content = content
+        self.extract_index = extract_index

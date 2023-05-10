@@ -27,6 +27,7 @@ Note:
 from pyramid_oereb.contrib.data_sources.standard.models import get_office, get_document
 from sqlalchemy import Column, PrimaryKeyConstraint, ForeignKey, UniqueConstraint, DateTime
 from sqlalchemy import Unicode, String, text, Integer, Boolean, Float
+from sqlalchemy.types import UserDefinedType
 from geoalchemy2 import Geometry
 from sqlalchemy_utils import JSONType
 from sqlalchemy.orm import declarative_base, relationship
@@ -36,6 +37,11 @@ from pyramid_oereb.core.config import Config
 Base = declarative_base()
 app_schema_name = Config.get('app_schema').get('name')
 srid = Config.get('srid')
+
+
+class Serial(UserDefinedType):
+    def get_col_spec(self, **kw):
+        return "SERIAL"
 
 
 class RealEstate(Base):
@@ -219,12 +225,15 @@ class Disclaimer(Base):
         id (str): identifier and primary key, used in the database only
         title (str): The title which the disclaimer item has.
         content (str): The content which the disclaimer item has.
+        extract_index (int): index to sort the disclaimers in the extract
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'disclaimer'
     id = Column(String, primary_key=True)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
+    # extract_index = Column(Serial)
+    extract_index = Column(Integer, nullable=True)
 
 
 class LawStatus(Base):
@@ -263,12 +272,14 @@ class GeneralInformation(Base):
         id (str): identifier and primary key, used in the database only
         title (dict): The title of the general information (multilingual)
         content (dict): The actual information (multilingual)
+        extract_index (int): index to sort the items in the extract
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'general_information'
     id = Column(String, primary_key=True)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
+    extract_index = Column(Integer)
 
 
 class ThemeDocument(Base):
