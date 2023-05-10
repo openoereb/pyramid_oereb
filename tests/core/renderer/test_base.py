@@ -245,6 +245,27 @@ def test_get_logo_ref(test_value, expected_results, png_binary):
 
 
 @pytest.mark.parametrize('test_value, expected_results', [
+    ({
+        'logo_code': 'ch',
+        'language': 'de',
+    }, '/image/logo/ch/de.png'),
+    ({
+        'logo_code': 'bs',
+        'language': 'fr',
+    }, '/image/logo/bs/fr.png')
+    ])
+def test_get_logo_ref_no_method(test_value, expected_results, png_binary):
+    with patch.object(Config, 'get_logo_hooks',
+                      return_value={"get_logo_ref": "pyramid_oereb.core.hook_methods.get_logo_ref"}):
+        with patch.object(pyramid_oereb.core.hook_methods, 'get_logo_ref', {}):
+            with pytest.raises(HTTPServerError):
+                Base.get_logo_ref(DummyRequest(),
+                       test_value.get('logo_code'),
+                       test_value.get('language'),
+                       {test_value.get('language'): ImageRecord(png_binary)})
+
+
+@pytest.mark.parametrize('test_value, expected_results', [
     ('', ''),
     (None, None)
     ])
@@ -253,3 +274,16 @@ def test_get_qr_code_ref(test_value, expected_results):
                       return_value={"get_qr_code_ref": "pyramid_oereb.core.hook_methods.get_qr_code_ref"}):
         request = DummyRequest()
         assert Base.get_qr_code_ref(request, test_value) == expected_results
+
+
+@pytest.mark.parametrize('test_value, expected_results', [
+    ('', '')
+    ])
+def test_get_qr_code_ref_no_method(test_value, expected_results):
+    with patch.object(Config, 'get_logo_hooks',
+                      return_value={
+                          "get_qr_code_ref": "pyramid_oereb.core.hook_methods.get_qr_code_ref"
+                          }):
+        with patch.object(pyramid_oereb.core.hook_methods, 'get_qr_code_ref', {}):
+            with pytest.raises(HTTPServerError):
+                Base.get_qr_code_ref(DummyRequest(), test_value)

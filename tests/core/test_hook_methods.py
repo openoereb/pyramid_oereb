@@ -119,6 +119,7 @@ def test_get_logo_ref(test_value, expected_results, png_binary):
 
 @pytest.mark.parametrize('test_value, expected_results', [
     ('', ''),
+    ({}, {}),
     (None, None)
     ])
 def test_get_qr_code_ref(test_value, expected_results):
