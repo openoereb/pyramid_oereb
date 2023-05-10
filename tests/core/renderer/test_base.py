@@ -260,9 +260,9 @@ def test_get_logo_ref_no_method(test_value, expected_results, png_binary):
         with patch.object(pyramid_oereb.core.hook_methods, 'get_logo_ref', {}):
             with pytest.raises(HTTPServerError):
                 Base.get_logo_ref(DummyRequest(),
-                       test_value.get('logo_code'),
-                       test_value.get('language'),
-                       {test_value.get('language'): ImageRecord(png_binary)})
+                                  test_value.get('logo_code'),
+                                  test_value.get('language'),
+                                  {test_value.get('language'): ImageRecord(png_binary)})
 
 
 @pytest.mark.parametrize('test_value, expected_results', [
