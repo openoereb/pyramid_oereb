@@ -6,13 +6,12 @@ Configuration
 You are looking at a highly configurable piece of software. To get a good understanding of the server it
 is recommended to read this part carefully.
 
-Since the swiss confederation's definition and the specification for the `OEREB Data Extract
-<https://www.cadastre.ch/content/cadastre-internet/de/manual-oereb/publication/instruction.download/
-cadastre-internet/de/documents/oereb-weisungen/Weisung-OEREB-Data-Extract-de.pdf>`__ is really precise,
-we had very narrow margins to develop the code. 
-Using this pyramid plugin, you will get a running server
-providing the services to satisfy the said federal specification. But to get this extract, you need to bind your
-data to this server. And this is basically what you need to configure.
+The specifications of the oereb data model, the web services, the data extracts and the print layout 
+by the Swiss Confederation are very precise `OEREB specifications
+<https://www.cadastre.ch/de/manual-oereb/publication/instruction.html>`__ . Code development was guided 
+by the exact implementation of the specifications and the user requirements. Using this pyramid plugin, 
+you will get a running server providing all the services defined by the federal specifications. 
+The binding of cantonal and federal data to the server is done by the configuration options.
 
 This section describes the different possibilities to adapt the application to work with various data structures or
 even custom data sources. If you are planning to implement such modifications, we suggest to check all possible
@@ -27,7 +26,7 @@ Out of the box the pyramid_oereb server supports three different topic configura
 
   - the **pyramid_oereb standard model**
   - the **interlis 2.3 OeREBKRM transfer model**
-  - the **OEREBlex topic model**
+  - the **OEREBlex model**
 
 Pyramid_oereb Standard Model
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -40,11 +39,11 @@ Interlis 2.3 OeREBKRM Transfer Model
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 All the federal data sets are provided in this data structure. So this is the schema and table model you
-want to use for all the federal topics unless you want to remap the data to a specific database structure.
+want to use for all the federal topics unless you want to transform the data to a specific database structure.
 If your cantonal data is also stored based on this model, then you probably want to use this structure 
 for all topics to homogenize your database content.
 The `Ili2pg Oereb Data Import Manual <https://github.com/openoereb/ili2pg_oereb_data_import_manual>`__
-explains how to use ili2pg tool to create the corresponding schema and how to import the XML data.
+explains how to use the ili2pg tool to create the corresponding schema and how to import the XML data.
 
 
 OEREBlex Topic Model
@@ -52,7 +51,7 @@ OEREBlex Topic Model
 
 This third model is usefull if you maintain your legal documents using the OEREBlex application and you
 have a specific cantonal model for your data. It is similar to the pyramid_oereb standard model, but all
-the document related tables are omitted. Instead the documents are linked with the geolink attribute. 
+the document related tables are omitted. Instead the documents are linked by the geolink attribute. 
 
 .. _configuration-additional-topics:
 
@@ -83,7 +82,6 @@ looks like this:
           precision: 1
       language: fr
       federal: false
-      standard: true
       view_service:
         layer_index: 1
         layer_opacity: 0.75
@@ -119,14 +117,14 @@ looks like this:
           transfer_code: Hinweis
           extract_code: Hint
 
-Apply the necessary modifications/replacements for the new topic. This should at least be the the schema name, 
+Apply the necessary modifications/replacements for the new topic. This should at least be the schema name, 
 code, geometry type and of course the models property within the source parameters:
 Make sure that this source class is `pyramid_oereb.contrib.data_sources.*standard*.sources.plr.DatabaseSource`
 and not interlis_2_3. - The same goes for the model_factory and the get_symbol element. It should be set to
 *standard*.
 
 Also set the language of the data and if it's a federal (true) or cantonal topic (false). You also want to
-define if it is the standard structure (true) and what lookup codes are for the law_status and document types.
+define what lookup codes are for the law_status and document types.
 
 Once the the configuration set, run the following command:
 
@@ -179,7 +177,6 @@ Once the schema is created do not forget to add the corresponding topic configur
           precision: 1
       language: de
       federal: true
-      standard: true
       view_service:
         layer_index: 1
         layer_opacity: 0.75
