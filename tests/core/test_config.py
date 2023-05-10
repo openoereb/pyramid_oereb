@@ -157,6 +157,42 @@ def test_get_real_estate_main_page_config(config_path):
     assert plan_for_land_register_main_page_config.get('layer_opacity') == 0.5
 
 
+@pytest.mark.parametrize('test_theme,expected_result', [
+    ({'theme': 'params_dict'}, 'params_dict'),
+    ({'wrong_key': {}}, None)
+    ])
+@pytest.mark.run(order=-1)
+def test_get_theme_config(test_theme, expected_result):
+    Config._config = None
+    Config._config = test_theme
+    assert Config.get_theme_config() == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_get_theme_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_theme_config()
+
+
+@pytest.mark.parametrize(
+        'test_theme_config,test_theme_code,expected_result',
+        [({'plrs': [{'code': 'ch.Nutzungsplanung'}]}, 'ch.Nutzungsplanung', {'code': 'ch.Nutzungsplanung'}),
+         ({'plrs': [{'code': 'ch.Nutzungsplanung'}]}, 'ch.Ne.Baulinien', None),
+         ({}, 'ch.Ne.Baulinien', None)])
+@pytest.mark.run(order=-1)
+def test_get_theme_config_by_code(test_theme_config, test_theme_code, expected_result):
+    with patch.object(Config, '_config', test_theme_config):
+        assert Config.get_theme_config_by_code(test_theme_code) == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_get_theme_config_by_code_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_theme_config_by_code('ch.NE.Baulinien')
+
+
 @pytest.mark.parametrize('test_value,expected_value', [
     ({'real_estate_type': {}}, {}),
     ({'not_expecting_key': {}}, None)
@@ -167,11 +203,41 @@ def test_get_real_estate_type_config(test_value, expected_value):
     assert Config.get_real_estate_type_config() == expected_value
 
 
+@pytest.mark.parametrize('test_value,expected_result', [
+    ({'real_estate': {}}, {}),
+    ({'not_the_expected_real_estate_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_real_estate_config(test_value, expected_result):
+    Config._config = test_value
+    assert Config.get_real_estate_config() == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_get_real_estate_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_real_estate_config()
+
+
 @pytest.mark.run(order=-1)
 def test_get_real_estate_type_config_none():
     Config._config = None
     with pytest.raises(AssertionError):
         Config.get_real_estate_type_config()
+
+
+@pytest.mark.run(order=-1)
+def test_get_real_estate_type_lookups():
+    with patch.object(Config, 'get_real_estate_type_config', return_value={"lookup": {}}):
+        assert Config.get_real_estate_type_lookups() == {}
+
+
+@pytest.mark.run(order=-1)
+def test_get_real_estate_type_lookups_none():
+    with patch.object(Config, 'get_real_estate_type_config', return_value={}):
+        with pytest.raises(ConfigurationError):
+            Config.get_real_estate_type_lookups()
 
 
 @pytest.fixture
@@ -213,3 +279,38 @@ def test_get_document_config_none():
     Config._config = None
     with pytest.raises(AssertionError):
         Config.get_glossary_config()
+
+
+@pytest.mark.parametrize('test_value,expected_result', [
+    ({'law_status_labels': {}}, {}),
+    ({'not_the_expected_law_status_labels_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_law_status_config(test_value, expected_result):
+    Config._config = test_value
+    assert Config.get_law_status_config() == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_get_law_status_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_law_status_config()
+
+
+@pytest.mark.parametrize('test_value,expected_result', [
+
+    ({'extract': {}}, {}),
+    ({'not_the_expected_extract_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_extract_config(test_value, expected_result):
+    Config._config = test_value
+    assert Config.get_extract_config() == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_get_extract_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_extract_config()
