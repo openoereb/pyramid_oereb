@@ -3,13 +3,10 @@ import re
 from mako.template import Template
 from pyramid.path import AssetResolver
 from functools import cmp_to_key
-import logging
 
 from pyramid_oereb import route_prefix
 from pyramid_oereb.core import get_multilingual_element
 from pyramid_oereb.core.records.office import OfficeRecord
-
-log = logging.getLogger(__name__)
 
 
 def get_symbol(params, theme_config):
