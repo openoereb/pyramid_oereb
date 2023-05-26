@@ -111,6 +111,9 @@ complete example of such an ini file. Example of a configuration suitable for us
 <div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[loggers]</span>
 <span class="na">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">root, json, gunicorn.error</span>
 
+<span class="k">[handlers]</span>
+<span class="na">keys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">console, sqlalchemylogger</span>
+
 <span class="k">[logger_json]</span>
 <span class="na">level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">INFO</span>
 <span class="na">handlers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">console, sqlalchemylogger</span>
