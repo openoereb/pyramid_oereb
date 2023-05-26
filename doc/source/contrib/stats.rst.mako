@@ -24,6 +24,9 @@ complete example of such an ini file. Example of a configuration suitable for us
     [loggers]
     keys = root, json, gunicorn.error
 
+    [handlers]
+    keys = console, sqlalchemylogger
+
     [logger_json]
     level = INFO
     handlers = console, sqlalchemylogger
