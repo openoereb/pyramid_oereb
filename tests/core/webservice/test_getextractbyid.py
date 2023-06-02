@@ -148,7 +148,6 @@ def test_return_no_content():
 
 
 @patch.object(pyramid_oereb.core.hook_methods, 'route_prefix', 'oereb')
-@patch.object(pyramid_oereb.core.renderer.extract.json_, 'route_prefix', 'oereb')
 @patch.object(pyramid_oereb.core.views.webservice, 'route_prefix', 'oereb')
 @patch.object(MockRequest, 'route_url', lambda *args, **kwargs: '')
 @pytest.mark.parametrize('egrid,topics', [

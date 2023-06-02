@@ -5,6 +5,7 @@ from pyramid.path import AssetResolver
 from functools import cmp_to_key
 
 from pyramid_oereb import route_prefix
+from pyramid_oereb.core import get_multilingual_element
 from pyramid_oereb.core.records.office import OfficeRecord
 
 
@@ -46,6 +47,46 @@ def get_symbol_ref(request, record):
         extension=record.symbol.extension,
         _query=query
     )
+
+
+def get_logo_ref(request, logo_code, language, image_dict):
+    """
+    Returns the link to the logos.
+
+    Args:
+        request (pyramid.request.Request): The current request instance.
+        logo_code (str): Code of logo, eg. bs or ch.
+        language (str): language of extract.
+        image_dict (dict): dict of image
+
+    Returns:
+        uri: the link to the logos.
+    """
+
+    return request.route_url(
+        '{0}/image/logo'.format(route_prefix),
+        logo=logo_code,
+        language=language,
+        extension=get_multilingual_element(
+                image_dict,
+                language
+            ).extension
+    )
+
+
+def get_qr_code_ref(request, qr_code_ref):
+    """
+    Returns the link for the qr_code.
+
+    Args:
+        request (pyramid.request.Request): The current request instance.
+        qr_code_ref (str): The string of qr-code url.
+
+    Returns:
+        uri: the link to the qr_code.
+    """
+
+    return qr_code_ref
 
 
 def get_surveying_data_provider(real_estate):
