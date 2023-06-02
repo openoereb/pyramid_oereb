@@ -394,6 +394,28 @@ the configured wms_url_params are used as fallback.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_logo_ref">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_logo_ref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logo_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_logo_ref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the link to the symbol of the specified logo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>pyramid.request.Request</em>) – The current request instance.</p></li>
+<li><p><strong>logo_code</strong> (<em>str</em>) – Code of logo, eg. bs or ch.</p></li>
+<li><p><strong>language</strong> (<em>str</em>) – language of extract.</p></li>
+<li><p><strong>image_dict</strong> (<em>dict</em>) – dict of image</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The link to the symbol for the specified logo.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>uri</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_multilingual_text">
 <span class="sig-name descname"><span class="pre">get_multilingual_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">not_null</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_multilingual_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the set language of a multilingual text element.</p>
@@ -409,6 +431,26 @@ the configured wms_url_params are used as fallback.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list of dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_qr_code_ref">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_qr_code_ref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qr_code_ref</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_qr_code_ref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the link for the qr_code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>pyramid.request.Request</em>) – The current request instance.</p></li>
+<li><p><strong>qr_code_ref</strong> (<em>str</em>) – The string of qr-code url.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the link to the qr_code.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>uri</p>
 </dd>
 </dl>
 </dd></dl>
@@ -781,6 +823,28 @@ If it is not, assume it is a list and join the values using comma separator.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_logo_ref">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_logo_ref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logo_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_logo_ref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the link to the symbol of the specified logo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>pyramid.request.Request</em>) – The current request instance.</p></li>
+<li><p><strong>logo_code</strong> (<em>str</em>) – Code of logo, eg. bs or ch.</p></li>
+<li><p><strong>language</strong> (<em>str</em>) – language of extract.</p></li>
+<li><p><strong>image_dict</strong> (<em>dict</em>) – dict of image</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The link to the symbol for the specified logo.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>uri</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_multilingual_text">
 <span class="sig-name descname"><span class="pre">get_multilingual_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">not_null</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_multilingual_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the set language of a multilingual text element.</p>
@@ -796,6 +860,26 @@ If it is not, assume it is a list and join the values using comma separator.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list of dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_qr_code_ref">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_qr_code_ref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qr_code_ref</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.get_qr_code_ref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the link for the qr_code.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>pyramid.request.Request</em>) – The current request instance.</p></li>
+<li><p><strong>qr_code_ref</strong> (<em>str</em>) – The string of qr-code url.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the link to the qr_code.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>uri</p>
 </dd>
 </dl>
 </dd></dl>
