@@ -6,6 +6,13 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+Version 2.4.4
+-------------
+Maintenance release, with a new configuration option:
+
+* Add option for a hook method for LogoRef URLs (#929, #1744)
+* Various minor library upgrades (urllib, requests, SQLAlchemy, geoalchemy2)
+
 Version 2.4.3
 -------------
 Maintenance release:
