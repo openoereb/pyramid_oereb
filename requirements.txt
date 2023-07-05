@@ -1,6 +1,6 @@
 pypdf==3.12.0
 filetype==1.2.0
-geoalchemy2==0.13.3
+geoalchemy2==0.14.0
 pyramid==2.0.1
 pyramid-debugtoolbar==4.10
 qrcode==7.4.2
