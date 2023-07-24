@@ -39,7 +39,14 @@
     "published_until": "2100-01-01",
     "id": 1297,
     "law_status": "inKraft",
+    "geom": "SRID=2056;GEOMETRYCOLLECTION(POINT(2608838.16 1261846.96))",
+    "public_law_restriction_id": 401
+  }, {
+    "published_from": "2016-02-25",
+    "published_until": "2100-01-01",
+    "id": 1298,
+    "law_status": "inKraft",
     "geom": "SRID=2056;GEOMETRYCOLLECTION(POINT(2608838.14 1261846.96))",
-    "public_law_restriction_id": 400
+    "public_law_restriction_id": 402
   }
 ]

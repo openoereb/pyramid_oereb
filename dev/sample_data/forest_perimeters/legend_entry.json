@@ -8,7 +8,7 @@
     "type_code": "StaoTyp2",
     "id": 16,
     "type_code_list": "https://models.geo.admin.ch/BAFU/KbS_Codetexte_V1_4.xml",
-    "view_service_id": 1,
+    "view_service_id": 2,
     "symbol": "iVBORw0KGgoAAAANSUhEUgAAAEgAAAAkAgMAAABXtZT1AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAADFBMVEWpy/5Tlv4AZv////8CA41OAAAAAWJLR0QDEQxM8gAAAAd0SU1FB+MEHQwnDaaZ3bIAAAAcSURBVCjPYxANRQMhDFmr0MDKUaFRIXoLYSZMAIgsmUho/kyPAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5LTA0LTI5VDE0OjM5OjEzKzAyOjAwWzeaVwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0wNC0yOVQxNDozOToxMyswMjowMCpqIusAAAAASUVORK5CYII=",
     "theme": "ch.StatischeWaldgrenzen"
   },
