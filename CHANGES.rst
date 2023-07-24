@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.4.5
+-----
+- Fix base layer usage in grouped PLRs (#1302)
+- Various minor library upgrades (SQLAlchemy, geoalchemy2, pypdf, lxml, urllib3)
+
 2.4.4
 -----
 - Add option for a hook method for LogoRef URLs (#929, #1744)
