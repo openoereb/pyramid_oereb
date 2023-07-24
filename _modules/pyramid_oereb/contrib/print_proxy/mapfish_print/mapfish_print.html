@@ -558,6 +558,26 @@
             <span class="k">if</span> <span class="n">new_responsible_office</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">existing_office_names</span><span class="p">:</span>
                 <span class="n">current</span><span class="p">[</span><span class="s1">&#39;ResponsibleOffice&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_responsible_office</span><span class="p">)</span>
 
+            <span class="c1"># add additionally map layer to the theme if not already there</span>
+            <span class="n">new_layer</span> <span class="o">=</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;baseLayers&#39;</span><span class="p">][</span><span class="s1">&#39;layers&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;layers&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">new_base_url</span> <span class="o">=</span> <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;baseLayers&#39;</span><span class="p">][</span><span class="s1">&#39;layers&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;baseURL&#39;</span><span class="p">]</span>
+            <span class="n">existing_layer</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">layer</span> <span class="k">for</span> <span class="n">layers</span> <span class="ow">in</span> <span class="n">current</span><span class="p">[</span><span class="s1">&#39;baseLayers&#39;</span><span class="p">][</span><span class="s1">&#39;layers&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">[</span><span class="s1">&#39;layers&#39;</span><span class="p">]</span>
+                <span class="p">]</span>
+            <span class="k">if</span> <span class="n">new_layer</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">existing_layer</span><span class="p">:</span>
+                <span class="c1"># add it in the element with the same baseURL.</span>
+                <span class="c1"># The rest of the parameters should be the same as given by the theme</span>
+                <span class="n">layer_added</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">current</span><span class="p">[</span><span class="s1">&#39;baseLayers&#39;</span><span class="p">][</span><span class="s1">&#39;layers&#39;</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">new_base_url</span> <span class="o">==</span> <span class="n">element</span><span class="p">[</span><span class="s1">&#39;baseURL&#39;</span><span class="p">]:</span>
+                        <span class="n">element</span><span class="p">[</span><span class="s1">&#39;layers&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_layer</span><span class="p">)</span>
+                        <span class="n">layer_added</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="k">break</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">layer_added</span><span class="p">:</span>
+                    <span class="n">current</span><span class="p">[</span><span class="s1">&#39;baseLayers&#39;</span><span class="p">][</span><span class="s1">&#39;layers&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">restriction_on_landownership</span><span class="p">[</span><span class="s1">&#39;baseLayers&#39;</span><span class="p">][</span><span class="s1">&#39;layers&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="p">)</span>
+
             <span class="c1"># Text</span>
             <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">text_element</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">restriction_on_landownership</span><span class="p">:</span>
