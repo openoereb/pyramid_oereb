@@ -15,9 +15,20 @@ Bug-fix and maintenance release:
 
 Version 2.4.4
 -------------
-Maintenance release, with a new configuration option:
+Make the logo lookup logic configurable:
 
-* Add option for a hook method for LogoRef URLs (#929, #1744)
+* Add option for a hook method for LogoRef URLs (#929, #1744).
+  In the section ``logos``, you must add a configuration section ``hooks``
+  defining the logic for the logo and the QR code. To use the standard logic, define:
+
+.. code-block:: python
+
+    logos:
+      ...
+      hooks:
+        get_logo_ref: pyramid_oereb.core.hook_methods.get_logo_ref
+        get_qr_code_ref: pyramid_oereb.core.hook_methods.get_qr_code_ref
+
 * Various minor library upgrades (urllib, requests, SQLAlchemy, geoalchemy2)
 
 Version 2.4.3
