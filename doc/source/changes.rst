@@ -6,6 +6,31 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+Version 2.4.5
+-------------
+Bug-fix and maintenance release:
+
+* Fix base layer usage in grouped PLRs (#1302)
+* Various minor library upgrades (SQLAlchemy, geoalchemy2, pypdf, lxml, urllib3)
+
+Version 2.4.4
+-------------
+Make the logo lookup logic configurable:
+
+* Add option for a hook method for LogoRef URLs (#929, #1744).
+  In the section ``logos``, you must add a configuration section ``hooks``
+  defining the logic for the logo and the QR code. To use the standard logic, define:
+
+.. code-block:: python
+
+    logos:
+      ...
+      hooks:
+        get_logo_ref: pyramid_oereb.core.hook_methods.get_logo_ref
+        get_qr_code_ref: pyramid_oereb.core.hook_methods.get_qr_code_ref
+
+* Various minor library upgrades (urllib, requests, SQLAlchemy, geoalchemy2)
+
 Version 2.4.3
 -------------
 Maintenance release:

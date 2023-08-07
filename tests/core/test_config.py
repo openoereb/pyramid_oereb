@@ -97,6 +97,26 @@ def test_init_logos_error():
 
 
 @pytest.mark.run(order=-1)
+def test_get_logo_hooks():
+    with patch.object(Config, 'get_logo_config', return_value={"hooks": []}):
+        Config._config = None
+        assert Config.get_logo_hooks() == []
+
+
+@pytest.mark.parametrize('test_value', [
+    ({"logos": [{"hooks": []}]}),
+    ({"logos": [{"not_expecting_key": []}]}),
+    (None)
+])
+@pytest.mark.run(order=-1)
+def test_get_logo_hooks_none(test_value):
+    with patch.object(Config, 'get_logo_config', return_value=test_value):
+        Config._config = None
+        with pytest.raises(ConfigurationError):
+            Config.get_logo_hooks()
+
+
+@pytest.mark.run(order=-1)
 def test_get_all_federal(config_path):
     Config._config = None
     Config.init(config_path, 'pyramid_oereb')

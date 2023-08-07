@@ -53,6 +53,46 @@ class Base(object):
         raise HTTPServerError()
 
     @classmethod
+    def get_logo_ref(cls, request, logo_code, language, image_dict):
+        """
+        Returns the link to the symbol of the specified logo.
+
+        Args:
+            request (pyramid.request.Request): The current request instance.
+            logo_code (str): Code of logo, eg. bs or ch.
+            language (str): language of extract.
+            image_dict (dict): dict of image
+
+        Returns:
+            uri: The link to the symbol for the specified logo.
+        """
+        method = None
+        method = DottedNameResolver().resolve(Config.get_logo_hooks().get('get_logo_ref'))
+        if callable(method):
+            return method(request, logo_code, language, image_dict)
+        log.error('No "get_logo_ref" method found for logos')
+        raise HTTPServerError()
+
+    @classmethod
+    def get_qr_code_ref(cls, request, qr_code_ref):
+        """
+        Returns the link for the qr_code.
+
+        Args:
+            request (pyramid.request.Request): The current request instance.
+            qr_code_ref (str): The string of qr-code url.
+
+        Returns:
+            uri: the link to the qr_code.
+        """
+        method = None
+        method = DottedNameResolver().resolve(Config.get_logo_hooks().get('get_qr_code_ref'))
+        if callable(method):
+            return method(request, qr_code_ref)
+        log.error('No "get_qr_code_ref" method found for logos')
+        raise HTTPServerError()
+
+    @classmethod
     def get_response(cls, system):
         """
         Returns the response object if available.

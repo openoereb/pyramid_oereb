@@ -83,6 +83,8 @@ class Renderer(Base):
             'get_localized_image': self.get_localized_image,
             'request': self._request,
             'get_symbol_ref': self.get_symbol_ref,
+            'get_logo_ref': self.get_logo_ref,
+            'get_qr_code_ref': self.get_qr_code_ref,
             'date_format': '%Y-%m-%dT%H:%M:%S'
         })
         return content

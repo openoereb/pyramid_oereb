@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import io
+from urllib.parse import urlparse
 import pytest
 from unittest.mock import patch
 import datetime
+from PIL import Image
 
 from pyramid.httpexceptions import HTTPServerError, HTTPInternalServerError
 from pyramid.response import Response
@@ -17,6 +20,18 @@ from pyramid_oereb.core.renderer import Base
 from pyramid_oereb.core.renderer.extract.json_ import Renderer
 import pyramid_oereb.core.hook_methods
 from tests.mockrequest import MockRequest
+
+
+@pytest.fixture
+def png_image():
+    yield Image.new("RGB", (72, 36), (128, 128, 128))
+
+
+@pytest.fixture
+def png_binary(png_image):
+    output = io.BytesIO()
+    png_image.save(output, format='PNG')
+    yield output.getvalue()
 
 
 def test_call(DummyRenderInfo, pyramid_oereb_test_config):
@@ -206,3 +221,69 @@ def test_get_symbol_ref(theme_code, pyramid_test_config, pyramid_oereb_test_conf
         assert ref == 'http://example.com/image/symbol/{}/legend_entry.svg?identifier=1'.format(
             theme_code
         )
+
+
+@pytest.mark.parametrize('test_value, expected_results', [
+    ({
+        'logo_code': 'ch',
+        'language': 'de',
+    }, '/image/logo/ch/de.png'),
+    ({
+        'logo_code': 'bs',
+        'language': 'fr',
+    }, '/image/logo/bs/fr.png')
+    ])
+def test_get_logo_ref(test_value, expected_results, png_binary):
+    with patch.object(Config, 'get_logo_hooks',
+                      return_value={"get_logo_ref": "pyramid_oereb.core.hook_methods.get_logo_ref"}):
+        request = DummyRequest()
+        url = urlparse(Base.get_logo_ref(request,
+                       test_value.get('logo_code'),
+                       test_value.get('language'),
+                       {test_value.get('language'): ImageRecord(png_binary)}))
+        assert url.path == expected_results
+
+
+@pytest.mark.parametrize('test_value, expected_results', [
+    ({
+        'logo_code': 'ch',
+        'language': 'de',
+    }, '/image/logo/ch/de.png'),
+    ({
+        'logo_code': 'bs',
+        'language': 'fr',
+    }, '/image/logo/bs/fr.png')
+    ])
+def test_get_logo_ref_no_method(test_value, expected_results, png_binary):
+    with patch.object(Config, 'get_logo_hooks',
+                      return_value={"get_logo_ref": "pyramid_oereb.core.hook_methods.get_logo_ref"}):
+        with patch.object(pyramid_oereb.core.hook_methods, 'get_logo_ref', {}):
+            with pytest.raises(HTTPServerError):
+                Base.get_logo_ref(DummyRequest(),
+                                  test_value.get('logo_code'),
+                                  test_value.get('language'),
+                                  {test_value.get('language'): ImageRecord(png_binary)})
+
+
+@pytest.mark.parametrize('test_value, expected_results', [
+    ('', ''),
+    (None, None)
+    ])
+def test_get_qr_code_ref(test_value, expected_results):
+    with patch.object(Config, 'get_logo_hooks',
+                      return_value={"get_qr_code_ref": "pyramid_oereb.core.hook_methods.get_qr_code_ref"}):
+        request = DummyRequest()
+        assert Base.get_qr_code_ref(request, test_value) == expected_results
+
+
+@pytest.mark.parametrize('test_value, expected_results', [
+    ('', '')
+    ])
+def test_get_qr_code_ref_no_method(test_value, expected_results):
+    with patch.object(Config, 'get_logo_hooks',
+                      return_value={
+                          "get_qr_code_ref": "pyramid_oereb.core.hook_methods.get_qr_code_ref"
+                          }):
+        with patch.object(pyramid_oereb.core.hook_methods, 'get_qr_code_ref', {}):
+            with pytest.raises(HTTPServerError):
+                Base.get_qr_code_ref(DummyRequest(), test_value)

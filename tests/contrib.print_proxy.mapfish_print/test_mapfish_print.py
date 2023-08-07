@@ -40,11 +40,53 @@ def extract():
 
 
 @pytest.fixture
+def extract_multi_wms():
+    with codecs.open(
+            'tests/contrib.print_proxy.mapfish_print/resources/test_extract_multi_wms.json'
+    ) as f:
+        yield json.load(f)
+
+
+@pytest.fixture
 def expected_printable_extract():
     with codecs.open(
             'tests/contrib.print_proxy.mapfish_print/resources/expected_getspec_extract.json'
     ) as f:
         yield json.load(f)
+
+
+@pytest.fixture
+def expected_printable_extract_multi_wms():
+    multi_wms_layer = {
+        "layers": [
+            {
+                "type": "wms",
+                "opacity": 1.0,
+                "styles": "default",
+                "baseURL": "https://oereb-dev.geo.bl.ch/wms",
+                "layers": ["LandUsePlans", "LandUsePlans_second"],
+                "imageFormat": "image/png",
+                "customParams": {"TRANSPARENT": "true"}
+            }, {
+                "type": "wms",
+                "styles": "default",
+                "opacity": 1.0,
+                "baseURL": "https://geowms.bl.ch/",
+                "layers": ["grundbuchplan_gebaeude_nicht_gefuellt_group"],
+                "imageFormat": "image/png",
+                "customParams": {"TRANSPARENT": "true"}
+            }, {
+                "type": "wms",
+                "opacity": 1.0,
+                "styles": "default",
+                "baseURL": "https://new_test-oereb-dev.geo.bl.ch/wms",
+                "layers": ["LandUsePlans_tt"],
+                "imageFormat": "image/png",
+                "customParams": {"TRANSPARENT": "true"}
+            }
+        ]
+    }
+    yield multi_wms_layer
 
 
 @pytest.fixture
@@ -142,6 +184,25 @@ def test_mapfish_print_entire_extract(extract, geometry, expected_printable_extr
     assert deepCompare(extract, expected_printable_extract)
     # Do it twice, to test all keys in each reports
     assert deepCompare(expected_printable_extract, extract)
+
+
+def test_multiple_reference_WMS(
+        extract_multi_wms, geometry,
+        expected_printable_extract_multi_wms, DummyRenderInfo
+        ):
+    renderer = Renderer(DummyRenderInfo())
+    this_extract = renderer.convert_to_printable_extract(extract_multi_wms, geometry)
+
+    # Extract the wms layer data that are of interest
+    plrs = this_extract['RealEstate_RestrictionOnLandownership']
+    multi_wms_plr = False
+    for plr in plrs:
+        multi_wms_plr = plr['baseLayers'] if plr['Theme_Code'] == 'ch.Nutzungsplanung' else False
+        if multi_wms_plr:
+            break
+
+    assert deepCompare(multi_wms_plr, expected_printable_extract_multi_wms)
+    assert deepCompare(expected_printable_extract_multi_wms, multi_wms_plr)
 
 
 def test_get_sorted_legend(DummyRenderInfo):
@@ -847,7 +908,6 @@ def dummy_pdf():
 
 
 @patch.object(pyramid_oereb.core.views.webservice, 'route_prefix', 'oereb')
-@patch.object(pyramid_oereb.core.renderer.extract.json_, 'route_prefix', 'oereb')
 @patch.object(pyramid_oereb.core.config.Config, 'municipalities', [MunicipalityRecord(1234, 'test', True)])
 def test_mfp_service(mock_responses, pyramid_test_config,
                      real_estate_data,

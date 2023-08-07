@@ -3,7 +3,6 @@
 import datetime
 
 import pytest
-from unittest.mock import patch
 from shapely.geometry import MultiPolygon, Polygon, Point, LineString
 
 from pyramid.path import DottedNameResolver
@@ -30,9 +29,6 @@ from pyramid_oereb.core.renderer.extract.json_ import Renderer
 from tests.mockrequest import MockRequest
 from pyramid_oereb.core.views.webservice import Parameter
 
-import pyramid_oereb.core.renderer.extract.json_
-import pyramid_oereb.core.hook_methods
-
 
 def law_status():
     return LawStatusRecord(u'inKraft', {u'de': u'Rechtskräftig'})
@@ -58,7 +54,6 @@ def glossary_expected():
     }]
 
 
-@patch.object(pyramid_oereb.core.renderer.extract.json_, 'route_prefix', 'oereb')
 @pytest.mark.parametrize('parameter, glossaries_input, glossaries_expected', [
     (default_param(), glossary_input(), glossary_expected()),
     (default_param(), [], []),
@@ -230,7 +225,6 @@ def test_format_real_estate(DummyRenderInfo, real_estate_test_data):
     }
 
 
-@patch.object(pyramid_oereb.core.hook_methods, 'route_prefix', 'oereb')
 @pytest.mark.parametrize('parameter', [
     default_param(),
     Parameter('json', False, True, False, 'BL0200002829', '1000', 'CH775979211712', 'de'),
@@ -504,7 +498,6 @@ def test_format_theme(DummyRenderInfo, params):
     }
 
 
-@patch.object(pyramid_oereb.core.hook_methods, 'route_prefix', 'oereb')
 @pytest.mark.parametrize('parameter', [
     default_param(),
     Parameter('json', 'reduced', False, True, 'BL0200002829', '1000', 'CH775979211712', 'de')

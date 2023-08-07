@@ -1,6 +1,16 @@
 Changelog
 =========
 
+2.4.5
+-----
+- Fix base layer usage in grouped PLRs (#1302)
+- Various minor library upgrades (SQLAlchemy, geoalchemy2, pypdf, lxml, urllib3)
+
+2.4.4
+-----
+- Add option for a hook method for LogoRef URLs (#929, #1744)
+- Various minor library upgrades (urllib, requests, SQLAlchemy, geoalchemy2)
+
 2.4.3
 -----
 - Add support for newest oereblex API (via geolink-formatter, #1703)
