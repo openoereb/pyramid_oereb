@@ -5,7 +5,7 @@ jobs:
 
   lint:
     name: Check style (lint)
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
       - run: sudo rm /etc/apt/sources.list.d/*.list
@@ -16,7 +16,7 @@ jobs:
 
   gitattributes:
     name: Check style (git-attributes)
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
       - run: sudo rm /etc/apt/sources.list.d/*.list
@@ -27,7 +27,7 @@ jobs:
 
   test-py:
     name: Test Python
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     services:
       # Label used to access the service container
       postgres:
@@ -76,7 +76,7 @@ jobs:
 
   test-fed-data:
     name: Check federal data definitions
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
       - run: sudo rm /etc/apt/sources.list.d/*.list
@@ -93,7 +93,7 @@ jobs:
   doc:
     name: Make and deploy documentation
     if: github.ref == 'refs/heads/master'
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
       - name: Make documentation
@@ -110,7 +110,7 @@ jobs:
 
   build-and-publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs: [lint, gitattributes]
     steps:
     - uses: actions/checkout@master
