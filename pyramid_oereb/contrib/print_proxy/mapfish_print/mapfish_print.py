@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime, timedelta
+from datetime import datetime
 import io
 import json
 import logging
@@ -31,6 +31,7 @@ class Renderer(JsonRenderer):
     def __init__(self, info):
         super(Renderer, self).__init__(info)
         self.global_datetime = None
+        self.global_datetime_format = '%Y-%m-%dT%H:%M:%S'
 
     def __call__(self, value, system):
         """
@@ -77,6 +78,8 @@ class Renderer(JsonRenderer):
         else:
             extract_as_dict['nbTocPages'] = 1
 
+        # set the global_datetime variable so that it can be used later for the archive
+        self.set_global_datetime(extract_as_dict['CreationDate'])
         self.convert_to_printable_extract(extract_as_dict, feature_geometry)
 
         print_config = Config.get('print', {})
@@ -244,10 +247,9 @@ class Renderer(JsonRenderer):
         """
         log.debug("Starting transformation, extract_dict is {}".format(extract_dict))
         log.debug("Parameter feature_geometry is {}".format(feature_geometry))
-
-        # set the global_datetime variable to that it can be used later for the archive
-        self.global_datetime = datetime.strptime(extract_dict['CreationDate'], '%Y-%m-%dT%H:%M:%S')
-
+        if self.global_datetime is None:
+            # make sure this is set i.e when running tests
+            self.set_global_datetime(extract_dict['CreationDate'])
         extract_dict['Footer'] = '   '.join([
             self.global_datetime.strftime('%d.%m.%Y'),
             self.global_datetime.strftime('%H:%M:%S'),
@@ -864,3 +866,17 @@ class Renderer(JsonRenderer):
             (str): converted value
         """
         return value if isinstance(value, str) else ','.join(value)
+
+    def set_global_datetime(self, date_time):
+        """
+        Set/initialize the class variable global_datetime with a given date-time
+        Args:
+            value (str): date value of the format Y-m-dTH:M:S'
+        """
+        try:
+            self.global_datetime = datetime.strptime(date_time, self.global_datetime_format)
+        except PdfReadError as e:
+            err_msg = f'Not able to set the datetime. Expected date-time format is: \
+                {self.global_datetime_format}. Given date-time value is: {date_time}'
+            log.error(err_msg + ': ' + str(e))
+            raise HTTPInternalServerError(self._static_error_message)
