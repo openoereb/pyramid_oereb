@@ -28,6 +28,10 @@ LEGEND_ELEMENT_SORT_ORDER = [
 
 class Renderer(JsonRenderer):
 
+    def __init__(self, info):
+        super(Renderer, self).__init__(info)
+        self.global_datetime = None
+
     def __call__(self, value, system):
         """
         Implements a subclass of pyramid_oereb.core.renderer.extract.json_.Renderer to create a print result
@@ -154,8 +158,7 @@ class Renderer(JsonRenderer):
             del response.headers['Connection']
         return content
 
-    @staticmethod
-    def archive_pdf_file(pdf_archive_path, binary_content, extract_as_dict):
+    def archive_pdf_file(self, pdf_archive_path, binary_content, extract_as_dict):
         """
         Writes the static extract (pdf) into a dedicated file; this functionality can thus be used
         for archiving.
@@ -171,8 +174,7 @@ class Renderer(JsonRenderer):
         """
         pdf_archive_path = pdf_archive_path if pdf_archive_path[-1:] == '/' else pdf_archive_path + '/'
         log.debug('Start to archive pdf file at path: ' + pdf_archive_path)
-
-        time_info = (datetime.utcnow() + timedelta(hours=2)).strftime('%Y%m%d%H%M%S')  # UTC+2
+        time_info = self.global_datetime.strftime('%Y%m%d%H%M%S')
         egrid = extract_as_dict.get('RealEstate_EGRID', 'no_egrid')
 
         if egrid == 'no_egrid' or egrid is None:
@@ -240,13 +242,15 @@ class Renderer(JsonRenderer):
         log.debug("Starting transformation, extract_dict is {}".format(extract_dict))
         log.debug("Parameter feature_geometry is {}".format(feature_geometry))
 
-        creation_date = datetime.strptime(extract_dict['CreationDate'], '%Y-%m-%dT%H:%M:%S')
+        # set the global_datetime variable to that it can be used later for the archive
+        self.global_datetime = datetime.strptime(extract_dict['CreationDate'], '%Y-%m-%dT%H:%M:%S')
+
         extract_dict['Footer'] = '   '.join([
-            creation_date.strftime('%d.%m.%Y'),
-            creation_date.strftime('%H:%M:%S'),
+            self.global_datetime.strftime('%d.%m.%Y'),
+            self.global_datetime.strftime('%H:%M:%S'),
             extract_dict['ExtractIdentifier']
         ])
-        extract_dict['CreationDate'] = creation_date.strftime('%d.%m.%Y')
+        extract_dict['CreationDate'] = self.global_datetime.strftime('%d.%m.%Y')
 
         for attr_name in ['ConcernedTheme', 'NotConcernedTheme', 'ThemeWithoutData']:
             for theme in extract_dict[attr_name]:
