@@ -33,6 +33,7 @@ services:
       - oereb-db
     user: "${LOCAL_UID}:${LOCAL_GID}"
     environment:
+      TZ: Europe/Zurich
       PGHOST: ${PGHOST:-oereb-db}
       PGPORT: ${PGPORT:-5432}
       PGUSER: ${PGUSER:-postgres}
