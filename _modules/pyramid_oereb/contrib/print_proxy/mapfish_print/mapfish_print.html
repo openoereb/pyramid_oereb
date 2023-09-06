@@ -74,7 +74,7 @@
              
   <h1>Source code for pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">import</span> <span class="nn">io</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">logging</span>
@@ -102,6 +102,11 @@
 
 
 <div class="viewcode-block" id="Renderer"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer">[docs]</a><span class="k">class</span> <span class="nc">Renderer</span><span class="p">(</span><span class="n">JsonRenderer</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Renderer.__init__"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Renderer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">global_datetime</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">global_datetime_format</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S&#39;</span></div>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -148,6 +153,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">extract_as_dict</span><span class="p">[</span><span class="s1">&#39;nbTocPages&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 
+        <span class="c1"># set the global_datetime variable so that it can be used later for the archive</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_global_datetime</span><span class="p">(</span><span class="n">extract_as_dict</span><span class="p">[</span><span class="s1">&#39;CreationDate&#39;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_printable_extract</span><span class="p">(</span><span class="n">extract_as_dict</span><span class="p">,</span> <span class="n">feature_geometry</span><span class="p">)</span>
 
         <span class="n">print_config</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})</span>
@@ -229,8 +236,7 @@
             <span class="k">del</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Connection&#39;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">content</span>
 
-<div class="viewcode-block" id="Renderer.archive_pdf_file"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.archive_pdf_file">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">archive_pdf_file</span><span class="p">(</span><span class="n">pdf_archive_path</span><span class="p">,</span> <span class="n">binary_content</span><span class="p">,</span> <span class="n">extract_as_dict</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.archive_pdf_file"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.archive_pdf_file">[docs]</a>    <span class="k">def</span> <span class="nf">archive_pdf_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pdf_archive_path</span><span class="p">,</span> <span class="n">binary_content</span><span class="p">,</span> <span class="n">extract_as_dict</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Writes the static extract (pdf) into a dedicated file; this functionality can thus be used</span>
 <span class="sd">        for archiving.</span>
@@ -246,8 +252,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pdf_archive_path</span> <span class="o">=</span> <span class="n">pdf_archive_path</span> <span class="k">if</span> <span class="n">pdf_archive_path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;/&#39;</span> <span class="k">else</span> <span class="n">pdf_archive_path</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Start to archive pdf file at path: &#39;</span> <span class="o">+</span> <span class="n">pdf_archive_path</span><span class="p">)</span>
-
-        <span class="n">time_info</span> <span class="o">=</span> <span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">%H%M%S&#39;</span><span class="p">)</span>  <span class="c1"># UTC+2</span>
+        <span class="n">time_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_datetime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">%H%M%S&#39;</span><span class="p">)</span>
         <span class="n">egrid</span> <span class="o">=</span> <span class="n">extract_as_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;RealEstate_EGRID&#39;</span><span class="p">,</span> <span class="s1">&#39;no_egrid&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">egrid</span> <span class="o">==</span> <span class="s1">&#39;no_egrid&#39;</span> <span class="ow">or</span> <span class="n">egrid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -314,14 +319,15 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Starting transformation, extract_dict is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">))</span>
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Parameter feature_geometry is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">feature_geometry</span><span class="p">))</span>
-
-        <span class="n">creation_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;CreationDate&#39;</span><span class="p">],</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_datetime</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># make sure this is set i.e when running tests</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_global_datetime</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;CreationDate&#39;</span><span class="p">])</span>
         <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;Footer&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;   &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
-            <span class="n">creation_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">.%m.%Y&#39;</span><span class="p">),</span>
-            <span class="n">creation_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">global_datetime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">.%m.%Y&#39;</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">global_datetime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%H:%M:%S&#39;</span><span class="p">),</span>
             <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;ExtractIdentifier&#39;</span><span class="p">]</span>
         <span class="p">])</span>
-        <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;CreationDate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">creation_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">.%m.%Y&#39;</span><span class="p">)</span>
+        <span class="n">extract_dict</span><span class="p">[</span><span class="s1">&#39;CreationDate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_datetime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">.%m.%Y&#39;</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">attr_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ConcernedTheme&#39;</span><span class="p">,</span> <span class="s1">&#39;NotConcernedTheme&#39;</span><span class="p">,</span> <span class="s1">&#39;ThemeWithoutData&#39;</span><span class="p">]:</span>
             <span class="k">for</span> <span class="n">theme</span> <span class="ow">in</span> <span class="n">extract_dict</span><span class="p">[</span><span class="n">attr_name</span><span class="p">]:</span>
@@ -931,7 +937,21 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            (str): converted value</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">value</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">value</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Renderer.set_global_datetime"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.set_global_datetime">[docs]</a>    <span class="k">def</span> <span class="nf">set_global_datetime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date_time</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set/initialize the class variable global_datetime with a given date-time</span>
+<span class="sd">        Args:</span>
+<span class="sd">            value (str): date value of the format Y-m-dTH:M:S&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">global_datetime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_datetime_format</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">PdfReadError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">err_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Not able to set the datetime. Expected date-time format is: </span><span class="se">\</span>
+<span class="s1">                </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">global_datetime_format</span><span class="si">}</span><span class="s1">. Given date-time value is: </span><span class="si">{</span><span class="n">date_time</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">err_msg</span> <span class="o">+</span> <span class="s1">&#39;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">HTTPInternalServerError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_static_error_message</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

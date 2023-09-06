@@ -106,7 +106,7 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.</span></span><span class="sig-name descname"><span class="pre">Renderer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a new JSON renderer instance for extract rendering.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -117,7 +117,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.archive_pdf_file">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">archive_pdf_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_archive_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary_content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extract_as_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.archive_pdf_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.archive_pdf_file" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">archive_pdf_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_archive_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary_content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extract_as_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.archive_pdf_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.archive_pdf_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes the static extract (pdf) into a dedicated file; this functionality can thus be used
 for archiving.</p>
 <dl class="field-list simple">
@@ -561,6 +561,14 @@ restriction to get the symbol reference for.</p></li>
 <dd class="field-odd"><p><strong>items</strong> (<em>tuple</em>) – a list of PLR documents.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.set_global_datetime">
+<span class="sig-name descname"><span class="pre">set_global_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date_time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.set_global_datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.set_global_datetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set/initialize the class variable global_datetime with a given date-time
+:param value: date value of the format Y-m-dTH:M:S’
+:type value: str</p>
 </dd></dl>
 
 <dl class="py method">
