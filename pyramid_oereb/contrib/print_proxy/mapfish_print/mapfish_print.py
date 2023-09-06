@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime, timedelta
+from datetime import datetime
 import io
 import json
 import logging
@@ -27,6 +27,11 @@ LEGEND_ELEMENT_SORT_ORDER = [
 
 
 class Renderer(JsonRenderer):
+
+    def __init__(self, info):
+        super(Renderer, self).__init__(info)
+        self.global_datetime = None
+        self.global_datetime_format = '%Y-%m-%dT%H:%M:%S'
 
     def __call__(self, value, system):
         """
@@ -73,6 +78,8 @@ class Renderer(JsonRenderer):
         else:
             extract_as_dict['nbTocPages'] = 1
 
+        # set the global_datetime variable so that it can be used later for the archive
+        self.set_global_datetime(extract_as_dict['CreationDate'])
         self.convert_to_printable_extract(extract_as_dict, feature_geometry)
 
         print_config = Config.get('print', {})
@@ -154,8 +161,7 @@ class Renderer(JsonRenderer):
             del response.headers['Connection']
         return content
 
-    @staticmethod
-    def archive_pdf_file(pdf_archive_path, binary_content, extract_as_dict):
+    def archive_pdf_file(self, pdf_archive_path, binary_content, extract_as_dict):
         """
         Writes the static extract (pdf) into a dedicated file; this functionality can thus be used
         for archiving.
@@ -171,8 +177,7 @@ class Renderer(JsonRenderer):
         """
         pdf_archive_path = pdf_archive_path if pdf_archive_path[-1:] == '/' else pdf_archive_path + '/'
         log.debug('Start to archive pdf file at path: ' + pdf_archive_path)
-
-        time_info = (datetime.utcnow() + timedelta(hours=2)).strftime('%Y%m%d%H%M%S')  # UTC+2
+        time_info = self.global_datetime.strftime('%Y%m%d%H%M%S')
         egrid = extract_as_dict.get('RealEstate_EGRID', 'no_egrid')
 
         if egrid == 'no_egrid' or egrid is None:
@@ -239,14 +244,15 @@ class Renderer(JsonRenderer):
         """
         log.debug("Starting transformation, extract_dict is {}".format(extract_dict))
         log.debug("Parameter feature_geometry is {}".format(feature_geometry))
-
-        creation_date = datetime.strptime(extract_dict['CreationDate'], '%Y-%m-%dT%H:%M:%S')
+        if self.global_datetime is None:
+            # make sure this is set i.e when running tests
+            self.set_global_datetime(extract_dict['CreationDate'])
         extract_dict['Footer'] = '   '.join([
-            creation_date.strftime('%d.%m.%Y'),
-            creation_date.strftime('%H:%M:%S'),
+            self.global_datetime.strftime('%d.%m.%Y'),
+            self.global_datetime.strftime('%H:%M:%S'),
             extract_dict['ExtractIdentifier']
         ])
-        extract_dict['CreationDate'] = creation_date.strftime('%d.%m.%Y')
+        extract_dict['CreationDate'] = self.global_datetime.strftime('%d.%m.%Y')
 
         for attr_name in ['ConcernedTheme', 'NotConcernedTheme', 'ThemeWithoutData']:
             for theme in extract_dict[attr_name]:
@@ -857,3 +863,17 @@ class Renderer(JsonRenderer):
             (str): converted value
         """
         return value if isinstance(value, str) else ','.join(value)
+
+    def set_global_datetime(self, date_time):
+        """
+        Set/initialize the class variable global_datetime with a given date-time
+        Args:
+            value (str): date value of the format Y-m-dTH:M:S'
+        """
+        try:
+            self.global_datetime = datetime.strptime(date_time, self.global_datetime_format)
+        except PdfReadError as e:
+            err_msg = f'Not able to set the datetime. Expected date-time format is: \
+                {self.global_datetime_format}. Given date-time value is: {date_time}'
+            log.error(err_msg + ': ' + str(e))
+            raise HTTPInternalServerError(self._static_error_message)
