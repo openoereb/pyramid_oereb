@@ -122,7 +122,10 @@ class Renderer(JsonRenderer):
                     pdf_reader = PdfReader(pdf)
                     x = []
                     for i in range(len(pdf_reader.outline)):
-                        x.append(pdf_reader.outline[i]['/Page']['/StructParents'])
+                        if isinstance(pdf_reader.outline[i], list):
+                            x.append(pdf_reader.outline[i][0]['/Page']['/StructParents'])
+                        else:
+                            x.append(pdf_reader.outline[i]['/Page']['/StructParents'])
                     try:
                         true_nb_of_toc = min(x)-1
                     except ValueError:
