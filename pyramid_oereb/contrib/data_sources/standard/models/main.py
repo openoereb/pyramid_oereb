@@ -232,6 +232,8 @@ class Disclaimer(Base):
     id = Column(String, primary_key=True)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
+    # the custom class Serial may be used to obtain an auto incremented extract index in the DB
+    # however, the better choice was made to make the field optional / nullable
     # extract_index = Column(Serial)
     extract_index = Column(Integer, nullable=True)
 
@@ -279,7 +281,7 @@ class GeneralInformation(Base):
     id = Column(String, primary_key=True)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
-    extract_index = Column(Integer)
+    extract_index = Column(Integer, nullable=True)
 
 
 class ThemeDocument(Base):
