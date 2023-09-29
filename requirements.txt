@@ -10,7 +10,7 @@ SQLAlchemy==2.0.21
 pyaml-env==1.2.1
 urllib3==2.0.5
 waitress==2.1.2
-pyreproj==2.0.0
+pyreproj==3.0.0
 mako-render==0.1.0
 requests==2.31.0
 geolink-formatter==2.0.4
