@@ -24,6 +24,7 @@ Starting the development server
 
 #. Build run the initial build depending on your OS:
 
+   * ``docker network create print-network``
    * Linux: ``docker-compose run --rm -u $(id -u):$(id -g) oereb-make build``
    * MAC/Windows: ``docker-compose run --rm oereb-make build``
 
@@ -43,6 +44,7 @@ To run the tests locally:
 
 The docker way:
 ---------------
+  * ``docker network create print-network``
   * Linux: ``docker-compose run --rm -u $(id -u):$(id -g) oereb-server make build tests``
   * MAC/Windows: ``docker-compose run --rm oereb-server make build tests``
 

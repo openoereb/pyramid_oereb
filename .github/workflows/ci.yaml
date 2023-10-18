@@ -5,9 +5,9 @@ jobs:
 
   lint:
     name: Check style (lint)
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
       - run: sudo apt-get install libpq-dev
@@ -16,9 +16,9 @@ jobs:
 
   gitattributes:
     name: Check style (git-attributes)
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
       - run: sudo apt-get install libpq-dev
@@ -27,7 +27,7 @@ jobs:
 
   test-py:
     name: Test Python
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     services:
       # Label used to access the service container
       postgres:
@@ -52,7 +52,7 @@ jobs:
           - '3.10'
           - '3.11'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - name: Set up Python v${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
@@ -76,9 +76,9 @@ jobs:
 
   test-fed-data:
     name: Check federal data definitions
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
       - run: sudo apt-get install xsltproc
@@ -93,9 +93,9 @@ jobs:
   doc:
     name: Make and deploy documentation
     if: github.ref == 'refs/heads/master'
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - name: Make documentation
         run: |
           sudo rm /etc/apt/sources.list.d/*.list
@@ -110,7 +110,7 @@ jobs:
 
   build-and-publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs: [lint, gitattributes]
     steps:
     - uses: actions/checkout@master

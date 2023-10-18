@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 import os
 import io
 import re
@@ -722,9 +723,21 @@ def test_group_legal_provisions(DummyRenderInfo):
     assert expected_results == renderer.group_legal_provisions(test_legal_provisions)
 
 
+def test_set_global_datetime(DummyRenderInfo):
+    renderer = Renderer(DummyRenderInfo())
+    date_time = '2023-08-21T13:48:07'
+    renderer.set_global_datetime(date_time)
+    assert renderer.global_datetime is not None
+    assert renderer.global_datetime == datetime.strptime(date_time, renderer.global_datetime_format)
+
+
 def test_archive_pdf(DummyRenderInfo):
     renderer = Renderer(DummyRenderInfo())
-    extract = {'RealEstate_EGRID': 'CH113928077734'}
+    extract = {
+        'RealEstate_EGRID': 'CH113928077734',
+        'CreationDate': '2023-08-21T13:48:07'
+        }
+    renderer.set_global_datetime(extract['CreationDate'])
     path_and_filename = renderer.archive_pdf_file('/tmp', bytes(), extract)
     partial_filename = str('_') + extract['RealEstate_EGRID'] + '.pdf'
     assert partial_filename in path_and_filename
@@ -735,7 +748,10 @@ def test_archive_pdf_identdn(DummyRenderInfo):
     renderer = Renderer(DummyRenderInfo())
     extract = {
         'RealEstate_IdentDN': 'BL0200002771',
-        'RealEstate_Number': '70'}
+        'RealEstate_Number': '70',
+        'CreationDate': '2023-08-21T13:48:07'
+        }
+    renderer.set_global_datetime(extract['CreationDate'])
     path_and_filename = renderer.archive_pdf_file('/tmp', bytes(), extract)
     partial_filename = extract['RealEstate_IdentDN'] + str('_') + extract['RealEstate_Number'] + '.pdf'
     assert partial_filename in path_and_filename

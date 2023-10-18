@@ -1577,8 +1577,8 @@ class Config(object):
 
         current_path.append(k)
 
-        if type(current_object[k]) != dict:
-            raise ConfigurationError('The configuration {} is not an object.'.format(
+        if not isinstance(current_object[k], dict):
+            raise ConfigurationError('The configuration {} is not a dictionary.'.format(
                 '.'.join(current_path)))
 
         return Config._get_object_path(current_path, current_object[k], path[1:], default, required)
