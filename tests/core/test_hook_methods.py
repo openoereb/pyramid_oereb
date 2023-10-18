@@ -17,7 +17,7 @@ from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.view_service import LegendEntryRecord
 from pyramid_oereb.core.records.real_estate import RealEstateRecord
 from pyramid_oereb.core.hook_methods import compare, get_symbol, get_symbol_ref, \
-    get_logo_ref, get_qr_code_ref, get_surveying_data_update_date,\
+    get_logo_ref, get_qr_code_ref, get_surveying_data_update_date, \
     plr_sort_within_themes
 from pyramid_oereb.contrib.data_sources.standard.sources.plr import StandardThemeConfigParser
 import pyramid_oereb.contrib.data_sources.standard.hook_methods
