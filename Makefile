@@ -328,12 +328,12 @@ tests: ${VENV_ROOT}/requirements-timestamp test-core test-contrib-print_proxy-ma
 .PHONY: docker-tests
 docker-tests:
 	echo "Running tests as user ${LOCAL_UID}:${LOCAL_GID}"
-	docker-compose run --rm -e PGHOST=oereb-db -e UID=${LOCAL_UID} -e GID=${LOCAL_GID} oereb-server make build lint tests
-	docker-compose down
+	docker compose run --rm -e PGHOST=oereb-db -e UID=${LOCAL_UID} -e GID=${LOCAL_GID} oereb-server make build lint tests
+	docker compose down
 
 .PHONY: docker-clean-all
 docker-clean-all:
-	docker-compose run --rm oereb-make clean-all
+	docker compose run --rm oereb-make clean-all
 
 .PHONY: check
 check: git-attributes lint test
@@ -354,10 +354,10 @@ updates: $(PIP_REQUIREMENTS)
 
 .PHONY: serve-dev
 serve-dev: development.ini build
-	docker-compose up -d oereb-db
+	docker compose up -d oereb-db
 	$(VENV_BIN)/pserve $< --reload
 
 .PHONY: serve
 serve: development.ini build
-	docker-compose up -d oereb-db
+	docker compose up -d oereb-db
 	$(VENV_BIN)/pserve $<

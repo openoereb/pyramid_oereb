@@ -25,12 +25,12 @@ Starting the development server
 #. Build run the initial build depending on your OS:
 
    * ``docker network create print-network``
-   * Linux: ``docker-compose run --rm -u $(id -u):$(id -g) oereb-make build``
-   * MAC/Windows: ``docker-compose run --rm oereb-make build``
+   * Linux: ``docker compose run --rm -u $(id -u):$(id -g) oereb-make build``
+   * MAC/Windows: ``docker compose run --rm oereb-make build``
 
-#. ``docker-compose up``
+#. ``docker compose up``
 
-Running ``docker-compose up`` will start the DB (it will automatically import the test/dev data on startup) and start
+Running ``docker compose up`` will start the DB (it will automatically import the test/dev data on startup) and start
 a running instance of the pyramid_oereb DEV server connected to the DB. The project folder is mounted
 to it. So changes take effect.
 
@@ -45,8 +45,8 @@ To run the tests locally:
 The docker way:
 ---------------
   * ``docker network create print-network``
-  * Linux: ``docker-compose run --rm -u $(id -u):$(id -g) oereb-server make build tests``
-  * MAC/Windows: ``docker-compose run --rm oereb-server make build tests``
+  * Linux: ``docker compose run --rm -u $(id -u):$(id -g) oereb-server make build tests``
+  * MAC/Windows: ``docker compose run --rm oereb-server make build tests``
 
 For systems having a local make tool, the following recipe can be used:
 ``make docker-tests``
@@ -59,7 +59,7 @@ Local tests:
 ------------
 For local tests without the complete docker composition you need a running DB.
 You can create one based on the oereb image:
-``docker-compose up -d oereb-db``
+``docker compose up -d oereb-db``
 
 or create an empty postgis DB
 ``docker run -p 5555:5432 --name pg_oereb --rm -it -e POSTGRES_PASSWORD=pw postgis/postgis``
@@ -74,7 +74,7 @@ To run one specfic test:
 
 .. code-block:: bash
 
-  docker-compose exec oereb-server PYTEST_OPTS="-k <name_of_the_test>" make tests
+  docker compose exec oereb-server PYTEST_OPTS="-k <name_of_the_test>" make tests
 
 Troubleshooting
 ---------------
@@ -83,14 +83,14 @@ In this case cleanup can be done like:
 
 .. code-block:: bash
 
-  docker-compose run --rm oereb-make clean-all
+  docker compose run --rm oereb-make clean-all
 
 
 
 Useful ``make`` targets
 =======================
 
-Run the ``make`` targets found in the Makefile either in the ``oereb-server`` container (if using ``docker-compose``) or in your local shell (if running the server locally).
+Run the ``make`` targets found in the Makefile either in the ``oereb-server`` container (if using ``docker compose``) or in your local shell (if running the server locally).
 Some useful targets:
 
 - ``make serve-dev`` to run the application
@@ -113,7 +113,7 @@ There are further make targets to check the validity of federal data:
 Using MapFish-Print
 ===================
 
-To be able to test the OEREB static extract (pdf), you need to run ``pyramid_oereb`` with ``docker-compose`` and to have a running instance of `pyramid_oereb_mfp <https://github.com/openoereb/pyramid_oereb_mfp>`__.
+To be able to test the OEREB static extract (pdf), you need to run ``pyramid_oereb`` with ``docker compose`` and to have a running instance of `pyramid_oereb_mfp <https://github.com/openoereb/pyramid_oereb_mfp>`__.
 The Docker network ``print-network`` is also required and can be created with:
 
 .. code-block:: bash
