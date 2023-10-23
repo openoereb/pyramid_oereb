@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.4.6
+-----
+- Fix error with large of contents and new pdf library (#1813)
+- Fix timestamp for archived PDF (#1815)
+- Library upgrades (SQLAlchemy, geoalchemy2, shapely, psycopg2, pyreproj, pyramid, responses, urllib, pillow, pypdf, jsonschema)
+
 2.4.5
 -----
 - Fix base layer usage in grouped PLRs (#1302)
