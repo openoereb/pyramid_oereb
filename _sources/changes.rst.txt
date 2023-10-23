@@ -6,6 +6,14 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+Version 2.4.6
+-------------
+Bug-fix and maintenance release:
+
+* Fix error with large of contents and new pdf library (#1813)
+* Fix timestamp for archived PDF (#1815)
+* Library upgrades (SQLAlchemy, geoalchemy2, shapely, psycopg2, pyreproj, pyramid, responses, urllib, pillow, pypdf, jsonschema)
+
 Version 2.4.5
 -------------
 Bug-fix and maintenance release:
