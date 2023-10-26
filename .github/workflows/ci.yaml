@@ -114,10 +114,10 @@ jobs:
     needs: [lint, gitattributes]
     steps:
     - uses: actions/checkout@master
-    - name: Set up Python 3.8
+    - name: Set up Python 3.11
       uses: actions/setup-python@v4
       with:
-        python-version: 3.8
+        python-version: 3.11
     - name: Install pypa/build
       run: >-
         python -m
