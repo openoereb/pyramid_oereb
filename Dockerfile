@@ -1,7 +1,6 @@
 FROM python:3.11-buster
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV VIRTUALENV_PYTHON=/usr/bin/python3.8
 
 ARG DEV_PACKAGES="build-essential"
 
