@@ -10,7 +10,7 @@ Would you like to contribute to the project? Please see :ref:`contributing`.
 .. toctree::
    :hidden:
 
-   sources
+   data_sources/index
    print_proxy
    stats
    contributing

@@ -3,9 +3,9 @@
 Installation
 ============
 
-This section will guide you through the steps to install and run an own DEV instance of ``pyramid_oereb`` using
-the standard configuration. If you are planning to adapt the application to fit a custom data source, the
-possibilities and additional steps are described in the section :ref:`configuration`.
+This section will guide you through the steps to install and run an own DEV instance of ``pyramid_oereb``
+using the standard configuration. If you are planning to adapt the application to fit a custom data source,
+the possibilities and additional steps are described in the section :ref:`configuration`.
 
 
 .. _installation-requirements:

@@ -27,9 +27,6 @@ import subprocess
 import sphinx_rtd_theme
 from pyramid_oereb.core.config import Config
 Config._config = {'srid': -1, 'app_schema': {'name': 'pyramid_oereb_main'}}
-from pyramid_oereb.contrib.data_sources.standard.sources.plr import StandardThemeConfigParser  # noqa E402
-import pyramid_oereb.contrib.data_sources.standard  # noqa E402
-import pyramid_oereb.contrib.data_sources.standard.models.main  # noqa E402
 
 
 # -- General configuration ------------------------------------------------
@@ -65,16 +62,6 @@ with open('core/sources.rst', 'w') as sources:
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
         'core/sources.rst.mako']).decode('utf-8'))
 
-with open('standard/sources.rst', 'w') as sources:
-    sources.write(subprocess.check_output([
-        '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
-        'standard/sources.rst.mako']).decode('utf-8'))
-
-with open('contrib/sources.rst', 'w') as sources:
-    sources.write(subprocess.check_output([
-        '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
-        'contrib/sources.rst.mako']).decode('utf-8'))
-
 with open('contrib/print_proxy.rst', 'w') as sources:
     sources.write(subprocess.check_output([
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
@@ -84,54 +71,23 @@ with open('contrib/stats.rst', 'w') as sources:
     sources.write(subprocess.check_output([
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
         'contrib/stats.rst.mako']).decode('utf-8'))
+target_paths = [
+    'contrib/data_sources/standard/index.rst',
+    'contrib/data_sources/standard/models.rst',
+    'contrib/data_sources/standard/models-main.rst',
+    'contrib/data_sources/standard/models-theme.rst',
+    'contrib/data_sources/standard/sources.rst',
+    'contrib/data_sources/interlis_2_3/index.rst',
+    'contrib/data_sources/oereblex/index.rst',
+    'contrib/data_sources/swisstopo/index.rst',
+    'contrib/data_sources/index.rst'
+]
 
-module_file_names = []
-module_name = 'pyramid_oereb.contrib.data_sources.standard.models.main'
-file_name = 'pyramid_oereb_contrib_data_sources_standard_models_main'
-module_file_names.append(file_name)
-main_classes = []
-for name, obj in inspect.getmembers(pyramid_oereb.contrib.data_sources.standard.models.main):
-    if inspect.isclass(obj) and obj.__module__ == module_name:
-        main_classes.append(name)
-with open('standard/models/{name}.rst'.format(name=file_name), 'w') as sources:
-    template = Template(filename='standard/models/models.rst.mako')
-    sources.write(template.render(**{'module_name': module_name, 'classes': main_classes}))
-
-conf_parser = StandardThemeConfigParser(source={
-    "class": 'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource',
-    "params": {
-        "model_factory": "pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk",
-        "schema_name": "land_use_plans"
-    }
-})
-
-models = conf_parser.get_models()
-modelnames = [modelname for modelname in dir(models) if modelname[0].isupper() and modelname != 'Base']
-
-# create fake python module pyramid_oereb.contrib.data_sources.standard.factory_models
-factory_models = types.ModuleType('FactoryModels', 'Virtual module for factory generated classes')
-factory_models.__name__ = 'factory_models'
-factory_models.__mro__ = []
-factory_models.__module__ = 'pyramid_oereb.contrib.data_sources.standard'
-for modelname in modelnames:
-    model = models.__getattribute__(modelname)
-    model.__name__ = modelname
-    model.__module__ = 'pyramid_oereb.contrib.data_sources.standard.factory_models'
-    factory_models.__dict__.update({modelname: model})
-
-pyramid_oereb.contrib.data_sources.standard.__dict__.update({'factory_models': factory_models})
-sys.modules['pyramid_oereb.contrib.data_sources.standard.factory_models'] = factory_models
-
-module_name = 'pyramid_oereb.contrib.data_sources.standard.factory_models'
-file_name = module_name.replace('.', '_').lower()
-module_file_names.append(file_name)
-with open('standard/models/{name}.rst'.format(name=file_name), 'w') as sources:
-    template = Template(filename='standard/models/factory_models.rst.mako')
-    sources.write(template.render(**{'module_name': module_name, 'classes': modelnames}))
-
-with open('standard/models/index.rst', 'w') as sources:
-    template = Template(filename='standard/models/index.rst.mako')
-    sources.write(template.render(**{'module_file_names': module_file_names}))
+for target_path in target_paths:
+    with open(target_path, 'w') as sources:
+        sources.write(subprocess.check_output([
+            '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
+            f'{target_path}.mako']).decode('utf-8'))
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['doc/_buildtemplates']

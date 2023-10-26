@@ -11,9 +11,9 @@ pyramid_oereb (ÖREB-Server) documentation
    :hidden:
 
    installation
+   installation-dev
    configuration
    changes
-   standard/index
    contrib/index
    core/index
    faq

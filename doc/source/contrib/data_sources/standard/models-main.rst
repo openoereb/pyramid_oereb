@@ -1,0 +1,192 @@
+.. _contrib-data-sources-standard-models-main:
+
+ORM Models for application Main schema
+``````````````````````````````````````
+
+
+
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-models-main:
+
+.. automodule:: pyramid_oereb.contrib.data_sources.standard.models.main
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-models-main-address:
+
+*Address*
+'''''''''
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.models.main.Address
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-models-main-availability:
+
+*Availability*
+''''''''''''''
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.models.main.Availability
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-models-main-dataintegration:
+
+*DataIntegration*
+'''''''''''''''''
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.models.main.DataIntegration
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-models-main-disclaimer:
+
+*Disclaimer*
+''''''''''''
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-models-main-documenttypetext:
+
+*DocumentTypeText*
+''''''''''''''''''
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-models-main-generalinformation:
+
+*GeneralInformation*
+''''''''''''''''''''
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-models-main-glossary:
+
+*Glossary*
+''''''''''
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.models.main.Glossary
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-models-main-lawstatus:
+
+*LawStatus*
+'''''''''''
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-models-main-logo:
+
+*Logo*
+''''''
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.models.main.Logo
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-models-main-maplayering:
+
+*MapLayering*
+'''''''''''''
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-models-main-municipality:
+
+*Municipality*
+''''''''''''''
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.models.main.Municipality
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-models-main-realestate:
+
+*RealEstate*
+''''''''''''
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-models-main-realestatetype:
+
+*RealEstateType*
+''''''''''''''''
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-models-main-theme:
+
+*Theme*
+'''''''
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.models.main.Theme
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-contrib-data_sources-standard-models-main-themedocument:
+
+*ThemeDocument*
+'''''''''''''''
+
+.. autoclass:: pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument
+   :members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. automethod:: __init__
+
