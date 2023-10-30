@@ -12,6 +12,7 @@ pyramid_oereb (ÖREB-Server) documentation
 
    installation
    installation-dev
+   makefile
    configuration
    changes
    contrib/index

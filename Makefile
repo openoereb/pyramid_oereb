@@ -336,7 +336,7 @@ docker-clean-all:
 	docker compose run --rm oereb-make clean-all
 
 .PHONY: check
-check: git-attributes lint test
+check: git-attributes lint tests
 
 .PHONY: doc-latex
 doc-latex: ${VENV_ROOT}/requirements-timestamp
@@ -349,7 +349,7 @@ doc-html: ${VENV_ROOT}/requirements-timestamp
 	$(VENV_BIN)/sphinx-build -b html doc/source doc/build/html
 
 .PHONY: updates
-updates: $(PIP_REQUIREMENTS)
+updates: ${VENV_ROOT}/requirements-timestamp
 	$(VENV_BIN)/pip list --outdated
 
 .PHONY: serve-dev

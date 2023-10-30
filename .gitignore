@@ -34,6 +34,7 @@ __pycache__/
 /doc/source/contrib/data_sources/standard/models-theme.rst
 /doc/source/contrib/data_sources/standard/models.rst
 /doc/source/contrib/data_sources/swisstopo/index.rst
+/doc/source/contrib/data_sources/interlis_2_3/index.rst
 /doc/build/
 
 # Standard configuration
