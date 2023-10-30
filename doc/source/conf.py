@@ -17,12 +17,8 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
-from mako.template import Template
-import sys
-import inspect
 # sys.path.insert(0, os.path.abspath('.'))
 import re
-import types
 import subprocess
 import sphinx_rtd_theme
 from pyramid_oereb.core.config import Config
