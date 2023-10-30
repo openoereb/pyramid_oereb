@@ -62,11 +62,6 @@ with open('core/sources.rst', 'w') as sources:
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
         'core/sources.rst.mako']).decode('utf-8'))
 
-with open('contrib/print_proxy.rst', 'w') as sources:
-    sources.write(subprocess.check_output([
-        '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
-        'contrib/print_proxy.rst.mako']).decode('utf-8'))
-
 with open('contrib/stats.rst', 'w') as sources:
     sources.write(subprocess.check_output([
         '../../.venv/bin/mako-render' if os.path.exists('../../.venv/bin/mako-render') else 'mako-render',
@@ -80,7 +75,10 @@ target_paths = [
     'contrib/data_sources/interlis_2_3/index.rst',
     'contrib/data_sources/oereblex/index.rst',
     'contrib/data_sources/swisstopo/index.rst',
-    'contrib/data_sources/index.rst'
+    'contrib/data_sources/index.rst',
+    'contrib/print_proxy/index.rst',
+    'contrib/print_proxy/mapfish-print.rst',
+    'contrib/print_proxy/xml2pdf.rst'
 ]
 
 for target_path in target_paths:

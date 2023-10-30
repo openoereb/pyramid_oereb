@@ -17,7 +17,7 @@ class RealEstateTypeReader(object):
                 (str or pyramid_oereb.core.sources.realestatetype.RealEstateTypeBaseSource): The path to
                 the class which represents the source used by this reader. This class must
                 exist and it must implement basic source behaviour of the
-                :ref:`api-pyramid_oereb-core-sources-realestatetype-realestatetypebasesource`.
+                :ref:`api-pyramid_oereb-core-sources-real_estate_type-realestatetypebasesource`.
             (kwargs): kwargs, which are necessary as configuration parameter for the above by
                 dotted name defined class.
         """
@@ -31,7 +31,7 @@ class RealEstateTypeReader(object):
         Note:
             If you subclass this class your implementation needs to offer this method in the same
             signature. Means the parameters must be the same and the return must be a list of
-            :ref:`api-pyramid_oereb-core-records-realestatetype-realestatetyperecord`.
+            :ref:`api-pyramid_oereb-core-records-real_estate_type-realestatetyperecord`.
             Otherwise the API like way the server works would be broken.
 
 

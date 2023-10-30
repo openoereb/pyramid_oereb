@@ -1,7 +1,9 @@
 .. _contrib-data-sources-swisstopo:
 
-Application schema Models
-=========================
+Swisstopo Adapter
+=================
+
+
 
 
 .. toctree::

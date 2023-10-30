@@ -287,7 +287,7 @@ Next steps
 Now you should be able to set up a running ``pyramid_oereb`` server using the standard configuration. If this
 configuration fits your needs, you can now continue with importing your data into the created database. A
 detailed description of each table can be found in the documentation of the
-:ref:`api-pyramid_oereb-standard-models`.
+:ref:`contrib-data-sources-standard-models-theme`.
 
 If your data is already available in an existing database with a different structure or you need to use a
 custom data source, the possible ways to adapt the models or to extend the application are described in the
