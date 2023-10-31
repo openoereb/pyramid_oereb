@@ -13,7 +13,7 @@ the commands how to create the development.ini file which is necessary to run DE
 ``pyramid_oereb``.
 
 To stay with this line in the Makefile you can see that a mako-render command is called with several variables
- from a ``virtual environment``. Thats a bit interesting. More interesting is the dependency which is defined
+from a ``virtual environment``. Thats a bit interesting. More interesting is the dependency which is defined
 right on the same line of the target: ``install``
 
 It refers to the ``install`` target
