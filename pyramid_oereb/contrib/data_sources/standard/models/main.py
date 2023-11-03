@@ -16,7 +16,7 @@ The name of the schema will be:
 
     pyramid_oereb_main
 
-But you can change it also via configuration.
+But you can change it also via :ref:`configuration`.
 
 Note:
     Whenever you configure your own sqlalchemy ORM's to use them in this application you must imitate

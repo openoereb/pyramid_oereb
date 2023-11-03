@@ -784,11 +784,12 @@ class Renderer(JsonRenderer):
         """
         Provides the sort key for the supplied hint / law / legal provision
         element as a tuple consisting of:
-         * index
-        Notes
-        - index is defined by Interlis model OeREBKRM_V2_0 as range -1000..1000
-        - "Index = None" if geolink_formatter processes entry from OEREBLEX that has no index
+        * index
 
+
+        Notes:
+            - index is defined by Interlis model OeREBKRM_V2_0 as range -1000..1000
+            - "Index = None" if geolink_formatter processes entry from OEREBLEX that has no index
         Args:
             elem (dict): one element of the hints / laws / legal provisions list
         Returns:
