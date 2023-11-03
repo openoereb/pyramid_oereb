@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sources &mdash; pyramid_oereb  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="ÖREBlex" href="../oereblex/index.html" />
+    <link rel="prev" title="ORM Theme schema" href="models-theme.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pyramid_oereb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation-dev.html">Installation for DEV’s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../makefile.html">Makefile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changes/Hints for migration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Contribution</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../contributing.html">Contributing to pyramid_oereb</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Data Sources</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Standard</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="models.html">ORM Common</a></li>
+<li class="toctree-l4"><a class="reference internal" href="models-main.html">ORM Main schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="models-theme.html">ORM Theme schema</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Sources</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../oereblex/index.html">ÖREBlex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interlis_2_3/index.html">INTERLIS 2.3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../swisstopo/index.html">Swisstopo Adapter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../print_proxy/index.html">Print Proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stats.html">Statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyramid_oereb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Contribution</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Data Sources</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Standard</a></li>
+      <li class="breadcrumb-item active">Sources</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sources">
+<span id="contrib-data-sources-standard-sources"></span><h1>Sources<a class="headerlink" href="#sources" title="Permalink to this heading">¶</a></h1>
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources"></span></span><p>This package offers access to the standard database structure. All defined sources are belonging directly to
+the so called “standard configuration”. Whenever you use a standard configuration for a topic (you configure
+this in your YAML see: <a class="reference internal" href="../../../configuration.html#configuration"><span class="std std-ref">Configuration</span></a>)you can find further information here. All standard sources are
+sub classes of the core source classes
+(<a class="reference internal" href="../../../core/sources.html#base-sources"><span class="std std-ref">Sources</span></a>)
+and the basic database source
+(<a class="reference internal" href="../../../core/sources.html#api-pyramid-oereb-core-sources-basedatabasesource"><span class="std std-ref">BaseDatabaseSource</span></a>).</p>
+<p>All sources developed in this package are behaving the same. Besides the maybe implemented parameters for the
+read method of course. The main approach is to establish a session with the configured database and query it.
+If some error accrues it is closing the session correctly to be aware of hanging sessions.</p>
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources.address"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources-address"></span></span><section id="address">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-sources-address-databasesource"></span><h2><em>Address</em><a class="headerlink" href="#address" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.address.DatabaseSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.address.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/address.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.address.DatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.address.AddressBaseSource" title="pyramid_oereb.core.sources.address.AddressBaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AddressBaseSource</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.address.DatabaseSource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.address.DatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_connection</strong> (<em>str</em>) – A rfc1738 conform database connection string in the form of:
+<code class="docutils literal notranslate"><span class="pre">&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;</span></code></p></li>
+<li><p><strong>model</strong> (<em>str</em>) – A valid dotted name string which leads to an importable representation of
+sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.address.DatabaseSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zip_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/address.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.address.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>The read method to access the standard database structure. It uses SQL-Alchemy for querying. It tries
+to find the items via passed arguments. If there was no result found it goes on with assigning an
+empty list as records instance attribute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) – The parameters of the extract request.</p></li>
+<li><p><strong>street_name</strong> (<em>unicode</em>) – The name of the street for the desired address.</p></li>
+<li><p><strong>zip_code</strong> (<em>int</em>) – The postal zipcode for the desired address.</p></li>
+<li><p><strong>street_number</strong> (<em>str</em>) – The house or so called street number of the desired address.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources.availability"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources-availability"></span></span></section>
+<section id="availability">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-sources-availability-databasesource"></span><h2><em>Availability</em><a class="headerlink" href="#availability" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.availability.DatabaseSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.availability.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/availability.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.availability.DatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.availability.AvailabilityBaseSource" title="pyramid_oereb.core.sources.availability.AvailabilityBaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">AvailabilityBaseSource</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.availability.DatabaseSource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.availability.DatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_connection</strong> (<em>str</em>) – A rfc1738 conform database connection string in the form of:
+<code class="docutils literal notranslate"><span class="pre">&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;</span></code></p></li>
+<li><p><strong>model</strong> (<em>str</em>) – A valid dotted name string which leads to an importable representation of
+sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.availability.DatabaseSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/availability.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.availability.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>The read method to access the standard database structure. It uses SQL-Alchemy for querying. It does
+not accept any parameters nor it applies any filter on the database query. It simply loads all
+content from the configured model.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources.data_integration"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources-data-integration"></span></span></section>
+<section id="data-integration">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-sources-data-integration-databasesource"></span><h2><em>Data_Integration</em><a class="headerlink" href="#data-integration" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.data_integration.DatabaseSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.data_integration.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/data_integration.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.data_integration.DatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.data_integration.DataIntegrationRecord" title="pyramid_oereb.core.records.data_integration.DataIntegrationRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataIntegrationRecord</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.data_integration.DatabaseSource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.data_integration.DatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_connection</strong> (<em>str</em>) – A rfc1738 conform database connection string in the form of:
+<code class="docutils literal notranslate"><span class="pre">&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;</span></code></p></li>
+<li><p><strong>model</strong> (<em>str</em>) – A valid dotted name string which leads to an importable representation of
+sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.data_integration.DatabaseSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/data_integration.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.data_integration.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>The read method to access the standard database structure. It uses SQL-Alchemy for querying. It does
+not accept any parameters nor it applies any filter on the database query. It simply loads all
+content from the configured model.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources.disclaimer"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources-disclaimer"></span></span></section>
+<section id="disclaimer">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-sources-disclaimer-databasesource"></span><h2><em>Disclaimer</em><a class="headerlink" href="#disclaimer" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.disclaimer.DatabaseSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.disclaimer.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/disclaimer.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.disclaimer.DatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.disclaimer.DisclaimerBaseSource" title="pyramid_oereb.core.sources.disclaimer.DisclaimerBaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">DisclaimerBaseSource</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.disclaimer.DatabaseSource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.disclaimer.DatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_connection</strong> (<em>str</em>) – A rfc1738 conform database connection string in the form of:
+<code class="docutils literal notranslate"><span class="pre">&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;</span></code></p></li>
+<li><p><strong>model</strong> (<em>str</em>) – A valid dotted name string which leads to an importable representation of
+sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.disclaimer.DatabaseSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/disclaimer.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.disclaimer.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>The read method to access the standard database structure. It uses SQL-Alchemy for querying. It does
+not accept any parameters nor it applies any filter on the database query. It simply loads all
+content from the configured model.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources.document"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources-document"></span></span></section>
+<section id="document">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-sources-document-databasesource"></span><h2><em>Document</em><a class="headerlink" href="#document" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.document.DatabaseSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.document.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/document.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.document.DatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.document.DocumentBaseSource" title="pyramid_oereb.core.sources.document.DocumentBaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentBaseSource</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.document.DatabaseSource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.document.DatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_connection</strong> (<em>str</em>) – A rfc1738 conform database connection string in the form of:
+<code class="docutils literal notranslate"><span class="pre">&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;</span></code></p></li>
+<li><p><strong>model</strong> (<em>str</em>) – A valid dotted name string which leads to an importable representation of
+sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.document.DatabaseSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">office_records</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/document.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.document.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Central method to read all theme entries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>office_records</strong> (<em>list</em><em> of </em><a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.office.OfficeRecord" title="pyramid_oereb.core.records.office.OfficeRecord"><em>pyramid_oereb.core.records.office.OfficeRecord</em></a>) – The office records of
+the exact request.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources.document_types"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources-document-types"></span></span></section>
+<section id="document-types">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-sources-document-types-databasesource"></span><h2><em>Document_Types</em><a class="headerlink" href="#document-types" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.document_types.DatabaseSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.document_types.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/document_types.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.document_types.DatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.document_types.DocumentTypesBaseSource" title="pyramid_oereb.core.sources.document_types.DocumentTypesBaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentTypesBaseSource</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.document_types.DatabaseSource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.document_types.DatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_connection</strong> (<em>str</em>) – A rfc1738 conform database connection string in the form of:
+<code class="docutils literal notranslate"><span class="pre">&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;</span></code></p></li>
+<li><p><strong>model</strong> (<em>str</em>) – A valid dotted name string which leads to an importable representation of
+sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.document_types.DatabaseSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/document_types.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.document_types.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Central method to read all document type values.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources.general_information"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources-general-information"></span></span></section>
+<section id="general-information">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-sources-general-information-databasesource"></span><h2><em>General_Information</em><a class="headerlink" href="#general-information" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.general_information.DatabaseSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.general_information.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/general_information.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.general_information.DatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource" title="pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeneralInformationBaseSource</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.general_information.DatabaseSource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.general_information.DatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_connection</strong> (<em>str</em>) – A rfc1738 conform database connection string in the form of:
+<code class="docutils literal notranslate"><span class="pre">&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;</span></code></p></li>
+<li><p><strong>model</strong> (<em>str</em>) – A valid dotted name string which leads to an importable representation of
+sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.general_information.DatabaseSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/general_information.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.general_information.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Central method to read all general information values.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources.glossary"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources-glossary"></span></span></section>
+<section id="glossary">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-sources-glossary-databasesource"></span><h2><em>Glossary</em><a class="headerlink" href="#glossary" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.glossary.DatabaseSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.glossary.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/glossary.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.glossary.DatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.glossary.GlossaryBaseSource" title="pyramid_oereb.core.sources.glossary.GlossaryBaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">GlossaryBaseSource</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.glossary.DatabaseSource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.glossary.DatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_connection</strong> (<em>str</em>) – A rfc1738 conform database connection string in the form of:
+<code class="docutils literal notranslate"><span class="pre">&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;</span></code></p></li>
+<li><p><strong>model</strong> (<em>str</em>) – A valid dotted name string which leads to an importable representation of
+sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.glossary.DatabaseSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/glossary.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.glossary.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Central method to read all glossary entries.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources.law_status"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources-law-status"></span></span></section>
+<section id="law-status">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-sources-law-status-databasesource"></span><h2><em>Law_Status</em><a class="headerlink" href="#law-status" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.law_status.DatabaseSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.law_status.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/law_status.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.law_status.DatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.law_status.LawStatusBaseSource" title="pyramid_oereb.core.sources.law_status.LawStatusBaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LawStatusBaseSource</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.law_status.DatabaseSource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.law_status.DatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_connection</strong> (<em>str</em>) – A rfc1738 conform database connection string in the form of:
+<code class="docutils literal notranslate"><span class="pre">&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;</span></code></p></li>
+<li><p><strong>model</strong> (<em>str</em>) – A valid dotted name string which leads to an importable representation of
+sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.law_status.DatabaseSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/law_status.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.law_status.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Central method to read all law status values.
+:param params: The parameters of the extract request.
+:type params: pyramid_oereb.views.webservice.Parameter or None</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources.legend"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources-legend"></span></span></section>
+<section id="legend">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-sources-legend-databasesource"></span><h2><em>Legend</em><a class="headerlink" href="#legend" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.legend.DatabaseSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.legend.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/legend.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.legend.DatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.legend.LegendBaseSource" title="pyramid_oereb.core.sources.legend.LegendBaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LegendBaseSource</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.legend.DatabaseSource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.legend.DatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_connection</strong> (<em>str</em>) – A rfc1738 conform database connection string in the form of:
+<code class="docutils literal notranslate"><span class="pre">&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;</span></code></p></li>
+<li><p><strong>model</strong> (<em>str</em>) – A valid dotted name string which leads to an importable representation of
+sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.legend.DatabaseSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/legend.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.legend.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Central method to read one legend entry.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) – The parameters of the extract request.</p></li>
+<li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – Arbitrary keyword arguments. It must contain the key ‘type_code’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources.logo"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources-logo"></span></span></section>
+<section id="logo">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-sources-logo-databasesource"></span><h2><em>Logo</em><a class="headerlink" href="#logo" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.logo.DatabaseSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.logo.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/logo.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.logo.DatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.logo.LogoBaseSource" title="pyramid_oereb.core.sources.logo.LogoBaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogoBaseSource</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.logo.DatabaseSource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.logo.DatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_connection</strong> (<em>str</em>) – A rfc1738 conform database connection string in the form of:
+<code class="docutils literal notranslate"><span class="pre">&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;</span></code></p></li>
+<li><p><strong>model</strong> (<em>str</em>) – A valid dotted name string which leads to an importable representation of
+sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.logo.DatabaseSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/logo.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.logo.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Central method to read all logos.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources.map_layering"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources-map-layering"></span></span></section>
+<section id="map-layering">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-sources-map-layering-databasesource"></span><h2><em>Map_Layering</em><a class="headerlink" href="#map-layering" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.map_layering.DatabaseSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.map_layering.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/map_layering.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.map_layering.DatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.map_layering.MapLayeringBaseSource" title="pyramid_oereb.core.sources.map_layering.MapLayeringBaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">MapLayeringBaseSource</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.map_layering.DatabaseSource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.map_layering.DatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_connection</strong> (<em>str</em>) – A rfc1738 conform database connection string in the form of:
+<code class="docutils literal notranslate"><span class="pre">&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;</span></code></p></li>
+<li><p><strong>model</strong> (<em>str</em>) – A valid dotted name string which leads to an importable representation of
+sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.map_layering.DatabaseSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/map_layering.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.map_layering.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Central method to read all map layering entries.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources.municipality"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources-municipality"></span></span></section>
+<section id="municipality">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-sources-municipality-databasesource"></span><h2><em>Municipality</em><a class="headerlink" href="#municipality" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.municipality.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/municipality.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.municipality.MunicipalityBaseSource" title="pyramid_oereb.core.sources.municipality.MunicipalityBaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">MunicipalityBaseSource</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_connection</strong> (<em>str</em>) – A rfc1738 conform database connection string in the form of:
+<code class="docutils literal notranslate"><span class="pre">&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;</span></code></p></li>
+<li><p><strong>model</strong> (<em>str</em>) – A valid dotted name string which leads to an importable representation of
+sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/municipality.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>The read method to access the standard database structure. It uses SQL-Alchemy for querying. It does
+not accept any parameters nor it applies any filter on the database query. It simply loads all
+content from the configured model.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources.office"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources-office"></span></span></section>
+<section id="office">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-sources-office-databasesource"></span><h2><em>Office</em><a class="headerlink" href="#office" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.office.DatabaseSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.office.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/office.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.office.DatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.office.OfficeBaseSource" title="pyramid_oereb.core.sources.office.OfficeBaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">OfficeBaseSource</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.office.DatabaseSource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.office.DatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_connection</strong> (<em>str</em>) – A rfc1738 conform database connection string in the form of:
+<code class="docutils literal notranslate"><span class="pre">&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;</span></code></p></li>
+<li><p><strong>model</strong> (<em>str</em>) – A valid dotted name string which leads to an importable representation of
+sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.office.DatabaseSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/office.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.office.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Central method to read all office entries.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources.plr"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources-plr"></span></span></section>
+<section id="plr">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-sources-plr-databasesource"></span><h2><em>Plr</em><a class="headerlink" href="#plr" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.plr.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.plr.PlrBaseSource" title="pyramid_oereb.core.sources.plr.PlrBaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">PlrBaseSource</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#DatabaseSource.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The name. You are free to choose one.</p></li>
+<li><p><strong>code</strong> (<em>str</em>) – The official code. Regarding to the federal specifications.</p></li>
+<li><p><strong>geometry_type</strong> (<em>str</em>) – The geometry type. Possible are: POINT, POLYGON, LINESTRING,
+GEOMETRYCOLLECTION</p></li>
+<li><p><strong>thresholds</strong> (<em>dict</em>) – The configuration of limits and units used for processing.</p></li>
+<li><p><strong>text</strong> (<em>dict</em><em> of </em><em>str</em>) – The speaking title. It must be a dictionary containing language (as
+configured) as key and text as value.</p></li>
+<li><p><strong>language</strong> (<em>str</em>) – The language this public law restriction is originally shipped with.</p></li>
+<li><p><strong>federal</strong> (<em>bool</em>) – Switch if it is a federal topic. This will be taken into account in processing
+steps.</p></li>
+<li><p><strong>source</strong> (<em>dict</em>) – The configuration dictionary of the public law restriction</p></li>
+<li><p><strong>hooks</strong> (<em>dict</em><em> of </em><em>str</em>) – The hook methods: get_symbol, get_symbol_ref. They have to be provided as
+dotted string for further use with dotted name resolver of pyramid package.</p></li>
+<li><p><strong>law_status</strong> (<em>dict</em><em> of </em><em>str</em>) – The configuration dictionary of the law status. It consists of
+the code and text which must be a dictionary containing language (as configured)
+as key and text as value.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.collect_legend_entries_by_bbox">
+<span class="sig-name descname"><span class="pre">collect_legend_entries_by_bbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">law_status</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#DatabaseSource.collect_legend_entries_by_bbox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.collect_legend_entries_by_bbox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts all legend entries in the topic which have spatial relation with the passed bounding box of
+visible extent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>session</strong> (<em>sqlalchemy.orm.Session</em>) – The requested clean session instance ready for use</p></li>
+<li><p><strong>bbox</strong> (<em>shapely.geometry.base.BaseGeometry</em>) – The bbox to search the records.</p></li>
+<li><p><strong>law_status</strong> (<em>str</em>) – String of the law status for which the legend entries should be queried.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The result of the related geometries unique by the public law restriction id and law status</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.collect_related_geometries_by_real_estate">
+<span class="sig-name descname"><span class="pre">collect_related_geometries_by_real_estate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real_estate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#DatabaseSource.collect_related_geometries_by_real_estate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.collect_related_geometries_by_real_estate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts all geometries in the topic which have spatial relation with the passed real estate</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>session</strong> (<em>sqlalchemy.orm.Session</em>) – The requested clean session instance ready for use</p></li>
+<li><p><strong>real_estate</strong> (<em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em>) – The real
+estate in its record representation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The result of the related geometries unique by the public law restriction id</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.create_geometry_records_">
+<span class="sig-name descname"><span class="pre">create_geometry_records_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">law_status</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">published_from</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">published_until</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geo_metadata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#DatabaseSource.create_geometry_records_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.create_geometry_records_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produces an array of pyramid_oereb geometry records representing simple shapely geometries POINT,
+LINE, POLYGON out of a passed shapely (multi)point, (multi)line, (multi)polygon or collection geometry
+and assigns all attributes to them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>law_status</strong> (<a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.law_status.LawStatusRecord" title="pyramid_oereb.core.records.law_status.LawStatusRecord"><em>pyramid_oereb.core.records.law_status.LawStatusRecord</em></a>) – </p></li>
+<li><p><strong>published_from</strong> (<em>datetime.datetime.date</em>) – Date from/since when the PLR record is published.</p></li>
+<li><p><strong>published_until</strong> (<em>datetime.datetime.date</em>) – Date until the PLR record is published.</p></li>
+<li><p><strong>geom</strong> (<em>shapely.geometry.GeometryCollection</em>) – The geometry which will be unwrapped.</p></li>
+<li><p><strong>geo_metadata</strong> (<em>str</em>) – The metadata uri.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The list of unwrapped basic geometry</dt><dd><p>records. Each record has the same attribute values as the original one.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of <a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.geometry.GeometryRecord" title="pyramid_oereb.core.records.geometry.GeometryRecord">pyramid_oereb.core.records.geometry.GeometryRecord</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.extract_geometry_collection_db">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">extract_geometry_collection_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real_estate_geometry</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerances</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#DatabaseSource.extract_geometry_collection_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.extract_geometry_collection_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decides the geometry collection cases of geometric filter operations when the database contains multi
+geometries but the passed geometry does not.
+The multi geometry will be extracted to it’s sub parts for operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_path</strong> (<em>str</em>) – The point separated string of schema_name.table_name.column_name from
+which we can construct a correct SQL statement.</p></li>
+<li><p><strong>real_estate_geometry</strong> (<em>shapely.geometry.base.BaseGeometry</em>) – The shapely geometry
+representation which is used for comparison.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The clause element.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sqlalchemy.sql.elements.BooleanClauseList</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPBadRequest</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_document_records">
+<span class="sig-name descname"><span class="pre">from_db_to_document_records</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">documents_from_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#DatabaseSource.from_db_to_document_records"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_document_records" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>documents_from_db</strong> – (pyramid_oereb.contrib.data_sources.standard.models.get_document.&lt;locals&gt;.Document):
+The element read out of the database.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The document record utilizing all attributes</dt><dd><p>read from db entity.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pyramid_oereb.core.records.document.DocumentRecord</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_geometry_records">
+<span class="sig-name descname"><span class="pre">from_db_to_geometry_records</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geometries_from_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#DatabaseSource.from_db_to_geometry_records"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_geometry_records" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates a geometry element read from database (SQLAlchemy) into the internal record format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>geometries_from_db</strong> – <dl class="simple">
+<dt>(list of pyramid_oereb.contrib.data_sources.standard.models.get_geometry.&lt;locals&gt;.Geometry):</dt><dd><p>The element read out of the database.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The geometry record utilizing all attributes</dt><dd><p>read from db entity.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.geometry.GeometryRecord" title="pyramid_oereb.core.records.geometry.GeometryRecord">pyramid_oereb.core.records.geometry.GeometryRecord</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_office_record">
+<span class="sig-name descname"><span class="pre">from_db_to_office_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">office_from_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#DatabaseSource.from_db_to_office_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_office_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates an office element read from database (SQLAlchemy) into the internal record format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>office_from_db</strong> (<em>pyramid_oereb.contrib.data_sources.standard.models.get_office.&lt;locals&gt;.Office</em>) – The element read out of the database.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The office record utilizing all attributes</dt><dd><p>read from db entity.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.office.OfficeRecord" title="pyramid_oereb.core.records.office.OfficeRecord">pyramid_oereb.core.records.office.OfficeRecord</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_plr_record">
+<span class="sig-name descname"><span class="pre">from_db_to_plr_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">public_law_restriction_from_db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_entries_from_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#DatabaseSource.from_db_to_plr_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_plr_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produces out of the passed DB elements a PublicLawRestriction record. It heavily utilizes the
+instance methods to extract the nested information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>pyramid_oereb.core.views.webservice.Parameter</em>) – The parameters of the extract request.</p></li>
+<li><p><strong>public_law_restriction_from_db</strong> – (pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction.&lt;locals&gt;.PublicLawRestriction):
+The element read out of the database.</p></li>
+<li><p><strong>legend_entries_from_db</strong> – (pyramid_oereb.contrib.data_sources.standard.models.get_legend_entry.&lt;locals&gt;.LegendEntry):
+The elements read out of the database.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The public law restriction record utilizing all</dt><dd><p>attributes read from db entity and its relations.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.plr.PlrRecord" title="pyramid_oereb.core.records.plr.PlrRecord">pyramid_oereb.core.records.plr.PlrRecord</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.get_document_records">
+<span class="sig-name descname"><span class="pre">get_document_records</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">public_law_restriction_from_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#DatabaseSource.get_document_records"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.get_document_records" title="Permalink to this definition">¶</a></dt>
+<dd><p>Here the M:N relation between Document and PLR through the relation table
+pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction_document.&lt;locals&gt;.PublicLawRestrictionDocument
+is resolved to real document records.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>pyramid_oereb.core.views.webservice.Parameter</em>) – The parameters of the extract request.</p></li>
+<li><p><strong>public_law_restriction_from_db</strong> – (pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction.&lt;locals&gt;.PublicLawRestriction):
+The element read out of the database.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The document records related to</dt><dd><p>the passed PLR.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of <a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.documents.DocumentRecord" title="pyramid_oereb.core.records.documents.DocumentRecord">pyramid_oereb.core.records.documents.DocumentRecord</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.handle_collection">
+<span class="sig-name descname"><span class="pre">handle_collection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geometry_to_check</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#DatabaseSource.handle_collection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.handle_collection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles geometry collection in the geometry query if needed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>session</strong> (<em>sqlalchemy.orm.Session</em><em> or </em><em>sqlalchemy.orm.scoped_session</em>) – The requested clean
+session instance ready for use</p></li>
+<li><p><strong>geometry_to_check</strong> (<em>shapely.geometry.base.BaseGeometry</em>) – geometry to be queried</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the query based on the geometry_to_check</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sqlalchemy.orm.Query</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.info">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">info</span></span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the info dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The info dictionary.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real_estate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>The read point which creates an extract, depending on a passed real estate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>pyramid_oereb.core.views.webservice.Parameter</em>) – The parameters of the extract request.</p></li>
+<li><p><strong>real_estate</strong> (<em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em>) – The real
+estate in its record representation.</p></li>
+<li><p><strong>bbox</strong> (<em>shapely.geometry.base.BaseGeometry</em>) – The bbox to search the records.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.unwrap_geometry_collection_">
+<span class="sig-name descname"><span class="pre">unwrap_geometry_collection_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">law_status</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">published_from</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">published_until</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collection</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geo_metadata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#DatabaseSource.unwrap_geometry_collection_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.unwrap_geometry_collection_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produces an array of geometry records representing simple shapely geometries POINT,
+LINE, POLYGON out of a passed shapely collection geometry and assigns all attributes to them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>law_status</strong> (<a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.law_status.LawStatusRecord" title="pyramid_oereb.core.records.law_status.LawStatusRecord"><em>pyramid_oereb.core.records.law_status.LawStatusRecord</em></a>) – </p></li>
+<li><p><strong>published_from</strong> (<em>datetime.datetime.date</em>) – Date from/since when the PLR record is published.</p></li>
+<li><p><strong>published_until</strong> (<em>datetime.datetime.date</em>) – Date until the PLR record is published.</p></li>
+<li><p><strong>collection</strong> (<em>shapely.geometry.GeometryCollection</em>) – The geometry which will be unwrapped.</p></li>
+<li><p><strong>geo_metadata</strong> (<em>str</em>) – The metadata uri.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The list of unwrapped basic geometry</dt><dd><p>records. Each record has the same attribute values as the original one.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of <a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.geometry.GeometryRecord" title="pyramid_oereb.core.records.geometry.GeometryRecord">pyramid_oereb.core.records.geometry.GeometryRecord</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.unwrap_multi_geometry_">
+<span class="sig-name descname"><span class="pre">unwrap_multi_geometry_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">law_status</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">published_from</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">published_until</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_geom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geo_metadata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#DatabaseSource.unwrap_multi_geometry_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.unwrap_multi_geometry_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produces an array of geometry records representing simple shapely geometries POINT,
+LINE, POLYGON out of a passed shapely multi geometry and assigns all attributes to them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>law_status</strong> (<a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.law_status.LawStatusRecord" title="pyramid_oereb.core.records.law_status.LawStatusRecord"><em>pyramid_oereb.core.records.law_status.LawStatusRecord</em></a>) – The law status.</p></li>
+<li><p><strong>published_from</strong> (<em>datetime.datetime.date</em>) – Date from/since when the PLR record is published.</p></li>
+<li><p><strong>published_until</strong> (<em>datetime.datetime.date</em>) – Date until the PLR record is published.</p></li>
+<li><p><strong>(</strong> (<em>multi_geom</em>) – shapely.geometry.MultiPoint or
+shapely.geometry.MultiLineString or
+shapely.geometry.MultiPolygon</p></li>
+<li><p><strong>)</strong> – The geometry which will be unwrapped.</p></li>
+<li><p><strong>geo_metadata</strong> (<em>str</em>) – The metadata uri.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The list of unwrapped basic geometry</dt><dd><p>records. Each record has the same attribute values as the original one.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of <a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.geometry.GeometryRecord" title="pyramid_oereb.core.records.geometry.GeometryRecord">pyramid_oereb.core.records.geometry.GeometryRecord</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="api-pyramid-oereb-contrib-data-sources-standard-sources-plr-standardthemeconfigparser">
+<span id="id1"></span><h2><em>Plr</em><a class="headerlink" href="#api-pyramid-oereb-contrib-data-sources-standard-sources-plr-standardthemeconfigparser" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.StandardThemeConfigParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.plr.</span></span><span class="sig-name descname"><span class="pre">StandardThemeConfigParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#StandardThemeConfigParser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.StandardThemeConfigParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.StandardThemeConfigParser.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#StandardThemeConfigParser.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.StandardThemeConfigParser.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources.real_estate"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources-real-estate"></span></span></section>
+<section id="real-estate">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-sources-real-estate-databasesource"></span><h2><em>Real_Estate</em><a class="headerlink" href="#real-estate" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.real_estate.DatabaseSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.real_estate.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/real_estate.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.real_estate.DatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.real_estate.RealEstateBaseSource" title="pyramid_oereb.core.sources.real_estate.RealEstateBaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">RealEstateBaseSource</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.real_estate.DatabaseSource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.real_estate.DatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_connection</strong> (<em>str</em>) – A rfc1738 conform database connection string in the form of:
+<code class="docutils literal notranslate"><span class="pre">&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;</span></code></p></li>
+<li><p><strong>model</strong> (<em>str</em>) – A valid dotted name string which leads to an importable representation of
+sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.real_estate.DatabaseSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_ident</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">egrid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geometry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/real_estate.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.real_estate.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Central method to read all plrs (geometry input) or explicitly one plr (nb_ident+number/egrid input).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) – The parameters of the extract request.</p></li>
+<li><p><strong>nb_ident</strong> (<em>int</em><em> or </em><em>None</em>) – The identification number of the desired real estate. This
+parameter is directly related to the number parameter and both must be set!
+Combination will deliver only one result or crashes.</p></li>
+<li><p><strong>number</strong> (<em>str</em><em> or </em><em>None</em>) – The number of parcel or also known real estate. This parameter
+is directly related to the nb_ident parameter and both must be set!
+Combination will deliver only one result or crashes.</p></li>
+<li><p><strong>None</strong><strong>)</strong> (<em>(</em><em>str or</em>) – The unique identifier of the desired real estate. This will deliver
+only one result or crashes.</p></li>
+<li><p><strong>geometry</strong> (<em>str</em><em> or </em><em>None</em>) – A geometry as WKT string which is used to obtain intersected real
+estates. This may deliver several results.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources-real-estate-type"></span></span></section>
+<section id="real-estate-type">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-sources-real-estate-type-databasesource"></span><h2><em>Real_Estate_Type</em><a class="headerlink" href="#real-estate-type" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/real_estate_type.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.real_estate_type.RealEstateTypeBaseSource" title="pyramid_oereb.core.sources.real_estate_type.RealEstateTypeBaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">RealEstateTypeBaseSource</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_connection</strong> (<em>str</em>) – A rfc1738 conform database connection string in the form of:
+<code class="docutils literal notranslate"><span class="pre">&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;</span></code></p></li>
+<li><p><strong>model</strong> (<em>str</em>) – A valid dotted name string which leads to an importable representation of
+sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/real_estate_type.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Central method to read all real estate type values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) – The parameters of the extract request.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources.theme"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources-theme"></span></span></section>
+<section id="theme">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-sources-theme-databasesource"></span><h2><em>Theme</em><a class="headerlink" href="#theme" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.theme.DatabaseSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.theme.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/theme.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.theme.DatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.theme.ThemeBaseSource" title="pyramid_oereb.core.sources.theme.ThemeBaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThemeBaseSource</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.theme.DatabaseSource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.theme.DatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_connection</strong> (<em>str</em>) – A rfc1738 conform database connection string in the form of:
+<code class="docutils literal notranslate"><span class="pre">&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;</span></code></p></li>
+<li><p><strong>model</strong> (<em>str</em>) – A valid dotted name string which leads to an importable representation of
+sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.theme.DatabaseSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/theme.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.theme.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Central method to read all theme entries.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyramid_oereb.contrib.data_sources.standard.sources.theme_document"><span id="api-pyramid-oereb-contrib-data-sources-standard-sources-theme-document"></span></span></section>
+<section id="theme-document">
+<span id="api-pyramid-oereb-contrib-data-sources-standard-sources-theme-document-databasesource"></span><h2><em>Theme_Document</em><a class="headerlink" href="#theme-document" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.theme_document.DatabaseSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.theme_document.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/theme_document.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.theme_document.DatabaseSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.theme_document.ThemeDocumentBaseSource" title="pyramid_oereb.core.sources.theme_document.ThemeDocumentBaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThemeDocumentBaseSource</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.theme_document.DatabaseSource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.theme_document.DatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db_connection</strong> (<em>str</em>) – A rfc1738 conform database connection string in the form of:
+<code class="docutils literal notranslate"><span class="pre">&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;</span></code></p></li>
+<li><p><strong>model</strong> (<em>str</em>) – A valid dotted name string which leads to an importable representation of
+sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.theme_document.DatabaseSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/theme_document.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.theme_document.DatabaseSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Central method to read all theme document entries.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="models-theme.html" class="btn btn-neutral float-left" title="ORM Theme schema" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../oereblex/index.html" class="btn btn-neutral float-right" title="ÖREBlex" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2022, openoereb community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

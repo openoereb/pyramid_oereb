@@ -40,9 +40,10 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation-dev.html">Installation for DEV’s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../makefile.html">Makefile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../changes.html">Changes/Hints for migration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contrib/index.html">Contribution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
@@ -80,7 +81,7 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.address</span> <span class="kn">import</span> <span class="n">AddressRecord</span>
 
 
-<div class="viewcode-block" id="AddressBaseSource"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.core.sources.address.AddressBaseSource">[docs]</a><span class="k">class</span> <span class="nc">AddressBaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="AddressBaseSource"><a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.core.sources.address.AddressBaseSource">[docs]</a><span class="k">class</span> <span class="nc">AddressBaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for address sources.</span>
 
@@ -89,7 +90,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_record_class_</span> <span class="o">=</span> <span class="n">AddressRecord</span>
 
-<div class="viewcode-block" id="AddressBaseSource.read"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.core.sources.address.AddressBaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">):</span>
+<div class="viewcode-block" id="AddressBaseSource.read"><a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.core.sources.address.AddressBaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Every address source has to implement a read method. This method must accept the three parameters. If</span>
 <span class="sd">        you want adapt to your own source for addresses, this is the point where to hook in.</span>

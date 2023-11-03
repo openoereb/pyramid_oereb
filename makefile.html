@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Makefile &mdash; pyramid_oereb  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Configuration" href="configuration.html" />
+    <link rel="prev" title="Installation for DEV’s" href="installation-dev.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            pyramid_oereb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation-dev.html">Installation for DEV’s</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Makefile</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#general-targets">General targets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#make-install"><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#make-build"><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">build</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#run-a-development-server">Run a development server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#make-serve-dev"><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">serve-dev</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#make-serve"><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">serve</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#make-tests"><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">tests</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#make-lint"><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">lint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#make-git-attributes"><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">git-attributes</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#make-check"><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">check</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#maintainence">Maintainence</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#make-updates"><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">updates</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#make-doc-html"><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">doc-html</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#make-doc-latex"><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">doc-latex</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cleaning-up">Cleaning up</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#make-clean"><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#make-clean-all"><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean-all</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">Changes/Hints for migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contrib/index.html">Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyramid_oereb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Makefile</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="makefile">
+<span id="id1"></span><h1>Makefile<a class="headerlink" href="#makefile" title="Permalink to this heading">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code> uses GNU-Makefile a lot to setup itself and its components. This section is a try to
+describe the structure of the used
+<a class="reference external" href="https://github.com/openoereb/pyramid_oereb/blob/master/Makefile">Makefile</a>.</p>
+<p>A Makefile is constructed of so called targets. Most often a target represents a file which should be
+created. So you the <a class="reference external" href="https://github.com/openoereb/pyramid_oereb/blob/master/Makefile#L267">line</a> defines
+the commands how to create the development.ini file which is necessary to run DEV instance of
+<code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code>.</p>
+<p>To stay with this line in the Makefile you can see that a mako-render command is called with several variables
+from a <code class="docutils literal notranslate"><span class="pre">virtual</span> <span class="pre">environment</span></code>. Thats a bit interesting. More interesting is the dependency which is defined
+right on the same line of the target: <code class="docutils literal notranslate"><span class="pre">install</span></code></p>
+<p>It refers to the <code class="docutils literal notranslate"><span class="pre">install</span></code> target
+<a class="reference external" href="https://github.com/openoereb/pyramid_oereb/blob/master/Makefile#L262">some lines above</a> which has a
+dependency <code class="docutils literal notranslate"><span class="pre">requirements-timestamp</span></code> which refers to a target
+<a class="reference external" href="https://github.com/openoereb/pyramid_oereb/blob/master/Makefile#L68">some lines above</a> … and so forth.</p>
+<p>Important to know is that GNU Make keeps track of target files. So if some change was made for instance to
+your <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file to update a pypi package a simple <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">build</span></code> is enough to setup your project
+with it and provide it in your VENV. If you call <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">build</span></code> for another reason and say the
+<code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file was not touched by you the complete targets which depend on this file are omitted.</p>
+<p>This is a really powerful tool which - used correctly - can save a lot of work compared to write the same
+logic in a shell scripte or in a python script. In the best case it leads to reproducible environments
+independent of the machine it is issued on.</p>
+<p>However, because it is a bit different how it works, people often struggle with its usage and avoid to use it
+at all.</p>
+<p>The following sections should help you to understand better what the
+<a class="reference external" href="https://github.com/openoereb/pyramid_oereb/blob/master/Makefile">Makefile</a> provides you when you call a
+decent target. It shows the dependency-target-system in a graph.</p>
+<ul class="simple">
+<li><p>green elements are files which are expected to be there (e.g. <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>)</p></li>
+<li><p>red elements are files which will be created through the target or which are meta targets (“phony” - no files are created)</p></li>
+</ul>
+<section id="general-targets">
+<h2>General targets<a class="headerlink" href="#general-targets" title="Permalink to this heading">¶</a></h2>
+<section id="make-install">
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code><a class="headerlink" href="#make-install" title="Permalink to this heading">¶</a></h3>
+<p>Basically sets up your virtual environment based on the projects requirements.</p>
+<img alt="_images/make.install.png" class="align-center" src="_images/make.install.png" />
+</section>
+<section id="make-build">
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">build</span></code><a class="headerlink" href="#make-build" title="Permalink to this heading">¶</a></h3>
+<p>Completely sets up your application to be ready for running. This includes steps like:</p>
+<ul class="simple">
+<li><p>prepare <code class="docutils literal notranslate"><span class="pre">development.ini</span></code> file</p></li>
+<li><p>prepare DEV DB</p></li>
+<li><p>fill DEV DB</p></li>
+<li><p>…</p></li>
+</ul>
+<img alt="_images/make.build.png" class="align-center" src="_images/make.build.png" />
+</section>
+</section>
+<section id="run-a-development-server">
+<h2>Run a development server<a class="headerlink" href="#run-a-development-server" title="Permalink to this heading">¶</a></h2>
+<section id="make-serve-dev">
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">serve-dev</span></code><a class="headerlink" href="#make-serve-dev" title="Permalink to this heading">¶</a></h3>
+<p>Runs a <code class="docutils literal notranslate"><span class="pre">pserve</span></code> development server which reloads when changes to python source files were made.</p>
+<img alt="_images/make.serve-dev.png" class="align-center" src="_images/make.serve-dev.png" />
+</section>
+<section id="make-serve">
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">serve</span></code><a class="headerlink" href="#make-serve" title="Permalink to this heading">¶</a></h3>
+<p>Runs a <code class="docutils literal notranslate"><span class="pre">pserve</span></code> development server.</p>
+<img alt="_images/make.serve.png" class="align-center" src="_images/make.serve.png" />
+</section>
+</section>
+<section id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this heading">¶</a></h2>
+<section id="make-tests">
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">tests</span></code><a class="headerlink" href="#make-tests" title="Permalink to this heading">¶</a></h3>
+<p>Executes all python testing. This includes the module tests (they can be executed directly to save time).</p>
+<img alt="_images/make.tests.png" class="align-center" src="_images/make.tests.png" />
+</section>
+<section id="make-lint">
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">lint</span></code><a class="headerlink" href="#make-lint" title="Permalink to this heading">¶</a></h3>
+<p>Does the linting to check code style conformance.</p>
+<img alt="_images/make.lint.png" class="align-center" src="_images/make.lint.png" />
+</section>
+<section id="make-git-attributes">
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">git-attributes</span></code><a class="headerlink" href="#make-git-attributes" title="Permalink to this heading">¶</a></h3>
+<p>Executes the gitattributes checker.</p>
+<img alt="_images/make.git-attributes.png" class="align-center" src="_images/make.git-attributes.png" />
+</section>
+<section id="make-check">
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">check</span></code><a class="headerlink" href="#make-check" title="Permalink to this heading">¶</a></h3>
+<p>Collection target to execute all targets mentioned above in one single call.</p>
+<img alt="_images/make.check.png" class="align-center" src="_images/make.check.png" />
+</section>
+</section>
+<section id="maintainence">
+<h2>Maintainence<a class="headerlink" href="#maintainence" title="Permalink to this heading">¶</a></h2>
+<section id="make-updates">
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">updates</span></code><a class="headerlink" href="#make-updates" title="Permalink to this heading">¶</a></h3>
+<p>Provides a list of outdated python packages and the possible better target version.</p>
+<img alt="_images/make.updates.png" class="align-center" src="_images/make.updates.png" />
+</section>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this heading">¶</a></h2>
+<section id="make-doc-html">
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">doc-html</span></code><a class="headerlink" href="#make-doc-html" title="Permalink to this heading">¶</a></h3>
+<p>Creates the documentation as a static HTML page with sphinx.</p>
+<img alt="_images/make.doc-html.png" class="align-center" src="_images/make.doc-html.png" />
+</section>
+<section id="make-doc-latex">
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">doc-latex</span></code><a class="headerlink" href="#make-doc-latex" title="Permalink to this heading">¶</a></h3>
+<p>Creates the documentation as a PDF page with sphinx.</p>
+<img alt="_images/make.doc-latex.png" class="align-center" src="_images/make.doc-latex.png" />
+</section>
+</section>
+<section id="cleaning-up">
+<h2>Cleaning up<a class="headerlink" href="#cleaning-up" title="Permalink to this heading">¶</a></h2>
+<section id="make-clean">
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code><a class="headerlink" href="#make-clean" title="Permalink to this heading">¶</a></h3>
+<p>Wipes test results and <cite>development.ini</cite> file.</p>
+<img alt="_images/make.clean.png" class="align-center" src="_images/make.clean.png" />
+</section>
+<section id="make-clean-all">
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean-all</span></code><a class="headerlink" href="#make-clean-all" title="Permalink to this heading">¶</a></h3>
+<p>Completely wipes all setup files to provide green field for a new start.</p>
+<img alt="_images/make.clean-all.png" class="align-center" src="_images/make.clean-all.png" />
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation-dev.html" class="btn btn-neutral float-left" title="Installation for DEV’s" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="configuration.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2022, openoereb community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -40,9 +40,10 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation-dev.html">Installation for DEV’s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../makefile.html">Makefile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../changes.html">Changes/Hints for migration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contrib/index.html">Contribution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
@@ -79,7 +80,7 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.general_information</span> <span class="kn">import</span> <span class="n">GeneralInformationRecord</span>
 
 
-<div class="viewcode-block" id="GeneralInformationBaseSource"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource">[docs]</a><span class="k">class</span> <span class="nc">GeneralInformationBaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="GeneralInformationBaseSource"><a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource">[docs]</a><span class="k">class</span> <span class="nc">GeneralInformationBaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for GeneralInformation values source.</span>
 
@@ -89,7 +90,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_record_class_</span> <span class="o">=</span> <span class="n">GeneralInformationRecord</span>
 
-<div class="viewcode-block" id="GeneralInformationBaseSource.read"><a class="viewcode-back" href="../../../../standard/sources.html#pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GeneralInformationBaseSource.read"><a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Every general information source has to implement a read method.</span>
 <span class="sd">        This method must accept no parameters. Because it should deliver all items available.</span>

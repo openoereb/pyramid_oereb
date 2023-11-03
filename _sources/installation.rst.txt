@@ -3,9 +3,9 @@
 Installation
 ============
 
-This section will guide you through the steps to install and run an own instance of ``pyramid_oereb`` using
-the standard configuration. If you are planning to adapt the application to fit a custom data source, the
-possibilities and additional steps are described in the section :ref:`configuration`.
+This section will guide you through the steps to install and run an own DEV instance of ``pyramid_oereb``
+using the standard configuration. If you are planning to adapt the application to fit a custom data source,
+the possibilities and additional steps are described in the section :ref:`configuration`.
 
 
 .. _installation-requirements:
@@ -13,9 +13,9 @@ possibilities and additional steps are described in the section :ref:`configurat
 Requirements
 ------------
 
-In order to install and run an instance of ``pyramid_oereb``, the following requirements have to be met.
+In order to run an instance of ``pyramid_oereb``, the following requirements have to be met.
 
-1.  **A running Pyramid application:**
+1.  **A Pyramid application:**
     You need a running Pyramid application, in which you can include ``pyramid_oereb``. If you are not
     familiar with setting up such an application, please follow the instructions in the official `Pyramid
     documentation <http://docs.pylonsproject.org/projects/pyramid/en/latest/#getting-started>`__.
@@ -25,6 +25,79 @@ In order to install and run an instance of ``pyramid_oereb``, the following requ
     and tables and to manipulate data. We recommend to use PostgreSQL with PostGIS, but theoretically you
     should be able to use any spatial database, that is supported by `SQLAlchemy
     <https://www.sqlalchemy.org/>`__ and `GeoAlchemy 2 <https://geoalchemy-2.readthedocs.io/en/latest/>`__.
+
+3. **A Service to produce PDF extracts:**
+    This might be a externally running instance of `oereb_xml_pdf_service <https://github.com/Geocloud-AG/oereb_xml_pdf_service>`__
+    (needs registration). Or you can use a self-hosted instance of `mapfish-print <https://github.com/openoereb/pyramid_oereb_mfp>`__
+    prepared for the ÖREB extract.
+
+To straighten this guide we will run them inside a docker composition. This puts aside local differences
+like OS (Mac, Windows, Linux) and safes you from conflicts of maybe already running and conflicting services
+from your other projects
+
+.. _installation-docker-docker-compose:
+
+Docker/Docker-Compose
+---------------------
+
+.. note:: We assume you have a working
+          `docker <https://docs.docker.com/engine/install/>`__/`docker-compose <https://docs.docker.com/compose/install/>`__
+          and `git <https://git-scm.com>`__ setup on your machine.
+
+First we need to get the code. Clone the pyramid_oereb repository in a place of your choice on your machine:
+
+.. code-block:: shell
+
+ git clone https://github.com/openoereb/pyramid_oereb.git
+
+CD into the created directory:
+
+.. code-block:: shell
+
+ cd pyramid_oereb
+
+Docker separates runtimes in so called containers. What is inside a container is defined in an image. These
+images are described by so called Dockerfiles. This repository contains an ``Dockerfile`` in the project root
+in case you want to have a look. A container can be considered existing only at runtime. Once
+it was stopped, all things inside are gone. Each service (pyramid_oereb, database, print-server) will be
+run in its own container.
+
+As we learned above ``pyramid_oereb`` needs different services. The organisation of these services can be done
+by docker-compose. The description of the composition is persisted in a ``docker-compose.yml`` file.
+
+Additionally a docker container can utilize so called ``volumes`` to persist data from inside the container
+over restarts. This is useful especially for configuration but also for data you do not want to be gone after
+containers were stopped. Think of the data you insert into you database or all the python packages you install
+from the web. Wouldn't it be nice to keep them even your containers are stopped? Well... exactly this is how
+this repositories docker composition is set up.
+
+The following steps are required to get a running setup:
+
+#. build docker images locally
+#. setup pyramid_oereb (make build)
+    #. setup all necessary python packages
+    #. create database structure as SQL
+    #. create configuration (wsgi => development.ini)
+    #. create configuration (pyramid_oereb => pyramid_oereb.yml)
+
+Building the docker images locally can be achieved by:
+
+.. code-block:: shell
+
+ # on Linux
+ docker-compose build
+
+Setup pyramid_oereb can be achieved by (use the version for your OS):
+
+.. code-block:: shell
+
+ # on Linux
+ docker-compose run --rm -u $(id -u):$(id -g) oereb-make build
+
+.. code-block:: shell
+
+ # on Windows
+ docker-compose run --rm oereb-make build
 
 
 .. _installation-step:
@@ -214,7 +287,7 @@ Next steps
 Now you should be able to set up a running ``pyramid_oereb`` server using the standard configuration. If this
 configuration fits your needs, you can now continue with importing your data into the created database. A
 detailed description of each table can be found in the documentation of the
-:ref:`api-pyramid_oereb-standard-models`.
+:ref:`contrib-data-sources-standard-models-theme`.
 
 If your data is already available in an existing database with a different structure or you need to use a
 custom data source, the possible ways to adapt the models or to extend the application are described in the

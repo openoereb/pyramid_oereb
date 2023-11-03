@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Standard &mdash; pyramid_oereb  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="ORM Common" href="models.html" />
+    <link rel="prev" title="Data Sources" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pyramid_oereb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation-dev.html">Installation for DEV’s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../makefile.html">Makefile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changes/Hints for migration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Contribution</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../contributing.html">Contributing to pyramid_oereb</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Data Sources</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Standard</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="models.html">ORM Common</a></li>
+<li class="toctree-l4"><a class="reference internal" href="models-main.html">ORM Main schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="models-theme.html">ORM Theme schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sources.html">Sources</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../oereblex/index.html">ÖREBlex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interlis_2_3/index.html">INTERLIS 2.3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../swisstopo/index.html">Swisstopo Adapter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../print_proxy/index.html">Print Proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stats.html">Statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyramid_oereb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Contribution</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Data Sources</a></li>
+      <li class="breadcrumb-item active">Standard</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="standard">
+<span id="contrib-data-sources-standard"></span><h1>Standard<a class="headerlink" href="#standard" title="Permalink to this heading">¶</a></h1>
+<p>The standard data source is a binding to a database following the definitions of
+<a class="reference external" href="http://models.geo.admin.ch/V_D/OeREB/OeREBKRMkvs_V2_0.ili">OeREBKRMkvs_V2_0</a>
+and <a class="reference external" href="http://models.geo.admin.ch/V_D/OeREB/OeREBKRMtrsfr_V2_0.ili">OeREBKRMtrsfr_V2_0</a>
+but adds some magic sugar for convenience.</p>
+<p>Exemplary schema of a standard database:</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../../_images/standard_database_schema_example.png"><img alt="../../../_images/standard_database_schema_example.png" class="align-center" src="../../../_images/standard_database_schema_example.png" style="width: 484.40000000000003px; height: 212.60000000000002px;" /></a>
+</div></blockquote>
+<p>This structure is defined as models for SQL-Alchemy ORM and as a fitting set of
+DataBaseSource-Adapters to hook it into the core of <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code>. The models
+defined in this contribution package describing 2 different structures. The <code class="docutils literal notranslate"><span class="pre">main</span></code>
+definitions are used by <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code> application itself and contain the application
+configuration as suggested in
+<a class="reference external" href="http://models.geo.admin.ch/V_D/OeREB/OeREBKRMkvs_V2_0.ili">OeREBKRMkvs_V2_0</a>.
+The <code class="docutils literal notranslate"><span class="pre">theme</span></code> definitions define a single ÖREB-Theme as it is suggested by
+<a class="reference external" href="http://models.geo.admin.ch/V_D/OeREB/OeREBKRMtrsfr_V2_0.ili">OeREBKRMtrsfr_V2_0</a>.
+Please be aware that for performance reasons the schematic mapping of SQL-Alchemy ORM
+definitions and the linked INTERLIS models is not 1:1.</p>
+<p>The definition of main and theme schema share some classes. These are provided via
+factory methods at modul level. These methods can be found here <a class="reference internal" href="models.html#contrib-data-sources-standard-models"><span class="std std-ref">ORM Common</span></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="models.html#contrib-data-sources-standard-models"><span class="std std-ref">ORM Common</span></a></p></li>
+<li><p><a class="reference internal" href="models-main.html#contrib-data-sources-standard-models-main"><span class="std std-ref">ORM Main schema</span></a></p></li>
+<li><p><a class="reference internal" href="models-theme.html#contrib-data-sources-standard-models-theme"><span class="std std-ref">ORM Theme schema</span></a></p></li>
+<li><p><a class="reference internal" href="sources.html#contrib-data-sources-standard-sources"><span class="std std-ref">Sources</span></a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Data Sources" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="models.html" class="btn btn-neutral float-right" title="ORM Common" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2022, openoereb community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

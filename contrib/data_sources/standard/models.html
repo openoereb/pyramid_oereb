@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ORM Common &mdash; pyramid_oereb  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="ORM Main schema" href="models-main.html" />
+    <link rel="prev" title="Standard" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pyramid_oereb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation-dev.html">Installation for DEV’s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../makefile.html">Makefile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changes.html">Changes/Hints for migration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Contribution</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../contributing.html">Contributing to pyramid_oereb</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Data Sources</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Standard</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">ORM Common</a></li>
+<li class="toctree-l4"><a class="reference internal" href="models-main.html">ORM Main schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="models-theme.html">ORM Theme schema</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sources.html">Sources</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../oereblex/index.html">ÖREBlex</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../interlis_2_3/index.html">INTERLIS 2.3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../swisstopo/index.html">Swisstopo Adapter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../print_proxy/index.html">Print Proxy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../stats.html">Statistics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyramid_oereb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Contribution</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Data Sources</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Standard</a></li>
+      <li class="breadcrumb-item active">ORM Common</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pyramid_oereb.contrib.data_sources.standard.models">
+<span id="orm-common"></span><span id="contrib-data-sources-standard-models"></span><h1>ORM Common<a class="headerlink" href="#module-pyramid_oereb.contrib.data_sources.standard.models" title="Permalink to this heading">¶</a></h1>
+<p>This Package provides all models fitting to the standard database configuration. It is separated by the 17
+mandatory topics the federation asks for.</p>
+<p>The following functions are class factories to enable reuse and making SQL-Alchemy
+classes configurable.</p>
+<p>The classes produced by the factory methods are shared in different contrib modules.
+As of the moment of writing this includes:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="index.html#contrib-data-sources-standard"><span class="std std-ref">Standard</span></a></p></li>
+<li><p><a class="reference internal" href="../oereblex/index.html#contrib-data-sources-oereblex"><span class="std std-ref">ÖREBlex</span></a></p></li>
+</ul>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.get_document">
+<span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.</span></span><span class="sig-name descname"><span class="pre">get_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pk_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Office</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/models.html#get_document"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.get_document" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory to produce a generic document model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> (<em>sqlalchemy.orm.decl_api.DeclarativeMeta</em>) – The SQLAlchemy base which is assigned to the models.</p></li>
+<li><p><strong>schema_name</strong> (<em>str</em>) – The name of the database schema where this models belong to.</p></li>
+<li><p><strong>pk_type</strong> (<em>sqlalchemy.sql.type_api.TypeEngine</em>) – The type of the primary column. E.g.
+sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
+needs</p></li>
+<li><p><strong>Office</strong> (<em>sqlalchemy.orm.decl_api.DeclarativeMeta</em>) – The office model.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated office model.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sqlalchemy.orm.decl_api.DeclarativeMeta</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.get_geometry">
+<span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.</span></span><span class="sig-name descname"><span class="pre">get_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pk_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geometry_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">srid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PublicLawRestriction</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/models.html#get_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.get_geometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory to produce a generic geometry model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> (<em>sqlalchemy.orm.decl_api.DeclarativeMeta</em>) – The SQLAlchemy base which is assigned to the models.</p></li>
+<li><p><strong>schema_name</strong> (<em>str</em>) – The name of the database schema where this models belong to.</p></li>
+<li><p><strong>pk_type</strong> (<em>sqlalchemy.sql.type_api.TypeEngine</em>) – The type of the primary column. E.g.
+sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
+needs</p></li>
+<li><p><strong>geometry_type</strong> (<em>str</em>) – The geoalchemy geometry type defined as well known string.</p></li>
+<li><p><strong>srid</strong> (<em>int</em>) – The SRID defining the projection of the geometries stored in standard db schema.</p></li>
+<li><p><strong>PublicLawRestriction</strong> (<em>sqlalchemy.orm.decl_api.DeclarativeMeta</em>) – The public law restriction model.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated office model.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sqlalchemy.orm.decl_api.DeclarativeMeta</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.get_legend_entry">
+<span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.</span></span><span class="sig-name descname"><span class="pre">get_legend_entry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pk_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ViewService</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/models.html#get_legend_entry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.get_legend_entry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory to produce a generic legend entry model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> (<em>sqlalchemy.orm.decl_api.DeclarativeMeta</em>) – The SQLAlchemy base which is assigned to the models.</p></li>
+<li><p><strong>schema_name</strong> (<em>str</em>) – The name of the database schema where this models belong to.</p></li>
+<li><p><strong>pk_type</strong> (<em>sqlalchemy.sql.type_api.TypeEngine</em>) – The type of the primary column. E.g.
+sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
+needs</p></li>
+<li><p><strong>ViewService</strong> (<em>sqlalchemy.orm.decl_api.DeclarativeMeta</em>) – The view service model.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated office model.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sqlalchemy.orm.decl_api.DeclarativeMeta</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.get_office">
+<span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.</span></span><span class="sig-name descname"><span class="pre">get_office</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pk_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/models.html#get_office"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.get_office" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory to produce a generic office model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> (<em>sqlalchemy.orm.decl_api.DeclarativeMeta</em>) – The SQLAlchemy base which is assigned to the models.</p></li>
+<li><p><strong>schema_name</strong> (<em>str</em>) – The name of the database schema where this models belong to.</p></li>
+<li><p><strong>pk_type</strong> (<em>sqlalchemy.sql.type_api.TypeEngine</em>) – The type of the primary column. E.g.
+sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
+needs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated office model.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sqlalchemy.orm.decl_api.DeclarativeMeta</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction">
+<span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.</span></span><span class="sig-name descname"><span class="pre">get_public_law_restriction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pk_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Office</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ViewService</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LegendEntry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/models.html#get_public_law_restriction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory to produce a generic public law restriction model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> (<em>sqlalchemy.orm.decl_api.DeclarativeMeta</em>) – The SQLAlchemy base which is assigned to the models.</p></li>
+<li><p><strong>schema_name</strong> (<em>str</em>) – The name of the database schema where this models belong to.</p></li>
+<li><p><strong>pk_type</strong> (<em>sqlalchemy.sql.type_api.TypeEngine</em>) – The type of the primary column. E.g.
+sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
+needs</p></li>
+<li><p><strong>Office</strong> (<em>sqlalchemy.orm.decl_api.DeclarativeMeta</em>) – The office model.</p></li>
+<li><p><strong>ViewService</strong> (<em>sqlalchemy.orm.decl_api.DeclarativeMeta</em>) – The view service model.</p></li>
+<li><p><strong>LegendEntry</strong> (<em>sqlalchemy.orm.decl_api.DeclarativeMeta</em>) – The legend entry model.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated office model.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sqlalchemy.orm.decl_api.DeclarativeMeta</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction_document">
+<span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.</span></span><span class="sig-name descname"><span class="pre">get_public_law_restriction_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pk_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PublicLawRestriction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Document</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/models.html#get_public_law_restriction_document"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction_document" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory to produce a generic public law restriction document model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> (<em>sqlalchemy.orm.decl_api.DeclarativeMeta</em>) – The SQLAlchemy base which is assigned to the models.</p></li>
+<li><p><strong>schema_name</strong> (<em>str</em>) – The name of the database schema where this models belong to.</p></li>
+<li><p><strong>pk_type</strong> (<em>sqlalchemy.sql.type_api.TypeEngine</em>) – The type of the primary column. E.g.
+sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
+needs</p></li>
+<li><p><strong>PublicLawRestriction</strong> (<em>sqlalchemy.orm.decl_api.DeclarativeMeta</em>) – The public law restriction model.</p></li>
+<li><p><strong>Document</strong> (<em>sqlalchemy.orm.decl_api.DeclarativeMeta</em>) – The document model.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated office model.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sqlalchemy.orm.decl_api.DeclarativeMeta</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.models.get_view_service">
+<span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.models.</span></span><span class="sig-name descname"><span class="pre">get_view_service</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pk_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/models.html#get_view_service"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.models.get_view_service" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory to produce a generic view service model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> (<em>sqlalchemy.orm.decl_api.DeclarativeMeta</em>) – The SQLAlchemy base which is assigned to the models.</p></li>
+<li><p><strong>schema_name</strong> (<em>str</em>) – The name of the database schema where this models belong to.</p></li>
+<li><p><strong>pk_type</strong> (<em>sqlalchemy.sql.type_api.TypeEngine</em>) – The type of the primary column. E.g.
+sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB
+needs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated office model.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sqlalchemy.orm.decl_api.DeclarativeMeta</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Standard" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="models-main.html" class="btn btn-neutral float-right" title="ORM Main schema" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2022, openoereb community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

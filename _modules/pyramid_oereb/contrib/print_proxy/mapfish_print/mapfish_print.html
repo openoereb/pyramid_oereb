@@ -40,9 +40,10 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../installation-dev.html">Installation for DEV’s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../makefile.html">Makefile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../changes.html">Changes/Hints for migration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../../standard/index.html">Standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../contrib/index.html">Contribution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../faq.html">FAQ</a></li>
@@ -101,9 +102,9 @@
 <span class="p">]</span>
 
 
-<div class="viewcode-block" id="Renderer"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer">[docs]</a><span class="k">class</span> <span class="nc">Renderer</span><span class="p">(</span><span class="n">JsonRenderer</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer"><a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer">[docs]</a><span class="k">class</span> <span class="nc">Renderer</span><span class="p">(</span><span class="n">JsonRenderer</span><span class="p">):</span>
 
-<div class="viewcode-block" id="Renderer.__init__"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.__init__"><a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Renderer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">global_datetime</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">global_datetime_format</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S&#39;</span></div>
@@ -239,7 +240,7 @@
             <span class="k">del</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Connection&#39;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">content</span>
 
-<div class="viewcode-block" id="Renderer.archive_pdf_file"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.archive_pdf_file">[docs]</a>    <span class="k">def</span> <span class="nf">archive_pdf_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pdf_archive_path</span><span class="p">,</span> <span class="n">binary_content</span><span class="p">,</span> <span class="n">extract_as_dict</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.archive_pdf_file"><a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.archive_pdf_file">[docs]</a>    <span class="k">def</span> <span class="nf">archive_pdf_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pdf_archive_path</span><span class="p">,</span> <span class="n">binary_content</span><span class="p">,</span> <span class="n">extract_as_dict</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Writes the static extract (pdf) into a dedicated file; this functionality can thus be used</span>
 <span class="sd">        for archiving.</span>
@@ -270,7 +271,7 @@
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Pdf file archived at: &#39;</span> <span class="o">+</span> <span class="n">path_and_filename</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">path_and_filename</span></div>
 
-<div class="viewcode-block" id="Renderer.get_wms_url_params"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_wms_url_params">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Renderer.get_wms_url_params"><a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_wms_url_params">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_wms_url_params</span><span class="p">():</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the list of additionally configured wms_url_params.</span>
@@ -292,7 +293,7 @@
             <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;TRANSPARENT&#39;</span><span class="p">:</span> <span class="s1">&#39;true&#39;</span><span class="p">}</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="Renderer.lpra_flatten"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.lpra_flatten">[docs]</a>    <span class="k">def</span> <span class="nf">lpra_flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.lpra_flatten"><a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.lpra_flatten">[docs]</a>    <span class="k">def</span> <span class="nf">lpra_flatten</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Flattens a list of PLRs.</span>
 
@@ -311,7 +312,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Title&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_multilingual_text</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">&#39;Abbreviation&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Renderer.convert_to_printable_extract"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.convert_to_printable_extract">[docs]</a>    <span class="k">def</span> <span class="nf">convert_to_printable_extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extract_dict</span><span class="p">,</span> <span class="n">feature_geometry</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.convert_to_printable_extract"><a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.convert_to_printable_extract">[docs]</a>    <span class="k">def</span> <span class="nf">convert_to_printable_extract</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extract_dict</span><span class="p">,</span> <span class="n">feature_geometry</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts an oereb extract into a form suitable for printing by mapfish print.</span>
 
@@ -678,7 +679,7 @@
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;After transformation, extract_dict is </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">extract_dict</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)))</span>
         <span class="k">return</span> <span class="n">extract_dict</span></div>
 
-<div class="viewcode-block" id="Renderer.group_legal_provisions"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.group_legal_provisions">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Renderer.group_legal_provisions"><a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.group_legal_provisions">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">group_legal_provisions</span><span class="p">(</span><span class="n">legal_provisions</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Group PLR documents which have the same title together.</span>
@@ -807,7 +808,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">parent</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">lang_obj</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_fallback_language</span><span class="p">]</span>
 
-<div class="viewcode-block" id="Renderer.sort_restriction_on_landownership_documents"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_restriction_on_landownership_documents">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Renderer.sort_restriction_on_landownership_documents"><a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_restriction_on_landownership_documents">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">sort_restriction_on_landownership_documents</span><span class="p">(</span><span class="n">restriction_on_landownership</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sort legal provisioning, hints and laws on restriction_on_landownership</span>
@@ -821,7 +822,7 @@
                 <span class="n">Renderer</span><span class="o">.</span><span class="n">sort_by_index</span>
             <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Renderer.sort_dict_list"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_dict_list">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Renderer.sort_dict_list"><a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_dict_list">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">sort_dict_list</span><span class="p">(</span><span class="n">legend_list</span><span class="p">,</span> <span class="n">sort_keys</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sorts list of dictionaries by one or more sort keys.</span>
@@ -837,7 +838,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">legend_list</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">sort_keys</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Renderer.sort_legal_provision"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_legal_provision">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Renderer.sort_legal_provision"><a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_legal_provision">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">sort_legal_provision</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provides the sort key for the supplied legal provision element as a tuple consisting of:</span>
@@ -854,16 +855,17 @@
         <span class="n">sort_number</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[</span><span class="s1">&#39;OfficialNumber&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;OfficialNumber&#39;</span> <span class="ow">in</span> <span class="n">elem</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">sort_title</span><span class="p">,</span> <span class="n">sort_number</span></div>
 
-<div class="viewcode-block" id="Renderer.sort_by_index"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_index">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Renderer.sort_by_index"><a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_index">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">sort_by_index</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provides the sort key for the supplied hint / law / legal provision</span>
 <span class="sd">        element as a tuple consisting of:</span>
-<span class="sd">         * index</span>
-<span class="sd">        Notes</span>
-<span class="sd">        - index is defined by Interlis model OeREBKRM_V2_0 as range -1000..1000</span>
-<span class="sd">        - &quot;Index = None&quot; if geolink_formatter processes entry from OEREBLEX that has no index</span>
+<span class="sd">        * index</span>
 
+
+<span class="sd">        Notes:</span>
+<span class="sd">            - index is defined by Interlis model OeREBKRM_V2_0 as range -1000..1000</span>
+<span class="sd">            - &quot;Index = None&quot; if geolink_formatter processes entry from OEREBLEX that has no index</span>
 <span class="sd">        Args:</span>
 <span class="sd">            elem (dict): one element of the hints / laws / legal provisions list</span>
 <span class="sd">        Returns:</span>
@@ -874,7 +876,7 @@
             <span class="n">index</span> <span class="o">=</span> <span class="mi">1000</span>
         <span class="k">return</span> <span class="n">index</span></div>
 
-<div class="viewcode-block" id="Renderer.sort_legend_elem"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_legend_elem">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Renderer.sort_legend_elem"><a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_legend_elem">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">sort_legend_elem</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provides the sort key for the supplied legend element as a tuple consisting of:</span>
@@ -902,7 +904,7 @@
 
         <span class="k">return</span> <span class="n">category</span><span class="p">,</span> <span class="n">value</span></div>
 
-<div class="viewcode-block" id="Renderer.get_custom_wms_params"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_custom_wms_params">[docs]</a>    <span class="k">def</span> <span class="nf">get_custom_wms_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.get_custom_wms_params"><a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_custom_wms_params">[docs]</a>    <span class="k">def</span> <span class="nf">get_custom_wms_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        From a given dictionary filter out all the parameters that are specified in the config</span>
 <span class="sd">        and return these.</span>
@@ -928,7 +930,7 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">custom_params</span></div>
 
-<div class="viewcode-block" id="Renderer.string_check"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.string_check">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Renderer.string_check"><a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.string_check">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">string_check</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if the value given is a string.</span>
@@ -942,7 +944,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">value</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Renderer.set_global_datetime"><a class="viewcode-back" href="../../../../../contrib/print_proxy.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.set_global_datetime">[docs]</a>    <span class="k">def</span> <span class="nf">set_global_datetime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date_time</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.set_global_datetime"><a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.set_global_datetime">[docs]</a>    <span class="k">def</span> <span class="nf">set_global_datetime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date_time</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set/initialize the class variable global_datetime with a given date-time</span>
 <span class="sd">        Args:</span>

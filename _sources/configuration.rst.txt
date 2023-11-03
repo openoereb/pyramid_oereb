@@ -109,48 +109,6 @@ structure. This method is recommended if you are using an existing database supp
 already containing all the necessary data but in a different structure. In this case you should check, if it
 is possible to transform the data by extending the existing models with a mapping to fit your structure.
 
-The easiest example is a simple mapping of table and column names, if you use a different language. Using the
-possibilities of SQLAlchemy, you could extend the existing
-:ref:`api-pyramid_oereb-standard-models-motorways_building_lines-office` like this:
-
-.. code-block:: python
-
-   from pyramid_oereb.lib.standard.models import motorways_building_lines
-
-   class Office(motorways_building_lines.Office):
-       """
-       The bucket to fill in all the offices you need to reference from public law restriction,
-       document, geometry.
-
-       Attributes:
-           id (int): The identifier. This is used in the database only and must not be set manually.
-               If you don't like it - don't care about.
-           name (dict): The multilingual name of the office.
-           office_at_web (str): A web accessible url to a presentation of this office.
-           uid (str): The uid of this office from https
-           line1 (str): The first address line for this office.
-           line2 (str): The second address line for this office.
-           street (str): The streets name of the offices address.
-           number (str): The number on street.
-           postal_code (int): The ZIP-code.
-           city (str): The name of the city.
-       """
-       __table_args__ = {'schema': 'baulinien_nationalstrassen'}
-       __tablename__ = 'amt'
-       id = sa.Column('oid', sa.Integer, primary_key=True)
-       office_at_web = sa.Column('amt_im_web', sa.String, nullable=True)
-       line1 = sa.Column('zeile1', sa.String, nullable=True)
-       line2 = sa.Column('zeile2', sa.String, nullable=True)
-       street = sa.Column('strasse', sa.String, nullable=True)
-       number = sa.Column('hausnr', sa.String, nullable=True)
-       postal_code = sa.Column('plz', sa.Integer, nullable=True)
-       city = sa.Column('ort', sa.String, nullable=True)
-
-       (...)
-
-The only thing, you have to care about, if you want to stay using the standard sources, is to keep the class
-name, the names of the properties and their data types.
-
 After extending the models, do not forget to change the models module in the configuration of the topic's
 source.
 
@@ -204,11 +162,11 @@ restrictions on implementing a custom source:
 
    1.  The source has to implement the method `read()` with the arguments used in its base source. For
        example, your custom real estate source has to accept the arguments defined in
-       :ref:`api-pyramid_oereb-lib-sources-real_estate-realestatebasesource`.
+       :ref:`api-pyramid_oereb-contrib-data_sources-standard-sources-real_estate-databasesource`.
 
    2.  The method `read()` has to add records of the corresponding type to the source' records list. Every
        source has list property called `records`. In case of a real estate source, the method `read()` has to
-       create one or more instances of the :ref:`api-pyramid_oereb-lib-records-real_estate-realestaterecord`
+       create one or more instances of the :ref:`api-pyramid_oereb-core-records-real_estate-realestaterecord`
        and add them to this list.
 
 This way, you should be able to create sources for nearly every possible data source.

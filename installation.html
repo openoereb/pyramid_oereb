@@ -17,7 +17,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Configuration" href="configuration.html" />
+    <link rel="next" title="Installation for DEV’s" href="installation-dev.html" />
     <link rel="prev" title="pyramid_oereb (ÖREB-Server) documentation" href="index.html" /> 
 </head>
 
@@ -44,6 +44,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#docker-docker-compose">Docker/Docker-Compose</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installation-steps">Installation steps</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#add-package">1. Add package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#install-dependencies">2. Install dependencies</a></li>
@@ -56,9 +57,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next steps</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="installation-dev.html">Installation for DEV’s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="makefile.html">Makefile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changes/Hints for migration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="standard/index.html">Standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contrib/index.html">Contribution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
@@ -89,14 +91,14 @@
              
   <section id="installation">
 <span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h1>
-<p>This section will guide you through the steps to install and run an own instance of <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code> using
-the standard configuration. If you are planning to adapt the application to fit a custom data source, the
-possibilities and additional steps are described in the section <a class="reference internal" href="configuration.html#configuration"><span class="std std-ref">Configuration</span></a>.</p>
+<p>This section will guide you through the steps to install and run an own DEV instance of <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code>
+using the standard configuration. If you are planning to adapt the application to fit a custom data source,
+the possibilities and additional steps are described in the section <a class="reference internal" href="configuration.html#configuration"><span class="std std-ref">Configuration</span></a>.</p>
 <section id="requirements">
 <span id="installation-requirements"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
-<p>In order to install and run an instance of <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code>, the following requirements have to be met.</p>
+<p>In order to run an instance of <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code>, the following requirements have to be met.</p>
 <ol class="arabic simple">
-<li><p><strong>A running Pyramid application:</strong>
+<li><p><strong>A Pyramid application:</strong>
 You need a running Pyramid application, in which you can include <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code>. If you are not
 familiar with setting up such an application, please follow the instructions in the official <a class="reference external" href="http://docs.pylonsproject.org/projects/pyramid/en/latest/#getting-started">Pyramid
 documentation</a>.</p></li>
@@ -104,7 +106,74 @@ documentation</a>.</p></li>
 For the standard configuration you need a running database with a role which is allowed to create schemata
 and tables and to manipulate data. We recommend to use PostgreSQL with PostGIS, but theoretically you
 should be able to use any spatial database, that is supported by <a class="reference external" href="https://www.sqlalchemy.org/">SQLAlchemy</a> and <a class="reference external" href="https://geoalchemy-2.readthedocs.io/en/latest/">GeoAlchemy 2</a>.</p></li>
+<li><dl class="simple">
+<dt><strong>A Service to produce PDF extracts:</strong></dt><dd><p>This might be a externally running instance of <a class="reference external" href="https://github.com/Geocloud-AG/oereb_xml_pdf_service">oereb_xml_pdf_service</a>
+(needs registration). Or you can use a self-hosted instance of <a class="reference external" href="https://github.com/openoereb/pyramid_oereb_mfp">mapfish-print</a>
+prepared for the ÖREB extract.</p>
+</dd>
+</dl>
+</li>
 </ol>
+<p>To straighten this guide we will run them inside a docker composition. This puts aside local differences
+like OS (Mac, Windows, Linux) and safes you from conflicts of maybe already running and conflicting services
+from your other projects</p>
+</section>
+<section id="docker-docker-compose">
+<span id="installation-docker-docker-compose"></span><h2>Docker/Docker-Compose<a class="headerlink" href="#docker-docker-compose" title="Permalink to this heading">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We assume you have a working
+<a class="reference external" href="https://docs.docker.com/engine/install/">docker</a>/<a class="reference external" href="https://docs.docker.com/compose/install/">docker-compose</a>
+and <a class="reference external" href="https://git-scm.com">git</a> setup on your machine.</p>
+</div>
+<p>First we need to get the code. Clone the pyramid_oereb repository in a place of your choice on your machine:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/openoereb/pyramid_oereb.git
+</pre></div>
+</div>
+<p>CD into the created directory:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>pyramid_oereb
+</pre></div>
+</div>
+<p>Docker separates runtimes in so called containers. What is inside a container is defined in an image. These
+images are described by so called Dockerfiles. This repository contains an <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code> in the project root
+in case you want to have a look. A container can be considered existing only at runtime. Once
+it was stopped, all things inside are gone. Each service (pyramid_oereb, database, print-server) will be
+run in its own container.</p>
+<p>As we learned above <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code> needs different services. The organisation of these services can be done
+by docker-compose. The description of the composition is persisted in a <code class="docutils literal notranslate"><span class="pre">docker-compose.yml</span></code> file.</p>
+<p>Additionally a docker container can utilize so called <code class="docutils literal notranslate"><span class="pre">volumes</span></code> to persist data from inside the container
+over restarts. This is useful especially for configuration but also for data you do not want to be gone after
+containers were stopped. Think of the data you insert into you database or all the python packages you install
+from the web. Wouldn’t it be nice to keep them even your containers are stopped? Well… exactly this is how
+this repositories docker composition is set up.</p>
+<p>The following steps are required to get a running setup:</p>
+<ol class="arabic simple">
+<li><p>build docker images locally</p></li>
+<li><dl class="simple">
+<dt>setup pyramid_oereb (make build)</dt><dd><ol class="arabic simple">
+<li><p>setup all necessary python packages</p></li>
+<li><p>create database structure as SQL</p></li>
+<li><p>create configuration (wsgi =&gt; development.ini)</p></li>
+<li><p>create configuration (pyramid_oereb =&gt; pyramid_oereb.yml)</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+</ol>
+<p>Building the docker images locally can be achieved by:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># on Linux</span>
+docker-compose<span class="w"> </span>build
+</pre></div>
+</div>
+<p>Setup pyramid_oereb can be achieved by (use the version for your OS):</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># on Linux</span>
+docker-compose<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-u<span class="w"> </span><span class="k">$(</span>id<span class="w"> </span>-u<span class="k">)</span>:<span class="k">$(</span>id<span class="w"> </span>-g<span class="k">)</span><span class="w"> </span>oereb-make<span class="w"> </span>build
+</pre></div>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># on Windows</span>
+docker-compose<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>oereb-make<span class="w"> </span>build
+</pre></div>
+</div>
 </section>
 <section id="installation-steps">
 <span id="installation-step"></span><h2>Installation steps<a class="headerlink" href="#installation-steps" title="Permalink to this heading">¶</a></h2>
@@ -258,7 +327,7 @@ calling the extract service:</p>
 <p>Now you should be able to set up a running <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code> server using the standard configuration. If this
 configuration fits your needs, you can now continue with importing your data into the created database. A
 detailed description of each table can be found in the documentation of the
-<a class="reference internal" href="standard/models/index.html#api-pyramid-oereb-standard-models"><span class="std std-ref">Models</span></a>.</p>
+<a class="reference internal" href="contrib/data_sources/standard/models-theme.html#contrib-data-sources-standard-models-theme"><span class="std std-ref">ORM Theme schema</span></a>.</p>
 <p>If your data is already available in an existing database with a different structure or you need to use a
 custom data source, the possible ways to adapt the models or to extend the application are described in the
 section <a class="reference internal" href="configuration.html#configuration"><span class="std std-ref">Configuration</span></a>.</p>
@@ -270,7 +339,7 @@ section <a class="reference internal" href="configuration.html#configuration"><s
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="pyramid_oereb (ÖREB-Server) documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="configuration.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="installation-dev.html" class="btn btn-neutral float-right" title="Installation for DEV’s" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

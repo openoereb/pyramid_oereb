@@ -17,8 +17,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Contributing to pyramid_oereb" href="contributing.html" />
-    <link rel="prev" title="Print Proxy" href="print_proxy.html" /> 
+    <link rel="next" title="Core" href="../core/index.html" />
+    <link rel="prev" title="XML2PDF" href="print_proxy/xml2pdf.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -43,14 +43,14 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation-dev.html">Installation for DEV’s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../makefile.html">Makefile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes/Hints for migration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../standard/index.html">Standard</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Contribution</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="sources.html">Sources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="print_proxy.html">Print Proxy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="print_proxy.html#sub-themes">Sub themes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="print_proxy.html#print-configuration">Print configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">Contributing to pyramid_oereb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_sources/index.html">Data Sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="print_proxy/index.html">Print Proxy</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Statistics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#db-connection-information">db connection information</a></li>
@@ -58,13 +58,13 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#standard-reporting">Standard reporting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#implementation">Implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#implementation">Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#decorators-oerebstats"><em>Decorators OerebStats</em></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#pyramid_oereb.contrib.stats.decorators.OerebStats"><code class="docutils literal notranslate"><span class="pre">OerebStats</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html">Contributing to pyramid_oereb</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../core/index.html">Core</a></li>
@@ -251,7 +251,10 @@ by creating the following views in your database manually, and adapting them if 
 </section>
 <section id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">¶</a></h2>
-<span class="target" id="module-pyramid_oereb.contrib.stats"><span id="api-pyramid-oereb-contrib-stats"></span></span><span class="target" id="module-pyramid_oereb.contrib.stats.decorators"><span id="api-pyramid-oereb-contrib-stats-decorators"></span></span><span class="target" id="api-pyramid-oereb-contrib-stats-decorators-oerebstats"></span><dl class="py class">
+<span class="target" id="module-pyramid_oereb.contrib.stats"><span id="api-pyramid-oereb-contrib-stats"></span></span><span class="target" id="module-pyramid_oereb.contrib.stats.decorators"><span id="api-pyramid-oereb-contrib-stats-decorators"></span></span></section>
+<section id="decorators-oerebstats">
+<span id="api-pyramid-oereb-contrib-stats-decorators-oerebstats"></span><h2><em>Decorators OerebStats</em><a class="headerlink" href="#decorators-oerebstats" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.stats.decorators.OerebStats">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.stats.decorators.</span></span><span class="sig-name descname"><span class="pre">OerebStats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/contrib/stats/decorators.html#OerebStats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.stats.decorators.OerebStats" title="Permalink to this definition">¶</a></dt>
 <dd><p>class OerebStats(dict)
@@ -338,8 +341,8 @@ In either case, this is followed by: for k in F:  D[k] = F[k]</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="print_proxy.html" class="btn btn-neutral float-left" title="Print Proxy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="contributing.html" class="btn btn-neutral float-right" title="Contributing to pyramid_oereb" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="print_proxy/xml2pdf.html" class="btn btn-neutral float-left" title="XML2PDF" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../core/index.html" class="btn btn-neutral float-right" title="Core" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

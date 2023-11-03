@@ -18,7 +18,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Changes/Hints for migration" href="changes.html" />
-    <link rel="prev" title="Installation" href="installation.html" /> 
+    <link rel="prev" title="Makefile" href="makefile.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -43,6 +43,8 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation-dev.html">Installation for DEV’s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="makefile.html">Makefile</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#add-additional-topics">Add additional topics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#add-an-oereblex-topic">Add an oereblex topic</a></li>
@@ -51,7 +53,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changes.html">Changes/Hints for migration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="standard/index.html">Standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contrib/index.html">Contribution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
@@ -165,45 +166,6 @@ but using a different script to generate the required models.</p>
 structure. This method is recommended if you are using an existing database supported by GeoAlchemy 2 and
 already containing all the necessary data but in a different structure. In this case you should check, if it
 is possible to transform the data by extending the existing models with a mapping to fit your structure.</p>
-<p>The easiest example is a simple mapping of table and column names, if you use a different language. Using the
-possibilities of SQLAlchemy, you could extend the existing
-<span class="xref std std-ref">api-pyramid_oereb-standard-models-motorways_building_lines-office</span> like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyramid_oereb.lib.standard.models</span> <span class="kn">import</span> <span class="n">motorways_building_lines</span>
-
-<span class="k">class</span> <span class="nc">Office</span><span class="p">(</span><span class="n">motorways_building_lines</span><span class="o">.</span><span class="n">Office</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The bucket to fill in all the offices you need to reference from public law restriction,</span>
-<span class="sd">    document, geometry.</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually.</span>
-<span class="sd">            If you don&#39;t like it - don&#39;t care about.</span>
-<span class="sd">        name (dict): The multilingual name of the office.</span>
-<span class="sd">        office_at_web (str): A web accessible url to a presentation of this office.</span>
-<span class="sd">        uid (str): The uid of this office from https</span>
-<span class="sd">        line1 (str): The first address line for this office.</span>
-<span class="sd">        line2 (str): The second address line for this office.</span>
-<span class="sd">        street (str): The streets name of the offices address.</span>
-<span class="sd">        number (str): The number on street.</span>
-<span class="sd">        postal_code (int): The ZIP-code.</span>
-<span class="sd">        city (str): The name of the city.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;baulinien_nationalstrassen&#39;</span><span class="p">}</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;amt&#39;</span>
-    <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">&#39;oid&#39;</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">office_at_web</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">&#39;amt_im_web&#39;</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">line1</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">&#39;zeile1&#39;</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">line2</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">&#39;zeile2&#39;</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">street</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">&#39;strasse&#39;</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">number</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">&#39;hausnr&#39;</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">postal_code</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">&#39;plz&#39;</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">city</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">&#39;ort&#39;</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-    <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The only thing, you have to care about, if you want to stay using the standard sources, is to keep the class
-name, the names of the properties and their data types.</p>
 <p>After extending the models, do not forget to change the models module in the configuration of the topic’s
 source.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plr88</span>
@@ -249,10 +211,10 @@ restrictions on implementing a custom source:</p>
 <div><ol class="arabic simple">
 <li><p>The source has to implement the method <cite>read()</cite> with the arguments used in its base source. For
 example, your custom real estate source has to accept the arguments defined in
-<span class="xref std std-ref">api-pyramid_oereb-lib-sources-real_estate-realestatebasesource</span>.</p></li>
+<a class="reference internal" href="contrib/data_sources/standard/sources.html#api-pyramid-oereb-contrib-data-sources-standard-sources-real-estate-databasesource"><span class="std std-ref">Real_Estate</span></a>.</p></li>
 <li><p>The method <cite>read()</cite> has to add records of the corresponding type to the source’ records list. Every
 source has list property called <cite>records</cite>. In case of a real estate source, the method <cite>read()</cite> has to
-create one or more instances of the <span class="xref std std-ref">api-pyramid_oereb-lib-records-real_estate-realestaterecord</span>
+create one or more instances of the <a class="reference internal" href="core/records.html#api-pyramid-oereb-core-records-real-estate-realestaterecord"><span class="std std-ref">RealEstateRecord</span></a>
 and add them to this list.</p></li>
 </ol>
 </div></blockquote>
@@ -269,7 +231,7 @@ records with all referenced records of other classes according to the <a class="
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="makefile.html" class="btn btn-neutral float-left" title="Makefile" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="changes.html" class="btn btn-neutral float-right" title="Changes/Hints for migration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

@@ -43,9 +43,10 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation-dev.html">Installation for DEV’s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../makefile.html">Makefile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes/Hints for migration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../standard/index.html">Standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contrib/index.html">Contribution</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Core</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="readers.html">Readers</a></li>
@@ -2508,7 +2509,7 @@ requested (if any) or default language. Empty for an extract without images</p>
 <li><p><strong>default_language</strong> (<em>str</em>) – The default language which should be used for url selection.</p></li>
 <li><p><strong>srid</strong> (<em>int</em>) – The SRID which is used for the WMS.</p></li>
 <li><p><strong>proxies</strong> (<em>dict</em><em> or </em><em>None</em>) – The proxies which may be used</p></li>
-<li><p><strong>legends</strong> (<em>list</em><em> of </em><a class="reference internal" href="../standard/models/pyramid_oereb_contrib_data_sources_standard_factory_models.html#pyramid_oereb.contrib.data_sources.standard.factory_models.LegendEntry" title="pyramid_oereb.contrib.data_sources.standard.factory_models.LegendEntry"><em>LegendEntry</em></a><em> or </em><em>None</em>) – A list of all relevant legend entries.</p></li>
+<li><p><strong>legends</strong> (<em>list</em><em> of </em><em>LegendEntry</em><em> or </em><em>None</em>) – A list of all relevant legend entries.</p></li>
 </ul>
 </dd>
 </dl>
@@ -2599,11 +2600,11 @@ for the requested language</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.records.view_service.ViewServiceRecord.sanitize_layer_index">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sanitize_layer_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layer_index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/records/view_service.html#ViewServiceRecord.sanitize_layer_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.records.view_service.ViewServiceRecord.sanitize_layer_index" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks the validity of the layer index
-Arg:</p>
-<blockquote>
-<div><p>layer_index (int): index of the layer</p>
-</div></blockquote>
+<dd><p>Checks the validity of the layer index.</p>
+<dl class="simple">
+<dt>Arg:</dt><dd><p>layer_index (int): index of the layer</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the layer index if it is an int berween -1000 and 1000.</p>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyramid_oereb.contrib.data_sources.standard.models.theme &mdash; pyramid_oereb  documentation</title>
+      <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../../../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../../index.html" class="icon icon-home">
+            pyramid_oereb
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../installation-dev.html">Installation for DEV’s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../makefile.html">Makefile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../changes.html">Changes/Hints for migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../contrib/index.html">Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../core/index.html">Core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../faq.html">FAQ</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../../index.html">pyramid_oereb</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../models.html">pyramid_oereb.contrib.data_sources.standard.models</a></li>
+      <li class="breadcrumb-item active">pyramid_oereb.contrib.data_sources.standard.models.theme</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pyramid_oereb.contrib.data_sources.standard.models.theme</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">String</span><span class="p">,</span> <span class="n">Integer</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">declarative_base</span>
+
+<span class="kn">from</span> <span class="nn">pyramid_oereb.contrib.data_sources.standard.models</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">get_office</span><span class="p">,</span>
+    <span class="n">get_document</span><span class="p">,</span>
+    <span class="n">get_view_service</span><span class="p">,</span>
+    <span class="n">get_legend_entry</span><span class="p">,</span>
+    <span class="n">get_public_law_restriction</span><span class="p">,</span>
+    <span class="n">get_geometry</span><span class="p">,</span>
+    <span class="n">get_public_law_restriction_document</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="Models"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/models-theme.html#pyramid_oereb.contrib.data_sources.standard.models.theme.Models">[docs]</a><span class="k">class</span> <span class="nc">Models</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Models.__init__"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/models-theme.html#pyramid_oereb.contrib.data_sources.standard.models.theme.Models.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">office</span><span class="p">,</span> <span class="n">document</span><span class="p">,</span> <span class="n">view_service</span><span class="p">,</span>
+                 <span class="n">legend_entry</span><span class="p">,</span> <span class="n">public_law_restriction</span><span class="p">,</span> <span class="n">geometry</span><span class="p">,</span>
+                 <span class="n">public_law_restriction_document</span><span class="p">,</span> <span class="n">base</span><span class="p">,</span> <span class="n">db_connection</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Office</span> <span class="o">=</span> <span class="n">office</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Document</span> <span class="o">=</span> <span class="n">document</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ViewService</span> <span class="o">=</span> <span class="n">view_service</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">LegendEntry</span> <span class="o">=</span> <span class="n">legend_entry</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PublicLawRestriction</span> <span class="o">=</span> <span class="n">public_law_restriction</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Geometry</span> <span class="o">=</span> <span class="n">geometry</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PublicLawRestrictionDocument</span> <span class="o">=</span> <span class="n">public_law_restriction_document</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Base</span> <span class="o">=</span> <span class="n">base</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db_connection</span> <span class="o">=</span> <span class="n">db_connection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">schema_name</span> <span class="o">=</span> <span class="n">schema_name</span></div></div>
+
+
+<span class="k">def</span> <span class="nf">model_factory</span><span class="p">(</span><span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">,</span> <span class="n">geometry_type</span><span class="p">,</span> <span class="n">srid</span><span class="p">,</span> <span class="n">db_connection</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Factory to produce a set of standard models.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        schema_name (str): The name of the database schema where this models belong to.</span>
+<span class="sd">        pk_type (sqlalchemy.sql.type_api.TypeEngine): The type of the primary column. E.g.</span>
+<span class="sd">            sqlalchemy.String or sqlalchemy.Integer or another one fitting the underlying DB</span>
+<span class="sd">            needs</span>
+<span class="sd">        geometry_type (str): The geoalchemy geometry type defined as well known string.</span>
+<span class="sd">        srid (int): The SRID defining the projection of the geometries stored in standard db schema.</span>
+<span class="sd">        db_connection (str): the db connection string</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Models: the produced set of standard models</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">()</span>
+
+    <span class="n">Office</span> <span class="o">=</span> <span class="n">get_office</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">)</span>
+    <span class="n">Document</span> <span class="o">=</span> <span class="n">get_document</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">,</span> <span class="n">Office</span><span class="p">)</span>
+    <span class="n">ViewService</span> <span class="o">=</span> <span class="n">get_view_service</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">)</span>
+    <span class="n">LegendEntry</span> <span class="o">=</span> <span class="n">get_legend_entry</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">,</span> <span class="n">ViewService</span><span class="p">)</span>
+    <span class="n">PublicLawRestriction</span> <span class="o">=</span> <span class="n">get_public_law_restriction</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">,</span> <span class="n">Office</span><span class="p">,</span> <span class="n">ViewService</span><span class="p">,</span>
+                                                      <span class="n">LegendEntry</span><span class="p">)</span>
+    <span class="n">Geometry</span> <span class="o">=</span> <span class="n">get_geometry</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">,</span> <span class="n">geometry_type</span><span class="p">,</span> <span class="n">srid</span><span class="p">,</span> <span class="n">PublicLawRestriction</span><span class="p">)</span>
+    <span class="n">PublicLawRestrictionDocument</span> <span class="o">=</span> <span class="n">get_public_law_restriction_document</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">,</span>
+                                                                       <span class="n">PublicLawRestriction</span><span class="p">,</span> <span class="n">Document</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">Models</span><span class="p">(</span>
+        <span class="n">Office</span><span class="p">,</span> <span class="n">Document</span><span class="p">,</span> <span class="n">ViewService</span><span class="p">,</span>
+        <span class="n">LegendEntry</span><span class="p">,</span> <span class="n">PublicLawRestriction</span><span class="p">,</span> <span class="n">Geometry</span><span class="p">,</span> <span class="n">PublicLawRestrictionDocument</span><span class="p">,</span>
+        <span class="n">Base</span><span class="p">,</span> <span class="n">db_connection</span><span class="p">,</span> <span class="n">schema_name</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">model_factory_string_pk</span><span class="p">(</span><span class="n">schema_name</span><span class="p">,</span> <span class="n">geometry_type</span><span class="p">,</span> <span class="n">srid</span><span class="p">,</span> <span class="n">db_connection</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Args:</span>
+<span class="sd">        schema_name (str): The name of the database schema where this models belong to.</span>
+<span class="sd">        geometry_type (str): The geoalchemy geometry type defined as well known string.</span>
+<span class="sd">        srid (int): The SRID defining the projection of the geometries stored in standard db schema.</span>
+<span class="sd">        db_connection (str): the db connection string</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Models: the produced set of standard models</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">model_factory</span><span class="p">(</span><span class="n">schema_name</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">geometry_type</span><span class="p">,</span> <span class="n">srid</span><span class="p">,</span> <span class="n">db_connection</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">model_factory_integer_pk</span><span class="p">(</span><span class="n">schema_name</span><span class="p">,</span> <span class="n">geometry_type</span><span class="p">,</span> <span class="n">srid</span><span class="p">,</span> <span class="n">db_connection</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Args:</span>
+<span class="sd">        schema_name (str): The name of the database schema where this models belong to.</span>
+<span class="sd">        geometry_type (str): The geoalchemy geometry type defined as well known string.</span>
+<span class="sd">        srid (int): The SRID defining the projection of the geometries stored in standard db schema.</span>
+<span class="sd">        db_connection (str): the db connection string</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Models: the produced set of standard models</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">model_factory</span><span class="p">(</span><span class="n">schema_name</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">geometry_type</span><span class="p">,</span> <span class="n">srid</span><span class="p">,</span> <span class="n">db_connection</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2022, openoereb community.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

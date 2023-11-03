@@ -1,7 +1,7 @@
 .. _contrib-stats:
 
 Statistics
-==========
+----------
 
 The statistics functionality allows you to gather usage information within pyramid_oereb
 itself. The data gathered will be persisted in user defined configured database,
@@ -14,7 +14,7 @@ to define in addition standard reporting views, see :ref:`standard-reporting` fo
 
 
 Configuration
--------------
+^^^^^^^^^^^^^
 
 The functionality is configured via the server's ini file; see the project repository for a
 complete example of such an ini file. Example of a configuration suitable for usage with Gunicorn:
@@ -83,7 +83,7 @@ then you should at least set 'healtcheck' explicitely and the logger will avoid 
 .. _standard-reporting:
 
 Standard reporting
-------------------
+^^^^^^^^^^^^^^^^^^
 
 To fulfill the most common needs for statistics reporting, we recommend the usage of database views
 based on the raw data table. You can create these views using the script *create_stats_tables*, or
@@ -170,7 +170,7 @@ by creating the following views in your database manually, and adapting them if 
 
 
 Implementation
---------------
+^^^^^^^^^^^^^^
 
 
 

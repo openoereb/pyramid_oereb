@@ -1,0 +1,92 @@
+.. _contrib-print_proxy-mapfish-print:
+
+Mapfish Print
+-------------
+
+Configuration
+^^^^^^^^^^^^^
+
+Sub themes
+..........
+
+To enable separate pages per sub theme, enable the option `split_sub_themes` in the `print` section of your
+configuration.
+
+
+.. code-block:: yaml
+
+    print:
+        split_sub_themes: true
+
+Sorting
+.......
+
+You can influence the sort order for each theme separately. Per default, the sub themes are unsorted.
+
+Example for alphabetic sort:
+
+.. code-block:: yaml
+
+    - name: plr119
+      sub_themes:
+        sorter:
+            module: pyramid_oereb.contrib.print_proxy.sub_themes.sorting
+            class_name: AlphabeticSort
+
+
+The list sort provides a fix, non-alphabetic order. A ordered list as parameter defines the order. The sub theme names
+have to match exactly, otherwise they will be added at the end. Example configuration:
+
+.. code-block:: yaml
+
+    - name: plr119
+      sub_themes:
+        sorter:
+            module: pyramid_oereb.contrib.print_proxy.sub_themes.sorting
+            class_name: ListSort
+            params:
+                list:
+                    - First sub theme
+                    - Another sub theme
+                    - Last sub theme
+
+
+
+
+.. _api-pyramid_oereb-contrib-print_proxy-mapfish_print:
+
+.. automodule:: pyramid_oereb.contrib.print_proxy.mapfish_print
+
+
+.. _api-pyramid_oereb-contrib-print_proxy-mapfish_print-mapfish_print:
+
+.. automodule:: pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print
+
+
+.. _api-pyramid_oereb-contrib-print_proxy-mapfish_print-mapfish_print-renderer:
+
+*Mapfish Print Renderer*
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+
+.. _api-pyramid_oereb-contrib-print_proxy-mapfish_print-toc_pages:
+
+.. automodule:: pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages
+
+
+.. _api-pyramid_oereb-contrib-print_proxy-mapfish_print-toc_pages-tocpages:
+
+*Toc Pages TocPages*
+^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages
+   :members:
+   :inherited-members:
+
+   .. automethod:: __init__
+

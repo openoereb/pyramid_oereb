@@ -43,9 +43,10 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation-dev.html">Installation for DEV’s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../makefile.html">Makefile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changes.html">Changes/Hints for migration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../standard/index.html">Standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contrib/index.html">Contribution</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Core</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Readers</a><ul>
@@ -181,7 +182,7 @@ created on instantiation of this reader class by passing through the parameter k
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dotted_source_class_path</strong> (<em>str</em><em> or </em><em>pyramid_oereb.lib.sources.address.AddressBaseSource</em>) – The path to the class which represents the source used by this reader. This
 class must exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-address-addressbasesource"><span class="std std-ref">Address AddressBaseSource</span></a>.</p></li>
+<a class="reference internal" href="sources.html#api-pyramid-oereb-core-sources-address-addressbasesource"><span class="std std-ref">AddressBaseSource</span></a>.</p></li>
 <li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
 dotted name defined class.</p></li>
 </ul>
@@ -240,7 +241,7 @@ the parameter kwargs.</p>
 <li><p><strong>or</strong> (<em>dotted_source_class_path</em><em> (</em><em>str</em>) – pyramid_oereb.core.sources.availability.AvailabilityBaseSource):
 The path to the class which represents the source used by this reader. This
 class must exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-disclaimer-disclaimerbasesource"><span class="std std-ref">Disclaimer DisclaimerBaseSource</span></a>.</p></li>
+<a class="reference internal" href="sources.html#api-pyramid-oereb-core-sources-disclaimer-disclaimerbasesource"><span class="std std-ref">DisclaimerBaseSource</span></a>.</p></li>
 <li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
 dotted name defined class.</p></li>
 </ul>
@@ -292,7 +293,7 @@ the parameter kwargs.</p>
 <li><p><strong>or</strong> (<em>dotted_source_class_path</em><em> (</em><em>str</em>) – pyramid_oereb.core.sources.data_integration.DataIntegrationBaseSource):
 The path to the class which represents the source used by this reader. This
 class must exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-data-integration-dataintegrationbasesource"><span class="std std-ref">Data Integration DataIntegrationBaseSource</span></a>.</p></li>
+<a class="reference internal" href="sources.html#api-pyramid-oereb-core-sources-data-integration-dataintegrationbasesource"><span class="std std-ref">DataIntegrationBaseSource</span></a>.</p></li>
 <li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
 dotted name defined class.</p></li>
 </ul>
@@ -309,7 +310,7 @@ dotted name defined class.</p></li>
 <p>If you construct a subclass of this class your implementation needs to offer this
 method in the same signature. Means the parameters must be the same and the return
 must be a list of
-<span class="xref std std-ref">api-pyramid_oereb-core-records-data_integration-dataintegrationbaserecord</span>.
+<a class="reference internal" href="records.html#api-pyramid-oereb-core-records-data-integration-dataintegrationrecord"><span class="std std-ref">DataIntegrationRecord</span></a>.
 Otherwise the API like way the server works would be broken.</p>
 </div>
 <dl class="field-list simple">
@@ -345,7 +346,7 @@ the parameter kwargs.</p>
 <li><p><strong>or</strong> (<em>dotted_source_class_path</em><em> (</em><em>str</em>) – pyramid_oereb.core.records.disclaimer.DisclaimerRecord):
 The path to the class which represents the source used by this reader. This
 class must exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-disclaimer-disclaimerbasesource"><span class="std std-ref">Disclaimer DisclaimerBaseSource</span></a>.</p></li>
+<a class="reference internal" href="sources.html#api-pyramid-oereb-core-sources-disclaimer-disclaimerbasesource"><span class="std std-ref">DisclaimerBaseSource</span></a>.</p></li>
 <li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
 dotted name defined class.</p></li>
 </ul>
@@ -397,7 +398,7 @@ the parameter kwargs.</p>
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.document.DocumentBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-document-documentbasesource"><span class="std std-ref">Document DocumentBaseSource</span></a>.</p></li>
+<a class="reference internal" href="sources.html#api-pyramid-oereb-core-sources-document-documentbasesource"><span class="std std-ref">DocumentBaseSource</span></a>.</p></li>
 <li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
 dotted name defined class.</p></li>
 </ul>
@@ -449,7 +450,7 @@ the parameter kwargs.</p>
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.document_types.DocumentTypesBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-document-types-documenttypesbasesource"><span class="std std-ref">Document Types DocumentTypesBaseSource</span></a>.</p></li>
+<a class="reference internal" href="sources.html#api-pyramid-oereb-core-sources-document-types-documenttypesbasesource"><span class="std std-ref">DocumentTypesBaseSource</span></a>.</p></li>
 <li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
 dotted name defined class.</p></li>
 </ul>
@@ -579,7 +580,7 @@ the parameter kwargs.</p>
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource): The path
 to the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-general-information-generalinformationbasesource"><span class="std std-ref">General Information GeneralInformationBaseSource</span></a>.</p></li>
+<a class="reference internal" href="sources.html#api-pyramid-oereb-core-sources-general-information-generalinformationbasesource"><span class="std std-ref">GeneralInformationBaseSource</span></a>.</p></li>
 <li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
 dotted name defined class.</p></li>
 </ul>
@@ -631,7 +632,7 @@ the parameter kwargs.</p>
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.glossary.GlossaryBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-glossary-glossarybasesource"><span class="std std-ref">Glossary GlossaryBaseSource</span></a>.</p></li>
+<a class="reference internal" href="sources.html#api-pyramid-oereb-core-sources-glossary-glossarybasesource"><span class="std std-ref">GlossaryBaseSource</span></a>.</p></li>
 <li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
 dotted name defined class.</p></li>
 </ul>
@@ -683,7 +684,7 @@ the parameter kwargs.</p>
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.lawstatus.LawStatusBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<span class="xref std std-ref">api-pyramid_oereb-core-sources-lawstatus-lawstatusbasesource</span>.</p></li>
+<a class="reference internal" href="sources.html#api-pyramid-oereb-core-sources-law-status-lawstatusbasesource"><span class="std std-ref">LawStatusBaseSource</span></a>.</p></li>
 <li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
 dotted name defined class.</p></li>
 </ul>
@@ -699,7 +700,7 @@ dotted name defined class.</p></li>
 <p class="admonition-title">Note</p>
 <p>If you subclass this class your implementation needs to offer this method in the same
 signature. Means the parameters must be the same and the return must be a list of
-<span class="xref std std-ref">api-pyramid_oereb-core-records-lawstatus-lawstatusrecord</span>.
+<a class="reference internal" href="records.html#api-pyramid-oereb-core-records-law-status-lawstatusrecord"><span class="std std-ref">LawStatusRecord</span></a>.
 Otherwise the API like way the server works would be broken.</p>
 </div>
 <dl class="field-list simple">
@@ -738,7 +739,7 @@ the parameter kwargs.</p>
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.logo.LogoBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-logo-logobasesource"><span class="std std-ref">Logo LogoBaseSource</span></a>.</p></li>
+<a class="reference internal" href="sources.html#api-pyramid-oereb-core-sources-logo-logobasesource"><span class="std std-ref">LogoBaseSource</span></a>.</p></li>
 <li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
 dotted name defined class.</p></li>
 </ul>
@@ -790,7 +791,7 @@ the parameter kwargs.</p>
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.map_layering.MapLayeringBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-glossary-glossarybasesource"><span class="std std-ref">Glossary GlossaryBaseSource</span></a>.</p></li>
+<a class="reference internal" href="sources.html#api-pyramid-oereb-core-sources-glossary-glossarybasesource"><span class="std std-ref">GlossaryBaseSource</span></a>.</p></li>
 <li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
 dotted name defined class.</p></li>
 </ul>
@@ -845,7 +846,7 @@ the parameter kwargs.</p>
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.municipality.MunicipalityBaseSource): The
 path to the class which represents the source used by this reader. This class
 must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-municipality-municipalitybasesource"><span class="std std-ref">Municipality MunicipalityBaseSource</span></a>.</p></li>
+<a class="reference internal" href="sources.html#api-pyramid-oereb-core-sources-municipality-municipalitybasesource"><span class="std std-ref">MunicipalityBaseSource</span></a>.</p></li>
 <li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
 dotted name defined class.</p></li>
 </ul>
@@ -897,7 +898,7 @@ the parameter kwargs.</p>
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.office.OfficeBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-office-officebasesource"><span class="std std-ref">Office OfficeBaseSource</span></a>.</p></li>
+<a class="reference internal" href="sources.html#api-pyramid-oereb-core-sources-office-officebasesource"><span class="std std-ref">OfficeBaseSource</span></a>.</p></li>
 <li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
 dotted name defined class.</p></li>
 </ul>
@@ -949,7 +950,7 @@ the parameter kwargs.</p>
 <li><p><strong>dotted_source_class_path</strong> (<em>str</em><em> or </em><em>pyramid_oereb.lib.sources.real_estate.RealEstateBaseSource</em>) – The
 path to the class which represents the source used by this reader. This class must exist and
 it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-real-estate-realestatebasesource"><span class="std std-ref">Real Estate RealEstateBaseSource</span></a>.</p></li>
+<a class="reference internal" href="sources.html#api-pyramid-oereb-core-sources-real-estate-realestatebasesource"><span class="std std-ref">RealEstateBaseSource</span></a>.</p></li>
 <li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
 dotted name defined class.</p></li>
 </ul>
@@ -1015,7 +1016,7 @@ the parameter kwargs.</p>
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.realestatetype.RealEstateTypeBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<span class="xref std std-ref">api-pyramid_oereb-core-sources-realestatetype-realestatetypebasesource</span>.</p></li>
+<a class="reference internal" href="sources.html#api-pyramid-oereb-core-sources-real-estate-type-realestatetypebasesource"><span class="std std-ref">RealEstateTypeBaseSource</span></a>.</p></li>
 <li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
 dotted name defined class.</p></li>
 </ul>
@@ -1031,7 +1032,7 @@ dotted name defined class.</p></li>
 <p class="admonition-title">Note</p>
 <p>If you subclass this class your implementation needs to offer this method in the same
 signature. Means the parameters must be the same and the return must be a list of
-<span class="xref std std-ref">api-pyramid_oereb-core-records-realestatetype-realestatetyperecord</span>.
+<a class="reference internal" href="records.html#api-pyramid-oereb-core-records-real-estate-type-realestatetyperecord"><span class="std std-ref">RealEstateTypeRecord</span></a>.
 Otherwise the API like way the server works would be broken.</p>
 </div>
 <dl class="field-list simple">
@@ -1067,7 +1068,7 @@ the parameter kwargs.</p>
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.theme.ThemeBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-theme-themebasesource"><span class="std std-ref">Theme ThemeBaseSource</span></a>.</p></li>
+<a class="reference internal" href="sources.html#api-pyramid-oereb-core-sources-theme-themebasesource"><span class="std std-ref">ThemeBaseSource</span></a>.</p></li>
 <li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
 dotted name defined class.</p></li>
 </ul>
@@ -1119,7 +1120,7 @@ the parameter kwargs.</p>
 <li><p><strong>dotted_source_class_path</strong> – (str or pyramid_oereb.core.sources.theme_document.ThemeDocumentBaseSource): The path to
 the class which represents the source used by this reader. This class must
 exist and it must implement basic source behaviour of the
-<a class="reference internal" href="../standard/sources.html#api-pyramid-oereb-core-sources-theme-document-themedocumentbasesource"><span class="std std-ref">Theme Document ThemeDocumentBaseSource</span></a>.</p></li>
+<a class="reference internal" href="sources.html#api-pyramid-oereb-core-sources-theme-document-themedocumentbasesource"><span class="std std-ref">ThemeDocumentBaseSource</span></a>.</p></li>
 <li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
 dotted name defined class.</p></li>
 </ul>

@@ -40,9 +40,10 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation-dev.html">Installation for DEV’s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../makefile.html">Makefile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../changes.html">Changes/Hints for migration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../standard/index.html">Standard</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contrib/index.html">Contribution</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../core/index.html">Core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../faq.html">FAQ</a></li>
@@ -92,7 +93,7 @@
 <span class="sd">                (str or pyramid_oereb.core.sources.lawstatus.LawStatusBaseSource): The path to</span>
 <span class="sd">                the class which represents the source used by this reader. This class must</span>
 <span class="sd">                exist and it must implement basic source behaviour of the</span>
-<span class="sd">                :ref:`api-pyramid_oereb-core-sources-lawstatus-lawstatusbasesource`.</span>
+<span class="sd">                :ref:`api-pyramid_oereb-core-sources-law_status-lawstatusbasesource`.</span>
 <span class="sd">            (kwargs): kwargs, which are necessary as configuration parameter for the above by</span>
 <span class="sd">                dotted name defined class.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -106,7 +107,7 @@
 <span class="sd">        Note:</span>
 <span class="sd">            If you subclass this class your implementation needs to offer this method in the same</span>
 <span class="sd">            signature. Means the parameters must be the same and the return must be a list of</span>
-<span class="sd">            :ref:`api-pyramid_oereb-core-records-lawstatus-lawstatusrecord`.</span>
+<span class="sd">            :ref:`api-pyramid_oereb-core-records-law_status-lawstatusrecord`.</span>
 <span class="sd">            Otherwise the API like way the server works would be broken.</span>
 
 <span class="sd">        Args:</span>
