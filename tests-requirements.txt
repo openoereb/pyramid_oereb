@@ -4,6 +4,6 @@ pytest==7.4.3
 pytest-cov==4.1.0
 pytest-ordering==0.6
 requests-mock==1.11.0
-responses==0.23.3
+responses==0.24.0
 webtest==3.0.0
 pillow==10.1.0
