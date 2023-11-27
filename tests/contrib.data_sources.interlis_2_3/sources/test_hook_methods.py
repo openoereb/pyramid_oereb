@@ -5,8 +5,8 @@ from unittest.mock import patch
 from sqlalchemy import Integer
 from sqlalchemy.orm import declarative_base
 from pyramid.httpexceptions import HTTPNotFound, HTTPServerError
-from pyramid_oereb.contrib.data_sources.interlis_2_3.sources.hook_methods import get_symbol
-from pyramid_oereb.contrib.data_sources.interlis_2_3.sources.models import get_view_service, get_legend_entry
+from pyramid_oereb.contrib.data_sources.interlis_2_3.hook_methods import get_symbol
+from pyramid_oereb.contrib.data_sources.standard.models import get_view_service, get_legend_entry
 from pyramid_oereb.core import b64
 
 
@@ -14,8 +14,8 @@ from pyramid_oereb.core import b64
 def theme_config():
     yield {
         "srid": 2056,
-        "code": "ch.BaulinienNationalstrassen",
-        "geometry_type": "LINESTRING",
+        "code": "ch.BelasteteStandorteZivileFlugplaetze",
+        "geometry_type": "GEOMETRYCOLLECTION",
         "view_service": {
             "layer_index": 1,
             "layer_opacity": 0.25,
@@ -31,13 +31,13 @@ def theme_config():
             "class": "pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.DatabaseSource",
             "params": {
                 "db_connection": "postgresql://postgres:postgres@123.123.123.123:5432/oereb_test_db",
-                "model_factory": "pyramid_oereb.contrib.data_sources.interlis_2_3.models.theme.model_factory_string_pk",  # noqa: E501
-                "schema_name": "land_use_plans"
+                "model_factory": "pyramid_oereb.contrib.data_sources.interlis_2_3.models.theme.model_factory_integer_pk",  # noqa: E501
+                "schema_name": "contaminated_civil_aviation_sites"
             }
         },
         "hooks": {
             "get_symbol": "pyramid_oereb.contrib.data_sources.interlis_2_3.hook_methods.get_symbol",
-            "get_symbol_ref": "pyramid_oereb.contrib.data_sources.interlis_2_3.hook_methods.get_symbol_ref"
+            "get_symbol_ref": "pyramid_oereb.core.hook_methods.get_symbol_ref"
         },
         "thresholds": {
             "length": {
