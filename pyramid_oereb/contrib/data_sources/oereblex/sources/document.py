@@ -204,7 +204,7 @@ class OEREBlexSource(Base):
         document_type = Config.get_document_type_by_data_code(self._code, oereblex_doctype)
 
         # Create related office record
-        office = OfficeRecord({language: authority}, office_at_web=document.authority_url)
+        office = OfficeRecord({language: authority}, office_at_web={language: document.authority_url})
 
         # Get files
         records = []
