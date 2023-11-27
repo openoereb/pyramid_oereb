@@ -27,7 +27,6 @@ Note:
 from pyramid_oereb.contrib.data_sources.standard.models import get_office, get_document
 from sqlalchemy import Column, PrimaryKeyConstraint, ForeignKey, UniqueConstraint, DateTime
 from sqlalchemy import Unicode, String, text, Integer, Boolean, Float
-from sqlalchemy.types import UserDefinedType
 from geoalchemy2 import Geometry
 from sqlalchemy_utils import JSONType
 from sqlalchemy.orm import declarative_base, relationship
@@ -37,11 +36,6 @@ from pyramid_oereb.core.config import Config
 Base = declarative_base()
 app_schema_name = Config.get('app_schema').get('name')
 srid = Config.get('srid')
-
-
-class Serial(UserDefinedType):
-    def get_col_spec(self, **kw):
-        return "SERIAL"
 
 
 class RealEstate(Base):
@@ -232,9 +226,6 @@ class Disclaimer(Base):
     id = Column(String, primary_key=True)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
-    # the custom class Serial may be used to obtain an auto incremented extract index in the DB
-    # however, the better choice was made to make the field optional / nullable
-    # extract_index = Column(Serial)
     extract_index = Column(Integer, nullable=True)
 
 

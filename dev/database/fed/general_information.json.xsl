@@ -15,7 +15,7 @@
             "<xsl:value-of select="ili:Language"/>": "<xsl:value-of select="ili:Text"/>"<xsl:if test="not(position() = last())">,</xsl:if>
         </xsl:for-each>
         },
-        "extract_index": <xsl:choose><xsl:when test="element-available(ili:AuszugIndex) = 0"><xsl:value-of select="position()"/></xsl:when><xsl:otherwise><xsl:value-of select="ili:AuszugIndex"/></xsl:otherwise></xsl:choose>
+        "extract_index": <xsl:choose><xsl:when test="ili:AuszugIndex"><xsl:value-of select="ili:AuszugIndex"/></xsl:when><xsl:otherwise><xsl:value-of select="position()"/></xsl:otherwise></xsl:choose>
     }<xsl:if test="not(position() = last())">,</xsl:if>
 </xsl:for-each>
 ]
