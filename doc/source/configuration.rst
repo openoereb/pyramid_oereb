@@ -126,7 +126,7 @@ and not interlis_2_3. - The same goes for the model_factory and the get_symbol e
 Also set the language of the data and if it's a federal (true) or cantonal topic (false). You also want to
 define what lookup codes are for the law_status and document types.
 
-Once the the configuration set, run the following command:
+Once the configuration set, run the following command:
 
 .. code-block:: shell
 
