@@ -46,7 +46,7 @@ class LegendEntryRecord(object):
             sub_theme (pyramid_oereb.lib.records.theme.ThemeRecord): The optional sub theme to which the
                 legend entry belongs.
             identifier (str): The identifier of the legend entry which might be used for linking to
-                    other elements.
+                other elements.
         """
         if not isinstance(legend_text, dict):
             warnings.warn('Type of "legend_text" should be "dict"'
@@ -116,9 +116,10 @@ class ViewServiceRecord(object):
     @staticmethod
     def sanitize_layer_index(layer_index):
         """
-        Checks the validity of the layer index
+        Checks the validity of the layer index.
+
         Arg:
-           layer_index (int): index of the layer
+            layer_index (int): index of the layer
 
         Returns:
             int: the layer index if it is an int berween -1000 and 1000.
@@ -163,6 +164,7 @@ class ViewServiceRecord(object):
         Checks the validity of a min and max point:
             - type check
             - min_point < max_point
+
         Args:
             min_point (shapely.geometry.point.Point): a point geometry
             min_name (): the name of the point

@@ -17,7 +17,7 @@ class LawStatusReader(object):
                 (str or pyramid_oereb.core.sources.lawstatus.LawStatusBaseSource): The path to
                 the class which represents the source used by this reader. This class must
                 exist and it must implement basic source behaviour of the
-                :ref:`api-pyramid_oereb-core-sources-lawstatus-lawstatusbasesource`.
+                :ref:`api-pyramid_oereb-core-sources-law_status-lawstatusbasesource`.
             (kwargs): kwargs, which are necessary as configuration parameter for the above by
                 dotted name defined class.
         """
@@ -31,7 +31,7 @@ class LawStatusReader(object):
         Note:
             If you subclass this class your implementation needs to offer this method in the same
             signature. Means the parameters must be the same and the return must be a list of
-            :ref:`api-pyramid_oereb-core-records-lawstatus-lawstatusrecord`.
+            :ref:`api-pyramid_oereb-core-records-law_status-lawstatusrecord`.
             Otherwise the API like way the server works would be broken.
 
         Args:

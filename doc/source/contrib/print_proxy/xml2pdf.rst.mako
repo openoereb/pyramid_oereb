@@ -1,14 +1,22 @@
-.. _contrib-sources:
+.. _contrib-print_proxy-xml2pdf:
 
-Sources
+XML2PDF
 -------
+
+Configuration
+.............
+
+
+To properly configure the XML2PDF print service of GISDATEN AG, you need specific configuration in the section
+``print`` of your ``yaml`` file.
+Please see the `standard configuration file
+<https://github.com/openoereb/pyramid_oereb/blob/master/pyramid_oereb/standard/pyramid_oereb.yml.mako>`__
+as an example, or use the ``create_standard_yaml`` script to regenerate your configuration file with the desired options.
 
 <%! import glob, inspect, re, sys %>
 <%
 modules = [m for m in sys.modules.keys() if m.startswith('pyramid_oereb')]
-files = glob.glob('../../pyramid_oereb/contrib/data_sources/oereblex/sources/*.py')
-files += glob.glob('../../pyramid_oereb/contrib/data_sources/swisstopo/*.py')
-files += glob.glob('../../pyramid_oereb/contrib/data_sources/interlis_2_3/sources/*.py')
+files = glob.glob('../../pyramid_oereb/contrib/print_proxy/xml_2_pdf/*.py')
 modules = [
     re.sub(r'\.__init__', '', f[6:-3].replace("/", ".")) for f in files
 ]
@@ -43,8 +51,8 @@ underline = ['^', '`', '\'', '.', '~', '*']
 %for cls in classes[module]:
 .. _api-${module.replace('.', '-').lower()}-${cls.lower()}:
 
-*${cls}*
-${re.sub('.', underline[0], 'Class   ' + cls)}
+*${module.split('.')[-1].title().replace('_', ' ')} ${cls}*
+${re.sub('.', underline[0], module.split('.')[-1] + '   ' + cls)}
 
 .. autoclass:: ${module}.${cls}
    :members:

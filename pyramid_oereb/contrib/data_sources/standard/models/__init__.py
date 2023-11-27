@@ -2,6 +2,16 @@
 """
 This Package provides all models fitting to the standard database configuration. It is separated by the 17
 mandatory topics the federation asks for.
+
+The following functions are class factories to enable reuse and making SQL-Alchemy
+classes configurable.
+
+The classes produced by the factory methods are shared in different contrib modules.
+As of the moment of writing this includes:
+
+* :ref:`contrib-data-sources-standard`
+* :ref:`contrib-data-sources-oereblex`
+
 """
 
 

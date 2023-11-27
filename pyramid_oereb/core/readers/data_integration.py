@@ -32,7 +32,7 @@ class DataIntegrationReader(object):
             If you construct a subclass of this class your implementation needs to offer this
             method in the same signature. Means the parameters must be the same and the return
             must be a list of
-            :ref:`api-pyramid_oereb-core-records-data_integration-dataintegrationbaserecord`.
+            :ref:`api-pyramid_oereb-core-records-data_integration-dataintegrationrecord`.
             Otherwise the API like way the server works would be broken.
 
         Returns:

@@ -1,9 +1,9 @@
-jsonschema==4.19.1
+jsonschema==4.20.0
 lxml==4.9.3
 pytest==7.4.3
 pytest-cov==4.1.0
 pytest-ordering==0.6
 requests-mock==1.11.0
-responses==0.23.3
+responses==0.24.1
 webtest==3.0.0
 pillow==10.1.0
