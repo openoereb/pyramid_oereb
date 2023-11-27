@@ -199,12 +199,16 @@ class OEREBlexSource(Base):
             raise AssertionError('Missing authority for document #{0}'.format(document.id))
         if oereblex_doctype is None:
             raise AssertionError('Missing type for document #{0}'.format(document.id))
+        if document.authority_url is None:
+            authority_url = None
+        else:
+            authority_url = {language: document.authority_url}
 
         # Get document type
         document_type = Config.get_document_type_by_data_code(self._code, oereblex_doctype)
 
         # Create related office record
-        office = OfficeRecord({language: authority}, office_at_web=document.authority_url)
+        office = OfficeRecord({language: authority}, office_at_web=authority_url)
 
         # Get files
         records = []

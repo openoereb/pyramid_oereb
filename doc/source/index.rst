@@ -54,7 +54,10 @@ API). These need to be configured and prepared by the integrator of this package
 of documentation.
 
 For the moment we provide an adapter to get the PDF static extract from mapfishprint and
-`oereb_xml_pdf_service <https://github.com/Geocloud-AG/oereb_xml_pdf_service>`__.
+
+=======
+For the moment we provide an adapter to get the PDF static extract from mapfishprint and
+`xml2pdf <https://github.com/Geocloud-AG/oereb_xml_pdf_service>`__.
 
 .. image:: ../images/overview.png
    :align: center

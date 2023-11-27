@@ -297,6 +297,9 @@ def test_read_related_notice_as_main(oereblex_test_config):
         assert isinstance(document.responsible_office, OfficeRecord)
         assert document.responsible_office.name == {'de': '-'}
         assert document.responsible_office.office_at_web is None
+        assert source.records[0].responsible_office.office_at_web == {
+            'de': "http%3A%2F%2Fwww.zihlschlacht-sitterdorf.ch"
+        }
         assert document.published_from == datetime.date(1970, 1, 1)
         assert document.index == 40
 
