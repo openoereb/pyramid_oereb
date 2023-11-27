@@ -72,14 +72,8 @@ looks like this:
       thresholds:
         length:
           limit: 1.0
-          unit: 'm'
-          precision: 2
         area:
           limit: 1.0
-          unit: 'm²'
-          precision: 2
-        percentage:
-          precision: 1
       language: fr
       federal: false
       view_service:
