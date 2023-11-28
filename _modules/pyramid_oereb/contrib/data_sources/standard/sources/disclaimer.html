@@ -101,7 +101,8 @@
             <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_record_class_</span><span class="p">(</span>
                     <span class="n">result</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
-                    <span class="n">result</span><span class="o">.</span><span class="n">content</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">extract_index</span>
                 <span class="p">))</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
