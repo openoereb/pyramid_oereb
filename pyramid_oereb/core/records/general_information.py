@@ -9,7 +9,7 @@ class GeneralInformationRecord(object):
         title (dict of unicode): The title of the information (multilingual)
         content (dict of unicode): The actual information (multilingual)
     """
-    def __init__(self, title, content):
+    def __init__(self, title, content, extract_index=None):
         """
         Args:
             title (dict of unicode): The title of the information (multilingual)
@@ -26,7 +26,8 @@ class GeneralInformationRecord(object):
 
         self.title = title
         self.content = content
+        self.extract_index = extract_index
 
     def __str__(self):
-        return '<{} -- title: {} content: {}>'.format(
-            self.__class__.__name__, self.title, self.content)
+        return '<{} -- title: {} content: {} extract index: {}>'.format(
+            self.__class__.__name__, self.title, self.content, self.extract_index)

@@ -14,7 +14,8 @@
         "content": {<xsl:for-each select="ili:Inhalt/ili:LocalisationCH_V1.MultilingualMText/ili:LocalisedText/ili:LocalisationCH_V1.LocalisedMText">
             "<xsl:value-of select="ili:Language"/>": "<xsl:value-of select="ili:Text"/>"<xsl:if test="not(position() = last())">,</xsl:if>
         </xsl:for-each>
-        }
+        },
+        "extract_index": <xsl:choose><xsl:when test="ili:AuszugIndex"><xsl:value-of select="ili:AuszugIndex"/></xsl:when><xsl:otherwise><xsl:value-of select="position()"/></xsl:otherwise></xsl:choose>
     }<xsl:if test="not(position() = last())">,</xsl:if>
 </xsl:for-each>
 ]

@@ -14,7 +14,8 @@
             "it": "Oltre alle informazioni contenute nel presente estratto, le restrizioni della proprietà possono essere annotate anche nel registro fondiario.",
             "rm": "Supplementarmain a las indicaziuns en quest extract pon restricziuns da la proprietad er esser remartgadas en il register funsil.",
             "en": "In addition to the information contained in this extract, ownership restrictions may also be cited in the land register."
-        }
+        },
+        "extract_index": 10
     },
     {
         "title": {
@@ -28,7 +29,8 @@
             "fr": "Le cadastre des sites pollués (CSP) est établi d'après les critères émis par l'Office fédéral de l'environnement OFEV. Il est mis à jour continuellement sur la base des nouvelles connaissances (investigations). Les surfaces des sites indiqués dans le cadastre des sites pollués peuvent ne pas correspondre à la surface effectivement polluée. Cela ne signifie pas que tout terrain non inscrit au cadastre ne soit pas pollué et qu'il soit libre de tout déchet et pollution. Les zones utilisées à des fins de transports publics, militaire et aéronautique sont de la responsabilité de la Confédération.",
             "it": "Il catasto dei siti inquinati (CSIN) è stato elaborato sulla base dei criteri definiti dall'Ufficio federale dell'ambiente (UFAM) e viene continuamente aggiornato sulla base delle nuove conoscenze ottenute (p.es. in seguito a indagini). Le superfici riportate nel CSIN possono discostarsi dalla portata dell'inquinamento effettivo. Se un fondo non figura nel CSIN, non esiste alcuna garanzia assoluta che l'area sia libera da inquinamento dovuto a rifiuti o sostanze nocive. I siti sfruttati per finalità ferroviarie, militari o relative all'aviazione civile rientrano nella sfera di competenze della Confederazione.",
             "rm": "Il cataster dals lieus contaminads (CLC) è vegnì fatg tenor ils criteris fixads da l'Uffizi federal d'ambient UFAM e vegn actualisà permanentamain sin basa da novas enconuschientschas (p.ex. retschertgas). Las surfatschas inscrittas en il CLC pon divergiar da la dimensiun effectiva da la contaminaziun. Sch'in bain immobigliar n'è betg inditgà en il CLC, na datti nagina garanzia absoluta che l'areal saja liber da mintga contaminaziun che deriva da rument u da substanzas nuschaivlas. Lieus duvrads per il manaschi da la viafier, per il militar e per l'aviatica tutgan tar il champ da cumpetenza da la Confederaziun."
-        }
+        },
+        "extract_index": 20
     }
 ]
 

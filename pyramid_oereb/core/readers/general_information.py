@@ -40,4 +40,5 @@ class GeneralInformationReader(object):
                 contains all records delivered by the source.
         """
         self._source_.read()
+        self._source_.records.sort(key=lambda el: (getattr(el, 'extract_index') or 0))
         return self._source_.records
