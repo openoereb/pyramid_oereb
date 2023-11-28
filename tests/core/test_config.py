@@ -109,6 +109,7 @@ def test_init_logos_error():
         Config.init_logos()
         assert Config.logos is None
 
+
 @pytest.mark.parametrize('test_logos_config,expected_result', [
     ({
         "source": {
@@ -118,7 +119,7 @@ def test_init_logos_error():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Logo"
             }
         }
-    },0),
+    }, 0),
     ({
         "source": {
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.logo.DatabaseSource",
@@ -127,7 +128,7 @@ def test_init_logos_error():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Logo"
             }
         }
-    },1)
+    }, 1)
 ])
 @pytest.mark.run(order=-1)
 def test_read_logos(test_logos_config,expected_result):
@@ -136,12 +137,14 @@ def test_read_logos(test_logos_config,expected_result):
         with patch.object(LogoReader, 'read', return_value=[None] * expected_result):
             assert len(Config._read_logos()) == expected_result
 
+
 @pytest.mark.run(order=-1)
 def test_read_logos_config_none():
     Config._config = None
     with patch.object(Config, 'get_logo_config', return_value=None):
         with pytest.raises(ConfigurationError):
             Config._read_logos()
+
 
 @pytest.mark.run(order=-1)
 def test_get_logo_hooks():
@@ -249,7 +252,7 @@ def test_get_theme_config_by_code_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Theme"
             }
         }
-    },0),
+    }, 0),
     ({
         "source": {
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.theme.DatabaseSource",
@@ -258,7 +261,7 @@ def test_get_theme_config_by_code_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Theme"
             }
         }
-    },1)
+    }, 1)
 ])
 @pytest.mark.run(order=-1)
 def test_read_themes(test_themes_config,expected_result):
@@ -285,7 +288,7 @@ def test_read_themes_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument"
             }
         }
-    },0),
+    }, 0),
     ({
         "source": {
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.theme_document.DatabaseSource",
@@ -294,7 +297,7 @@ def test_read_themes_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument"
             }
         }
-    },1)
+    }, 1)
     ])
 @pytest.mark.run(order=-1)
 def test_read_theme_document(test_theme_document_config,expected_result):
@@ -444,7 +447,7 @@ def test_get_extract_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation"
             }
         }
-    },0),
+    }, 0),
     ({
         "source": {
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.general_information.DatabaseSource",
@@ -453,7 +456,7 @@ def test_get_extract_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation"
             }
         }
-    },1)
+    }, 1)
 ])
 @pytest.mark.run(order=-1)
 def test_read_general_information(test_general_information_config,expected_result):
@@ -477,11 +480,11 @@ def test_read_general_information_config_none():
             "class":
             "pyramid_oereb.contrib.data_sources.standard.sources.law_status.DatabaseSource",
             "params": {
-                "db_connection": "*main_db_connection", 
+                "db_connection": "*main_db_connection",
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus"
             }
         }
-    },0),
+    }, 0),
     ({
         "source": {
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.law_status.DatabaseSource",
@@ -490,7 +493,7 @@ def test_read_general_information_config_none():
               "model": "pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus"
             }
         }
-    },1)
+    }, 1)
 ])
 @pytest.mark.run(order=-1)
 def test_read_law_status(test_law_status_config,expected_result):
@@ -518,7 +521,7 @@ def test_read_law_status_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Document"
             }
         }
-    },0),
+    }, 0),
     ({
         "source": {
             "class":
@@ -528,7 +531,7 @@ def test_read_law_status_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Document"
             }
         }
-    },1)
+    }, 1)
 ])
 @pytest.mark.run(order=-1)
 def test_read_documents(test_documents_config,expected_result):
@@ -555,7 +558,7 @@ def test_read_documents_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Office"
             }
         }
-    },0),
+    }, 0),
     ({
         "source": {
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.office.DatabaseSource",
@@ -564,7 +567,7 @@ def test_read_documents_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Office"
             }
         }
-    },1),
+    }, 1),
 ])
 @pytest.mark.run(order=-1)
 def test_read_offices(test_offices_config,expected_result):
@@ -591,7 +594,7 @@ def test_read_offices_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Availability"
             }
         }
-    },0),
+    }, 0),
     ({
         "source": {
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.availability.DatabaseSource",
@@ -600,7 +603,7 @@ def test_read_offices_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Availability"
             }
         }
-    },1)
+    }, 1)
 ])
 @pytest.mark.run(order=-1)
 def test_read_availabilities(test_availability_config,expected_result):
@@ -627,7 +630,7 @@ def test_read_availabilities_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Glossary"
             }
         }
-    },0),
+    }, 0),
     ({
         "source": {
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.glossary.DatabaseSource",
@@ -636,7 +639,7 @@ def test_read_availabilities_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Glossary"
             }
         }
-    },1)
+    }, 1)
 ])
 @pytest.mark.run(order=-1)
 def test_read_glossaries(test_glossary_config,expected_result):
@@ -663,7 +666,7 @@ def test_read_glossaries_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer"
             }
         }
-    },0),
+    }, 0),
     ({
         "source": {
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.disclaimer.DatabaseSource",
@@ -672,7 +675,7 @@ def test_read_glossaries_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer"
             }
         }
-    },1),
+    }, 1),
 ])
 @pytest.mark.run(order=-1)
 def test_read_disclaimers(test_disclaimer_config,expected_result):
@@ -699,7 +702,7 @@ def test_read_disclaimers_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Municipality"
             }
         }
-    },0),
+    }, 0),
     ({
         "source": {
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource",
@@ -708,7 +711,7 @@ def test_read_disclaimers_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Municipality"
             }
         }
-    },1)
+    }, 1)
 ])
 @pytest.mark.run(order=-1)
 def test_read_municipalities(test_municipality_config,expected_result):
@@ -735,7 +738,7 @@ def test_read_municipalities_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText"
             }
         }
-    },0),
+    }, 0),
     ({
         "source": {
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.document_types.DatabaseSource",
@@ -744,7 +747,7 @@ def test_read_municipalities_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText"
             }
         }
-    },1)
+    }, 1)
 ])
 @pytest.mark.run(order=-1)
 def test_read_document_types(test_document_types_config,expected_result):
@@ -771,7 +774,7 @@ def test_read_document_types_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType"
             }
         }
-    },0),
+    }, 0),
     ({
         "source": {
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource",
@@ -780,7 +783,7 @@ def test_read_document_types_config_none():
                 "model": "pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType"
             }
         }
-    },1)
+    }, 1)
 ])
 @pytest.mark.run(order=-1)
 def test_read_real_estate_types(test_real_estate_type_config,expected_result):
@@ -809,7 +812,7 @@ def test_read_real_estate_types_config_none():
                 }
             }
         }
-    },0),
+    }, 0),
     ({
         "map_layering": {
             "source": {
@@ -820,7 +823,7 @@ def test_read_real_estate_types_config_none():
                 }
             }
         }
-    },1)
+    }, 1)
 ])
 @pytest.mark.run(order=-1)
 def test_read_map_layering(test_map_layering_config,expected_result):
