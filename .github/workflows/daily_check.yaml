@@ -45,7 +45,6 @@ jobs:
           - python3.9
           - python3.10
           - python3.11
-          - python3.12
     steps:
       - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - run: sudo rm /etc/apt/sources.list.d/*.list
