@@ -886,7 +886,7 @@ class Config(object):
             ConfigurationError
         """
 
-        real_estate_types_config = Config.get('real_estate_type')
+        real_estate_types_config = Config.get_real_estate_type_config()
         if real_estate_types_config is None:
             raise ConfigurationError("Missing configuration for real estate type source config")
         real_estate_type_reader = RealEstateTypeReader(
