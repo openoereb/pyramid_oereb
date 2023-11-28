@@ -25,13 +25,13 @@ def theme_config():
             "transfer_code": "inKraft",
             "extract_code": "inForce"
         }],
-        "standard": True,
+        "standard": False,
         "federal": True,
         "source": {
             "class": "pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.DatabaseSource",
             "params": {
                 "db_connection": "postgresql://postgres:postgres@123.123.123.123:5432/oereb_test_db",
-                "model_factory": "pyramid_oereb.contrib.data_sources.interlis_2_3.models.theme.model_factory_integer_pk",  # noqa: E501
+                "model_factory": "pyramid_oereb.contrib.data_sources.interlis_2_3.models.theme.model_factory_string_pk",  # noqa: E501
                 "schema_name": "contaminated_civil_aviation_sites"
             }
         },
@@ -185,3 +185,50 @@ def one_result_b64_session(legend_entry, png_binary, session, query):
 
     yield Session
 
+
+def test_get_symbol_binary_content(theme_config, one_result_binary_session, png_binary):
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=one_result_binary_session()):
+        body, content_type = get_symbol({'identifier': "1"}, theme_config)
+        assert content_type == 'image/png'
+        assert body == b64.decode(binascii.b2a_base64(png_binary).decode('ascii'))
+
+
+def test_get_symbol_no_symbol_content(theme_config, one_result_no_symbol_session):
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=one_result_no_symbol_session()):
+        with pytest.raises(HTTPServerError):
+            get_symbol({'identifier': "1"}, theme_config)
+
+
+def test_get_symbol_wrong_param(theme_config, one_result_no_symbol_session):
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=one_result_no_symbol_session()):
+        with pytest.raises(HTTPServerError):
+            get_symbol({'identif': "1"}, theme_config)
+
+
+def test_get_symbol_no_legend_entry(theme_config, no_result_session):
+    with patch(
+            'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+            return_value=no_result_session()):
+        with pytest.raises(HTTPNotFound):
+            get_symbol({'identifier': "2"}, theme_config)
+
+
+def test_get_symbol_wrong_content(theme_config, one_result_wrong_content_session):
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+               return_value=one_result_wrong_content_session()):
+        with pytest.raises(HTTPServerError):
+            get_symbol({'identifier': "1"}, theme_config)
+
+
+def test_get_symbol_b64_content(theme_config, one_result_b64_session, png_binary):
+    with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
+               return_value=one_result_b64_session()):
+        body, content_type = get_symbol({'identifier': "1"}, theme_config)
+        assert content_type == 'image/png'
+        assert body == b64.decode(binascii.b2a_base64(png_binary).decode('ascii'))
