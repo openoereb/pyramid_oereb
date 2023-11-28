@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,9 +12,9 @@
     <script src="../../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../../../../../../_static/documentation_options.js?v=5929fcd5"></script>
         <script src="../../../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../../search.html" /> 
@@ -86,9 +86,13 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.core.sources.municipality</span> <span class="kn">import</span> <span class="n">MunicipalityBaseSource</span>
 
 
-<div class="viewcode-block" id="DatabaseSource"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource">[docs]</a><span class="k">class</span> <span class="nc">DatabaseSource</span><span class="p">(</span><span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">MunicipalityBaseSource</span><span class="p">):</span>
+<div class="viewcode-block" id="DatabaseSource">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource">[docs]</a>
+<span class="k">class</span> <span class="nc">DatabaseSource</span><span class="p">(</span><span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">MunicipalityBaseSource</span><span class="p">):</span>
 
-<div class="viewcode-block" id="DatabaseSource.read"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DatabaseSource.read">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource.read">[docs]</a>
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The read method to access the standard database structure. It uses SQL-Alchemy for querying. It does</span>
 <span class="sd">        not accept any parameters nor it applies any filter on the database query. It simply loads all</span>
@@ -107,7 +111,9 @@
                         <span class="n">result</span><span class="o">.</span><span class="n">geom</span><span class="p">,</span> <span class="n">_SpatialElement</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
                 <span class="p">))</span>
         <span class="k">finally</span><span class="p">:</span>
-            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div></div>
+            <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+</div>
+
 </pre></div>
 
            </div>

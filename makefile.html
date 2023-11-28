@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -13,9 +13,9 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -111,7 +111,7 @@
            <div itemprop="articleBody">
              
   <section id="makefile">
-<span id="id1"></span><h1>Makefile<a class="headerlink" href="#makefile" title="Permalink to this heading">¶</a></h1>
+<span id="id1"></span><h1>Makefile<a class="headerlink" href="#makefile" title="Link to this heading">¶</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code> uses GNU-Makefile a lot to setup itself and its components. This section is a try to
 describe the structure of the used
 <a class="reference external" href="https://github.com/openoereb/pyramid_oereb/blob/master/Makefile">Makefile</a>.</p>
@@ -143,14 +143,14 @@ decent target. It shows the dependency-target-system in a graph.</p>
 <li><p>red elements are files which will be created through the target or which are meta targets (“phony” - no files are created)</p></li>
 </ul>
 <section id="general-targets">
-<h2>General targets<a class="headerlink" href="#general-targets" title="Permalink to this heading">¶</a></h2>
+<h2>General targets<a class="headerlink" href="#general-targets" title="Link to this heading">¶</a></h2>
 <section id="make-install">
-<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code><a class="headerlink" href="#make-install" title="Permalink to this heading">¶</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code><a class="headerlink" href="#make-install" title="Link to this heading">¶</a></h3>
 <p>Basically sets up your virtual environment based on the projects requirements.</p>
 <img alt="_images/make.install.png" class="align-center" src="_images/make.install.png" />
 </section>
 <section id="make-build">
-<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">build</span></code><a class="headerlink" href="#make-build" title="Permalink to this heading">¶</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">build</span></code><a class="headerlink" href="#make-build" title="Link to this heading">¶</a></h3>
 <p>Completely sets up your application to be ready for running. This includes steps like:</p>
 <ul class="simple">
 <li><p>prepare <code class="docutils literal notranslate"><span class="pre">development.ini</span></code> file</p></li>
@@ -162,71 +162,71 @@ decent target. It shows the dependency-target-system in a graph.</p>
 </section>
 </section>
 <section id="run-a-development-server">
-<h2>Run a development server<a class="headerlink" href="#run-a-development-server" title="Permalink to this heading">¶</a></h2>
+<h2>Run a development server<a class="headerlink" href="#run-a-development-server" title="Link to this heading">¶</a></h2>
 <section id="make-serve-dev">
-<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">serve-dev</span></code><a class="headerlink" href="#make-serve-dev" title="Permalink to this heading">¶</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">serve-dev</span></code><a class="headerlink" href="#make-serve-dev" title="Link to this heading">¶</a></h3>
 <p>Runs a <code class="docutils literal notranslate"><span class="pre">pserve</span></code> development server which reloads when changes to python source files were made.</p>
 <img alt="_images/make.serve-dev.png" class="align-center" src="_images/make.serve-dev.png" />
 </section>
 <section id="make-serve">
-<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">serve</span></code><a class="headerlink" href="#make-serve" title="Permalink to this heading">¶</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">serve</span></code><a class="headerlink" href="#make-serve" title="Link to this heading">¶</a></h3>
 <p>Runs a <code class="docutils literal notranslate"><span class="pre">pserve</span></code> development server.</p>
 <img alt="_images/make.serve.png" class="align-center" src="_images/make.serve.png" />
 </section>
 </section>
 <section id="testing">
-<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this heading">¶</a></h2>
+<h2>Testing<a class="headerlink" href="#testing" title="Link to this heading">¶</a></h2>
 <section id="make-tests">
-<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">tests</span></code><a class="headerlink" href="#make-tests" title="Permalink to this heading">¶</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">tests</span></code><a class="headerlink" href="#make-tests" title="Link to this heading">¶</a></h3>
 <p>Executes all python testing. This includes the module tests (they can be executed directly to save time).</p>
 <img alt="_images/make.tests.png" class="align-center" src="_images/make.tests.png" />
 </section>
 <section id="make-lint">
-<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">lint</span></code><a class="headerlink" href="#make-lint" title="Permalink to this heading">¶</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">lint</span></code><a class="headerlink" href="#make-lint" title="Link to this heading">¶</a></h3>
 <p>Does the linting to check code style conformance.</p>
 <img alt="_images/make.lint.png" class="align-center" src="_images/make.lint.png" />
 </section>
 <section id="make-git-attributes">
-<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">git-attributes</span></code><a class="headerlink" href="#make-git-attributes" title="Permalink to this heading">¶</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">git-attributes</span></code><a class="headerlink" href="#make-git-attributes" title="Link to this heading">¶</a></h3>
 <p>Executes the gitattributes checker.</p>
 <img alt="_images/make.git-attributes.png" class="align-center" src="_images/make.git-attributes.png" />
 </section>
 <section id="make-check">
-<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">check</span></code><a class="headerlink" href="#make-check" title="Permalink to this heading">¶</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">check</span></code><a class="headerlink" href="#make-check" title="Link to this heading">¶</a></h3>
 <p>Collection target to execute all targets mentioned above in one single call.</p>
 <img alt="_images/make.check.png" class="align-center" src="_images/make.check.png" />
 </section>
 </section>
 <section id="maintainence">
-<h2>Maintainence<a class="headerlink" href="#maintainence" title="Permalink to this heading">¶</a></h2>
+<h2>Maintainence<a class="headerlink" href="#maintainence" title="Link to this heading">¶</a></h2>
 <section id="make-updates">
-<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">updates</span></code><a class="headerlink" href="#make-updates" title="Permalink to this heading">¶</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">updates</span></code><a class="headerlink" href="#make-updates" title="Link to this heading">¶</a></h3>
 <p>Provides a list of outdated python packages and the possible better target version.</p>
 <img alt="_images/make.updates.png" class="align-center" src="_images/make.updates.png" />
 </section>
 </section>
 <section id="documentation">
-<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this heading">¶</a></h2>
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">¶</a></h2>
 <section id="make-doc-html">
-<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">doc-html</span></code><a class="headerlink" href="#make-doc-html" title="Permalink to this heading">¶</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">doc-html</span></code><a class="headerlink" href="#make-doc-html" title="Link to this heading">¶</a></h3>
 <p>Creates the documentation as a static HTML page with sphinx.</p>
 <img alt="_images/make.doc-html.png" class="align-center" src="_images/make.doc-html.png" />
 </section>
 <section id="make-doc-latex">
-<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">doc-latex</span></code><a class="headerlink" href="#make-doc-latex" title="Permalink to this heading">¶</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">doc-latex</span></code><a class="headerlink" href="#make-doc-latex" title="Link to this heading">¶</a></h3>
 <p>Creates the documentation as a PDF page with sphinx.</p>
 <img alt="_images/make.doc-latex.png" class="align-center" src="_images/make.doc-latex.png" />
 </section>
 </section>
 <section id="cleaning-up">
-<h2>Cleaning up<a class="headerlink" href="#cleaning-up" title="Permalink to this heading">¶</a></h2>
+<h2>Cleaning up<a class="headerlink" href="#cleaning-up" title="Link to this heading">¶</a></h2>
 <section id="make-clean">
-<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code><a class="headerlink" href="#make-clean" title="Permalink to this heading">¶</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code><a class="headerlink" href="#make-clean" title="Link to this heading">¶</a></h3>
 <p>Wipes test results and <cite>development.ini</cite> file.</p>
 <img alt="_images/make.clean.png" class="align-center" src="_images/make.clean.png" />
 </section>
 <section id="make-clean-all">
-<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean-all</span></code><a class="headerlink" href="#make-clean-all" title="Permalink to this heading">¶</a></h3>
+<h3><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean-all</span></code><a class="headerlink" href="#make-clean-all" title="Link to this heading">¶</a></h3>
 <p>Completely wipes all setup files to provide green field for a new start.</p>
 <img alt="_images/make.clean-all.png" class="align-center" src="_images/make.clean-all.png" />
 </section>

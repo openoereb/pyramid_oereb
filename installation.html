@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -13,9 +13,9 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -92,12 +92,12 @@
            <div itemprop="articleBody">
              
   <section id="installation">
-<span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h1>
+<span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
 <p>This section will guide you through the steps to install and run an own DEV instance of <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code>
 using the standard configuration. If you are planning to adapt the application to fit a custom data source,
 the possibilities and additional steps are described in the section <a class="reference internal" href="configuration.html#configuration"><span class="std std-ref">Configuration</span></a>.</p>
 <section id="requirements">
-<span id="installation-requirements"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
+<span id="installation-requirements"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading">¶</a></h2>
 <p>In order to run an instance of <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code>, the following requirements have to be met.</p>
 <ol class="arabic simple">
 <li><p><strong>A Pyramid application:</strong>
@@ -121,7 +121,7 @@ like OS (Mac, Windows, Linux) and safes you from conflicts of maybe already runn
 from your other projects</p>
 </section>
 <section id="docker-docker-compose">
-<span id="installation-docker-docker-compose"></span><h2>Docker/Docker-Compose<a class="headerlink" href="#docker-docker-compose" title="Permalink to this heading">¶</a></h2>
+<span id="installation-docker-docker-compose"></span><h2>Docker/Docker-Compose<a class="headerlink" href="#docker-docker-compose" title="Link to this heading">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>We assume you have a working
@@ -178,7 +178,7 @@ docker-compose<span class="w"> </span>run<span class="w"> </span>--rm<span class
 </div>
 </section>
 <section id="installation-steps">
-<span id="installation-step"></span><h2>Installation steps<a class="headerlink" href="#installation-steps" title="Permalink to this heading">¶</a></h2>
+<span id="installation-step"></span><h2>Installation steps<a class="headerlink" href="#installation-steps" title="Link to this heading">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Activate virtual environment before, if you use one.</p>
@@ -187,7 +187,7 @@ docker-compose<span class="w"> </span>run<span class="w"> </span>--rm<span class
 </div>
 </div>
 <section id="add-package">
-<span id="installation-step-add-package"></span><h3>1. Add package<a class="headerlink" href="#add-package" title="Permalink to this heading">¶</a></h3>
+<span id="installation-step-add-package"></span><h3>1. Add package<a class="headerlink" href="#add-package" title="Link to this heading">¶</a></h3>
 <p>Add <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code> to the list of requirements in your application’s <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>.
 In your <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>, you should depend on <code class="docutils literal notranslate"><span class="pre">pyramid_oereb[recommend]</span></code> to get the recommended versions of
 the dependencies of <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code>, or <code class="docutils literal notranslate"><span class="pre">pyramid_oereb[no-version]</span></code> to get the dependencies of
@@ -195,14 +195,14 @@ the dependencies of <code class="docutils literal notranslate"><span class="pre"
 depend on <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code> because this will not take into account the dependencies of <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code>.</p>
 </section>
 <section id="install-dependencies">
-<span id="installation-step-dependencies"></span><h3>2. Install dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this heading">¶</a></h3>
+<span id="installation-step-dependencies"></span><h3>2. Install dependencies<a class="headerlink" href="#install-dependencies" title="Link to this heading">¶</a></h3>
 <p>Install the newly added dependencies using <em>pip</em>:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </pre></div>
 </div>
 </section>
 <section id="create-standard-configuration">
-<span id="installation-step-configuration"></span><h3>3. Create standard configuration<a class="headerlink" href="#create-standard-configuration" title="Permalink to this heading">¶</a></h3>
+<span id="installation-step-configuration"></span><h3>3. Create standard configuration<a class="headerlink" href="#create-standard-configuration" title="Link to this heading">¶</a></h3>
 <p>Create the necessary configuration for the application. The easiest way to achieve this, is to use the script
 <code class="docutils literal notranslate"><span class="pre">create_standard_yaml</span></code>. It creates the basic YAML file in your current directory, which can be customized
 afterwards. Executing <code class="docutils literal notranslate"><span class="pre">create_standard_yaml</span> <span class="pre">--help</span></code> shows you the two possible commandline arguments for
@@ -219,7 +219,7 @@ separated because it is already very complex on its own.</p>
 </div>
 </section>
 <section id="set-up-database">
-<span id="installation-step-database"></span><h3>4. Set up database<a class="headerlink" href="#set-up-database" title="Permalink to this heading">¶</a></h3>
+<span id="installation-step-database"></span><h3>4. Set up database<a class="headerlink" href="#set-up-database" title="Link to this heading">¶</a></h3>
 <p>Use the generated configuration file to create the needed database structure. The standard database structure,
 defined in the module <code class="docutils literal notranslate"><span class="pre">pyramid_oereb.standard.models</span></code>, can be created automatically using the provided
 script:</p>
@@ -247,7 +247,7 @@ For example, if you are using a virtual environment in a directory <code class="
 </div>
 </section>
 <section id="load-data-optional">
-<span id="installation-step-sample-data"></span><h3>5. Load data (optional)<a class="headerlink" href="#load-data-optional" title="Permalink to this heading">¶</a></h3>
+<span id="installation-step-sample-data"></span><h3>5. Load data (optional)<a class="headerlink" href="#load-data-optional" title="Link to this heading">¶</a></h3>
 <p>The easiest way to add some data, is to import the data of an available federal topic using the provided
 script.</p>
 <div class="admonition note">
@@ -294,7 +294,7 @@ matching release.</p>
 </div>
 </section>
 <section id="include-in-application">
-<span id="installation-step-application"></span><h3>6. Include in application<a class="headerlink" href="#include-in-application" title="Permalink to this heading">¶</a></h3>
+<span id="installation-step-application"></span><h3>6. Include in application<a class="headerlink" href="#include-in-application" title="Link to this heading">¶</a></h3>
 <p>To include <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code> into your existing Pyramid application, you have to include the plugin in
 your application’s main method.
 Open the <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> of your main module and add the following statement
@@ -325,7 +325,7 @@ calling the extract service:</p>
 </section>
 </section>
 <section id="next-steps">
-<span id="installation-next-steps"></span><h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this heading">¶</a></h2>
+<span id="installation-next-steps"></span><h2>Next steps<a class="headerlink" href="#next-steps" title="Link to this heading">¶</a></h2>
 <p>Now you should be able to set up a running <code class="docutils literal notranslate"><span class="pre">pyramid_oereb</span></code> server using the standard configuration. If this
 configuration fits your needs, you can now continue with importing your data into the created database. A
 detailed description of each table can be found in the documentation of the

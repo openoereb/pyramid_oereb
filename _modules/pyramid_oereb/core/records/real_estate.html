@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,9 +12,9 @@
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
         <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -78,7 +78,9 @@
   <h1>Source code for pyramid_oereb.core.records.real_estate</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<div class="viewcode-block" id="RealEstateRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.real_estate.RealEstateRecord">[docs]</a><span class="k">class</span> <span class="nc">RealEstateRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="RealEstateRecord">
+<a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.real_estate.RealEstateRecord">[docs]</a>
+<span class="k">class</span> <span class="nc">RealEstateRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Basic characteristics and geometry of the property to be analysed.</span>
 
@@ -95,7 +97,9 @@
     <span class="n">highlight</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">areas_ratio</span> <span class="o">=</span> <span class="mf">1.0</span>
 
-<div class="viewcode-block" id="RealEstateRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.real_estate.RealEstateRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">canton</span><span class="p">,</span> <span class="n">municipality</span><span class="p">,</span> <span class="n">fosnr</span><span class="p">,</span> <span class="n">land_registry_area</span><span class="p">,</span> <span class="n">limit</span><span class="p">,</span>
+<div class="viewcode-block" id="RealEstateRecord.__init__">
+<a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.real_estate.RealEstateRecord.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">canton</span><span class="p">,</span> <span class="n">municipality</span><span class="p">,</span> <span class="n">fosnr</span><span class="p">,</span> <span class="n">land_registry_area</span><span class="p">,</span> <span class="n">limit</span><span class="p">,</span>
                  <span class="n">metadata_of_geographical_base_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">identdn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">egrid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">subunit_of_land_register</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subunit_of_land_register_designation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">public_law_restrictions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">references</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -148,7 +152,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">references</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">areas_ratio</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">limit</span><span class="o">.</span><span class="n">area</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">land_registry_area</span></div>
 
-<div class="viewcode-block" id="RealEstateRecord.set_view_service"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.real_estate.RealEstateRecord.set_view_service">[docs]</a>    <span class="k">def</span> <span class="nf">set_view_service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plan_for_land_register</span><span class="p">):</span>
+
+<div class="viewcode-block" id="RealEstateRecord.set_view_service">
+<a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.real_estate.RealEstateRecord.set_view_service">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_view_service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plan_for_land_register</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the view service to generate the land registry map for the real estate.</span>
 
@@ -158,7 +165,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plan_for_land_register</span> <span class="o">=</span> <span class="n">plan_for_land_register</span></div>
 
-<div class="viewcode-block" id="RealEstateRecord.set_main_page_view_service"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.real_estate.RealEstateRecord.set_main_page_view_service">[docs]</a>    <span class="k">def</span> <span class="nf">set_main_page_view_service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plan_for_land_register_main_page</span><span class="p">):</span>
+
+<div class="viewcode-block" id="RealEstateRecord.set_main_page_view_service">
+<a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.real_estate.RealEstateRecord.set_main_page_view_service">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_main_page_view_service</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plan_for_land_register_main_page</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the view service to generate the land registry map for the real estate.</span>
 
@@ -167,6 +177,7 @@
 <span class="sd">                The view service to be used for the land registry map used on the main page</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">plan_for_land_register_main_page</span> <span class="o">=</span> <span class="n">plan_for_land_register_main_page</span></div>
+
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">%s</span><span class="s1"> -- number: </span><span class="si">%s</span><span class="s1"> identdn: </span><span class="si">%s</span><span class="s1"> egrid: </span><span class="si">%s</span><span class="s1"> type: </span><span class="si">%s</span><span class="s1">&#39;</span> \
@@ -180,6 +191,7 @@
                         <span class="bp">self</span><span class="o">.</span><span class="n">metadata_of_geographical_base_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">land_registry_area</span><span class="p">,</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">limit</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">references</span><span class="p">,</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">areas_ratio</span><span class="p">)</span></div>
+
 </pre></div>
 
            </div>

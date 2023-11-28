@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,9 +12,9 @@
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
         <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -84,7 +84,9 @@
 <span class="kn">from</span> <span class="nn">pyramid_oereb.core</span> <span class="kn">import</span> <span class="n">b64</span>
 
 
-<div class="viewcode-block" id="ImageRecord"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.image.ImageRecord">[docs]</a><span class="k">class</span> <span class="nc">ImageRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ImageRecord">
+<a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.image.ImageRecord">[docs]</a>
+<span class="k">class</span> <span class="nc">ImageRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Attributes:</span>
 <span class="sd">        VALID_FILE_TYPES (list of str): list with valid image file type.</span>
@@ -98,7 +100,9 @@
 
     <span class="n">SVG_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;svg(.|\n)+&lt;\/svg&gt;&#39;</span><span class="p">)</span>  <span class="c1"># type: re</span>
 
-<div class="viewcode-block" id="ImageRecord.__init__"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.image.ImageRecord.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+<div class="viewcode-block" id="ImageRecord.__init__">
+<a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.image.ImageRecord.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The record to hold the binary information of a image.</span>
 
@@ -107,12 +111,16 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">content</span></div>
 
-<div class="viewcode-block" id="ImageRecord.encode"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.image.ImageRecord.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ImageRecord.encode">
+<a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.image.ImageRecord.encode">[docs]</a>
+    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            str: The encoded image as a base64 encoded string..</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">b64</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">)</span></div>
+
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_validate_filetype</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
@@ -173,7 +181,9 @@
 
         <span class="k">return</span> <span class="n">result</span>
 
-<div class="viewcode-block" id="ImageRecord.get_extension"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.image.ImageRecord.get_extension">[docs]</a>    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="ImageRecord.get_extension">
+<a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.image.ImageRecord.get_extension">[docs]</a>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_extension</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks for valid file type and returns its extension.</span>
@@ -188,7 +198,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">ImageRecord</span><span class="o">.</span><span class="n">_validate_filetype</span><span class="p">(</span><span class="n">obj</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="ImageRecord.get_mimetype"><a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.image.ImageRecord.get_mimetype">[docs]</a>    <span class="nd">@staticmethod</span>
+
+<div class="viewcode-block" id="ImageRecord.get_mimetype">
+<a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.image.ImageRecord.get_mimetype">[docs]</a>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_mimetype</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks for valid file type and returns its mime type.</span>
@@ -202,6 +215,7 @@
 <span class="sd">            str: The file&#39;s mime type.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">ImageRecord</span><span class="o">.</span><span class="n">_validate_filetype</span><span class="p">(</span><span class="n">obj</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span></div>
+
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">mimetype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -222,6 +236,7 @@
 <span class="sd">            str: The file&#39;s mime type.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">ImageRecord</span><span class="o">.</span><span class="n">get_extension</span><span class="p">(</span><span class="nb">bytearray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">))</span></div>
+
 </pre></div>
 
            </div>

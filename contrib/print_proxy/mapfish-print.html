@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -13,9 +13,9 @@
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
         <script src="../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -95,11 +95,11 @@
            <div itemprop="articleBody">
              
   <section id="mapfish-print">
-<span id="contrib-print-proxy-mapfish-print"></span><h1>Mapfish Print<a class="headerlink" href="#mapfish-print" title="Permalink to this heading">¶</a></h1>
+<span id="contrib-print-proxy-mapfish-print"></span><h1>Mapfish Print<a class="headerlink" href="#mapfish-print" title="Link to this heading">¶</a></h1>
 <section id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h2>
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h2>
 <section id="sub-themes">
-<h3>Sub themes<a class="headerlink" href="#sub-themes" title="Permalink to this heading">¶</a></h3>
+<h3>Sub themes<a class="headerlink" href="#sub-themes" title="Link to this heading">¶</a></h3>
 <p>To enable separate pages per sub theme, enable the option <cite>split_sub_themes</cite> in the <cite>print</cite> section of your
 configuration.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">print</span><span class="p">:</span>
@@ -108,7 +108,7 @@ configuration.</p>
 </div>
 </section>
 <section id="sorting">
-<h3>Sorting<a class="headerlink" href="#sorting" title="Permalink to this heading">¶</a></h3>
+<h3>Sorting<a class="headerlink" href="#sorting" title="Link to this heading">¶</a></h3>
 <p>You can influence the sort order for each theme separately. Per default, the sub themes are unsorted.</p>
 <p>Example for alphabetic sort:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plr119</span>
@@ -132,16 +132,16 @@ have to match exactly, otherwise they will be added at the end. Example configur
 <span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Last sub theme</span>
 </pre></div>
 </div>
-<span class="target" id="module-pyramid_oereb.contrib.print_proxy.mapfish_print"><span id="api-pyramid-oereb-contrib-print-proxy-mapfish-print"></span></span><span class="target" id="module-pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print"><span id="api-pyramid-oereb-contrib-print-proxy-mapfish-print-mapfish-print"></span></span></section>
+</section>
 </section>
 <section id="mapfish-print-renderer">
-<span id="api-pyramid-oereb-contrib-print-proxy-mapfish-print-mapfish-print-renderer"></span><h2><em>Mapfish Print Renderer</em><a class="headerlink" href="#mapfish-print-renderer" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-contrib-print-proxy-mapfish-print-mapfish-print-renderer"></span><span id="module-pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print"></span><span id="api-pyramid-oereb-contrib-print-proxy-mapfish-print-mapfish-print"></span><span id="module-pyramid_oereb.contrib.print_proxy.mapfish_print"></span><span id="api-pyramid-oereb-contrib-print-proxy-mapfish-print"></span><h2><em>Mapfish Print Renderer</em><a class="headerlink" href="#mapfish-print-renderer" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.</span></span><span class="sig-name descname"><span class="pre">Renderer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.</span></span><span class="sig-name descname"><span class="pre">Renderer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.__init__" title="Link to this definition">¶</a></dt>
 <dd><p>Creates a new JSON renderer instance for extract rendering.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -152,7 +152,7 @@ have to match exactly, otherwise they will be added at the end. Example configur
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.archive_pdf_file">
-<span class="sig-name descname"><span class="pre">archive_pdf_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_archive_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary_content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extract_as_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.archive_pdf_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.archive_pdf_file" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">archive_pdf_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_archive_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary_content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extract_as_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.archive_pdf_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.archive_pdf_file" title="Link to this definition">¶</a></dt>
 <dd><p>Writes the static extract (pdf) into a dedicated file; this functionality can thus be used
 for archiving.</p>
 <dl class="field-list simple">
@@ -175,7 +175,7 @@ the filename.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.convert_to_printable_extract">
-<span class="sig-name descname"><span class="pre">convert_to_printable_extract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extract_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_geometry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.convert_to_printable_extract"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.convert_to_printable_extract" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">convert_to_printable_extract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extract_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature_geometry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.convert_to_printable_extract"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.convert_to_printable_extract" title="Link to this definition">¶</a></dt>
 <dd><p>Converts an oereb extract into a form suitable for printing by mapfish print.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -190,7 +190,7 @@ convenient for mapfish-print</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.date_time">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">date_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.date_time" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">date_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.date_time" title="Link to this definition">¶</a></dt>
 <dd><p>Formats the date/time according to the specification.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -207,7 +207,7 @@ convenient for mapfish-print</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_document">
-<span class="sig-name descname"><span class="pre">format_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_document"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_document" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">format_document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_document"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_document" title="Link to this definition">¶</a></dt>
 <dd><p>Formats a document record for rendering according to the federal specification.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -225,7 +225,7 @@ record to be formatted.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_geometry">
-<span class="sig-name descname"><span class="pre">format_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geometry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_geometry" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">format_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geometry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_geometry" title="Link to this definition">¶</a></dt>
 <dd><p>Formats a geometry record for rendering according to the federal specification.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -243,7 +243,7 @@ be formatted.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_legend_entry">
-<span class="sig-name descname"><span class="pre">format_legend_entry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">legend_entry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_legend_entry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_legend_entry" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">format_legend_entry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">legend_entry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_legend_entry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_legend_entry" title="Link to this definition">¶</a></dt>
 <dd><p>Formats a legend entry record for rendering according to the federal specification.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -261,7 +261,7 @@ entry record to be formatted.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_map">
-<span class="sig-name descname"><span class="pre">format_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_map" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">format_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">map_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_map" title="Link to this definition">¶</a></dt>
 <dd><p>Formats a view service record for rendering according to the federal specification.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -279,7 +279,7 @@ record to be formatted.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_office">
-<span class="sig-name descname"><span class="pre">format_office</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">office</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_office"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_office" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">format_office</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">office</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_office"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_office" title="Link to this definition">¶</a></dt>
 <dd><p>Formats an office record for rendering according to the federal specification.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -297,7 +297,7 @@ formatted.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_plr">
-<span class="sig-name descname"><span class="pre">format_plr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plrs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_plr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_plr" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">format_plr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plrs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_plr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_plr" title="Link to this definition">¶</a></dt>
 <dd><p>Formats a public law restriction record for rendering according to the federal specification.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -315,7 +315,7 @@ records to be formatted.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_real_estate">
-<span class="sig-name descname"><span class="pre">format_real_estate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">real_estate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_real_estate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_real_estate" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">format_real_estate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">real_estate</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_real_estate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_real_estate" title="Link to this definition">¶</a></dt>
 <dd><p>Formats a real estate record for rendering according to the federal specification.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -333,7 +333,7 @@ estate record to be formatted.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_theme">
-<span class="sig-name descname"><span class="pre">format_theme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theme</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_theme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_theme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_theme" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">format_theme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theme</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_theme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/core/renderer/extract/json_.html#Renderer.format_theme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.format_theme" title="Link to this definition">¶</a></dt>
 <dd><p>Formats a theme record for rendering according to the federal specification.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -355,7 +355,7 @@ theme record.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.from_shapely">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_shapely</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geom</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.from_shapely" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_shapely</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">geom</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.from_shapely" title="Link to this definition">¶</a></dt>
 <dd><p>Formats shapely geometry for rendering according to the federal specification.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -372,7 +372,7 @@ theme record.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_custom_wms_params">
-<span class="sig-name descname"><span class="pre">get_custom_wms_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.get_custom_wms_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_custom_wms_params" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_custom_wms_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.get_custom_wms_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_custom_wms_params" title="Link to this definition">¶</a></dt>
 <dd><p>From a given dictionary filter out all the parameters that are specified in the config
 and return these.
 Only values which exist in the given params are added.
@@ -393,7 +393,7 @@ the configured wms_url_params are used as fallback.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_localized_image">
-<span class="sig-name descname"><span class="pre">get_localized_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_localized_image" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_localized_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_localized_image" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the requested language of a multilingual binary image dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -410,7 +410,7 @@ the configured wms_url_params are used as fallback.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_localized_text">
-<span class="sig-name descname"><span class="pre">get_localized_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">not_null</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_localized_text" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_localized_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">not_null</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_localized_text" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the requested language of a multilingual text element.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -430,7 +430,7 @@ the configured wms_url_params are used as fallback.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_logo_ref">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_logo_ref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logo_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_logo_ref" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_logo_ref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logo_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_dict</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_logo_ref" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the link to the symbol of the specified logo.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -452,7 +452,7 @@ the configured wms_url_params are used as fallback.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_multilingual_text">
-<span class="sig-name descname"><span class="pre">get_multilingual_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">not_null</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_multilingual_text" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_multilingual_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">not_null</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_multilingual_text" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the set language of a multilingual text element.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -472,7 +472,7 @@ the configured wms_url_params are used as fallback.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_qr_code_ref">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_qr_code_ref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qr_code_ref</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_qr_code_ref" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_qr_code_ref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qr_code_ref</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_qr_code_ref" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the link for the qr_code.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -492,7 +492,7 @@ the configured wms_url_params are used as fallback.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_request">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">system</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_request" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">system</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_request" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the request object if available.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -509,7 +509,7 @@ the configured wms_url_params are used as fallback.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_response">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">system</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_response" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">system</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_response" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the response object if available.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -526,7 +526,7 @@ the configured wms_url_params are used as fallback.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_symbol_ref">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_symbol_ref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_symbol_ref" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_symbol_ref</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_symbol_ref" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the link to the symbol of the specified public law restriction.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -547,7 +547,7 @@ restriction to get the symbol reference for.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_wms_url_params">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_wms_url_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.get_wms_url_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_wms_url_params" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_wms_url_params</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.get_wms_url_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.get_wms_url_params" title="Link to this definition">¶</a></dt>
 <dd><p>Returns the list of additionally configured wms_url_params.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -561,7 +561,7 @@ restriction to get the symbol reference for.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.group_legal_provisions">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">group_legal_provisions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">legal_provisions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.group_legal_provisions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.group_legal_provisions" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">group_legal_provisions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">legal_provisions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.group_legal_provisions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.group_legal_provisions" title="Link to this definition">¶</a></dt>
 <dd><p>Group PLR documents which have the same title together.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -578,7 +578,7 @@ restriction to get the symbol reference for.</p></li>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.info">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">info</span></span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.info" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">info</span></span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.info" title="Link to this definition">¶</a></dt>
 <dd><p>The passed renderer info object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -589,7 +589,7 @@ restriction to get the symbol reference for.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.lpra_flatten">
-<span class="sig-name descname"><span class="pre">lpra_flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.lpra_flatten"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.lpra_flatten" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">lpra_flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.lpra_flatten"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.lpra_flatten" title="Link to this definition">¶</a></dt>
 <dd><p>Flattens a list of PLRs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -600,7 +600,7 @@ restriction to get the symbol reference for.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.set_global_datetime">
-<span class="sig-name descname"><span class="pre">set_global_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date_time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.set_global_datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.set_global_datetime" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_global_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date_time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.set_global_datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.set_global_datetime" title="Link to this definition">¶</a></dt>
 <dd><p>Set/initialize the class variable global_datetime with a given date-time
 :param value: date value of the format Y-m-dTH:M:S’
 :type value: str</p>
@@ -608,7 +608,7 @@ restriction to get the symbol reference for.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_index">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort_by_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_by_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_index" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort_by_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_by_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_index" title="Link to this definition">¶</a></dt>
 <dd><p>Provides the sort key for the supplied hint / law / legal provision
 element as a tuple consisting of:
 * index</p>
@@ -629,7 +629,7 @@ element as a tuple consisting of:
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_localized_text">
-<span class="sig-name descname"><span class="pre">sort_by_localized_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multilingual_elements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_accessor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">not_null</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_localized_text" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">sort_by_localized_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">multilingual_elements</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_accessor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">not_null</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_by_localized_text" title="Link to this definition">¶</a></dt>
 <dd><p>Sort a list of translated text elements alphabetically.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -656,7 +656,7 @@ sorting failed.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_dict_list">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort_dict_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">legend_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_dict_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_dict_list" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort_dict_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">legend_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_keys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_dict_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_dict_list" title="Link to this definition">¶</a></dt>
 <dd><p>Sorts list of dictionaries by one or more sort keys.
 This function makes it possible to run test on the sorted list and assure the
 correctness of the sorting.</p>
@@ -676,7 +676,7 @@ correctness of the sorting.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_legal_provision">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort_legal_provision</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_legal_provision"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_legal_provision" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort_legal_provision</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_legal_provision"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_legal_provision" title="Link to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Provides the sort key for the supplied legal provision element as a tuple consisting of:</dt><dd><ul class="simple">
 <li><p>title</p></li>
@@ -696,7 +696,7 @@ correctness of the sorting.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_legend_elem">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort_legend_elem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_legend_elem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_legend_elem" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort_legend_elem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_legend_elem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_legend_elem" title="Link to this definition">¶</a></dt>
 <dd><dl class="simple">
 <dt>Provides the sort key for the supplied legend element as a tuple consisting of:</dt><dd><ul class="simple">
 <li><p>rank of the geometry type as defined in LEGEND_ELEMENT_SORT_ORDER</p></li>
@@ -716,7 +716,7 @@ correctness of the sorting.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_restriction_on_landownership_documents">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort_restriction_on_landownership_documents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">restriction_on_landownership</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_restriction_on_landownership_documents"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_restriction_on_landownership_documents" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort_restriction_on_landownership_documents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">restriction_on_landownership</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.sort_restriction_on_landownership_documents"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.sort_restriction_on_landownership_documents" title="Link to this definition">¶</a></dt>
 <dd><p>sort legal provisioning, hints and laws on restriction_on_landownership</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -727,7 +727,7 @@ correctness of the sorting.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.string_check">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">string_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.string_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.string_check" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">string_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/mapfish_print.html#Renderer.string_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.string_check" title="Link to this definition">¶</a></dt>
 <dd><p>Check if the value given is a string.
 If it is not, assume it is a list and join the values using comma separator.</p>
 <dl class="field-list simple">
@@ -745,7 +745,7 @@ If it is not, assume it is a list and join the values using comma separator.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.unaccent_lower">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unaccent_lower</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.unaccent_lower" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">unaccent_lower</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer.unaccent_lower" title="Link to this definition">¶</a></dt>
 <dd><p>Replaces all special characters so that an alphabetical sorting can be done.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -762,15 +762,15 @@ If it is not, assume it is a list and join the values using comma separator.</p>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages"><span id="api-pyramid-oereb-contrib-print-proxy-mapfish-print-toc-pages"></span></span></section>
+</section>
 <section id="toc-pages-tocpages">
-<span id="api-pyramid-oereb-contrib-print-proxy-mapfish-print-toc-pages-tocpages"></span><h2><em>Toc Pages TocPages</em><a class="headerlink" href="#toc-pages-tocpages" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-contrib-print-proxy-mapfish-print-toc-pages-tocpages"></span><span id="module-pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages"></span><span id="api-pyramid-oereb-contrib-print-proxy-mapfish-print-toc-pages"></span><h2><em>Toc Pages TocPages</em><a class="headerlink" href="#toc-pages-tocpages" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.</span></span><span class="sig-name descname"><span class="pre">TocPages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extract</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/toc_pages.html#TocPages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.</span></span><span class="sig-name descname"><span class="pre">TocPages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extract</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/toc_pages.html#TocPages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extract</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/toc_pages.html#TocPages.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extract</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyramid_oereb/contrib/print_proxy/mapfish_print/toc_pages.html#TocPages.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

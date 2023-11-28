@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,9 +12,9 @@
     <script src="../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../../../../../_static/documentation_options.js?v=5929fcd5"></script>
         <script src="../../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../search.html" /> 
@@ -95,7 +95,9 @@
 
 <span class="k">class</span> <span class="nc">Renderer</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 
-<div class="viewcode-block" id="Renderer.__init__"><a class="viewcode-back" href="../../../../../contrib/print_proxy/xml2pdf.html#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
+<div class="viewcode-block" id="Renderer.__init__">
+<a class="viewcode-back" href="../../../../../contrib/print_proxy/xml2pdf.html#pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a new XML renderer instance for extract rendering.</span>
 
@@ -107,6 +109,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">template_dir</span> <span class="o">=</span> <span class="n">resolver</span><span class="o">.</span><span class="n">abspath</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_gml_id</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Renderer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">info</span><span class="p">)</span></div>
+
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>

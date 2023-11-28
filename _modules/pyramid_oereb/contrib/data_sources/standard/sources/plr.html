@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,9 +12,9 @@
     <script src="../../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../../../../../../_static/documentation_options.js?v=5929fcd5"></script>
         <script src="../../../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../../search.html" /> 
@@ -97,10 +97,15 @@
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="StandardThemeConfigParser"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.StandardThemeConfigParser">[docs]</a><span class="k">class</span> <span class="nc">StandardThemeConfigParser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="StandardThemeConfigParser">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.StandardThemeConfigParser">[docs]</a>
+<span class="k">class</span> <span class="nc">StandardThemeConfigParser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-<div class="viewcode-block" id="StandardThemeConfigParser.__init__"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.StandardThemeConfigParser.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="StandardThemeConfigParser.__init__">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.StandardThemeConfigParser.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span></div>
+
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">model_factory_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -141,6 +146,7 @@
         <span class="p">)</span></div>
 
 
+
 <span class="k">def</span> <span class="nf">parse_multiple_standard_themes</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Args:</span>
@@ -157,8 +163,12 @@
     <span class="k">return</span> <span class="n">themes</span>
 
 
-<div class="viewcode-block" id="DatabaseSource"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource">[docs]</a><span class="k">class</span> <span class="nc">DatabaseSource</span><span class="p">(</span><span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">PlrBaseSource</span><span class="p">):</span>
-<div class="viewcode-block" id="DatabaseSource.__init__"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="DatabaseSource">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource">[docs]</a>
+<span class="k">class</span> <span class="nc">DatabaseSource</span><span class="p">(</span><span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">PlrBaseSource</span><span class="p">):</span>
+<div class="viewcode-block" id="DatabaseSource.__init__">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Keyword Arguments:</span>
 <span class="sd">            name (str): The name. You are free to choose one.</span>
@@ -194,6 +204,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tolerances</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tolerance&#39;</span><span class="p">):</span>
             <span class="c1"># use backup value tolerance for retro compatibility</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_tolerances</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ALL&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tolerance&#39;</span><span class="p">)}</span></div>
+
 
     <span class="k">def</span> <span class="nf">from_db_to_legend_entry_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legend_entry_from_db</span><span class="p">):</span>
         <span class="n">theme</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span><span class="n">legend_entry_from_db</span><span class="o">.</span><span class="n">theme</span><span class="p">)</span>
@@ -243,7 +254,9 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">view_service_record</span>
 
-<div class="viewcode-block" id="DatabaseSource.unwrap_multi_geometry_"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.unwrap_multi_geometry_">[docs]</a>    <span class="k">def</span> <span class="nf">unwrap_multi_geometry_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">published_until</span><span class="p">,</span>
+<div class="viewcode-block" id="DatabaseSource.unwrap_multi_geometry_">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.unwrap_multi_geometry_">[docs]</a>
+    <span class="k">def</span> <span class="nf">unwrap_multi_geometry_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">published_until</span><span class="p">,</span>
                                <span class="n">multi_geom</span><span class="p">,</span> <span class="n">geo_metadata</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Produces an array of geometry records representing simple shapely geometries POINT,</span>
@@ -277,7 +290,10 @@
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">unwrapped</span></div>
 
-<div class="viewcode-block" id="DatabaseSource.unwrap_geometry_collection_"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.unwrap_geometry_collection_">[docs]</a>    <span class="k">def</span> <span class="nf">unwrap_geometry_collection_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">published_until</span><span class="p">,</span>
+
+<div class="viewcode-block" id="DatabaseSource.unwrap_geometry_collection_">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.unwrap_geometry_collection_">[docs]</a>
+    <span class="k">def</span> <span class="nf">unwrap_geometry_collection_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">published_until</span><span class="p">,</span>
                                     <span class="n">collection</span><span class="p">,</span> <span class="n">geo_metadata</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Produces an array of geometry records representing simple shapely geometries POINT,</span>
@@ -310,7 +326,10 @@
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">unwrapped</span></div>
 
-<div class="viewcode-block" id="DatabaseSource.create_geometry_records_"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.create_geometry_records_">[docs]</a>    <span class="k">def</span> <span class="nf">create_geometry_records_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">published_until</span><span class="p">,</span>
+
+<div class="viewcode-block" id="DatabaseSource.create_geometry_records_">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.create_geometry_records_">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_geometry_records_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">published_until</span><span class="p">,</span>
                                  <span class="n">geom</span><span class="p">,</span> <span class="n">geo_metadata</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Produces an array of pyramid_oereb geometry records representing simple shapely geometries POINT,</span>
@@ -370,7 +389,10 @@
 
         <span class="k">return</span> <span class="n">geometry_records</span></div>
 
-<div class="viewcode-block" id="DatabaseSource.from_db_to_geometry_records"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_geometry_records">[docs]</a>    <span class="k">def</span> <span class="nf">from_db_to_geometry_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geometries_from_db</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DatabaseSource.from_db_to_geometry_records">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_geometry_records">[docs]</a>
+    <span class="k">def</span> <span class="nf">from_db_to_geometry_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geometries_from_db</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Translates a geometry element read from database (SQLAlchemy) into the internal record format.</span>
 
@@ -402,7 +424,10 @@
 
         <span class="k">return</span> <span class="n">geometry_records</span></div>
 
-<div class="viewcode-block" id="DatabaseSource.from_db_to_office_record"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_office_record">[docs]</a>    <span class="k">def</span> <span class="nf">from_db_to_office_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">office_from_db</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DatabaseSource.from_db_to_office_record">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_office_record">[docs]</a>
+    <span class="k">def</span> <span class="nf">from_db_to_office_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">office_from_db</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Translates an office element read from database (SQLAlchemy) into the internal record format.</span>
 
@@ -428,7 +453,10 @@
 
         <span class="k">return</span> <span class="n">office_record</span></div>
 
-<div class="viewcode-block" id="DatabaseSource.from_db_to_document_records"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_document_records">[docs]</a>    <span class="k">def</span> <span class="nf">from_db_to_document_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documents_from_db</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DatabaseSource.from_db_to_document_records">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_document_records">[docs]</a>
+    <span class="k">def</span> <span class="nf">from_db_to_document_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documents_from_db</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Args:</span>
@@ -469,7 +497,10 @@
             <span class="p">))</span>
         <span class="k">return</span> <span class="n">document_records</span></div>
 
-<div class="viewcode-block" id="DatabaseSource.from_db_to_plr_record"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_plr_record">[docs]</a>    <span class="k">def</span> <span class="nf">from_db_to_plr_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">public_law_restriction_from_db</span><span class="p">,</span> <span class="n">legend_entries_from_db</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DatabaseSource.from_db_to_plr_record">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_plr_record">[docs]</a>
+    <span class="k">def</span> <span class="nf">from_db_to_plr_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">public_law_restriction_from_db</span><span class="p">,</span> <span class="n">legend_entries_from_db</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Produces out of the passed DB elements a PublicLawRestriction record. It heavily utilizes the</span>
 <span class="sd">        instance methods to extract the nested information.</span>
@@ -539,7 +570,10 @@
 
         <span class="k">return</span> <span class="n">plr_record</span></div>
 
-<div class="viewcode-block" id="DatabaseSource.get_document_records"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.get_document_records">[docs]</a>    <span class="k">def</span> <span class="nf">get_document_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">public_law_restriction_from_db</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DatabaseSource.get_document_records">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.get_document_records">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_document_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">public_law_restriction_from_db</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Here the M:N relation between Document and PLR through the relation table</span>
 <span class="sd">        pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction_document.&lt;locals&gt;.PublicLawRestrictionDocument</span>
@@ -571,7 +605,10 @@
         <span class="n">document_records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_document_records</span><span class="p">(</span><span class="n">documents_from_db</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">document_records</span></div>
 
-<div class="viewcode-block" id="DatabaseSource.extract_geometry_collection_db"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.extract_geometry_collection_db">[docs]</a>    <span class="nd">@staticmethod</span>
+
+<div class="viewcode-block" id="DatabaseSource.extract_geometry_collection_db">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.extract_geometry_collection_db">[docs]</a>
+    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">extract_geometry_collection_db</span><span class="p">(</span><span class="n">db_path</span><span class="p">,</span> <span class="n">real_estate_geometry</span><span class="p">,</span> <span class="n">tolerances</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Decides the geometry collection cases of geometric filter operations when the database contains multi</span>
@@ -606,7 +643,10 @@
         <span class="p">]</span>
         <span class="k">return</span> <span class="n">or_</span><span class="p">(</span><span class="o">*</span><span class="n">clause_blocks</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="DatabaseSource.handle_collection"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.handle_collection">[docs]</a>    <span class="k">def</span> <span class="nf">handle_collection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">geometry_to_check</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DatabaseSource.handle_collection">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.handle_collection">[docs]</a>
+    <span class="k">def</span> <span class="nf">handle_collection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">geometry_to_check</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Handles geometry collection in the geometry query if needed.</span>
 
@@ -651,7 +691,10 @@
                 <span class="p">))</span>
         <span class="k">return</span> <span class="n">query</span></div>
 
-<div class="viewcode-block" id="DatabaseSource.collect_related_geometries_by_real_estate"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.collect_related_geometries_by_real_estate">[docs]</a>    <span class="k">def</span> <span class="nf">collect_related_geometries_by_real_estate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DatabaseSource.collect_related_geometries_by_real_estate">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.collect_related_geometries_by_real_estate">[docs]</a>
+    <span class="k">def</span> <span class="nf">collect_related_geometries_by_real_estate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extracts all geometries in the topic which have spatial relation with the passed real estate</span>
 
@@ -679,7 +722,10 @@
             <span class="o">.</span><span class="n">selectinload</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">PublicLawRestriction</span><span class="o">.</span><span class="n">responsible_office</span><span class="p">),</span>
         <span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="DatabaseSource.collect_legend_entries_by_bbox"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.collect_legend_entries_by_bbox">[docs]</a>    <span class="k">def</span> <span class="nf">collect_legend_entries_by_bbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">law_status</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DatabaseSource.collect_legend_entries_by_bbox">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.collect_legend_entries_by_bbox">[docs]</a>
+    <span class="k">def</span> <span class="nf">collect_legend_entries_by_bbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">law_status</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extracts all legend entries in the topic which have spatial relation with the passed bounding box of</span>
 <span class="sd">        visible extent.</span>
@@ -704,7 +750,10 @@
         <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_entry_model</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">legend_entry_model</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">in_</span><span class="p">((</span><span class="n">distinct_legend_entry_ids</span><span class="p">)))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="DatabaseSource.read"><a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>  <span class="c1"># pylint: disable=W:0221</span>
+
+<div class="viewcode-block" id="DatabaseSource.read">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.read">[docs]</a>
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>  <span class="c1"># pylint: disable=W:0221</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The read point which creates an extract, depending on a passed real estate.</span>
 
@@ -773,7 +822,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="p">[</span><span class="n">EmptyPlrRecord</span><span class="p">(</span>
                 <span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">]),</span>
                 <span class="n">has_data</span><span class="o">=</span><span class="kc">False</span>
-            <span class="p">)]</span></div></div>
+            <span class="p">)]</span></div>
+</div>
+
 </pre></div>
 
            </div>

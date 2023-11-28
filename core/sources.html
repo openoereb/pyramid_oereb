@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -13,9 +13,9 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
         <script src="../_static/doctools.js?v=888ff710"></script>
-        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -170,18 +170,18 @@
            <div itemprop="articleBody">
              
   <section id="sources">
-<span id="base-sources"></span><h1>Sources<a class="headerlink" href="#sources" title="Permalink to this heading">¶</a></h1>
-<span class="target" id="module-pyramid_oereb.core.sources"><span id="api-pyramid-oereb-core-sources"></span></span><p>This is package provides the minimum requirements on the classes which can be used as a source.</p>
+<span id="base-sources"></span><h1>Sources<a class="headerlink" href="#sources" title="Link to this heading">¶</a></h1>
+<p id="module-pyramid_oereb.core.sources"><span id="api-pyramid-oereb-core-sources"></span>This is package provides the minimum requirements on the classes which can be used as a source.</p>
 <section id="base">
-<span id="api-pyramid-oereb-core-sources-base"></span><h2><em>Base</em><a class="headerlink" href="#base" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-base"></span><h2><em>Base</em><a class="headerlink" href="#base" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.Base">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.</span></span><span class="sig-name descname"><span class="pre">Base</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources.html#Base"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.Base" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.</span></span><span class="sig-name descname"><span class="pre">Base</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources.html#Base"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.Base" title="Link to this definition">¶</a></dt>
 <dd><p>The basic source class. This is not meant to be used directly as a source at runtime. But more as a basic
 class for inherit in special designed classes.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.Base.records">
-<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.Base.records" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.Base.records" title="Link to this definition">¶</a></dt>
 <dd><p>The list which will be filled up with records in the process.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -192,21 +192,21 @@ class for inherit in special designed classes.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.Base.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.Base.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.Base.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="basedatabasesource">
-<span id="api-pyramid-oereb-core-sources-basedatabasesource"></span><h2><em>BaseDatabaseSource</em><a class="headerlink" href="#basedatabasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-basedatabasesource"></span><h2><em>BaseDatabaseSource</em><a class="headerlink" href="#basedatabasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.BaseDatabaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.</span></span><span class="sig-name descname"><span class="pre">BaseDatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources.html#BaseDatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.BaseDatabaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.</span></span><span class="sig-name descname"><span class="pre">BaseDatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources.html#BaseDatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.BaseDatabaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>The plug for addresses which uses a database as source.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.BaseDatabaseSource.TIMEOUT">
-<span class="sig-name descname"><span class="pre">TIMEOUT</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.BaseDatabaseSource.TIMEOUT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">TIMEOUT</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.BaseDatabaseSource.TIMEOUT" title="Link to this definition">¶</a></dt>
 <dd><p>Seconds to wait until database should be ready</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -217,7 +217,7 @@ class for inherit in special designed classes.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.BaseDatabaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources.html#BaseDatabaseSource.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.BaseDatabaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources.html#BaseDatabaseSource.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.BaseDatabaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -232,16 +232,16 @@ sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.sources.address"><span id="api-pyramid-oereb-core-sources-address"></span></span></section>
+</section>
 <section id="addressbasesource">
-<span id="api-pyramid-oereb-core-sources-address-addressbasesource"></span><h2><em>AddressBaseSource</em><a class="headerlink" href="#addressbasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-address-addressbasesource"></span><span id="module-pyramid_oereb.core.sources.address"></span><span id="api-pyramid-oereb-core-sources-address"></span><h2><em>AddressBaseSource</em><a class="headerlink" href="#addressbasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.address.AddressBaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.address.</span></span><span class="sig-name descname"><span class="pre">AddressBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/address.html#AddressBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.address.AddressBaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.address.</span></span><span class="sig-name descname"><span class="pre">AddressBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/address.html#AddressBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.address.AddressBaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>Base class for address sources.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.address.AddressBaseSource.records">
-<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.address.AddressBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.address.AddressBaseSource.records" title="Link to this definition">¶</a></dt>
 <dd><p>List of address records.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -252,12 +252,12 @@ sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.address.AddressBaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.address.AddressBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.address.AddressBaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.address.AddressBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zip_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/address.html#AddressBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.address.AddressBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zip_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/address.html#AddressBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.address.AddressBaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Every address source has to implement a read method. This method must accept the three parameters. If
 you want adapt to your own source for addresses, this is the point where to hook in.</p>
 <dl class="field-list simple">
@@ -274,16 +274,16 @@ you want adapt to your own source for addresses, this is the point where to hook
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.sources.availability"><span id="api-pyramid-oereb-core-sources-availability"></span></span></section>
+</section>
 <section id="availabilitybasesource">
-<span id="api-pyramid-oereb-core-sources-availability-availabilitybasesource"></span><h2><em>AvailabilityBaseSource</em><a class="headerlink" href="#availabilitybasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-availability-availabilitybasesource"></span><span id="module-pyramid_oereb.core.sources.availability"></span><span id="api-pyramid-oereb-core-sources-availability"></span><h2><em>AvailabilityBaseSource</em><a class="headerlink" href="#availabilitybasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.availability.AvailabilityBaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.availability.</span></span><span class="sig-name descname"><span class="pre">AvailabilityBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/availability.html#AvailabilityBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.availability.AvailabilityBaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.availability.</span></span><span class="sig-name descname"><span class="pre">AvailabilityBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/availability.html#AvailabilityBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.availability.AvailabilityBaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>Base class for availability sources.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.availability.AvailabilityBaseSource.records">
-<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.availability.AvailabilityBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.availability.AvailabilityBaseSource.records" title="Link to this definition">¶</a></dt>
 <dd><p>List
 of availability records.</p>
 <dl class="field-list simple">
@@ -295,12 +295,12 @@ of availability records.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.availability.AvailabilityBaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.availability.AvailabilityBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.availability.AvailabilityBaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.availability.AvailabilityBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/availability.html#AvailabilityBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.availability.AvailabilityBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/availability.html#AvailabilityBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.availability.AvailabilityBaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Every availability source has to implement a read method. This method must accept no
 parameters. Because it should deliver all items available.
 If you want to adapt to your own source for availability, this is the point where to hook in.</p>
@@ -308,16 +308,16 @@ If you want to adapt to your own source for availability, this is the point wher
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.sources.data_integration"><span id="api-pyramid-oereb-core-sources-data-integration"></span></span></section>
+</section>
 <section id="dataintegrationbasesource">
-<span id="api-pyramid-oereb-core-sources-data-integration-dataintegrationbasesource"></span><h2><em>DataIntegrationBaseSource</em><a class="headerlink" href="#dataintegrationbasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-data-integration-dataintegrationbasesource"></span><span id="module-pyramid_oereb.core.sources.data_integration"></span><span id="api-pyramid-oereb-core-sources-data-integration"></span><h2><em>DataIntegrationBaseSource</em><a class="headerlink" href="#dataintegrationbasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.data_integration.DataIntegrationBaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.data_integration.</span></span><span class="sig-name descname"><span class="pre">DataIntegrationBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/data_integration.html#DataIntegrationBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.data_integration.DataIntegrationBaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.data_integration.</span></span><span class="sig-name descname"><span class="pre">DataIntegrationBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/data_integration.html#DataIntegrationBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.data_integration.DataIntegrationBaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>Base class for data integration sources.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.data_integration.DataIntegrationBaseSource.records">
-<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.data_integration.DataIntegrationBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.data_integration.DataIntegrationBaseSource.records" title="Link to this definition">¶</a></dt>
 <dd><p>List
 of availability records.</p>
 <dl class="field-list simple">
@@ -329,12 +329,12 @@ of availability records.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.data_integration.DataIntegrationBaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.data_integration.DataIntegrationBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.data_integration.DataIntegrationBaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.data_integration.DataIntegrationBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/data_integration.html#DataIntegrationBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.data_integration.DataIntegrationBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/data_integration.html#DataIntegrationBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.data_integration.DataIntegrationBaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Every availability source has to implement a read method. This method must accept no
 parameters. Because it should deliver all items available.
 If you want to adapt to your own source for data integration, this is the point where
@@ -343,16 +343,16 @@ to hook in.</p>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.sources.disclaimer"><span id="api-pyramid-oereb-core-sources-disclaimer"></span></span></section>
+</section>
 <section id="disclaimerbasesource">
-<span id="api-pyramid-oereb-core-sources-disclaimer-disclaimerbasesource"></span><h2><em>DisclaimerBaseSource</em><a class="headerlink" href="#disclaimerbasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-disclaimer-disclaimerbasesource"></span><span id="module-pyramid_oereb.core.sources.disclaimer"></span><span id="api-pyramid-oereb-core-sources-disclaimer"></span><h2><em>DisclaimerBaseSource</em><a class="headerlink" href="#disclaimerbasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.disclaimer.DisclaimerBaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.disclaimer.</span></span><span class="sig-name descname"><span class="pre">DisclaimerBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/disclaimer.html#DisclaimerBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.disclaimer.DisclaimerBaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.disclaimer.</span></span><span class="sig-name descname"><span class="pre">DisclaimerBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/disclaimer.html#DisclaimerBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.disclaimer.DisclaimerBaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>Base class for exclusion of liability sources.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.disclaimer.DisclaimerBaseSource.records">
-<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.disclaimer.DisclaimerBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.disclaimer.DisclaimerBaseSource.records" title="Link to this definition">¶</a></dt>
 <dd><p>List
 of exclusion of liability records.</p>
 <dl class="field-list simple">
@@ -364,12 +364,12 @@ of exclusion of liability records.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.disclaimer.DisclaimerBaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.disclaimer.DisclaimerBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.disclaimer.DisclaimerBaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.disclaimer.DisclaimerBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/disclaimer.html#DisclaimerBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.disclaimer.DisclaimerBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/disclaimer.html#DisclaimerBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.disclaimer.DisclaimerBaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Every disclaimer source has to implement a read method. This method must accept no
 parameters. Because it should deliver all items available.
 If you want adapt to your own source for disclaimer, this is the point where to hook in.</p>
@@ -377,16 +377,16 @@ If you want adapt to your own source for disclaimer, this is the point where to 
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.sources.document"><span id="api-pyramid-oereb-core-sources-document"></span></span></section>
+</section>
 <section id="documentbasesource">
-<span id="api-pyramid-oereb-core-sources-document-documentbasesource"></span><h2><em>DocumentBaseSource</em><a class="headerlink" href="#documentbasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-document-documentbasesource"></span><span id="module-pyramid_oereb.core.sources.document"></span><span id="api-pyramid-oereb-core-sources-document"></span><h2><em>DocumentBaseSource</em><a class="headerlink" href="#documentbasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.document.DocumentBaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.document.</span></span><span class="sig-name descname"><span class="pre">DocumentBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/document.html#DocumentBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.document.DocumentBaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.document.</span></span><span class="sig-name descname"><span class="pre">DocumentBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/document.html#DocumentBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.document.DocumentBaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>Base class for document sources.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.document.DocumentBaseSource.records">
-<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.document.DocumentBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.document.DocumentBaseSource.records" title="Link to this definition">¶</a></dt>
 <dd><p>List of document records.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -397,12 +397,12 @@ If you want adapt to your own source for disclaimer, this is the point where to 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.document.DocumentBaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.document.DocumentBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.document.DocumentBaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.document.DocumentBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">office_records</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/document.html#DocumentBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.document.DocumentBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">office_records</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/document.html#DocumentBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.document.DocumentBaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Every document source has to implement a read method. This method must accept no parameters. Because
 it should deliver all items available.
 If you want adapt to your own source for documents, this is the point where to hook in.</p>
@@ -416,16 +416,16 @@ request.</p>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.sources.document_types"><span id="api-pyramid-oereb-core-sources-document-types"></span></span></section>
+</section>
 <section id="documenttypesbasesource">
-<span id="api-pyramid-oereb-core-sources-document-types-documenttypesbasesource"></span><h2><em>DocumentTypesBaseSource</em><a class="headerlink" href="#documenttypesbasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-document-types-documenttypesbasesource"></span><span id="module-pyramid_oereb.core.sources.document_types"></span><span id="api-pyramid-oereb-core-sources-document-types"></span><h2><em>DocumentTypesBaseSource</em><a class="headerlink" href="#documenttypesbasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.document_types.DocumentTypesBaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.document_types.</span></span><span class="sig-name descname"><span class="pre">DocumentTypesBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/document_types.html#DocumentTypesBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.document_types.DocumentTypesBaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.document_types.</span></span><span class="sig-name descname"><span class="pre">DocumentTypesBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/document_types.html#DocumentTypesBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.document_types.DocumentTypesBaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>Base class for document type values source.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.document_types.DocumentTypesBaseSource.records">
-<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.document_types.DocumentTypesBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.document_types.DocumentTypesBaseSource.records" title="Link to this definition">¶</a></dt>
 <dd><p>List of document</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -441,12 +441,12 @@ request.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.document_types.DocumentTypesBaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.document_types.DocumentTypesBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.document_types.DocumentTypesBaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.document_types.DocumentTypesBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/document_types.html#DocumentTypesBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.document_types.DocumentTypesBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/document_types.html#DocumentTypesBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.document_types.DocumentTypesBaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Every document type source has to implement a read method. This method must accept no parameters.
 Because it should deliver all items available.
 If you want adapt to your own source for document type labels, this is the point where to hook in.</p>
@@ -454,16 +454,16 @@ If you want adapt to your own source for document type labels, this is the point
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.sources.general_information"><span id="api-pyramid-oereb-core-sources-general-information"></span></span></section>
+</section>
 <section id="generalinformationbasesource">
-<span id="api-pyramid-oereb-core-sources-general-information-generalinformationbasesource"></span><h2><em>GeneralInformationBaseSource</em><a class="headerlink" href="#generalinformationbasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-general-information-generalinformationbasesource"></span><span id="module-pyramid_oereb.core.sources.general_information"></span><span id="api-pyramid-oereb-core-sources-general-information"></span><h2><em>GeneralInformationBaseSource</em><a class="headerlink" href="#generalinformationbasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.general_information.</span></span><span class="sig-name descname"><span class="pre">GeneralInformationBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/general_information.html#GeneralInformationBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.general_information.</span></span><span class="sig-name descname"><span class="pre">GeneralInformationBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/general_information.html#GeneralInformationBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>Base class for GeneralInformation values source.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource.records">
-<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource.records" title="Link to this definition">¶</a></dt>
 <dd><p>List of</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -479,12 +479,12 @@ If you want adapt to your own source for document type labels, this is the point
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/general_information.html#GeneralInformationBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/general_information.html#GeneralInformationBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.general_information.GeneralInformationBaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Every general information source has to implement a read method.
 This method must accept no parameters. Because it should deliver all items available.
 If you want adapt to your own source for general information labels, this is the point
@@ -493,16 +493,16 @@ where to hook in.</p>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.sources.glossary"><span id="api-pyramid-oereb-core-sources-glossary"></span></span></section>
+</section>
 <section id="glossarybasesource">
-<span id="api-pyramid-oereb-core-sources-glossary-glossarybasesource"></span><h2><em>GlossaryBaseSource</em><a class="headerlink" href="#glossarybasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-glossary-glossarybasesource"></span><span id="module-pyramid_oereb.core.sources.glossary"></span><span id="api-pyramid-oereb-core-sources-glossary"></span><h2><em>GlossaryBaseSource</em><a class="headerlink" href="#glossarybasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.glossary.GlossaryBaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.glossary.</span></span><span class="sig-name descname"><span class="pre">GlossaryBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/glossary.html#GlossaryBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.glossary.GlossaryBaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.glossary.</span></span><span class="sig-name descname"><span class="pre">GlossaryBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/glossary.html#GlossaryBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.glossary.GlossaryBaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>Base class for address sources.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.glossary.GlossaryBaseSource.records">
-<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.glossary.GlossaryBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.glossary.GlossaryBaseSource.records" title="Link to this definition">¶</a></dt>
 <dd><p>List of glossary records.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -513,12 +513,12 @@ where to hook in.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.glossary.GlossaryBaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.glossary.GlossaryBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.glossary.GlossaryBaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.glossary.GlossaryBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/glossary.html#GlossaryBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.glossary.GlossaryBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/glossary.html#GlossaryBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.glossary.GlossaryBaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Every glossary source has to implement a read method. This method must accept no parameters. Because
 it should deliver all items available.
 If you want adapt to your own source for glossaries, this is the point where to hook in.</p>
@@ -526,12 +526,12 @@ If you want adapt to your own source for glossaries, this is the point where to 
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.sources.law_status"><span id="api-pyramid-oereb-core-sources-law-status"></span></span></section>
+</section>
 <section id="lawstatusbasesource">
-<span id="api-pyramid-oereb-core-sources-law-status-lawstatusbasesource"></span><h2><em>LawStatusBaseSource</em><a class="headerlink" href="#lawstatusbasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-law-status-lawstatusbasesource"></span><span id="module-pyramid_oereb.core.sources.law_status"></span><span id="api-pyramid-oereb-core-sources-law-status"></span><h2><em>LawStatusBaseSource</em><a class="headerlink" href="#lawstatusbasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.law_status.LawStatusBaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.law_status.</span></span><span class="sig-name descname"><span class="pre">LawStatusBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/law_status.html#LawStatusBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.law_status.LawStatusBaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.law_status.</span></span><span class="sig-name descname"><span class="pre">LawStatusBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/law_status.html#LawStatusBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.law_status.LawStatusBaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>Base class for law status values source.
 .. attribute:: records</p>
 <blockquote>
@@ -549,12 +549,12 @@ If you want adapt to your own source for glossaries, this is the point where to 
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.law_status.LawStatusBaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.law_status.LawStatusBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.law_status.LawStatusBaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.law_status.LawStatusBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/law_status.html#LawStatusBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.law_status.LawStatusBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/law_status.html#LawStatusBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.law_status.LawStatusBaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Every law status source has to implement a read method. This method must accept no parameters.
 Because it should deliver all items available.
 If you want adapt to your own source for real estate type labels, this is the point where to hook in.</p>
@@ -567,16 +567,16 @@ If you want adapt to your own source for real estate type labels, this is the po
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.sources.legend"><span id="api-pyramid-oereb-core-sources-legend"></span></span></section>
+</section>
 <section id="legendbasesource">
-<span id="api-pyramid-oereb-core-sources-legend-legendbasesource"></span><h2><em>LegendBaseSource</em><a class="headerlink" href="#legendbasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-legend-legendbasesource"></span><span id="module-pyramid_oereb.core.sources.legend"></span><span id="api-pyramid-oereb-core-sources-legend"></span><h2><em>LegendBaseSource</em><a class="headerlink" href="#legendbasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.legend.LegendBaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.legend.</span></span><span class="sig-name descname"><span class="pre">LegendBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/legend.html#LegendBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.legend.LegendBaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.legend.</span></span><span class="sig-name descname"><span class="pre">LegendBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/legend.html#LegendBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.legend.LegendBaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>Base class for exclusion of liability sources.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.legend.LegendBaseSource.records">
-<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.legend.LegendBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.legend.LegendBaseSource.records" title="Link to this definition">¶</a></dt>
 <dd><p>List of legend entry
 records.</p>
 <dl class="field-list simple">
@@ -588,12 +588,12 @@ records.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.legend.LegendBaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.legend.LegendBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.legend.LegendBaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.legend.LegendBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/legend.html#LegendBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.legend.LegendBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/legend.html#LegendBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.legend.LegendBaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Every legend entry source has to implement a read method. If you want adapt to your own source for
 legend entries, this is the point where to hook in.</p>
 <dl class="field-list simple">
@@ -608,16 +608,16 @@ legend entries, this is the point where to hook in.</p>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.sources.logo"><span id="api-pyramid-oereb-core-sources-logo"></span></span></section>
+</section>
 <section id="logobasesource">
-<span id="api-pyramid-oereb-core-sources-logo-logobasesource"></span><h2><em>LogoBaseSource</em><a class="headerlink" href="#logobasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-logo-logobasesource"></span><span id="module-pyramid_oereb.core.sources.logo"></span><span id="api-pyramid-oereb-core-sources-logo"></span><h2><em>LogoBaseSource</em><a class="headerlink" href="#logobasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.logo.LogoBaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.logo.</span></span><span class="sig-name descname"><span class="pre">LogoBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/logo.html#LogoBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.logo.LogoBaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.logo.</span></span><span class="sig-name descname"><span class="pre">LogoBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/logo.html#LogoBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.logo.LogoBaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>Base class for logo images source.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.logo.LogoBaseSource.records">
-<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.logo.LogoBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.logo.LogoBaseSource.records" title="Link to this definition">¶</a></dt>
 <dd><p>List of logos</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -633,12 +633,12 @@ legend entries, this is the point where to hook in.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.logo.LogoBaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.logo.LogoBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.logo.LogoBaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.logo.LogoBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/logo.html#LogoBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.logo.LogoBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/logo.html#LogoBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.logo.LogoBaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Every logo source has to implement a read method. This method must accept no parameters.
 Because it should deliver all items available.
 If you want adapt to your own source for logo images, this is the point where to hook in.</p>
@@ -646,16 +646,16 @@ If you want adapt to your own source for logo images, this is the point where to
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.sources.map_layering"><span id="api-pyramid-oereb-core-sources-map-layering"></span></span></section>
+</section>
 <section id="maplayeringbasesource">
-<span id="api-pyramid-oereb-core-sources-map-layering-maplayeringbasesource"></span><h2><em>MapLayeringBaseSource</em><a class="headerlink" href="#maplayeringbasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-map-layering-maplayeringbasesource"></span><span id="module-pyramid_oereb.core.sources.map_layering"></span><span id="api-pyramid-oereb-core-sources-map-layering"></span><h2><em>MapLayeringBaseSource</em><a class="headerlink" href="#maplayeringbasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.map_layering.MapLayeringBaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.map_layering.</span></span><span class="sig-name descname"><span class="pre">MapLayeringBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/map_layering.html#MapLayeringBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.map_layering.MapLayeringBaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.map_layering.</span></span><span class="sig-name descname"><span class="pre">MapLayeringBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/map_layering.html#MapLayeringBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.map_layering.MapLayeringBaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>Base class for address sources.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.map_layering.MapLayeringBaseSource.records">
-<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.map_layering.MapLayeringBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.map_layering.MapLayeringBaseSource.records" title="Link to this definition">¶</a></dt>
 <dd><p>List of map layering records.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -666,12 +666,12 @@ If you want adapt to your own source for logo images, this is the point where to
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.map_layering.MapLayeringBaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.map_layering.MapLayeringBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.map_layering.MapLayeringBaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.map_layering.MapLayeringBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/map_layering.html#MapLayeringBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.map_layering.MapLayeringBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/map_layering.html#MapLayeringBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.map_layering.MapLayeringBaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Every map layering source has to implement a read method. This method must accept no parameters.
 Because it should deliver all items available.
 If you want adapt to your own source for map layering, this is the point where to hook in.</p>
@@ -679,16 +679,16 @@ If you want adapt to your own source for map layering, this is the point where t
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.sources.municipality"><span id="api-pyramid-oereb-core-sources-municipality"></span></span></section>
+</section>
 <section id="municipalitybasesource">
-<span id="api-pyramid-oereb-core-sources-municipality-municipalitybasesource"></span><h2><em>MunicipalityBaseSource</em><a class="headerlink" href="#municipalitybasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-municipality-municipalitybasesource"></span><span id="module-pyramid_oereb.core.sources.municipality"></span><span id="api-pyramid-oereb-core-sources-municipality"></span><h2><em>MunicipalityBaseSource</em><a class="headerlink" href="#municipalitybasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.municipality.MunicipalityBaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.municipality.</span></span><span class="sig-name descname"><span class="pre">MunicipalityBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/municipality.html#MunicipalityBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.municipality.MunicipalityBaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.municipality.</span></span><span class="sig-name descname"><span class="pre">MunicipalityBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/municipality.html#MunicipalityBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.municipality.MunicipalityBaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>Base class for municipality sources.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.municipality.MunicipalityBaseSource.records">
-<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.municipality.MunicipalityBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.municipality.MunicipalityBaseSource.records" title="Link to this definition">¶</a></dt>
 <dd><p>List of municipality
 records.</p>
 <dl class="field-list simple">
@@ -700,12 +700,12 @@ records.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.municipality.MunicipalityBaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.municipality.MunicipalityBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.municipality.MunicipalityBaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.municipality.MunicipalityBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/municipality.html#MunicipalityBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.municipality.MunicipalityBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/municipality.html#MunicipalityBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.municipality.MunicipalityBaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Every municipality source has to implement a read method. This method must accept no parameters.
 Because it should deliver all items available.
 If you want adapt to your own source for municipalities, this is the point where to hook in.</p>
@@ -713,16 +713,16 @@ If you want adapt to your own source for municipalities, this is the point where
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.sources.office"><span id="api-pyramid-oereb-core-sources-office"></span></span></section>
+</section>
 <section id="officebasesource">
-<span id="api-pyramid-oereb-core-sources-office-officebasesource"></span><h2><em>OfficeBaseSource</em><a class="headerlink" href="#officebasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-office-officebasesource"></span><span id="module-pyramid_oereb.core.sources.office"></span><span id="api-pyramid-oereb-core-sources-office"></span><h2><em>OfficeBaseSource</em><a class="headerlink" href="#officebasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.office.OfficeBaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.office.</span></span><span class="sig-name descname"><span class="pre">OfficeBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/office.html#OfficeBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.office.OfficeBaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.office.</span></span><span class="sig-name descname"><span class="pre">OfficeBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/office.html#OfficeBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.office.OfficeBaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>Base class for office sources.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.office.OfficeBaseSource.records">
-<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.office.OfficeBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.office.OfficeBaseSource.records" title="Link to this definition">¶</a></dt>
 <dd><p>List of office records.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -733,12 +733,12 @@ If you want adapt to your own source for municipalities, this is the point where
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.office.OfficeBaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.office.OfficeBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.office.OfficeBaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.office.OfficeBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/office.html#OfficeBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.office.OfficeBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/office.html#OfficeBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.office.OfficeBaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Every office source has to implement a read method. This method must accept no parameters. Because
 it should deliver all items available.
 If you want adapt to your own source for offices, this is the point where to hook in.</p>
@@ -746,16 +746,16 @@ If you want adapt to your own source for offices, this is the point where to hoo
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.sources.plr"><span id="api-pyramid-oereb-core-sources-plr"></span></span></section>
+</section>
 <section id="plrbasesource">
-<span id="api-pyramid-oereb-core-sources-plr-plrbasesource"></span><h2><em>PlrBaseSource</em><a class="headerlink" href="#plrbasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-plr-plrbasesource"></span><span id="module-pyramid_oereb.core.sources.plr"></span><span id="api-pyramid-oereb-core-sources-plr"></span><h2><em>PlrBaseSource</em><a class="headerlink" href="#plrbasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.plr.PlrBaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.plr.</span></span><span class="sig-name descname"><span class="pre">PlrBaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/plr.html#PlrBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.plr.PlrBaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.plr.</span></span><span class="sig-name descname"><span class="pre">PlrBaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/plr.html#PlrBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.plr.PlrBaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>Base class for public law restriction sources.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.plr.PlrBaseSource.records">
-<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.plr.PlrBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.plr.PlrBaseSource.records" title="Link to this definition">¶</a></dt>
 <dd><p>List of public law restriction
 records.</p>
 <dl class="field-list simple">
@@ -767,7 +767,7 @@ records.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.plr.PlrBaseSource.datasource">
-<span class="sig-name descname"><span class="pre">datasource</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.plr.PlrBaseSource.datasource" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">datasource</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.plr.PlrBaseSource.datasource" title="Link to this definition">¶</a></dt>
 <dd><p>List of data source
 records used for the additional data in flavour <cite>embeddable</cite>.</p>
 <dl class="field-list simple">
@@ -779,7 +779,7 @@ records used for the additional data in flavour <cite>embeddable</cite>.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.plr.PlrBaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/plr.html#PlrBaseSource.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.plr.PlrBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/plr.html#PlrBaseSource.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.plr.PlrBaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -806,7 +806,7 @@ as key and text as value.</p></li>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.plr.PlrBaseSource.info">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">info</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.plr.PlrBaseSource.info" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">info</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.plr.PlrBaseSource.info" title="Link to this definition">¶</a></dt>
 <dd><p>Return the info dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -820,7 +820,7 @@ as key and text as value.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.plr.PlrBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real_estate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/plr.html#PlrBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.plr.PlrBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real_estate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/plr.html#PlrBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.plr.PlrBaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Every public law restriction source has to implement a read method. This method must accept the two
 key word parameters. If you want adapt to your own source for real estates, this is the point where
 to hook in.</p>
@@ -841,16 +841,16 @@ the visible extent of the map.</p></li>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.sources.real_estate"><span id="api-pyramid-oereb-core-sources-real-estate"></span></span></section>
+</section>
 <section id="realestatebasesource">
-<span id="api-pyramid-oereb-core-sources-real-estate-realestatebasesource"></span><h2><em>RealEstateBaseSource</em><a class="headerlink" href="#realestatebasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-real-estate-realestatebasesource"></span><span id="module-pyramid_oereb.core.sources.real_estate"></span><span id="api-pyramid-oereb-core-sources-real-estate"></span><h2><em>RealEstateBaseSource</em><a class="headerlink" href="#realestatebasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.real_estate.RealEstateBaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.real_estate.</span></span><span class="sig-name descname"><span class="pre">RealEstateBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/real_estate.html#RealEstateBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.real_estate.RealEstateBaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.real_estate.</span></span><span class="sig-name descname"><span class="pre">RealEstateBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/real_estate.html#RealEstateBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.real_estate.RealEstateBaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>Base class for real estate sources.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.real_estate.RealEstateBaseSource.records">
-<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.real_estate.RealEstateBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.real_estate.RealEstateBaseSource.records" title="Link to this definition">¶</a></dt>
 <dd><p>List of real estate records.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -861,12 +861,12 @@ the visible extent of the map.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.real_estate.RealEstateBaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.real_estate.RealEstateBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.real_estate.RealEstateBaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.real_estate.RealEstateBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_ident</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">egrid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geometry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/real_estate.html#RealEstateBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.real_estate.RealEstateBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nb_ident</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">egrid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geometry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/real_estate.html#RealEstateBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.real_estate.RealEstateBaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Every real estate source has to implement a read method. This method must accept the four key word
 parameters. If you want adapt to your own source for real estates, this is the point where to hook in.</p>
 <dl class="field-list simple">
@@ -890,12 +890,12 @@ estates. This may deliver several results.</p></li>
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.sources.real_estate_type"><span id="api-pyramid-oereb-core-sources-real-estate-type"></span></span></section>
+</section>
 <section id="realestatetypebasesource">
-<span id="api-pyramid-oereb-core-sources-real-estate-type-realestatetypebasesource"></span><h2><em>RealEstateTypeBaseSource</em><a class="headerlink" href="#realestatetypebasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-real-estate-type-realestatetypebasesource"></span><span id="module-pyramid_oereb.core.sources.real_estate_type"></span><span id="api-pyramid-oereb-core-sources-real-estate-type"></span><h2><em>RealEstateTypeBaseSource</em><a class="headerlink" href="#realestatetypebasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.real_estate_type.RealEstateTypeBaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.real_estate_type.</span></span><span class="sig-name descname"><span class="pre">RealEstateTypeBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/real_estate_type.html#RealEstateTypeBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.real_estate_type.RealEstateTypeBaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.real_estate_type.</span></span><span class="sig-name descname"><span class="pre">RealEstateTypeBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/real_estate_type.html#RealEstateTypeBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.real_estate_type.RealEstateTypeBaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>Base class for real estate type values source.
 .. attribute:: records</p>
 <blockquote>
@@ -913,12 +913,12 @@ estates. This may deliver several results.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.real_estate_type.RealEstateTypeBaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.real_estate_type.RealEstateTypeBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.real_estate_type.RealEstateTypeBaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.real_estate_type.RealEstateTypeBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/real_estate_type.html#RealEstateTypeBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.real_estate_type.RealEstateTypeBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/real_estate_type.html#RealEstateTypeBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.real_estate_type.RealEstateTypeBaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Every real estate type source has to implement a read method. This method must accept no parameters.
 Because it should deliver all items available.
 If you want adapt to your own source for real estate type labels, this is the point where to hook in.
@@ -928,16 +928,16 @@ If you want adapt to your own source for real estate type labels, this is the po
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.sources.theme"><span id="api-pyramid-oereb-core-sources-theme"></span></span></section>
+</section>
 <section id="themebasesource">
-<span id="api-pyramid-oereb-core-sources-theme-themebasesource"></span><h2><em>ThemeBaseSource</em><a class="headerlink" href="#themebasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-theme-themebasesource"></span><span id="module-pyramid_oereb.core.sources.theme"></span><span id="api-pyramid-oereb-core-sources-theme"></span><h2><em>ThemeBaseSource</em><a class="headerlink" href="#themebasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.theme.ThemeBaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.theme.</span></span><span class="sig-name descname"><span class="pre">ThemeBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/theme.html#ThemeBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.theme.ThemeBaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.theme.</span></span><span class="sig-name descname"><span class="pre">ThemeBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/theme.html#ThemeBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.theme.ThemeBaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>Base class for theme sources.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.theme.ThemeBaseSource.records">
-<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.theme.ThemeBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.theme.ThemeBaseSource.records" title="Link to this definition">¶</a></dt>
 <dd><p>List of theme records.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -948,12 +948,12 @@ If you want adapt to your own source for real estate type labels, this is the po
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.theme.ThemeBaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.theme.ThemeBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.theme.ThemeBaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.theme.ThemeBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/theme.html#ThemeBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.theme.ThemeBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/theme.html#ThemeBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.theme.ThemeBaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Every theme source has to implement a read method. This method must accept no parameters. Because
 it should deliver all items available.
 If you want adapt to your own source for themes, this is the point where to hook in.</p>
@@ -961,16 +961,16 @@ If you want adapt to your own source for themes, this is the point where to hook
 
 </dd></dl>
 
-<span class="target" id="module-pyramid_oereb.core.sources.theme_document"><span id="api-pyramid-oereb-core-sources-theme-document"></span></span></section>
+</section>
 <section id="themedocumentbasesource">
-<span id="api-pyramid-oereb-core-sources-theme-document-themedocumentbasesource"></span><h2><em>ThemeDocumentBaseSource</em><a class="headerlink" href="#themedocumentbasesource" title="Permalink to this heading">¶</a></h2>
+<span id="api-pyramid-oereb-core-sources-theme-document-themedocumentbasesource"></span><span id="module-pyramid_oereb.core.sources.theme_document"></span><span id="api-pyramid-oereb-core-sources-theme-document"></span><h2><em>ThemeDocumentBaseSource</em><a class="headerlink" href="#themedocumentbasesource" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.theme_document.ThemeDocumentBaseSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.theme_document.</span></span><span class="sig-name descname"><span class="pre">ThemeDocumentBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/theme_document.html#ThemeDocumentBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.theme_document.ThemeDocumentBaseSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.sources.theme_document.</span></span><span class="sig-name descname"><span class="pre">ThemeDocumentBaseSource</span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/theme_document.html#ThemeDocumentBaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.theme_document.ThemeDocumentBaseSource" title="Link to this definition">¶</a></dt>
 <dd><p>Base class for theme document sources.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.theme_document.ThemeDocumentBaseSource.records">
-<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.theme_document.ThemeDocumentBaseSource.records" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">records</span></span><a class="headerlink" href="#pyramid_oereb.core.sources.theme_document.ThemeDocumentBaseSource.records" title="Link to this definition">¶</a></dt>
 <dd><p>List of theme
 document records.</p>
 <dl class="field-list simple">
@@ -982,12 +982,12 @@ document records.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.theme_document.ThemeDocumentBaseSource.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.theme_document.ThemeDocumentBaseSource.__init__" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.core.sources.theme_document.ThemeDocumentBaseSource.__init__" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.theme_document.ThemeDocumentBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/theme_document.html#ThemeDocumentBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.theme_document.ThemeDocumentBaseSource.read" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/theme_document.html#ThemeDocumentBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.theme_document.ThemeDocumentBaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Every theme document source has to implement a read method. This method must accept no parameters.
 Because it should deliver all items available.
 If you want adapt to your own source for theme documents, this is the point where to hook in.</p>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,9 +12,9 @@
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
         <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -80,7 +80,9 @@
 <span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="kn">import</span> <span class="n">DottedNameResolver</span>
 
 
-<div class="viewcode-block" id="GeneralInformationReader"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.general_information.GeneralInformationReader">[docs]</a><span class="k">class</span> <span class="nc">GeneralInformationReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="GeneralInformationReader">
+<a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.general_information.GeneralInformationReader">[docs]</a>
+<span class="k">class</span> <span class="nc">GeneralInformationReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The central reader for the OEREB general information. It is directly bound to a so called source</span>
 <span class="sd">    which is defined by a pythonic dotted string to the class definition of this source.</span>
@@ -88,7 +90,9 @@
 <span class="sd">    the parameter kwargs.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="GeneralInformationReader.__init__"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.general_information.GeneralInformationReader.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dotted_source_class_path</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+<div class="viewcode-block" id="GeneralInformationReader.__init__">
+<a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.general_information.GeneralInformationReader.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dotted_source_class_path</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            dotted_source_class_path</span>
@@ -102,7 +106,10 @@
         <span class="n">source_class</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">maybe_resolve</span><span class="p">(</span><span class="n">dotted_source_class_path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span> <span class="o">=</span> <span class="n">source_class</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="GeneralInformationReader.read"><a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.general_information.GeneralInformationReader.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="GeneralInformationReader.read">
+<a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.general_information.GeneralInformationReader.read">[docs]</a>
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The central read accessor method to get all desired records from configured source.</span>
 
@@ -118,7 +125,9 @@
 <span class="sd">                contains all records delivered by the source.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span><span class="o">.</span><span class="n">records</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span><span class="o">.</span><span class="n">records</span></div>
+</div>
+
 </pre></div>
 
            </div>

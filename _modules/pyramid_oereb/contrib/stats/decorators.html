@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,9 +12,9 @@
     <script src="../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../../../../_static/documentation_options.js?v=5929fcd5"></script>
         <script src="../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
@@ -110,13 +110,17 @@
     <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;request&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">}</span>
 
 
-<div class="viewcode-block" id="OerebStats"><a class="viewcode-back" href="../../../../contrib/stats.html#pyramid_oereb.contrib.stats.decorators.OerebStats">[docs]</a><span class="k">class</span> <span class="nc">OerebStats</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+<div class="viewcode-block" id="OerebStats">
+<a class="viewcode-back" href="../../../../contrib/stats.html#pyramid_oereb.contrib.stats.decorators.OerebStats">[docs]</a>
+<span class="k">class</span> <span class="nc">OerebStats</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    class OerebStats(dict)</span>
 <span class="sd">    this class is used to provide a serializable object that can be</span>
 <span class="sd">    used to provide insight of application usage in the logs.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-<div class="viewcode-block" id="OerebStats.__init__"><a class="viewcode-back" href="../../../../contrib/stats.html#pyramid_oereb.contrib.stats.decorators.OerebStats.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="viewcode-block" id="OerebStats.__init__">
+<a class="viewcode-back" href="../../../../contrib/stats.html#pyramid_oereb.contrib.stats.decorators.OerebStats.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">output_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -125,20 +129,28 @@
                                          <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">itemlist</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">OerebStats</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span></div>
 
+
     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">OerebStats</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">itemlist</span><span class="p">)</span>
 
-<div class="viewcode-block" id="OerebStats.keys"><a class="viewcode-back" href="../../../../contrib/stats.html#pyramid_oereb.contrib.stats.decorators.OerebStats.keys">[docs]</a>    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="OerebStats.keys">
+<a class="viewcode-back" href="../../../../contrib/stats.html#pyramid_oereb.contrib.stats.decorators.OerebStats.keys">[docs]</a>
+    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">itemlist</span></div>
 
-<div class="viewcode-block" id="OerebStats.values"><a class="viewcode-back" href="../../../../contrib/stats.html#pyramid_oereb.contrib.stats.decorators.OerebStats.values">[docs]</a>    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="OerebStats.values">
+<a class="viewcode-back" href="../../../../contrib/stats.html#pyramid_oereb.contrib.stats.decorators.OerebStats.values">[docs]</a>
+    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">]</span></div>
+
 
     <span class="k">def</span> <span class="nf">itervalues</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">)</span></div>
+
 </pre></div>
 
            </div>

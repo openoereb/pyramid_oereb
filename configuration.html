@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -13,9 +13,9 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
         <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -92,7 +92,7 @@
            <div itemprop="articleBody">
              
   <section id="configuration">
-<span id="id1"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h1>
+<span id="id1"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h1>
 <p>You are looking at a highly configurable piece of software. To get a good understanding of the server it
 is recommended to read this part carefully.</p>
 <p>The specifications of the oereb data model, the web services, the data extracts and the print layout
@@ -104,7 +104,7 @@ The binding of cantonal and federal data to the server is done by the configurat
 even custom data sources. If you are planning to implement such modifications, we suggest to check all possible
 solutions first, as the necessary effort can vary significantly depending on your specific needs.</p>
 <section id="create-the-inital-database-setup">
-<span id="configuration-initial-setup"></span><h2>Create the inital database setup<a class="headerlink" href="#create-the-inital-database-setup" title="Permalink to this heading">¶</a></h2>
+<span id="configuration-initial-setup"></span><h2>Create the inital database setup<a class="headerlink" href="#create-the-inital-database-setup" title="Link to this heading">¶</a></h2>
 <p>Out of the box the pyramid_oereb server supports three different topic configurations in the database:</p>
 <blockquote>
 <div><ul class="simple">
@@ -114,13 +114,13 @@ solutions first, as the necessary effort can vary significantly depending on you
 </ul>
 </div></blockquote>
 <section id="pyramid-oereb-standard-model">
-<h3>Pyramid_oereb Standard Model<a class="headerlink" href="#pyramid-oereb-standard-model" title="Permalink to this heading">¶</a></h3>
+<h3>Pyramid_oereb Standard Model<a class="headerlink" href="#pyramid-oereb-standard-model" title="Link to this heading">¶</a></h3>
 <p>This schema and table structure is based on the initial topic structure used in the pyramid_oereb
 v1.x versions. It’s mainly used for cantonal topics which are not (yet) stored in the interlis 2.3 OeREBKRM-
 Transfer structure and by cantons that do not use OeREB-Lex to manage the legal documents.</p>
 </section>
 <section id="interlis-2-3-oerebkrm-transfer-model">
-<h3>Interlis 2.3 OeREBKRM Transfer Model<a class="headerlink" href="#interlis-2-3-oerebkrm-transfer-model" title="Permalink to this heading">¶</a></h3>
+<h3>Interlis 2.3 OeREBKRM Transfer Model<a class="headerlink" href="#interlis-2-3-oerebkrm-transfer-model" title="Link to this heading">¶</a></h3>
 <p>All the federal data sets are provided in this data structure. So this is the schema and table model you
 want to use for all the federal topics unless you want to transform the data to a specific database structure.
 If your cantonal data is also stored based on this model, then you probably want to use this structure
@@ -129,14 +129,14 @@ The <a class="reference external" href="https://github.com/openoereb/ili2pg_oere
 explains how to use the ili2pg tool to create the corresponding schema and how to import the XML data.</p>
 </section>
 <section id="oereblex-topic-model">
-<h3>OEREBlex Topic Model<a class="headerlink" href="#oereblex-topic-model" title="Permalink to this heading">¶</a></h3>
+<h3>OEREBlex Topic Model<a class="headerlink" href="#oereblex-topic-model" title="Link to this heading">¶</a></h3>
 <p>This third model is usefull if you maintain your legal documents using the OEREBlex application and you
 have a specific cantonal model for your data. It is similar to the pyramid_oereb standard model, but all
 the document related tables are omitted. Instead the documents are linked by the geolink attribute.</p>
 </section>
 </section>
 <section id="add-additional-standard-topics">
-<span id="configuration-additional-topics"></span><h2>Add additional standard topics<a class="headerlink" href="#add-additional-standard-topics" title="Permalink to this heading">¶</a></h2>
+<span id="configuration-additional-topics"></span><h2>Add additional standard topics<a class="headerlink" href="#add-additional-standard-topics" title="Link to this heading">¶</a></h2>
 <p>If you like to add one or more additional topics based on the <em>pyramid_oereb standard</em> database structure
 you can use the internal command below creating an SQL script to establish the topic schema.</p>
 <p>But before creating any new topic structure you have to add its configuration. Open the configuration file
@@ -213,7 +213,7 @@ commands. <em>SQL_FILE</em> should be the name or the absolute path of the file.
 your data into it.</p>
 </section>
 <section id="add-additional-interlis-topics">
-<h2>Add additional interlis topics<a class="headerlink" href="#add-additional-interlis-topics" title="Permalink to this heading">¶</a></h2>
+<h2>Add additional interlis topics<a class="headerlink" href="#add-additional-interlis-topics" title="Link to this heading">¶</a></h2>
 <p>Follow the <a class="reference external" href="https://github.com/openoereb/ili2pg_oereb_data_import_manual">Ili2pg Oereb Data Import Manual</a>
 to create a new topic schema based on the OeREBKRM Transfer model and about how to import the XML data.</p>
 <p>Once the schema is created do not forget to add the corresponding topic configuration in the <em>pyramid_oereb.yml</em></p>
@@ -278,7 +278,7 @@ define that it is <em>NOT</em> the standard structure (false) and what lookup co
 and document types.</p>
 </section>
 <section id="add-an-oereblex-topic">
-<h2>Add an OEREBLex Topic<a class="headerlink" href="#add-an-oereblex-topic" title="Permalink to this heading">¶</a></h2>
+<h2>Add an OEREBLex Topic<a class="headerlink" href="#add-an-oereblex-topic" title="Link to this heading">¶</a></h2>
 <p>If you want to use the OEREBlex structure for a topic, you can proceed as described in the previous section,
 but using a different script to generate the required models.</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>create_oereblex_tables<span class="w"> </span>-c<span class="w"> </span>&lt;YOUR_NEW_TOPIC_CODE&gt;<span class="w"> </span>-g<span class="w"> </span>&lt;GEOMETRY_TYPE&gt;<span class="w"> </span>-p<span class="w"> </span>&lt;TARGET_PATH&gt;<span class="w"> </span>-k<span class="w"> </span>TRUE
@@ -286,12 +286,12 @@ but using a different script to generate the required models.</p>
 </div>
 </section>
 <section id="for-all-topics">
-<h2>For all topics<a class="headerlink" href="#for-all-topics" title="Permalink to this heading">¶</a></h2>
+<h2>For all topics<a class="headerlink" href="#for-all-topics" title="Link to this heading">¶</a></h2>
 <p>Do not forget to add the availability information in the <em>pyramid_oereb_main.availability</em> table to activate (or not)
 the topic for a municipality.</p>
 </section>
 <section id="adapt-existing-models">
-<span id="configuration-adapt-models"></span><h2>Adapt existing models<a class="headerlink" href="#adapt-existing-models" title="Permalink to this heading">¶</a></h2>
+<span id="configuration-adapt-models"></span><h2>Adapt existing models<a class="headerlink" href="#adapt-existing-models" title="Link to this heading">¶</a></h2>
 <p>Another option to modify the standard configuration, is to adapt the existing models to fit another database
 structure. This method is recommended if you are using an existing database supported by GeoAlchemy2 and
 already containing all the necessary data but in a different structure. In this case you should check, if it
@@ -351,7 +351,7 @@ source.</p>
 </div>
 </section>
 <section id="create-custom-sources">
-<span id="configuration-create-sources"></span><h2>Create custom sources<a class="headerlink" href="#create-custom-sources" title="Permalink to this heading">¶</a></h2>
+<span id="configuration-create-sources"></span><h2>Create custom sources<a class="headerlink" href="#create-custom-sources" title="Link to this heading">¶</a></h2>
 <p>If the possibilities described above do not fit your needs, you can implement your own sources. This is the
 only possible way, if their are no existing sources available to access your data. For example, this could be
 the case, if you are trying to access a kind of file system or some other proprietary data source.</p>

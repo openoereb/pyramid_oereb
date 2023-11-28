@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" data-content_root="../../../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,9 +12,9 @@
     <script src="../../../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js?v=b3ba4146"></script>
+        <script src="../../../../../_static/documentation_options.js?v=5929fcd5"></script>
         <script src="../../../../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../../../../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../search.html" /> 
@@ -83,9 +83,13 @@
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="TocPages"><a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages">[docs]</a><span class="k">class</span> <span class="nc">TocPages</span><span class="p">():</span>
+<div class="viewcode-block" id="TocPages">
+<a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages">[docs]</a>
+<span class="k">class</span> <span class="nc">TocPages</span><span class="p">():</span>
 
-<div class="viewcode-block" id="TocPages.__init__"><a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extract</span><span class="p">):</span>
+<div class="viewcode-block" id="TocPages.__init__">
+<a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extract</span><span class="p">):</span>
         <span class="c1"># variables taken from template toc.jrxml</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">disposable_height</span> <span class="o">=</span> <span class="mi">842</span> <span class="o">-</span> <span class="mi">70</span>  <span class="c1"># A4 size - (footer + header)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">d1_height</span> <span class="o">=</span> <span class="mi">77</span>
@@ -107,6 +111,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">theme_without_data_item_height</span> <span class="o">=</span> <span class="mi">12</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">extract</span> <span class="o">=</span> <span class="n">extract</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">total_length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_total_lenght</span><span class="p">()</span></div>
+
 
     <span class="k">def</span> <span class="nf">compute_d1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">d1_height</span>
@@ -196,6 +201,7 @@
 
     <span class="k">def</span> <span class="nf">getNbPages</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="o">-</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">total_length</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">disposable_height</span><span class="p">)</span>  <span class="c1"># ceil number of pages needed</span></div>
+
 </pre></div>
 
            </div>
