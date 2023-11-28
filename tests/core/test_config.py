@@ -110,9 +110,25 @@ def test_init_logos_error():
         assert Config.logos is None
 
 @pytest.mark.parametrize('test_logos_config,expected_result', [
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.logo.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.Logo"}}},0),
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.logo.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.Logo"}}},1),
-    ])
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.logo.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Logo"
+            }
+        }
+    },0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.logo.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Logo"
+            }
+        }
+    },1)
+])
 @pytest.mark.run(order=-1)
 def test_read_logos(test_logos_config,expected_result):
     Config._config = None
@@ -223,16 +239,34 @@ def test_get_theme_config_by_code_none():
     with pytest.raises(AssertionError):
         Config.get_theme_config_by_code('ch.NE.Baulinien')
 
+
 @pytest.mark.parametrize('test_themes_config,expected_result', [
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.theme.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.Theme"}}},0),
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.theme.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.Theme"}}},1),
-    ])
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.theme.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Theme"
+            }
+        }
+    },0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.theme.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Theme"
+            }
+        }
+    },1)
+])
 @pytest.mark.run(order=-1)
 def test_read_themes(test_themes_config,expected_result):
     Config._config = None
     with patch.object(Config, 'get_theme_config', return_value=test_themes_config):
         with patch.object(ThemeReader, 'read', return_value=[None] * expected_result):
             assert len(Config._read_themes()) == expected_result
+
 
 @pytest.mark.run(order=-1)
 def test_read_themes_config_none():
@@ -241,9 +275,26 @@ def test_read_themes_config_none():
         with pytest.raises(ConfigurationError):
             Config._read_themes()
 
+
 @pytest.mark.parametrize('test_theme_document_config,expected_result', [
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.theme_document.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument"}}},0),
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.theme_document.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument"}}},1),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.theme_document.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument"
+            }
+        }
+    },0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.theme_document.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument"
+            }
+        }
+    },1)
     ])
 @pytest.mark.run(order=-1)
 def test_read_theme_document(test_theme_document_config,expected_result):
@@ -252,12 +303,14 @@ def test_read_theme_document(test_theme_document_config,expected_result):
         with patch.object(ThemeDocumentReader, 'read', return_value=[None] * expected_result):
             assert len(Config._read_theme_document()) == expected_result
 
+
 @pytest.mark.run(order=-1)
 def test_read_theme_document_config_none():
     Config._config = None
     with patch.object(Config, 'get_theme_document_config', return_value=None):
         with pytest.raises(ConfigurationError):
             Config._read_theme_document()
+
 
 @pytest.mark.parametrize('test_value,expected_value', [
     ({'real_estate_type': {}}, {}),
@@ -381,16 +434,34 @@ def test_get_extract_config_none():
     with pytest.raises(AssertionError):
         Config.get_extract_config()
 
+
 @pytest.mark.parametrize('test_general_information_config,expected_result', [
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.general_information.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation"}}},0),
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.general_information.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation"}}},1),
-    ])
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.general_information.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation"
+            }
+        }
+    },0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.general_information.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation"
+            }
+        }
+    },1)
+])
 @pytest.mark.run(order=-1)
 def test_read_general_information(test_general_information_config,expected_result):
     Config._config = None
     with patch.object(Config, 'get_info_config', return_value=test_general_information_config):
         with patch.object(GeneralInformationReader, 'read', return_value=[None] * expected_result):
             assert len(Config._read_general_information()) == expected_result
+
 
 @pytest.mark.run(order=-1)
 def test_read_general_information_config_none():
@@ -399,16 +470,35 @@ def test_read_general_information_config_none():
         with pytest.raises(ConfigurationError):
             Config._read_general_information()
 
+
 @pytest.mark.parametrize('test_law_status_config,expected_result', [
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.law_status.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus"}}},0),
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.law_status.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus"}}},1),
-    ])
+    ({
+        "source": {
+            "class":
+            "pyramid_oereb.contrib.data_sources.standard.sources.law_status.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection", 
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus"
+            }
+        }
+    },0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.law_status.DatabaseSource",
+            "params": {
+              "db_connection": "*main_db_connection",
+              "model": "pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus"
+            }
+        }
+    },1)
+])
 @pytest.mark.run(order=-1)
 def test_read_law_status(test_law_status_config,expected_result):
     Config._config = None
     with patch.object(Config, 'get_law_status_config', return_value=test_law_status_config):
         with patch.object(LawStatusReader, 'read', return_value=[None] * expected_result):
             assert len(Config._read_law_status()) == expected_result
+
 
 @pytest.mark.run(order=-1)
 def test_read_law_status_config_none():
@@ -417,16 +507,36 @@ def test_read_law_status_config_none():
         with pytest.raises(ConfigurationError):
             Config._read_law_status()
 
+
 @pytest.mark.parametrize('test_documents_config,expected_result', [
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.document.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.Document"}}},0),
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.document.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.Document"}}},1),
-    ])
+    ({
+        "source": {
+            "class":
+            "pyramid_oereb.contrib.data_sources.standard.sources.document.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Document"
+            }
+        }
+    },0),
+    ({
+        "source": {
+            "class":
+            "pyramid_oereb.contrib.data_sources.standard.sources.document.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Document"
+            }
+        }
+    },1)
+])
 @pytest.mark.run(order=-1)
 def test_read_documents(test_documents_config,expected_result):
     Config._config = None
     with patch.object(Config, 'get_document_config', return_value=test_documents_config):
         with patch.object(DocumentReader, 'read', return_value=[None] * expected_result):
             assert len(Config._read_documents()) == expected_result
+
 
 @pytest.mark.run(order=-1)
 def test_read_documents_config_none():
@@ -435,16 +545,34 @@ def test_read_documents_config_none():
         with pytest.raises(ConfigurationError):
             Config._read_documents()
 
+
 @pytest.mark.parametrize('test_offices_config,expected_result', [
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.office.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.Office"}}},0),
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.office.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.Office"}}},1),
-    ])
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.office.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Office"
+            }
+        }
+    },0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.office.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Office"
+            }
+        }
+    },1),
+])
 @pytest.mark.run(order=-1)
 def test_read_offices(test_offices_config,expected_result):
     Config._config = None
     with patch.object(Config, 'get_office_config', return_value=test_offices_config):
         with patch.object(OfficeReader, 'read', return_value=[None] * expected_result):
             assert len(Config._read_offices()) == expected_result
+
 
 @pytest.mark.run(order=-1)
 def test_read_offices_config_none():
@@ -453,16 +581,34 @@ def test_read_offices_config_none():
         with pytest.raises(ConfigurationError):
             Config._read_offices()
 
+
 @pytest.mark.parametrize('test_availability_config,expected_result', [
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.availability.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.Availability"}}},0),
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.availability.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.Availability"}}},1),
-    ])
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.availability.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Availability"
+            }
+        }
+    },0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.availability.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Availability"
+            }
+        }
+    },1)
+])
 @pytest.mark.run(order=-1)
 def test_read_availabilities(test_availability_config,expected_result):
     Config._config = None
     with patch.object(Config, 'get_availability_config', return_value=test_availability_config):
         with patch.object(AvailabilityReader, 'read', return_value=[None] * expected_result):
             assert len(Config._read_availabilities()) == expected_result
+
 
 @pytest.mark.run(order=-1)
 def test_read_availabilities_config_none():
@@ -471,16 +617,34 @@ def test_read_availabilities_config_none():
         with pytest.raises(ConfigurationError):
             Config._read_availabilities()
 
+
 @pytest.mark.parametrize('test_glossary_config,expected_result', [
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.glossary.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.Glossary"}}},0),
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.glossary.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.Glossary"}}},1),
-    ])
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.glossary.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Glossary"
+            }
+        }
+    },0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.glossary.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Glossary"
+            }
+        }
+    },1)
+])
 @pytest.mark.run(order=-1)
 def test_read_glossaries(test_glossary_config,expected_result):
     Config._config = None
     with patch.object(Config, 'get_glossary_config', return_value=test_glossary_config):
         with patch.object(GlossaryReader, 'read', return_value=[None] * expected_result):
             assert len(Config._read_glossaries()) == expected_result
+
 
 @pytest.mark.run(order=-1)
 def test_read_glossaries_config_none():
@@ -489,16 +653,34 @@ def test_read_glossaries_config_none():
         with pytest.raises(ConfigurationError):
             Config._read_glossaries()
 
+
 @pytest.mark.parametrize('test_disclaimer_config,expected_result', [
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.disclaimer.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer"}}},0),
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.disclaimer.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer"}}},1),
-    ])
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.disclaimer.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer"
+            }
+        }
+    },0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.disclaimer.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer"
+            }
+        }
+    },1),
+])
 @pytest.mark.run(order=-1)
 def test_read_disclaimers(test_disclaimer_config,expected_result):
     Config._config = None
     with patch.object(Config, 'get_disclaimer_config', return_value=test_disclaimer_config):
         with patch.object(DisclaimerReader, 'read', return_value=[None] * expected_result):
             assert len(Config._read_disclaimers()) == expected_result
+
 
 @pytest.mark.run(order=-1)
 def test_read_disclaimers_config_none():
@@ -507,16 +689,34 @@ def test_read_disclaimers_config_none():
         with pytest.raises(ConfigurationError):
             Config._read_disclaimers()
 
+
 @pytest.mark.parametrize('test_municipality_config,expected_result', [
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.Municipality"}}},0),
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.Municipality"}}},1),
-    ])
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Municipality"
+            }
+        }
+    },0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Municipality"
+            }
+        }
+    },1)
+])
 @pytest.mark.run(order=-1)
 def test_read_municipalities(test_municipality_config,expected_result):
     Config._config = None
     with patch.object(Config, 'get_municipality_config', return_value=test_municipality_config):
         with patch.object(MunicipalityReader, 'read', return_value=[None] * expected_result):
             assert len(Config._read_municipalities()) == expected_result
+
 
 @pytest.mark.run(order=-1)
 def test_read_municipalities_config_none():
@@ -525,16 +725,34 @@ def test_read_municipalities_config_none():
         with pytest.raises(ConfigurationError):
             Config._read_municipalities()
 
+
 @pytest.mark.parametrize('test_document_types_config,expected_result', [
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.document_types.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText"}}},0),
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.document_types.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText"}}},1),
-    ])
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.document_types.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText"
+            }
+        }
+    },0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.document_types.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText"
+            }
+        }
+    },1)
+])
 @pytest.mark.run(order=-1)
 def test_read_document_types(test_document_types_config,expected_result):
     Config._config = None
     with patch.object(Config, 'get_document_types_config', return_value=test_document_types_config):
         with patch.object(DocumentTypeReader, 'read', return_value=[None] * expected_result):
             assert len(Config._read_document_types()) == expected_result
+
 
 @pytest.mark.run(order=-1)
 def test_read_document_types_config_none():
@@ -543,16 +761,34 @@ def test_read_document_types_config_none():
         with pytest.raises(ConfigurationError):
             Config._read_document_types()
 
+
 @pytest.mark.parametrize('test_real_estate_type_config,expected_result', [
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType"}}},0),
-    ({"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType"}}},1),
-    ])
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType"
+            }
+        }
+    },0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType"
+            }
+        }
+    },1)
+])
 @pytest.mark.run(order=-1)
 def test_read_real_estate_types(test_real_estate_type_config,expected_result):
     Config._config = None
     with patch.object(Config, 'get_real_estate_type_config', return_value=test_real_estate_type_config):
         with patch.object(RealEstateTypeReader, 'read', return_value=[None] * expected_result):
             assert len(Config._read_real_estate_types()) == expected_result
+
 
 @pytest.mark.run(order=-1)
 def test_read_real_estate_types_config_none():
@@ -561,16 +797,38 @@ def test_read_real_estate_types_config_none():
         with pytest.raises(ConfigurationError):
             Config._read_real_estate_types()
 
+
 @pytest.mark.parametrize('test_map_layering_config,expected_result', [
-    ({"map_layering": {"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.map_layering.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering"}}}},0),
-    ({"map_layering": {"source": {"class": "pyramid_oereb.contrib.data_sources.standard.sources.map_layering.DatabaseSource","params": {"db_connection": "*main_db_connection","model": "pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering"}}}},1),
-    ])
+    ({
+        "map_layering": {
+            "source": {
+                "class": "pyramid_oereb.contrib.data_sources.standard.sources.map_layering.DatabaseSource",
+                "params": {
+                    "db_connection": "*main_db_connection",
+                    "model": "pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering"
+                }
+            }
+        }
+    },0),
+    ({
+        "map_layering": {
+            "source": {
+                "class": "pyramid_oereb.contrib.data_sources.standard.sources.map_layering.DatabaseSource",
+                "params": {
+                    "db_connection": "*main_db_connection",
+                    "model": "pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering"
+                }
+            }
+        }
+    },1)
+])
 @pytest.mark.run(order=-1)
 def test_read_map_layering(test_map_layering_config,expected_result):
     Config._config = None
     Config._config = test_map_layering_config
     with patch.object(MapLayeringReader, 'read', return_value=[None] * expected_result):
         assert len(Config._read_map_layering()) == expected_result
+
 
 @pytest.mark.run(order=-1)
 def test_read_map_layering_config_none():
