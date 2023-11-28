@@ -131,7 +131,7 @@ def test_init_logos_error():
     }, 1)
 ])
 @pytest.mark.run(order=-1)
-def test_read_logos(test_logos_config,expected_result):
+def test_read_logos(test_logos_config, expected_result):
     Config._config = None
     with patch.object(Config, 'get_logo_config', return_value=test_logos_config):
         with patch.object(LogoReader, 'read', return_value=[None] * expected_result):
@@ -264,7 +264,7 @@ def test_get_theme_config_by_code_none():
     }, 1)
 ])
 @pytest.mark.run(order=-1)
-def test_read_themes(test_themes_config,expected_result):
+def test_read_themes(test_themes_config, expected_result):
     Config._config = None
     with patch.object(Config, 'get_theme_config', return_value=test_themes_config):
         with patch.object(ThemeReader, 'read', return_value=[None] * expected_result):
@@ -300,7 +300,7 @@ def test_read_themes_config_none():
     }, 1)
     ])
 @pytest.mark.run(order=-1)
-def test_read_theme_document(test_theme_document_config,expected_result):
+def test_read_theme_document(test_theme_document_config, expected_result):
     Config._config = None
     with patch.object(Config, 'get_theme_document_config', return_value=test_theme_document_config):
         with patch.object(ThemeDocumentReader, 'read', return_value=[None] * expected_result):
@@ -459,7 +459,7 @@ def test_get_extract_config_none():
     }, 1)
 ])
 @pytest.mark.run(order=-1)
-def test_read_general_information(test_general_information_config,expected_result):
+def test_read_general_information(test_general_information_config, expected_result):
     Config._config = None
     with patch.object(Config, 'get_info_config', return_value=test_general_information_config):
         with patch.object(GeneralInformationReader, 'read', return_value=[None] * expected_result):
@@ -496,7 +496,7 @@ def test_read_general_information_config_none():
     }, 1)
 ])
 @pytest.mark.run(order=-1)
-def test_read_law_status(test_law_status_config,expected_result):
+def test_read_law_status(test_law_status_config, expected_result):
     Config._config = None
     with patch.object(Config, 'get_law_status_config', return_value=test_law_status_config):
         with patch.object(LawStatusReader, 'read', return_value=[None] * expected_result):
@@ -534,7 +534,7 @@ def test_read_law_status_config_none():
     }, 1)
 ])
 @pytest.mark.run(order=-1)
-def test_read_documents(test_documents_config,expected_result):
+def test_read_documents(test_documents_config, expected_result):
     Config._config = None
     with patch.object(Config, 'get_document_config', return_value=test_documents_config):
         with patch.object(DocumentReader, 'read', return_value=[None] * expected_result):
@@ -570,7 +570,7 @@ def test_read_documents_config_none():
     }, 1),
 ])
 @pytest.mark.run(order=-1)
-def test_read_offices(test_offices_config,expected_result):
+def test_read_offices(test_offices_config, expected_result):
     Config._config = None
     with patch.object(Config, 'get_office_config', return_value=test_offices_config):
         with patch.object(OfficeReader, 'read', return_value=[None] * expected_result):
@@ -606,7 +606,7 @@ def test_read_offices_config_none():
     }, 1)
 ])
 @pytest.mark.run(order=-1)
-def test_read_availabilities(test_availability_config,expected_result):
+def test_read_availabilities(test_availability_config, expected_result):
     Config._config = None
     with patch.object(Config, 'get_availability_config', return_value=test_availability_config):
         with patch.object(AvailabilityReader, 'read', return_value=[None] * expected_result):
@@ -642,7 +642,7 @@ def test_read_availabilities_config_none():
     }, 1)
 ])
 @pytest.mark.run(order=-1)
-def test_read_glossaries(test_glossary_config,expected_result):
+def test_read_glossaries(test_glossary_config, expected_result):
     Config._config = None
     with patch.object(Config, 'get_glossary_config', return_value=test_glossary_config):
         with patch.object(GlossaryReader, 'read', return_value=[None] * expected_result):
@@ -678,7 +678,7 @@ def test_read_glossaries_config_none():
     }, 1),
 ])
 @pytest.mark.run(order=-1)
-def test_read_disclaimers(test_disclaimer_config,expected_result):
+def test_read_disclaimers(test_disclaimer_config, expected_result):
     Config._config = None
     with patch.object(Config, 'get_disclaimer_config', return_value=test_disclaimer_config):
         with patch.object(DisclaimerReader, 'read', return_value=[None] * expected_result):
@@ -714,7 +714,7 @@ def test_read_disclaimers_config_none():
     }, 1)
 ])
 @pytest.mark.run(order=-1)
-def test_read_municipalities(test_municipality_config,expected_result):
+def test_read_municipalities(test_municipality_config, expected_result):
     Config._config = None
     with patch.object(Config, 'get_municipality_config', return_value=test_municipality_config):
         with patch.object(MunicipalityReader, 'read', return_value=[None] * expected_result):
@@ -750,7 +750,7 @@ def test_read_municipalities_config_none():
     }, 1)
 ])
 @pytest.mark.run(order=-1)
-def test_read_document_types(test_document_types_config,expected_result):
+def test_read_document_types(test_document_types_config, expected_result):
     Config._config = None
     with patch.object(Config, 'get_document_types_config', return_value=test_document_types_config):
         with patch.object(DocumentTypeReader, 'read', return_value=[None] * expected_result):
@@ -786,7 +786,7 @@ def test_read_document_types_config_none():
     }, 1)
 ])
 @pytest.mark.run(order=-1)
-def test_read_real_estate_types(test_real_estate_type_config,expected_result):
+def test_read_real_estate_types(test_real_estate_type_config, expected_result):
     Config._config = None
     with patch.object(Config, 'get_real_estate_type_config', return_value=test_real_estate_type_config):
         with patch.object(RealEstateTypeReader, 'read', return_value=[None] * expected_result):
@@ -826,7 +826,7 @@ def test_read_real_estate_types_config_none():
     }, 1)
 ])
 @pytest.mark.run(order=-1)
-def test_read_map_layering(test_map_layering_config,expected_result):
+def test_read_map_layering(test_map_layering_config, expected_result):
     Config._config = None
     Config._config = test_map_layering_config
     with patch.object(MapLayeringReader, 'read', return_value=[None] * expected_result):
