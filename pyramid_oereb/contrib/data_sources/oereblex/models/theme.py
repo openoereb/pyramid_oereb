@@ -38,6 +38,8 @@ def model_factory(schema_name, pk_type, geometry_type, srid, db_connection):
             needs
         geometry_type (str): The geoalchemy geometry type defined as well known string.
         srid (int): The SRID defining the projection of the geometries stored in standard db schema.
+    Returns:
+        Models: The models from factory wrapped in an intermediate object.
     """
     Base = declarative_base()
 
