@@ -12,7 +12,8 @@
             "fr": "Le contenu du cadastre RDPPF est supposé connu. Le canton de ${canton} n'engage pas sa responsabilité sur l'exactitude ou la fiabilité des documents législatifs dans leur version électronique. L'extrait a un caractère informatif et ne crée aucun droit ou obligation. La primauté va aux documents qui ont été légalement adoptés ou publiés. Vous trouverez d'autres informations sur le cadastre RDPPF sous www.cadastre.ch",
             "it": "Il contenuto del Catasto RDPP si considera noto. Il Canton ${canton} non può essere ritenuto responsabile per la precisione e l'affidabilità dei documenti legislativi in formato elettronico. L'estratto ha carattere puramente informativo e non è in particolare costitutivo di diritti e obblighi. Sono considerati determinante i documenti approvati o pubblicati passati in giudicato. Ulteriori informazioni relative al Catasto RDPP sono disponibili su www.cadastre.ch",
             "rm": "Il cuntegn dal cataster RDPP vegn premess sco enconuschent. Il chantun ${canton} n'è betg responsabel per l'exactadad e per la fidadadad dals documents legislativs electronics. L'extract ha in caracter puramain infurmativ e na motivescha cunzunt nagins dretgs e naginas obligaziuns. Giuridicamain liants èn quels documents ch'èn vegnids deliberads u publitgads cun vigur legala. Ulteriuras infurmaziuns davart il cataster RDPP chattais Vus sut www.cadastre.ch"
-        }
+        },
+        "extract_index": 0
     }
 ]
 
