@@ -269,7 +269,7 @@ class Config(object):
         )
         theme_records = theme_reader.read()
         if len(theme_records) == 0:
-            log.error('No records found for themes.')        
+            log.error('No records found for themes.')
         return theme_records
 
     @staticmethod
@@ -428,7 +428,6 @@ class Config(object):
         if len(avaliablity_records) == 0:
             log.error('No records found for availability.')
         return avaliablity_records
-
 
     @staticmethod
     def _read_glossaries():
