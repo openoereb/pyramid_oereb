@@ -17,7 +17,8 @@ class DatabaseSource(BaseDatabaseSource, GeneralInformationBaseSource):
             for result in results:
                 self.records.append(self._record_class_(
                     result.title,
-                    result.content
+                    result.content,
+                    result.extract_index
                 ))
         finally:
             session.close()

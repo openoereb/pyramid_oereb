@@ -219,12 +219,14 @@ class Disclaimer(Base):
         id (str): identifier and primary key, used in the database only
         title (str): The title which the disclaimer item has.
         content (str): The content which the disclaimer item has.
+        extract_index (int): index to sort the disclaimers in the extract
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'disclaimer'
     id = Column(String, primary_key=True)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
+    extract_index = Column(Integer, nullable=True)
 
 
 class LawStatus(Base):
@@ -263,12 +265,14 @@ class GeneralInformation(Base):
         id (str): identifier and primary key, used in the database only
         title (dict): The title of the general information (multilingual)
         content (dict): The actual information (multilingual)
+        extract_index (int): index to sort the items in the extract
     """
     __table_args__ = {'schema': app_schema_name}
     __tablename__ = 'general_information'
     id = Column(String, primary_key=True)
     title = Column(JSONType, nullable=False)
     content = Column(JSONType, nullable=False)
+    extract_index = Column(Integer, nullable=True)
 
 
 class ThemeDocument(Base):
