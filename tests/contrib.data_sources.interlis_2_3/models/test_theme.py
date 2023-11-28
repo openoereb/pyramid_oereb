@@ -13,18 +13,18 @@ def test_model():
     localised_blob = 'blob'
     localised_uri = 'https://www.cadastre.ch/fr'
     multilingual_blob = {'fr': 'blob', 'de': 'blubb, blubb'}
-    multilingual_uri = {'de': 'https://www.cadastre.ch/de/home.html', 
+    multilingual_uri = {'de': 'https://www.cadastre.ch/de/home.html',
                         'fr': 'https://www.cadastre.ch/fr/home.html'}
     base = '???'
     db_connection = 'postgresql://postgres:postgres@123.123.123.123:5432/oereb_test_db'
     schema_name = 'my_schema'
 
     new_model = Models(office, document, view_service,
-                    legend_entry, public_law_restriction, geometry,
-                    public_law_restriction_document,
-                    localised_blob, localised_uri, multilingual_blob, multilingual_uri,
-                    base, db_connection, schema_name)
-    
+                       legend_entry, public_law_restriction, geometry,
+                       public_law_restriction_document,
+                       localised_blob, localised_uri, multilingual_blob, multilingual_uri,
+                       base, db_connection, schema_name)
+
     assert new_model.Office == 'ne.scat'
     assert new_model.Document == 'some document object'
     assert new_model.ViewService == 'https://www.example.com'
