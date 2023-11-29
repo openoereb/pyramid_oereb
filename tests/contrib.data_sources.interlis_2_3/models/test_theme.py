@@ -6,7 +6,7 @@ from pyramid_oereb.contrib.data_sources.interlis_2_3.models.theme import (
 )
 
 
-def test_models():
+def test_models(db_connection, schema_name):
 
     office = 'ne.scat'
     document = 'some document object'
@@ -21,14 +21,13 @@ def test_models():
     multilingual_uri = {'de': 'https://www.cadastre.ch/de/home.html',
                         'fr': 'https://www.cadastre.ch/fr/home.html'}
     base = '???'
-    db_connection = 'postgresql://mock_user:mock_pwd@123.123.123.123:5432/oereb_mock_db'
-    schema_name = 'my_schema'
 
     new_model = Models(office, document, view_service,
                        legend_entry, public_law_restriction, geometry,
                        public_law_restriction_document,
                        localised_blob, localised_uri, multilingual_blob, multilingual_uri,
-                       base, db_connection, schema_name)
+                       base, db_connection, schema_name
+                       )
 
     assert new_model.Office == 'ne.scat'
     assert new_model.Document == 'some document object'
@@ -44,14 +43,11 @@ def test_models():
     assert isinstance(new_model.MultilingualUri, dict)
     assert new_model.MultilingualUri['de'] == 'https://www.cadastre.ch/de/home.html'
     assert new_model.Base == '???'
-    assert new_model.db_connection == 'postgresql://mock_user:mock_pwd@123.123.123.123:5432/oereb_mock_db'
-    assert new_model.schema_name == 'my_schema'
+    assert new_model.db_connection == 'postgresql://mock_user:pass@123.123.123.123:5432/oereb_mock_db'
+    assert new_model.schema_name == 'test_schema'
 
 
-def test_model_factory(db_connection):
-    srid = 2056
-    pk_type = Integer
-    schema_name = 'test'
+def test_model_factory(db_connection, schema_name, pk_type, srid):
 
     models = model_factory(
         schema_name,
@@ -67,12 +63,13 @@ def test_model_factory(db_connection):
     assert models.Geometry.point.type.geometry_type == 'POINT'
     assert models.Geometry.line.type.geometry_type == 'LINESTRING'
     assert models.Geometry.surface.type.geometry_type == 'POLYGON'
+    assert models.Geometry.point.type.srid == srid
 
 
-def test_model_factory_string_pk(db_connection):
-    srid = 2056
+def test_model_factory_string_pk(db_connection, schema_name, srid):
+
     geometry_type = 'POINT'
-    schema_name = 'test'
+
     models = model_factory_string_pk(
         schema_name,
         geometry_type,
@@ -82,10 +79,10 @@ def test_model_factory_string_pk(db_connection):
     assert isinstance(models.PublicLawRestriction.t_id.type, String)
 
 
-def test_model_factory_integer_pk(db_connection):
-    srid = 2056
+def test_model_factory_integer_pk(db_connection, schema_name, srid):
+
     geometry_type = 'POINT'
-    schema_name = 'test'
+
     models = model_factory_integer_pk(
         schema_name,
         geometry_type,

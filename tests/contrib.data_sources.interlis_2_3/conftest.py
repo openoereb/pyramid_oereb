@@ -52,7 +52,30 @@ def png_binary(png_image):
     png_image.save(output, format='PNG')
     yield output.getvalue()
 
+from sqlalchemy import Integer
+from sqlalchemy.orm import declarative_base
+
+
+@pytest.fixture
+def base():
+    yield declarative_base()
+
 
 @pytest.fixture
 def db_connection():
     yield "postgresql://mock_user:pass@123.123.123.123:5432/oereb_mock_db"
+
+
+@pytest.fixture
+def pk_type():
+    yield Integer
+
+
+@pytest.fixture
+def srid():
+    yield 2056
+
+
+@pytest.fixture
+def schema_name():
+    yield 'test_schema'
