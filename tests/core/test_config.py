@@ -838,3 +838,250 @@ def test_read_map_layering_config_none():
     Config._config = {}
     with pytest.raises(ConfigurationError):
         Config._read_map_layering()
+
+
+@pytest.mark.run(order=1)
+def test_init_availabilities():
+    Config._config = None
+    with patch.object(Config, '_read_availabilities', return_value=""):
+        assert Config.availabilities is None
+        Config.init_availabilities()
+        assert Config.availabilities == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_availabilities_error():
+    def mock_read_availabilities():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_availabilities', mock_read_availabilities):
+        Config._config = None
+        Config.init_availabilities()
+        assert Config.availabilities is None
+
+
+@pytest.mark.run(order=1)
+def test_init_glossaries():
+    Config._config = None
+    with patch.object(Config, '_read_glossaries', return_value=""):
+        assert Config.glossaries is None
+        Config.init_glossaries()
+        assert Config.glossaries == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_glossaries_error():
+    def mock_read_glossaries():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_glossaries', mock_read_glossaries):
+        Config._config = None
+        Config.init_glossaries()
+        assert Config.glossaries is None
+
+
+@pytest.mark.run(order=1)
+def test_init_disclaimers():
+    Config._config = None
+    with patch.object(Config, '_read_disclaimers', return_value=""):
+        assert Config.disclaimers is None
+        Config.init_disclaimers()
+        assert Config.disclaimers == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_disclaimers_error():
+    def mock_read_disclaimers():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_disclaimers', mock_read_disclaimers):
+        Config._config = None
+        Config.init_disclaimers()
+        assert Config.disclaimers is None
+
+
+@pytest.mark.run(order=1)
+def test_init_municipalities():
+    Config._config = None
+    with patch.object(Config, '_read_municipalities', return_value=""):
+        assert Config.municipalities is None
+        Config.init_municipalities()
+        assert Config.municipalities == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_municipalities_error():
+    def mock_read_municipalities():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_municipalities', mock_read_municipalities):
+        Config._config = None
+        Config.init_municipalities()
+        assert Config.municipalities is None
+
+
+@pytest.mark.run(order=1)
+def test_init_document_types():
+    Config._config = None
+    with patch.object(Config, '_read_document_types', return_value=""):
+        assert Config.document_types is None
+        Config.init_document_types()
+        assert Config.document_types == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_document_types_error():
+    def mock_read_document_types():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_document_types', mock_read_document_types):
+        Config._config = None
+        Config.init_document_types()
+        assert Config.document_types is None
+
+
+@pytest.mark.run(order=1)
+def test_init_real_estate_types():
+    Config._config = None
+    with patch.object(Config, '_read_real_estate_types', return_value=""):
+        assert Config.real_estate_types is None
+        Config.init_real_estate_types()
+        assert Config.real_estate_types == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_real_estate_types_error():
+    def mock_read_real_estate_types():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_real_estate_types', mock_read_real_estate_types):
+        Config._config = None
+        Config.init_real_estate_types()
+        assert Config.real_estate_types is None
+
+
+@pytest.mark.run(order=1)
+def test_init_map_layering():
+    Config._config = None
+    with patch.object(Config, '_read_map_layering', return_value=""):
+        assert Config.map_layering is None
+        Config.init_map_layering()
+        assert Config.map_layering == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_map_layering_error():
+    def mock_read_map_layering():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_map_layering', mock_read_map_layering):
+        Config._config = None
+        Config.init_map_layering()
+        assert Config.map_layering is None
+
+
+@pytest.mark.run(order=1)
+def test_init_themes():
+    Config._config = None
+    with patch.object(Config, '_read_themes', return_value=""):
+        assert Config.themes is None
+        Config.init_themes()
+        assert Config.themes == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_themes_error():
+    def mock_read_themes():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_themes', mock_read_themes):
+        Config._config = None
+        Config.init_themes()
+        assert Config.themes is None
+
+
+@pytest.mark.run(order=1)
+def test_init_theme_document():
+    Config._config = None
+    with patch.object(Config, '_read_theme_document', return_value=""):
+        assert Config.theme_document is None
+        Config.init_theme_document()
+        assert Config.theme_document == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_theme_document_error():
+    def mock_read_theme_document():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_theme_document', mock_read_theme_document):
+        Config._config = None
+        Config.init_theme_document()
+        assert Config.theme_document is None
+
+
+@pytest.mark.run(order=1)
+def test_init_general_information():
+    Config._config = None
+    with patch.object(Config, '_read_general_information', return_value=""):
+        assert Config.general_information is None
+        Config.init_general_information()
+        assert Config.general_information == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_general_information_error():
+    def mock_read_general_information():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_general_information', mock_read_general_information):
+        Config._config = None
+        Config.init_general_information()
+        assert Config.general_information is None
+
+
+@pytest.mark.run(order=1)
+def test_init_law_status():
+    Config._config = None
+    with patch.object(Config, '_read_law_status', return_value=""):
+        assert Config.law_status is None
+        Config.init_law_status()
+        assert Config.law_status == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_law_status_error():
+    def mock_read_law_status():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_law_status', mock_read_law_status):
+        Config._config = None
+        Config.init_law_status()
+        assert Config.law_status is None
+
+
+@pytest.mark.run(order=1)
+def test_init_documents():
+    Config._config = None
+    with patch.object(Config, '_read_documents', return_value=""):
+        assert Config.documents is None
+        Config.init_documents()
+        assert Config.documents == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_documents_error():
+    def mock_read_documents():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_documents', mock_read_documents):
+        Config._config = None
+        Config.init_documents()
+        assert Config.documents is None
+
+
+@pytest.mark.run(order=1)
+def test_init_offices():
+    Config._config = None
+    with patch.object(Config, '_read_offices', return_value=""):
+        assert Config.offices is None
+        Config.init_offices()
+        assert Config.offices == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_offices_error():
+    def mock_read_offices():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_offices', mock_read_offices):
+        Config._config = None
+        Config.init_offices()
+        assert Config.offices is None
