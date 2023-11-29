@@ -51,3 +51,7 @@ def png_binary(png_image):
     output = io.BytesIO()
     png_image.save(output, format='PNG')
     yield output.getvalue()
+
+@pytest.fixture
+def db_connection():
+    yield "postgresql://mock_user:pass@123.123.123.123:5432/oereb_mock_db"
