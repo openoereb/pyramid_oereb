@@ -474,7 +474,7 @@ def model_factory(schema_name, pk_type, srid, db_connection):
         )
         multilingualblob = relationship(
             'MultilingualBlob',
-            backref='localised_uri'
+            backref='localised_blob'
         )
 
     class PublicLawRestrictionDocument(Base):
