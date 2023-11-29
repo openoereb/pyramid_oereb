@@ -1,4 +1,6 @@
 import binascii
+from pyramid_oereb.contrib.data_sources.interlis_2_3.models.theme import Models
+from pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr import StandardThemeConfigParser
 
 import pytest
 from unittest.mock import patch
@@ -186,49 +188,82 @@ def one_result_b64_session(legend_entry, png_binary, session, query):
     yield Session
 
 
-def test_get_symbol_binary_content(theme_config, one_result_binary_session, png_binary):
+@pytest.fixture
+def mock_get_models():
+
+    class LegendEntry():
+        t_id = 1
+
+    office = ''
+    document = ''
+    view_service = ''
+    legend_entry = LegendEntry()
+    public_law_restriction = []
+    geometry = ''
+    public_law_restriction_document = ''
+    localised_blob = ''
+    localised_uri = ''
+    multilingual_blob = {}
+    multilingual_uri = {}
+    base = ''
+    db_connection = ''
+    schema_name = ''
+    return Models(office, document, view_service,
+                  legend_entry, public_law_restriction, geometry,
+                  public_law_restriction_document,
+                  localised_blob, localised_uri, multilingual_blob, multilingual_uri,
+                  base, db_connection, schema_name)
+
+
+def test_get_symbol_binary_content(theme_config, one_result_binary_session, png_binary, mock_get_models):
     with patch(
             'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
             return_value=one_result_binary_session()):
-        body, content_type = get_symbol({'identifier': "1"}, theme_config)
-        assert content_type == 'image/png'
-        assert body == b64.decode(binascii.b2a_base64(png_binary).decode('ascii'))
+        with patch.object(StandardThemeConfigParser, 'get_models', return_value=mock_get_models):
+            body, content_type = get_symbol({'identifier': "1"}, theme_config)
+            assert content_type == 'image/png'
+            assert body == b64.decode(binascii.b2a_base64(png_binary).decode('ascii'))
 
 
-def test_get_symbol_no_symbol_content(theme_config, one_result_no_symbol_session):
+def test_get_symbol_no_symbol_content(theme_config, one_result_no_symbol_session, mock_get_models):
     with patch(
             'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
             return_value=one_result_no_symbol_session()):
-        with pytest.raises(HTTPServerError):
-            get_symbol({'identifier': "1"}, theme_config)
+        with patch.object(StandardThemeConfigParser, 'get_models', return_value=mock_get_models):
+            with pytest.raises(HTTPServerError):
+                get_symbol({'identifier': "1"}, theme_config)
 
 
-def test_get_symbol_wrong_param(theme_config, one_result_no_symbol_session):
+def test_get_symbol_wrong_param(theme_config, one_result_no_symbol_session, mock_get_models):
     with patch(
             'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
             return_value=one_result_no_symbol_session()):
-        with pytest.raises(HTTPServerError):
-            get_symbol({'identif': "1"}, theme_config)
+        with patch.object(StandardThemeConfigParser, 'get_models', return_value=mock_get_models):
+            with pytest.raises(HTTPServerError):
+                get_symbol({'identif': "1"}, theme_config)
 
 
-def test_get_symbol_no_legend_entry(theme_config, no_result_session):
+def test_get_symbol_no_legend_entry(theme_config, no_result_session, mock_get_models):
     with patch(
             'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
             return_value=no_result_session()):
-        with pytest.raises(HTTPNotFound):
-            get_symbol({'identifier': "2"}, theme_config)
+        with patch.object(StandardThemeConfigParser, 'get_models', return_value=mock_get_models):
+            with pytest.raises(HTTPNotFound):
+                get_symbol({'identifier': "2"}, theme_config)
 
 
-def test_get_symbol_wrong_content(theme_config, one_result_wrong_content_session):
+def test_get_symbol_wrong_content(theme_config, one_result_wrong_content_session, mock_get_models):
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
                return_value=one_result_wrong_content_session()):
-        with pytest.raises(HTTPServerError):
-            get_symbol({'identifier': "1"}, theme_config)
+        with patch.object(StandardThemeConfigParser, 'get_models', return_value=mock_get_models):
+            with pytest.raises(HTTPServerError):
+                get_symbol({'identifier': "1"}, theme_config)
 
 
-def test_get_symbol_b64_content(theme_config, one_result_b64_session, png_binary):
+def test_get_symbol_b64_content(theme_config, one_result_b64_session, png_binary, mock_get_models):
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
                return_value=one_result_b64_session()):
-        body, content_type = get_symbol({'identifier': "1"}, theme_config)
-        assert content_type == 'image/png'
-        assert body == b64.decode(binascii.b2a_base64(png_binary).decode('ascii'))
+        with patch.object(StandardThemeConfigParser, 'get_models', return_value=mock_get_models):
+            body, content_type = get_symbol({'identifier': "1"}, theme_config)
+            assert content_type == 'image/png'
+            assert body == b64.decode(binascii.b2a_base64(png_binary).decode('ascii'))
