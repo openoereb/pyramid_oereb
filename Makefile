@@ -145,7 +145,7 @@ compare_files_%:
 
 COMPARE_ALL_JSONS = $(foreach prefix, $(JSON_PREFIXES), compare_files_$(prefix).json)
 
-.PHONY: check_fed_data 
+.PHONY: check_fed_data
 check_fed_data: clean_fed_data prepare_fed_data $(COMPARE_ALL_JSONS)
 
 
@@ -317,6 +317,10 @@ test-contrib-data_sources-standard: ${VENV_ROOT}/requirements-timestamp
 .PHONY: test-contrib-data_sources-interlis
 test-contrib-data_sources-interlis: ${VENV_ROOT}/requirements-timestamp
 	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-data_sources-interlis --cov $(PACKAGE)/contrib/data_sources/interlis_2_3 --cov-report=term-missing:skip-covered --cov-report=xml:coverage.contrib-data_sources-interlis.xml tests/contrib.data_sources.interlis_2_3
+
+.PHONY: test-contrib-data_sources-swisstopo
+test-contrib-data_sources-swisstopo: ${VENV_ROOT}/requirements-timestamp
+	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-data_sources-swisstopo --cov $(PACKAGE)/contrib/data_sources/swisstopo --cov-report=term-missing:skip-covered --cov-report=xml:coverage.contrib-data_sources-swisstopo.xml tests/contrib.data_sources.swisstopo
 
 .PHONY: test-contrib-stats
 test-contrib-stats: ${VENV_ROOT}/requirements-timestamp
