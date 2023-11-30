@@ -53,7 +53,7 @@ The server is able to use several specific external api endpoints to fetch data 
 API). These need to be configured and prepared by the integrator of this package. Please read the dedicated part
 of documentation.
 
-For the moment we provide an adapter to get the PDF static extract from mapfishprint and
+For the moment we provide an adapter to get the PDF static extract from mapfishprint.
 
 =======
 For the moment we provide an adapter to get the PDF static extract from mapfishprint.
