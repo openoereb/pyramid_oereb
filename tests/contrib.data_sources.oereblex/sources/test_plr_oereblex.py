@@ -130,7 +130,7 @@ def config_themes(app_config):
 
 
 @pytest.fixture(autouse=True)
-def config_config(app_config, plr_source_params):
+def config_config(plr_source_params):
     mock_config = {
         'default_language': 'de',
         'srid': 2056,
