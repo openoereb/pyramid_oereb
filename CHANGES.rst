@@ -1,8 +1,8 @@
 Changelog
 =========
 
-main
-----
+master
+------
 - Remove print proxy "xml2pdf" (#1889)
 
 2.4.6
