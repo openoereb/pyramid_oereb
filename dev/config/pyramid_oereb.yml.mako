@@ -42,6 +42,7 @@ pyramid_oereb:
     # The pyramid renderer which is used as proxy pass through to the desired service for printable static
     # extract. Here you can define the path to the logic which prepares the output as payload for print
     # service and returns the result to the user.
+    # This version of pyramid oereb provides only the mapfish_print print proxy.
     #
     # Configuration for MapFish-Print print service
     renderer: pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer
