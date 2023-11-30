@@ -1,6 +1,10 @@
 Changelog
 =========
 
+main
+----
+- Remove print proxy "xml2pdf" (#1889)
+
 2.4.6
 -----
 - Fix error with large of contents and new pdf library (#1813)
