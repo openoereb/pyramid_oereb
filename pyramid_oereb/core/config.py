@@ -426,7 +426,7 @@ class Config(object):
 
         avaliablity_records = availability_reader.read()
         if len(avaliablity_records) == 0:
-            log.error('No records found for availability.')
+            log.info('No records found for availability.')
         return avaliablity_records
 
     @staticmethod
@@ -949,7 +949,7 @@ class Config(object):
 
         map_layering_record = map_layering_reader.read()
         if len(map_layering_record) == 0:
-            log.error('No records found for map layering.')
+            log.info('No records found for map layering.')
         return map_layering_record
 
     @staticmethod
