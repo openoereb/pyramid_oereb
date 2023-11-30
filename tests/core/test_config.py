@@ -1085,3 +1085,13 @@ def test_init_offices_error():
         Config._config = None
         Config.init_offices()
         assert Config.offices is None
+
+
+@pytest.mark.run(order=1)
+def test_get_config():
+    Config._config = None
+    assert Config.get_config() == None
+    Config._config = {}
+    assert Config.get_config() == {}
+    # set config back to None.
+    Config._config = None
