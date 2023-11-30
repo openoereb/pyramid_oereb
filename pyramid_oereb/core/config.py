@@ -1191,26 +1191,6 @@ class Config(object):
         raise ConfigurationError(f"Document type {code} not found in the application configuration")
 
     @staticmethod
-    def get_theme_thresholds(code):
-        """
-        Returns the limits for the geometries of the theme with the specified code.
-
-        Args:
-            code (str): The theme's code.
-
-        Returns:
-            dict or None: The geometric tolerances for this theme.
-        """
-        assert Config._config is not None
-
-        plrs = Config._config.get('plrs')
-        if plrs and isinstance(plrs, list):
-            for theme in plrs:
-                if theme.get('code') == code:
-                    return theme.get('plr_thresholds')
-        return None
-
-    @staticmethod
     def get_all_federal():
         """
         Returns a list of all federal topic codes.
