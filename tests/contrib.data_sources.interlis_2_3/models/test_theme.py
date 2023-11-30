@@ -6,7 +6,7 @@ from pyramid_oereb.contrib.data_sources.interlis_2_3.models.theme import (
 )
 
 
-def test_models(db_connection, schema_name):
+def test_models(db_connection, schema_name, base):
 
     office = 'ne.scat'
     document = 'some document object'
@@ -20,7 +20,6 @@ def test_models(db_connection, schema_name):
     multilingual_blob = {'fr': 'blob', 'de': 'blubb, blubb'}
     multilingual_uri = {'de': 'https://www.cadastre.ch/de/home.html',
                         'fr': 'https://www.cadastre.ch/fr/home.html'}
-    base = '???'
 
     new_model = Models(office, document, view_service,
                        legend_entry, public_law_restriction, geometry,
@@ -42,7 +41,7 @@ def test_models(db_connection, schema_name):
     assert new_model.MultilingualBlob == {'fr': 'blob', 'de': 'blubb, blubb'}
     assert isinstance(new_model.MultilingualUri, dict)
     assert new_model.MultilingualUri['de'] == 'https://www.cadastre.ch/de/home.html'
-    assert new_model.Base == '???'
+    assert new_model.Base == base
     assert new_model.db_connection == 'postgresql://mock_user:pass@123.123.123.123:5432/oereb_mock_db'
     assert new_model.schema_name == 'test_schema'
 
