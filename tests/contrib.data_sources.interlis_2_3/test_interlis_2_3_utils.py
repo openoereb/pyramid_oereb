@@ -1,9 +1,7 @@
 import io
 import pytest
 from PIL import Image
-from sqlalchemy import INTEGER, text, orm, create_engine
-from sqlalchemy.schema import CreateSchema
-from sqlalchemy.engine.url import URL
+from sqlalchemy import INTEGER
 
 from pyramid_oereb.contrib.data_sources.interlis_2_3.models.theme import model_factory
 from pyramid_oereb.contrib.data_sources.interlis_2_3.interlis_2_3_utils \
@@ -32,134 +30,58 @@ def png_binary_3():
 
 
 @pytest.fixture(scope="session")
-def interlis_utils_db_engine(base_engine):
-    # def test_db_engine(base_engine, test_db_name, config_path):
-    # """
-    # create a new test DB called test_db_name and its engine
-    # """
-
-    test_interlis_db_name = "interlis_utils_test"
-    with base_engine.begin() as base_connection:
-        # terminate existing connections to be able to DROP the DB
-        term_stmt = 'SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity ' \
-            f'WHERE pg_stat_activity.datname = \'{test_interlis_db_name}\' AND pid <> pg_backend_pid();'
-        base_connection.execute(text(term_stmt))
-        # sqlalchemy uses transactions by default, COMMIT end the current transaction and allows
-        # creation and destruction of DB
-        base_connection.execute(text('COMMIT'))
-        base_connection.execute(text(f"DROP DATABASE if EXISTS {test_interlis_db_name}"))
-        base_connection.execute(text('COMMIT'))
-        base_connection.execute(text(f"CREATE DATABASE {test_interlis_db_name}"))
-
-    test_db_url = URL.create(
-        base_engine.url.get_backend_name(),
-        base_engine.url.username,
-        base_engine.url.password,
-        base_engine.url.host,
-        base_engine.url.port,
-        database=test_interlis_db_name
-    )
-    engine = create_engine(test_db_url)
-    with engine.begin() as connection:
-        connection.execute(text("CREATE EXTENSION POSTGIS"))
-        connection.execute(CreateSchema('interlis_utils_test', if_not_exists=True))
-    return engine
+def model_example1():
+    models = model_factory("interlis_utils_test", INTEGER, 2056, "")
+    model = models
+    local_uri = models.LocalisedUri()
+    local_uri.language = "de"
+    local_uri.text = "Beispiel 1"
+    local_uri2 = models.LocalisedUri()
+    local_uri2.language = "fr"
+    local_uri2.text = "Exemple 1"
+    model.localised_uri = [local_uri, local_uri2]
+    yield [model]
 
 
 @pytest.fixture(scope="session")
-def test_data_session(interlis_utils_db_engine, png_binary_1, png_binary_2, png_binary_3):
-    session = orm.sessionmaker(bind=interlis_utils_db_engine)()
-    models = model_factory("interlis_utils_test", INTEGER, 2056, interlis_utils_db_engine.url)
-    models.Base.metadata.create_all(interlis_utils_db_engine)
-
-    # Multilingual URI
-    session.add(
-        models.MultilingualUri(
-            t_id=1
-        )
-    )
-    session.add(
-        models.MultilingualUri(
-            t_id=2
-        )
-    )
-
-    # Localised URI
-    session.add(
-        models.LocalisedUri(
-            t_id=3,
-            language="fr",
-            text="Exemple 1",
-            multilingualuri_id=1
-        )
-    )
-    session.add(
-        models.LocalisedUri(
-            t_id=4,
-            language="de",
-            text="Beispiel 1",
-            multilingualuri_id=1,
-        )
-    )
-    session.add(
-        models.LocalisedUri(
-            t_id=5,
-            language="it",
-            text="Esempio 2",
-            multilingualuri_id=2
-        )
-    )
-
-    # Multilingual BLOB
-    session.add(
-        models.MultilingualBlob(
-            t_id=6
-        )
-    )
-    session.add(
-        models.MultilingualBlob(
-            t_id=7
-        )
-    )
-
-    # Localised BLOB
-    session.add(
-        models.LocalisedBlob(
-            t_id=8,
-            language="de",
-            blob=png_binary_1,
-            multilingualblob_id=6
-        )
-    )
-    session.add(
-        models.LocalisedBlob(
-            t_id=9,
-            language="fr",
-            blob=png_binary_2,
-            multilingualblob_id=6
-        )
-    )
-    session.add(
-        models.LocalisedBlob(
-            t_id=10,
-            language="it",
-            blob=png_binary_3,
-            multilingualblob_id=7
-        )
-    )
-
-    session.commit()
-    yield session
+def model_example2():
+    models = model_factory("interlis_utils_test", INTEGER, 2056, "")
+    model = models
+    local_uri = models.LocalisedUri()
+    local_uri.language = "it"
+    local_uri.text = "Esempio 2"
+    model.localised_uri = [local_uri]
+    yield [model]
 
 
-def test_from_multilingual_uri_to_dict(interlis_utils_db_engine, test_data_session):
-    models = model_factory("interlis_utils_test", INTEGER, 2056, interlis_utils_db_engine.url)
-    session = test_data_session
-    result_1 = session.query(models.MultilingualUri).filter(models.MultilingualUri.t_id == 1)
-    result_2 = session.query(models.MultilingualUri).filter(models.MultilingualUri.t_id == 2)
+@pytest.fixture(scope="session")
+def model_example_blob(png_binary_1, png_binary_2):
+    models = model_factory("interlis_utils_test", INTEGER, 2056, "")
+    model = models
+    local_uri = models.LocalisedUri()
+    local_uri.language = "de"
+    local_uri.blob = png_binary_1
+    local_uri2 = models.LocalisedUri()
+    local_uri2.language = "fr"
+    local_uri2.blob = png_binary_2
+    model.localised_blob = [local_uri, local_uri2]
+    yield [model]
 
-    dict_1 = from_multilingual_uri_to_dict(result_1)
-    dict_2 = from_multilingual_uri_to_dict(result_2)
+
+@pytest.fixture(scope="session")
+def model_example_blob2(png_binary_3):
+    models = model_factory("interlis_utils_test", INTEGER, 2056, "")
+    model = models
+    local_uri = models.LocalisedUri()
+    local_uri.language = "it"
+    local_uri.blob = png_binary_3
+    model.localised_blob = [local_uri]
+    yield [model]
+
+
+def test_from_multilingual_uri_to_dict(model_example1, model_example2):
+    dict_1 = from_multilingual_uri_to_dict(model_example1)
+    dict_2 = from_multilingual_uri_to_dict(model_example2)
 
     dict_1_keys = list(dict_1.keys())
     dict_1_keys.sort()
@@ -173,15 +95,10 @@ def test_from_multilingual_uri_to_dict(interlis_utils_db_engine, test_data_sessi
     assert dict_2 == {"it": "Esempio 2"}
 
 
-def test_from_multilingual_blob_to_dict(interlis_utils_db_engine, test_data_session,
-                                        png_binary_1, png_binary_2, png_binary_3):
-    models = model_factory("interlis_utils_test", INTEGER, 2056, interlis_utils_db_engine.url)
-    session = test_data_session
-    result_1 = session.query(models.MultilingualBlob).filter(models.MultilingualBlob.t_id == 6)
-    result_2 = session.query(models.MultilingualBlob).filter(models.MultilingualBlob.t_id == 7)
-
-    dict_1 = from_multilingual_blob_to_dict(result_1)
-    dict_2 = from_multilingual_blob_to_dict(result_2)
+def test_from_multilingual_blob_to_dict(png_binary_1, png_binary_2, png_binary_3,
+                                        model_example_blob, model_example_blob2):
+    dict_1 = from_multilingual_blob_to_dict(model_example_blob)
+    dict_2 = from_multilingual_blob_to_dict(model_example_blob2)
 
     dict_1_keys = list(dict_1.keys())
     dict_1_keys.sort()
