@@ -55,9 +55,6 @@ of documentation.
 
 For the moment we provide an adapter to get the PDF static extract from mapfishprint.
 
-=======
-For the moment we provide an adapter to get the PDF static extract from mapfishprint.
-
 .. image:: ../images/overview.png
    :align: center
 
