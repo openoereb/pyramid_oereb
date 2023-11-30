@@ -190,19 +190,40 @@ class Config(object):
         """
         Initializes availabilities from the configured source.
         """
-        Config.availabilities = Config._read_availabilities()
+        try:
+            Config.availabilities = Config._read_availabilities()
+        except ProgrammingError:
+            Config.availabilities = None
 
     @staticmethod
     def init_glossaries():
-        Config.glossaries = Config._read_glossaries()
+        """
+        Initializes glossaries from the configured source.
+        """
+        try:
+            Config.glossaries = Config._read_glossaries()
+        except ProgrammingError:
+            Config.glossaries = None
 
     @staticmethod
     def init_disclaimers():
-        Config.disclaimers = Config._read_disclaimers()
+        """
+        Initializes disclaimers from the configured source.
+        """
+        try:
+            Config.disclaimers = Config._read_disclaimers()
+        except ProgrammingError:
+            Config.disclaimers = None
 
     @staticmethod
     def init_municipalities():
-        Config.municipalities = Config._read_municipalities()
+        """
+        Initializes municipalities from the configured source.
+        """
+        try:
+            Config.municipalities = Config._read_municipalities()
+        except ProgrammingError:
+            Config.municipalities = None
 
     @staticmethod
     def assemble_relation_themes_documents():
@@ -246,7 +267,10 @@ class Config(object):
             theme_config.get('source').get('class'),
             **Config.get_theme_config().get('source').get('params')
         )
-        return theme_reader.read()
+        theme_records = theme_reader.read()
+        if len(theme_records) == 0:
+            log.error('No records found for themes.')
+        return theme_records
 
     @staticmethod
     def _read_theme_document():
@@ -269,7 +293,10 @@ class Config(object):
             theme_document_config.get('source').get('class'),
             **Config.get_theme_document_config().get('source').get('params')
         )
-        return theme_document_reader.read()
+        theme_document_records = theme_document_reader.read()
+        if len(theme_document_records) == 0:
+            log.error('No records found for theme documents.')
+        return theme_document_records
 
     @staticmethod
     def _read_general_information():
@@ -292,7 +319,10 @@ class Config(object):
             info_config.get('source').get('class'),
             **Config.get_info_config().get('source').get('params')
         )
-        return info_reader.read()
+        general_info_records = info_reader.read()
+        if len(general_info_records) == 0:
+            log.error('No records found for general information.')
+        return general_info_records
 
     @staticmethod
     def _read_law_status():
@@ -315,7 +345,10 @@ class Config(object):
             law_status_config.get('source').get('class'),
             **law_status_config.get('source').get('params')
         )
-        return law_status_reader.read()
+        law_status_records = law_status_reader.read()
+        if len(law_status_records) == 0:
+            log.error('No records found for law status.')
+        return law_status_records
 
     @staticmethod
     def _read_documents():
@@ -338,7 +371,10 @@ class Config(object):
             document_config.get('source').get('class'),
             **document_config.get('source').get('params')
         )
-        return document_reader.read(Config.offices)
+        document_records = document_reader.read(Config.offices)
+        if len(document_records) == 0:
+            log.error('No records found for documents.')
+        return document_records
 
     @staticmethod
     def _read_offices():
@@ -361,7 +397,10 @@ class Config(object):
             office_config.get('source').get('class'),
             **office_config.get('source').get('params')
         )
-        return office_reader.read()
+        office_records = office_reader.read()
+        if len(office_records) == 0:
+            log.error('No records found for office.')
+        return office_records
 
     @staticmethod
     def _read_availabilities():
@@ -384,7 +423,11 @@ class Config(object):
             availability_config.get('source').get('class'),
             **availability_config.get('source').get('params')
         )
-        return availability_reader.read()
+
+        avaliablity_records = availability_reader.read()
+        if len(avaliablity_records) == 0:
+            log.info('No records found for availability.')
+        return avaliablity_records
 
     @staticmethod
     def _read_glossaries():
@@ -406,7 +449,10 @@ class Config(object):
             glossary_config.get('source').get('class'),
             **glossary_config.get('source').get('params')
         )
-        return glossary_reader.read()
+        glossary_records = glossary_reader.read()
+        if len(glossary_records) == 0:
+            log.error('No records found for glossaries.')
+        return glossary_records
 
     @staticmethod
     def _read_disclaimers():
@@ -428,7 +474,10 @@ class Config(object):
             disclaimer_config.get('source').get('class'),
             **disclaimer_config.get('source').get('params')
         )
-        return disclaimer_reader.read()
+        disclaimer_record = disclaimer_reader.read()
+        if len(disclaimer_record) == 0:
+            log.error('No records found for disclaimer.')
+        return disclaimer_record
 
     @staticmethod
     def _read_municipalities():
@@ -450,7 +499,10 @@ class Config(object):
             municipality_config.get('source').get('class'),
             **municipality_config.get('source').get('params')
         )
-        return municipality_reader.read()
+        municipality_record = municipality_reader.read()
+        if len(municipality_record) == 0:
+            log.error('No records found for municipalities.')
+        return municipality_record
 
     @staticmethod
     def get_srid():
@@ -563,7 +615,10 @@ class Config(object):
             logo_config.get('source').get('class'),
             **Config.get_logo_config().get('source').get('params')
         )
-        return logo_reader.read()
+        logo_record = logo_reader.read()
+        if len(logo_record) == 0:
+            log.error('No records found for logos.')
+        return logo_record
 
     @staticmethod
     def get_logos():
@@ -784,7 +839,10 @@ class Config(object):
             document_types_config.get('source').get('class'),
             **Config.get_document_types_config().get('source').get('params')
         )
-        return document_types_reader.read()
+        document_types_record = document_types_reader.read()
+        if len(document_types_record) == 0:
+            log.error('No records found for document types.')
+        return document_types_record
 
     @staticmethod
     def get_document_types():
@@ -828,14 +886,17 @@ class Config(object):
             ConfigurationError
         """
 
-        real_estate_types_config = Config.get('real_estate_type')
+        real_estate_types_config = Config.get_real_estate_type_config()
         if real_estate_types_config is None:
             raise ConfigurationError("Missing configuration for real estate type source config")
         real_estate_type_reader = RealEstateTypeReader(
             real_estate_types_config.get('source').get('class'),
             **real_estate_types_config.get('source').get('params'))
 
-        return real_estate_type_reader.read()
+        real_estate_types_record = real_estate_type_reader.read()
+        if len(real_estate_types_record) == 0:
+            log.error('No records found for real estate types.')
+        return real_estate_types_record
 
     @staticmethod
     def get_real_estate_types():
@@ -886,7 +947,10 @@ class Config(object):
             map_layering_config.get('source').get('class'),
             **map_layering_config.get('source').get('params'))
 
-        return map_layering_reader.read()
+        map_layering_record = map_layering_reader.read()
+        if len(map_layering_record) == 0:
+            log.info('No records found for map layering.')
+        return map_layering_record
 
     @staticmethod
     def get_map_layering():
@@ -1127,26 +1191,6 @@ class Config(object):
         raise ConfigurationError(f"Document type {code} not found in the application configuration")
 
     @staticmethod
-    def get_theme_thresholds(code):
-        """
-        Returns the limits for the geometries of the theme with the specified code.
-
-        Args:
-            code (str): The theme's code.
-
-        Returns:
-            dict or None: The geometric tolerances for this theme.
-        """
-        assert Config._config is not None
-
-        plrs = Config._config.get('plrs')
-        if plrs and isinstance(plrs, list):
-            for theme in plrs:
-                if theme.get('code') == code:
-                    return theme.get('plr_thresholds')
-        return None
-
-    @staticmethod
     def get_all_federal():
         """
         Returns a list of all federal topic codes.
@@ -1173,8 +1217,7 @@ class Config(object):
             unicode (str): The available crs.
         """
 
-        assert Config._config is not None
-        srid = Config._config.get('srid')
+        srid = Config.get_srid()
         return u'epsg:{}'.format(srid)
 
     @staticmethod

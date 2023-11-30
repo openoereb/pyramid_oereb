@@ -9,6 +9,20 @@ from pyramid.config import ConfigurationError
 # from pyramid_oereb.core.adapter import FileAdapter
 from pyramid_oereb.core.config import Config
 from pyramid_oereb.core.records.office import OfficeRecord
+from pyramid_oereb.core.readers.theme import ThemeReader
+from pyramid_oereb.core.readers.theme_document import ThemeDocumentReader
+from pyramid_oereb.core.readers.general_information import GeneralInformationReader
+from pyramid_oereb.core.readers.law_status import LawStatusReader
+from pyramid_oereb.core.readers.document import DocumentReader
+from pyramid_oereb.core.readers.office import OfficeReader
+from pyramid_oereb.core.readers.availability import AvailabilityReader
+from pyramid_oereb.core.readers.glossary import GlossaryReader
+from pyramid_oereb.core.readers.disclaimer import DisclaimerReader
+from pyramid_oereb.core.readers.municipality import MunicipalityReader
+from pyramid_oereb.core.readers.logo import LogoReader
+from pyramid_oereb.core.readers.document_types import DocumentTypeReader
+from pyramid_oereb.core.readers.real_estate_type import RealEstateTypeReader
+from pyramid_oereb.core.readers.map_layering import MapLayeringReader
 
 
 # order=-1 to run them after all and don't screw the configuration in Config
@@ -94,6 +108,42 @@ def test_init_logos_error():
         Config._config = None
         Config.init_logos()
         assert Config.logos is None
+
+
+@pytest.mark.parametrize('test_logos_config,expected_result', [
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.logo.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Logo"
+            }
+        }
+    }, 0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.logo.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Logo"
+            }
+        }
+    }, 1)
+])
+@pytest.mark.run(order=-1)
+def test_read_logos(test_logos_config, expected_result):
+    Config._config = None
+    with patch.object(Config, 'get_logo_config', return_value=test_logos_config):
+        with patch.object(LogoReader, 'read', return_value=[None] * expected_result):
+            assert len(Config._read_logos()) == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_read_logos_config_none():
+    Config._config = None
+    with patch.object(Config, 'get_logo_config', return_value=None):
+        with pytest.raises(ConfigurationError):
+            Config._read_logos()
 
 
 @pytest.mark.run(order=-1)
@@ -191,6 +241,78 @@ def test_get_theme_config_by_code_none():
     Config._config = None
     with pytest.raises(AssertionError):
         Config.get_theme_config_by_code('ch.NE.Baulinien')
+
+
+@pytest.mark.parametrize('test_themes_config,expected_result', [
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.theme.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Theme"
+            }
+        }
+    }, 0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.theme.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Theme"
+            }
+        }
+    }, 1)
+])
+@pytest.mark.run(order=-1)
+def test_read_themes(test_themes_config, expected_result):
+    Config._config = None
+    with patch.object(Config, 'get_theme_config', return_value=test_themes_config):
+        with patch.object(ThemeReader, 'read', return_value=[None] * expected_result):
+            assert len(Config._read_themes()) == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_read_themes_config_none():
+    Config._config = None
+    with patch.object(Config, 'get_theme_config', return_value=None):
+        with pytest.raises(ConfigurationError):
+            Config._read_themes()
+
+
+@pytest.mark.parametrize('test_theme_document_config,expected_result', [
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.theme_document.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument"
+            }
+        }
+    }, 0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.theme_document.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument"
+            }
+        }
+    }, 1)
+    ])
+@pytest.mark.run(order=-1)
+def test_read_theme_document(test_theme_document_config, expected_result):
+    Config._config = None
+    with patch.object(Config, 'get_theme_document_config', return_value=test_theme_document_config):
+        with patch.object(ThemeDocumentReader, 'read', return_value=[None] * expected_result):
+            assert len(Config._read_theme_document()) == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_read_theme_document_config_none():
+    Config._config = None
+    with patch.object(Config, 'get_theme_document_config', return_value=None):
+        with pytest.raises(ConfigurationError):
+            Config._read_theme_document()
 
 
 @pytest.mark.parametrize('test_value,expected_value', [
@@ -314,3 +436,652 @@ def test_get_extract_config_none():
     Config._config = None
     with pytest.raises(AssertionError):
         Config.get_extract_config()
+
+
+@pytest.mark.parametrize('test_general_information_config,expected_result', [
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.general_information.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation"
+            }
+        }
+    }, 0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.general_information.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation"
+            }
+        }
+    }, 1)
+])
+@pytest.mark.run(order=-1)
+def test_read_general_information(test_general_information_config, expected_result):
+    Config._config = None
+    with patch.object(Config, 'get_info_config', return_value=test_general_information_config):
+        with patch.object(GeneralInformationReader, 'read', return_value=[None] * expected_result):
+            assert len(Config._read_general_information()) == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_read_general_information_config_none():
+    Config._config = None
+    with patch.object(Config, 'get_info_config', return_value=None):
+        with pytest.raises(ConfigurationError):
+            Config._read_general_information()
+
+
+@pytest.mark.parametrize('test_law_status_config,expected_result', [
+    ({
+        "source": {
+            "class":
+            "pyramid_oereb.contrib.data_sources.standard.sources.law_status.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus"
+            }
+        }
+    }, 0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.law_status.DatabaseSource",
+            "params": {
+              "db_connection": "*main_db_connection",
+              "model": "pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus"
+            }
+        }
+    }, 1)
+])
+@pytest.mark.run(order=-1)
+def test_read_law_status(test_law_status_config, expected_result):
+    Config._config = None
+    with patch.object(Config, 'get_law_status_config', return_value=test_law_status_config):
+        with patch.object(LawStatusReader, 'read', return_value=[None] * expected_result):
+            assert len(Config._read_law_status()) == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_read_law_status_config_none():
+    Config._config = None
+    with patch.object(Config, 'get_law_status_config', return_value=None):
+        with pytest.raises(ConfigurationError):
+            Config._read_law_status()
+
+
+@pytest.mark.parametrize('test_documents_config,expected_result', [
+    ({
+        "source": {
+            "class":
+            "pyramid_oereb.contrib.data_sources.standard.sources.document.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Document"
+            }
+        }
+    }, 0),
+    ({
+        "source": {
+            "class":
+            "pyramid_oereb.contrib.data_sources.standard.sources.document.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Document"
+            }
+        }
+    }, 1)
+])
+@pytest.mark.run(order=-1)
+def test_read_documents(test_documents_config, expected_result):
+    Config._config = None
+    with patch.object(Config, 'get_document_config', return_value=test_documents_config):
+        with patch.object(DocumentReader, 'read', return_value=[None] * expected_result):
+            assert len(Config._read_documents()) == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_read_documents_config_none():
+    Config._config = None
+    with patch.object(Config, 'get_document_config', return_value=None):
+        with pytest.raises(ConfigurationError):
+            Config._read_documents()
+
+
+@pytest.mark.parametrize('test_offices_config,expected_result', [
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.office.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Office"
+            }
+        }
+    }, 0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.office.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Office"
+            }
+        }
+    }, 1),
+])
+@pytest.mark.run(order=-1)
+def test_read_offices(test_offices_config, expected_result):
+    Config._config = None
+    with patch.object(Config, 'get_office_config', return_value=test_offices_config):
+        with patch.object(OfficeReader, 'read', return_value=[None] * expected_result):
+            assert len(Config._read_offices()) == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_read_offices_config_none():
+    Config._config = None
+    with patch.object(Config, 'get_office_config', return_value=None):
+        with pytest.raises(ConfigurationError):
+            Config._read_offices()
+
+
+@pytest.mark.parametrize('test_availability_config,expected_result', [
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.availability.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Availability"
+            }
+        }
+    }, 0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.availability.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Availability"
+            }
+        }
+    }, 1)
+])
+@pytest.mark.run(order=-1)
+def test_read_availabilities(test_availability_config, expected_result):
+    Config._config = None
+    with patch.object(Config, 'get_availability_config', return_value=test_availability_config):
+        with patch.object(AvailabilityReader, 'read', return_value=[None] * expected_result):
+            assert len(Config._read_availabilities()) == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_read_availabilities_config_none():
+    Config._config = None
+    with patch.object(Config, 'get_availability_config', return_value=None):
+        with pytest.raises(ConfigurationError):
+            Config._read_availabilities()
+
+
+@pytest.mark.parametrize('test_glossary_config,expected_result', [
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.glossary.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Glossary"
+            }
+        }
+    }, 0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.glossary.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Glossary"
+            }
+        }
+    }, 1)
+])
+@pytest.mark.run(order=-1)
+def test_read_glossaries(test_glossary_config, expected_result):
+    Config._config = None
+    with patch.object(Config, 'get_glossary_config', return_value=test_glossary_config):
+        with patch.object(GlossaryReader, 'read', return_value=[None] * expected_result):
+            assert len(Config._read_glossaries()) == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_read_glossaries_config_none():
+    Config._config = None
+    with patch.object(Config, 'get_glossary_config', return_value=None):
+        with pytest.raises(ConfigurationError):
+            Config._read_glossaries()
+
+
+@pytest.mark.parametrize('test_disclaimer_config,expected_result', [
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.disclaimer.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer"
+            }
+        }
+    }, 0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.disclaimer.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer"
+            }
+        }
+    }, 1),
+])
+@pytest.mark.run(order=-1)
+def test_read_disclaimers(test_disclaimer_config, expected_result):
+    Config._config = None
+    with patch.object(Config, 'get_disclaimer_config', return_value=test_disclaimer_config):
+        with patch.object(DisclaimerReader, 'read', return_value=[None] * expected_result):
+            assert len(Config._read_disclaimers()) == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_read_disclaimers_config_none():
+    Config._config = None
+    with patch.object(Config, 'get_disclaimer_config', return_value=None):
+        with pytest.raises(ConfigurationError):
+            Config._read_disclaimers()
+
+
+@pytest.mark.parametrize('test_municipality_config,expected_result', [
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Municipality"
+            }
+        }
+    }, 0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Municipality"
+            }
+        }
+    }, 1)
+])
+@pytest.mark.run(order=-1)
+def test_read_municipalities(test_municipality_config, expected_result):
+    Config._config = None
+    with patch.object(Config, 'get_municipality_config', return_value=test_municipality_config):
+        with patch.object(MunicipalityReader, 'read', return_value=[None] * expected_result):
+            assert len(Config._read_municipalities()) == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_read_municipalities_config_none():
+    Config._config = None
+    with patch.object(Config, 'get_municipality_config', return_value=None):
+        with pytest.raises(ConfigurationError):
+            Config._read_municipalities()
+
+
+@pytest.mark.parametrize('test_document_types_config,expected_result', [
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.document_types.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText"
+            }
+        }
+    }, 0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.document_types.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText"
+            }
+        }
+    }, 1)
+])
+@pytest.mark.run(order=-1)
+def test_read_document_types(test_document_types_config, expected_result):
+    Config._config = None
+    with patch.object(Config, 'get_document_types_config', return_value=test_document_types_config):
+        with patch.object(DocumentTypeReader, 'read', return_value=[None] * expected_result):
+            assert len(Config._read_document_types()) == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_read_document_types_config_none():
+    Config._config = None
+    with patch.object(Config, 'get_document_types_config', return_value=None):
+        with pytest.raises(ConfigurationError):
+            Config._read_document_types()
+
+
+@pytest.mark.parametrize('test_real_estate_type_config,expected_result', [
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType"
+            }
+        }
+    }, 0),
+    ({
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource",
+            "params": {
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType"
+            }
+        }
+    }, 1)
+])
+@pytest.mark.run(order=-1)
+def test_read_real_estate_types(test_real_estate_type_config, expected_result):
+    Config._config = None
+    with patch.object(Config, 'get_real_estate_type_config', return_value=test_real_estate_type_config):
+        with patch.object(RealEstateTypeReader, 'read', return_value=[None] * expected_result):
+            assert len(Config._read_real_estate_types()) == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_read_real_estate_types_config_none():
+    Config._config = None
+    with patch.object(Config, 'get_real_estate_type_config', return_value=None):
+        with pytest.raises(ConfigurationError):
+            Config._read_real_estate_types()
+
+
+@pytest.mark.parametrize('test_map_layering_config,expected_result', [
+    ({
+        "map_layering": {
+            "source": {
+                "class": "pyramid_oereb.contrib.data_sources.standard.sources.map_layering.DatabaseSource",
+                "params": {
+                    "db_connection": "*main_db_connection",
+                    "model": "pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering"
+                }
+            }
+        }
+    }, 0),
+    ({
+        "map_layering": {
+            "source": {
+                "class": "pyramid_oereb.contrib.data_sources.standard.sources.map_layering.DatabaseSource",
+                "params": {
+                    "db_connection": "*main_db_connection",
+                    "model": "pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering"
+                }
+            }
+        }
+    }, 1)
+])
+@pytest.mark.run(order=-1)
+def test_read_map_layering(test_map_layering_config, expected_result):
+    Config._config = None
+    Config._config = test_map_layering_config
+    with patch.object(MapLayeringReader, 'read', return_value=[None] * expected_result):
+        assert len(Config._read_map_layering()) == expected_result
+
+
+@pytest.mark.run(order=-1)
+def test_read_map_layering_config_none():
+    Config._config = {}
+    with pytest.raises(ConfigurationError):
+        Config._read_map_layering()
+
+
+@pytest.mark.run(order=1)
+def test_init_availabilities():
+    Config._config = None
+    with patch.object(Config, '_read_availabilities', return_value=""):
+        assert Config.availabilities is None
+        Config.init_availabilities()
+        assert Config.availabilities == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_availabilities_error():
+    def mock_read_availabilities():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_availabilities', mock_read_availabilities):
+        Config._config = None
+        Config.init_availabilities()
+        assert Config.availabilities is None
+
+
+@pytest.mark.run(order=1)
+def test_init_glossaries():
+    Config._config = None
+    with patch.object(Config, '_read_glossaries', return_value=""):
+        assert Config.glossaries is None
+        Config.init_glossaries()
+        assert Config.glossaries == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_glossaries_error():
+    def mock_read_glossaries():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_glossaries', mock_read_glossaries):
+        Config._config = None
+        Config.init_glossaries()
+        assert Config.glossaries is None
+
+
+@pytest.mark.run(order=1)
+def test_init_disclaimers():
+    Config._config = None
+    with patch.object(Config, '_read_disclaimers', return_value=""):
+        assert Config.disclaimers is None
+        Config.init_disclaimers()
+        assert Config.disclaimers == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_disclaimers_error():
+    def mock_read_disclaimers():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_disclaimers', mock_read_disclaimers):
+        Config._config = None
+        Config.init_disclaimers()
+        assert Config.disclaimers is None
+
+
+@pytest.mark.run(order=1)
+def test_init_municipalities():
+    Config._config = None
+    with patch.object(Config, '_read_municipalities', return_value=""):
+        assert Config.municipalities is None
+        Config.init_municipalities()
+        assert Config.municipalities == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_municipalities_error():
+    def mock_read_municipalities():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_municipalities', mock_read_municipalities):
+        Config._config = None
+        Config.init_municipalities()
+        assert Config.municipalities is None
+
+
+@pytest.mark.run(order=1)
+def test_init_document_types():
+    Config._config = None
+    with patch.object(Config, '_read_document_types', return_value=""):
+        assert Config.document_types is None
+        Config.init_document_types()
+        assert Config.document_types == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_document_types_error():
+    def mock_read_document_types():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_document_types', mock_read_document_types):
+        Config._config = None
+        Config.init_document_types()
+        assert Config.document_types is None
+
+
+@pytest.mark.run(order=1)
+def test_init_real_estate_types():
+    Config._config = None
+    with patch.object(Config, '_read_real_estate_types', return_value=""):
+        assert Config.real_estate_types is None
+        Config.init_real_estate_types()
+        assert Config.real_estate_types == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_real_estate_types_error():
+    def mock_read_real_estate_types():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_real_estate_types', mock_read_real_estate_types):
+        Config._config = None
+        Config.init_real_estate_types()
+        assert Config.real_estate_types is None
+
+
+@pytest.mark.run(order=1)
+def test_init_map_layering():
+    Config._config = None
+    with patch.object(Config, '_read_map_layering', return_value=""):
+        assert Config.map_layering is None
+        Config.init_map_layering()
+        assert Config.map_layering == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_map_layering_error():
+    def mock_read_map_layering():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_map_layering', mock_read_map_layering):
+        Config._config = None
+        Config.init_map_layering()
+        assert Config.map_layering is None
+
+
+@pytest.mark.run(order=1)
+def test_init_themes():
+    Config._config = None
+    with patch.object(Config, '_read_themes', return_value=""):
+        assert Config.themes is None
+        Config.init_themes()
+        assert Config.themes == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_themes_error():
+    def mock_read_themes():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_themes', mock_read_themes):
+        Config._config = None
+        Config.init_themes()
+        assert Config.themes is None
+
+
+@pytest.mark.run(order=1)
+def test_init_theme_document():
+    Config._config = None
+    with patch.object(Config, '_read_theme_document', return_value=""):
+        assert Config.theme_document is None
+        Config.init_theme_document()
+        assert Config.theme_document == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_theme_document_error():
+    def mock_read_theme_document():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_theme_document', mock_read_theme_document):
+        Config._config = None
+        Config.init_theme_document()
+        assert Config.theme_document is None
+
+
+@pytest.mark.run(order=1)
+def test_init_general_information():
+    Config._config = None
+    with patch.object(Config, '_read_general_information', return_value=""):
+        assert Config.general_information is None
+        Config.init_general_information()
+        assert Config.general_information == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_general_information_error():
+    def mock_read_general_information():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_general_information', mock_read_general_information):
+        Config._config = None
+        Config.init_general_information()
+        assert Config.general_information is None
+
+
+@pytest.mark.run(order=1)
+def test_init_law_status():
+    Config._config = None
+    with patch.object(Config, '_read_law_status', return_value=""):
+        assert Config.law_status is None
+        Config.init_law_status()
+        assert Config.law_status == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_law_status_error():
+    def mock_read_law_status():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_law_status', mock_read_law_status):
+        Config._config = None
+        Config.init_law_status()
+        assert Config.law_status is None
+
+
+@pytest.mark.run(order=1)
+def test_init_documents():
+    Config._config = None
+    with patch.object(Config, '_read_documents', return_value=""):
+        assert Config.documents is None
+        Config.init_documents()
+        assert Config.documents == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_documents_error():
+    def mock_read_documents():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_documents', mock_read_documents):
+        Config._config = None
+        Config.init_documents()
+        assert Config.documents is None
+
+
+@pytest.mark.run(order=1)
+def test_init_offices():
+    Config._config = None
+    with patch.object(Config, '_read_offices', return_value=""):
+        assert Config.offices is None
+        Config.init_offices()
+        assert Config.offices == ""
+
+
+@pytest.mark.run(order=1)
+def test_init_offices_error():
+    def mock_read_offices():
+        raise ProgrammingError('a', 'b', 'c')
+    with patch.object(Config, '_read_offices', mock_read_offices):
+        Config._config = None
+        Config.init_offices()
+        assert Config.offices is None
