@@ -1403,3 +1403,19 @@ def test_get_law_status_lookups_lookups_none():
     with patch.object(Config, 'get_theme_config_by_code', return_value={"law_status_lookup": None}):
         with pytest.raises(ConfigurationError):
             Config.get_law_status_lookups('theme_code')
+
+
+@pytest.mark.parametrize('test_value', [
+    ({"data_code": "inKraft",
+      "transfer_code": "inKraft",
+      "extract_code": "inForce"}),
+    ({"data_code": "AenderungMitVorwirkung",
+      "transfer_code": "AenderungMitVorwirkung",
+      "extract_code": "changeWithPreEffect"})
+])
+@pytest.mark.run(order=1)
+def test_get_law_status_lookup_by_data_code(test_value):
+    with patch.object(Config, 'get_law_status_lookup_by_theme_code_key_code', return_value=test_value):
+        assert Config.get_law_status_lookup_by_data_code(
+            "theme_code",
+            "data_code") == test_value
