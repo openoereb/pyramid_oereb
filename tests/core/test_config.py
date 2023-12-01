@@ -1116,6 +1116,24 @@ def test_availability_by_theme_code_municipality_fosnr_config_none():
         Config.availability_by_theme_code_municipality_fosnr('BN', 2771)
 
 
+@pytest.fixture()
+def law_status_lookups():
+    yield [{"data_code": "inKraft",
+            "transfer_code": "inKraft",
+            "extract_code": "inForce"},
+           {"data_code": "AenderungMitVorwirkung",
+            "transfer_code": "AenderungMitVorwirkung",
+            "extract_code": "changeWithPreEffect"}]
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({"theme_code": "ch.Nutzungsplanung",
+      "key": "data_code",
+      "code": "inKraft"}, "inForce"),
+    ({"theme_code": "ch.Nutzungsplanung",
+      "key": "data_code",
+      "code": "AenderungMitVorwirkung"}, "changeWithPreEffect")
+])
 @pytest.mark.run(order=1)
 def test_get_law_status_lookup_by_theme_code_key_code(test_value, expected_value, law_status_lookups):
     with patch.object(Config, 'get_law_status_lookups', return_value=law_status_lookups):
