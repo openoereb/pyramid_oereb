@@ -23,6 +23,7 @@ from pyramid_oereb.core.readers.logo import LogoReader
 from pyramid_oereb.core.readers.document_types import DocumentTypeReader
 from pyramid_oereb.core.readers.real_estate_type import RealEstateTypeReader
 from pyramid_oereb.core.readers.map_layering import MapLayeringReader
+from pyramid_oereb.core.records.municipality import MunicipalityRecord
 
 
 # order=-1 to run them after all and don't screw the configuration in Config
@@ -1085,3 +1086,33 @@ def test_init_offices_error():
         Config._config = None
         Config.init_offices()
         assert Config.offices is None
+
+
+@pytest.fixture()
+def municipality_records():
+    yield [MunicipalityRecord(2771, 'Gemeinde', True),
+           MunicipalityRecord(2772, 'Gemeinde2', False)]
+
+
+@pytest.mark.parametrize('test_value,expected_index', [
+    (2771, 0),
+    (2772, 1)
+])
+@pytest.mark.run(order=1)
+def test_municipality_by_fosnr(test_value, expected_index, municipality_records):
+    Config.municipalities = municipality_records
+    assert Config.municipality_by_fosnr(test_value) == municipality_records[expected_index]
+
+
+@pytest.mark.run(order=1)
+def test_municipality_by_fosnr_config_none():
+    Config.municipalities = None
+    with pytest.raises(ConfigurationError):
+        Config.municipality_by_fosnr(0)
+
+
+@pytest.mark.run(order=1)
+def test_municipality_by_fosnr_not_in_list(municipality_records):
+    Config.municipalities = municipality_records
+    with pytest.raises(ConfigurationError):
+        Config.municipality_by_fosnr(0)
