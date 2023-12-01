@@ -1666,6 +1666,11 @@ class Config(object):
         """
 
         lookups = Config.get_law_status_lookups(theme_code)
+        if lookups is None:
+            raise ConfigurationError(
+                'Law status lookup for theme {} is not '
+                'defined in configuration!'.format(theme_code)
+            )
         for lookup in lookups:
             if lookup[key] == code:
                 return lookup
