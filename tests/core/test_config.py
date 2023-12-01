@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from pyramid_oereb.core.records.availability import AvailabilityRecord
+from pyramid_oereb.core.records.municipality import MunicipalityRecord
 import pytest
 from sqlalchemy.exc import ProgrammingError
 
@@ -1114,3 +1115,33 @@ def test_availability_by_theme_code_municipality_fosnr_config_none():
     Config.availabilities = None
     with pytest.raises(ConfigurationError):
         Config.availability_by_theme_code_municipality_fosnr('BN', 2771)
+
+
+@pytest.fixture()
+def municipality_records():
+    yield [MunicipalityRecord(2771, 'Gemeinde', True),
+           MunicipalityRecord(2772, 'Gemeinde2', False)]
+
+
+@pytest.mark.parametrize('test_value,expected_index', [
+    (2771, 0),
+    (2772, 1)
+])
+@pytest.mark.run(order=1)
+def test_municipality_by_fosnr(test_value, expected_index, municipality_records):
+    Config.municipalities = municipality_records
+    assert Config.municipality_by_fosnr(test_value) == municipality_records[expected_index]
+
+
+@pytest.mark.run(order=1)
+def test_municipality_by_fosnr_config_none():
+    Config.municipalities = None
+    with pytest.raises(ConfigurationError):
+        Config.municipality_by_fosnr(0)
+
+
+@pytest.mark.run(order=1)
+def test_municipality_by_fosnr_not_in_list(municipality_records):
+    Config.municipalities = municipality_records
+    with pytest.raises(ConfigurationError):
+        Config.municipality_by_fosnr(0)
