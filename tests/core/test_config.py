@@ -398,7 +398,7 @@ def test_get_glossary_config(test_value, expected_results):
 
 
 @pytest.mark.run(order=-1)
-def test_get_document_config_none():
+def test_get_glossary_config_none():
     Config._config = None
     with pytest.raises(AssertionError):
         Config.get_glossary_config()
@@ -1159,8 +1159,195 @@ def test_get_law_status_lookup_by_theme_code_key_code_no_key(test_value):
 @pytest.mark.run(order=1)
 def test_get_config():
     Config._config = None
-    assert Config.get_config() == None
+    assert Config.get_config() is None
     Config._config = {}
     assert Config.get_config() == {}
     # set config back to None.
     Config._config = None
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'real_estate': {'plan_for_land_register_main_page': {}}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_plan_for_land_register_main_page_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_plan_for_land_register_main_page_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_plan_for_land_register_main_page_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_plan_for_land_register_main_page_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'real_estate': {'plan_for_land_register': {}}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_plan_for_land_register_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_plan_for_land_register_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_plan_for_land_register_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_plan_for_land_register_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'address': {}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_address_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_address_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_address_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_address_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'theme_document': {}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_theme_document_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_theme_document_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_theme_document_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_theme_document_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'document_types': {}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_document_types_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_document_types_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_document_types_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_document_types_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'disclaimer': {}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_disclaimer_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_disclaimer_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_disclaimer_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_disclaimer_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'general_information': {}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_info_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_info_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_info_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_info_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'documents': {}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_document_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_document_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_document_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_document_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'offices': {}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_office_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_office_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_office_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_office_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'municipality': {}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_municipality_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_municipality_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_municipality_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_municipality_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'availability': {}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_availability_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_availability_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_availability_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_availability_config()
