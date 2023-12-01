@@ -29,7 +29,6 @@ __pycache__/
 /doc/source/api.rst
 /doc/source/contrib/print_proxy/index.rst
 /doc/source/contrib/print_proxy/mapfish-print.rst
-/doc/source/contrib/print_proxy/xml2pdf.rst
 /doc/source/contrib/data_sources/standard/models-main.rst
 /doc/source/contrib/data_sources/standard/models-theme.rst
 /doc/source/contrib/data_sources/standard/models.rst

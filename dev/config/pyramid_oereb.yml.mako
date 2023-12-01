@@ -42,22 +42,8 @@ pyramid_oereb:
     # The pyramid renderer which is used as proxy pass through to the desired service for printable static
     # extract. Here you can define the path to the logic which prepares the output as payload for print
     # service and returns the result to the user.
-% if print_backend == 'XML2PDF':
-    # Configuration for XML2PDF print service
-    renderer: pyramid_oereb.contrib.print_proxy.xml_2_pdf.xml_2_pdf.Renderer
-    # Define whether all geometry data must be included when sending the data to the print service
-    with_geometry: False
-    # Base URL with application of the print server
-    base_url: https://oereb-dev.gis-daten.ch/oereb/report/create
-    token: 24ba4328-a306-4832-905d-b979388d4cab
-    use_wms: "true"
-    validate: "false"
-    # The following parameters are currently not used by xml2pdf, but might be in the future (see issue #873)
-    buffer: 10
-    basic_map_size: [493, 280]
-    pdf_dpi: 300
-    pdf_map_size_millimeters: [174, 99]
-% else:
+    # This version of pyramid oereb provides only the mapfish_print print proxy.
+    #
     # Configuration for MapFish-Print print service
     renderer: pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer
     # Define whether all geometry data must be included when sending the data to the print service
@@ -116,7 +102,6 @@ pyramid_oereb:
     print_canton_logo: true
     # Flag to print or not the municipality name
     print_municipality_name: true
-% endif
 
   # The "app_schema" property contains only one sub property "name". This is directly related to the database
   # creation process, because this name is used as schema name in the target database. The app_schema holds
