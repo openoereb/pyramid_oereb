@@ -23,6 +23,7 @@ from pyramid_oereb.core.readers.logo import LogoReader
 from pyramid_oereb.core.readers.document_types import DocumentTypeReader
 from pyramid_oereb.core.readers.real_estate_type import RealEstateTypeReader
 from pyramid_oereb.core.readers.map_layering import MapLayeringReader
+from pyramid_oereb.core.records.availability import AvailabilityRecord
 
 
 # order=-1 to run them after all and don't screw the configuration in Config
@@ -1085,3 +1086,31 @@ def test_init_offices_error():
         Config._config = None
         Config.init_offices()
         assert Config.offices is None
+
+
+@pytest.fixture()
+def availabilities_records():
+    yield [AvailabilityRecord(2771, 'ch.Nutzungsplanung', True),
+           AvailabilityRecord(2772, 'ch.Nutzungsplanung', False)]
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({"theme_code": "ch.Nutzungsplanung",
+      "fosnr": 2771}, True),
+    ({"theme_code": "ch.Nutzungsplanung",
+      "fosnr": 2772}, False)
+])
+@pytest.mark.run(order=1)
+def test_availability_by_theme_code_municipality_fosnr(test_value, expected_value, availabilities_records):
+    Config.availabilities = availabilities_records
+    assert Config.availability_by_theme_code_municipality_fosnr(
+        test_value.get("theme_code"), test_value.get("fosnr")) == expected_value
+    assert Config.availability_by_theme_code_municipality_fosnr('notInList', test_value.get("fosnr")) is True
+    assert Config.availability_by_theme_code_municipality_fosnr(test_value.get("theme_code"), 0) is True
+
+
+@pytest.mark.run(order=1)
+def test_availability_by_theme_code_municipality_fosnr_config_none():
+    Config.availabilities = None
+    with pytest.raises(ConfigurationError):
+        Config.availability_by_theme_code_municipality_fosnr('BN', 2771)
