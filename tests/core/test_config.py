@@ -1156,6 +1156,8 @@ def test_get_law_status_lookup_by_theme_code_key_code_no_key(test_value):
                 "ch.Nutzungsplanung",
                 "data_code",
                 "inKraft")
+
+
 @pytest.mark.run(order=1)
 def test_get_config():
     Config._config = None
