@@ -1085,3 +1085,45 @@ def test_init_offices_error():
         Config._config = None
         Config.init_offices()
         assert Config.offices is None
+
+
+@pytest.fixture()
+def law_status_lookups():
+    yield [{"data_code": "inKraft",
+            "transfer_code": "inKraft",
+            "extract_code": "inForce"},
+           {"data_code": "AenderungMitVorwirkung",
+            "transfer_code": "AenderungMitVorwirkung",
+            "extract_code": "changeWithPreEffect"}]
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({"theme_code": "ch.Nutzungsplanung",
+      "key": "data_code",
+      "code": "inKraft"}, "inForce"),
+    ({"theme_code": "ch.Nutzungsplanung",
+      "key": "data_code",
+      "code": "AenderungMitVorwirkung"}, "changeWithPreEffect")
+])
+@pytest.mark.run(order=1)
+def test_get_law_status_lookup_by_theme_code_key_code(test_value, expected_value, law_status_lookups):
+    with patch.object(Config, 'get_law_status_lookups', return_value=law_status_lookups):
+        assert Config.get_law_status_lookup_by_theme_code_key_code(
+            test_value.get("theme_code"),
+            test_value.get("key"),
+            test_value.get("code")).get("extract_code") == expected_value
+
+
+@pytest.mark.parametrize('test_value', [
+    ({}),
+    ([]),
+    (None)
+])
+@pytest.mark.run(order=1)
+def test_get_law_status_lookup_by_theme_code_key_code_no_key(test_value):
+    with patch.object(Config, 'get_law_status_lookups', return_value=test_value):
+        with pytest.raises(ConfigurationError):
+            Config.get_law_status_lookup_by_theme_code_key_code(
+                "ch.Nutzungsplanung",
+                "data_code",
+                "inKraft")
