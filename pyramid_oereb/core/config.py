@@ -2092,6 +2092,8 @@ class Config(object):
             ConfigurationError: If no match was found
 
         """
+        if Config.municipalities is None:
+            raise ConfigurationError("The municipalities have not been initialized")
         for municipality in Config.municipalities:
             if municipality.fosnr == fosnr:
                 return municipality
