@@ -30,7 +30,7 @@ class Models(object):
 
 def generic_models(base, schema_name, pk_type):
     """
-    Factory to produce a set of generic standard models.
+    Factory to produce a set of generic interlis 2.3 models.
 
     Args:
         base (): The SQLAlchemy base which is assigned to the models.
@@ -170,7 +170,7 @@ def generic_models(base, schema_name, pk_type):
 
 def model_factory(schema_name, pk_type, srid, db_connection):
     """
-    Factory to produce a set of standard models.
+    Factory to produce a set of interlis 2.3 models.
 
     Args:
         schema_name (str): The name of the database schema where this models belong to.
@@ -179,9 +179,10 @@ def model_factory(schema_name, pk_type, srid, db_connection):
             needs
         geometry_type (str): The geoalchemy geometry type defined as well known string.
         srid (int): The SRID defining the projection of the geometries stored in standard db schema.
+        db_connection (str): the db connection string
 
     Returns:
-        Models: the produced set of standard models
+        Models: the produced set of interlis 2.3 models
 
     """
     Base = declarative_base()
@@ -531,7 +532,7 @@ def model_factory_integer_pk(schema_name, geometry_type, srid, db_connection):
         db_connection (str): the db connection string
 
     Returns:
-        Models: the produced set of standard models
+        Models: the produced set of interlis 2.3 models
     """
     if geometry_type is not None:
         geometry_type = None
@@ -547,7 +548,7 @@ def model_factory_string_pk(schema_name, geometry_type, srid, db_connection):
         db_connection (str): the db connection string
 
     Returns:
-        Models: the produced set of standard models
+        Models: the produced set of interlis 2.3 models
     """
     if geometry_type is not None:
         geometry_type = None
