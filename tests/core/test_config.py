@@ -1085,3 +1085,22 @@ def test_init_offices_error():
         Config._config = None
         Config.init_offices()
         assert Config.offices is None
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({"law_status_lookup": {}}, {}),
+    ({"law_status_lookup": ""}, "")
+])
+@pytest.mark.run(order=1)
+def test_get_law_status_lookups(test_value, expected_value):
+    Config._config = None
+    with patch.object(Config, 'get_theme_config_by_code', return_value=test_value):
+        assert Config.get_law_status_lookups('theme_code') == expected_value
+
+
+@pytest.mark.run(order=1)
+def test_get_law_status_lookups_lookups_none():
+    Config._config = None
+    with patch.object(Config, 'get_theme_config_by_code', return_value={"law_status_lookup": None}):
+        with pytest.raises(ConfigurationError):
+            Config.get_law_status_lookups('theme_code')
