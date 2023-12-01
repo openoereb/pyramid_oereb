@@ -1114,3 +1114,27 @@ def test_availability_by_theme_code_municipality_fosnr_config_none():
     Config.availabilities = None
     with pytest.raises(ConfigurationError):
         Config.availability_by_theme_code_municipality_fosnr('BN', 2771)
+
+
+@pytest.mark.run(order=1)
+def test_get_law_status_lookup_by_theme_code_key_code(test_value, expected_value, law_status_lookups):
+    with patch.object(Config, 'get_law_status_lookups', return_value=law_status_lookups):
+        assert Config.get_law_status_lookup_by_theme_code_key_code(
+            test_value.get("theme_code"),
+            test_value.get("key"),
+            test_value.get("code")).get("extract_code") == expected_value
+
+
+@pytest.mark.parametrize('test_value', [
+    ({}),
+    ([]),
+    (None)
+])
+@pytest.mark.run(order=1)
+def test_get_law_status_lookup_by_theme_code_key_code_no_key(test_value):
+    with patch.object(Config, 'get_law_status_lookups', return_value=test_value):
+        with pytest.raises(ConfigurationError):
+            Config.get_law_status_lookup_by_theme_code_key_code(
+                "ch.Nutzungsplanung",
+                "data_code",
+                "inKraft")
