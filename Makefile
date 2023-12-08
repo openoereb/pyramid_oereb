@@ -64,9 +64,9 @@ ${VENV_ROOT}/timestamp:
 	python3 -m venv ${VENV_ROOT}
 	touch $@
 
-${VENV_ROOT}/requirements-timestamp: ${VENV_ROOT}/timestamp setup.py requirements.txt tests-requirements.txt dev-requirements.txt
+${VENV_ROOT}/requirements-timestamp: ${VENV_ROOT}/timestamp setup.py requirements.txt tests-requirements.txt dev-requirements.txt  other-requirements.txt
 	$(VENV_BIN)/$(PIP_COMMAND) install --upgrade pip wheel
-	$(VENV_BIN)/$(PIP_COMMAND) install -r requirements.txt -r tests-requirements.txt -r dev-requirements.txt
+	$(VENV_BIN)/$(PIP_COMMAND) install -r requirements.txt -r tests-requirements.txt -r dev-requirements.txt -r other-requirements.txt
 	touch $@
 
 ##########

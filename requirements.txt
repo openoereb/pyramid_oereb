@@ -13,6 +13,6 @@ waitress==2.1.2
 pyreproj==3.0.0
 mako-render==0.1.0
 requests==2.31.0
-geolink-formatter==2.0.4
+#geolink-formatter==2.0.4
 pyconizer==0.1.4
 c2cwsgiutils[standard]==5.2.3
