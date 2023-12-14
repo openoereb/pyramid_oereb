@@ -1384,3 +1384,22 @@ def test_municipality_by_fosnr_not_in_list(municipality_records):
     Config.municipalities = municipality_records
     with pytest.raises(ConfigurationError):
         Config.municipality_by_fosnr(0)
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({"law_status_lookup": {}}, {}),
+    ({"law_status_lookup": ""}, "")
+])
+@pytest.mark.run(order=1)
+def test_get_law_status_lookups(test_value, expected_value):
+    Config._config = None
+    with patch.object(Config, 'get_theme_config_by_code', return_value=test_value):
+        assert Config.get_law_status_lookups('theme_code') == expected_value
+
+
+@pytest.mark.run(order=1)
+def test_get_law_status_lookups_lookups_none():
+    Config._config = None
+    with patch.object(Config, 'get_theme_config_by_code', return_value={"law_status_lookup": None}):
+        with pytest.raises(ConfigurationError):
+            Config.get_law_status_lookups('theme_code')
