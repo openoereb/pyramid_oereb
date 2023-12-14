@@ -1384,6 +1384,8 @@ def test_municipality_by_fosnr_not_in_list(municipality_records):
     Config.municipalities = municipality_records
     with pytest.raises(ConfigurationError):
         Config.municipality_by_fosnr(0)
+
+
 @pytest.mark.parametrize('test_value,expected_value', [
     ({"law_status_lookup": {}}, {}),
     ({"law_status_lookup": ""}, "")
