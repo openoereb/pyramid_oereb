@@ -1354,6 +1354,8 @@ def test_get_availability_config_none():
     Config._config = None
     with pytest.raises(AssertionError):
         Config.get_availability_config()
+
+@pytest.fixture()
 def municipality_records():
     yield [MunicipalityRecord(2771, 'Gemeinde', True),
            MunicipalityRecord(2772, 'Gemeinde2', False)]
