@@ -50,6 +50,7 @@ jobs:
           - '3.9'
           - '3.10'
           - '3.11'
+          - '3.12'
     steps:
       - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - name: Set up Python v${{ matrix.python-version }}
@@ -113,10 +114,10 @@ jobs:
     needs: [lint, gitattributes]
     steps:
     - uses: actions/checkout@master
-    - name: Set up Python 3.11
+    - name: Set up Python 3.12
       uses: actions/setup-python@v4
       with:
-        python-version: 3.11
+        python-version: 3.12
     - name: Install pypa/build
       run: >-
         python -m

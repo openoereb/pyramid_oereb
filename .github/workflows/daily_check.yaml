@@ -45,6 +45,7 @@ jobs:
           - python3.9
           - python3.10
           - python3.11
+          - python3.12
     steps:
       - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       - run: sudo rm /etc/apt/sources.list.d/*.list
@@ -54,10 +55,10 @@ jobs:
         env:
           PYTHON_TEST_VERSION: ${{ matrix.python-version }}
         run: make tests
-      - name: Set up Python 3.11
+      - name: Set up Python 3.12
         uses: actions/setup-python@v4
         with:
-          python-version: 3.11
+          python-version: 3.12
       - name: Install pypa/build
         run: >-
           python -m
