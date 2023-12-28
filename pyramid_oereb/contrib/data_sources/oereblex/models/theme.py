@@ -1,7 +1,6 @@
 from sqlalchemy import Column, ForeignKey
 from sqlalchemy import String, Integer, Date
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import declarative_base, relationship
 
 from pyramid_oereb.contrib.data_sources.standard.models import (
     get_office,
