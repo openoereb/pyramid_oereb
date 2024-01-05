@@ -9,7 +9,7 @@ def test_init():
     assert isinstance(adapter._connections_, dict)
 
 
-def test_get_connections():
+def test_get_connections_instance():
     adapter = DatabaseAdapter()
     assert isinstance(adapter.get_connections(), dict)
 
@@ -43,15 +43,19 @@ def test_get_session_that_exists():
     db_url = 'postgresql://adapter_user:adapter_pswd@adapter-tests-03:5432/adapter-db'
     adapter = DatabaseAdapter()
     adapter.add_connection(db_url)
+    n_connections = len(adapter.get_connections())
     assert adapter.get_connections().get(db_url) is not None
     session_00 = adapter.get_session(db_url)
     assert isinstance(session_00, Session)
+    assert len(adapter.get_connections()) == n_connections
 
 
 def test_get_session_that_does_not_exists():
     db_url = 'postgresql://adapter_user:adapter_pswd@adapter-tests-04:5432/adapter-db'
     adapter = DatabaseAdapter()
+    n_connections = len(adapter.get_connections())
     assert adapter.get_connections().get(db_url, None) is None
     session_00 = adapter.get_session(db_url)
     assert adapter.get_connections().get(db_url, None) is not None
     assert isinstance(session_00, Session)
+    assert len(adapter.get_connections()) == (n_connections + 1)

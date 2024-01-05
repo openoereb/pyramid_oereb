@@ -304,6 +304,10 @@ test-postgis:
 test-core: ${VENV_ROOT}/requirements-timestamp
 	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.core --cov $(PACKAGE)/core --cov-report=term-missing --cov-report=xml:coverage.core.xml tests/core
 
+.PHONY: test-core_adapter
+test-core_adapter: ${VENV_ROOT}/requirements-timestamp
+	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.core_adapter --cov $(PACKAGE)/core --cov-report=term-missing --cov-report=xml:coverage.core_adapter.xml tests/core_adapter
+
 .PHONY: test-contrib-print_proxy-mapfish_print
 test-contrib-print_proxy-mapfish_print: ${VENV_ROOT}/requirements-timestamp
 	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-print_proxy-mapfish_print --cov $(PACKAGE) --cov-report xml:coverage.contrib-print_proxy-mapfish_print.xml tests/contrib.print_proxy.mapfish_print

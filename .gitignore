@@ -84,5 +84,6 @@ DataExtract.json
 /coverage.contrib-print_proxy-mapfish_print.xml
 /coverage.contrib-data_sources-swisstopo.xml
 /coverage.core.xml
+/coverage.core_adapter.xml
 /coverage.contrib-stats.xml
 /coverage.xml

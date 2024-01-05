@@ -1,0 +1,3 @@
+[run]
+source =
+    pyramid_oereb/core/adapter.py
