@@ -60,23 +60,17 @@ def create_standard_tables():
     options, args = parser.parse_args()
     if not options.configuration:
         parser.error('No configuration file set.')
+    if not options.sql_file:
+        parser.error('No sql filename specified.')
 
     config_source = 'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource'
-    if options.sql_file is None:
+
+    append_to_sql = 'w' if options.append_to_sql else 'a'
+    with open(options.sql_file, append_to_sql) as sql_file:
         create_tables_from_standard_configuration(
             configuration_yaml_path=options.configuration,
             source_class=config_source,
             section=options.section,
             c2ctemplate_style=options.c2ctemplate_style,
-            tables_only=options.tables_only
+            sql_file=sql_file
         )
-    else:
-        append_to_sql = 'w' if options.append_to_sql else 'a'
-        with open(options.sql_file, append_to_sql) as sql_file:
-            create_tables_from_standard_configuration(
-                configuration_yaml_path=options.configuration,
-                source_class=config_source,
-                section=options.section,
-                c2ctemplate_style=options.c2ctemplate_style,
-                sql_file=sql_file
-            )
