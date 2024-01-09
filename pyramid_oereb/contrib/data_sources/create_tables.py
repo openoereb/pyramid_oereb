@@ -245,8 +245,8 @@ def create_theme_tables():
         '--config-source',
         type='string',
         default='pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource',
-        help='Config source to use, e.g. DatabaseSource, DatabaseOEREBlexSource, etc.'
-        'Note: parameter must match the actual config'
+        help='Config source to use, it must be an implementation corresponding to the standard schema.'
+        'Note: parameter must match the actual config; a default value is provided.'
     )
     options, args = parser.parse_args()
     if not options.configuration:
