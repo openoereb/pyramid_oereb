@@ -6,7 +6,7 @@ pyramid-debugtoolbar==4.10
 qrcode==7.4.2
 image==1.5.33
 shapely==2.0.2
-SQLAlchemy==2.0.23
+SQLAlchemy==2.0.25
 pyaml-env==1.2.1
 urllib3==2.1.0
 waitress==2.1.2
@@ -15,4 +15,4 @@ mako-render==0.1.0
 requests==2.31.0
 geolink-formatter==2.0.4
 pyconizer==0.1.4
-c2cwsgiutils[standard]==6.0.6
+c2cwsgiutils[standard]==6.0.7

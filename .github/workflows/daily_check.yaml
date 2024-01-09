@@ -8,7 +8,7 @@ jobs:
     name: Check federal data definitions
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
       - run: sudo apt-get install xsltproc
@@ -47,7 +47,7 @@ jobs:
           - python3.11
           - python3.12
     steps:
-      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
       - run: sudo apt-get install libpq-dev
@@ -56,7 +56,7 @@ jobs:
           PYTHON_TEST_VERSION: ${{ matrix.python-version }}
         run: make tests
       - name: Set up Python 3.12
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.12
       - name: Install pypa/build
