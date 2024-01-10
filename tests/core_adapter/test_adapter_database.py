@@ -33,7 +33,7 @@ def test_add_connection_already_exists(caplog):
 
 def test_get_connections():
     db_url = 'postgresql://adapter_user:adapter_pswd@adapter-tests-02:5432/adapter-db'
-    test_connection = {db_url: {"engine": "test_engne", "session": "test_session"}}
+    test_connection = {db_url: {"engine": "test_engine", "session": "test_session"}}
     adapter = DatabaseAdapter()
     adapter._connections_ = test_connection
     assert adapter.get_connections() == test_connection
