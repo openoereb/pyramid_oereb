@@ -11,7 +11,7 @@ from pyramid_oereb import Config
 from pyramid_oereb.core import get_multilingual_element
 from pyramid_oereb.core.records.documents import DocumentRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
-from pyramid_oereb.core.sources.plr import PlrRecord
+from pyramid_oereb.core.records.plr import PlrRecord
 
 from pyramid_oereb.core.renderer import Base
 from pyramid_oereb.core.views.webservice import Parameter

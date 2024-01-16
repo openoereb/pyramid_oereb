@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
+from dataclasses import dataclass
+from typing import Any
 
 
-class MunicipalityRecord(object):
+@dataclass
+class MunicipalityRecord:
     """
     The base document class.
 
@@ -11,15 +14,7 @@ class MunicipalityRecord(object):
         published (bool): Is this municipality ready for publishing via server.
         geom (str or None): The geometry which is representing this municipality as a WKT.
     """
-    def __init__(self, fosnr, name, published, geom=None):
-        """
-        Args:
-            fosnr (int): The unique id bfs of the municipality.
-            name (unicode): The zipcode for this address.
-            published (bool): Is this municipality ready for publishing via server.
-            geom (str or None): The geometry which is representing this municipality as a WKT.
-        """
-        self.fosnr = fosnr
-        self.name = name
-        self.published = published
-        self.geom = geom
+    fosnr: int
+    name: str
+    published: bool
+    geom: Any = None

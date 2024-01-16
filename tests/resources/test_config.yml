@@ -78,6 +78,17 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: land_use_plans
+          record_class: &plr_records
+            documents: pyramid_oereb.core.records.documents.DocumentRecord
+            disclaimer: pyramid_oereb.core.records.disclaimer.DisclaimerRecord
+            geometry: pyramid_oereb.core.records.geometry.GeometryRecord
+            glossary: pyramid_oereb.core.records.glossary.GlossaryRecord
+            legend_entry: pyramid_oereb.core.records.view_service.LegendEntryRecord
+            office: pyramid_oereb.core.records.office.OfficeRecord
+            plr: pyramid_oereb.core.records.plr.PlrRecord
+            view_service: pyramid_oereb.core.records.view_service.ViewServiceRecord
+            law_status: pyramid_oereb.core.records.law_status.LawStatusRecord
+            datasource: pyramid_oereb.core.records.embeddable.DatasourceRecord
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
@@ -127,6 +138,7 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: contaminated_sites
+          record_class: *plr_records
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
@@ -159,6 +171,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate
+        record_class: pyramid_oereb.core.records.real_estate.RealEstateRecord
 
   theme:
     source:
@@ -166,6 +179,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Theme
+        record_class: pyramid_oereb.core.records.theme.ThemeRecord
     law_status:
       inKraft: inKraft
       AenderungMitVorwirkung: AenderungMitVorwirkung
@@ -178,6 +192,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Logo
+        record_class: pyramid_oereb.core.records.logo.LogoRecord
     hooks:
       get_logo_ref: pyramid_oereb.core.hook_methods.get_logo_ref
       get_qr_code_ref: pyramid_oereb.core.hook_methods.get_qr_code_ref
@@ -188,6 +203,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText
+        record_class: pyramid_oereb.core.records.document_types.DocumentTypeRecord
 
   general_information:
     source:
@@ -195,6 +211,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation
+        record_class: pyramid_oereb.core.records.general_information.GeneralInformationRecord
 
   law_status_labels:
     source:
@@ -202,6 +219,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus
+        record_class: pyramid_oereb.core.records.law_status.LawStatusRecord
 
   real_estate_type_lookup:
     Liegenschaft: "Liegenschaft"
@@ -224,13 +242,16 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType
+        record_class: pyramid_oereb.core.records.real_estate_type.RealEstateTypeRecord
 
   offices:
     source:
       class: pyramid_oereb.contrib.data_sources.standard.sources.office.DatabaseSource
       params:
         db_connection: *main_db_connection
+        record_class: pyramid_oereb.core.records.office.OfficeRecord
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Office
+        record_class: pyramid_oereb.core.records.office.OfficeRecord
 
   theme_document:
     source:
@@ -238,6 +259,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument
+        record_class: pyramid_oereb.core.records.theme_document.ThemeDocumentRecord
 
   documents:
     source:
@@ -245,6 +267,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Document
+        record_class: pyramid_oereb.core.records.document_types.DocumentTypeRecord
 
   map_layering:
     source:
@@ -252,6 +275,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering
+        record_class: pyramid_oereb.core.records.map_layering.MapLayeringRecord
 
   address:
     source:
@@ -259,6 +283,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Address
+        record_class: pyramid_oereb.core.records.address.AddressRecord
 
   disclaimer:
     source:
@@ -266,6 +291,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer
+        record_class: pyramid_oereb.core.records.disclaimer.DisclaimerRecord
 
   availability:
     source:
@@ -273,6 +299,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Availability
+        record_class: pyramid_oereb.core.records.availability.AvailabilityRecord
 
   print:
     renderer: pyramid_oereb.contrib.print_proxy.mapfish_print.mapfish_print.Renderer
@@ -326,6 +353,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Glossary
+        record_class: pyramid_oereb.core.records.glossary.GlossaryRecord
 
   municipality:
     source:
@@ -333,6 +361,7 @@ pyramid_oereb:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Municipality
+        record_class: pyramid_oereb.core.records.municipality.MunicipalityRecord
 
   # The error message returned if an error occurs when requesting a static extract
   # The content of the message is defined in the specification (document "Inhalt und Darstellung des statischen Auszugs")
@@ -357,6 +386,7 @@ section2:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Theme
+        record_class: pyramid_oereb.core.records.theme.ThemeRecord
     law_status:
       inKraft: inKraft
       AenderungMitVorwirkung: AenderungMitVorwirkung
@@ -368,6 +398,7 @@ section2:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Logo
+        record_class: pyramid_oereb.core.records.logo.LogoRecord
 
   document_types:
     source:
@@ -375,6 +406,7 @@ section2:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText
+        record_class: pyramid_oereb.core.records.document_types.DocumentTypeRecord
 
   general_information:
     source:
@@ -382,6 +414,7 @@ section2:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation
+        record_class: pyramid_oereb.core.records.general_information.GeneralInformationRecord
 
   real_estate_type:
     source:
@@ -389,6 +422,7 @@ section2:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType
+        record_class: pyramid_oereb.core.records.real_estate_type.RealEstateTypeRecord
 
   law_status_labels:
     source:
@@ -396,3 +430,4 @@ section2:
       params:
         db_connection: *main_db_connection
         model: pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus
+        record_class: pyramid_oereb.core.records.law_status.LawStatusRecord

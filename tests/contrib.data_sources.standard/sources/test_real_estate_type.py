@@ -10,7 +10,8 @@ from pyramid_oereb.core.records.real_estate_type import RealEstateTypeRecord
 def real_estate_type_source_params(db_connection):
     yield {
         "db_connection": db_connection,
-        "model": "pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType"
+        "model": "pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType",
+        "record_class": "pyramid_oereb.core.records.real_estate_type.RealEstateTypeRecord"
     }
 
 

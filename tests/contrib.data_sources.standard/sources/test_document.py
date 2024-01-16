@@ -17,7 +17,8 @@ from pyramid_oereb.core.records.law_status import LawStatusRecord
 def document_source_params(db_connection):
     yield {
         "db_connection": db_connection,
-        "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Document"
+        "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Document",
+        "record_class": "pyramid_oereb.core.records.documents.DocumentRecord"
     }
 
 

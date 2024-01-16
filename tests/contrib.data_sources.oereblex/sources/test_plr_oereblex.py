@@ -76,7 +76,19 @@ def plr_source_params(db_connection):
                 "db_connection": db_connection,
                 "model_factory": "pyramid_oereb.contrib.data_sources.standard."
                                  "models.theme.model_factory_string_pk",
-                "schema_name": "forest_perimeters"
+                "schema_name": "forest_perimeters",
+                "record_class": {
+                    "documents": "pyramid_oereb.core.records.documents.DocumentRecord",
+                    "disclaimer": "pyramid_oereb.core.records.disclaimer.DisclaimerRecord",
+                     "geometry": "pyramid_oereb.core.records.geometry.GeometryRecord",
+                    "glossary": "pyramid_oereb.core.records.glossary.GlossaryRecord",
+                    "legend_entry": "pyramid_oereb.core.records.view_service.LegendEntryRecord",
+                    "office": "pyramid_oereb.core.records.office.OfficeRecord",
+                    "plr": "pyramid_oereb.core.records.plr.PlrRecord",
+                    "view_service": "pyramid_oereb.core.records.view_service.ViewServiceRecord",
+                    "law_status": "pyramid_oereb.core.records.law_status.LawStatusRecord",
+                    "datasource": "pyramid_oereb.core.records.embeddable.DatasourceRecord",
+                }
             }
         },
         "hooks": {
