@@ -1,4 +1,4 @@
-jsonschema==4.20.0
+jsonschema==4.21.0
 lxml==5.1.0
 pytest==7.4.4
 pytest-cov==4.1.0
