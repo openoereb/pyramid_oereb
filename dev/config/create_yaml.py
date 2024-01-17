@@ -8,7 +8,6 @@ from pyramid.path import AssetResolver
 def _create_yaml_config_(
         name='pyramid_oereb.yml',
         database='postgresql://postgres:password@localhost/pyramid_oereb',
-        print_backend='MapFishPrint',
         print_url='http://oereb-print:8080/print/oereb'):
     """
     Creates the specified YAML file using a template. This YAML file contains the standard
@@ -28,7 +27,6 @@ def _create_yaml_config_(
     )
     config = template.render(
         sqlalchemy_url=database,
-        print_backend=print_backend,
         print_url=print_url
     )
     pyramid_oereb_yml = open(name, 'wb+')
@@ -59,14 +57,6 @@ def create_yaml():
              'postgresql://postgres:password@oereb-db:5432/pyramid_oereb).'
     )
     parser.add_option(
-        '-p', '--print_backend',
-        dest='print_backend',
-        metavar='PRINT_BACKEND',
-        type='string',
-        default='MapFishPrint',
-        help='The print backend (for PDF generation) to use (default is: MapFishPrint)'
-    )
-    parser.add_option(
         '-u', '--print_url',
         dest='print_url',
         metavar='PRINT_URL',
@@ -78,6 +68,5 @@ def create_yaml():
     _create_yaml_config_(
         name=options.name,
         database=options.database,
-        print_backend=options.print_backend,
         print_url=options.print_url
     )

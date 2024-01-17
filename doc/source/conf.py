@@ -73,8 +73,7 @@ target_paths = [
     'contrib/data_sources/swisstopo/index.rst',
     'contrib/data_sources/index.rst',
     'contrib/print_proxy/index.rst',
-    'contrib/print_proxy/mapfish-print.rst',
-    'contrib/print_proxy/xml2pdf.rst'
+    'contrib/print_proxy/mapfish-print.rst'
 ]
 
 for target_path in target_paths:

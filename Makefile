@@ -47,7 +47,6 @@ DEV_CREATE_OEREBLEX_TABLES_SCRIPT = $(VENV_BIN)/create_oereblex_tables
 
 MODEL_PK_TYPE_IS_STRING ?= true
 
-PRINT_BACKEND = MapFishPrint # Set to XML2PDF if preferred
 PRINT_URL ?= http://oereb-print:8080/print/oereb
 
 # ********************
@@ -207,7 +206,7 @@ BUILD_DEPS += ${VENV_ROOT}/requirements-timestamp
 # ***********************
 
 $(DEV_CONFIGURATION_YML): ${VENV_ROOT}/requirements-timestamp $(DEV_CREATE_STANDARD_YML_SCRIPT)
-	$(DEV_CREATE_STANDARD_YML_SCRIPT) --name $@ --database $(SQLALCHEMY_URL) --print_backend $(PRINT_BACKEND) --print_url $(PRINT_URL)
+	$(DEV_CREATE_STANDARD_YML_SCRIPT) --name $@ --database $(SQLALCHEMY_URL) --print_url $(PRINT_URL)
 
 # *********************
 # END DEV-YAML creation
@@ -312,7 +311,6 @@ test-core_adapter: ${VENV_ROOT}/requirements-timestamp
 .PHONY: test-contrib-print_proxy-mapfish_print
 test-contrib-print_proxy-mapfish_print: ${VENV_ROOT}/requirements-timestamp
 	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-print_proxy-mapfish_print --cov $(PACKAGE) --cov-report xml:coverage.contrib-print_proxy-mapfish_print.xml tests/contrib.print_proxy.mapfish_print
-	# $(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc --cov $(PACKAGE) --cov-report term-missing:skip-covered tests/contrib.print_proxy.xml_2_pdf
 
 .PHONY: test-contrib-data_sources-standard
 test-contrib-data_sources-standard: ${VENV_ROOT}/requirements-timestamp
@@ -326,12 +324,16 @@ test-contrib-data_sources-interlis: ${VENV_ROOT}/requirements-timestamp
 test-contrib-data_sources-swisstopo: ${VENV_ROOT}/requirements-timestamp
 	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-data_sources-swisstopo --cov $(PACKAGE)/contrib/data_sources/swisstopo --cov-report=term-missing:skip-covered --cov-report=xml:coverage.contrib-data_sources-swisstopo.xml tests/contrib.data_sources.swisstopo
 
+.PHONY: test-contrib-data_sources-oereblex
+test-contrib-data_sources-oereblex: ${VENV_ROOT}/requirements-timestamp
+	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-data_sources-oereblex --cov $(PACKAGE)/contrib/data_sources/oereblex --cov-report=term-missing:skip-covered --cov-report=xml:coverage.contrib-data_sources-oereblex.xml tests/contrib.data_sources.oereblex
+
 .PHONY: test-contrib-stats
 test-contrib-stats: ${VENV_ROOT}/requirements-timestamp
 	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-stats --cov $(PACKAGE)/contrib/stats --cov-report=xml:coverage.contrib-stats.xml tests/contrib.stats
 
 .PHONY: tests
-tests: ${VENV_ROOT}/requirements-timestamp test-core test-core_adapter test-contrib-print_proxy-mapfish_print test-contrib-data_sources-standard test-contrib-data_sources-interlis test-contrib-stats test-contrib-data_sources-swisstopo
+tests: ${VENV_ROOT}/requirements-timestamp test-core test-core_adapter test-contrib-print_proxy-mapfish_print test-contrib-data_sources-standard test-contrib-data_sources-interlis test-contrib-stats test-contrib-data_sources-swisstopo test-contrib-data_sources-oereblex
 
 .PHONY: docker-tests
 docker-tests:

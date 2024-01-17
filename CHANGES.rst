@@ -1,6 +1,14 @@
 Changelog
 =========
 
+2.4.7
+-----
+- Interlis bug fix (#1881)
+- Library upgrades (geoalchemy2, SQLAlchemy, jsonschema, lxml, responses, urllib3, pypdf)
+- Test coverage improvements
+- Python 3.8 is no longer explicitly supported
+- Remove print proxy xml2pdf, no longer used by the community (#1889)
+
 2.4.6
 -----
 - Fix error with large of contents and new pdf library (#1813)
