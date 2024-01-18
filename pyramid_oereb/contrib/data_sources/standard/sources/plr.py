@@ -524,7 +524,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         ]
         clause_blocks = [
             text(f'ST_Intersects({extract}, {geometry_string})') if tolerance is None
-            else text(f'ST_DWithin({extract}, {geometry_string}, {round(tolerance, 3)})')
+            else text(f'ST_DWithin({extract}, {geometry_string}, {tolerance})')
             for extract, tolerance in zip([extract_point, extract_line, extract_polygon], tolerance_extracts)
         ]
         return or_(*clause_blocks)
