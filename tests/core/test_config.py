@@ -23,6 +23,8 @@ from pyramid_oereb.core.readers.logo import LogoReader
 from pyramid_oereb.core.readers.document_types import DocumentTypeReader
 from pyramid_oereb.core.readers.real_estate_type import RealEstateTypeReader
 from pyramid_oereb.core.readers.map_layering import MapLayeringReader
+from pyramid_oereb.core.records.availability import AvailabilityRecord
+from pyramid_oereb.core.records.municipality import MunicipalityRecord
 
 
 # order=-1 to run them after all and don't screw the configuration in Config
@@ -397,7 +399,7 @@ def test_get_glossary_config(test_value, expected_results):
 
 
 @pytest.mark.run(order=-1)
-def test_get_document_config_none():
+def test_get_glossary_config_none():
     Config._config = None
     with pytest.raises(AssertionError):
         Config.get_glossary_config()
@@ -1085,3 +1087,335 @@ def test_init_offices_error():
         Config._config = None
         Config.init_offices()
         assert Config.offices is None
+
+
+@pytest.fixture()
+def availabilities_records():
+    yield [AvailabilityRecord(2771, 'ch.Nutzungsplanung', True),
+           AvailabilityRecord(2772, 'ch.Nutzungsplanung', False)]
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({"theme_code": "ch.Nutzungsplanung",
+      "fosnr": 2771}, True),
+    ({"theme_code": "ch.Nutzungsplanung",
+      "fosnr": 2772}, False)
+])
+@pytest.mark.run(order=1)
+def test_availability_by_theme_code_municipality_fosnr(test_value, expected_value, availabilities_records):
+    Config.availabilities = availabilities_records
+    assert Config.availability_by_theme_code_municipality_fosnr(
+        test_value.get("theme_code"), test_value.get("fosnr")) == expected_value
+    assert Config.availability_by_theme_code_municipality_fosnr('notInList', test_value.get("fosnr")) is True
+    assert Config.availability_by_theme_code_municipality_fosnr(test_value.get("theme_code"), 0) is True
+
+
+@pytest.mark.run(order=1)
+def test_availability_by_theme_code_municipality_fosnr_config_none():
+    Config.availabilities = None
+    with pytest.raises(ConfigurationError):
+        Config.availability_by_theme_code_municipality_fosnr('BN', 2771)
+
+
+@pytest.fixture()
+def law_status_lookups():
+    yield [{"data_code": "inKraft",
+            "transfer_code": "inKraft",
+            "extract_code": "inForce"},
+           {"data_code": "AenderungMitVorwirkung",
+            "transfer_code": "AenderungMitVorwirkung",
+            "extract_code": "changeWithPreEffect"}]
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({"theme_code": "ch.Nutzungsplanung",
+      "key": "data_code",
+      "code": "inKraft"}, "inForce"),
+    ({"theme_code": "ch.Nutzungsplanung",
+      "key": "data_code",
+      "code": "AenderungMitVorwirkung"}, "changeWithPreEffect")
+])
+@pytest.mark.run(order=1)
+def test_get_law_status_lookup_by_theme_code_key_code(test_value, expected_value, law_status_lookups):
+    with patch.object(Config, 'get_law_status_lookups', return_value=law_status_lookups):
+        assert Config.get_law_status_lookup_by_theme_code_key_code(
+            test_value.get("theme_code"),
+            test_value.get("key"),
+            test_value.get("code")).get("extract_code") == expected_value
+
+
+@pytest.mark.parametrize('test_value', [
+    ({}),
+    ([]),
+    (None)
+])
+@pytest.mark.run(order=1)
+def test_get_law_status_lookup_by_theme_code_key_code_no_key(test_value):
+    with patch.object(Config, 'get_law_status_lookups', return_value=test_value):
+        with pytest.raises(ConfigurationError):
+            Config.get_law_status_lookup_by_theme_code_key_code(
+                "ch.Nutzungsplanung",
+                "data_code",
+                "inKraft")
+
+
+@pytest.mark.run(order=1)
+def test_get_config():
+    Config._config = None
+    assert Config.get_config() is None
+    Config._config = {}
+    assert Config.get_config() == {}
+    # set config back to None.
+    Config._config = None
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'real_estate': {'plan_for_land_register_main_page': {}}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_plan_for_land_register_main_page_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_plan_for_land_register_main_page_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_plan_for_land_register_main_page_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_plan_for_land_register_main_page_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'real_estate': {'plan_for_land_register': {}}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_plan_for_land_register_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_plan_for_land_register_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_plan_for_land_register_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_plan_for_land_register_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'address': {}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_address_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_address_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_address_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_address_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'theme_document': {}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_theme_document_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_theme_document_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_theme_document_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_theme_document_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'document_types': {}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_document_types_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_document_types_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_document_types_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_document_types_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'disclaimer': {}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_disclaimer_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_disclaimer_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_disclaimer_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_disclaimer_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'general_information': {}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_info_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_info_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_info_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_info_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'documents': {}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_document_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_document_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_document_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_document_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'offices': {}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_office_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_office_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_office_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_office_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'municipality': {}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_municipality_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_municipality_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_municipality_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_municipality_config()
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({'availability': {}}, {}),
+    ({'not_expecting_key': {}}, None)
+])
+@pytest.mark.run(order=-1)
+def test_get_availability_config(test_value, expected_value):
+    Config._config = test_value
+    assert Config.get_availability_config() == expected_value
+
+
+@pytest.mark.run(order=-1)
+def test_get_availability_config_none():
+    Config._config = None
+    with pytest.raises(AssertionError):
+        Config.get_availability_config()
+
+
+@pytest.fixture()
+def municipality_records():
+    yield [MunicipalityRecord(2771, 'Gemeinde', True),
+           MunicipalityRecord(2772, 'Gemeinde2', False)]
+
+
+@pytest.mark.parametrize('test_value,expected_index', [
+    (2771, 0),
+    (2772, 1)
+])
+@pytest.mark.run(order=1)
+def test_municipality_by_fosnr(test_value, expected_index, municipality_records):
+    Config.municipalities = municipality_records
+    assert Config.municipality_by_fosnr(test_value) == municipality_records[expected_index]
+
+
+@pytest.mark.run(order=1)
+def test_municipality_by_fosnr_config_none():
+    Config.municipalities = None
+    with pytest.raises(ConfigurationError):
+        Config.municipality_by_fosnr(0)
+
+
+@pytest.mark.run(order=1)
+def test_municipality_by_fosnr_not_in_list(municipality_records):
+    Config.municipalities = municipality_records
+    with pytest.raises(ConfigurationError):
+        Config.municipality_by_fosnr(0)
+
+
+@pytest.mark.parametrize('test_value,expected_value', [
+    ({"law_status_lookup": {}}, {}),
+    ({"law_status_lookup": ""}, "")
+])
+@pytest.mark.run(order=1)
+def test_get_law_status_lookups(test_value, expected_value):
+    Config._config = None
+    with patch.object(Config, 'get_theme_config_by_code', return_value=test_value):
+        assert Config.get_law_status_lookups('theme_code') == expected_value
+
+
+@pytest.mark.run(order=1)
+def test_get_law_status_lookups_lookups_none():
+    Config._config = None
+    with patch.object(Config, 'get_theme_config_by_code', return_value={"law_status_lookup": None}):
+        with pytest.raises(ConfigurationError):
+            Config.get_law_status_lookups('theme_code')
+
+
+@pytest.mark.parametrize('test_value', [
+    ({"data_code": "inKraft",
+      "transfer_code": "inKraft",
+      "extract_code": "inForce"}),
+    ({"data_code": "AenderungMitVorwirkung",
+      "transfer_code": "AenderungMitVorwirkung",
+      "extract_code": "changeWithPreEffect"})
+])
+@pytest.mark.run(order=1)
+def test_get_law_status_lookup_by_data_code(test_value):
+    with patch.object(Config, 'get_law_status_lookup_by_theme_code_key_code', return_value=test_value):
+        assert Config.get_law_status_lookup_by_data_code(
+            "theme_code",
+            "data_code") == test_value

@@ -6,6 +6,16 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+Version 2.4.7
+-------------
+Bug-fix and maintenance release:
+
+* Interlis bug fix (#1881)
+* Library upgrades (geoalchemy2, SQLAlchemy, jsonschema, lxml, responses, urllib3, pypdf)
+* Test coverage improvements
+* Python 3.8 is no longer explicitly supported
+* Remove print proxy xml2pdf, no longer used by the community (#1889)
+
 Version 2.4.6
 -------------
 Bug-fix and maintenance release:

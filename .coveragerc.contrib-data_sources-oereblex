@@ -1,0 +1,3 @@
+[run]
+source =
+    pyramid_oereb/contrib/data_sources/oereblex/*.py

@@ -26,7 +26,7 @@ def test_ls():
     file_adapter = FileAdapter(base_path)
     dir_list = file_adapter.ls()
     assert isinstance(dir_list, list)
-    assert len(dir_list) == 10
+    assert len(dir_list) == 12
     file_found = False
     dir_found = False
     for entry in dir_list:

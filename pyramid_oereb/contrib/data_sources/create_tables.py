@@ -198,7 +198,7 @@ def create_main_schema_tables():
 def create_theme_tables():
     parser = optparse.OptionParser(
         usage='usage: %prog [options]',
-        description='Create all content for the standard database'
+        description='Create theme tables SQL'
     )
     parser.add_option(
         '-c', '--configuration',
@@ -241,11 +241,20 @@ def create_theme_tables():
         default=False,
         help='Is the yaml file using a c2ctemplate style (starting with vars)'
     )
+    parser.add_option(
+        '--config-source',
+        type='string',
+        default='pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource',
+        help='Config source to use, it must be an implementation corresponding to the standard schema.'
+        'Note: parameter must match the actual config; a default value is provided.'
+    )
     options, args = parser.parse_args()
     if not options.configuration:
         parser.error('No configuration file set.')
     if not options.theme:
         parser.error('No theme code specified.')
+    if not options.sql_file:
+        parser.error('No sql filename specified.')
 
     if Config.get_config() is None:
         Config.init(
@@ -258,15 +267,10 @@ def create_theme_tables():
     if theme_config is None:
         parser.error('Specified theme not found in configuration.')
 
-    if options.sql_file is None:
+    with open(options.sql_file, 'w') as sql_file:
         create_theme_tables_(
             theme_config,
-            tables_only=options.tables_only
+            options.config_source,
+            tables_only=options.tables_only,
+            sql_file=sql_file
         )
-    else:
-        with open(options.sql_file, 'w') as sql_file:
-            create_theme_tables_(
-                theme_config,
-                tables_only=options.tables_only,
-                sql_file=sql_file
-            )
