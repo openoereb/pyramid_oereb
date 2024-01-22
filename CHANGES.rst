@@ -1,6 +1,14 @@
 Changelog
 =========
 
+2.4.8
+-----
+- Support new Oereblex API version (via geolink-formatter 2.0.5)
+- Enhance test coverage (#1904)
+- Library upgrades (SQLAlchemy, lxml, jsonschema, c2cwsgiutils, pillow, pytest)
+- Fix database setup scripts (#1913, #1914)
+- Fix deprecation (#1915)
+
 2.4.7
 -----
 - Add extract_index to disclaimer and general infomation (#1753)
