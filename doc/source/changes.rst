@@ -6,6 +6,16 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+Version 2.4.8
+-------------
+Maintenance release:
+
+* Support new Oereblex API version (via geolink-formatter 2.0.5)
+* Enhance test coverage (#1904)
+* Library upgrades (SQLAlchemy, lxml, jsonschema, c2cwsgiutils, pillow, pytest)
+* Fix database setup scripts (#1913, #1914)
+* Fix deprecation (#1915)
+
 Version 2.4.7
 -------------
 Bug-fix and maintenance release:
