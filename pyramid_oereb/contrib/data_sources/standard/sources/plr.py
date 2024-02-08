@@ -3,6 +3,7 @@ import logging
 import importlib
 
 from geoalchemy2.shape import to_shape, from_shape
+from geoalchemy2.functions import ST_DWithin, ST_Intersects
 from shapely.geometry import Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, \
     GeometryCollection
 from sqlalchemy import text, or_
@@ -523,7 +524,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         ]
         clause_blocks = [
             text(f'ST_Intersects({extract}, {geometry_string})') if tolerance is None
-            else text(f'ST_Distance({extract}, {geometry_string}) < {tolerance}')
+            else text(f'ST_DWithin({extract}, {geometry_string}, {tolerance})')
             for extract, tolerance in zip([extract_point, extract_line, extract_polygon], tolerance_extracts)
         ]
         return or_(*clause_blocks)
@@ -560,17 +561,28 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         else:
             # The PLR is not problematic at all cause we do not have a collection type here
             if (self._tolerances is not None) and ('ALL' in self._tolerances):
-                query = session.query(self._model_).filter(self._model_.geom.ST_Distance(
-                    from_shape(geometry_to_check, srid=Config.get('srid'))
-                ) < self._tolerances['ALL'])
+                query = session.query(self._model_).filter(
+                    ST_DWithin(
+                        self._model_.geom,
+                        from_shape(geometry_to_check, srid=Config.get('srid')),
+                        self._tolerances['ALL']
+                    )
+                )
             elif (self._tolerances is not None) and (geometry_to_check.geom_type in self._tolerances):
-                query = session.query(self._model_).filter(self._model_.geom.ST_Distance(
-                    from_shape(geometry_to_check, srid=Config.get('srid'))
-                ) < self._tolerances[geometry_to_check.geom_type])
+                query = session.query(self._model_).filter(
+                    ST_DWithin(
+                        self._model_.geom,
+                        from_shape(geometry_to_check, srid=Config.get('srid')),
+                        self._tolerances[geometry_to_check.geom_type]
+                    )
+                )
             else:
-                query = session.query(self._model_).filter(self._model_.geom.ST_Intersects(
-                    from_shape(geometry_to_check, srid=Config.get('srid'))
-                ))
+                query = session.query(self._model_).filter(
+                    ST_Intersects(
+                        self._model_.geom,
+                        from_shape(geometry_to_check, srid=Config.get('srid'))
+                    )
+                )
         return query
 
     def collect_related_geometries_by_real_estate(self, session, real_estate):

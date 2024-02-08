@@ -8,6 +8,7 @@ from shapely.geometry import Point, LineString, Polygon, MultiPoint, MultiLineSt
     GeometryCollection
 from sqlalchemy import or_
 from sqlalchemy.orm import selectinload
+from geoalchemy2.functions import ST_DWithin
 
 from pyramid_oereb import Config
 from pyramid_oereb.core import b64
@@ -433,15 +434,21 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         else:
             query = session.query(self._model_).filter(
                 or_(
-                    self._model_.point.ST_Distance(
-                        from_shape(real_estate.limit, srid=Config.get('srid'))
-                    ) < self._tolerances.get('ALL', self._tolerances.get('Point', 0)),
-                    self._model_.line.ST_Distance(
-                        from_shape(real_estate.limit, srid=Config.get('srid'))
-                    ) < self._tolerances.get('ALL', self._tolerances.get('LineString', 0)),
-                    self._model_.surface.ST_Distance(
-                        from_shape(real_estate.limit, srid=Config.get('srid'))
-                    ) < self._tolerances.get('ALL', self._tolerances.get('Polygon', 0))
+                    ST_DWithin(
+                        self._model_.point,
+                        from_shape(real_estate.limit, srid=Config.get('srid')),
+                        self._tolerances.get('ALL', self._tolerances.get('Point', 0))
+                    ),
+                    ST_DWithin(
+                        self._model_.line,
+                        from_shape(real_estate.limit, srid=Config.get('srid')),
+                        self._tolerances.get('ALL', self._tolerances.get('LineString', 0))
+                    ),
+                    ST_DWithin(
+                        self._model_.surface,
+                        from_shape(real_estate.limit, srid=Config.get('srid')),
+                        self._tolerances.get('ALL', self._tolerances.get('Polygon', 0))
+                    )
                 ))
         return query.distinct(self._model_.public_law_restriction_id).options(
             selectinload(self.models.Geometry.public_law_restriction)
