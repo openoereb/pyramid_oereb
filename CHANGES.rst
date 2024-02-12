@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.5.0
+-----
+- Use ST_DWithin instead of ST_Distance for performance reasons (#1930)
+- Library upgrades (SQLAlchemy, geoalchemy2, urllib3, pypdf)
+
 2.4.8
 -----
 - Support new Oereblex API version (via geolink-formatter 2.0.5)
