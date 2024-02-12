@@ -6,6 +6,13 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+Version 2.5.0
+-------------
+Performance optimization release:
+
+* Use ST_DWithin instead of ST_Distance for performance reasons (#1930)
+* Library upgrades (SQLAlchemy, geoalchemy2, urllib3, pypdf)
+
 Version 2.4.8
 -------------
 Maintenance release:
