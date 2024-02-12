@@ -834,13 +834,15 @@ def test_handle_collection_tolerance(tolerances, with_collection, config_config,
         else:
             if tolerances:
                 assert type(query.received_clause) is ST_DWithin
-                assert {type(el) for el in query.received_clause.clause_expr.element.clauses} == {AnnotatedColumn, ST_GeomFromWKB, BindParameter}
+                assert {
+                    type(el) for el in query.received_clause.clause_expr.element.clauses
+                } == {AnnotatedColumn, ST_GeomFromWKB, BindParameter}
                 assert math.isclose(query.received_clause.clauses.clauses[2].value, 0.1, rel_tol=1e-9)
             else:
                 assert type(query.received_clause) is ST_Intersects
-                assert {type(el) for el in query.received_clause.clause_expr.element.clauses} == {AnnotatedColumn, ST_GeomFromWKB}
-
-            
+                assert {
+                    type(el) for el in query.received_clause.clause_expr.element.clauses
+                } == {AnnotatedColumn, ST_GeomFromWKB}
 
 
 @pytest.mark.parametrize('geom,length,geom_type', [
