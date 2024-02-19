@@ -1,6 +1,6 @@
 jsonschema==4.21.1
 lxml==5.1.0
-pytest==8.0.0
+pytest==8.0.1
 pytest-cov==4.1.0
 pytest-ordering==0.6
 requests-mock==1.11.0
