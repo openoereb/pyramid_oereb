@@ -6,7 +6,7 @@ pyramid-debugtoolbar==4.12.1
 qrcode==7.4.2
 image==1.5.33
 shapely==2.0.3
-SQLAlchemy==2.0.27
+SQLAlchemy==2.0.28
 pyaml-env==1.2.1
 urllib3==2.2.1
 waitress==3.0.0
