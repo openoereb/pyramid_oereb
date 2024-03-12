@@ -8,7 +8,7 @@ jobs:
     name: Check federal data definitions
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
       - run: sudo apt-get install xsltproc
@@ -46,7 +46,7 @@ jobs:
           - python3.10
           - python3.11
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
       - run: sudo apt-get install libpq-dev
