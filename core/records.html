@@ -14,7 +14,7 @@
   <![endif]-->
   
         <script src="../_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -1071,7 +1071,7 @@ or POLYGON, everything else will raise an error.</p>
 <li><p><strong>law_status</strong> (<em>pyramid_oereb.lib.records.law_status.LawStatusRecord</em>) – The law status of this record.</p></li>
 <li><p><strong>published_from</strong> (<em>datetime.date</em>) – Date from/since when the PLR record is published.</p></li>
 <li><p><strong>published_until</strong> (<em>datetime.date</em>) – Date until the PLR record is published.</p></li>
-<li><p><strong>geom</strong> (<em>Point</em><em> or </em><em>LineString</em><em> or </em><em>Polygon</em>) – </p></li>
+<li><p><strong>geom</strong> (<em>Point</em><em> or </em><em>LineString</em><em> or </em><em>Polygon</em>)</p></li>
 <li><p><strong>POINT</strong> (<em>The geometry which must be</em><em> of </em><em>type</em>) – will raise an error.</p></li>
 <li><p><strong>POLYGON</strong> (<em>LINESTRING or</em>) – will raise an error.</p></li>
 <li><p><strong>else</strong> (<em>everything</em>) – will raise an error.</p></li>
@@ -2008,9 +2008,9 @@ collection which has to be unpacked first in case of collection.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>real_estate</strong> (<em>pyramid_oereb.lib.records.real_estate.RealEstateRecord</em>) – The real estate record.</p></li>
 <li><p><strong>geometry_types</strong> (<em>dict</em>) – The allowed geometry types for the to match the simple</p></li>
-<li><p><strong>point</strong> (<em>feature types</em>) – </p></li>
-<li><p><strong>line</strong> – </p></li>
-<li><p><strong>polygon</strong> – </p></li>
+<li><p><strong>point</strong> (<em>feature types</em>)</p></li>
+<li><p><strong>line</strong></p></li>
+<li><p><strong>polygon</strong></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
