@@ -67,6 +67,7 @@ ${VENV_ROOT}/timestamp:
 ${VENV_ROOT}/requirements-timestamp: ${VENV_ROOT}/timestamp pyproject.toml
 	$(VENV_BIN)/$(PIP_COMMAND) install --upgrade pip wheel
 	$(VENV_BIN)/$(PIP_COMMAND) install .[recommend] .[testing] .[dev]
+	$(VENV_BIN)/$(PIP_COMMAND) install --editable .
 	touch $@
 
 ##########
@@ -261,7 +262,6 @@ clean_dev_db_scripts:
 install: ${VENV_ROOT}/requirements-timestamp
 
 $(DEV_CREATE_MAIN_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_TABLES_SCRIPT) $(DEV_CREATE_OEREBLEX_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT): pyproject.toml $(BUILD_DEPS)
-	$(VENV_BIN)/python -m pip install --editable .
 
 development.ini: install
 	$(VENV_BIN)/mako-render --var pyramid_oereb_port=$(PYRAMID_OEREB_PORT) --var pyramid_stats_url=$(STATS_URL) development.ini.mako > development.ini
