@@ -64,9 +64,9 @@ ${VENV_ROOT}/timestamp:
 	python3 -m venv ${VENV_ROOT}
 	touch $@
 
-${VENV_ROOT}/requirements-timestamp: ${VENV_ROOT}/timestamp setup.py requirements.txt tests-requirements.txt dev-requirements.txt
+${VENV_ROOT}/requirements-timestamp: ${VENV_ROOT}/timestamp pyproject.toml
 	$(VENV_BIN)/$(PIP_COMMAND) install --upgrade pip wheel
-	$(VENV_BIN)/$(PIP_COMMAND) install -r requirements.txt -r tests-requirements.txt -r dev-requirements.txt
+	$(VENV_BIN)/$(PIP_COMMAND) install .[recommend] .[testing] .[dev]
 	touch $@
 
 ##########
@@ -260,8 +260,8 @@ clean_dev_db_scripts:
 .PHONY: install
 install: ${VENV_ROOT}/requirements-timestamp
 
-$(DEV_CREATE_MAIN_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_TABLES_SCRIPT) $(DEV_CREATE_OEREBLEX_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT): setup.py $(BUILD_DEPS)
-	$(VENV_BIN)/python $< develop
+$(DEV_CREATE_MAIN_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_TABLES_SCRIPT) $(DEV_CREATE_OEREBLEX_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_YML_SCRIPT): pyproject.toml $(BUILD_DEPS)
+	$(VENV_BIN)/python -m pip install --editable .
 
 development.ini: install
 	$(VENV_BIN)/mako-render --var pyramid_oereb_port=$(PYRAMID_OEREB_PORT) --var pyramid_stats_url=$(STATS_URL) development.ini.mako > development.ini
@@ -273,14 +273,20 @@ build: install $(DEV_CREATE_MAIN_TABLES_SCRIPT) $(DEV_CREATE_STANDARD_TABLES_SCR
 clean: clean_fed_data clean_dev_db_scripts
 	rm -f $(DEV_CONFIGURATION_YML)
 	rm -f coverage.core.xml
+	rm -f coverage.core_adapter.xml
 	rm -f coverage.contrib-data_sources-standard.xml
 	rm -f coverage.contrib-data_sources-interlis.xml
+	rm -f coverage.contrib-data_sources-oereblex.xml
+	rm -f coverage.contrib-data_sources-swisstopo.xml
 	rm -f coverage.contrib-print_proxy-mapfish_print.xml
 	rm -f coverage.contrib-stats.xml
+	rm -f .coverage
+	rm -rf tmp
 
 .PHONY: clean-all
 clean-all: clean
 	rm -rf ${VENV_ROOT}
+	rm -rf build
 	rm -f development.ini
 	rm -rf $(PACKAGE).egg-info
 
@@ -310,6 +316,7 @@ test-core_adapter: ${VENV_ROOT}/requirements-timestamp
 
 .PHONY: test-contrib-print_proxy-mapfish_print
 test-contrib-print_proxy-mapfish_print: ${VENV_ROOT}/requirements-timestamp
+	mkdir ./tmp
 	$(VENV_BIN)/py.test -vv $(PYTEST_OPTS) --cov-config .coveragerc.contrib-print_proxy-mapfish_print --cov $(PACKAGE) --cov-report xml:coverage.contrib-print_proxy-mapfish_print.xml tests/contrib.print_proxy.mapfish_print
 
 .PHONY: test-contrib-data_sources-standard

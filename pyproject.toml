@@ -1,0 +1,117 @@
+[build-system]
+requires = [
+    "setuptools >= 69.5.1",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyramid_oereb"
+version = "2.5.0"
+description = "pyramid_oereb, extension for pyramid web frame work to provide a basic server part for the oereb project"
+
+classifiers=[
+        "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: Developers",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Framework :: Pyramid",
+        "Topic :: Internet :: WWW/HTTP",
+        "Topic :: Internet :: WWW/HTTP :: WSGI :: Application"
+    ]
+license = {file = "LICENSE.txt"}
+authors = [
+  {name = "François Voisard", email = "francois.voisard@ne.ch"},
+]
+keywords = ["pyramid oereb"]
+readme = "README.rst"
+
+[project.urls]
+Repository = "https://github.com/openoereb/pyramid_oereb"
+Changelog = "https://github.com/openoereb/pyramid_oereb/blob/master/CHANGES.rst"
+
+[project.optional-dependencies]
+# Dependencies listed in "recommend" must be included in "no-version" without explicit version number
+recommend = [
+    "pypdf==4.2.0",
+    "filetype==1.2.0",
+    "geoalchemy2==0.14.7",
+    "pyramid==2.0.2",
+    "pyramid-debugtoolbar==4.12.1",
+    "qrcode==7.4.2",
+    "image==1.5.33",
+    "shapely==2.0.4",
+    "SQLAlchemy==2.0.29",
+    "pyaml-env==1.2.1",
+    "urllib3==2.2.1",
+    "waitress==3.0.0",
+    "pyreproj==3.0.0",
+    "mako-render==0.1.0",
+    "requests==2.31.0",
+    "geolink-formatter==2.0.5",
+    "pyconizer==0.1.4",
+    "c2cwsgiutils[standard]==6.0.8"]
+no-version = [
+    "pypdf",
+    "filetype",
+    "geoalchemy2",
+    "pyramid",
+    "pyramid-debugtoolbar",
+    "qrcode",
+    "image",
+    "shapely",
+    "SQLAlchemy",
+    "pyaml-env",
+    "urllib3",
+    "waitress",
+    "pyreproj",
+    "mako-render",
+    "requests",
+    "geolink-formatter",
+    "pyconizer",
+    "c2cwsgiutils[standard]"]
+testing = [
+    "jsonschema==4.21.1",
+    "lxml==5.2.1",
+    "pytest==8.1.1",
+    "pytest-cov==5.0.0",
+    "pytest-ordering==0.6",
+    "requests-mock==1.12.1",
+    "responses==0.25.0",
+    "webtest==3.0.0",
+    "pillow==10.3.0"]
+dev = [
+    "flake8==7.0.0",
+    "Flake8-pyproject==1.2.3",
+    "pyflakes==3.2.0",
+    "pycodestyle==2.11.1",
+    "Sphinx==7.3.4",
+    "sphinx_rtd_theme==2.0.0",
+    "psycopg2==2.9.9",
+    "mccabe==0.7.0",
+    "c2c.template==2.4.2",
+    "yappi"]
+
+[tool.setuptools.packages.find]
+
+[project.entry-points."paste.app_factory"]
+main = "pyramid_oereb:main"
+
+[project.scripts]
+create_standard_tables = "pyramid_oereb.contrib.data_sources.standard.create_tables:create_standard_tables"
+create_oereblex_tables = "pyramid_oereb.contrib.data_sources.oereblex.create_tables:create_oereblex_tables"
+create_main_schema_tables = "pyramid_oereb.contrib.data_sources.create_tables:create_main_schema_tables"
+create_example_yaml = "dev.config.create_yaml:create_yaml"
+create_theme_tables = "pyramid_oereb.contrib.data_sources.create_tables:create_theme_tables"
+create_legend_entries = "pyramid_oereb.contrib.data_sources.standard.load_legend_entries:run"
+create_stats_tables = "pyramid_oereb.contrib.stats.scripts.create_stats_tables:create_stats_tables"
+
+[tool.flake8]
+exclude = [".venv", "tests/init_db.py"]
+max-line-length = 110
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
