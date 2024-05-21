@@ -12,7 +12,7 @@ urllib3==2.2.1
 waitress==3.0.0
 pyreproj==3.0.0
 mako-render==0.1.0
-requests==2.31.0
+requests==2.32.1
 geolink-formatter==2.0.5
 pyconizer==0.1.4
 c2cwsgiutils[standard]==6.0.8
