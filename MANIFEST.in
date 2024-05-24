@@ -1,4 +1,4 @@
-include README.rst CHANGES.rst requirements.txt
+include README.rst CHANGES.rst
 recursive-include pyramid_oereb/standard *.mako
 recursive-include pyramid_oereb/standard *.xml
 recursive-include pyramid_oereb/core/renderer *.xml
