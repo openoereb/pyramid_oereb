@@ -7,7 +7,7 @@ jobs:
     name: Check style (lint)
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
       - run: sudo apt-get install libpq-dev
@@ -18,7 +18,7 @@ jobs:
     name: Check style (git-attributes)
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
       - run: sudo apt-get install libpq-dev
@@ -52,7 +52,7 @@ jobs:
           - '3.11'
           - '3.12'
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
       - name: Set up Python v${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
@@ -78,7 +78,7 @@ jobs:
     name: Check federal data definitions
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
       - run: sudo apt-get install xsltproc
@@ -95,7 +95,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
       - name: Make documentation
         run: |
           sudo rm /etc/apt/sources.list.d/*.list
