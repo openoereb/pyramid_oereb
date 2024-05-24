@@ -1,4 +1,5 @@
 import datetime
+import math
 
 import pytest
 from unittest.mock import patch
@@ -820,28 +821,28 @@ def test_handle_collection_tolerance(tolerances, with_collection, config_config,
 
         # check results for 8 combinations of with_collection + tolerances
         from sqlalchemy.sql.annotation import AnnotatedColumn
-        from sqlalchemy.sql.elements import BinaryExpression, BooleanClauseList, TextClause
-        from geoalchemy2.functions import ST_Intersects, ST_Distance, ST_GeomFromWKB
+        from sqlalchemy.sql.elements import BooleanClauseList, TextClause, BindParameter
+        from geoalchemy2.functions import ST_Intersects, ST_DWithin, ST_GeomFromWKB
         if with_collection:
             assert type(query.received_clause) is BooleanClauseList
             for clause in query.received_clause.clauses:
                 assert type(clause) is TextClause
                 if tolerances:
-                    assert 'ST_Distance' in clause.text
+                    assert 'ST_DWithin' in clause.text
                 else:
                     assert 'ST_Intersects' in clause.text
         else:
             if tolerances:
-                assert type(query.received_clause) is BinaryExpression
-                test_clause = query.received_clause.left
-                assert type(test_clause) is ST_Distance
-                query.received_clause.right.value == 0.1
+                assert type(query.received_clause) is ST_DWithin
+                assert {
+                    type(el) for el in query.received_clause.clause_expr.element.clauses
+                } == {AnnotatedColumn, ST_GeomFromWKB, BindParameter}
+                assert math.isclose(query.received_clause.clauses.clauses[2].value, 0.1, rel_tol=1e-9)
             else:
-                test_clause = query.received_clause
-                assert type(test_clause) is ST_Intersects
-            assert {
-                type(el) for el in test_clause.clause_expr.element.clauses
-            } == {AnnotatedColumn, ST_GeomFromWKB}
+                assert type(query.received_clause) is ST_Intersects
+                assert {
+                    type(el) for el in query.received_clause.clause_expr.element.clauses
+                } == {AnnotatedColumn, ST_GeomFromWKB}
 
 
 @pytest.mark.parametrize('geom,length,geom_type', [

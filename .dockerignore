@@ -1,14 +1,10 @@
 *
 !pyramid_oereb
-!requirements.txt
-!setup.py
 !README.rst
 !CHANGES.rst
 !docker
 !logo_*.jpg
 !tests
 !MANIFEST.in
-!pytest.ini
 !.coveragerc
-!tests-requirements.txt
-!dev-requirements.txt
+!pyproject.toml

@@ -738,7 +738,7 @@ def test_archive_pdf(DummyRenderInfo):
         'CreationDate': '2023-08-21T13:48:07'
         }
     renderer.set_global_datetime(extract['CreationDate'])
-    path_and_filename = renderer.archive_pdf_file('/tmp', bytes(), extract)
+    path_and_filename = renderer.archive_pdf_file('./tmp', bytes(), extract)
     partial_filename = str('_') + extract['RealEstate_EGRID'] + '.pdf'
     assert partial_filename in path_and_filename
     assert os.path.isfile(path_and_filename)
@@ -752,7 +752,7 @@ def test_archive_pdf_identdn(DummyRenderInfo):
         'CreationDate': '2023-08-21T13:48:07'
         }
     renderer.set_global_datetime(extract['CreationDate'])
-    path_and_filename = renderer.archive_pdf_file('/tmp', bytes(), extract)
+    path_and_filename = renderer.archive_pdf_file('./tmp', bytes(), extract)
     partial_filename = extract['RealEstate_IdentDN'] + str('_') + extract['RealEstate_Number'] + '.pdf'
     assert partial_filename in path_and_filename
     assert os.path.isfile(path_and_filename)
