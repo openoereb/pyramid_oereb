@@ -49,7 +49,7 @@ recommend = [
     "waitress==3.0.0",
     "pyreproj==3.0.0",
     "mako-render==0.1.0",
-    "requests==2.32.2",
+    "requests==2.32.3",
     "geolink-formatter==2.0.5",
     "pyconizer==0.1.4",
     "c2cwsgiutils[standard]==6.0.8"]
