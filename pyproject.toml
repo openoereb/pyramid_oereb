@@ -45,7 +45,7 @@ recommend = [
     "shapely==2.0.4",
     "SQLAlchemy==2.0.30",
     "pyaml-env==1.2.1",
-    "urllib3==2.2.1",
+    "urllib3==2.2.2",
     "waitress==3.0.0",
     "pyreproj==3.0.0",
     "mako-render==0.1.0",
