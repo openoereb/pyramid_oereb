@@ -44,6 +44,7 @@ recommend = [
     "image==1.5.33",
     "shapely==2.0.4",
     "SQLAlchemy==2.0.31",
+    "numpy<2",
     "pyaml-env==1.2.1",
     "urllib3==2.2.2",
     "waitress==3.0.0",
