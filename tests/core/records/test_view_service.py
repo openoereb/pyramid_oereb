@@ -20,7 +20,8 @@ def test_init():
         'de',
         2056,
         None,
-        None
+        True,
+        None,
     )
     assert isinstance(record.reference_wms, dict)
     assert isinstance(record.layer_index, int)
@@ -29,6 +30,7 @@ def test_init():
     assert record.default_language == 'de'
     assert record.srid == 2056
     assert record.proxies is None
+    assert record.verify_certificate is True
     assert len(record.legends) == 0
 
 
@@ -49,6 +51,7 @@ def test_init_with_relation(pyramid_oereb_test_config):
         'de',
         2056,
         None,
+        True,
         legend_records
     )
     assert isinstance(record.reference_wms, dict)

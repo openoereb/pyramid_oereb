@@ -80,7 +80,7 @@ class ViewServiceRecord(object):
     """
 
     def __init__(self, reference_wms, layer_index, layer_opacity, default_language,
-                 srid, proxies=None, legends=None, verify_certificate=True):
+                 srid, proxies=None, verify_certificate=True, legends=None):
         """
 
         Args:
@@ -248,7 +248,7 @@ class ViewServiceRecord(object):
         if uri_validator(wms):
             log.debug(f"Downloading image, url: {wms}")
             try:
-                response = requests.get(wms, proxies=self.proxies, verify=self.verify_certificate)
+                response = requests.get(wms, proxies=self.proxies)
             except Exception as ex:
                 dedicated_msg = f"An image could not be downloaded. URL was: {wms}, error was {ex}"
                 log.error(dedicated_msg)
