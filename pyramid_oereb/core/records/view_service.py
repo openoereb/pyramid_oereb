@@ -248,7 +248,7 @@ class ViewServiceRecord(object):
         if uri_validator(wms):
             log.debug(f"Downloading image, url: {wms}")
             try:
-                response = requests.get(wms, proxies=self.proxies, verify=self.verify_certicate)
+                response = requests.get(wms, proxies=self.proxies, verify=self.verify_certificate)
             except Exception as ex:
                 dedicated_msg = f"An image could not be downloaded. URL was: {wms}, error was {ex}"
                 log.error(dedicated_msg)
