@@ -162,6 +162,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             Config.get('default_language'),
             Config.get('srid'),
             Config.get('proxies'),
+            Config.get('verify_certificate'),
             legends=legend_entry_records
         )
         return view_service_record
