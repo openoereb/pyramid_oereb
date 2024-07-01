@@ -66,20 +66,20 @@ def test_init_with_relation(pyramid_oereb_test_config):
 
 def test_invalid_layer_index_arguments(pyramid_oereb_test_config):
     with pytest.raises(AttributeError):
-        ViewServiceRecord({'de': 'http://example.com'}, -1001, 1, 'de', 2056, None, None)
+        ViewServiceRecord({'de': 'http://example.com'}, -1001, 1, 'de', 2056, None, True, None)
     with pytest.raises(AttributeError):
-        ViewServiceRecord({'de': 'http://example.com'}, 1001, 1, 'de', 2056, None, None)
+        ViewServiceRecord({'de': 'http://example.com'}, 1001, 1, 'de', 2056, None, True, None)
     with pytest.warns(UserWarning, match='Type of "layer_index" should be "int"'):
-        ViewServiceRecord({'de': 'http://example.com'}, 1.0, 1, 'de', 2056, None, None)
+        ViewServiceRecord({'de': 'http://example.com'}, 1.0, 1, 'de', 2056, None, True, None)
 
 
 def test_invalid_layer_layer_opacity(pyramid_oereb_test_config):
     with pytest.raises(AttributeError):
-        ViewServiceRecord({'de': 'http://example.com'}, 1, 2.0, 'de', 2056, None, None)
+        ViewServiceRecord({'de': 'http://example.com'}, 1, 2.0, 'de', 2056, None, True, None)
     with pytest.raises(AttributeError):
-        ViewServiceRecord({'de': 'http://example.com'}, 1, -1.1, 'de', 2056, None, None)
+        ViewServiceRecord({'de': 'http://example.com'}, 1, -1.1, 'de', 2056, None, True, None)
     with pytest.warns(UserWarning, match='Type of "layer_opacity" should be "float"'):
-        ViewServiceRecord({'de': 'http://example.com'}, 1, 1, 'de', 2056, None, None)
+        ViewServiceRecord({'de': 'http://example.com'}, 1, 1, 'de', 2056, None, True, None)
 
 
 def test_check_min_max_attributes():
