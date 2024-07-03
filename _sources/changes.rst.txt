@@ -6,6 +6,12 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+Version 2.5.1
+-------------
+Maintenance release:
+
+* Library upgrades (SQLAlchemy, shapely, geoalchemy2, responses, urllib3, lxml)
+
 Version 2.5.0
 -------------
 Performance optimization release:
