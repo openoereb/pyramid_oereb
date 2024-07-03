@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2.5.1
+-----
+- Library upgrades (SQLAlchemy, shapely, geoalchemy2, responses, urllib3, lxml)
+
 2.5.0
 -----
 - Use ST_DWithin instead of ST_Distance for performance reasons (#1930)
