@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pyramid_oereb"
-version = "2.5.0"
+version = "2.5.1"
 description = "pyramid_oereb, extension for pyramid web frame work to provide a basic server part for the oereb project"
 
 classifiers=[
@@ -43,13 +43,13 @@ recommend = [
     "qrcode==7.4.2",
     "image==1.5.33",
     "shapely==2.0.4",
-    "SQLAlchemy==2.0.30",
+    "SQLAlchemy==2.0.31",
     "pyaml-env==1.2.1",
-    "urllib3==2.2.1",
+    "urllib3==2.2.2",
     "waitress==3.0.0",
     "pyreproj==3.0.0",
     "mako-render==0.1.0",
-    "requests==2.32.2",
+    "requests==2.32.3",
     "geolink-formatter==2.0.5",
     "pyconizer==0.1.4",
     "c2cwsgiutils[standard]==6.0.8"]
@@ -75,18 +75,18 @@ no-version = [
 testing = [
     "jsonschema==4.22.0",
     "lxml==5.2.2",
-    "pytest==8.2.1",
+    "pytest==8.2.2",
     "pytest-cov==5.0.0",
     "pytest-ordering==0.6",
     "requests-mock==1.12.1",
-    "responses==0.25.0",
+    "responses==0.25.3",
     "webtest==3.0.0",
     "pillow==10.3.0"]
 dev = [
-    "flake8==7.0.0",
+    "flake8==7.1.0",
     "Flake8-pyproject==1.2.3",
     "pyflakes==3.2.0",
-    "pycodestyle==2.11.1",
+    "pycodestyle==2.12.0",
     "Sphinx==7.3.7",
     "sphinx_rtd_theme==2.0.0",
     "psycopg2==2.9.9",
