@@ -3,7 +3,7 @@ Changelog
 
 Notes:
 ------
-- This python package specifies the version numbers only for directly imported python packages. This approach may result in a build failure of the package if there arise incompatibilities between imported packages over time. The build process of the master branch is regularely tested in an automatic process.
+- This python package specifies the version numbers only of directly imported python packages. This approach may result in a build failure of older versions of the project if incompatibilities arise between imported packages over time. The build process of the master branch is regularly tested in an automatic process.
 
 2.5.1
 -----
