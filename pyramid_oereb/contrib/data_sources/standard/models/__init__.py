@@ -16,7 +16,7 @@ As of the moment of writing this includes:
 
 
 from sqlalchemy import Column, ForeignKey
-from sqlalchemy import String, Integer, Float, Date
+from sqlalchemy import String, Integer, Float, Date, Boolean
 from geoalchemy2.types import Geometry as GeoAlchemyGeometry
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import JSONType
@@ -174,7 +174,8 @@ def get_view_service(base, schema_name, pk_type):
             reference_wms (dict of str): The actual url which leads to the desired cartographic
                 representation (multilingual).
             layer_index (int): Index for sorting the layering of the view services for a theme
-            layer_opacity (float): Opacity of a view service
+            layer_opacity (float): Opacity of a view servicA
+            verify_certificate (boolean): Whether the certificate of the WMS shall be verified
         """
         __table_args__ = {'schema': schema_name}
         __tablename__ = 'view_service'
@@ -182,6 +183,7 @@ def get_view_service(base, schema_name, pk_type):
         reference_wms = Column(JSONType, nullable=False)
         layer_index = Column(Integer, nullable=False)
         layer_opacity = Column(Float, nullable=False)
+        verify_certificate = Column(Boolean, nullable=True)
 
     return ViewService
 

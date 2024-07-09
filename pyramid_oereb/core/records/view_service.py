@@ -80,7 +80,7 @@ class ViewServiceRecord(object):
     """
 
     def __init__(self, reference_wms, layer_index, layer_opacity, default_language,
-                 srid, proxies=None, verify_certificate=True, legends=None):
+                 srid, proxies=None, legends=None, verify_certificate=True):
         """
 
         Args:
@@ -91,6 +91,7 @@ class ViewServiceRecord(object):
             srid (int): The SRID which is used for the WMS.
             proxies (dict or None): The proxies which may be used
             legends (list of LegendEntry or None): A list of all relevant legend entries.
+            verify_certificate (bool): indicates whether call to the WMS shall be verified
         """
         self.reference_wms = reference_wms
         self.image = dict()  # multilingual dict with binary map images resulting from calling the wms link
@@ -105,14 +106,13 @@ class ViewServiceRecord(object):
         self.default_language = default_language
         self.srid = srid
         self.proxies = proxies
-        self.verify_certificate = verify_certificate
-
         if legends is None:
             self.legends = []
         else:
             for legend in legends:
                 assert isinstance(legend.symbol, ImageRecord)
             self.legends = legends
+        self.verify_certificate = verify_certificate
 
     @staticmethod
     def sanitize_layer_index(layer_index):

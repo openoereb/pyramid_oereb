@@ -64,7 +64,7 @@ class RealEstateReader(object):
             Config.get('default_language'),
             Config.get('srid'),
             Config.get('proxies'),
-            Config.get('verify_certificate')
+            plan_for_land_register_config.get('verify_certificate')
         )
 
         plan_for_land_register_main_page_config = Config.get_plan_for_land_register_main_page_config()
@@ -75,7 +75,7 @@ class RealEstateReader(object):
             Config.get('default_language'),
             Config.get('srid'),
             Config.get('proxies'),
-            Config.get('verify_certificate')
+            plan_for_land_register_main_page_config.get('verify_certificate')
         )
 
         self._source_.read(params, nb_ident=nb_ident, number=number, egrid=egrid, geometry=geometry)
