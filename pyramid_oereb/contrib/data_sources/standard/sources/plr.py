@@ -163,7 +163,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             Config.get('srid'),
             Config.get('proxies'),
             legends=legend_entry_records,
-            verify_certificate=view_service_from_db.verify_certificate
+            # Note: our standard database model does not contain an option to override the verify_certificate
+            verify_certificate=True
         )
         return view_service_record
 

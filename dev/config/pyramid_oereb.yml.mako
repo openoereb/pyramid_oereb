@@ -246,6 +246,7 @@ pyramid_oereb:
         fr: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
       layer_index: 0
       layer_opacity: 1.0
+      # Option to check certificate for external WMS. Default and recommended setting: True
       verify_certificate: True
     visualisation:
       method: pyramid_oereb.core.hook_methods.produce_sld_content

@@ -175,7 +175,6 @@ def get_view_service(base, schema_name, pk_type):
                 representation (multilingual).
             layer_index (int): Index for sorting the layering of the view services for a theme
             layer_opacity (float): Opacity of a view servicA
-            verify_certificate (boolean): Whether the certificate of the WMS shall be verified
         """
         __table_args__ = {'schema': schema_name}
         __tablename__ = 'view_service'
@@ -183,7 +182,6 @@ def get_view_service(base, schema_name, pk_type):
         reference_wms = Column(JSONType, nullable=False)
         layer_index = Column(Integer, nullable=False)
         layer_opacity = Column(Float, nullable=False)
-        verify_certificate = Column(Boolean, nullable=True)
 
     return ViewService
 
