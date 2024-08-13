@@ -16,7 +16,7 @@ As of the moment of writing this includes:
 
 
 from sqlalchemy import Column, ForeignKey
-from sqlalchemy import String, Integer, Float, Date, Boolean
+from sqlalchemy import String, Integer, Float, Date
 from geoalchemy2.types import Geometry as GeoAlchemyGeometry
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import JSONType
