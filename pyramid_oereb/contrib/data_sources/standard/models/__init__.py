@@ -174,7 +174,7 @@ def get_view_service(base, schema_name, pk_type):
             reference_wms (dict of str): The actual url which leads to the desired cartographic
                 representation (multilingual).
             layer_index (int): Index for sorting the layering of the view services for a theme
-            layer_opacity (float): Opacity of a view servicA
+            layer_opacity (float): Opacity of a view service
         """
         __table_args__ = {'schema': schema_name}
         __tablename__ = 'view_service'
