@@ -5,6 +5,11 @@ Notes:
 ------
 - This python package specifies the version numbers only of directly imported python packages. This approach may result in a build failure of older versions of the project if incompatibilities arise between imported packages over time. The build process of the master branch is regularly tested in an automatic process.
 
+2.5.2
+-----
+- Add configuration Option to check certificate for external WMS. Default setting: True
+- Library upgrades (shapely, geoalchemy2, sqlalchemy, lxml)
+
 2.5.1
 -----
 - Library upgrades (SQLAlchemy, shapely, geoalchemy2, responses, urllib3, lxml)
