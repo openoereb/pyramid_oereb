@@ -1,6 +1,15 @@
 Changelog
 =========
 
+Notes:
+------
+- This python package specifies the version numbers only of directly imported python packages. This approach may result in a build failure of older versions of the project if incompatibilities arise between imported packages over time. The build process of the master branch is regularly tested in an automatic process.
+
+2.5.2
+-----
+- Add configuration Option to check certificate for external WMS. Default setting: True
+- Library upgrades (shapely, geoalchemy2, sqlalchemy, lxml)
+
 2.5.1
 -----
 - Library upgrades (SQLAlchemy, shapely, geoalchemy2, responses, urllib3, lxml)
@@ -20,7 +29,7 @@ Changelog
 
 2.4.7
 -----
-- Add extract_index to disclaimer and general infomation (#1753)
+- Add extract_index to disclaimer and general infomation (#1753). Note that this improvement requires an additional attribute "extract_index" in tables "general_information" and "disclaimer" of the main schema.
 - Interlis bug fix (#1881)
 - Library upgrades (geoalchemy2, SQLAlchemy, jsonschema, lxml, responses, urllib3, pypdf)
 - Test coverage improvements
