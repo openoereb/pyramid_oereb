@@ -6,6 +6,12 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+Version 2.6.0
+-------------
+* New parameter 'default_toc_length' allows to define a expected table of content pages number avoiding the extra 
+computation of the expected length. This value should only be set if >95% of the PDF have the same number of TOC pages.
+Default setting: 1
+
 Version 2.5.2
 -------------
 Feature and maintenance release:

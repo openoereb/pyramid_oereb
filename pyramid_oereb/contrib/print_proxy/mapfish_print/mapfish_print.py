@@ -73,16 +73,22 @@ class Renderer(JsonRenderer):
         extract_as_dict = self._render(extract_record, value[1])
         feature_geometry = mapping(extract_record.real_estate.limit)
 
+        print_config = Config.get('print', {})
+
         if Config.get('print', {}).get('compute_toc_pages', False):
             extract_as_dict['nbTocPages'] = TocPages(extract_as_dict).getNbPages()
         else:
-            extract_as_dict['nbTocPages'] = 1
+            if print_config.get('default_toc_length', 1):
+                if len(extract_as_dict['ConcernedTheme']) < print_config.get('concerned_themes_for_first_toc_pagebreak', 2):
+                    extract_as_dict['nbTocPages'] = 1
+                else:
+                    extract_as_dict['nbTocPages'] = print_config.get('default_toc_length', 1)
+            else:
+                extract_as_dict['nbTocPages'] = 1
 
         # set the global_datetime variable so that it can be used later for the archive
         self.set_global_datetime(extract_as_dict['CreationDate'])
         self.convert_to_printable_extract(extract_as_dict, feature_geometry)
-
-        print_config = Config.get('print', {})
 
         extract_as_dict['Display_RealEstate_SubunitOfLandRegister'] = print_config.get(
             'display_real_estate_subunit_of_land_register', True

@@ -88,6 +88,16 @@ pyramid_oereb:
     # more time to generate the PDF. If set to false, it will assume that only one TOC page exists, and this can
     # lead to wrong numbering in the TOC.
     compute_toc_pages: true
+    # To avoid the potentially time consuming computing of the estimated toc pages number and its verification
+    # you can specify a default length for the number of TOC pages. - For most of the cantons the length of the 
+    # TOC is pretty consistent unless a real estate is concerned by none or a huge number of restrictions.
+    # An additional page break might also occur if the number of published topics is close to a threshold number.
+    # So be aware that fixing this value and deactivating the compute_toc_pages above may lead to wrong page numbers
+    # in the table of content.
+    default_toc_length: 2
+    # Depending on your toc configuration and number of disclaimer entries, the first page break of the table of content
+    # may appear when a real estate is concerned by one, two or more topics.
+    concerned_themes_for_first_toc_pagebreak: 3
     # Specify any additional URL parameters that the print shall use for WMS calls
     wms_url_params:
       TRANSPARENT: 'true'
