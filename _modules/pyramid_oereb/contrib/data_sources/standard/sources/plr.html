@@ -252,8 +252,7 @@
             <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">),</span>
             <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;proxies&#39;</span><span class="p">),</span>
             <span class="n">legends</span><span class="o">=</span><span class="n">legend_entry_records</span><span class="p">,</span>
-            <span class="c1"># Note: our standard database model does not contain an option to override the verify_certificate</span>
-            <span class="n">verify_certificate</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">verify_certificate</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;verify_certificate_wms&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">view_service_record</span>
 
