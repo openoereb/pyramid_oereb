@@ -4,6 +4,8 @@ import logging
 # import yappi
 import qrcode
 import io
+import brotli
+import gzip
 # import re
 
 from pyramid.httpexceptions import HTTPBadRequest, HTTPSeeOther, HTTPInternalServerError, HTTPNoContent, \
@@ -74,7 +76,7 @@ class PlrWebservice(object):
         if output_format == 'json':
             response.content_type = 'application/json; charset=UTF-8'
         response.extras = OerebStats(service='GetVersions', output_format=output_format)
-        return response
+        return self.__response_compression__(self, response)
 
     def get_capabilities(self):
         """
@@ -115,7 +117,7 @@ class PlrWebservice(object):
         if output_format == 'json':
             response.content_type = 'application/json; charset=UTF-8'
         response.extras = OerebStats(service='GetCapabilities', output_format=output_format)
-        return response
+        return self.__response_compression__(self, response)
 
     def get_egrid(self):
         """
@@ -168,7 +170,7 @@ class PlrWebservice(object):
             params=dict(self._params),
             output_format=output_format
         )
-        return response
+        return self.__response_compression__(self, response)
 
     def _get_egrid_coord(self, params):
         """
@@ -342,7 +344,8 @@ class PlrWebservice(object):
                 response.extras = OerebStats(service='GetExtractById', params={'error': response.message})
             except AttributeError:
                 response.extras = OerebStats(service='GetExtractById')
-        return response
+        
+        return self.__response_compression__(self, response)
 
     def __validate_extract_params__(self):
         """
@@ -523,7 +526,8 @@ class PlrWebservice(object):
             )
 
         response.extras = OerebStats(service='GetEGRID', output_format=output_format)
-        return response
+
+        return self.__response_compression__(self, response)
 
     @staticmethod
     def __parse_en__(en, buffer_dist=None):
@@ -607,6 +611,33 @@ class PlrWebservice(object):
             raise HTTPInternalServerError('Missing configuration for redirect to dynamic client.')
         return HTTPSeeOther(url.format(**vars(real_estate)))
 
+    @staticmethod
+    def __response_compression__(self, response):
+        """
+        Returns a response object where the body is compressed using brotli or gzip,
+        depending on the accepted encoding.
+
+        Args:
+            response (pyramid.response.Response):
+                the generated response.
+
+        Returns:
+            pyramid.response.Response: The response.
+        """
+        if 'br' in self._request.headers['ACCEPT_ENCODING']:
+            response.content_encoding = 'br'
+            compressed_response = brotli.compress(response.body)
+            response.content_length = str(len(compressed_response))
+            response.body = compressed_response
+        elif 'gzip' in self._request.headers['ACCEPT_ENCODING']:
+            response.content_encoding = 'gzip'
+            gzip_buffer = io.BytesIO()
+            with gzip.GzipFile(mode='wb', fileobj=gzip_buffer) as gzip_file:
+                gzip_file.write(response.body)
+            response.body = gzip_buffer.getvalue()
+            response.content_length = str(len(response.body))
+        
+        return response
 
 class Parameter(object):
     def __init__(self, response_format, with_geometry=False, images=False, signed=False, identdn=None,

@@ -47,7 +47,7 @@ DEV_CREATE_OEREBLEX_TABLES_SCRIPT = $(VENV_BIN)/create_oereblex_tables
 
 MODEL_PK_TYPE_IS_STRING ?= true
 
-PRINT_URL ?= http://oereb-print:8080/print/oereb
+PRINT_URL ?= http://svamaa-print-1:8080/print/oereb
 
 # ********************
 # Variable definitions

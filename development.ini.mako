@@ -14,6 +14,16 @@ pyramid.default_locale_name = en
 pyramid_oereb.cfg.file = %(here)s/pyramid_oereb.yml
 pyramid_oereb.cfg.section = pyramid_oereb
 
+# Enable debug toolbar
+pyramid.includes = pyramid_debugtoolbar
+debugtoolbar.hosts = 0.0.0.0/0
+debugtoolbar.enabled = true
+debugtoolbar.intercept_exc = display
+debugtoolbar.max_request_history = 100
+debugtoolbar.panels = headers logging performance renderings
+                      request_vars sqlalchemy traceback
+
+
 sqlalchemy.url = sqlite:///%(here)s/pyramid_oereb.sqlite
 
 ###

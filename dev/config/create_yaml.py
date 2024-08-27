@@ -8,7 +8,7 @@ from pyramid.path import AssetResolver
 def _create_yaml_config_(
         name='pyramid_oereb.yml',
         database='postgresql://postgres:password@localhost/pyramid_oereb',
-        print_url='http://oereb-print:8080/print/oereb'):
+        print_url='http://svamaa-print-1:8080/print/oereb'):
     """
     Creates the specified YAML file using a template. This YAML file contains the standard
     configuration to run a oereb server out of the box.
@@ -61,7 +61,7 @@ def create_yaml():
         dest='print_url',
         metavar='PRINT_URL',
         type='string',
-        default='http://oereb-print:8080/print/oereb',
+        default='http://svamaa-print-1:8080/print/oereb',
         help='The URL of the print server'
     )
     options, args = parser.parse_args()
