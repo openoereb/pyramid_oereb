@@ -1409,7 +1409,8 @@ pyramid_oereb:
           transfer_code: Hinweis
           extract_code: Hint
 
-  # Option to check certificate for external WMS calls. Default and recommended setting: True
+  # Option to check certificate for external WMS calls in standard and oereblex themes.
+  # Default and recommended setting: True
   verify_certificate_wms: True
 
   # The error message returned if an error occurs when requesting a static extract
