@@ -625,13 +625,13 @@ class PlrWebservice(object):
             pyramid.response.Response: The response.
         """
 
-        if 'ACCEPT_ENCODING' in self._request.headers:
-            if 'br' in self._request.headers['ACCEPT_ENCODING']:
+        if 'Accept-Encoding' in self._request.headers:
+            if 'br' in self._request.headers['Accept-Encoding']:
                 response.content_encoding = 'br'
                 compressed_response = brotli.compress(response.body)
                 response.content_length = str(len(compressed_response))
                 response.body = compressed_response
-            elif 'gzip' in self._request.headers['ACCEPT_ENCODING']:
+            elif 'gzip' in self._request.headers['Accept-Encoding']:
                 response.content_encoding = 'gzip'
                 gzip_buffer = io.BytesIO()
                 with gzip.GzipFile(mode='wb', fileobj=gzip_buffer) as gzip_file:
