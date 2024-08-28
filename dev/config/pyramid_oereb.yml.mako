@@ -95,9 +95,6 @@ pyramid_oereb:
     # So be aware that fixing this value and deactivating the compute_toc_pages above may lead to wrong page numbers
     # in the table of content.
     default_toc_length: 2
-    # Depending on your toc configuration and number of disclaimer entries, the first page break of the table of content
-    # may appear when a real estate is concerned by one, two or more topics.
-    concerned_themes_for_first_toc_pagebreak: 3
     # Specify any additional URL parameters that the print shall use for WMS calls
     wms_url_params:
       TRANSPARENT: 'true'

@@ -78,11 +78,8 @@ class Renderer(JsonRenderer):
         if Config.get('print', {}).get('compute_toc_pages', False):
             extract_as_dict['nbTocPages'] = TocPages(extract_as_dict).getNbPages()
         else:
-            if print_config.get('default_toc_length', 1):
-                if len(extract_as_dict['ConcernedTheme']) < print_config.get('concerned_themes_for_first_toc_pagebreak', 2):
-                    extract_as_dict['nbTocPages'] = 1
-                else:
-                    extract_as_dict['nbTocPages'] = print_config.get('default_toc_length', 1)
+            if Config.get('print', {}).get('default_toc_length', False):
+                extract_as_dict['nbTocPages'] = print_config.get('default_toc_length', 2)
             else:
                 extract_as_dict['nbTocPages'] = 1
 
@@ -122,6 +119,8 @@ class Renderer(JsonRenderer):
             data=json.dumps(spec)
         )
         try:
+            log.debug('Validation of the TOC length with compute_toc_pages set to {} and default_toc_length set to {}'.format( \
+                    print_config.get('compute_toc_pages'),print_config.get('default_toc_length')))
             if Config.get('print', {}).get('compute_toc_pages', False):
                 with io.BytesIO() as pdf:
                     pdf.write(print_result.content)
@@ -137,14 +136,43 @@ class Renderer(JsonRenderer):
                     except ValueError:
                         true_nb_of_toc = 1
 
+                    log.debug('True number of TOC pages is {}'.format(true_nb_of_toc))
                     if true_nb_of_toc != extract_as_dict['nbTocPages']:
                         log.warning('nbTocPages in result pdf: {} are not equal to the one predicted : {}, request new pdf'.format(true_nb_of_toc,extract_as_dict['nbTocPages'])) # noqa
+                        log.debug('Secondary PDF extract call STARTED')
                         extract_as_dict['nbTocPages'] = true_nb_of_toc
                         print_result = requests.post(
                             pdf_url,
                             headers=pdf_headers,
                             data=json.dumps(spec)
                         )
+                        log.debug('Secondary PDF extract call to fix TOC pages number FINISHED')
+            elif Config.get('print', {}).get('default_toc_length', 2):
+                with io.BytesIO() as pdf:
+                    pdf.write(print_result.content)
+                    pdf_reader = PdfReader(pdf)
+                    x = []
+                    for i in range(len(pdf_reader.outline)):
+                        if isinstance(pdf_reader.outline[i], list):
+                            x.append(pdf_reader.outline[i][0]['/Page']['/StructParents'])
+                        else:
+                            x.append(pdf_reader.outline[i]['/Page']['/StructParents'])
+                    try:
+                        true_nb_of_toc = min(x)-1
+                    except ValueError:
+                        true_nb_of_toc = 1
+
+                    log.debug('True number of TOC pages is {}'.format(true_nb_of_toc))
+                    if true_nb_of_toc != extract_as_dict['nbTocPages']:
+                        log.warning('nbTocPages in result pdf: {} are not equal to the one predicted : {}, request new pdf'.format(true_nb_of_toc,extract_as_dict['nbTocPages'])) # noqa
+                        extract_as_dict['nbTocPages'] = true_nb_of_toc
+                        log.debug('Secondary PDF extract call STARTED')
+                        print_result = requests.post(
+                            pdf_url,
+                            headers=pdf_headers,
+                            data=json.dumps(spec)
+                        )
+                        log.debug('Secondary PDF extract call FINISHED')
         except PdfReadError as e:
             err_msg = 'a problem occurred while generating the pdf file'
             log.error(err_msg + ': ' + str(e))
