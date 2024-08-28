@@ -238,8 +238,6 @@ pyramid_oereb:
         fr: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
       layer_index: 0
       layer_opacity: 1.0
-      # Option to check certificate for external WMS. Default and recommended setting: True
-      verify_certificate: True
     plan_for_land_register_main_page:
       # WMS URL to query the plan for land register specially for static extracts overview page
       reference_wms:
@@ -247,8 +245,6 @@ pyramid_oereb:
         fr: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
       layer_index: 0
       layer_opacity: 1.0
-      # Option to check certificate for external WMS. Default and recommended setting: True
-      verify_certificate: True
     visualisation:
       method: pyramid_oereb.core.hook_methods.produce_sld_content
       # Note: these parameters must fit to the attributes provided by the RealEstateRecord!!!!
@@ -1412,6 +1408,10 @@ pyramid_oereb:
         - data_code: Hinweis
           transfer_code: Hinweis
           extract_code: Hint
+
+  # Option to check certificate for external WMS calls in standard and oereblex themes.
+  # Default and recommended setting: True
+  verify_certificate_wms: True
 
   # The error message returned if an error occurs when requesting a static extract
   # The content of the message is defined in the specification (document "Inhalt und Darstellung des statischen Auszugs")

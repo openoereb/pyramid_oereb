@@ -6,6 +6,13 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+Version 2.5.3
+-------------
+Feature and maintenance release:
+
+* Provide a general WMS verify certificate option
+* Library upgrade (shapely)
+
 Version 2.5.2
 -------------
 Feature and maintenance release:
