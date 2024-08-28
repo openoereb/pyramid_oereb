@@ -344,7 +344,7 @@ class PlrWebservice(object):
                 response.extras = OerebStats(service='GetExtractById', params={'error': response.message})
             except AttributeError:
                 response.extras = OerebStats(service='GetExtractById')
-        
+
         return self.__response_compression__(self, response)
 
     def __validate_extract_params__(self):
@@ -624,20 +624,23 @@ class PlrWebservice(object):
         Returns:
             pyramid.response.Response: The response.
         """
-        if 'br' in self._request.headers['ACCEPT_ENCODING']:
-            response.content_encoding = 'br'
-            compressed_response = brotli.compress(response.body)
-            response.content_length = str(len(compressed_response))
-            response.body = compressed_response
-        elif 'gzip' in self._request.headers['ACCEPT_ENCODING']:
-            response.content_encoding = 'gzip'
-            gzip_buffer = io.BytesIO()
-            with gzip.GzipFile(mode='wb', fileobj=gzip_buffer) as gzip_file:
-                gzip_file.write(response.body)
-            response.body = gzip_buffer.getvalue()
-            response.content_length = str(len(response.body))
-        
+
+        if 'ACCEPT_ENCODING' in self._request.headers:
+            if 'br' in self._request.headers['ACCEPT_ENCODING']:
+                response.content_encoding = 'br'
+                compressed_response = brotli.compress(response.body)
+                response.content_length = str(len(compressed_response))
+                response.body = compressed_response
+            elif 'gzip' in self._request.headers['ACCEPT_ENCODING']:
+                response.content_encoding = 'gzip'
+                gzip_buffer = io.BytesIO()
+                with gzip.GzipFile(mode='wb', fileobj=gzip_buffer) as gzip_file:
+                    gzip_file.write(response.body)
+                response.body = gzip_buffer.getvalue()
+                response.content_length = str(len(response.body))
+
         return response
+
 
 class Parameter(object):
     def __init__(self, response_format, with_geometry=False, images=False, signed=False, identdn=None,
