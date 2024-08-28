@@ -119,8 +119,7 @@ class Renderer(JsonRenderer):
             data=json.dumps(spec)
         )
         try:
-            log.debug('Validation of the TOC length with compute_toc_pages set to {} and default_toc_length set to {}'.format( \
-                    print_config.get('compute_toc_pages'),print_config.get('default_toc_length')))
+            log.debug('Validation of the TOC length with compute_toc_pages set to {} and default_toc_length set to {}'.format(print_config.get('compute_toc_pages'), print_config.get('default_toc_length'))) # noqa
             if Config.get('print', {}).get('compute_toc_pages', False):
                 with io.BytesIO() as pdf:
                     pdf.write(print_result.content)
