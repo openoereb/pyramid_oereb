@@ -73,8 +73,10 @@ class Renderer(JsonRenderer):
         extract_as_dict = self._render(extract_record, value[1])
         feature_geometry = mapping(extract_record.real_estate.limit)
 
+        display_qrcode = Config.get('print', {}).get('display_qrcode', False)
+
         if Config.get('print', {}).get('compute_toc_pages', False):
-            extract_as_dict['nbTocPages'] = TocPages(extract_as_dict).getNbPages()
+            extract_as_dict['nbTocPages'] = TocPages(extract_as_dict, display_qrcode).getNbPages()
         else:
             extract_as_dict['nbTocPages'] = 1
 
