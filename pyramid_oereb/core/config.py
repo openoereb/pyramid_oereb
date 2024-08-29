@@ -2098,7 +2098,7 @@ class Config(object):
             if municipality.fosnr == fosnr:
                 return municipality
         raise ConfigurationError(
-            'No municipalitiy with fosnr {} could be found in the configured municipalities ({}).'.format(
+            'No municipality with fosnr {} could be found in the configured municipalities ({}).'.format(
                 fosnr,
                 Config.municipalities
             )
