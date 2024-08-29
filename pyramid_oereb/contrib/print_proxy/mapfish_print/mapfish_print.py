@@ -134,7 +134,7 @@ class Renderer(JsonRenderer):
                 except ValueError:
                     true_nb_of_toc = 1
 
-                log.debug('True number of TOC pages is {}, expected number was {}'.format(true_nb_of_toc, extract_as_dict['nbTocPages'])) #noqa
+                log.debug('True number of TOC pages is {}, expected number was {}'.format(true_nb_of_toc, extract_as_dict['nbTocPages'])) # noqa
                 if true_nb_of_toc != extract_as_dict['nbTocPages']:
                     log.warning('nbTocPages in result pdf: {} are not equal to the one predicted : {}, request new pdf'.format(true_nb_of_toc,extract_as_dict['nbTocPages'])) # noqa
                     log.debug('Secondary PDF extract call STARTED')
