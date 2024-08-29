@@ -108,6 +108,6 @@ def test_toc_pages_default_config():
     compute_toc_pages = Config.get('print', {}).get('compute_toc_pages')
     default_toc_length = Config.get('print', {}).get('default_toc_length')
 
-    assert compute_toc_pages == False
+    assert isinstance(compute_toc_pages,bool)
+    assert bool(compute_toc_pages) == False
     assert default_toc_length == 2
-
