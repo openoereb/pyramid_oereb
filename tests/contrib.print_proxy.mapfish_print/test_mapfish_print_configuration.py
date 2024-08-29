@@ -106,8 +106,8 @@ def test_toc_pages_default_config():
     Config._config = None
     Config.init('./tests/contrib.print_proxy.mapfish_print/resources/test_config.yml', 'pyramid_oereb')
     compute_toc_pages = Config.get('print', {}).get('compute_toc_pages')
-    default_toc_length = Config.get('print', {}).get('default_toc_length')
+    general_toc_length = Config.get('print', {}).get('general_toc_length')
 
     assert isinstance(compute_toc_pages, bool)
     assert bool(compute_toc_pages) is False
-    assert default_toc_length == 2
+    assert general_toc_length == 2

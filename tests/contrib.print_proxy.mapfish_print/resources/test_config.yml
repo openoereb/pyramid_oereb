@@ -5,7 +5,7 @@ pyramid_oereb:
       TRANSPARENT: 'true'
       OTHERCUSTOM: 'myvalue'
     compute_toc_pages: false
-    default_toc_length: 2
+    general_toc_length: 2
 
   theme:
     source:

@@ -85,19 +85,18 @@ pyramid_oereb:
     # Will make an estimation of the total length of the Table of Content (TOC) and control that the page
     # numbering in the output pdf is consistent with TOC numbering. If it is known that the TOC is very long and
     # could run over more than one page, it is preferred to set this to true. The drawback is that it might need
-    # more time to generate the PDF. If set to false, it will assume that only one TOC page exists, and this can
-    # lead to wrong numbering in the TOC.
-    compute_toc_pages: true
-    # To avoid the potentially time consuming second computing of the PDF extract and skip the the computation
-    # of the estimated TOC length, you can specify a default length for the number of TOC pages.
-    # For most of the cantons the length of the TOC is pretty consistent unless a real estate is concerned by none 
-    # or a huge number of restrictions.
-    # An additional page break might also occur if the number of published topics is close to a threshold number
-    # where the TOC fits just about on one or two pages. - for those case estimate the TOC length ist preferable.
-    # In both cases (computing an estimated length or setting a default length) the exact number of TOC pages is
-    # extracted from the created PDF and if it is different from the expected value the PDF extract is called a 
-    # second time with the correct page numbers.
-    default_toc_length: 2
+    # more time to generate the PDF. If set to false, the general_toc_length setting below will be used. If it is
+    # not set it will assume that only one TOC page exists, and this can lead to wrong numbering in the TOC, which
+    # will be fixed by a second PDF extract call that has an impact on performance.
+    compute_toc_pages: false
+    # In order to skip the computation of the estimated number of TOC pages which might return an erroneous result 
+    # for your setting, you can specify a default for the number of TOC pages. For most of the cantons the number of 
+    # TOC pages is pretty constant unless a real estate is concerned by none or a huge number of restrictions.
+    # In both cases (computing an estimate or setting a default for the number of TOC pages) the exact number of TOC 
+    # pages is extracted from the created PDF and if it differs from the expected value the PDF is created a second 
+    # time with the correct page numbers.
+    # Note that if "compute_toc_pages" is set true the "general_toc_length" is not taken into account.
+    general_toc_length: 2
     # Specify any additional URL parameters that the print shall use for WMS calls
     wms_url_params:
       TRANSPARENT: 'true'
