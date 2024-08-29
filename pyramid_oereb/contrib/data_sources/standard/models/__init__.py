@@ -20,6 +20,7 @@ from sqlalchemy import String, Integer, Float, Date
 from geoalchemy2.types import Geometry as GeoAlchemyGeometry
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import JSONType
+from sqlalchemy.orm import query_expression
 
 
 NAMING_CONVENTION = {
@@ -371,6 +372,7 @@ def get_geometry(base, schema_name, pk_type, geometry_type, srid, PublicLawRestr
             PublicLawRestriction,
             backref='geometries'
         )
+        inside_real_estate = query_expression()
 
     return Geometry
 

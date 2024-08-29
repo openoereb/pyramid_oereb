@@ -6,6 +6,7 @@ from geoalchemy2.shape import to_shape, from_shape
 from geoalchemy2.functions import ST_DWithin, ST_Intersects
 from shapely.geometry import Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, \
     GeometryCollection
+from sqlalchemy.orm import with_expression
 from sqlalchemy import text, or_
 from sqlalchemy.orm import selectinload
 
@@ -496,7 +497,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         return document_records
 
     @staticmethod
-    def extract_geometry_collection_db(db_path, real_estate_geometry, tolerances=None):
+    def extract_geometry_collection_db(db_path, geometry, tolerances=None):
         """
         Decides the geometry collection cases of geometric filter operations when the database contains multi
         geometries but the passed geometry does not.
@@ -505,7 +506,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         Args:
             db_path (str): The point separated string of schema_name.table_name.column_name from
                 which we can construct a correct SQL statement.
-            real_estate_geometry (shapely.geometry.base.BaseGeometry): The shapely geometry
+            geometry (shapely.geometry.base.BaseGeometry): The shapely geometry
                 representation which is used for comparison.
 
         Returns:
@@ -518,7 +519,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         extract_point = f"ST_CollectionExtract({db_path}, 1)"
         extract_line = f"ST_CollectionExtract({db_path}, 2)"
         extract_polygon = f"ST_CollectionExtract({db_path}, 3)"
-        geometry_string = f'ST_GeomFromText(\'{real_estate_geometry.wkt}\', {srid})'
+        geometry_string = f'ST_GeomFromText(\'{geometry.wkt}\', {srid})'
         tolerance_extracts = [
             tolerances.get('ALL', tolerances.get(geom_type)) if tolerances else None
             for geom_type in ['Point', 'LineString', 'Polygon']
@@ -530,14 +531,15 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         ]
         return or_(*clause_blocks)
 
-    def handle_collection(self, session, geometry_to_check):
+    def handle_collection(self, session, geometry_real_estate, geometry_bbox):
         """
         Handles geometry collection in the geometry query if needed.
 
         Args:
             session (sqlalchemy.orm.Session or sqlalchemy.orm.scoped_session): The requested clean
                 session instance ready for use
-            geometry_to_check (shapely.geometry.base.BaseGeometry): geometry to be queried
+            geometry_real_estate (shapely.geometry.base.BaseGeometry): real estate geometry to be queried
+            geometry_bbox (shapely.geometry.base.BaseGeometry): bbox geometry to be queried
 
         Returns:
             sqlalchemy.orm.Query : the query based on the geometry_to_check
@@ -548,13 +550,27 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         if self._plr_info.get('geometry_type') in [x.upper() for x in collection_types]:
 
             # The PLR is defined as a collection type. We need to do a special handling
-            query = session.query(self._model_).filter(
+            query = session.query(
+                self._model_
+            ).options(
+                with_expression(
+                    self._model_.inside_real_estate,
+                    self.extract_geometry_collection_db(
+                        '{schema}.{table}.geom'.format(
+                            schema=self._model_.__table__.schema,
+                            table=self._model_.__table__.name
+                        ),
+                        geometry_real_estate,
+                        self._tolerances
+                    )
+                )
+            ).filter(
                 self.extract_geometry_collection_db(
                     '{schema}.{table}.geom'.format(
                         schema=self._model_.__table__.schema,
                         table=self._model_.__table__.name
                     ),
-                    geometry_to_check,
+                    geometry_bbox,
                     self._tolerances
                 )
             )
@@ -562,31 +578,57 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         else:
             # The PLR is not problematic at all cause we do not have a collection type here
             if (self._tolerances is not None) and ('ALL' in self._tolerances):
-                query = session.query(self._model_).filter(
+                query = session.query(self._model_).options(
+                    with_expression(
+                        self._model_.inside_real_estate,
+                        ST_DWithin(
+                            self._model_.geom,
+                            from_shape(geometry_real_estate, srid=Config.get('srid')),
+                            self._tolerances['ALL']
+                        )
+                    )
+                ).filter(
                     ST_DWithin(
                         self._model_.geom,
-                        from_shape(geometry_to_check, srid=Config.get('srid')),
+                        from_shape(geometry_bbox, srid=Config.get('srid')),
                         self._tolerances['ALL']
                     )
                 )
-            elif (self._tolerances is not None) and (geometry_to_check.geom_type in self._tolerances):
-                query = session.query(self._model_).filter(
+            elif (self._tolerances is not None) and (geometry_real_estate.geom_type in self._tolerances):
+                query = session.query(self._model_).options(
+                    with_expression(
+                        self._model_.inside_real_estate,
+                        ST_DWithin(
+                            self._model_.geom,
+                            from_shape(geometry_real_estate, srid=Config.get('srid')),
+                            self._tolerances[geometry_real_estate.geom_type]
+                        )
+                    )
+                ).filter(
                     ST_DWithin(
                         self._model_.geom,
-                        from_shape(geometry_to_check, srid=Config.get('srid')),
-                        self._tolerances[geometry_to_check.geom_type]
+                        from_shape(geometry_bbox, srid=Config.get('srid')),
+                        self._tolerances[geometry_bbox.geom_type]
                     )
                 )
             else:
-                query = session.query(self._model_).filter(
+                query = session.query(
+                    self._model_
+                ).options(
+                    with_expression(
+                        self._model_.inside_real_estate,
+                        ST_Intersects(
+                            self._model_.geom, from_shape(geometry_real_estate, srid=Config.get('srid')))
+                    )
+                ).filter(
                     ST_Intersects(
                         self._model_.geom,
-                        from_shape(geometry_to_check, srid=Config.get('srid'))
+                        from_shape(geometry_bbox, srid=Config.get('srid'))
                     )
                 )
         return query
 
-    def collect_related_geometries_by_real_estate(self, session, real_estate):
+    def collect_related_geometries_by_real_estate_and_bbox(self, session, real_estate, bbox):
         """
         Extracts all geometries in the topic which have spatial relation with the passed real estate
 
@@ -594,11 +636,12 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             session (sqlalchemy.orm.Session): The requested clean session instance ready for use
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate in its record representation.
+            bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
 
         Returns:
             list: The result of the related geometries unique by the public law restriction id
         """
-        return self.handle_collection(session, real_estate.limit).distinct(
+        return self.handle_collection(session, real_estate.limit, bbox).distinct(
             self._model_.public_law_restriction_id
         ).options(
             selectinload(self.models.Geometry.public_law_restriction)
@@ -613,31 +656,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             selectinload(self.models.Geometry.public_law_restriction)
             .selectinload(self.models.PublicLawRestriction.responsible_office),
         ).all()
-
-    def collect_legend_entries_by_bbox(self, session, bbox, law_status):
-        """
-        Extracts all legend entries in the topic which have spatial relation with the passed bounding box of
-        visible extent.
-
-        Args:
-            session (sqlalchemy.orm.Session): The requested clean session instance ready for use
-            bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
-            law_status (str): String of the law status for which the legend entries should be queried.
-
-        Returns:
-            list: The result of the related geometries unique by the public law restriction id and law status
-        """
-
-        distinct_legend_entry_ids = []
-        geometries = self.handle_collection(session, bbox).options(
-            selectinload(self.models.Geometry.public_law_restriction)
-        ).all()
-        for geometry in geometries:
-            if geometry.public_law_restriction.legend_entry_id not in distinct_legend_entry_ids \
-                    and geometry.public_law_restriction.law_status == law_status:
-                distinct_legend_entry_ids.append(geometry.public_law_restriction.legend_entry_id)
-        return session.query(self.legend_entry_model).filter(
-            self.legend_entry_model.id.in_((distinct_legend_entry_ids))).all()
 
     def read(self, params, real_estate, bbox):  # pylint: disable=W:0221
         """
@@ -661,10 +679,24 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     # We need to investigate more in detail
 
                     # Try to find geometries which have spatial relation with real estate
-                    geometry_results = self.collect_related_geometries_by_real_estate(
-                        session, real_estate
+                    geometry_results = self.collect_related_geometries_by_real_estate_and_bbox(
+                        session, real_estate, bbox
                     )
-                    if len(geometry_results) == 0:
+                    # DEBUG
+                    """
+                    log.debug("DEBUG MM 5 A")
+                    for gr in geometry_results:
+                        #log.debug(gr.__dict__.keys())
+                        if hasattr(gr, 'inside_real_estate'):
+                            log.debug(gr.inside_real_estate)
+                        if hasattr(gr, 'law_status'):
+                            log.debug(gr.law_status)
+                        if hasattr(gr, 'public_law_restriction_id'):
+                            log.debug(gr.public_law_restriction.law_status)
+                    log.debug("DEBUG MM 5 B")
+                    """
+
+                    if any([x.inside_real_estate for x in geometry_results]):
                         # We checked if there are spatially related elements in database. But there is none.
                         # So we can stop here.
                         self.records = [EmptyPlrRecord(
@@ -674,20 +706,28 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         # We found spatially related elements. This means we need to extract the actual plr
                         # information related to the found geometries.
 
-                        law_status_of_geometry = []
-                        # get distinct values of law_status for all geometries found
-                        for geometry in geometry_results:
-                            if (geometry.public_law_restriction.law_status not in law_status_of_geometry):
-                                law_status_of_geometry.append(geometry.public_law_restriction.law_status)
-
-                        legend_entries_from_db = []
                         # get legend_entries per law_status
-                        for law_status in law_status_of_geometry:
-                            legend_entry_with_law_status = [
-                                self.collect_legend_entries_by_bbox(session, bbox, law_status),
-                                law_status
-                            ]
-                            legend_entries_from_db.append(legend_entry_with_law_status)
+                        legend_entries_from_db = []
+                        for law_status in list(set([x.public_law_restriction.law_status
+                                                    for x in geometry_results])):
+                            legend_entries_from_db.append(
+                                [
+                                    session.query(
+                                        self.legend_entry_model
+                                    ).filter(
+                                        self.legend_entry_model.id.in_(
+                                            list(
+                                                set([x.public_law_restriction.legend_entry_id
+                                                     for x in geometry_results
+                                                     if x.public_law_restriction.law_status == law_status]))
+                                        )
+                                    ).all(),
+                                    law_status
+                                ]
+                            )
+
+                        # keep only the geometries that intersects with the real estate
+                        geometry_results = [x for x in geometry_results if x.inside_real_estate is True]
 
                         self.records = []
                         for geometry_result in geometry_results:

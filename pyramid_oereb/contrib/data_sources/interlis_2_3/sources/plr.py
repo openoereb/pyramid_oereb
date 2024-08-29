@@ -7,6 +7,7 @@ from geoalchemy2.shape import to_shape, from_shape
 from shapely.geometry import Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, \
     GeometryCollection
 from sqlalchemy import or_
+from sqlalchemy.orm import with_expression
 from sqlalchemy.orm import selectinload
 from geoalchemy2.functions import ST_DWithin
 
@@ -412,7 +413,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         document_records = self.from_db_to_document_records(documents_from_db)
         return document_records
 
-    def collect_related_geometries_by_real_estate(self, session, real_estate):
+    def collect_related_geometries_by_real_estate_and_bbox(self, session, real_estate, bbox):
         """
         Extracts all geometries in the topic which have spatial relation with the passed real estate
 
@@ -420,36 +421,79 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             session (sqlalchemy.orm.Session): The requested clean session instance ready for use
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate in its record representation.
+            bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
 
         Returns:
             list: The result of the related geometries unique by the public law restriction id
         """
         if self._tolerances is None:
-            query = session.query(self._model_).filter(
+            query = session.query(
+                self._model_
+            ).options(
+                with_expression(
+                    self._model_.inside_real_estate,
+                    or_(
+                        self._model_.point.ST_Intersects(
+                            from_shape(real_estate.limit, srid=Config.get('srid'))
+                        ),
+                        self._model_.line.ST_Intersects(
+                            from_shape(real_estate.limit, srid=Config.get('srid'))
+                        ),
+                        self._model_.surface.ST_Intersects(
+                            from_shape(real_estate.limit, srid=Config.get('srid'))
+                        )
+                    )
+                )
+            ).filter(
                 or_(
-                    self._model_.point.ST_Intersects(from_shape(real_estate.limit, srid=Config.get('srid'))),
-                    self._model_.line.ST_Intersects(from_shape(real_estate.limit, srid=Config.get('srid'))),
-                    self._model_.surface.ST_Intersects(from_shape(real_estate.limit, srid=Config.get('srid')))
-                ))
+                    self._model_.point.ST_Intersects(from_shape(bbox, srid=Config.get('srid'))),
+                    self._model_.line.ST_Intersects(from_shape(bbox, srid=Config.get('srid'))),
+                    self._model_.surface.ST_Intersects(from_shape(bbox, srid=Config.get('srid')))
+                )
+            )
         else:
-            query = session.query(self._model_).filter(
+            query = session.query(
+                self._model_
+            ).options(
+                with_expression(
+                    self._model_.inside_real_estate,
+                    or_(
+                        ST_DWithin(
+                            self._model_.point,
+                            from_shape(real_estate.limit, srid=Config.get('srid')),
+                            self._tolerances['ALL']
+                        ),
+                        ST_DWithin(
+                            self._model_.line,
+                            from_shape(real_estate.limit, srid=Config.get('srid')),
+                            self._tolerances['ALL']
+                        ),
+                        ST_DWithin(
+                            self._model_.surface,
+                            from_shape(real_estate.limit, srid=Config.get('srid')),
+                            self._tolerances['ALL']
+                        )
+                    )
+                )
+            ).filter(
                 or_(
                     ST_DWithin(
                         self._model_.point,
-                        from_shape(real_estate.limit, srid=Config.get('srid')),
+                        from_shape(bbox, srid=Config.get('srid')),
                         self._tolerances.get('ALL', self._tolerances.get('Point', 0))
                     ),
                     ST_DWithin(
                         self._model_.line,
-                        from_shape(real_estate.limit, srid=Config.get('srid')),
+                        from_shape(bbox, srid=Config.get('srid')),
                         self._tolerances.get('ALL', self._tolerances.get('LineString', 0))
                     ),
                     ST_DWithin(
                         self._model_.surface,
-                        from_shape(real_estate.limit, srid=Config.get('srid')),
+                        from_shape(bbox, srid=Config.get('srid')),
                         self._tolerances.get('ALL', self._tolerances.get('Polygon', 0))
                     )
-                ))
+                )
+            )
         return query.distinct(self._model_.public_law_restriction_id).options(
             selectinload(self.models.Geometry.public_law_restriction)
             .selectinload(self.models.PublicLawRestriction.geometries),
@@ -469,37 +513,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             .selectinload(self.models.Office.multilingual_uri)
             .selectinload(self.models.MultilingualUri.localised_uri)
         ).all()
-
-    def collect_legend_entries_by_bbox(self, session, bbox, law_status):
-        """
-        Extracts all legend entries in the topic which have spatial relation with the passed bounding box of
-        visible extent.
-
-        Args:
-            session (sqlalchemy.orm.Session): The requested clean session instance ready for use
-            bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
-            law_status (str): String of the law status for which the legend entries should be queried.
-
-        Returns:
-            list: The result of the related geometries unique by the public law restriction id and law status
-        """
-        distinct_legend_entry_ids = []
-        geometries = session.query(self._model_).filter(
-                      or_(
-                       self._model_.point.ST_Intersects(from_shape(bbox, srid=Config.get('srid'))),
-                       self._model_.line.ST_Intersects(from_shape(bbox, srid=Config.get('srid'))),
-                       self._model_.surface.ST_Intersects(from_shape(bbox, srid=Config.get('srid')))
-                      )).distinct(self._model_.public_law_restriction_id).options(
-                        selectinload(self.models.Geometry.public_law_restriction)
-                      ).all()
-
-        for geometry in geometries:
-            if geometry.public_law_restriction.legend_entry_id not in distinct_legend_entry_ids\
-                    and geometry.public_law_restriction.law_status == law_status:
-                distinct_legend_entry_ids.append(geometry.public_law_restriction.legend_entry_id)
-
-        return session.query(self.legend_entry_model).filter(
-            self.legend_entry_model.t_id.in_((distinct_legend_entry_ids))).all()
 
     def read(self, params, real_estate, bbox):
         """
@@ -525,10 +538,10 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     # We need to investigate more in detail
 
                     # Try to find geometries which have spatial relation with real estate
-                    geometry_results = self.collect_related_geometries_by_real_estate(
-                        session, real_estate
+                    geometry_results = self.collect_related_geometries_by_real_estate_and_bbox(
+                        session, real_estate, bbox
                     )
-                    if len(geometry_results) == 0:
+                    if any([x.inside_real_estate for x in geometry_results]):
                         # We checked if there are spatially related elements in database. But there is none.
                         # So we can stop here.
                         self.records = [EmptyPlrRecord(
@@ -537,20 +550,29 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     else:
                         # We found spatially related elements. This means we need to extract the actual plr
                         # information related to the found geometries.
-                        law_status_of_geometry = []
-                        # get distinct values of law_status for all geometries found
-                        for geometry in geometry_results:
-                            if (geometry.public_law_restriction.law_status not in law_status_of_geometry):
-                                law_status_of_geometry.append(geometry.public_law_restriction.law_status)
 
-                        legend_entries_from_db = []
                         # get legend_entries per law_status
-                        for law_status in law_status_of_geometry:
-                            legend_entry_with_law_status = [
-                                self.collect_legend_entries_by_bbox(session, bbox, law_status),
-                                law_status
-                            ]
-                            legend_entries_from_db.append(legend_entry_with_law_status)
+                        legend_entries_from_db = []
+                        for law_status in list(set([x.public_law_restriction.law_status
+                                                    for x in geometry_results])):
+                            legend_entries_from_db.append(
+                                [
+                                    session.query(
+                                        self.legend_entry_model
+                                    ).filter(
+                                        self.legend_entry_model.t_id.in_(
+                                            list(
+                                                set([x.public_law_restriction.legend_entry_id
+                                                     for x in geometry_results
+                                                     if x.public_law_restriction.law_status == law_status]))
+                                        )
+                                    ).all(),
+                                    law_status
+                                ]
+                            )
+
+                        # keep only the geometries that intersects with the real estate
+                        geometry_results = [x for x in geometry_results if x.inside_real_estate is True]
 
                         self.records = []
                         for geometry_result in geometry_results:
