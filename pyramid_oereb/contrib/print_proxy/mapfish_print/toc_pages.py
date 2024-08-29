@@ -32,7 +32,7 @@ class TocPages():
         blank_space_above = 2 # toc.jrxml
         page_label_height = 10 # toc.jrxml
         total_size += blank_space_above + page_label_height
-        toc_item_height = 20 # tocConcernedTheme.jrxml (17 in toc.jrxml)
+        toc_item_height = 17 # toc.jrxml (20 in tocConcernedTheme.jrxml)
         total_size += len(self.extract['ConcernedTheme']) * toc_item_height
         if total_size > self.d2_height:
             return total_size
@@ -44,7 +44,7 @@ class TocPages():
         blank_space_above = 26 # toc.jrxml
         not_concerned_themes_title_height = 15 # toc.jrxml
         blank_space_between = 5 # toc.jrxml
-        not_concerned_themes_item_height = 12 # themelist.jrxml (15 in toc.jrxml)
+        not_concerned_themes_item_height = 15 # toc.jrxml (12 in themelist.jrxml)
         total_size += blank_space_above + not_concerned_themes_title_height + blank_space_between
         total_size += len(self.extract['NotConcernedTheme']) * not_concerned_themes_item_height
         
@@ -61,7 +61,7 @@ class TocPages():
 
     def compute_d5(self):
         total_size = 0
-        theme_without_data_item_height = 12 # themelist.jrxml (15 in toc.jrxml)
+        theme_without_data_item_height = 15 # toc.jrxml (12 in themelist.jrxml)
         total_size += len(self.extract['ThemeWithoutData'] * theme_without_data_item_height)
         if total_size > self.d5_height:
             return total_size
