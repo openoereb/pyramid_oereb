@@ -88,12 +88,15 @@ pyramid_oereb:
     # more time to generate the PDF. If set to false, it will assume that only one TOC page exists, and this can
     # lead to wrong numbering in the TOC.
     compute_toc_pages: true
-    # To avoid the potentially time consuming computing of the estimated toc pages number and its verification
-    # you can specify a default length for the number of TOC pages. - For most of the cantons the length of the 
-    # TOC is pretty consistent unless a real estate is concerned by none or a huge number of restrictions.
-    # An additional page break might also occur if the number of published topics is close to a threshold number.
-    # So be aware that fixing this value and deactivating the compute_toc_pages above may lead to wrong page numbers
-    # in the table of content.
+    # To avoid the potentially time consuming second computing of the PDF extract and skip the the computation
+    # of the estimated TOC length, you can specify a default length for the number of TOC pages.
+    # For most of the cantons the length of the TOC is pretty consistent unless a real estate is concerned by none 
+    # or a huge number of restrictions.
+    # An additional page break might also occur if the number of published topics is close to a threshold number
+    # where the TOC fits just about on one or two pages. - for those case estimate the TOC length ist preferable.
+    # In both cases (computing an estimated length or setting a default length) the exact number of TOC pages is
+    # extracted from the created PDF and if it is different from the expected value the PDF extract is called a 
+    # second time with the correct page numbers.
     default_toc_length: 2
     # Specify any additional URL parameters that the print shall use for WMS calls
     wms_url_params:
@@ -245,8 +248,6 @@ pyramid_oereb:
         fr: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
       layer_index: 0
       layer_opacity: 1.0
-      # Option to check certificate for external WMS. Default and recommended setting: True
-      verify_certificate: True
     plan_for_land_register_main_page:
       # WMS URL to query the plan for land register specially for static extracts overview page
       reference_wms:
@@ -254,8 +255,6 @@ pyramid_oereb:
         fr: https://wms.geo.admin.ch/?SERVICE=WMS&REQUEST=GetMap&VERSION=1.3.0&STYLES=default&CRS=EPSG:2056&BBOX=2475000,1065000,2850000,1300000&WIDTH=493&HEIGHT=280&FORMAT=image/png&LAYERS=ch.swisstopo-vd.amtliche-vermessung
       layer_index: 0
       layer_opacity: 1.0
-      # Option to check certificate for external WMS. Default and recommended setting: True
-      verify_certificate: True
     visualisation:
       method: pyramid_oereb.core.hook_methods.produce_sld_content
       # Note: these parameters must fit to the attributes provided by the RealEstateRecord!!!!
@@ -1419,6 +1418,10 @@ pyramid_oereb:
         - data_code: Hinweis
           transfer_code: Hinweis
           extract_code: Hint
+
+  # Option to check certificate for external WMS calls in standard and oereblex themes.
+  # Default and recommended setting: True
+  verify_certificate_wms: True
 
   # The error message returned if an error occurs when requesting a static extract
   # The content of the message is defined in the specification (document "Inhalt und Darstellung des statischen Auszugs")

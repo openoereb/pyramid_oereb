@@ -13,6 +13,13 @@ call for the pdf extract in most cases. This value should be set if >95% of the 
 pages.
 Default setting: 2
 
+Version 2.5.3
+-------------
+Feature and maintenance release:
+
+* Provide a general WMS verify certificate option
+* Library upgrade (shapely)
+
 Version 2.5.2
 -------------
 Feature and maintenance release:

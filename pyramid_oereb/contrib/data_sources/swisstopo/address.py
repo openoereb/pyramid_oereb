@@ -61,7 +61,8 @@ class AddressGeoAdminSource(AddressBaseSource):
             self._geoadmin_url,
             params=request_params,
             proxies=self._proxies,
-            headers=headers
+            headers=headers,
+            timeout=4
         )
         if response.status_code == requests.codes.ok:
             rp = Reprojector()
