@@ -100,7 +100,7 @@ def geometry(coordinates):
 
 
 def test_toc_pages(extract):
-    assert TocPages(extract).getNbPages() == 1
+    assert TocPages(extract, False).getNbPages() == 1
 
 
 def getSameEntryInList(reference, objects):
