@@ -8,7 +8,7 @@ to adapt in your project configuration, database etc. when upgrading to a new ve
 
 Version 2.6.0
 -------------
-* New parameter 'general_toc_length' allows to define a default table of content pages number avoiding a second
+* New parameter 'expected_toc_length' allows to define a default table of content pages number avoiding a second
 call for the pdf extract in most cases. This value should be set if most of the PDF extracts have the same number
 of TOC pages.
 Default setting: 2

@@ -78,8 +78,8 @@ class Renderer(JsonRenderer):
         if print_config.get('compute_toc_pages', False):
             extract_as_dict['nbTocPages'] = TocPages(extract_as_dict).getNbPages()
         else:
-            if print_config.get('general_toc_length') and int(print_config.get('general_toc_length')) > 0:
-                extract_as_dict['nbTocPages'] = print_config.get('general_toc_length', 2)
+            if print_config.get('expected_toc_length') and int(print_config.get('expected_toc_length')) > 0:
+                extract_as_dict['nbTocPages'] = print_config.get('expected_toc_length')
             else:
                 extract_as_dict['nbTocPages'] = 1
 
@@ -119,7 +119,7 @@ class Renderer(JsonRenderer):
             data=json.dumps(spec)
         )
         try:
-            log.debug('Validation of the TOC length with compute_toc_pages set to {} and general_toc_length set to {}'.format(print_config.get('compute_toc_pages'), print_config.get('general_toc_length'))) # noqa
+            log.debug('Validation of the TOC length with compute_toc_pages set to {} and expected_toc_length set to {}'.format(print_config.get('compute_toc_pages'), print_config.get('expected_toc_length'))) # noqa
             with io.BytesIO() as pdf:
                 pdf.write(print_result.content)
                 pdf_reader = PdfReader(pdf)
