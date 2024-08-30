@@ -25,6 +25,7 @@ class TocPages():
         # The ConcernedTheme-Heading cannot be calculated at runtime. The used label
         # is defined in the mfp-templates which are not accessible here. Therefore
         # we assume one line without a line break.
+        log.debug(f"d1 total_size: {self.d1_height}")
         return self.d1_height
 
     def compute_d2(self):
@@ -34,6 +35,7 @@ class TocPages():
         total_size += blank_space_above + page_label_height
         toc_item_height = 17  # toc.jrxml (20 in tocConcernedTheme.jrxml)
         total_size += len(self.extract['ConcernedTheme']) * toc_item_height
+        log.debug(f"d2 total_size: {total_size}")
         if total_size > self.d2_height:
             return total_size
         else:
@@ -47,7 +49,7 @@ class TocPages():
         not_concerned_themes_item_height = 15  # toc.jrxml (12 in themelist.jrxml)
         total_size += blank_space_above + not_concerned_themes_title_height + blank_space_between
         total_size += len(self.extract['NotConcernedTheme']) * not_concerned_themes_item_height
-
+        log.debug(f"d3 total_size: {total_size}")
         if total_size > self.d3_height:
             return total_size
         else:
@@ -57,12 +59,14 @@ class TocPages():
         # The NoDataTheme-Heading cannot be calculated at runtime. The used label
         # is defined in the mfp-templates which are not accessible here. Therefore
         # we assume one line without a line break.
+        log.debug(f"d4 total_size: {self.d4_height}")
         return self.d4_height
 
     def compute_d5(self):
         total_size = 0
         theme_without_data_item_height = 15  # toc.jrxml (12 in themelist.jrxml)
         total_size += len(self.extract['ThemeWithoutData'] * theme_without_data_item_height)
+        log.debug(f"d5 total_size: {total_size}")
         if total_size > self.d5_height:
             return total_size
         else:
@@ -131,6 +135,7 @@ class TocPages():
 
     def compute_d6(self):
         total_size = max(self.compute_d6_left(), self.compute_d6_right())
+        log.debug(f"d6 total_size: {total_size}")
         if total_size > self.d6_height:
             return total_size
         else:
@@ -144,7 +149,10 @@ class TocPages():
             self.compute_d5() + \
             self.compute_d6()
         log.debug('TOC total page length : {}'.format(x))
+        log.debug(f"disposable height: {self.disposable_height}")
         return x
 
     def getNbPages(self):
-        return -(-self.total_length // self.disposable_height)  # ceil number of pages needed
+        number_of_pages = -(-self.total_length // self.disposable_height)  # ceil number of pages needed
+        log.debug(f"number of pages: {number_of_pages}")
+        return number_of_pages
