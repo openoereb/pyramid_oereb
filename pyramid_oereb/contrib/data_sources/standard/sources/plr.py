@@ -594,6 +594,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         self._tolerances['ALL']
                     )
                 )
+
             elif (self._tolerances is not None) and (geometry_real_estate.geom_type in self._tolerances):
                 query = session.query(self._model_).options(
                     with_expression(
@@ -608,9 +609,10 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     ST_DWithin(
                         self._model_.geom,
                         from_shape(geometry_bbox, srid=Config.get('srid')),
-                        self._tolerances[geometry_bbox.geom_type]
+                        self._tolerances[geometry_real_estate.geom_type]
                     )
                 )
+
             else:
                 query = session.query(
                     self._model_
@@ -626,6 +628,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         from_shape(geometry_bbox, srid=Config.get('srid'))
                     )
                 )
+
         return query
 
     def collect_related_geometries_by_real_estate_and_bbox(self, session, real_estate, bbox):
@@ -682,21 +685,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     geometry_results = self.collect_related_geometries_by_real_estate_and_bbox(
                         session, real_estate, bbox
                     )
-                    # DEBUG
-                    """
-                    log.debug("DEBUG MM 5 A")
-                    for gr in geometry_results:
-                        #log.debug(gr.__dict__.keys())
-                        if hasattr(gr, 'inside_real_estate'):
-                            log.debug(gr.inside_real_estate)
-                        if hasattr(gr, 'law_status'):
-                            log.debug(gr.law_status)
-                        if hasattr(gr, 'public_law_restriction_id'):
-                            log.debug(gr.public_law_restriction.law_status)
-                    log.debug("DEBUG MM 5 B")
-                    """
 
-                    if any([x.inside_real_estate for x in geometry_results]):
+                    if all([not x.inside_real_estate for x in geometry_results]):
                         # We checked if there are spatially related elements in database. But there is none.
                         # So we can stop here.
                         self.records = [EmptyPlrRecord(
