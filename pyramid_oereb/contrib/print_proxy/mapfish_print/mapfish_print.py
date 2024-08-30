@@ -73,13 +73,6 @@ class Renderer(JsonRenderer):
         extract_as_dict = self._render(extract_record, value[1])
         feature_geometry = mapping(extract_record.real_estate.limit)
 
-        display_qrcode = Config.get('print', {}).get('display_qrcode', False)
-
-        if Config.get('print', {}).get('compute_toc_pages', False):
-            extract_as_dict['nbTocPages'] = TocPages(extract_as_dict, display_qrcode).getNbPages()
-        else:
-            extract_as_dict['nbTocPages'] = 1
-
         # set the global_datetime variable so that it can be used later for the archive
         self.set_global_datetime(extract_as_dict['CreationDate'])
         self.convert_to_printable_extract(extract_as_dict, feature_geometry)
@@ -97,6 +90,11 @@ class Renderer(JsonRenderer):
         extract_as_dict['Display_QRCode'] = print_config.get(
             'display_qrcode', False
         )
+
+        if print_config.get('compute_toc_pages', False):
+            extract_as_dict['nbTocPages'] = TocPages(extract_as_dict).getNbPages()
+        else:
+            extract_as_dict['nbTocPages'] = 1
 
         spec = {
             'layout': Config.get('print', {})['template_name'],

@@ -7,7 +7,7 @@ log = logging.getLogger(__name__)
 
 class TocPages():
 
-    def __init__(self, extract, display_qrcode):
+    def __init__(self, extract):
         self.disposable_height = 842 - 70  # A4 size - (footer + header); toc.jrxml
         self.d1_height = 77  # toc.jrxml
         self.d2_height = 29  # toc.jrxml
@@ -18,7 +18,7 @@ class TocPages():
         self.d6_left_height = 38  # toc.jrxml
         self.d6_right_height = 20  # toc.jrxml
         self.extract = extract
-        self.display_qrcode = display_qrcode
+        self.display_qrcode = self.extract['Display_QRCode']
         self.total_length = self.compute_total_lenght()
 
     def compute_d1(self):
@@ -34,7 +34,11 @@ class TocPages():
         page_label_height = 10  # toc.jrxml
         total_size += blank_space_above + page_label_height
         toc_item_height = 17  # toc.jrxml (20 in tocConcernedTheme.jrxml)
-        total_size += len(self.extract['ConcernedTheme']) * toc_item_height
+        unique_concerned_themes = []
+        for concerned_theme in self.extract['ConcernedTheme']:
+            if concerned_theme not in unique_concerned_themes:
+                unique_concerned_themes.append(concerned_theme)
+        total_size += len(unique_concerned_themes) * toc_item_height
         log.debug(f"d2 total_size: {total_size}")
         if total_size > self.d2_height:
             return total_size
@@ -80,19 +84,19 @@ class TocPages():
         general_information_item_line_heigth = 8  # general_info_and_disclaimer.jrxml
         total_size += general_information_title_height
         for i in self.extract.get('GeneralInformation', []):
-            total_size += self.compute_length_of_wrapped_text(i[0]['Text'],
+            total_size += self.compute_length_of_wrapped_text(i['Info'],
                                                               78,
                                                               general_information_item_line_heigth)
         # LandRegister-Disclaimer (1 title, 1 item)
         land_register_disclaimer_title_line_height = 8  # general_info_and_disclaimer.jrxml
         land_register_disclaimer_item_line_height = 8  # general_info_and_disclaimer.jrxml
-        for i in self.extract.get('DisclaimerLandRegister', []):
-            total_size += self.compute_length_of_wrapped_text(i['Title'][0]['Text'],
-                                                              65,
-                                                              land_register_disclaimer_title_line_height)
-            total_size += self.compute_length_of_wrapped_text(i['Content'][0]['Text'],
-                                                              78,
-                                                              land_register_disclaimer_item_line_height)
+
+        total_size += self.compute_length_of_wrapped_text(self.extract.get('DisclaimerLandRegister_Title', ''),
+                                                            65,
+                                                            land_register_disclaimer_title_line_height)
+        total_size += self.compute_length_of_wrapped_text(self.extract.get('DisclaimerLandRegister_Content', ''),
+                                                            78,
+                                                            land_register_disclaimer_item_line_height)
         log.debug('d6 left total_size : {}'.format(total_size))
         if total_size > self.d6_left_height:
             return total_size
@@ -115,10 +119,10 @@ class TocPages():
 
         # Disclaimers (multiple items)
         for i in self.extract.get('Disclaimer', []):
-            total_size += self.compute_length_of_wrapped_text(i['Title'][0]['Text'],
+            total_size += self.compute_length_of_wrapped_text(i['Title'],
                                                               65,
                                                               disclaimer_title_line_height)
-            total_size += self.compute_length_of_wrapped_text(i['Content'][0]['Text'],
+            total_size += self.compute_length_of_wrapped_text(i['Content'],
                                                               78,
                                                               disclaimer_item_line_height)
         total_size += blank_space_below_disclaimers
