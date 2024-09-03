@@ -470,7 +470,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             .selectinload(self.models.MultilingualUri.localised_uri)
         ).all()
 
-    def collect_legend_entries_by_bbox(self, session, bbox, law_status):
+    def collect_legend_entries_by_bbox(self, session, bbox):
         """
         Extracts all legend entries in the topic which have spatial relation with the passed bounding box of
         visible extent.
@@ -478,12 +478,11 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         Args:
             session (sqlalchemy.orm.Session): The requested clean session instance ready for use
             bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
-            law_status (str): String of the law status for which the legend entries should be queried.
 
         Returns:
             list: The result of the related geometries unique by the public law restriction id and law status
         """
-        distinct_legend_entry_ids = []
+        # Select the legend entries of all plr within bbox
         geometries = session.query(self._model_).filter(
                       or_(
                        self._model_.point.ST_Intersects(from_shape(bbox, srid=Config.get('srid'))),
@@ -493,13 +492,31 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         selectinload(self.models.Geometry.public_law_restriction)
                       ).all()
 
+        # Compile a list of unique legend entry ids for each law status
+        legend_entry_ids = dict()
         for geometry in geometries:
-            if geometry.public_law_restriction.legend_entry_id not in distinct_legend_entry_ids\
-                    and geometry.public_law_restriction.law_status == law_status:
-                distinct_legend_entry_ids.append(geometry.public_law_restriction.legend_entry_id)
+            if geometry.public_law_restriction.law_status not in legend_entry_ids.keys():
+                legend_entry_ids[geometry.public_law_restriction.law_status] = {
+                    geometry.public_law_restriction.legend_entry_id
+                }
+            else:
+                legend_entry_ids[geometry.public_law_restriction.law_status].add(
+                    geometry.public_law_restriction.legend_entry_id
+                )
 
-        return session.query(self.legend_entry_model).filter(
-            self.legend_entry_model.t_id.in_((distinct_legend_entry_ids))).all()
+        # Retrieve legend entries
+        legend_entries_from_db = []
+        for law_status in legend_entry_ids.keys():
+            legend_entries_from_db.append(
+                [
+                    session.query(self.legend_entry_model).filter(
+                        self.legend_entry_model.t_id.in_(list(legend_entry_ids[law_status]))
+                    ).all(),
+                    law_status
+                ]
+            )
+
+        return legend_entries_from_db
 
     def read(self, params, real_estate, bbox):
         """
@@ -543,14 +560,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                             if (geometry.public_law_restriction.law_status not in law_status_of_geometry):
                                 law_status_of_geometry.append(geometry.public_law_restriction.law_status)
 
-                        legend_entries_from_db = []
                         # get legend_entries per law_status
-                        for law_status in law_status_of_geometry:
-                            legend_entry_with_law_status = [
-                                self.collect_legend_entries_by_bbox(session, bbox, law_status),
-                                law_status
-                            ]
-                            legend_entries_from_db.append(legend_entry_with_law_status)
+                        legend_entries_from_db = self.collect_legend_entries_by_bbox(session, bbox)
 
                         self.records = []
                         for geometry_result in geometry_results:
