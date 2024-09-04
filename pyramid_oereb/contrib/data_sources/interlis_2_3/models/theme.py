@@ -2,6 +2,7 @@ from sqlalchemy import Column, ForeignKey
 from sqlalchemy import LargeBinary, String, Integer, Date, Text
 from geoalchemy2.types import Geometry as GeoAlchemyGeometry
 from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.orm import query_expression
 
 
 class Models(object):
@@ -350,6 +351,7 @@ def model_factory(schema_name, pk_type, srid, db_connection):
             PublicLawRestriction,
             backref='geometries'
         )
+        inside_real_estate = query_expression()
 
     class MultilingualUri(Base):
         """
