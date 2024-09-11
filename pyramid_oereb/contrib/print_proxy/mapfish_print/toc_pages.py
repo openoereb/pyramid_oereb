@@ -8,7 +8,10 @@ log = logging.getLogger(__name__)
 class TocPages():
 
     def __init__(self, extract):
-        self.disposable_height = 842 - 70  # A4 size - (footer + header); toc.jrxml
+        self.total_height = 842
+        self.header_height = self.compute_header()
+        self.footer_height = self.compute_footer()
+        self.disposable_height = 842 - self.header_height - self.footer_height  # A4 size - (footer + header)
         self.d1_height = 77  # toc.jrxml
         self.d2_height = 29  # toc.jrxml
         self.d3_height = 61  # toc.jrxml
@@ -20,6 +23,21 @@ class TocPages():
         self.extract = extract
         self.display_qrcode = self.extract['Display_QRCode']
         self.total_length = self.compute_total_lenght()
+
+    def compute_header(self):
+        total_size = 0
+        page_top_margin = 28 # toc.jrxml
+        header_height = 60 # toc.jrxml
+        total_size += page_top_margin + header_height
+        log.debug(f"header total_size: {total_size}")
+        return total_size
+
+    def compute_footer(self):
+        total_size = 0
+        page_bottom_margin = 20 # toc.jrxml
+        footer_height = 10 # toc.jrxml
+        log.debug(f"header total_size: {total_size}")
+        return total_size
 
     def compute_d1(self):
         # The ConcernedTheme-Heading cannot be calculated at runtime. The used label
