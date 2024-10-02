@@ -5,13 +5,15 @@ import textwrap
 log = logging.getLogger(__name__)
 
 
-class TocPages():
+class TocPages:
 
     def __init__(self, extract):
         self.total_height = 842
         self.header_height = self.compute_header()
         self.footer_height = self.compute_footer()
-        self.disposable_height = 842 - self.header_height - self.footer_height  # A4 size - (footer + header)
+        self.disposable_height = (
+            842 - self.header_height - self.footer_height
+        )  # A4 size - (footer + header)
         self.d1_height = 77  # toc.jrxml
         self.d2_height = 29  # toc.jrxml
         self.d3_height = 61  # toc.jrxml
@@ -21,21 +23,21 @@ class TocPages():
         self.d6_left_height = 38  # toc.jrxml
         self.d6_right_height = 20  # toc.jrxml
         self.extract = extract
-        self.display_qrcode = self.extract['Display_QRCode']
+        self.display_qrcode = self.extract["Display_QRCode"]
         self.total_length = self.compute_total_lenght()
 
     def compute_header(self):
         total_size = 0
-        page_top_margin = 28 # toc.jrxml
-        header_height = 60 # toc.jrxml
+        page_top_margin = 28  # toc.jrxml
+        header_height = 60  # toc.jrxml
         total_size += page_top_margin + header_height
         log.debug(f"header total_size: {total_size}")
         return total_size
 
     def compute_footer(self):
         total_size = 0
-        page_bottom_margin = 20 # toc.jrxml
-        footer_height = 10 # toc.jrxml
+        page_bottom_margin = 20  # toc.jrxml
+        footer_height = 10  # toc.jrxml
         total_size += page_bottom_margin + footer_height
         log.debug(f"header total_size: {total_size}")
         return total_size
@@ -54,7 +56,7 @@ class TocPages():
         total_size += blank_space_above + page_label_height
         toc_item_height = 17  # toc.jrxml (20 in tocConcernedTheme.jrxml)
         unique_concerned_themes = []
-        for concerned_theme in self.extract['ConcernedTheme']:
+        for concerned_theme in self.extract["ConcernedTheme"]:
             if concerned_theme not in unique_concerned_themes:
                 unique_concerned_themes.append(concerned_theme)
         total_size += len(unique_concerned_themes) * toc_item_height
@@ -70,8 +72,12 @@ class TocPages():
         not_concerned_themes_title_height = 15  # toc.jrxml
         blank_space_between = 5  # toc.jrxml
         not_concerned_themes_item_height = 15  # toc.jrxml (12 in themelist.jrxml)
-        total_size += blank_space_above + not_concerned_themes_title_height + blank_space_between
-        total_size += len(self.extract['NotConcernedTheme']) * not_concerned_themes_item_height
+        total_size += (
+            blank_space_above + not_concerned_themes_title_height + blank_space_between
+        )
+        total_size += (
+            len(self.extract["NotConcernedTheme"]) * not_concerned_themes_item_height
+        )
         log.debug(f"d3 total_size: {total_size}")
         if total_size > self.d3_height:
             return total_size
@@ -88,7 +94,9 @@ class TocPages():
     def compute_d5(self):
         total_size = 0
         theme_without_data_item_height = 15  # toc.jrxml (12 in themelist.jrxml)
-        total_size += len(self.extract['ThemeWithoutData'] * theme_without_data_item_height)
+        total_size += len(
+            self.extract["ThemeWithoutData"] * theme_without_data_item_height
+        )
         log.debug(f"d5 total_size: {total_size}")
         if total_size > self.d5_height:
             return total_size
@@ -102,21 +110,29 @@ class TocPages():
         general_information_title_height = 8  # general_info_and_disclaimer.jrxml
         general_information_item_line_heigth = 8  # general_info_and_disclaimer.jrxml
         total_size += general_information_title_height
-        for i in self.extract.get('GeneralInformation', []):
-            total_size += self.compute_length_of_wrapped_text(i['Info'],
-                                                              78,
-                                                              general_information_item_line_heigth)
+        for i in self.extract.get("GeneralInformation", []):
+            total_size += self.compute_length_of_wrapped_text(
+                i["Info"], 78, general_information_item_line_heigth
+            )
         # LandRegister-Disclaimer (1 title, 1 item)
-        land_register_disclaimer_title_line_height = 8  # general_info_and_disclaimer.jrxml
-        land_register_disclaimer_item_line_height = 8  # general_info_and_disclaimer.jrxml
+        land_register_disclaimer_title_line_height = (
+            8  # general_info_and_disclaimer.jrxml
+        )
+        land_register_disclaimer_item_line_height = (
+            8  # general_info_and_disclaimer.jrxml
+        )
 
-        total_size += self.compute_length_of_wrapped_text(self.extract.get('DisclaimerLandRegister_Title', ''),
-                                                            65,
-                                                            land_register_disclaimer_title_line_height)
-        total_size += self.compute_length_of_wrapped_text(self.extract.get('DisclaimerLandRegister_Content', ''),
-                                                            78,
-                                                            land_register_disclaimer_item_line_height)
-        log.debug('d6 left total_size : {}'.format(total_size))
+        total_size += self.compute_length_of_wrapped_text(
+            self.extract.get("DisclaimerLandRegister_Title", ""),
+            65,
+            land_register_disclaimer_title_line_height,
+        )
+        total_size += self.compute_length_of_wrapped_text(
+            self.extract.get("DisclaimerLandRegister_Content", ""),
+            78,
+            land_register_disclaimer_item_line_height,
+        )
+        log.debug("d6 left total_size : {}".format(total_size))
         if total_size > self.d6_left_height:
             return total_size
         else:
@@ -137,20 +153,20 @@ class TocPages():
         qr_code_size = 56  # disclaimer_and_qrcode.jrxml
 
         # Disclaimers (multiple items)
-        for i in self.extract.get('Disclaimer', []):
-            total_size += self.compute_length_of_wrapped_text(i['Title'],
-                                                              65,
-                                                              disclaimer_title_line_height)
-            total_size += self.compute_length_of_wrapped_text(i['Content'],
-                                                              78,
-                                                              disclaimer_item_line_height)
+        for i in self.extract.get("Disclaimer", []):
+            total_size += self.compute_length_of_wrapped_text(
+                i["Title"], 65, disclaimer_title_line_height
+            )
+            total_size += self.compute_length_of_wrapped_text(
+                i["Content"], 78, disclaimer_item_line_height
+            )
         total_size += blank_space_below_disclaimers
 
         # QR-Code (optional)
         if self.display_qrcode:
             total_size += blank_space_above_qrcode + qr_code_size
 
-        log.debug('d6 right total_size : {}'.format(total_size))
+        log.debug("d6 right total_size : {}".format(total_size))
         if total_size > self.d6_right_height:
             return total_size
         else:
@@ -165,17 +181,21 @@ class TocPages():
             return self.d6_height
 
     def compute_total_lenght(self):
-        x = self.compute_d1() + \
-            self.compute_d2() + \
-            self.compute_d3() + \
-            self.compute_d4() + \
-            self.compute_d5() + \
-            self.compute_d6()
-        log.debug('TOC total page length : {}'.format(x))
+        x = (
+            self.compute_d1()
+            + self.compute_d2()
+            + self.compute_d3()
+            + self.compute_d4()
+            + self.compute_d5()
+            + self.compute_d6()
+        )
+        log.debug("TOC total page length : {}".format(x))
         log.debug(f"disposable height: {self.disposable_height}")
         return x
 
     def getNbPages(self):
-        number_of_pages = -(-self.total_length // self.disposable_height)  # ceil number of pages needed
+        number_of_pages = -(
+            -self.total_length // self.disposable_height
+        )  # ceil number of pages needed
         log.debug(f"number of pages: {number_of_pages}")
         return number_of_pages
