@@ -40,10 +40,11 @@ def extract():
         yield json.load(f)
 
 @pytest.fixture
-@pytest.mark.usefixtures('extract')
-def extract_toc_pages(extract):
-    extract["Display_QRCode"] = False
-    yield extract
+def extract_toc_pages():
+    with codecs.open(
+            'tests/contrib.print_proxy.mapfish_print/resources/test_extract_toc_pages.json'
+    ) as f:
+        yield json.load(f)
 
 @pytest.fixture
 def extract_multi_wms():
@@ -105,7 +106,7 @@ def geometry(coordinates):
 
 
 def test_toc_pages(extract_toc_pages):
-    assert TocPages(extract_toc_pages).getNbPages() == 1
+    assert TocPages(extract_toc_pages).getNbPages() == 2
 
 
 def getSameEntryInList(reference, objects):
