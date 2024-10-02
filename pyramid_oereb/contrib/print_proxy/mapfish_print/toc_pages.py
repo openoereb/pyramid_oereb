@@ -36,6 +36,7 @@ class TocPages():
         total_size = 0
         page_bottom_margin = 20 # toc.jrxml
         footer_height = 10 # toc.jrxml
+        total_size += page_bottom_margin + footer_height
         log.debug(f"header total_size: {total_size}")
         return total_size
 
