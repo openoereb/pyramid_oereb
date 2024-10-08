@@ -693,12 +693,6 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         # We found spatially related elements. This means we need to extract the actual plr
                         # information related to the found geometries.
 
-                        law_status_of_geometry = []
-                        # get distinct values of law_status for all geometries found
-                        for geometry in geometry_results:
-                            if (geometry.public_law_restriction.law_status not in law_status_of_geometry):
-                                law_status_of_geometry.append(geometry.public_law_restriction.law_status)
-
                         # get legend_entries per law_status
                         legend_entries_from_db = self.collect_legend_entries_by_bbox(session, bbox)
 
