@@ -509,7 +509,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         # Compile a list of unique legend entry ids for each law status
         legend_entry_ids = dict()
         for geometry in geometries:
-            if geometry.public_law_restriction.law_status not in legend_entry_ids.keys():
+            if geometry.public_law_restriction.law_status not in legend_entry_ids:
                 legend_entry_ids[geometry.public_law_restriction.law_status] = {
                     geometry.public_law_restriction.legend_entry_id
                 }
@@ -520,7 +520,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         # Retrieve legend entries
         legend_entries_from_db = []
-        for law_status in legend_entry_ids.keys():
+        for law_status in legend_entry_ids:
             legend_entries_from_db.append(
                 [
                     self.get_legend_entries_from_db(session, list(legend_entry_ids[law_status])),
