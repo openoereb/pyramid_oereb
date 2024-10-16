@@ -71,12 +71,14 @@ class TocPages:
         blank_space_above = 26  # toc.jrxml
         not_concerned_themes_title_height = 15  # toc.jrxml
         blank_space_between = 5  # toc.jrxml
-        not_concerned_themes_item_height = 15  # toc.jrxml (12 in themelist.jrxml)
+        not_concerned_themes_first_item_height = 15  # toc.jrxml
+        not_concerned_themes_further_items_height = 12  # themelist.jrxml
         total_size += (
             blank_space_above + not_concerned_themes_title_height + blank_space_between
         )
-        total_size += (
-            len(self.extract["NotConcernedTheme"]) * not_concerned_themes_item_height
+        total_size += not_concerned_themes_first_item_height + (
+            (len(self.extract["NotConcernedTheme"]) - 1)
+            * not_concerned_themes_further_items_height
         )
         log.debug(f"d3 total_size: {total_size}")
         if total_size > self.d3_height:
@@ -93,9 +95,11 @@ class TocPages:
 
     def compute_d5(self):
         total_size = 0
-        theme_without_data_item_height = 15  # toc.jrxml (12 in themelist.jrxml)
-        total_size += len(
-            self.extract["ThemeWithoutData"] * theme_without_data_item_height
+        theme_without_data_first_item_height = 15  # toc.jrxml
+        theme_without_data_further_items_height = 12  # themelist.jrxml
+        total_size += theme_without_data_first_item_height + (
+            (len(self.extract["ThemeWithoutData"]) - 1)
+            * theme_without_data_further_items_height
         )
         log.debug(f"d5 total_size: {total_size}")
         if total_size > self.d5_height:

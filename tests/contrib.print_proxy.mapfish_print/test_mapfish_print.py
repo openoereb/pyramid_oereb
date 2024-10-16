@@ -39,12 +39,14 @@ def extract():
     ) as f:
         yield json.load(f)
 
+
 @pytest.fixture
 def extract_toc_pages():
     with codecs.open(
             'tests/contrib.print_proxy.mapfish_print/resources/test_extract_toc_pages.json'
     ) as f:
         yield json.load(f)
+
 
 @pytest.fixture
 def extract_multi_wms():
