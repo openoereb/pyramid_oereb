@@ -470,6 +470,20 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             .selectinload(self.models.MultilingualUri.localised_uri)
         ).all()
 
+    def get_legend_entries_from_db(self, session, legend_entry_ids):
+        """
+        Retrieves the legend entries for a list of t_id-values.
+
+        Args:
+            session (sqlalchemy.orm.Session): The requested clean session instance ready for use
+            legend_entry_ids (list): list of the egend entry ids
+
+        Returns:
+            list: the query result represented as a list.
+        """
+        return session.query(self.legend_entry_model).filter(
+            self.legend_entry_model.t_id.in_(legend_entry_ids)).all()
+
     def collect_legend_entries_by_bbox(self, session, bbox):
         """
         Extracts all legend entries in the topic which have spatial relation with the passed bounding box of
@@ -509,9 +523,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         for law_status in legend_entry_ids.keys():
             legend_entries_from_db.append(
                 [
-                    session.query(self.legend_entry_model).filter(
-                        self.legend_entry_model.t_id.in_(list(legend_entry_ids[law_status]))
-                    ).all(),
+                    self.get_legend_entries_from_db(session, list(legend_entry_ids[law_status])),
                     law_status
                 ]
             )
