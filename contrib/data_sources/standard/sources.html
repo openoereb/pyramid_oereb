@@ -601,7 +601,7 @@ as key and text as value.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.collect_legend_entries_by_bbox">
-<span class="sig-name descname"><span class="pre">collect_legend_entries_by_bbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">law_status</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#DatabaseSource.collect_legend_entries_by_bbox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.collect_legend_entries_by_bbox" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">collect_legend_entries_by_bbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#DatabaseSource.collect_legend_entries_by_bbox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.collect_legend_entries_by_bbox" title="Link to this definition">¶</a></dt>
 <dd><p>Extracts all legend entries in the topic which have spatial relation with the passed bounding box of
 visible extent.</p>
 <dl class="field-list simple">
@@ -609,7 +609,6 @@ visible extent.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>session</strong> (<em>sqlalchemy.orm.Session</em>) – The requested clean session instance ready for use</p></li>
 <li><p><strong>bbox</strong> (<em>shapely.geometry.base.BaseGeometry</em>) – The bbox to search the records.</p></li>
-<li><p><strong>law_status</strong> (<em>str</em>) – String of the law status for which the legend entries should be queried.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -816,6 +815,26 @@ The element read out of the database.</p></li>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list of <a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.documents.DocumentRecord" title="pyramid_oereb.core.records.documents.DocumentRecord">pyramid_oereb.core.records.documents.DocumentRecord</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.get_legend_entries_from_db">
+<span class="sig-name descname"><span class="pre">get_legend_entries_from_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_entry_ids</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/plr.html#DatabaseSource.get_legend_entries_from_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.get_legend_entries_from_db" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves the legend entries for a list of id-values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>session</strong> (<em>sqlalchemy.orm.Session</em>) – The requested clean session instance ready for use</p></li>
+<li><p><strong>legend_entry_ids</strong> (<em>list</em>) – list of the egend entry ids</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the query result represented as a list.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 </dd></dl>

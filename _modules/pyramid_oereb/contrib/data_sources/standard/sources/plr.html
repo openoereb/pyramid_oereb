@@ -736,9 +736,27 @@
         <span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></div>
 
 
+<div class="viewcode-block" id="DatabaseSource.get_legend_entries_from_db">
+<a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.get_legend_entries_from_db">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_legend_entries_from_db</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">legend_entry_ids</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the legend entries for a list of id-values.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            session (sqlalchemy.orm.Session): The requested clean session instance ready for use</span>
+<span class="sd">            legend_entry_ids (list): list of the egend entry ids</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list: the query result represented as a list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_entry_model</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">legend_entry_model</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">in_</span><span class="p">(</span><span class="n">legend_entry_ids</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></div>
+
+
 <div class="viewcode-block" id="DatabaseSource.collect_legend_entries_by_bbox">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.collect_legend_entries_by_bbox">[docs]</a>
-    <span class="k">def</span> <span class="nf">collect_legend_entries_by_bbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">law_status</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">collect_legend_entries_by_bbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Extracts all legend entries in the topic which have spatial relation with the passed bounding box of</span>
 <span class="sd">        visible extent.</span>
@@ -746,22 +764,39 @@
 <span class="sd">        Args:</span>
 <span class="sd">            session (sqlalchemy.orm.Session): The requested clean session instance ready for use</span>
 <span class="sd">            bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.</span>
-<span class="sd">            law_status (str): String of the law status for which the legend entries should be queried.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            list: The result of the related geometries unique by the public law restriction id and law status</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">distinct_legend_entry_ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Select the legend entries of all plr within bbox</span>
         <span class="n">geometries</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_collection</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span><span class="o">.</span><span class="n">options</span><span class="p">(</span>
             <span class="n">selectinload</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Geometry</span><span class="o">.</span><span class="n">public_law_restriction</span><span class="p">)</span>
         <span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+        <span class="c1"># Compile a list of unique legend entry ids for each law status</span>
+        <span class="n">legend_entry_ids</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">geometry</span> <span class="ow">in</span> <span class="n">geometries</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">public_law_restriction</span><span class="o">.</span><span class="n">legend_entry_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">distinct_legend_entry_ids</span> \
-                    <span class="ow">and</span> <span class="n">geometry</span><span class="o">.</span><span class="n">public_law_restriction</span><span class="o">.</span><span class="n">law_status</span> <span class="o">==</span> <span class="n">law_status</span><span class="p">:</span>
-                <span class="n">distinct_legend_entry_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">public_law_restriction</span><span class="o">.</span><span class="n">legend_entry_id</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_entry_model</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">legend_entry_model</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">in_</span><span class="p">((</span><span class="n">distinct_legend_entry_ids</span><span class="p">)))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></div>
+            <span class="k">if</span> <span class="n">geometry</span><span class="o">.</span><span class="n">public_law_restriction</span><span class="o">.</span><span class="n">law_status</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">legend_entry_ids</span><span class="p">:</span>
+                <span class="n">legend_entry_ids</span><span class="p">[</span><span class="n">geometry</span><span class="o">.</span><span class="n">public_law_restriction</span><span class="o">.</span><span class="n">law_status</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="n">geometry</span><span class="o">.</span><span class="n">public_law_restriction</span><span class="o">.</span><span class="n">legend_entry_id</span>
+                <span class="p">}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">legend_entry_ids</span><span class="p">[</span><span class="n">geometry</span><span class="o">.</span><span class="n">public_law_restriction</span><span class="o">.</span><span class="n">law_status</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                    <span class="n">geometry</span><span class="o">.</span><span class="n">public_law_restriction</span><span class="o">.</span><span class="n">legend_entry_id</span>
+                <span class="p">)</span>
+
+        <span class="c1"># Retrieve legend entries</span>
+        <span class="n">legend_entries_from_db</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">law_status</span> <span class="ow">in</span> <span class="n">legend_entry_ids</span><span class="p">:</span>
+            <span class="n">legend_entries_from_db</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">get_legend_entries_from_db</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">legend_entry_ids</span><span class="p">[</span><span class="n">law_status</span><span class="p">])),</span>
+                    <span class="n">law_status</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">legend_entries_from_db</span></div>
 
 
 <div class="viewcode-block" id="DatabaseSource.read">
@@ -801,20 +836,8 @@
                         <span class="c1"># We found spatially related elements. This means we need to extract the actual plr</span>
                         <span class="c1"># information related to the found geometries.</span>
 
-                        <span class="n">law_status_of_geometry</span> <span class="o">=</span> <span class="p">[]</span>
-                        <span class="c1"># get distinct values of law_status for all geometries found</span>
-                        <span class="k">for</span> <span class="n">geometry</span> <span class="ow">in</span> <span class="n">geometry_results</span><span class="p">:</span>
-                            <span class="k">if</span> <span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">public_law_restriction</span><span class="o">.</span><span class="n">law_status</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">law_status_of_geometry</span><span class="p">):</span>
-                                <span class="n">law_status_of_geometry</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">geometry</span><span class="o">.</span><span class="n">public_law_restriction</span><span class="o">.</span><span class="n">law_status</span><span class="p">)</span>
-
-                        <span class="n">legend_entries_from_db</span> <span class="o">=</span> <span class="p">[]</span>
                         <span class="c1"># get legend_entries per law_status</span>
-                        <span class="k">for</span> <span class="n">law_status</span> <span class="ow">in</span> <span class="n">law_status_of_geometry</span><span class="p">:</span>
-                            <span class="n">legend_entry_with_law_status</span> <span class="o">=</span> <span class="p">[</span>
-                                <span class="bp">self</span><span class="o">.</span><span class="n">collect_legend_entries_by_bbox</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">law_status</span><span class="p">),</span>
-                                <span class="n">law_status</span>
-                            <span class="p">]</span>
-                            <span class="n">legend_entries_from_db</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">legend_entry_with_law_status</span><span class="p">)</span>
+                        <span class="n">legend_entries_from_db</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">collect_legend_entries_by_bbox</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span>
 
                         <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
                         <span class="k">for</span> <span class="n">geometry_result</span> <span class="ow">in</span> <span class="n">geometry_results</span><span class="p">:</span>
