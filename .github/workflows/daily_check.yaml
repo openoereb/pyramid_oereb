@@ -6,7 +6,7 @@ on:
 jobs:
   test-fed-data:
     name: Check federal data definitions
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - run: sudo rm /etc/apt/sources.list.d/*.list
@@ -22,7 +22,7 @@ jobs:
 
   test-py:
     name: Test Python
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     services:
       # Label used to access the service container
       postgres:
