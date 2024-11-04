@@ -9,6 +9,7 @@ Notes:
 -----
 - New parameter default_toc_length to define a default table of content pages number (#2042)
 - Add timeout in address source (#2043)
+- Optimize legend entries retrieval (#2050)
 - Library upgrades (waitress, sqlalchemy, psycopg2, urllib3)
 
 2.5.3
