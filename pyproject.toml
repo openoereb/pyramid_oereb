@@ -88,7 +88,7 @@ dev = [
     "pyflakes==3.2.0",
     "pycodestyle==2.12.1",
     "Sphinx==7.4.7",
-    "sphinx_rtd_theme==2.0.0",
+    "sphinx_rtd_theme==3.0.1",
     "psycopg2==2.9.10",
     "mccabe==0.7.0",
     "c2c.template==2.4.2",
