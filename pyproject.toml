@@ -81,7 +81,7 @@ testing = [
     "requests-mock==1.12.1",
     "responses==0.25.3",
     "webtest==3.0.1",
-    "pillow==10.4.0"]
+    "pillow==11.0.0"]
 dev = [
     "flake8==7.1.1",
     "Flake8-pyproject==1.2.3",
