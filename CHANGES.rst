@@ -5,6 +5,12 @@ Notes:
 ------
 - This python package specifies the version numbers only of directly imported python packages. This approach may result in a build failure of older versions of the project if incompatibilities arise between imported packages over time. The build process of the master branch is regularly tested in an automatic process.
 
+2.5.4
+-----
+- New parameter default_toc_length to define a default table of content pages number (#2042)
+- Add timeout in address source (#2043)
+- Library upgrades (waitress, sqlalchemy, psycopg2, urllib3)
+
 2.5.3
 -----
 - Provide a general WMS verify certificate option
