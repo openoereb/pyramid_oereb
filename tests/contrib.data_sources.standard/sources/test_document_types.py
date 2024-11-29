@@ -9,7 +9,8 @@ from pyramid_oereb.core.records.document_types import DocumentTypeRecord
 def document_types_source_params(db_connection):
     yield {
         "db_connection": db_connection,
-        "model": "pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText"
+        "model": "pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText",
+        "record_class": "pyramid_oereb.core.records.document_types.DocumentTypeRecord"
     }
 
 

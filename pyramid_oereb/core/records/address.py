@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+from geoalchemy2.elements import _SpatialElement
+from geoalchemy2.shape import to_shape
+from shapely import is_geometry
 
 
 class AddressRecord(object):
@@ -24,4 +27,8 @@ class AddressRecord(object):
         self.street_name = street_name
         self.zip_code = zip_code
         self.street_number = street_number
-        self.geom = geom
+        self.geom = None
+        if is_geometry(geom) or isinstance(geom, str):
+            self.geom = geom
+        elif isinstance(geom, _SpatialElement):
+            self.geom = to_shape(geom)
