@@ -131,3 +131,8 @@ class DatabaseOEREBlexSource(DatabaseSource):
             selectinload(self.models.Geometry.public_law_restriction)
             .selectinload(self.models.PublicLawRestriction.responsible_office),
         ).all()
+
+    def read(self, params, real_estate, bbox):
+        # resetting the local per request cache of queried oereblex links
+        self._queried_geolinks = {}
+        return super(DatabaseOEREBlexSource, self).read(params, real_estate, bbox)
