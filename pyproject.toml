@@ -109,7 +109,7 @@ create_legend_entries = "pyramid_oereb.contrib.data_sources.standard.load_legend
 create_stats_tables = "pyramid_oereb.contrib.stats.scripts.create_stats_tables:create_stats_tables"
 
 [tool.flake8]
-exclude = [".venv", "tests/init_db.py"]
+exclude = [".venv", "tests/init_db.py", ".build"]
 max-line-length = 110
 
 [tool.pytest.ini_options]
