@@ -9,7 +9,6 @@ from pyramid_oereb.core.config import Config
 from pyramid.config import Configurator
 
 
-
 log = logging.getLogger(__name__)
 route_prefix = None
 # initially instantiate database adapter for global session handling
