@@ -89,11 +89,11 @@ pyramid_oereb:
     # not set it will assume that only one TOC page exists, and this can lead to wrong numbering in the TOC, which
     # will be fixed by a second PDF extract call that has an impact on performance.
     compute_toc_pages: false
-    # In order to skip the computation of the estimated number of TOC pages which might return an erroneous result 
-    # for your setting, you can specify a default for the number of TOC pages. For most of the cantons the number of 
+    # In order to skip the computation of the estimated number of TOC pages which might return an erroneous result
+    # for your setting, you can specify a default for the number of TOC pages. For most of the cantons the number of
     # TOC pages is pretty constant unless a real estate is concerned by none or a huge number of restrictions.
-    # In both cases (computing an estimate or setting a default for the number of TOC pages) the exact number of TOC 
-    # pages is extracted from the created PDF and if it differs from the expected value the PDF is created a second 
+    # In both cases (computing an estimate or setting a default for the number of TOC pages) the exact number of TOC
+    # pages is extracted from the created PDF and if it differs from the expected value the PDF is created a second
     # time with the correct page numbers.
     # Note that if "compute_toc_pages" is set true the "expected_toc_length" is not taken into account.
     expected_toc_length: 2
@@ -180,7 +180,7 @@ pyramid_oereb:
     # OEREBlex host
     host: https://oereblex.sg.ch
     # geoLink schema version
-    version: 1.2.2
+    version: 1.2.5
     # Pass schema version in URL
     pass_version: true
     # Enable/disable XML validation
