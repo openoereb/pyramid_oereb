@@ -6,6 +6,10 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+master
+------
+- Support of Oereblex API version 1.2.5 via geolink-formatter 2.0.6 added (#2081). The oereblex schema version that is used to download oereblex xmls can be set in the file pyramid_oereb.yaml.
+
 Version 2.5.4
 -------------
 Feature and maintenance release:
@@ -104,7 +108,7 @@ Maintenance release:
 
 * Add support for newest oereblex API (via geolink-formatter, #1703)
 * Various minor library upgrades (SQLAlchemy, geoalchemy, psycopg2, pypdf)
-  
+
 
 Version 2.4.2
 -------------
@@ -177,7 +181,7 @@ Version 2.2.4
 -------------
 New functionality for configuring tolerance (optional):
 
-* Support tolerance per geometry type (#1603). See example definitions in the example project configuration file. 
+* Support tolerance per geometry type (#1603). See example definitions in the example project configuration file.
 * Library updates (#1604)
 
 .. _changes-version-2.2.3:
