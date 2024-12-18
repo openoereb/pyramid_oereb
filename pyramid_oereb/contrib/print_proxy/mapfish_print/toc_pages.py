@@ -6,7 +6,6 @@ log = logging.getLogger(__name__)
 
 
 class TocPages:
-
     def __init__(self, extract):
         self.total_height = 842
         self.header_height = self.compute_header()
@@ -76,7 +75,9 @@ class TocPages:
         total_size += (
             blank_space_above + not_concerned_themes_title_height + blank_space_between
         )
-        total_size += len(self.extract["NotConcernedTheme"]) * not_concerned_themes_item_height
+        total_size += (
+            len(self.extract["NotConcernedTheme"]) * not_concerned_themes_item_height
+        )
         if total_size > self.d3_height:
             log.debug(f"d3 total_size: {total_size}")
             return total_size
@@ -95,9 +96,8 @@ class TocPages:
         total_size = 0
         theme_without_data_item_height = 12  # themelist.jrxml
         total_size += (
-            (len(self.extract["ThemeWithoutData"]))
-            * theme_without_data_item_height
-        )
+            len(self.extract["ThemeWithoutData"])
+        ) * theme_without_data_item_height
         if total_size > self.d5_height:
             log.debug(f"d5 total_size: {total_size}")
             return total_size
@@ -119,7 +119,7 @@ class TocPages:
 
         space_between_info_and_disclaimer = 6  # general_info_and_disclaimer.jrxml
         total_size += space_between_info_and_disclaimer
-        
+
         # LandRegister-Disclaimer (1 title, 1 item)
         land_register_disclaimer_title_line_height = (
             8  # general_info_and_disclaimer.jrxml
