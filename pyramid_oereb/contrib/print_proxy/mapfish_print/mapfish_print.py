@@ -73,11 +73,19 @@ class Renderer(JsonRenderer):
         extract_as_dict = self._render(extract_record, value[1])
         feature_geometry = mapping(extract_record.real_estate.limit)
 
+        print_config = Config.get('print', {})
+
+        if print_config.get('compute_toc_pages', False):
+            extract_as_dict['nbTocPages'] = TocPages(extract_as_dict).getNbPages()
+        else:
+            if print_config.get('expected_toc_length') and int(print_config.get('expected_toc_length')) > 0:
+                extract_as_dict['nbTocPages'] = print_config.get('expected_toc_length')
+            else:
+                extract_as_dict['nbTocPages'] = 1
+
         # set the global_datetime variable so that it can be used later for the archive
         self.set_global_datetime(extract_as_dict['CreationDate'])
         self.convert_to_printable_extract(extract_as_dict, feature_geometry)
-
-        print_config = Config.get('print', {})
 
         extract_as_dict['Display_RealEstate_SubunitOfLandRegister'] = print_config.get(
             'display_real_estate_subunit_of_land_register', True
@@ -97,7 +105,7 @@ class Renderer(JsonRenderer):
             extract_as_dict['nbTocPages'] = 1
 
         spec = {
-            'layout': Config.get('print', {})['template_name'],
+            'layout': print_config['template_name'],
             'outputFormat': 'pdf',
             'lang': self._language,
             'attributes': extract_as_dict,
@@ -108,37 +116,41 @@ class Renderer(JsonRenderer):
         if self._request.GET.get('getspec', 'no') != 'no':
             response.headers['Content-Type'] = 'application/json; charset=UTF-8'
             return json.dumps(spec, sort_keys=True, indent=4)
-        pdf_url = urlparse.urljoin(Config.get('print', {})['base_url'] + '/', 'buildreport.pdf')
-        pdf_headers = Config.get('print', {})['headers']
+        pdf_url = urlparse.urljoin(print_config['base_url'] + '/', 'buildreport.pdf')
+        pdf_headers = print_config['headers']
         print_result = requests.post(
             pdf_url,
             headers=pdf_headers,
             data=json.dumps(spec)
         )
         try:
-            if Config.get('print', {}).get('compute_toc_pages', False):
-                with io.BytesIO() as pdf:
-                    pdf.write(print_result.content)
-                    pdf_reader = PdfReader(pdf)
-                    x = []
-                    for i in range(len(pdf_reader.outline)):
-                        if isinstance(pdf_reader.outline[i], list):
-                            x.append(pdf_reader.outline[i][0]['/Page']['/StructParents'])
-                        else:
-                            x.append(pdf_reader.outline[i]['/Page']['/StructParents'])
-                    try:
-                        true_nb_of_toc = min(x)-1
-                    except ValueError:
-                        true_nb_of_toc = 1
+            log.debug('Validation of the TOC length with compute_toc_pages set to {} and expected_toc_length set to {}'.format(print_config.get('compute_toc_pages'), print_config.get('expected_toc_length'))) # noqa
+            with io.BytesIO() as pdf:
+                pdf.write(print_result.content)
+                pdf_reader = PdfReader(pdf)
+                x = []
+                for i in range(len(pdf_reader.outline)):
+                    if isinstance(pdf_reader.outline[i], list):
+                        x.append(pdf_reader.outline[i][0]['/Page']['/StructParents'])
+                    else:
+                        x.append(pdf_reader.outline[i]['/Page']['/StructParents'])
+                try:
+                    true_nb_of_toc = min(x)-1
+                except ValueError:
+                    true_nb_of_toc = 1
 
-                    if true_nb_of_toc != extract_as_dict['nbTocPages']:
-                        log.warning('nbTocPages in result pdf: {} are not equal to the one predicted : {}, request new pdf'.format(true_nb_of_toc,extract_as_dict['nbTocPages'])) # noqa
-                        extract_as_dict['nbTocPages'] = true_nb_of_toc
-                        print_result = requests.post(
-                            pdf_url,
-                            headers=pdf_headers,
-                            data=json.dumps(spec)
-                        )
+                log.debug('True number of TOC pages is {}, expected number was {}'.format(true_nb_of_toc, extract_as_dict['nbTocPages'])) # noqa
+                if true_nb_of_toc != extract_as_dict['nbTocPages']:
+                    log.warning('nbTocPages in result pdf: {} are not equal to the one predicted : {}, request new pdf'.format(true_nb_of_toc,extract_as_dict['nbTocPages'])) # noqa
+                    log.debug('Secondary PDF extract call STARTED')
+                    extract_as_dict['nbTocPages'] = true_nb_of_toc
+                    print_result = requests.post(
+                        pdf_url,
+                        headers=pdf_headers,
+                        data=json.dumps(spec)
+                    )
+                    log.debug('Secondary PDF extract call to fix TOC pages number DONE')
+
         except PdfReadError as e:
             err_msg = 'a problem occurred while generating the pdf file'
             log.error(err_msg + ': ' + str(e))

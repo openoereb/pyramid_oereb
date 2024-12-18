@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pyramid_oereb"
-version = "2.5.3"
+version = "2.5.4"
 description = "pyramid_oereb, extension for pyramid web frame work to provide a basic server part for the oereb project"
 
 classifiers=[
@@ -35,22 +35,22 @@ Changelog = "https://github.com/openoereb/pyramid_oereb/blob/master/CHANGES.rst"
 [project.optional-dependencies]
 # Dependencies listed in "recommend" must be included in "no-version" without explicit version number
 recommend = [
-    "pypdf==4.3.1",
+    "pypdf==5.1.0",
     "filetype==1.2.0",
     "geoalchemy2==0.15.2",
     "pyramid==2.0.2",
     "pyramid-debugtoolbar==4.12.1",
-    "qrcode==7.4.2",
+    "qrcode==8.0",
     "image==1.5.33",
     "shapely==2.0.6",
-    "SQLAlchemy==2.0.32",
+    "SQLAlchemy==2.0.36",
     "pyaml-env==1.2.1",
-    "urllib3==2.2.2",
-    "waitress==3.0.0",
+    "urllib3==2.2.3",
+    "waitress==3.0.1",
     "pyreproj==3.0.0",
     "mako-render==0.1.0",
     "requests==2.32.3",
-    "geolink-formatter==2.0.5",
+    "geolink-formatter==2.0.6",
     "pyconizer==0.1.4",
     "c2cwsgiutils[standard]==6.0.8"]
 no-version = [
@@ -75,21 +75,21 @@ no-version = [
 testing = [
     "jsonschema==4.23.0",
     "lxml==5.3.0",
-    "pytest==8.3.2",
-    "pytest-cov==5.0.0",
+    "pytest==8.3.3",
+    "pytest-cov==6.0.0",
     "pytest-ordering==0.6",
     "requests-mock==1.12.1",
     "responses==0.25.3",
-    "webtest==3.0.0",
-    "pillow==10.4.0"]
+    "webtest==3.0.1",
+    "pillow==11.0.0"]
 dev = [
     "flake8==7.1.1",
     "Flake8-pyproject==1.2.3",
     "pyflakes==3.2.0",
     "pycodestyle==2.12.1",
     "Sphinx==7.4.7",
-    "sphinx_rtd_theme==2.0.0",
-    "psycopg2==2.9.9",
+    "sphinx_rtd_theme==3.0.1",
+    "psycopg2==2.9.10",
     "mccabe==0.7.0",
     "c2c.template==2.4.2",
     "yappi"]

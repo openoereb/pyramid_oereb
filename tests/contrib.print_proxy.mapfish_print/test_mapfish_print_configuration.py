@@ -100,3 +100,14 @@ def test_default_wms_url_param_config(DummyRenderInfo):
     config = renderer.get_wms_url_params()
     # Do the check for this test. Value should be the default setting.
     assert config == {'TRANSPARENT': 'true'}
+
+
+def test_toc_pages_default_config():
+    Config._config = None
+    Config.init('./tests/contrib.print_proxy.mapfish_print/resources/test_config.yml', 'pyramid_oereb')
+    compute_toc_pages = Config.get('print', {}).get('compute_toc_pages')
+    expected_toc_length = Config.get('print', {}).get('expected_toc_length')
+
+    assert isinstance(compute_toc_pages, bool)
+    assert bool(compute_toc_pages) is False
+    assert expected_toc_length == 2

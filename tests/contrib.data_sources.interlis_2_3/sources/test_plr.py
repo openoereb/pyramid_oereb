@@ -20,6 +20,7 @@ from pyramid_oereb.core.processor import Processor
 from pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr import (
     StandardThemeConfigParser
 )
+from pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr import DatabaseSource
 
 
 @pytest.fixture(scope='session')
@@ -209,6 +210,21 @@ def oblique_limit_real_estate_record():
     )
 
 
+@pytest.fixture
+def plr_source_params(db_connection):
+    yield {
+        "source": {
+            "class": "pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.DatabaseSource",
+            "params": {
+                "db_connection": db_connection,
+                "model_factory": "pyramid_oereb.contrib.data_sources.interlis_2_3."
+                                 "models.theme.model_factory_integer_pk",
+                "schema_name": "land_use_plans"
+            }
+        }
+    }
+
+
 # @pytest.fixture
 # def interlis_real_estate():
 #     theme = ThemeRecord('code', dict(), 100)
@@ -286,3 +302,107 @@ def test_related_geometries(processor_data, pyramid_oereb_test_config, interlis_
     assert len(extract_raw.real_estate.public_law_restrictions) == nb_results
     extract = processor.plr_tolerance_check(extract_raw)
     assert len(extract.real_estate.public_law_restrictions) == nb_results
+
+
+def mock_session_object_query_geometries(items_list):
+    class PublicLawRestrictionTest():
+        def __init__(self, law_status, legend_entry_id):
+            self.law_status = law_status
+            self.legend_entry_id = legend_entry_id
+
+    class GeometryTest():
+        def __init__(self, public_law_restriction):
+            self.public_law_restriction = public_law_restriction
+
+    geometries = []
+    for item in items_list:
+        geometries.append(GeometryTest(PublicLawRestrictionTest(item[0], item[1])))
+
+    class AllTest():
+        def all():
+            return iter(geometries)
+
+    class DistinctTest():
+        def __init__(self):
+            pass
+
+        def options(arg2):
+            return AllTest
+
+    class FilterTest():
+        def __init__(self):
+            pass
+
+        def distinct(arg2):
+            return DistinctTest
+
+    class QueryTest():
+        def __init__(self):
+            pass
+
+        def filter(arg3):
+            return FilterTest
+
+    class SessionTest():
+        def __init__(self):
+            pass
+
+        def query(arg1):
+            return QueryTest
+
+    return SessionTest
+
+
+def get_return_vals_of_get_legend_entries_from_db(arg1, arg2, list_of_ids):
+    return_value = []
+    for id in list_of_ids:
+        return_value.append((id, ))
+    return return_value
+
+
+@pytest.mark.parametrize('idx,items_list', [
+    (0, [
+        ["inForce", 1],
+        ["changeWithoutPreEffect", 1],
+        ["changeWithoutPreEffect", 2],
+        ["inForce", 3],
+        ["inForce", 4],
+        ["inForce", 3],
+        ["changeWithoutPreEffect", 6],
+        ["inForce", 7],
+        ["changeWithoutPreEffect", 2],
+        ["inForce", 9],
+        ["changeWithoutPreEffect", 7]
+    ]),
+    (1, [
+        ["inForce", 1],
+        ["inForce", 3],
+        ["inForce", 4],
+        ["inForce", 3],
+        ["inForce", 7],
+        ["inForce", 9],
+    ])
+])
+def test_collect_legend_entries_by_bbox(idx, items_list, plr_source_params):
+    with (
+        patch.object(
+            DatabaseSource,
+            'get_legend_entries_from_db',
+            get_return_vals_of_get_legend_entries_from_db
+        )
+    ):
+        source = DatabaseSource(**plr_source_params)
+        result = source.collect_legend_entries_by_bbox(
+            mock_session_object_query_geometries(items_list),
+            Polygon(((0., 0.), (0., 1.), (1., 1.), (1., 0.), (0., 0.))))
+
+    if idx == 0:
+        assert len(result) == 2
+        assert sorted([x[0] for x in result if x[1] == 'inForce'][0]) == \
+            [(1, ), (3, ), (4, ), (7, ), (9, )]
+        assert sorted([x[0] for x in result if x[1] == 'changeWithoutPreEffect'][0]) == \
+            [(1, ), (2, ), (6, ), (7, )]
+    if idx == 1:
+        assert len(result) == 1
+        assert sorted([x[0] for x in result if x[1] == 'inForce'][0]) == \
+            [(1, ), (3, ), (4, ), (7, ), (9, )]

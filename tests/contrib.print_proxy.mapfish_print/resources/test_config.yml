@@ -4,6 +4,8 @@ pyramid_oereb:
     wms_url_params:
       TRANSPARENT: 'true'
       OTHERCUSTOM: 'myvalue'
+    compute_toc_pages: false
+    expected_toc_length: 2
 
   theme:
     source:
