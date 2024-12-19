@@ -108,6 +108,9 @@ class TocPages:
     def compute_d6_left(self):
         total_size = 0
 
+        blank_space_above_d6 = 26
+        total_size += blank_space_above_d6
+
         # General Information (1 title, multiple items)
         general_information_title_height = 8  # general_info_and_disclaimer.jrxml
         general_information_item_line_heigth = 8  # general_info_and_disclaimer.jrxml
@@ -152,6 +155,9 @@ class TocPages:
 
     def compute_d6_right(self):
         total_size = 0
+
+        blank_space_above_d6 = 26
+        total_size += blank_space_above_d6
 
         blank_space_below_disclaimers = 6  # disclaimer_and_qrcode.jrxml
         disclaimer_title_line_height = 8  # disclaimer_and_qrcode.jrxml
