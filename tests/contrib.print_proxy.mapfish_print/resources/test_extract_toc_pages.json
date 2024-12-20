@@ -1,0 +1,1427 @@
+{
+  "CreationDate": "02.10.2024",
+  "ExtractIdentifier": "6db1fc15-95ae-4c74-b1bf-9e45361cbbcd",
+  "UpdateDateCS": "01.01.2024",
+  "ConcernedTheme": [
+    {
+      "Code": "ch.Nutzungsplanungch.NutzungsplanungGrundnutzungNutzungszoneninForce",
+      "Text": "Kommunale Nutzungsplanung: Zonenfl\u00e4chen Grundnutzung (Nutzungszonen)"
+    },
+    {
+      "Code": "ch.Nutzungsplanungch.NutzungsplanungGrundnutzungBauklasseninForce",
+      "Text": "Kommunale Nutzungsplanung: Zonenfl\u00e4chen Grundnutzung (Bauklassen)"
+    },
+    {
+      "Code": "ch.Nutzungsplanungch.NutzungsplanungLinieinForce",
+      "Text": "Kommunale Nutzungsplanung: Linienbezogene Festlegungen"
+    },
+    {
+      "Code": "ch.LaermempfindlichkeitsstufeninForce",
+      "Text": "L\u00e4rmempfindlichkeitsstufen (in kommunalen Nutzungszonen)"
+    }
+  ],
+  "NotConcernedTheme": [
+    {
+      "Code": "ch.Planungszonen",
+      "Text": "Kommunale Planungszonen"
+    },
+    {
+      "Code": "ch.BE.RegionalePlanungszonen",
+      "Text": "Regionale Planungszonen"
+    },
+    {
+      "Code": "ch.BE.KantonalePlanungszonen",
+      "Text": "Kantonale Planungszonen"
+    },
+    {
+      "Code": "ch.BE.RegionaleNutzungsplanung",
+      "Text": "Regionale Nutzungsplanung"
+    },
+    {
+      "Code": "ch.BE.KantonaleNutzungsplanung",
+      "Text": "Kantonale Nutzungsplanung"
+    },
+    {
+      "Code": "ch.ProjektierungszonenNationalstrassen",
+      "Text": "Projektierungszonen Nationalstrassen"
+    },
+    {
+      "Code": "ch.BaulinienNationalstrassen",
+      "Text": "Baulinien Nationalstrassen"
+    },
+    {
+      "Code": "ch.BE.BaulinienKantonsstrassen",
+      "Text": "Baulinien Kantonsstrassen"
+    },
+    {
+      "Code": "ch.ProjektierungszonenEisenbahnanlagen",
+      "Text": "Projektierungszonen Eisenbahnanlagen"
+    },
+    {
+      "Code": "ch.BaulinienEisenbahnanlagen",
+      "Text": "Baulinien Eisenbahnanlagen"
+    },
+    {
+      "Code": "ch.ProjektierungszonenFlughafenanlagen",
+      "Text": "Projektierungszonen Flughafenanlagen"
+    },
+    {
+      "Code": "ch.BaulinienFlughafenanlagen",
+      "Text": "Baulinien Flughafenanlagen"
+    },
+    {
+      "Code": "ch.Sicherheitszonenplan",
+      "Text": "Sicherheitszonenplan"
+    },
+    {
+      "Code": "ch.BelasteteStandorte",
+      "Text": "Kataster der belasteten Standorte"
+    },
+    {
+      "Code": "ch.BelasteteStandorteMilitaer",
+      "Text": "Kataster der belasteten Standorte im Bereich des Milit\u00e4rs"
+    },
+    {
+      "Code": "ch.BelasteteStandorteZivileFlugplaetze",
+      "Text": "Kataster der belasteten Standorte im Bereich der zivilen Flugpl\u00e4tze"
+    },
+    {
+      "Code": "ch.BelasteteStandorteOeffentlicherVerkehr",
+      "Text": "Kataster der belasteten Standorte im Bereich des \u00f6ffentlichen Verkehrs"
+    },
+    {
+      "Code": "ch.Grundwasserschutzzonen",
+      "Text": "Grundwasserschutzzonen"
+    },
+    {
+      "Code": "ch.Grundwasserschutzareale",
+      "Text": "Grundwasserschutzareale"
+    },
+    {
+      "Code": "ch.Gewaesserraum",
+      "Text": "Gew\u00e4sserraum (in kommunalen Nutzungszonen)"
+    },
+    {
+      "Code": "ch.BE.RegionalerGewaesserraum",
+      "Text": "Gew\u00e4sserraum (in regionalen Nutzungszonen)"
+    },
+    {
+      "Code": "ch.BE.KantonalerGewaesserraum",
+      "Text": "Gew\u00e4sserraum (in kantonalen Nutzungszonen)"
+    },
+    {
+      "Code": "ch.BE.Ueberflutungsgebiet",
+      "Text": "Wasserbauplan, \u00dcberflutungsgebiet"
+    },
+    {
+      "Code": "ch.BE.RegionaleLaermempfindlichkeitsstufen",
+      "Text": "L\u00e4rmempfindlichkeitsstufen (in regionalen Nutzungszonen)"
+    },
+    {
+      "Code": "ch.BE.KantonaleLaermempfindlichkeitsstufen",
+      "Text": "L\u00e4rmempfindlichkeitsstufen (in kantonalen Nutzungszonen)"
+    },
+    {
+      "Code": "ch.StatischeWaldgrenzen",
+      "Text": "Statische Waldgrenzen"
+    },
+    {
+      "Code": "ch.Waldabstandslinien",
+      "Text": "Kommunale Wald-Baulinien"
+    },
+    {
+      "Code": "ch.BE.RegionaleWaldabstandslinien",
+      "Text": "Regionale Wald-Baulinien"
+    },
+    {
+      "Code": "ch.BE.KantonaleWaldabstandslinien",
+      "Text": "Kantonale Wald-Baulinien"
+    },
+    {
+      "Code": "ch.Waldreservate",
+      "Text": "Waldreservate"
+    },
+    {
+      "Code": "ch.ProjektierungszonenStarkstromanlagen",
+      "Text": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder h\u00f6her"
+    },
+    {
+      "Code": "ch.BaulinienStarkstromanlagen",
+      "Text": "Baulinien Starkstromanlagen"
+    },
+    {
+      "Code": "ch.BE.GeschuetzteGeologischeObjekte",
+      "Text": "Gesch\u00fctzte geologische Objekte regionaler Bedeutung"
+    },
+    {
+      "Code": "ch.BE.GeschuetzteBotanischeObjekte",
+      "Text": "Gesch\u00fctzte botanische Objekte regionaler Bedeutung"
+    },
+    {
+      "Code": "ch.BE.KantonaleNaturschutzgebiete",
+      "Text": "Kantonale Naturschutzgebiete"
+    },
+    {
+      "Code": "ch.BE.ArchaeologischesInventar",
+      "Text": "Arch\u00e4ologisches Inventar (Zusatzinformation nach Art. 8b Abs. 1 Bst. b \u00d6REBKV)"
+    }
+  ],
+  "ThemeWithoutData": [
+    {
+      "Code": "ch.BE.LeitungenWasser",
+      "Text": "Gesicherte \u00f6ffentliche Leitungen"
+    },
+    {
+      "Code": "ch.BE.Naturgefahren",
+      "Text": "Naturgefahrenkarte (Zusatzinformation nach Art. 8b Abs. 1 Bst. b \u00d6REBKV)"
+    }
+  ],
+  "LogoPLRCadastreRef": "http://localhost:6543/image/logo/oereb/de.png",
+  "FederalLogoRef": "http://localhost:6543/image/logo/confederation/de.png",
+  "CantonalLogoRef": "http://localhost:6543/image/logo/canton/de.png",
+  "MunicipalityLogoRef": "http://localhost:6543/image/logo/municipality/de.png?fosnr=351",
+  "QRCodeRef": "http://localhost:6543/image/qrcode?extract_url=http%3A%2F%2Flocalhost%3A6543%2Fextract%2Fpdf%3Fegrid%3DCH743546874207",
+  "GeneralInformation": [
+    {
+      "Info": "Der Inhalt des \u00d6REB-Katasters wird als bekannt vorausgesetzt. Der Kanton Bern ist f\u00fcr die Genauigkeit und Verl\u00e4sslichkeit der gesetzgebenden Dokumente in elektronischer Form nicht haftbar. Der Auszug hat rein informativen Charakter und begr\u00fcndet insbesondere keine Rechte und Pflichten. Die rechtskr\u00e4ftig verf\u00fcgten \u00d6REB werden m\u00f6glichst zeitnah im \u00d6REB-Kataster nachgef\u00fchrt. Es kann jedoch zu vor\u00fcbergehenden Differenzen kommen. Massgeblich sind diejenigen Dokumente, welche rechtskr\u00e4ftig verabschiedet oder ver\u00f6ffentlicht worden sind. Weitere Informationen zum \u00d6REB-Kataster finden Sie unter www.cadastre.ch"
+    }
+  ],
+  "Disclaimer": [
+    {
+      "Title": "Haftungsausschluss Kataster der belasteten Standorte (KbS)",
+      "Content": "Der Kataster der belasteten Standorte (KbS) wurde anhand der vom Bundesamt f\u00fcr Umwelt BAFU festgelegten Kriterien erstellt und wird fortw\u00e4hrend aufgrund neuer Erkenntnisse (z.B. Untersuchungen) aktualisiert. Die im KbS eingetragenen Fl\u00e4chen k\u00f6nnen vom tats\u00e4chlichen Ausmass der Belastung abweichen. Erscheint ein Grundst\u00fcck nicht im KbS, besteht keine absolute Gew\u00e4hr, dass das Areal frei von jeglichen Abfall- oder Schadstoffbelastungen ist. Bahnbetrieblich, milit\u00e4risch und f\u00fcr die Luftfahrt genutzte Standorte liegen im Zust\u00e4ndigkeitsbereich des Bundes."
+    },
+    {
+      "Title": "Hinweis L\u00e4rmempfindlichkeitsstufen (in Nutzungszonen)",
+      "Content": "Im Kanton Bern werden die L\u00e4rmempfindlichkeitsstufen in vielen Gemeinden ausschliesslich im Baureglement definiert und daher im \u00d6REB-Katasterauszug nicht explizit ausgewiesen. F\u00fcr Informationen zur L\u00e4rmempfindlichkeit muss somit das im Thema kommunale Nutzungsplanung als Rechtsvorschrift hinterlegte Baureglement konsultiert werden."
+    },
+    {
+      "Title": "Hinweis kommunale Nutzungsplanung",
+      "Content": "Im Kanton Bern sind die Verkehrsfl\u00e4chen in den kommunalen Zonenpl\u00e4nen nicht immer explizit einer Grundnutzungszone zugewiesen (\u00abweisse Fl\u00e4chen\u00bb). Bei den im \u00d6REB-Kataster abgebildeten Daten handelt es sich daher in diesen Bereichen um eine Beurteilung und Anwendung gem\u00e4ss der bekannten Rechtsprechung."
+    },
+    {
+      "Title": "Hinweis Wirkungsfl\u00e4chen (von linien- und punktf\u00f6rmigen Festlegungen)",
+      "Content": "Bei linien- und punktf\u00f6rmigen Festlegungen kann in der Rechtsvorschrift eine Abstandsvorschrift definiert sein, die auch eine Auswirkung auf umliegende Grundst\u00fccke haben kann. Die aus der Abstandsvorschrift resultierende Wirkungsfl\u00e4che wird bei der Auswertung eines Grundst\u00fccks nicht aufgef\u00fchrt. Daher ist es empfehlenswert, sich ebenfalls einen \u00dcberblick \u00fcber die nahegelegenen linien- und punktf\u00f6rmigen Festlegungen und deren Rechtsvorschriften zu verschaffen."
+    },
+    {
+      "Title": "Hinweis \u00c4nderungen",
+      "Content": "Bei folgenden Themen werden allf\u00e4llige \u00c4nderungen angezeigt: Sicherheitszonenplan, kantonale Naturschutzgebiete. Bei allen anderen Themen informiert der \u00d6REB-Kataster momentan nicht \u00fcber \u00c4nderungen."
+    }
+  ],
+  "Glossary": [
+    {
+      "Title": "Arch\u00e4ologisches Inventar",
+      "Content": "Das Arch\u00e4ologische Inventar enth\u00e4lt s\u00e4mtliche arch\u00e4ologischen Schutzgebiete und bekannten Fundstellen des Kantons Bern. Arch\u00e4ologische Funde sind Eigentum des Kantons Bern. Grabungen und der Einsatz von Metalldetektoren ohne Bewilligung sind strafbar. Sollten Bauvorhaben in einem arch\u00e4ologischen Schutzgebiet oder in der N\u00e4he von arch\u00e4ologischen Fundstellen liegen, so ist ein fr\u00fchzeitiger Kontakt zum Arch\u00e4ologischen Dienst empfohlen."
+    },
+    {
+      "Title": "\u00c4nderungen",
+      "Content": "Bei \u00c4nderungen handelt es sich um geplante oder neue \u00d6REB, welche ab der \u00f6ffentlichen Auflage im \u00d6REB-Kataster gef\u00fchrt werden k\u00f6nnen. \u00c4nderungen k\u00f6nnen je nach rechtlicher Grundlage mit der \u00f6ffentlichen Auflage bereits eine Vorwirkung entfalten."
+    },
+    {
+      "Title": "Baulinien Eisenbahnanlagen",
+      "Content": "Zwischen den Baulinien d\u00fcrfen keine baulichen Ver\u00e4nderungen vorgenommen oder sonstige Massnahmen getroffen werden, die dem Zweck bestehender oder k\u00fcnftiger Eisenbahnanlagen widersprechen."
+    },
+    {
+      "Title": "Baulinien Flughafenanlagen",
+      "Content": "Zwischen den Baulinien d\u00fcrfen keine baulichen Ver\u00e4nderungen vorgenommen oder sonstige Massnahmen getroffen werden, die dem Zweck bestehender oder k\u00fcnftiger Flughafenanlagen widersprechen."
+    },
+    {
+      "Title": "Baulinien Kantonsstrassen",
+      "Content": "Zwischen kantonaler Strassenbaulinie und Fahrbahnrand besteht ein Bauverbot. Dieses geht rechtlich den allgemeinen Abstandsvorschriften vor. Wurde keine Strassenbaulinie festgelegt, so gilt entlang von Kantonsstrassen beidseitig der gesetzlich vorgeschriebene Bauverbotsstreifen von 5m ab Fahrbahnrand."
+    },
+    {
+      "Title": "Baulinien Nationalstrassen",
+      "Content": "Wenn der projektierte Strassenverlauf definitiv bekannt ist, werden beiderseits der Strasse Baulinien festgelegt. Diese Baulinien erm\u00f6glichen es, die Anforderungen der Verkehrssicherheit und der Wohnhygiene sowie die Erfordernisse eines eventuellen k\u00fcnftigen Ausbaus der Strasse zu ber\u00fccksichtigen. Zwischen den Baulinien d\u00fcrfen ohne Bewilligung weder Neubauten erstellt noch Umbauten bestehender Geb\u00e4ude vorgenommen werden, auch wenn diese nur teilweise in die Baulinien hineinragen."
+    },
+    {
+      "Title": "Baulinien Starkstromanlagen",
+      "Content": "Zwischen den Baulinien d\u00fcrfen keine baulichen Ver\u00e4nderungen vorgenommen oder sonstige Massnahmen getroffen werden, die dem Zweck bestehender oder k\u00fcnftiger Starkstromanlagen widersprechen."
+    },
+    {
+      "Title": "BFS-Nr.",
+      "Content": "Gemeindenummer aus amtlichem Gemeindeverzeichnis; Eine vom schweizerischen Bundesamt f\u00fcr Statistik mit dem Amtlichen Gemeindeverzeichnis im Jahre 1986 erstmals vergebene Zahl, die der eineindeutigen Bezeichnung von territorialen Einheiten im Einzugsbereich der Schweiz dient."
+    },
+    {
+      "Title": "E-GRID",
+      "Content": "Eidgen\u00f6ssischer Grundst\u00fccksidentifikator; Aus einem Pr\u00e4fix und einer Nummer bestehende Bezeichnung, die es erlaubt, jedes in das Grundbuch aufgenommene Grundst\u00fcck landesweit eindeutig zu identifizieren, und die zum Datenaustausch zwischen Informatiksystemen dient."
+    },
+    {
+      "Title": "Eigentumsbeschr\u00e4nkung",
+      "Content": "Der Zweck aller Eigentumsbeschr\u00e4nkungen ist die Wahrung von Interessen anderer Personen, denen jene des Eigent\u00fcmers sich in bestimmter Beziehung unterordnen m\u00fcssen. Dies sind entweder die Eigent\u00fcmer angrenzender Grundst\u00fccke, die Nachbarn, oder auch weitere Kreise von Privatpersonen oder endlich die Allgemeinheit selber, der Staat. Die Beschr\u00e4nkungen zugunsten der Nachbarn oder weiterer Privatpersonen sind regelm\u00e4ssig privatrechtlicher, jene zugunsten der Allgemeinheit \u00f6ffentlich-rechtlicher Natur."
+    },
+    {
+      "Title": "Gesch\u00fctzte botanische Objekte",
+      "Content": "Die gesch\u00fctzten botanischen Objekte umfassen Naturdenkm\u00e4ler wie Einzelb\u00e4ume, Baumgruppen, Feldgeh\u00f6lze, Hecken, Alleen, Parkbest\u00e4nde sowie kleinere Pflanzenschutzgebiete. Jegliche Ver\u00e4nderung am Objekt oder in der Umgebung, welche die nat\u00fcrliche Entwicklung beeintr\u00e4chtigt, ist ohne Bewilligung des Amts f\u00fcr Landwirtschaft und Natur verboten."
+    },
+    {
+      "Title": "Gesch\u00fctzte geologische Objekte",
+      "Content": "Die gesch\u00fctzten geologischen Objekte umfassen Naturdenkm\u00e4ler wie Findlinge, exotische Bl\u00f6cke, geologische Aufschl\u00fcsse, Gletscherm\u00fchlen und Mineralkl\u00fcfte. Jegliche Ver\u00e4nderung am Objekt ist ohne Bewilligung des Amts f\u00fcr Landwirtschaft und Natur verboten."
+    },
+    {
+      "Title": "Gesetzliche Grundlage",
+      "Content": "Gesetz, Verordnung etc., das generell-abstrakt ist (generell f\u00fcr die Person, die nicht bekannt ist, abstrakt, weil der Perimeter ohne Karte definiert ist) und auf Bundesebene, auf kantonaler oder kommunaler Ebene erlassen worden ist und die bloss eine allgemeine Rechtsgrundlage der Eigentumsbeschr\u00e4nkung darstellen. Die gesetzliche Grundlage ist nicht Teil des \u00d6REB-Katasters. Der \u00d6REB-Kataster enth\u00e4lt aber Hinweise auf die entsprechende gesetzliche Grundlage."
+    },
+    {
+      "Title": "Gesicherte \u00f6ffentliche Leitungen (Abwasserentsorgung, Wasserversorgung)",
+      "Content": "Eigent\u00fcmer von \u00f6ffentlichen Abwasser- und Wasserversorgungsleitungen haben die M\u00f6glichkeit, ihre Leitungen in einem \u00f6ffentlich-rechtlichen Verfahren mit einer \u00dcberbauungsordnung sichern zu lassen. Mit Genehmigung durch das Amt f\u00fcr Wasser und Abfall sind die betreffenden \u00f6ffentlichen Leitungen in ihrem Bestand gesch\u00fctzt."
+    },
+    {
+      "Title": "Gew\u00e4sserraum",
+      "Content": "Fliessgew\u00e4sser k\u00f6nnen nur wieder naturn\u00e4her werden, wenn ausreichend Raum in den Schutz der Gew\u00e4sser miteinbezogen wird. Der Gew\u00e4sserraum soll weitgehend frei von neuen Anlagen bleiben; bestehende Anlagen haben jedoch Bestandesgarantie."
+    },
+    {
+      "Title": "Grundwasserschutzareale",
+      "Content": "Von Kanton festgelegte Areale, die f\u00fcr die k\u00fcnftige Nutzung und Anreicherung von Grundwasservorkommen von Bedeutung sind und in dem keine Bauten und Anlagen erstellt oder Arbeiten ausgef\u00fchrt werden, die k\u00fcnftige Nutzungs- und Anreicherungsanlagen beeintr\u00e4chtigen k\u00f6nnten."
+    },
+    {
+      "Title": "Grundwasserschutzzonen",
+      "Content": "Grundwasserschutzzonen, in denen gew\u00e4hrleistet werden soll, dass bei unmittelbar drohenden Gefahren wie Unf\u00e4llen mit wassergef\u00e4hrdenden Stoffen ausreichend Zeit und Raum f\u00fcr die erforderlichen Massnahmen zur Verf\u00fcgung stehen."
+    },
+    {
+      "Title": "Kantonale Naturschutzgebiete",
+      "Content": "Schutzgebiete sind naturnahe, vielf\u00e4ltige oder spezielle Lebensr\u00e4ume, in denen besondere Vorschriften gelten. Im Schutzbeschluss sind die spezifischen Schutzziele f\u00fcr jedes Gebiet festgelegt."
+    },
+    {
+      "Title": "Kataster der belasteten Standorte",
+      "Content": "Der Kataster enth\u00e4lt Deponien und andere durch Abf\u00e4lle belastete Standorte, die saniert werden, wenn sie zu sch\u00e4dlichen oder l\u00e4stigen Einwirkungen f\u00fchren oder die konkrete Gefahr besteht, dass solche Einwirkungen entstehen. Die Beh\u00f6rde ermittelt die belasteten Standorte, indem sie vorhandene Angaben wie Karten, Verzeichnisse und Meldungen auswertet. Sie tr\u00e4gt diejenigen Standorte, deren Belastung erwiesen oder sehr wahrscheinlich ist, in den Kataster ein."
+    },
+    {
+      "Title": "Katasterverantwortliche Stelle",
+      "Content": "Die katasterverantwortliche Stelle im Kanton erh\u00e4lt die in den \u00d6REB-Kataster aufzunehmenden Daten von den zust\u00e4ndigen Fachstellen. Sie verwaltet diese Daten und stellt sie via kantonales \u00d6REB-Geoportal der \u00d6ffentlichkeit zur Verf\u00fcgung."
+    },
+    {
+      "Title": "KbS",
+      "Content": "Kataster der belasteten Standorte"
+    },
+    {
+      "Title": "L\u00e4rmempfindlichkeitsstufen",
+      "Content": "Empfindlichkeitsstufen werden festgelegt, um jeweils bestimmte Zonen zu definieren: diejenigen, die eines erh\u00f6hten L\u00e4rmschutzes bed\u00fcrfen, diejenigen, in denen keine st\u00f6renden Betriebe zugelassen sind, und diejenigen, in denen m\u00e4ssig und stark st\u00f6rende Betriebe zugelassen sind."
+    },
+    {
+      "Title": "Mittelbare Eigentumsbeschr\u00e4nkungen",
+      "Content": "Mittelbar \u00f6ffentlich-rechtliche Eigentumsbeschr\u00e4nkungen k\u00f6nnen durch einen entsprechenden Verwaltungsakt in einer individuell-konkreten Verf\u00fcgung, einer generell-konkreten Allgemeinverf\u00fcgung oder gar einer generell-abstrakten Verwaltungsordnung konkretisiert werden und entfalten damit ihre Wirkung auf ein Grundst\u00fcck."
+    },
+    {
+      "Title": "Nutzungsplanung",
+      "Content": "Festlegung der Verwendung einzelner Bodenfl\u00e4chen f\u00fcr bestimmte Zwecke (z. B. Landwirtschaft, Siedlung, Wald)."
+    },
+    {
+      "Title": "\u00d6REB",
+      "Content": "\u00d6ffentlich-rechtliche Eigentumsbeschr\u00e4nkung"
+    },
+    {
+      "Title": "\u00d6REB-Kataster",
+      "Content": "Kataster der \u00f6ffentlich-rechtlichen Eigentumsbeschr\u00e4nkungen"
+    },
+    {
+      "Title": "Planungszonen",
+      "Content": "Zone, die ein genau bezeichnetes Gebiet umfasst, f\u00fcr das ein Nutzungsplan angepasst werden muss oder noch keiner vorliegt, und innerhalb derer nichts unternommen werden darf, was die Nutzungsplanung erschwert."
+    },
+    {
+      "Title": "Projektierungszonen Eisenbahnanlagen",
+      "Content": "Um die freie Verf\u00fcgbarkeit der f\u00fcr k\u00fcnftige Bahnbauten und -anlagen erforderlichen Grundst\u00fccke zu gew\u00e4hrleisten, k\u00f6nnen f\u00fcr genau bezeichnete Gebiete Projektierungszonen festgelegt werden. In diesen Zonen d\u00fcrfen keine baulichen Ver\u00e4nderungen vorgenommen werden, die dem Zweck der Eisenbahnen widersprechen."
+    },
+    {
+      "Title": "Projektierungszonen Flughafenanlagen",
+      "Content": "Um die freie Verf\u00fcgbarkeit der f\u00fcr Flughafenanlagen erforderlichen Grundst\u00fccke zu gew\u00e4hrleisten, k\u00f6nnen f\u00fcr genau bezeichnete Gebiete Projektierungszonen festgelegt werden. In diesen Zonen d\u00fcrfen keine baulichen Ver\u00e4nderungen vorgenommen werden, die dem Zweck der Flughafenanlagen widersprechen."
+    },
+    {
+      "Title": "Projektierungszonen Leitungen mit einer Nennspannung von 220 kV oder h\u00f6her",
+      "Content": "Um die freie Verf\u00fcgbarkeit der f\u00fcr Leitungen mit einer Nennspannung von 220 kV oder h\u00f6her erforderlichen Grundst\u00fccke zu gew\u00e4hrleisten, k\u00f6nnen f\u00fcr genau bezeichnete Gebiete Projektierungszonen festgelegt werden. In diesen Zonen d\u00fcrfen keine baulichen Ver\u00e4nderungen vorgenommen werden, die dem Zweck der Flughafenanlagen widersprechen."
+    },
+    {
+      "Title": "Projektierungszonen Nationalstrassen",
+      "Content": "Um die freie Verf\u00fcgbarkeit des f\u00fcr den Bau der Nationalstrassen erforderlichen Landes zu gew\u00e4hrleisten, k\u00f6nnen f\u00fcr genau bezeichnete Gebiete Projektierungszonen festgelegt werden. In diesen Zonen d\u00fcrfen keine baulichen Ver\u00e4nderungen vorgenommen werden, die dem Zweck der Nationalstrassen widersprechen."
+    },
+    {
+      "Title": "Rechtsvorschrift",
+      "Content": "Generell-konkrete Rechtsnorm, die zusammen mit den ihr zugeschriebenen Geobasisdaten die Eigentumsbeschr\u00e4nkung unmittelbar umschreibt und innerhalb desselben Verfahrens verabschiedet worden ist."
+    },
+    {
+      "Title": "Sicherheitszonenplan",
+      "Content": "Zonenplan, in dem die Sicherheitszonen dargestellt sind und aus dem die Eigentumsbeschr\u00e4nkungen nach Fl\u00e4che und H\u00f6he ersichtlich sind."
+    },
+    {
+      "Title": "Statische Waldgrenzen",
+      "Content": "Statische Waldgrenzen m\u00fcssen auf der Grundlage rechtskr\u00e4ftiger Waldfeststellungen festgelegt werden. Neue Bestockungen ausserhalb dieser Waldgrenzen gelten nicht als Wald."
+    },
+    {
+      "Title": "Unmittelbare Eigentumsbeschr\u00e4nkungen",
+      "Content": "Unmittelbar \u00f6ffentlich-rechtliche Eigentumsbeschr\u00e4nkungen sind Nutzungs- und Verf\u00fcgungsbeschr\u00e4nkungen, die sofort auf ein Grundst\u00fcck wirken. Sie st\u00fctzen sich auf entsprechende Gesetze und Verordnungen, so dass ein weiterer beh\u00f6rdlicher Vollzug (Begr\u00fcndungsakt, rechtsbegr\u00fcndeten Eintrag im Grundbuch, usw.) nicht n\u00f6tig ist."
+    },
+    {
+      "Title": "Vorwirkung",
+      "Content": "Mit der \u00f6ffentlichen Auflage entsteht eine Vorwirkung: Ab diesem Zeitpunkt d\u00fcrfen Bauvorhaben in der Regel nur bewilligt werden, wenn sie der \u00f6ffentlich aufgelegten Planung nicht widersprechen."
+    },
+    {
+      "Title": "Waldabstandslinien",
+      "Content": "Waldabstandslinien werden im Kanton Bern gem\u00e4ss der kantonalen Fachgesetzgebung als Wald-Baulinien bezeichnet. Sie werden im Rahmen eines Nutzungsplanungsverfahrens erlassen und k\u00f6nnen auch gemeindespezifische Bezeichnungen aufweisen (z.B. reduzierter Waldabstand). Bauten und Anlagen in Waldesn\u00e4he sind nur zul\u00e4ssig, wenn sie die Erhaltung, Pflege und Nutzung des Waldes nicht beeintr\u00e4chtigen."
+    },
+    {
+      "Title": "Waldreservate",
+      "Content": "Gesch\u00fctzte Waldfl\u00e4che, die der Erhaltung der Artenvielfalt von Fauna und Flora dient."
+    },
+    {
+      "Title": "Wasserbauplan, \u00dcberflutungsgebiet",
+      "Content": "Bestehende Bauten und Anlagen in \u00dcberflutungsgebieten sind durch Objektschutzmassnahmen zu sch\u00fctzen. Daneben k\u00f6nnen im \u00dcberflutungsgebiet Bauverbote, Auflagen und Nutzungseinschr\u00e4nkungen erlassen werden. Eigent\u00fcmer und Eigent\u00fcmerinnen der Parzellen in \u00dcberflutungsgebieten haben Anspruch auf eine angemessene Entsch\u00e4digung."
+    },
+    {
+      "Title": "Zusatzinformation",
+      "Content": "Zusatzinformationen sind gem\u00e4ss Artikel 8b \u00d6REBKV unverbindliche Informationen (\u00c4nderungen an \u00d6REB, weitere Geobasisdaten, Hinweise) und nicht Bestandteil des rechtskr\u00e4ftigen Inhaltes des \u00d6REB-Katasters. Sie k\u00f6nnen unmittelbare und mittelbare, also potenzielle Eigentumsbeschr\u00e4nkungen sein, welche in entsprechenden beh\u00f6rdlichen Verfahren ber\u00fccksichtigt werden und zu entsprechenden Eigentumsbeschr\u00e4nkungen f\u00fchren k\u00f6nnen."
+    },
+    {
+      "Title": "Zust\u00e4ndige Stelle",
+      "Content": "Durch die Gesetzgebung bezeichnete Stelle des Bundes, des Kantons oder der Gemeinde, die f\u00fcr das Erheben, Nachf\u00fchren und Verwalten der Geobasisdaten zust\u00e4ndig ist."
+    }
+  ],
+  "Footer": "02.10.2024   11:00:57   6db1fc15-95ae-4c74-b1bf-9e45361cbbcd",
+  "PLRCadastreAuthority_Name": "Amt f\u00fcr Geoinformation",
+  "PLRCadastreAuthority_OfficeAtWeb": "https://www.be.ch/oerebk",
+  "PLRCadastreAuthority_Street": "Reiterstrasse",
+  "PLRCadastreAuthority_Number": "11",
+  "PLRCadastreAuthority_PostalCode": "3013",
+  "PLRCadastreAuthority_City": "Bern",
+  "RealEstate_Canton": "BE",
+  "RealEstate_MunicipalityName": "Bern",
+  "RealEstate_MunicipalityCode": 351,
+  "RealEstate_LandRegistryArea": "9512 m\u00b2",
+  "RealEstate_PlanForLandRegisterMainPage": {
+    "ReferenceWMS": "https://geodienste.ch/db/av_situationsplan_0/deu?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&CRS=EPSG%3A2056&BBOX=2601568.2954667974%2C1200153.3681428572%2C2601978.0237423074%2C1200386.073857143&WIDTH=2055&HEIGHT=1169&LAYERS=daten%2Cnational_maps_grey&STYLES=%2C%2C&EXCEPTIONS=XML&FORMAT=image%2Fpng&BGCOLOR=0xFEFFFF&TRANSPARENT=TRUE&SRS=EPSG%3A2056",
+    "layerIndex": 0,
+    "layerOpacity": 1.0,
+    "min": {
+      "type": "Point",
+      "coordinates": [
+        2601568.2954667974,
+        1200153.3681428572
+      ],
+      "crs": "EPSG:2056"
+    },
+    "max": {
+      "type": "Point",
+      "coordinates": [
+        2601978.0237423074,
+        1200386.073857143
+      ],
+      "crs": "EPSG:2056"
+    }
+  },
+  "RealEstate_Number": "2653",
+  "RealEstate_IdentDN": "BE0200000045",
+  "RealEstate_EGRID": "CH743546874207",
+  "RealEstate_SubunitOfLandRegister": "4 - Kirchenfeld, Schosshalde",
+  "RealEstate_RestrictionOnLandownership": [
+    {
+      "ResponsibleOffice": [
+        {
+          "Name": "Stadt Bern (f\u00fcr Ausk\u00fcnfte zu Bauvorhaben: Bauinspektorat der Stadt Bern)",
+          "OfficeAtWeb": "http://www.bern.ch/politik-und-verwaltung/stadtverwaltung/prd/bauinspektorat"
+        }
+      ],
+      "Lawstatus_Code": "inForce",
+      "Lawstatus_Text": "Rechtskr\u00e4ftig",
+      "Theme_Code": "ch.Nutzungsplanung",
+      "Theme_Text": "Kommunale Nutzungsplanung: Zonenfl\u00e4chen Grundnutzung (Nutzungszonen)",
+      "Theme_SubCode": "ch.NutzungsplanungGrundnutzungNutzungszonen",
+      "baseLayers": {
+        "layers": [
+          {
+            "type": "wms",
+            "opacity": 0.75,
+            "styles": "default",
+            "baseURL": "https://oerebservice.apps.be.ch/cgi-bin/mapserv.fcgi",
+            "layers": [
+              "geodb.nupla_gnnutzbk_nzp",
+              "geodb.nupla_gnzppueo",
+              "geodb.nupla_abgrz_zoen"
+            ],
+            "imageFormat": "image/png",
+            "customParams": {
+              "MAP": "oereb_de",
+              "TRANSPARENT": "TRUE"
+            }
+          },
+          {
+            "type": "wms",
+            "styles": "default",
+            "opacity": 1.0,
+            "baseURL": "https://geodienste.ch/db/av_situationsplan_oereb_0/deu",
+            "layers": [
+              "daten"
+            ],
+            "imageFormat": "image/png",
+            "customParams": {
+              "TRANSPARENT": "true"
+            }
+          }
+        ]
+      },
+      "OtherLegend": [
+        {
+          "LegendText": "Freifl\u00e4che A (Zone f\u00fcr \u00f6ff. Nutzungen FA)",
+          "TypeCode": "106_6",
+          "SymbolRef": "http://localhost:6543/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=3485b10a-2d2e-4868-ad99-673d61767da1"
+        },
+        {
+          "LegendText": "Freifl\u00e4che B (Zone f\u00fcr \u00f6ff. Nutzungen FB)",
+          "TypeCode": "107_7",
+          "SymbolRef": "http://localhost:6543/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=8e784b9d-63a0-4265-bf19-929d32f3b031"
+        },
+        {
+          "LegendText": "Schutzzone A (SZA) Landschafts- + Ortsbildschutzareal",
+          "TypeCode": "114_15",
+          "SymbolRef": "http://localhost:6543/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=b7eab038-c58d-4903-ac7d-b36a9598c5a3"
+        },
+        {
+          "LegendText": "UeO Erhaltung Baumgarten",
+          "TypeCode": "125_51",
+          "SymbolRef": "http://localhost:6543/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=e3ce2735-827a-4211-8d9a-181ca5619a2c"
+        },
+        {
+          "LegendText": "Wohnzone (W)",
+          "TypeCode": "101_1",
+          "SymbolRef": "http://localhost:6543/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=dc25e7b1-1430-48cf-8529-c8a3e8bc6c04"
+        }
+      ],
+      "LegalProvisions": [
+        {
+          "Type": {
+            "Code": "LegalProvision",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Index": 100,
+          "Title": "Bauordnung der Stadt Bern (BO) vom 28-12-2006",
+          "TextAtWeb": [
+            {
+              "URL": "https://oerebfiles.apps.be.ch/35101/2846/Bern_SSSB_721_1_Bauordnung_der_Stadt_Bern.pdf"
+            }
+          ],
+          "Lawstatus_Code": "inForce",
+          "Lawstatus_Text": "Rechtskr\u00e4ftig",
+          "ResponsibleOffice_Name": "Stadt Bern (f\u00fcr Ausk\u00fcnfte zu Bauvorhaben: Bauinspektorat der Stadt Bern)",
+          "ResponsibleOffice_OfficeAtWeb": "http://www.bern.ch/politik-und-verwaltung/stadtverwaltung/prd/bauinspektorat"
+        }
+      ],
+      "Laws": [
+        {
+          "Type": {
+            "Code": "Law",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Gesetzliche Grundlage"
+              }
+            ]
+          },
+          "Index": 10,
+          "Title": "Bundesgesetz \u00fcber die Raumplanung",
+          "TextAtWeb": [
+            {
+              "URL": "https://www.admin.ch/ch/d/sr/c700.html"
+            }
+          ],
+          "Abbreviation": "RPG",
+          "OfficialNumber": "SR 700",
+          "Lawstatus_Code": "inForce",
+          "Lawstatus_Text": "Rechtskr\u00e4ftig",
+          "ResponsibleOffice_Name": "Bundeskanzlei",
+          "ResponsibleOffice_OfficeAtWeb": "https://www.bk.admin.ch",
+          "ResponsibleOffice_UID": "CHE263297189"
+        },
+        {
+          "Type": {
+            "Code": "Law",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Gesetzliche Grundlage"
+              }
+            ]
+          },
+          "Index": 910,
+          "Title": "Baugesetz",
+          "TextAtWeb": [
+            {
+              "URL": "https://www.belex.sites.be.ch/data/721.0/de"
+            }
+          ],
+          "Abbreviation": "BauG",
+          "OfficialNumber": "BSG 721.0",
+          "Lawstatus_Code": "inForce",
+          "Lawstatus_Text": "Rechtskr\u00e4ftig",
+          "ResponsibleOffice_Name": "Staatskanzlei des Kantons Bern",
+          "ResponsibleOffice_OfficeAtWeb": "https://www.sta.be.ch",
+          "ResponsibleOffice_UID": "CHE105620392"
+        },
+        {
+          "Type": {
+            "Code": "Law",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Gesetzliche Grundlage"
+              }
+            ]
+          },
+          "Index": 915,
+          "Title": "Bauverordnung",
+          "TextAtWeb": [
+            {
+              "URL": "https://www.belex.sites.be.ch/data/721.1/de"
+            }
+          ],
+          "Abbreviation": "BauV",
+          "OfficialNumber": "BSG 721.1",
+          "Lawstatus_Code": "inForce",
+          "Lawstatus_Text": "Rechtskr\u00e4ftig",
+          "ResponsibleOffice_Name": "Staatskanzlei des Kantons Bern",
+          "ResponsibleOffice_OfficeAtWeb": "https://www.sta.be.ch",
+          "ResponsibleOffice_UID": "CHE105620392"
+        }
+      ],
+      "Hints": [],
+      "Geom_Type": "AreaShare",
+      "Legend": [
+        {
+          "TypeCode": "112_12",
+          "Geom_Type": "AreaShare",
+          "TypeCodelist": "aaf8deaa-a48d-402f-96f0-a55492e48e06",
+          "AreaShare": "9511 m\u00b2",
+          "PartInPercent": "100.0%",
+          "SymbolRef": "http://localhost:6543/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=2405d1eb-5532-40b8-9074-8c0bfc27ca51",
+          "LegendText": "Freifl\u00e4che C* (Zone f\u00fcr priv. Bauten + Anl. im allg. Int. FC*)"
+        }
+      ],
+      "LegendText": "",
+      "SymbolRef": "",
+      "TypeCode": ""
+    },
+    {
+      "ResponsibleOffice": [
+        {
+          "Name": "Stadt Bern (f\u00fcr Ausk\u00fcnfte zu Bauvorhaben: Bauinspektorat der Stadt Bern)",
+          "OfficeAtWeb": "http://www.bern.ch/politik-und-verwaltung/stadtverwaltung/prd/bauinspektorat"
+        }
+      ],
+      "Lawstatus_Code": "inForce",
+      "Lawstatus_Text": "Rechtskr\u00e4ftig",
+      "Theme_Code": "ch.Nutzungsplanung",
+      "Theme_Text": "Kommunale Nutzungsplanung: Zonenfl\u00e4chen Grundnutzung (Bauklassen)",
+      "Theme_SubCode": "ch.NutzungsplanungGrundnutzungBauklassen",
+      "baseLayers": {
+        "layers": [
+          {
+            "type": "wms",
+            "opacity": 0.75,
+            "styles": "default",
+            "baseURL": "https://oerebservice.apps.be.ch/cgi-bin/mapserv.fcgi",
+            "layers": [
+              "geodb.nupla_gnnutzbk_bkl",
+              "geodb.nupla_abgrz_bauweise",
+              "geodb.nupla_gnbauws"
+            ],
+            "imageFormat": "image/png",
+            "customParams": {
+              "MAP": "oereb_de",
+              "TRANSPARENT": "TRUE"
+            }
+          },
+          {
+            "type": "wms",
+            "styles": "default",
+            "opacity": 1.0,
+            "baseURL": "https://geodienste.ch/db/av_situationsplan_oereb_0/deu",
+            "layers": [
+              "daten"
+            ],
+            "imageFormat": "image/png",
+            "customParams": {
+              "TRANSPARENT": "true"
+            }
+          }
+        ]
+      },
+      "OtherLegend": [
+        {
+          "LegendText": "Bauklasse 3",
+          "TypeCode": "133_186",
+          "SymbolRef": "http://localhost:6543/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=7f747b4c-0434-4253-954a-8aacab98a6a8"
+        },
+        {
+          "LegendText": "Bauklasse 4",
+          "TypeCode": "134_187",
+          "SymbolRef": "http://localhost:6543/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=4892cdf6-3964-476b-ac2c-ee42c74700cf"
+        },
+        {
+          "LegendText": "Bauweise Offen, max. Gebaeudelaenge/-tiefe [m] = 40 / 12",
+          "TypeCode": "155_222",
+          "SymbolRef": "http://localhost:6543/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=ff2b3bff-8933-4e94-95f7-b2804adbeeb6"
+        },
+        {
+          "LegendText": "Bauweise Offen, max. Gebaeudelaenge/-tiefe [m] = 70 / 13",
+          "TypeCode": "155_234",
+          "SymbolRef": "http://localhost:6543/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=970355fb-d1b4-444e-89e6-3990c41ac538"
+        },
+        {
+          "LegendText": "Bauweise Offen, max. Gebaeudelaenge/-tiefe [m] = \u221e / 12",
+          "TypeCode": "155_244",
+          "SymbolRef": "http://localhost:6543/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=92a33cfd-09f3-43af-8520-4988d55e3c7a"
+        }
+      ],
+      "LegalProvisions": [
+        {
+          "Type": {
+            "Code": "LegalProvision",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Index": 100,
+          "Title": "Bauordnung der Stadt Bern (BO) vom 28-12-2006",
+          "TextAtWeb": [
+            {
+              "URL": "https://oerebfiles.apps.be.ch/35101/2846/Bern_SSSB_721_1_Bauordnung_der_Stadt_Bern.pdf"
+            }
+          ],
+          "Lawstatus_Code": "inForce",
+          "Lawstatus_Text": "Rechtskr\u00e4ftig",
+          "ResponsibleOffice_Name": "Stadt Bern (f\u00fcr Ausk\u00fcnfte zu Bauvorhaben: Bauinspektorat der Stadt Bern)",
+          "ResponsibleOffice_OfficeAtWeb": "http://www.bern.ch/politik-und-verwaltung/stadtverwaltung/prd/bauinspektorat"
+        }
+      ],
+      "Laws": [
+        {
+          "Type": {
+            "Code": "Law",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Gesetzliche Grundlage"
+              }
+            ]
+          },
+          "Index": 10,
+          "Title": "Bundesgesetz \u00fcber die Raumplanung",
+          "TextAtWeb": [
+            {
+              "URL": "https://www.admin.ch/ch/d/sr/c700.html"
+            }
+          ],
+          "Abbreviation": "RPG",
+          "OfficialNumber": "SR 700",
+          "Lawstatus_Code": "inForce",
+          "Lawstatus_Text": "Rechtskr\u00e4ftig",
+          "ResponsibleOffice_Name": "Bundeskanzlei",
+          "ResponsibleOffice_OfficeAtWeb": "https://www.bk.admin.ch",
+          "ResponsibleOffice_UID": "CHE263297189"
+        },
+        {
+          "Type": {
+            "Code": "Law",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Gesetzliche Grundlage"
+              }
+            ]
+          },
+          "Index": 910,
+          "Title": "Baugesetz",
+          "TextAtWeb": [
+            {
+              "URL": "https://www.belex.sites.be.ch/data/721.0/de"
+            }
+          ],
+          "Abbreviation": "BauG",
+          "OfficialNumber": "BSG 721.0",
+          "Lawstatus_Code": "inForce",
+          "Lawstatus_Text": "Rechtskr\u00e4ftig",
+          "ResponsibleOffice_Name": "Staatskanzlei des Kantons Bern",
+          "ResponsibleOffice_OfficeAtWeb": "https://www.sta.be.ch",
+          "ResponsibleOffice_UID": "CHE105620392"
+        },
+        {
+          "Type": {
+            "Code": "Law",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Gesetzliche Grundlage"
+              }
+            ]
+          },
+          "Index": 915,
+          "Title": "Bauverordnung",
+          "TextAtWeb": [
+            {
+              "URL": "https://www.belex.sites.be.ch/data/721.1/de"
+            }
+          ],
+          "Abbreviation": "BauV",
+          "OfficialNumber": "BSG 721.1",
+          "Lawstatus_Code": "inForce",
+          "Lawstatus_Text": "Rechtskr\u00e4ftig",
+          "ResponsibleOffice_Name": "Staatskanzlei des Kantons Bern",
+          "ResponsibleOffice_OfficeAtWeb": "https://www.sta.be.ch",
+          "ResponsibleOffice_UID": "CHE105620392"
+        }
+      ],
+      "Hints": [],
+      "Geom_Type": "AreaShare",
+      "Legend": [
+        {
+          "TypeCode": "139_192",
+          "Geom_Type": "AreaShare",
+          "TypeCodelist": "0178b5c6-7d67-4a86-8f96-b9f4800ca096",
+          "AreaShare": "9511 m\u00b2",
+          "PartInPercent": "100.0%",
+          "SymbolRef": "http://localhost:6543/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=4343128c-a908-4cc4-be23-a683afdc9605",
+          "LegendText": "Zone im \u00f6ffentlichen Interesse"
+        }
+      ],
+      "LegendText": "",
+      "SymbolRef": "",
+      "TypeCode": ""
+    },
+    {
+      "ResponsibleOffice": [
+        {
+          "Name": "Stadt Bern (f\u00fcr Ausk\u00fcnfte zu Bauvorhaben: Bauinspektorat der Stadt Bern)",
+          "OfficeAtWeb": "http://www.bern.ch/politik-und-verwaltung/stadtverwaltung/prd/bauinspektorat"
+        }
+      ],
+      "Lawstatus_Code": "inForce",
+      "Lawstatus_Text": "Rechtskr\u00e4ftig",
+      "Theme_Code": "ch.Nutzungsplanung",
+      "Theme_Text": "Kommunale Nutzungsplanung: Linienbezogene Festlegungen",
+      "Theme_SubCode": "ch.NutzungsplanungLinie",
+      "baseLayers": {
+        "layers": [
+          {
+            "type": "wms",
+            "opacity": 0.75,
+            "styles": "default",
+            "baseURL": "https://oerebservice.apps.be.ch/cgi-bin/mapserv.fcgi",
+            "layers": [
+              "geodb.nupla_ueln"
+            ],
+            "imageFormat": "image/png",
+            "customParams": {
+              "MAP": "oereb_de",
+              "TRANSPARENT": "TRUE"
+            }
+          },
+          {
+            "type": "wms",
+            "styles": "default",
+            "opacity": 1.0,
+            "baseURL": "https://geodienste.ch/db/av_situationsplan_oereb_0/deu",
+            "layers": [
+              "daten"
+            ],
+            "imageFormat": "image/png",
+            "customParams": {
+              "TRANSPARENT": "true"
+            }
+          }
+        ]
+      },
+      "OtherLegend": [
+        {
+          "LegendText": "Baulinie (projektiert)",
+          "TypeCode": "305_337",
+          "SymbolRef": "http://localhost:6543/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=804f7f7c-4d24-4fb3-9f5c-29c587c5db71"
+        },
+        {
+          "LegendText": "Parterrebaulinie (P)",
+          "TypeCode": "305_347",
+          "SymbolRef": "http://localhost:6543/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=51e0776e-8f58-41a6-a4dd-4ec8739f00e2"
+        },
+        {
+          "LegendText": "Parterrebaulinie (P) (projektiert)",
+          "TypeCode": "305_346",
+          "SymbolRef": "http://localhost:6543/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=98d15016-0bc6-4e40-977c-ff9873da1246"
+        }
+      ],
+      "LegalProvisions": [
+        {
+          "Type": {
+            "Code": "LegalProvision",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Index": 100,
+          "Title": "Baulinienplan der Stadt Bern vom 29.09.2021",
+          "TextAtWeb": [
+            {
+              "URL": "https://oerebfiles.apps.be.ch/35101/2846/Bern_A_0871_G_0327_Baulinienplan_der_Stadt_Bern_29_09_2021.pdf"
+            }
+          ],
+          "Lawstatus_Code": "inForce",
+          "Lawstatus_Text": "Rechtskr\u00e4ftig",
+          "ResponsibleOffice_Name": "Stadt Bern (f\u00fcr Ausk\u00fcnfte zu Bauvorhaben: Bauinspektorat der Stadt Bern)",
+          "ResponsibleOffice_OfficeAtWeb": "http://www.bern.ch/politik-und-verwaltung/stadtverwaltung/prd/bauinspektorat"
+        }
+      ],
+      "Laws": [
+        {
+          "Type": {
+            "Code": "Law",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Gesetzliche Grundlage"
+              }
+            ]
+          },
+          "Index": 10,
+          "Title": "Bundesgesetz \u00fcber die Raumplanung",
+          "TextAtWeb": [
+            {
+              "URL": "https://www.admin.ch/ch/d/sr/c700.html"
+            }
+          ],
+          "Abbreviation": "RPG",
+          "OfficialNumber": "SR 700",
+          "Lawstatus_Code": "inForce",
+          "Lawstatus_Text": "Rechtskr\u00e4ftig",
+          "ResponsibleOffice_Name": "Bundeskanzlei",
+          "ResponsibleOffice_OfficeAtWeb": "https://www.bk.admin.ch",
+          "ResponsibleOffice_UID": "CHE263297189"
+        },
+        {
+          "Type": {
+            "Code": "Law",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Gesetzliche Grundlage"
+              }
+            ]
+          },
+          "Index": 910,
+          "Title": "Baugesetz",
+          "TextAtWeb": [
+            {
+              "URL": "https://www.belex.sites.be.ch/data/721.0/de"
+            }
+          ],
+          "Abbreviation": "BauG",
+          "OfficialNumber": "BSG 721.0",
+          "Lawstatus_Code": "inForce",
+          "Lawstatus_Text": "Rechtskr\u00e4ftig",
+          "ResponsibleOffice_Name": "Staatskanzlei des Kantons Bern",
+          "ResponsibleOffice_OfficeAtWeb": "https://www.sta.be.ch",
+          "ResponsibleOffice_UID": "CHE105620392"
+        },
+        {
+          "Type": {
+            "Code": "Law",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Gesetzliche Grundlage"
+              }
+            ]
+          },
+          "Index": 915,
+          "Title": "Bauverordnung",
+          "TextAtWeb": [
+            {
+              "URL": "https://www.belex.sites.be.ch/data/721.1/de"
+            }
+          ],
+          "Abbreviation": "BauV",
+          "OfficialNumber": "BSG 721.1",
+          "Lawstatus_Code": "inForce",
+          "Lawstatus_Text": "Rechtskr\u00e4ftig",
+          "ResponsibleOffice_Name": "Staatskanzlei des Kantons Bern",
+          "ResponsibleOffice_OfficeAtWeb": "https://www.sta.be.ch",
+          "ResponsibleOffice_UID": "CHE105620392"
+        }
+      ],
+      "Hints": [],
+      "Geom_Type": "LengthShare",
+      "Legend": [
+        {
+          "TypeCode": "305_343",
+          "Geom_Type": "LengthShare",
+          "TypeCodelist": "bec8a430-a5e9-4da3-be24-9838aeea761d",
+          "LengthShare": "233 m",
+          "SymbolRef": "http://localhost:6543/image/symbol/ch.Nutzungsplanung/legend_entry.png?identifier=979e418f-f2ab-4ee4-be00-121c239f4971",
+          "LegendText": "Baulinie"
+        }
+      ],
+      "LegendText": "",
+      "SymbolRef": "",
+      "TypeCode": ""
+    },
+    {
+      "ResponsibleOffice": [
+        {
+          "Name": "Stadt Bern (f\u00fcr Ausk\u00fcnfte zu Bauvorhaben: Bauinspektorat der Stadt Bern)",
+          "OfficeAtWeb": "http://www.bern.ch/politik-und-verwaltung/stadtverwaltung/prd/bauinspektorat"
+        }
+      ],
+      "Lawstatus_Code": "inForce",
+      "Lawstatus_Text": "Rechtskr\u00e4ftig",
+      "Theme_Code": "ch.Laermempfindlichkeitsstufen",
+      "Theme_Text": "L\u00e4rmempfindlichkeitsstufen (in kommunalen Nutzungszonen)",
+      "baseLayers": {
+        "layers": [
+          {
+            "type": "wms",
+            "opacity": 0.75,
+            "styles": "default",
+            "baseURL": "https://oerebservice.apps.be.ch/cgi-bin/mapserv.fcgi",
+            "layers": [
+              "geodb.nupla_uelarmes"
+            ],
+            "imageFormat": "image/png",
+            "customParams": {
+              "MAP": "oereb_de",
+              "TRANSPARENT": "TRUE"
+            }
+          },
+          {
+            "type": "wms",
+            "styles": "default",
+            "opacity": 1.0,
+            "baseURL": "https://geodienste.ch/db/av_situationsplan_oereb_0/deu",
+            "layers": [
+              "daten"
+            ],
+            "imageFormat": "image/png",
+            "customParams": {
+              "TRANSPARENT": "true"
+            }
+          }
+        ]
+      },
+      "OtherLegend": [
+        {
+          "LegendText": "L\u00e4rmempfindlichkeitsstufe III",
+          "TypeCode": "209_294",
+          "SymbolRef": "http://localhost:6543/image/symbol/ch.Laermempfindlichkeitsstufen/legend_entry.png?identifier=ef54d513-e2d3-4b47-becc-3eac77496ac6"
+        }
+      ],
+      "LegalProvisions": [
+        {
+          "Type": {
+            "Code": "LegalProvision",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Rechtsvorschrift"
+              }
+            ]
+          },
+          "Index": 100,
+          "Title": "Bauordnung der Stadt Bern (BO) vom 28-12-2006",
+          "TextAtWeb": [
+            {
+              "URL": "https://oerebfiles.apps.be.ch/35101/2846/Bern_SSSB_721_1_Bauordnung_der_Stadt_Bern.pdf"
+            }
+          ],
+          "Lawstatus_Code": "inForce",
+          "Lawstatus_Text": "Rechtskr\u00e4ftig",
+          "ResponsibleOffice_Name": "Stadt Bern (f\u00fcr Ausk\u00fcnfte zu Bauvorhaben: Bauinspektorat der Stadt Bern)",
+          "ResponsibleOffice_OfficeAtWeb": "http://www.bern.ch/politik-und-verwaltung/stadtverwaltung/prd/bauinspektorat"
+        }
+      ],
+      "Laws": [
+        {
+          "Type": {
+            "Code": "Law",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Gesetzliche Grundlage"
+              }
+            ]
+          },
+          "Index": 620,
+          "Title": "L\u00e4rmschutz-Verordnung",
+          "TextAtWeb": [
+            {
+              "URL": "https://www.admin.ch/ch/d/sr/c814_41.html"
+            }
+          ],
+          "Abbreviation": "LSV",
+          "OfficialNumber": "SR 814.41",
+          "Lawstatus_Code": "inForce",
+          "Lawstatus_Text": "Rechtskr\u00e4ftig",
+          "ResponsibleOffice_Name": "Bundeskanzlei",
+          "ResponsibleOffice_OfficeAtWeb": "https://www.bk.admin.ch",
+          "ResponsibleOffice_UID": "CHE263297189"
+        },
+        {
+          "Type": {
+            "Code": "Law",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Gesetzliche Grundlage"
+              }
+            ]
+          },
+          "Index": 910,
+          "Title": "Baugesetz",
+          "TextAtWeb": [
+            {
+              "URL": "https://www.belex.sites.be.ch/data/721.0/de"
+            }
+          ],
+          "Abbreviation": "BauG",
+          "OfficialNumber": "BSG 721.0",
+          "Lawstatus_Code": "inForce",
+          "Lawstatus_Text": "Rechtskr\u00e4ftig",
+          "ResponsibleOffice_Name": "Staatskanzlei des Kantons Bern",
+          "ResponsibleOffice_OfficeAtWeb": "https://www.sta.be.ch",
+          "ResponsibleOffice_UID": "CHE105620392"
+        },
+        {
+          "Type": {
+            "Code": "Law",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Gesetzliche Grundlage"
+              }
+            ]
+          },
+          "Index": 915,
+          "Title": "Bauverordnung",
+          "TextAtWeb": [
+            {
+              "URL": "https://www.belex.sites.be.ch/data/721.1/de"
+            }
+          ],
+          "Abbreviation": "BauV",
+          "OfficialNumber": "BSG 721.1",
+          "Lawstatus_Code": "inForce",
+          "Lawstatus_Text": "Rechtskr\u00e4ftig",
+          "ResponsibleOffice_Name": "Staatskanzlei des Kantons Bern",
+          "ResponsibleOffice_OfficeAtWeb": "https://www.sta.be.ch",
+          "ResponsibleOffice_UID": "CHE105620392"
+        },
+        {
+          "Type": {
+            "Code": "Law",
+            "Text": [
+              {
+                "Language": "de",
+                "Text": "Gesetzliche Grundlage"
+              }
+            ]
+          },
+          "Index": 950,
+          "Title": "Kantonale L\u00e4rmschutzverordnung",
+          "TextAtWeb": [
+            {
+              "URL": "https://www.belex.sites.be.ch/data/824.761/de"
+            }
+          ],
+          "Abbreviation": "KLSV",
+          "OfficialNumber": "BSG 824.761",
+          "Lawstatus_Code": "inForce",
+          "Lawstatus_Text": "Rechtskr\u00e4ftig",
+          "ResponsibleOffice_Name": "Staatskanzlei des Kantons Bern",
+          "ResponsibleOffice_OfficeAtWeb": "https://www.sta.be.ch",
+          "ResponsibleOffice_UID": "CHE105620392"
+        }
+      ],
+      "Hints": [],
+      "Geom_Type": "AreaShare",
+      "Legend": [
+        {
+          "TypeCode": "207_292",
+          "Geom_Type": "AreaShare",
+          "TypeCodelist": "010f728a-89d4-40ce-97dc-34e908cd2b3e",
+          "AreaShare": "9511 m\u00b2",
+          "PartInPercent": "100.0%",
+          "SymbolRef": "http://localhost:6543/image/symbol/ch.Laermempfindlichkeitsstufen/legend_entry.png?identifier=a4256d28-0225-43c6-b67b-2a08cddc102f",
+          "LegendText": "L\u00e4rmempfindlichkeitsstufe II"
+        }
+      ],
+      "LegendText": "",
+      "SymbolRef": "",
+      "TypeCode": ""
+    }
+  ],
+  "RealEstate_Type_Code": "RealEstate",
+  "RealEstate_Type_Text": "Liegenschaft",
+  "baseLayers": {
+    "layers": [
+      {
+        "type": "wms",
+        "styles": "default",
+        "opacity": 1.0,
+        "baseURL": "https://geodienste.ch/db/av_situationsplan_0/deu",
+        "layers": [
+          "daten",
+          "national_maps_grey"
+        ],
+        "imageFormat": "image/png",
+        "customParams": {
+          "TRANSPARENT": "true"
+        }
+      }
+    ]
+  },
+  "DisclaimerLandRegister_Title": "Eigentumsbeschr\u00e4nkungen im Grundbuch",
+  "DisclaimerLandRegister_Content": "Zus\u00e4tzlich zu den Angaben in diesem Auszug k\u00f6nnen Eigentumsbeschr\u00e4nkungen auch im Grundbuch angemerkt sein.",
+  "features": {
+    "features": {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "geometry": {
+            "type": "MultiPolygon",
+            "coordinates": [
+              [
+                [
+                  [
+                    2601807.5,
+                    1200248.32
+                  ],
+                  [
+                    2601787.398,
+                    1200188.274
+                  ],
+                  [
+                    2601783.218,
+                    1200193.205
+                  ],
+                  [
+                    2601786.508,
+                    1200196.765
+                  ],
+                  [
+                    2601783.647723471,
+                    1200200.2987780666
+                  ],
+                  [
+                    2601780.7475994127,
+                    1200203.7999278347
+                  ],
+                  [
+                    2601777.808,
+                    1200207.268
+                  ],
+                  [
+                    2601774.3728770176,
+                    1200211.2741393168
+                  ],
+                  [
+                    2601770.885678374,
+                    1200215.23503161
+                  ],
+                  [
+                    2601767.347,
+                    1200219.15
+                  ],
+                  [
+                    2601761.455239191,
+                    1200225.4168542796
+                  ],
+                  [
+                    2601755.4306518342,
+                    1200231.5561258297
+                  ],
+                  [
+                    2601749.276,
+                    1200237.565
+                  ],
+                  [
+                    2601742.983445033,
+                    1200243.4737084613
+                  ],
+                  [
+                    2601736.5654584197,
+                    1200249.2459291366
+                  ],
+                  [
+                    2601730.025,
+                    1200254.879
+                  ],
+                  [
+                    2601725.9485306526,
+                    1200258.2109537653
+                  ],
+                  [
+                    2601721.828963861,
+                    1200261.4894728945
+                  ],
+                  [
+                    2601717.667,
+                    1200264.714
+                  ],
+                  [
+                    2601716.887084782,
+                    1200265.3638583024
+                  ],
+                  [
+                    2601716.1648933683,
+                    1200266.0773168656
+                  ],
+                  [
+                    2601715.5055952836,
+                    1200266.8492686746
+                  ],
+                  [
+                    2601714.9139098567,
+                    1200267.6741880132
+                  ],
+                  [
+                    2601714.3940724367,
+                    1200268.546170018
+                  ],
+                  [
+                    2601713.9498040774,
+                    1200269.4589729458
+                  ],
+                  [
+                    2601713.5842849007,
+                    1200270.4060628524
+                  ],
+                  [
+                    2601713.300131333,
+                    1200271.380660364
+                  ],
+                  [
+                    2601713.099377377,
+                    1200272.3757892044
+                  ],
+                  [
+                    2601712.983460051,
+                    1200273.3843261315
+                  ],
+                  [
+                    2601712.953209105,
+                    1200274.399051927
+                  ],
+                  [
+                    2601713.008841078,
+                    1200275.412703072
+                  ],
+                  [
+                    2601713.1499577505,
+                    1200276.4180237395
+                  ],
+                  [
+                    2601713.3755489932,
+                    1200277.4078177337
+                  ],
+                  [
+                    2601713.684,
+                    1200278.375
+                  ],
+                  [
+                    2601715.191,
+                    1200282.492
+                  ],
+                  [
+                    2601717.5495778965,
+                    1200288.5271508184
+                  ],
+                  [
+                    2601720.1665382427,
+                    1200294.454836171
+                  ],
+                  [
+                    2601723.037,
+                    1200300.264
+                  ],
+                  [
+                    2601745.177,
+                    1200342.735
+                  ],
+                  [
+                    2601745.7189834914,
+                    1200343.8834520874
+                  ],
+                  [
+                    2601746.1681000027,
+                    1200345.0712999993
+                  ],
+                  [
+                    2601746.5215155403,
+                    1200346.2910482353
+                  ],
+                  [
+                    2601746.777,
+                    1200347.535
+                  ],
+                  [
+                    2601746.862539622,
+                    1200348.264362394
+                  ],
+                  [
+                    2601746.8809823883,
+                    1200348.9984920786
+                  ],
+                  [
+                    2601746.8321735603,
+                    1200349.7312295672
+                  ],
+                  [
+                    2601746.716522653,
+                    1200350.4564270554
+                  ],
+                  [
+                    2601746.535,
+                    1200351.168
+                  ],
+                  [
+                    2601773.979,
+                    1200334.256
+                  ],
+                  [
+                    2601771.91,
+                    1200331.258
+                  ],
+                  [
+                    2601775.359,
+                    1200329.125
+                  ],
+                  [
+                    2601805.471,
+                    1200310.089
+                  ],
+                  [
+                    2601833.366,
+                    1200294.441
+                  ],
+                  [
+                    2601807.5,
+                    1200248.32
+                  ]
+                ]
+              ]
+            ]
+          },
+          "properties": {}
+        }
+      ]
+    }
+  },
+  "PrintCantonLogo": true,
+  "PrintMunicipalityName": true,
+  "Display_RealEstate_SubunitOfLandRegister": true,
+  "Display_Certification": false,
+  "Display_QRCode": false
+}

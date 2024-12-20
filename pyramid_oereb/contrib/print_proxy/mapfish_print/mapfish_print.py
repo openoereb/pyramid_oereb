@@ -75,14 +75,6 @@ class Renderer(JsonRenderer):
 
         print_config = Config.get('print', {})
 
-        if print_config.get('compute_toc_pages', False):
-            extract_as_dict['nbTocPages'] = TocPages(extract_as_dict).getNbPages()
-        else:
-            if print_config.get('expected_toc_length') and int(print_config.get('expected_toc_length')) > 0:
-                extract_as_dict['nbTocPages'] = print_config.get('expected_toc_length')
-            else:
-                extract_as_dict['nbTocPages'] = 1
-
         # set the global_datetime variable so that it can be used later for the archive
         self.set_global_datetime(extract_as_dict['CreationDate'])
         self.convert_to_printable_extract(extract_as_dict, feature_geometry)
@@ -98,6 +90,14 @@ class Renderer(JsonRenderer):
         extract_as_dict['Display_QRCode'] = print_config.get(
             'display_qrcode', False
         )
+
+        if print_config.get('compute_toc_pages', False):
+            extract_as_dict['nbTocPages'] = TocPages(extract_as_dict).getNbPages()
+        else:
+            if print_config.get('expected_toc_length') and int(print_config.get('expected_toc_length')) > 0:
+                extract_as_dict['nbTocPages'] = print_config.get('expected_toc_length')
+            else:
+                extract_as_dict['nbTocPages'] = 1
 
         spec = {
             'layout': print_config['template_name'],
