@@ -10,11 +10,11 @@ class TocPages:
         # 842: regular A4 page size in px
         # inlcude 10px buffer, taking a earlier page break of MPF
         # into consideration for unknown reasons
-        self.total_height = 842 - 10
+        self.total_height = 832
         self.header_height = self.compute_header()
         self.footer_height = self.compute_footer()
         self.disposable_height = (
-            842 - self.header_height - self.footer_height
+            self.total_height - self.header_height - self.footer_height
         )  # A4 size - (footer + header)
         self.d1_height = 77  # toc.jrxml
         self.d2_height = 32  # toc.jrxml
