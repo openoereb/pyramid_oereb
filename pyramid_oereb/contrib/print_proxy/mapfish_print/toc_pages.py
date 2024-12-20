@@ -7,7 +7,10 @@ log = logging.getLogger(__name__)
 
 class TocPages:
     def __init__(self, extract):
-        self.total_height = 842
+        # 842: regular A4 page size in px
+        # inlcude 10px buffer, taking a earlier page break of MPF
+        # into consideration for unknown reasons
+        self.total_height = 842 - 10
         self.header_height = self.compute_header()
         self.footer_height = self.compute_footer()
         self.disposable_height = (
