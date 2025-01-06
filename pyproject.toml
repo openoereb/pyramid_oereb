@@ -52,7 +52,7 @@ recommend = [
     "requests==2.32.3",
     "geolink-formatter==2.0.6",
     "pyconizer==0.1.4",
-    "c2cwsgiutils[standard]==6.0.8"]
+    "c2cwsgiutils[standard]==6.1.6"]
 no-version = [
     "pypdf",
     "filetype",
