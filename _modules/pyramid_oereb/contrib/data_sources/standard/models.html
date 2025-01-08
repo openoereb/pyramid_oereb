@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyramid_oereb.contrib.data_sources.standard.models &mdash; pyramid_oereb  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../../../_static/css/theme.css?v=e59714d7" />
 
   
@@ -91,11 +91,11 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">ForeignKey</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">String</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">Date</span>
-<span class="kn">from</span> <span class="nn">geoalchemy2.types</span> <span class="kn">import</span> <span class="n">Geometry</span> <span class="k">as</span> <span class="n">GeoAlchemyGeometry</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">relationship</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy_utils</span> <span class="kn">import</span> <span class="n">JSONType</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">ForeignKey</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">String</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">Date</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">geoalchemy2.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">Geometry</span> <span class="k">as</span> <span class="n">GeoAlchemyGeometry</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.orm</span><span class="w"> </span><span class="kn">import</span> <span class="n">relationship</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">JSONType</span>
 
 
 <span class="n">NAMING_CONVENTION</span> <span class="o">=</span> <span class="p">{</span>
@@ -109,7 +109,7 @@
 
 <div class="viewcode-block" id="get_office">
 <a class="viewcode-back" href="../../../../../contrib/data_sources/standard/models.html#pyramid_oereb.contrib.data_sources.standard.models.get_office">[docs]</a>
-<span class="k">def</span> <span class="nf">get_office</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_office</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Factory to produce a generic office model.</span>
 
@@ -124,7 +124,7 @@
 <span class="sd">        sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">class</span> <span class="nc">Office</span><span class="p">(</span><span class="n">base</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Office</span><span class="p">(</span><span class="n">base</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The bucket to fill in all the offices you need to reference from public law restriction, document,</span>
 <span class="sd">        geometry.</span>
@@ -161,7 +161,7 @@
 
 <div class="viewcode-block" id="get_document">
 <a class="viewcode-back" href="../../../../../contrib/data_sources/standard/models.html#pyramid_oereb.contrib.data_sources.standard.models.get_document">[docs]</a>
-<span class="k">def</span> <span class="nf">get_document</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">,</span> <span class="n">Office</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_document</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">,</span> <span class="n">Office</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Factory to produce a generic document model.</span>
 
@@ -177,7 +177,7 @@
 <span class="sd">        sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">class</span> <span class="nc">Document</span><span class="p">(</span><span class="n">base</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Document</span><span class="p">(</span><span class="n">base</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        THE DOCUMENT</span>
 <span class="sd">        This represents the main document in the whole system.</span>
@@ -233,7 +233,7 @@
 
 <div class="viewcode-block" id="get_view_service">
 <a class="viewcode-back" href="../../../../../contrib/data_sources/standard/models.html#pyramid_oereb.contrib.data_sources.standard.models.get_view_service">[docs]</a>
-<span class="k">def</span> <span class="nf">get_view_service</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_view_service</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Factory to produce a generic view service model.</span>
 
@@ -248,7 +248,7 @@
 <span class="sd">        sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">class</span> <span class="nc">ViewService</span><span class="p">(</span><span class="n">base</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">ViewService</span><span class="p">(</span><span class="n">base</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A view service aka WM(T)S which can deliver a cartographic representation via web.</span>
 
@@ -273,7 +273,7 @@
 
 <div class="viewcode-block" id="get_legend_entry">
 <a class="viewcode-back" href="../../../../../contrib/data_sources/standard/models.html#pyramid_oereb.contrib.data_sources.standard.models.get_legend_entry">[docs]</a>
-<span class="k">def</span> <span class="nf">get_legend_entry</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">,</span> <span class="n">ViewService</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_legend_entry</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">,</span> <span class="n">ViewService</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Factory to produce a generic legend entry model.</span>
 
@@ -289,7 +289,7 @@
 <span class="sd">        sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">class</span> <span class="nc">LegendEntry</span><span class="p">(</span><span class="n">base</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">LegendEntry</span><span class="p">(</span><span class="n">base</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A class based legend system which is directly related to :class:`ViewService`.</span>
 
@@ -331,7 +331,7 @@
 
 <div class="viewcode-block" id="get_public_law_restriction">
 <a class="viewcode-back" href="../../../../../contrib/data_sources/standard/models.html#pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction">[docs]</a>
-<span class="k">def</span> <span class="nf">get_public_law_restriction</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">,</span> <span class="n">Office</span><span class="p">,</span> <span class="n">ViewService</span><span class="p">,</span> <span class="n">LegendEntry</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_public_law_restriction</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">,</span> <span class="n">Office</span><span class="p">,</span> <span class="n">ViewService</span><span class="p">,</span> <span class="n">LegendEntry</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Factory to produce a generic public law restriction model.</span>
 
@@ -349,7 +349,7 @@
 <span class="sd">        sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">class</span> <span class="nc">PublicLawRestriction</span><span class="p">(</span><span class="n">base</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">PublicLawRestriction</span><span class="p">(</span><span class="n">base</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The container where you can fill in all your public law restrictions to the topic.</span>
 
@@ -406,7 +406,7 @@
 
 <div class="viewcode-block" id="get_geometry">
 <a class="viewcode-back" href="../../../../../contrib/data_sources/standard/models.html#pyramid_oereb.contrib.data_sources.standard.models.get_geometry">[docs]</a>
-<span class="k">def</span> <span class="nf">get_geometry</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">,</span> <span class="n">geometry_type</span><span class="p">,</span> <span class="n">srid</span><span class="p">,</span> <span class="n">PublicLawRestriction</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_geometry</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">,</span> <span class="n">geometry_type</span><span class="p">,</span> <span class="n">srid</span><span class="p">,</span> <span class="n">PublicLawRestriction</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Factory to produce a generic geometry model.</span>
 
@@ -424,7 +424,7 @@
 <span class="sd">        sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">class</span> <span class="nc">Geometry</span><span class="p">(</span><span class="n">base</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Geometry</span><span class="p">(</span><span class="n">base</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The dedicated model for all geometries in relation to their public law restriction.</span>
 
@@ -471,7 +471,7 @@
 
 <div class="viewcode-block" id="get_public_law_restriction_document">
 <a class="viewcode-back" href="../../../../../contrib/data_sources/standard/models.html#pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction_document">[docs]</a>
-<span class="k">def</span> <span class="nf">get_public_law_restriction_document</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">,</span> <span class="n">PublicLawRestriction</span><span class="p">,</span> <span class="n">Document</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_public_law_restriction_document</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">,</span> <span class="n">PublicLawRestriction</span><span class="p">,</span> <span class="n">Document</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Factory to produce a generic public law restriction document model.</span>
 
@@ -488,7 +488,7 @@
 <span class="sd">        sqlalchemy.orm.decl_api.DeclarativeMeta: The generated office model.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">class</span> <span class="nc">PublicLawRestrictionDocument</span><span class="p">(</span><span class="n">base</span><span class="p">):</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">PublicLawRestrictionDocument</span><span class="p">(</span><span class="n">base</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Meta bucket (join table) for the relationship between public law restrictions and documents.</span>
 

@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyramid_oereb.core.sources.plr &mdash; pyramid_oereb  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
 
   
@@ -76,25 +76,25 @@
              
   <h1>Source code for pyramid_oereb.core.sources.plr</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.documents</span> <span class="kn">import</span> <span class="n">DocumentRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.embeddable</span> <span class="kn">import</span> <span class="n">DatasourceRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.disclaimer</span> <span class="kn">import</span> <span class="n">DisclaimerRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.geometry</span> <span class="kn">import</span> <span class="n">GeometryRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.glossary</span> <span class="kn">import</span> <span class="n">GlossaryRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.law_status</span> <span class="kn">import</span> <span class="n">LawStatusRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.office</span> <span class="kn">import</span> <span class="n">OfficeRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.plr</span> <span class="kn">import</span> <span class="n">PlrRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.view_service</span> <span class="kn">import</span> <span class="n">ViewServiceRecord</span><span class="p">,</span> <span class="n">LegendEntryRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.sources</span> <span class="kn">import</span> <span class="n">Base</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.records.documents</span><span class="w"> </span><span class="kn">import</span> <span class="n">DocumentRecord</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.records.embeddable</span><span class="w"> </span><span class="kn">import</span> <span class="n">DatasourceRecord</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.records.disclaimer</span><span class="w"> </span><span class="kn">import</span> <span class="n">DisclaimerRecord</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.records.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeometryRecord</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.records.glossary</span><span class="w"> </span><span class="kn">import</span> <span class="n">GlossaryRecord</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.records.law_status</span><span class="w"> </span><span class="kn">import</span> <span class="n">LawStatusRecord</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.records.office</span><span class="w"> </span><span class="kn">import</span> <span class="n">OfficeRecord</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.records.plr</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlrRecord</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.records.view_service</span><span class="w"> </span><span class="kn">import</span> <span class="n">ViewServiceRecord</span><span class="p">,</span> <span class="n">LegendEntryRecord</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">Base</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="PlrBaseSource">
 <a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.core.sources.plr.PlrBaseSource">[docs]</a>
-<span class="k">class</span> <span class="nc">PlrBaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PlrBaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for public law restriction sources.</span>
 
@@ -119,7 +119,7 @@
 
 <div class="viewcode-block" id="PlrBaseSource.__init__">
 <a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.core.sources.plr.PlrBaseSource.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Keyword Arguments:</span>
 <span class="sd">            name (str): The name. You are free to choose one.</span>
@@ -143,7 +143,7 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the info dictionary.</span>
 
@@ -154,7 +154,7 @@
 
 <div class="viewcode-block" id="PlrBaseSource.read">
 <a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.core.sources.plr.PlrBaseSource.read">[docs]</a>
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Every public law restriction source has to implement a read method. This method must accept the two</span>
 <span class="sd">        key word parameters. If you want adapt to your own source for real estates, this is the point where</span>

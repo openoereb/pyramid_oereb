@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Changes/Hints for migration &mdash; pyramid_oereb  documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
@@ -906,12 +906,12 @@ must exist in the class to be able to use the prepared OEREBlex adapter. If you 
 your database you can map it the known way:</p>
 <p><cite>geolink = sa.Column(‘meine_eigene_spaltenbezeichnung’, sa.Integer, nullable=True)</cite></p>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sqlalchemy</span> <span class="k">as</span> <span class="nn">sa</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.standard.models</span> <span class="kn">import</span> <span class="n">NAMING_CONVENTION</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb</span> <span class="kn">import</span> <span class="n">srid</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="kn">import</span> <span class="n">declarative_base</span>
-<span class="kn">from</span> <span class="nn">geoalchemy2.types</span> <span class="kn">import</span> <span class="n">Geometry</span> <span class="k">as</span> <span class="n">GeoAlchemyGeometry</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">relationship</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sa</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.standard.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">NAMING_CONVENTION</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb</span><span class="w"> </span><span class="kn">import</span> <span class="n">srid</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.ext.declarative</span><span class="w"> </span><span class="kn">import</span> <span class="n">declarative_base</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">geoalchemy2.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">Geometry</span> <span class="k">as</span> <span class="n">GeoAlchemyGeometry</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.orm</span><span class="w"> </span><span class="kn">import</span> <span class="n">relationship</span>
 
 <span class="n">metadata</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">MetaData</span><span class="p">(</span><span class="n">naming_convention</span><span class="o">=</span><span class="n">NAMING_CONVENTION</span><span class="p">)</span>
 <span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">()</span>
@@ -920,7 +920,7 @@ your database you can map it the known way:</p>
     <span class="n">srid</span> <span class="o">=</span> <span class="mi">2056</span>
 
 
-<span class="k">class</span> <span class="nc">Availability</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Availability</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A simple bucket for achieving a switch per municipality. Here you can configure via the imported data if</span>
 <span class="sd">    a public law restriction is available or not. You need to fill it with the data you provided in the</span>
@@ -937,7 +937,7 @@ your database you can map it the known way:</p>
     <span class="n">available</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Boolean</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">Office</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Office</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The bucket to fill in all the offices you need to reference from public law restriction, document,</span>
 <span class="sd">    geometry.</span>
@@ -968,7 +968,7 @@ your database you can map it the known way:</p>
     <span class="n">city</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">DataIntegration</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DataIntegration</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be</span>
 <span class="sd">    able to find out who was the delivering instance.</span>
@@ -988,7 +988,7 @@ your database you can map it the known way:</p>
     <span class="n">office</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="n">Office</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">ViewService</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ViewService</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A view service aka WM(T)S which can deliver a cartographic representation via web.</span>
 <span class="sd">    Attributes:</span>
@@ -1004,7 +1004,7 @@ your database you can map it the known way:</p>
     <span class="n">legend_at_web</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">LegendEntry</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LegendEntry</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class based legend system which is directly related to</span>
 <span class="sd">    :meth:`oereb_server.models.land_use_plans.ViewService`.</span>
@@ -1047,7 +1047,7 @@ your database you can map it the known way:</p>
     <span class="n">view_service</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="n">ViewService</span><span class="p">,</span> <span class="n">backref</span><span class="o">=</span><span class="s1">&#39;legends&#39;</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">PublicLawRestriction</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PublicLawRestriction</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The container where you can fill in all your public law restrictions to the topic.</span>
 <span class="sd">    Attributes:</span>
@@ -1113,7 +1113,7 @@ your database you can map it the known way:</p>
     <span class="n">responsible_office</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="n">Office</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">Geometry</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Geometry</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The dedicated model for all geometries in relation to their public law restriction.</span>
 <span class="sd">    Attributes:</span>
@@ -1163,7 +1163,7 @@ your database you can map it the known way:</p>
     <span class="n">responsible_office</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="n">Office</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">PublicLawRestrictionBase</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PublicLawRestrictionBase</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Meta bucket (join table) for public law restrictions which acts as a base for other public law</span>
 <span class="sd">    restrictions.</span>
@@ -1203,7 +1203,7 @@ your database you can map it the known way:</p>
     <span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">PublicLawRestrictionRefinement</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PublicLawRestrictionRefinement</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Meta bucket (join table) for public law restrictions which acts as a refinement for other public law</span>
 <span class="sd">    restrictions.</span>

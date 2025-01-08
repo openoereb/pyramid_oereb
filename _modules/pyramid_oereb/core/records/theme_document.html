@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyramid_oereb.core.records.theme_document &mdash; pyramid_oereb  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
 
   
@@ -79,7 +79,7 @@
 
 <div class="viewcode-block" id="ThemeDocumentRecord">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.theme_document.ThemeDocumentRecord">[docs]</a>
-<span class="k">class</span> <span class="nc">ThemeDocumentRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ThemeDocumentRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates a new theme record.</span>
 <span class="sd">    Attributes:</span>
 <span class="sd">        theme_id (str): Foreign key relating to theme&#39;s id.</span>
@@ -89,7 +89,7 @@
 
 <div class="viewcode-block" id="ThemeDocumentRecord.__init__">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.theme_document.ThemeDocumentRecord.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme_id</span><span class="p">,</span> <span class="n">document_id</span><span class="p">,</span> <span class="n">article_numbers</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme_id</span><span class="p">,</span> <span class="n">document_id</span><span class="p">,</span> <span class="n">article_numbers</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            theme_id (str): Foreign key relating to theme&#39;s id.</span>
@@ -102,7 +102,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">article_numbers</span> <span class="o">=</span> <span class="n">article_numbers</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1"> -- theme_id: </span><span class="si">{}</span><span class="s1"> document_id: </span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">theme_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">document_id</span><span class="p">)</span></div>
 

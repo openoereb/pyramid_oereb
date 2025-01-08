@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyramid_oereb.core.records.view_service &mdash; pyramid_oereb  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
 
   
@@ -75,22 +75,22 @@
              
   <h1>Source code for pyramid_oereb.core.records.view_service</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
 
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.image</span> <span class="kn">import</span> <span class="n">ImageRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.url</span> <span class="kn">import</span> <span class="n">add_url_params</span><span class="p">,</span> <span class="n">parse_url</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.url</span> <span class="kn">import</span> <span class="n">uri_validator</span>
-<span class="kn">from</span> <span class="nn">shapely.geometry.point</span> <span class="kn">import</span> <span class="n">Point</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core</span> <span class="kn">import</span> <span class="n">get_multilingual_element</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.records.image</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageRecord</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.url</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_url_params</span><span class="p">,</span> <span class="n">parse_url</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.url</span><span class="w"> </span><span class="kn">import</span> <span class="n">uri_validator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry.point</span><span class="w"> </span><span class="kn">import</span> <span class="n">Point</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_multilingual_element</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="LegendEntryRecord">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.LegendEntryRecord">[docs]</a>
-<span class="k">class</span> <span class="nc">LegendEntryRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LegendEntryRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Represents a legend entry with it&#39;s text as well as it&#39;s image.</span>
 
@@ -111,7 +111,7 @@
 
 <div class="viewcode-block" id="LegendEntryRecord.__init__">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.LegendEntryRecord.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">legend_text</span><span class="p">,</span> <span class="n">type_code</span><span class="p">,</span> <span class="n">type_code_list</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">legend_text</span><span class="p">,</span> <span class="n">type_code</span><span class="p">,</span> <span class="n">type_code_list</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span>
                  <span class="n">view_service_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sub_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">identifier</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
@@ -142,7 +142,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span> <span class="o">=</span> <span class="n">identifier</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1"> -- symbol: </span><span class="si">{}</span><span class="s1"> legend_text: </span><span class="si">{}</span><span class="s1"> type_code: </span><span class="si">{}</span><span class="s1"> type_code_list: </span><span class="si">{}</span><span class="s1">&#39;</span>\
                     <span class="s1">&#39; theme: </span><span class="si">{}</span><span class="s1"> sub_theme: </span><span class="si">{}</span><span class="s1"> view_service_id: </span><span class="si">{}</span><span class="s1"> identifier: </span><span class="si">{}</span><span class="s1">&#39;</span>\
                     <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">legend_text</span><span class="p">,</span>
@@ -153,7 +153,7 @@
 
 <div class="viewcode-block" id="ViewServiceRecord">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord">[docs]</a>
-<span class="k">class</span> <span class="nc">ViewServiceRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ViewServiceRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A view service contains a valid WMS URL with a defined set of layers.</span>
 
@@ -165,7 +165,7 @@
 
 <div class="viewcode-block" id="ViewServiceRecord.__init__">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference_wms</span><span class="p">,</span> <span class="n">layer_index</span><span class="p">,</span> <span class="n">layer_opacity</span><span class="p">,</span> <span class="n">default_language</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference_wms</span><span class="p">,</span> <span class="n">layer_index</span><span class="p">,</span> <span class="n">layer_opacity</span><span class="p">,</span> <span class="n">default_language</span><span class="p">,</span>
                  <span class="n">srid</span><span class="p">,</span> <span class="n">proxies</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">legends</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verify_certificate</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
@@ -204,7 +204,7 @@
 <div class="viewcode-block" id="ViewServiceRecord.sanitize_layer_index">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord.sanitize_layer_index">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">sanitize_layer_index</span><span class="p">(</span><span class="n">layer_index</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sanitize_layer_index</span><span class="p">(</span><span class="n">layer_index</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks the validity of the layer index.</span>
 
@@ -230,7 +230,7 @@
 <div class="viewcode-block" id="ViewServiceRecord.sanitize_layer_opacity">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord.sanitize_layer_opacity">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">sanitize_layer_opacity</span><span class="p">(</span><span class="n">layer_opacity</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sanitize_layer_opacity</span><span class="p">(</span><span class="n">layer_opacity</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks the validity of the layer opacity</span>
 <span class="sd">        Args:</span>
@@ -255,7 +255,7 @@
 <div class="viewcode-block" id="ViewServiceRecord.check_min_max_attributes">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord.check_min_max_attributes">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">check_min_max_attributes</span><span class="p">(</span><span class="n">min_point</span><span class="p">,</span> <span class="n">min_name</span><span class="p">,</span> <span class="n">max_point</span><span class="p">,</span> <span class="n">max_name</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_min_max_attributes</span><span class="p">(</span><span class="n">min_point</span><span class="p">,</span> <span class="n">min_name</span><span class="p">,</span> <span class="n">max_point</span><span class="p">,</span> <span class="n">max_name</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Checks the validity of a min and max point:</span>
 <span class="sd">            - type check</span>
@@ -290,7 +290,7 @@
 
 <div class="viewcode-block" id="ViewServiceRecord.get_full_wms_url">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord.get_full_wms_url">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_full_wms_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">language</span><span class="p">,</span> <span class="n">map_width</span><span class="p">,</span> <span class="n">map_height</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_full_wms_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">language</span><span class="p">,</span> <span class="n">map_width</span><span class="p">,</span> <span class="n">map_height</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the WMS URL to get the image.</span>
 
@@ -324,7 +324,7 @@
 
 <div class="viewcode-block" id="ViewServiceRecord.download_wms_content">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord.download_wms_content">[docs]</a>
-    <span class="k">def</span> <span class="nf">download_wms_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">language</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">download_wms_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">language</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Downloads the image found behind the URL stored in the instance attribute &quot;reference_wms&quot;</span>
 <span class="sd">        for the requested language</span>
@@ -371,13 +371,13 @@
             <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">dedicated_msg</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">calculate_ns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_ns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_bbox_from_url</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wms</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]])</span>
 
 <div class="viewcode-block" id="ViewServiceRecord.get_bbox_from_url">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.view_service.ViewServiceRecord.get_bbox_from_url">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">get_bbox_from_url</span><span class="p">(</span><span class="n">wms_url</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_bbox_from_url</span><span class="p">(</span><span class="n">wms_url</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parses wms url for BBOX parameter an returns these points as suitable values for ViewServiceRecord.</span>
 <span class="sd">        Args:</span>

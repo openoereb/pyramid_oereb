@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Configuration &mdash; pyramid_oereb  documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
@@ -298,9 +298,9 @@ is possible to transform the data by extending the existing models with a mappin
 possibilities of SQLAlchemy, you could extend the existing
 pyramid_oereb.core.models.motorways_building_lines.office
 <span class="xref std std-ref">api-pyramid_oereb-core-models-motorways_building_lines-office</span> like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyramid_oereb.lib.standard.models</span> <span class="kn">import</span> <span class="n">motorways_building_lines</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.lib.standard.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">motorways_building_lines</span>
 
-<span class="k">class</span> <span class="nc">Office</span><span class="p">(</span><span class="n">motorways_building_lines</span><span class="o">.</span><span class="n">Office</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Office</span><span class="p">(</span><span class="n">motorways_building_lines</span><span class="o">.</span><span class="n">Office</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The bucket to fill in all the offices you need to reference from public law restriction,</span>
 <span class="sd">    document, geometry.</span>

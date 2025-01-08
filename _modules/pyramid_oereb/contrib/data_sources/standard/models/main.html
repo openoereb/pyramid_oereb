@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyramid_oereb.contrib.data_sources.standard.models.main &mdash; pyramid_oereb  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../../../../_static/css/theme.css?v=e59714d7" />
 
   
@@ -101,14 +101,14 @@
 <span class="sd">    variables.</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.contrib.data_sources.standard.models</span> <span class="kn">import</span> <span class="n">get_office</span><span class="p">,</span> <span class="n">get_document</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">PrimaryKeyConstraint</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">,</span> <span class="n">UniqueConstraint</span><span class="p">,</span> <span class="n">DateTime</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Unicode</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">Boolean</span><span class="p">,</span> <span class="n">Float</span>
-<span class="kn">from</span> <span class="nn">geoalchemy2</span> <span class="kn">import</span> <span class="n">Geometry</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy_utils</span> <span class="kn">import</span> <span class="n">JSONType</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">declarative_base</span><span class="p">,</span> <span class="n">relationship</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.contrib.data_sources.standard.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_office</span><span class="p">,</span> <span class="n">get_document</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">PrimaryKeyConstraint</span><span class="p">,</span> <span class="n">ForeignKey</span><span class="p">,</span> <span class="n">UniqueConstraint</span><span class="p">,</span> <span class="n">DateTime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy</span><span class="w"> </span><span class="kn">import</span> <span class="n">Unicode</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">Boolean</span><span class="p">,</span> <span class="n">Float</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">geoalchemy2</span><span class="w"> </span><span class="kn">import</span> <span class="n">Geometry</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">JSONType</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.orm</span><span class="w"> </span><span class="kn">import</span> <span class="n">declarative_base</span><span class="p">,</span> <span class="n">relationship</span>
 
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.config</span> <span class="kn">import</span> <span class="n">Config</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">Config</span>
 
 <span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">()</span>
 <span class="n">app_schema_name</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;app_schema&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
@@ -117,7 +117,7 @@
 
 <div class="viewcode-block" id="RealEstate">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/models-main.html#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate">[docs]</a>
-<span class="k">class</span> <span class="nc">RealEstate</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RealEstate</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The container where you can throw in all the real estates this application should have access to, for</span>
 <span class="sd">    creating extracts.</span>
@@ -167,7 +167,7 @@
 
 <div class="viewcode-block" id="Municipality">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/models-main.html#pyramid_oereb.contrib.data_sources.standard.models.main.Municipality">[docs]</a>
-<span class="k">class</span> <span class="nc">Municipality</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Municipality</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The municipality is the place where you hold the information about all the municipalities</span>
 <span class="sd">    you are having in your canton. This is used also in the applications process to check whether</span>
@@ -195,7 +195,7 @@
 
 <div class="viewcode-block" id="Address">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/models-main.html#pyramid_oereb.contrib.data_sources.standard.models.main.Address">[docs]</a>
-<span class="k">class</span> <span class="nc">Address</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Address</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The bucket you can throw all addresses in the application should be able to use for the get egrid</span>
 <span class="sd">    webservice. This is a bypass for the moment. In the end it seems ways more flexible to bind</span>
@@ -228,7 +228,7 @@
 
 <div class="viewcode-block" id="Theme">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/models-main.html#pyramid_oereb.contrib.data_sources.standard.models.main.Theme">[docs]</a>
-<span class="k">class</span> <span class="nc">Theme</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Theme</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The OEREB themes of the application</span>
 
@@ -253,7 +253,7 @@
 
 <div class="viewcode-block" id="Logo">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/models-main.html#pyramid_oereb.contrib.data_sources.standard.models.main.Logo">[docs]</a>
-<span class="k">class</span> <span class="nc">Logo</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Logo</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The container for all logos and municipality coat of arms</span>
 
@@ -272,7 +272,7 @@
 
 <div class="viewcode-block" id="RealEstateType">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/models-main.html#pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType">[docs]</a>
-<span class="k">class</span> <span class="nc">RealEstateType</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RealEstateType</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The container where you can throw in all the real estates type texts this application</span>
 <span class="sd">    should have access to, for creating extracts.</span>
@@ -292,7 +292,7 @@
 
 <div class="viewcode-block" id="Glossary">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/models-main.html#pyramid_oereb.contrib.data_sources.standard.models.main.Glossary">[docs]</a>
-<span class="k">class</span> <span class="nc">Glossary</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Glossary</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The bucket you can throw all items you want to have in the extracts glossary as reading help.</span>
 
@@ -311,7 +311,7 @@
 
 <div class="viewcode-block" id="Disclaimer">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/models-main.html#pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer">[docs]</a>
-<span class="k">class</span> <span class="nc">Disclaimer</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Disclaimer</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The bucket you can throw all disclaimers in the application should be able to use.</span>
 
@@ -332,7 +332,7 @@
 
 <div class="viewcode-block" id="LawStatus">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/models-main.html#pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus">[docs]</a>
-<span class="k">class</span> <span class="nc">LawStatus</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LawStatus</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The container where you can throw in all the law status texts this application</span>
 <span class="sd">    should have access to, for creating extracts.</span>
@@ -349,7 +349,7 @@
 
 <div class="viewcode-block" id="DocumentTypeText">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/models-main.html#pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText">[docs]</a>
-<span class="k">class</span> <span class="nc">DocumentTypeText</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DocumentTypeText</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The element holding the different document types and their translations.</span>
 
@@ -366,7 +366,7 @@
 
 <div class="viewcode-block" id="GeneralInformation">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/models-main.html#pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation">[docs]</a>
-<span class="k">class</span> <span class="nc">GeneralInformation</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GeneralInformation</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The bucket to store the general information about the OEREB cadastre</span>
 
@@ -387,7 +387,7 @@
 
 <div class="viewcode-block" id="ThemeDocument">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/models-main.html#pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument">[docs]</a>
-<span class="k">class</span> <span class="nc">ThemeDocument</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ThemeDocument</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Meta bucket (join table) for the relationship between theme and documents.</span>
 <span class="sd">    Attributes:</span>
@@ -428,7 +428,7 @@
 
 <div class="viewcode-block" id="MapLayering">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/models-main.html#pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering">[docs]</a>
-<span class="k">class</span> <span class="nc">MapLayering</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MapLayering</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Attributes:</span>
 <span class="sd">        id (str): identifier and primary key, used in the database only</span>
@@ -447,7 +447,7 @@
 
 <div class="viewcode-block" id="Availability">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/models-main.html#pyramid_oereb.contrib.data_sources.standard.models.main.Availability">[docs]</a>
-<span class="k">class</span> <span class="nc">Availability</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Availability</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Availability is a settings tabel where you can join municipalities to theme codes/sub theme</span>
 <span class="sd">    codes and assign a published flag.</span>
@@ -478,7 +478,7 @@
 
 <div class="viewcode-block" id="DataIntegration">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/models-main.html#pyramid_oereb.contrib.data_sources.standard.models.main.DataIntegration">[docs]</a>
-<span class="k">class</span> <span class="nc">DataIntegration</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DataIntegration</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The bucket to fill in the date when this whole schema was updated. It has a relation to the</span>
 <span class="sd">    office to be able to find out who was the delivering instance.</span>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyramid_oereb.contrib.data_sources.standard.sources.municipality &mdash; pyramid_oereb  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../../../../_static/css/theme.css?v=e59714d7" />
 
   
@@ -76,21 +76,21 @@
   <h1>Source code for pyramid_oereb.contrib.data_sources.standard.sources.municipality</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="kn">from</span> <span class="nn">geoalchemy2.elements</span> <span class="kn">import</span> <span class="n">_SpatialElement</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">geoalchemy2.elements</span><span class="w"> </span><span class="kn">import</span> <span class="n">_SpatialElement</span>
 
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.sources</span> <span class="kn">import</span> <span class="n">BaseDatabaseSource</span>
-<span class="kn">from</span> <span class="nn">geoalchemy2.shape</span> <span class="kn">import</span> <span class="n">to_shape</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseDatabaseSource</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">geoalchemy2.shape</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_shape</span>
 
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.sources.municipality</span> <span class="kn">import</span> <span class="n">MunicipalityBaseSource</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.sources.municipality</span><span class="w"> </span><span class="kn">import</span> <span class="n">MunicipalityBaseSource</span>
 
 
 <div class="viewcode-block" id="DatabaseSource">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource">[docs]</a>
-<span class="k">class</span> <span class="nc">DatabaseSource</span><span class="p">(</span><span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">MunicipalityBaseSource</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DatabaseSource</span><span class="p">(</span><span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">MunicipalityBaseSource</span><span class="p">):</span>
 
 <div class="viewcode-block" id="DatabaseSource.read">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource.read">[docs]</a>
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The read method to access the standard database structure. It uses SQL-Alchemy for querying. It does</span>
 <span class="sd">        not accept any parameters nor it applies any filter on the database query. It simply loads all</span>

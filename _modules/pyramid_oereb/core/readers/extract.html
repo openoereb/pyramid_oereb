@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyramid_oereb.core.readers.extract &mdash; pyramid_oereb  documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
 
   
@@ -75,24 +75,24 @@
              
   <h1>Source code for pyramid_oereb.core.readers.extract</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">attrgetter</span>
-<span class="kn">from</span> <span class="nn">pyramid.path</span> <span class="kn">import</span> <span class="n">DottedNameResolver</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">operator</span><span class="w"> </span><span class="kn">import</span> <span class="n">attrgetter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">DottedNameResolver</span>
 
-<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">box</span>
-<span class="kn">from</span> <span class="nn">timeit</span> <span class="kn">import</span> <span class="n">default_timer</span> <span class="k">as</span> <span class="n">timer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">box</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">timeit</span><span class="w"> </span><span class="kn">import</span> <span class="n">default_timer</span> <span class="k">as</span> <span class="n">timer</span>
 
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.config</span> <span class="kn">import</span> <span class="n">Config</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.extract</span> <span class="kn">import</span> <span class="n">ExtractRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.image</span> <span class="kn">import</span> <span class="n">ImageRecord</span>
-<span class="kn">from</span> <span class="nn">pyramid_oereb.core.records.plr</span> <span class="kn">import</span> <span class="n">PlrRecord</span><span class="p">,</span> <span class="n">EmptyPlrRecord</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">Config</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.records.extract</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExtractRecord</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.records.image</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageRecord</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.records.plr</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlrRecord</span><span class="p">,</span> <span class="n">EmptyPlrRecord</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="ExtractReader">
 <a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.extract.ExtractReader">[docs]</a>
-<span class="k">class</span> <span class="nc">ExtractReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ExtractReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The class which generates *the extract* as a record</span>
 <span class="sd">    (:ref:`api-pyramid_oereb-core-records-extract-extractrecord`). This is the point where all necessary</span>
@@ -106,7 +106,7 @@
 
 <div class="viewcode-block" id="ExtractReader.__init__">
 <a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.extract.ExtractReader.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plr_sources</span><span class="p">,</span> <span class="n">plr_cadastre_authority</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plr_sources</span><span class="p">,</span> <span class="n">plr_cadastre_authority</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
 <span class="sd">            plr_sources (list of pyramid_oereb.lib.sources.plr.PlrBaseSource): The list of PLR source</span>
@@ -121,7 +121,7 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">plr_cadastre_authority</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plr_cadastre_authority</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            pyramid_oereb.lib.records.office.OfficeRecord: The authority responsible for the PLR</span>
@@ -131,7 +131,7 @@
 
 <div class="viewcode-block" id="ExtractReader.read">
 <a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.extract.ExtractReader.read">[docs]</a>
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">municipality</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">municipality</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method finally creates the extract.</span>
 
@@ -233,7 +233,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_sort_plr_law_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plr_element</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_sort_plr_law_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plr_element</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method generates the sorting key for plr_elements according to their law_status code.</span>
 <span class="sd">        The value is generated from the index the plr_element.law_status.code has in the law_status</span>
@@ -255,7 +255,7 @@
             <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">law_status</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_sort_plr_theme</span><span class="p">(</span><span class="n">plr_element</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_sort_plr_theme</span><span class="p">(</span><span class="n">plr_element</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method generates a sorting key to sort PLRs in to themes and sub-themes.</span>
 <span class="sd">        The value is generated using the extract_index given for each theme.</span>
