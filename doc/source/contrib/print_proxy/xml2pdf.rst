@@ -36,4 +36,3 @@ as an example, or use the ``create_standard_yaml`` script to regenerate your con
    :inherited-members:
 
    .. automethod:: __init__
-

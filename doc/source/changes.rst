@@ -10,6 +10,13 @@ master
 ------
 - Support of Oereblex API version 1.2.5 via geolink-formatter 2.0.6 added (#2081). The oereblex schema version that is used to download oereblex xmls can be set in the file pyramid_oereb.yaml.
 
+Version 2.5.5
+-------------
+Maintenance release:
+
+* Library upgrades (pillow, pytest, webtest, waitress, codecov/codecov-action, geoalchemy, JamesIves/github-pages-deploy-action, urllib3)
+* Reset Python Docker Tag to 3.12.5
+
 Version 2.5.4
 -------------
 Feature and maintenance release:

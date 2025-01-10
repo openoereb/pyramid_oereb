@@ -325,4 +325,3 @@ Sources
    :show-inheritance:
 
    .. automethod:: __init__
-

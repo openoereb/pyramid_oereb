@@ -6,4 +6,3 @@
     <data:Language>${localized_image.get('Language') | x}</data:Language>
     <data:Blob>${localized_image.get('Image') | x}</data:Blob>
 </data:LocalisedBlob>
-
