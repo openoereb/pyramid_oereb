@@ -117,8 +117,8 @@ Installation steps
 1. Add package
 ..............
 
-Add ``pyramid_oereb`` to the list of requirements in your application's ``setup.py``.
-In your ``setup.py``, you should depend on ``pyramid_oereb[recommend]`` to get the recommended versions of
+Add ``pyramid_oereb`` to the list of requirements in your application's ``setup.py`` or ``pyproject.toml``.
+In your ``setup.py`` or ``pyproject.toml``, you should depend on ``pyramid_oereb[recommend]`` to get the recommended versions of
 the dependencies of ``pyramid_oereb``, or ``pyramid_oereb[no-version]`` to get the dependencies of
 ``pyramid_oereb`` without specifying which versions of these dependencies shall be used. You shouldn't just
 depend on ``pyramid_oereb`` because this will not take into account the dependencies of ``pyramid_oereb``.

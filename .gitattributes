@@ -5,3 +5,4 @@ Makefile text whitespace=indent-with-non-tab
 *.png binary
 *.jpg binary
 *.jar binary
+dev/sample_data/ch.*.json whitespace=-blank-at-eof

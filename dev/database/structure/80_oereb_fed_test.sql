@@ -2971,8 +2971,8 @@ OeREBKRM_V2_0.Dokumente.Dokument.Typ	typ	dokument	\N
 --
 
 COPY contaminated_civil_aviation_sites.t_ili2db_basket (t_id, dataset, topic, t_ili_tid, attachmentkey, domains) FROM stdin;
-2	1	OeREBKRM_V2_0.Dokumente	\N	OeREBKRM_V2_0_Gesetze_20210414.xml-2	
-81	80	OeREBKRMtrsfr_V2_0.Transferstruktur	\N	interlis.xtf-81	
+2	1	OeREBKRM_V2_0.Dokumente	\N	OeREBKRM_V2_0_Gesetze_20210414.xml-2
+81	80	OeREBKRMtrsfr_V2_0.Transferstruktur	\N	interlis.xtf-81
 \.
 
 
@@ -3820,9 +3820,9 @@ OeREBKRM_V2_0.Dokumente.Dokument.Typ	typ	dokument	\N
 --
 
 COPY oerebkrmkvs_v2_0.t_ili2db_basket (t_id, dataset, topic, t_ili_tid, attachmentkey, domains) FROM stdin;
-2	1	OeREBKRM_V2_0.Dokumente	\N	OeREBKRM_V2_0_Gesetze_20210414.xml-2	
-81	80	OeREBKRMkvs_V2_0.Thema	\N	OeREBKRM_V2_0_Themen_20210915.xml-81	
-179	178	OeREBKRMkvs_V2_0.Konfiguration	\N	OeREBKRM_V2_0_Logos_20210915.xml-179	
+2	1	OeREBKRM_V2_0.Dokumente	\N	OeREBKRM_V2_0_Gesetze_20210414.xml-2
+81	80	OeREBKRMkvs_V2_0.Thema	\N	OeREBKRM_V2_0_Themen_20210915.xml-81
+179	178	OeREBKRMkvs_V2_0.Konfiguration	\N	OeREBKRM_V2_0_Logos_20210915.xml-179
 \.
 
 
@@ -6245,4 +6245,3 @@ ALTER TABLE ONLY oerebkrmkvs_v2_0.themaref
 --
 -- PostgreSQL database dump complete
 --
-
