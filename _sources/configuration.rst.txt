@@ -6,11 +6,11 @@ Configuration
 You are looking at a highly configurable piece of software. To get a good understanding of the server it
 is recommended to read this part carefully.
 
-The specifications of the oereb data model, the web services, the data extracts and the print layout 
+The specifications of the oereb data model, the web services, the data extracts and the print layout
 by the Swiss Confederation are very precise `OEREB specifications
-<https://www.cadastre.ch/de/manual-oereb/publication/instruction.html>`__ . Code development was guided 
-by the exact implementation of the specifications and the user requirements. Using this pyramid plugin, 
-you will get a running server providing all the services defined by the federal specifications. 
+<https://www.cadastre.ch/de/manual-oereb/publication/instruction.html>`__ . Code development was guided
+by the exact implementation of the specifications and the user requirements. Using this pyramid plugin,
+you will get a running server providing all the services defined by the federal specifications.
 The binding of cantonal and federal data to the server is done by the configuration options.
 
 This section describes the different possibilities to adapt the application to work with various data structures or
@@ -40,7 +40,7 @@ Interlis 2.3 OeREBKRM Transfer Model
 
 All the federal data sets are provided in this data structure. So this is the schema and table model you
 want to use for all the federal topics unless you want to transform the data to a specific database structure.
-If your cantonal data is also stored based on this model, then you probably want to use this structure 
+If your cantonal data is also stored based on this model, then you probably want to use this structure
 for all topics to homogenize your database content.
 The `Ili2pg Oereb Data Import Manual <https://github.com/openoereb/ili2pg_oereb_data_import_manual>`__
 explains how to use the ili2pg tool to create the corresponding schema and how to import the XML data.
@@ -51,7 +51,7 @@ OEREBlex Topic Model
 
 This third model is usefull if you maintain your legal documents using the OEREBlex application and you
 have a specific cantonal model for your data. It is similar to the pyramid_oereb standard model, but all
-the document related tables are omitted. Instead the documents are linked by the geolink attribute. 
+the document related tables are omitted. Instead the documents are linked by the geolink attribute.
 
 .. _configuration-additional-topics:
 
@@ -62,7 +62,7 @@ If you like to add one or more additional topics based on the *pyramid_oereb sta
 you can use the internal command below creating an SQL script to establish the topic schema.
 
 But before creating any new topic structure you have to add its configuration. Open the configuration file
-(pyramid_oereb.yml) and copy the section from one of the existing **standard** topics which usually 
+(pyramid_oereb.yml) and copy the section from one of the existing **standard** topics which usually
 looks like this:
 
 .. code-block:: yaml
@@ -111,7 +111,7 @@ looks like this:
           transfer_code: Hinweis
           extract_code: Hint
 
-Apply the necessary modifications/replacements for the new topic. This should at least be the schema name, 
+Apply the necessary modifications/replacements for the new topic. This should at least be the schema name,
 code, geometry type and of course the models property within the source parameters:
 Make sure that this source class is `pyramid_oereb.contrib.data_sources.*standard*.sources.plr.DatabaseSource`
 and not interlis_2_3. - The same goes for the model_factory and the get_symbol element. It should be set to
@@ -124,10 +124,10 @@ Once the configuration set, run the following command:
 
 .. code-block:: shell
 
-   create_standard_tables -c <YOUR_YAML_CONFIGURATION> -T [flag used to skip schema creation] 
+   create_standard_tables -c <YOUR_YAML_CONFIGURATION> -T [flag used to skip schema creation]
     --sql-file=<PATH_AND_SQL_SCRIPTNAME> -w [to over-write existing sql instead of append]
 
-The first parameter ``-c or --configuration=YAML`` is the path to your YAML configuration file. 
+The first parameter ``-c or --configuration=YAML`` is the path to your YAML configuration file.
 By default it's *pyramid_oereb.yml*
 
 The second optional parameter ``-s or --section=SECTION`` allows you to specify the section containing
@@ -135,7 +135,7 @@ the configuration part to use. Default is *pyramid_oereb*.
 
 The parameter ``-T or --tables-only`` skips the schema creation and creates only the tables.
 
-The option ``--sql-file=SQL_FILE`` generates an SQL file containing the schema and table creation 
+The option ``--sql-file=SQL_FILE`` generates an SQL file containing the schema and table creation
 commands. *SQL_FILE* should be the name or the absolute path of the file. E.g: my_sql_script.sql
 
 If your yaml file uses the c2ctemplate style (starting with vars) you need to add the
@@ -143,7 +143,7 @@ If your yaml file uses the c2ctemplate style (starting with vars) you need to ad
 
 The option ``-w or --over-write`` allows you to overwrite an existing sql file. Default is append.
 
-Now you have set up an empty additional topic in your database and you can proceed with deploying 
+Now you have set up an empty additional topic in your database and you can proceed with deploying
 your data into it.
 
 Add additional interlis topics
@@ -213,7 +213,7 @@ and not standard. - The same goes for the model_factory and the get_symbol eleme
 *interlis_2_3*.
 
 Also define the language of the data and if it's a federal (true) or cantonal topic (false). You also want to
-define that it is *NOT* the standard structure (false) and what lookup codes are used for the law_status 
+define that it is *NOT* the standard structure (false) and what lookup codes are used for the law_status
 and document types.
 
 Add an OEREBLex Topic
