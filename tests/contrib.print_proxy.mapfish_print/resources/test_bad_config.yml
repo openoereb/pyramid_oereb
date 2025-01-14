@@ -4,4 +4,3 @@ pyramid_oereb:
     wms_url_params:
             - TRANSPARENT: 'true'
             - OTHERCUSTOM: 'myvalue'
-

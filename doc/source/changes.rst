@@ -6,12 +6,28 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
-Version 2.6.0
+master
+------
+- Support of Oereblex API version 1.2.5 via geolink-formatter 2.0.6 added (#2081). The oereblex schema version that is used to download oereblex xmls can be set in the file pyramid_oereb.yaml.
+
+Version 2.5.5
 -------------
-* New parameter 'expected_toc_length' allows to define a default table of content pages number avoiding a second
-call for the pdf extract in most cases. This value may be be set if most of the PDF extracts have the same number
-of TOC pages. It complements the 'compute_toc_pages' parameter. If the latter is set to true 'expected_toc_length' 
-is ignored.
+Maintenance release:
+
+* Library upgrades (pillow, pytest, webtest, waitress, codecov/codecov-action, geoalchemy, JamesIves/github-pages-deploy-action, urllib3)
+* Reset Python Docker Tag to 3.12.5
+
+Version 2.5.4
+-------------
+Feature and maintenance release:
+
+* New parameter 'expected_toc_length' allows to define a default table of content pages number avoiding a
+  second call for the pdf extract in most cases. This value may be be set if most of the PDF extracts have
+  the same number of TOC pages. It complements the 'compute_toc_pages' parameter. If the latter is set to true,
+  'expected_toc_length' is ignored.
+* Add timeout in address source (#2043)
+* Optimize legend entries retrieval (#2050)
+* Library upgrades (waitress, sqlalchemy, psycopg2, urllib3)
 
 Version 2.5.3
 -------------
@@ -99,7 +115,7 @@ Maintenance release:
 
 * Add support for newest oereblex API (via geolink-formatter, #1703)
 * Various minor library upgrades (SQLAlchemy, geoalchemy, psycopg2, pypdf)
-  
+
 
 Version 2.4.2
 -------------
@@ -172,7 +188,7 @@ Version 2.2.4
 -------------
 New functionality for configuring tolerance (optional):
 
-* Support tolerance per geometry type (#1603). See example definitions in the example project configuration file. 
+* Support tolerance per geometry type (#1603). See example definitions in the example project configuration file.
 * Library updates (#1604)
 
 .. _changes-version-2.2.3:

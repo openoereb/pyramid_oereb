@@ -173,7 +173,7 @@ update_fed_data_urls: \
 
 # hard apply the newly generated data to the project. Changes must then be committed
 .PHONY: update_fed_data
-update_fed_data_urls: prepare_fed_data
+update_fed_data: prepare_fed_data
 	cp $(FED_JSONS) $(PG_DEV_DATA_DIR)
 
 # do everything automatically: find the new URLs, generate json data, copy json to project

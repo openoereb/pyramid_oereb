@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import logging
+from uuid import uuid4
+
 # import yappi
 import qrcode
 import io
@@ -637,6 +639,8 @@ class Parameter(object):
         self.__topics__ = topics
         self.__extract_url__ = extract_url
         self.__qr_code_ref__ = qr_code_ref
+        # uniquely identifier to reference the original request in the pyramid_oereb system
+        self.identifier = str(uuid4())
 
     def set_identdn(self, identdn):
         """

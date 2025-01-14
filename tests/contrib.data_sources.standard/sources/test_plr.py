@@ -1247,3 +1247,90 @@ def test_handle_collection(plr_source_params, all_plr_result_session, real_estat
                 ST_GeomFromWKB(%(ST_GeomFromWKB_1)s, %(ST_GeomFromWKB_2)s)
             )
         '''.replace('\n', '').replace(' ', '')
+
+
+def mock_return_value_handle_collection(items_list):
+    class PublicLawRestrictionTest():
+        def __init__(self, law_status, legend_entry_id):
+            self.law_status = law_status
+            self.legend_entry_id = legend_entry_id
+
+    class GeometryTest():
+        def __init__(self, public_law_restriction):
+            self.public_law_restriction = public_law_restriction
+
+    geometries = []
+    for item in items_list:
+        geometries.append(GeometryTest(PublicLawRestrictionTest(item[0], item[1])))
+
+    class AllTest():
+        def __init__(arg1, arg2):
+            pass
+
+        def all(arg3):
+            return iter(geometries)
+
+    class OptionsTest():
+        def __init__(self, arg1, arg2):
+            pass
+        options = AllTest
+
+    return OptionsTest
+
+
+def get_return_vals_of_get_legend_entries_from_db(arg1, arg2, list_of_ids):
+    return_value = []
+    for id in list_of_ids:
+        return_value.append((id, ))
+    return return_value
+
+
+@pytest.mark.parametrize('idx,items_list', [
+    (0, [
+        ["inForce", 1],
+        ["changeWithoutPreEffect", 1],
+        ["changeWithoutPreEffect", 2],
+        ["inForce", 3],
+        ["inForce", 4],
+        ["inForce", 3],
+        ["changeWithoutPreEffect", 6],
+        ["inForce", 7],
+        ["changeWithoutPreEffect", 2],
+        ["inForce", 9],
+        ["changeWithoutPreEffect", 7]
+    ]),
+    (1, [
+        ["inForce", 1],
+        ["inForce", 3],
+        ["inForce", 4],
+        ["inForce", 3],
+        ["inForce", 7],
+        ["inForce", 9],
+    ])
+])
+def test_collect_legend_entries_by_bbox(idx, items_list, plr_source_params):
+    with (
+        patch.object(
+            DatabaseSource,
+            'handle_collection',
+            mock_return_value_handle_collection(items_list)
+        ),
+        patch.object(
+            DatabaseSource,
+            'get_legend_entries_from_db',
+            get_return_vals_of_get_legend_entries_from_db
+        )
+    ):
+        source = DatabaseSource(**plr_source_params)
+        result = source.collect_legend_entries_by_bbox("", "")
+
+    if idx == 0:
+        assert len(result) == 2
+        assert sorted([x[0] for x in result if x[1] == 'inForce'][0]) == \
+            [(1, ), (3, ), (4, ), (7, ), (9, )]
+        assert sorted([x[0] for x in result if x[1] == 'changeWithoutPreEffect'][0]) == \
+            [(1, ), (2, ), (6, ), (7, )]
+    if idx == 1:
+        assert len(result) == 1
+        assert sorted([x[0] for x in result if x[1] == 'inForce'][0]) == \
+            [(1, ), (3, ), (4, ), (7, ), (9, )]
