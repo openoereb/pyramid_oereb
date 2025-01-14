@@ -5,14 +5,11 @@ Notes:
 ------
 - This python package specifies the version numbers only of directly imported python packages. This approach may result in a build failure of older versions of the project if incompatibilities arise between imported packages over time. The build process of the master branch is regularly tested in an automatic process.
 
-master
-------
-- Support Oereblex API version 1.2.5 via geolink-formatter 2.0.6 (#2081)
-
 2.5.5
 -------------
-* Library upgrades (pillow, pytest, webtest, waitress, codecov/codecov-action, geoalchemy, JamesIves/github-pages-deploy-action, urllib3)
-* Reset Python Docker Tag to 3.12.5
+- Library upgrades (pillow, pytest, webtest, waitress, codecov/codecov-action, geoalchemy, JamesIves/github-pages-deploy-action, urllib3)
+- Reset Python Docker Tag to 3.12.5
+- Support Oereblex API version 1.2.5 via geolink-formatter 2.0.6 (#2081)
 
 2.5.4
 -----
