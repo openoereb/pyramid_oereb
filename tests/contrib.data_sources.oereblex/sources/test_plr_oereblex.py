@@ -710,6 +710,9 @@ def test_document_records_from_oereblex(plr_source_params, document_records, par
         from pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex import DatabaseOEREBlexSource
 
         source = DatabaseOEREBlexSource(**plr_source_params)
+        # since we patch the original read method out of the way, we need to mimikri the logic encapsulated
+        # there
+        source._queried_geolinks[params.identifier] = {}
         assert source.document_records_from_oereblex(
             params,
             1,
