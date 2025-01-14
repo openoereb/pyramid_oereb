@@ -12,7 +12,10 @@ class TocPages:
         # 842: regular A4 page size in px
         # inlcude adjustable buffer, taking a earlier page break of MPF
         # into consideration for unknown reasons
-        self.total_height = 842 - print_config.get('page_break_difference')
+        page_break_difference = 10
+        if print_config.get('page_break_difference') is not None:
+            page_break_difference = print_config.get('page_break_difference')
+        self.total_height = 842 - page_break_difference
         self.header_height = self.compute_header()
         self.footer_height = self.compute_footer()
         self.disposable_height = (
