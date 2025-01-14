@@ -47,7 +47,6 @@
 <li class="toctree-l1"><a class="reference internal" href="makefile.html">Makefile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes/Hints for migration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#master">master</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-5-5">Version 2.5.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-5-4">Version 2.5.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-5-3">Version 2.5.3</a></li>
@@ -183,18 +182,13 @@
 <span id="changes"></span><h1>Changes/Hints for migration<a class="headerlink" href="#changes-hints-for-migration" title="Link to this heading">¶</a></h1>
 <p>This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.</p>
-<section id="master">
-<h2>master<a class="headerlink" href="#master" title="Link to this heading">¶</a></h2>
-<ul class="simple">
-<li><p>Support of Oereblex API version 1.2.5 via geolink-formatter 2.0.6 added (#2081). The oereblex schema version that is used to download oereblex xmls can be set in the file pyramid_oereb.yaml.</p></li>
-</ul>
-</section>
 <section id="version-2-5-5">
 <h2>Version 2.5.5<a class="headerlink" href="#version-2-5-5" title="Link to this heading">¶</a></h2>
-<p>Maintenance release:</p>
+<p>Feature and maintenance release:</p>
 <ul class="simple">
 <li><p>Library upgrades (pillow, pytest, webtest, waitress, codecov/codecov-action, geoalchemy, JamesIves/github-pages-deploy-action, urllib3)</p></li>
 <li><p>Reset Python Docker Tag to 3.12.5</p></li>
+<li><p>Support of Oereblex API version 1.2.5 via geolink-formatter 2.0.6 added (#2081). The oereblex schema version that is used to download oereblex xmls can be set in the file pyramid_oereb.yaml.</p></li>
 </ul>
 </section>
 <section id="version-2-5-4">
