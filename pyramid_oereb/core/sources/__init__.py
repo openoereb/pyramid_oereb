@@ -7,6 +7,7 @@ import logging
 from pyramid.config import ConfigurationError
 from pyramid.path import DottedNameResolver
 from sqlalchemy import text
+from sqlalchemy.orm.exc import NoResultFound
 
 log = logging.getLogger(__name__)
 
@@ -55,6 +56,15 @@ class BaseDatabaseSource(Base):
             self._model_ = DottedNameResolver().maybe_resolve(kwargs.get('model'))
         else:
             raise ConfigurationError('"model" for source has to be defined in used yaml configuration file')
+        record_class = kwargs.get('record_class')
+        if record_class:
+            if isinstance(record_class, dict):
+                for key, current_class in record_class.items():
+                    self.__setattr__(f"_{key}_record_class", DottedNameResolver().maybe_resolve(current_class))
+            else:
+                self._record_class_ = DottedNameResolver().maybe_resolve(kwargs.get('record_class'))
+        else:
+            raise ConfigurationError('"record_class" for source has to be defined in used yaml configuration file')
         # check if database is available and wait until it might be or raise error
         timeout_target = time.time() + self.TIMEOUT
         db_healthy = False
@@ -88,3 +98,27 @@ class BaseDatabaseSource(Base):
             return True
         except Exception:
             return False
+
+    @staticmethod
+    def filter(self, query, *args, **kwargs):
+        """
+        abstract method to be overridden
+        """
+        return query
+
+    def read(self, *args, **kwargs):
+        session = self._adapter_.get_session(self._key_)
+        try:
+            query = session.query(self._model_)
+            results = self.filter(query, *args, **kwargs).all()
+
+            self.records = []
+            for result in results:
+                res_dict = {c.name: result.__getattribute__(c.name) for c in result.__table__.columns}
+                self.records.append(self._record_class_(**res_dict))
+
+        except NoResultFound:
+            self.records = []
+
+        finally:
+            session.close()
