@@ -89,6 +89,10 @@ pyramid_oereb:
     # not set it will assume that only one TOC page exists, and this can lead to wrong numbering in the TOC, which
     # will be fixed by a second PDF extract call that has an impact on performance.
     compute_toc_pages: false
+    # The calculation of the number of TOC pages is very detailed in pyramid_oereb. However, it is not complete, 
+    # and page breaks occur slightly earlier in page than expected. With setting the value "page_break_difference"
+    # (default: 10px), the apparent (not the real) page height is reduced in order to account for this issue.
+    page_break_difference: 10
     # In order to skip the computation of the estimated number of TOC pages which might return an erroneous result
     # for your setting, you can specify a default for the number of TOC pages. For most of the cantons the number of
     # TOC pages is pretty constant unless a real estate is concerned by none or a huge number of restrictions.

@@ -41,6 +41,14 @@ def extract():
 
 
 @pytest.fixture
+def extract_toc_pages():
+    with codecs.open(
+            'tests/contrib.print_proxy.mapfish_print/resources/test_extract_toc_pages.json'
+    ) as f:
+        yield json.load(f)
+
+
+@pytest.fixture
 def extract_multi_wms():
     with codecs.open(
             'tests/contrib.print_proxy.mapfish_print/resources/test_extract_multi_wms.json'
@@ -99,8 +107,8 @@ def geometry(coordinates):
     }
 
 
-def test_toc_pages(extract):
-    assert TocPages(extract).getNbPages() == 1
+def test_toc_pages(extract_toc_pages, pyramid_oereb_test_config):
+    assert TocPages(extract_toc_pages).getNbPages() == 2
 
 
 def getSameEntryInList(reference, objects):
