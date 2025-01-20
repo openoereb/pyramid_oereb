@@ -107,7 +107,7 @@ def geometry(coordinates):
     }
 
 
-def test_toc_pages(extract_toc_pages):
+def test_toc_pages(extract_toc_pages, pyramid_oereb_test_config):
     assert TocPages(extract_toc_pages).getNbPages() == 2
 
 
