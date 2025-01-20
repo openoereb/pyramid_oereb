@@ -77,128 +77,232 @@
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">textwrap</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb</span><span class="w"> </span><span class="kn">import</span> <span class="n">Config</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="TocPages">
 <a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">TocPages</span><span class="p">():</span>
-
+<span class="k">class</span><span class="w"> </span><span class="nc">TocPages</span><span class="p">:</span>
 <div class="viewcode-block" id="TocPages.__init__">
 <a class="viewcode-back" href="../../../../../contrib/print_proxy/mapfish-print.html#pyramid_oereb.contrib.print_proxy.mapfish_print.toc_pages.TocPages.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extract</span><span class="p">):</span>
-        <span class="c1"># variables taken from template toc.jrxml</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">disposable_height</span> <span class="o">=</span> <span class="mi">842</span> <span class="o">-</span> <span class="mi">70</span>  <span class="c1"># A4 size - (footer + header)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">d1_height</span> <span class="o">=</span> <span class="mi">77</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">d2_height</span> <span class="o">=</span> <span class="mi">29</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">d3_height</span> <span class="o">=</span> <span class="mi">61</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">d4_height</span> <span class="o">=</span> <span class="mi">44</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">d5_height</span> <span class="o">=</span> <span class="mi">15</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">d6_height</span> <span class="o">=</span> <span class="mi">90</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">d6_right_height</span> <span class="o">=</span> <span class="mi">23</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">d6_right_width</span> <span class="o">=</span> <span class="mi">233</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">d6_stuff_y_location</span> <span class="o">=</span> <span class="mi">39</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">d6_left_height</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># FIXME: compute this</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">title_size</span> <span class="o">=</span> <span class="mi">62</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">toc_title_height</span> <span class="o">=</span> <span class="mi">15</span> <span class="o">+</span> <span class="mi">62</span> <span class="o">+</span> <span class="mi">12</span>  <span class="c1"># height + location + item starting position</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">toc_item_height</span> <span class="o">=</span> <span class="mi">20</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">not_concerned_themes_title_height</span> <span class="o">=</span> <span class="mi">15</span> <span class="o">+</span> <span class="mi">26</span>  <span class="c1"># height + location</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">not_concerned_themes_item_height</span> <span class="o">=</span> <span class="mi">12</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">theme_without_data_title_height</span> <span class="o">=</span> <span class="mi">12</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">theme_without_data_item_height</span> <span class="o">=</span> <span class="mi">12</span>
+        <span class="n">print_config</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="c1"># 842: regular A4 page size in px</span>
+        <span class="c1"># inlcude adjustable buffer, taking a earlier page break of MPF</span>
+        <span class="c1"># into consideration for unknown reasons</span>
+        <span class="n">page_break_difference</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="k">if</span> <span class="n">print_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;page_break_difference&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">page_break_difference</span> <span class="o">=</span> <span class="n">print_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;page_break_difference&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_height</span> <span class="o">=</span> <span class="mi">842</span> <span class="o">-</span> <span class="n">page_break_difference</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_header</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">footer_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_footer</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disposable_height</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">total_height</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">header_height</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">footer_height</span>
+        <span class="p">)</span>  <span class="c1"># A4 size - (footer + header)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d1_height</span> <span class="o">=</span> <span class="mi">77</span>  <span class="c1"># toc.jrxml</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d2_height</span> <span class="o">=</span> <span class="mi">32</span>  <span class="c1"># toc.jrxml</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d3_height</span> <span class="o">=</span> <span class="mi">58</span>  <span class="c1"># toc.jrxml</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d4_height</span> <span class="o">=</span> <span class="mi">44</span>  <span class="c1"># toc.jrxml</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d5_height</span> <span class="o">=</span> <span class="mi">15</span>  <span class="c1"># toc.jrxml</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d6_height</span> <span class="o">=</span> <span class="mi">64</span>  <span class="c1"># toc.jrxml</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d6_left_height</span> <span class="o">=</span> <span class="mi">38</span>  <span class="c1"># toc.jrxml</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d6_right_height</span> <span class="o">=</span> <span class="mi">20</span>  <span class="c1"># toc.jrxml</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">extract</span> <span class="o">=</span> <span class="n">extract</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">total_length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_total_lenght</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">display_qrcode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract</span><span class="p">[</span><span class="s2">&quot;Display_QRCode&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_total_length</span><span class="p">()</span></div>
 
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_header</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">total_size</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">page_top_margin</span> <span class="o">=</span> <span class="mi">28</span>  <span class="c1"># toc.jrxml</span>
+        <span class="n">header_height</span> <span class="o">=</span> <span class="mi">60</span>  <span class="c1"># toc.jrxml</span>
+        <span class="n">total_size</span> <span class="o">+=</span> <span class="n">page_top_margin</span> <span class="o">+</span> <span class="n">header_height</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;header total_size: </span><span class="si">{</span><span class="n">total_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">total_size</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_footer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">total_size</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">page_bottom_margin</span> <span class="o">=</span> <span class="mi">20</span>  <span class="c1"># toc.jrxml</span>
+        <span class="n">footer_height</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># toc.jrxml</span>
+        <span class="n">total_size</span> <span class="o">+=</span> <span class="n">page_bottom_margin</span> <span class="o">+</span> <span class="n">footer_height</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;footer total_size: </span><span class="si">{</span><span class="n">total_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">total_size</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">compute_d1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># The ConcernedTheme-Heading cannot be calculated at runtime. The used label</span>
+        <span class="c1"># is defined in the mfp-templates which are not accessible here. Therefore</span>
+        <span class="c1"># we assume one line without a line break.</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;d1 total_size: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">d1_height</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">d1_height</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">compute_d2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extract</span><span class="p">[</span><span class="s1">&#39;ConcernedTheme&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">toc_item_height</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">d2_height</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">x</span>
+        <span class="n">total_size</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">blank_space_above</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># toc.jrxml</span>
+        <span class="n">page_label_height</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># toc.jrxml</span>
+        <span class="n">total_size</span> <span class="o">+=</span> <span class="n">blank_space_above</span> <span class="o">+</span> <span class="n">page_label_height</span>
+        <span class="n">toc_item_height</span> <span class="o">=</span> <span class="mi">20</span>  <span class="c1"># toc.jrxml (20 in tocConcernedTheme.jrxml)</span>
+        <span class="n">unique_concerned_themes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">concerned_theme</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract</span><span class="p">[</span><span class="s2">&quot;ConcernedTheme&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">concerned_theme</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unique_concerned_themes</span><span class="p">:</span>
+                <span class="n">unique_concerned_themes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">concerned_theme</span><span class="p">)</span>
+        <span class="n">total_size</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_concerned_themes</span><span class="p">)</span> <span class="o">*</span> <span class="n">toc_item_height</span>
+        <span class="k">if</span> <span class="n">total_size</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">d2_height</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;d2 total_size: </span><span class="si">{</span><span class="n">total_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">total_size</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;d2 total_size: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">d2_height</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">d2_height</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">compute_d3</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">not_concerned_themes_title_height</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extract</span><span class="p">[</span><span class="s1">&#39;NotConcernedTheme&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">not_concerned_themes_item_height</span><span class="p">)</span>  <span class="c1"># noqa</span>
-        <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">d3_height</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">x</span>
+        <span class="n">total_size</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">blank_space_above</span> <span class="o">=</span> <span class="mi">26</span>  <span class="c1"># toc.jrxml</span>
+        <span class="n">not_concerned_themes_title_height</span> <span class="o">=</span> <span class="mi">15</span>  <span class="c1"># toc.jrxml</span>
+        <span class="n">blank_space_between</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># toc.jrxml</span>
+        <span class="n">not_concerned_themes_item_height</span> <span class="o">=</span> <span class="mi">12</span>  <span class="c1"># toc.jrxml (12 in themelist.jrxml)</span>
+        <span class="n">total_size</span> <span class="o">+=</span> <span class="p">(</span>
+            <span class="n">blank_space_above</span> <span class="o">+</span> <span class="n">not_concerned_themes_title_height</span> <span class="o">+</span> <span class="n">blank_space_between</span>
+        <span class="p">)</span>
+        <span class="n">total_size</span> <span class="o">+=</span> <span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extract</span><span class="p">[</span><span class="s2">&quot;NotConcernedTheme&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">not_concerned_themes_item_height</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">total_size</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">d3_height</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;d3 total_size: </span><span class="si">{</span><span class="n">total_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">total_size</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;d3 total_size: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">d3_height</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">d3_height</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">compute_d4</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># The NoDataTheme-Heading cannot be calculated at runtime. The used label</span>
+        <span class="c1"># is defined in the mfp-templates which are not accessible here. Therefore</span>
+        <span class="c1"># we assume one line without a line break.</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;d4 total_size: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">d4_height</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">d4_height</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">compute_d5</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extract</span><span class="p">[</span><span class="s1">&#39;ThemeWithoutData&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">theme_without_data_item_height</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">d5_height</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">x</span>
+        <span class="n">total_size</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">theme_without_data_item_height</span> <span class="o">=</span> <span class="mi">12</span>  <span class="c1"># themelist.jrxml</span>
+        <span class="n">total_size</span> <span class="o">+=</span> <span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extract</span><span class="p">[</span><span class="s2">&quot;ThemeWithoutData&quot;</span><span class="p">])</span>
+        <span class="p">)</span> <span class="o">*</span> <span class="n">theme_without_data_item_height</span>
+        <span class="k">if</span> <span class="n">total_size</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">d5_height</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;d5 total_size: </span><span class="si">{</span><span class="n">total_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">total_size</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;d5 total_size: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">d5_height</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">d5_height</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">compute_d6_left</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># TODO: compute height when QR-Code is integrated</span>
-        <span class="n">content_min_size</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">+</span> <span class="mi">10</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">10</span> <span class="o">+</span> <span class="mi">10</span>  <span class="c1"># spacing between paragraphs</span>
-        <span class="n">total_size</span> <span class="o">=</span> <span class="mi">39</span>
-        <span class="n">paragraph_space</span> <span class="o">=</span> <span class="mi">11</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;GeneralInformation&#39;</span><span class="p">,</span> <span class="p">[]):</span>
-            <span class="n">total_size</span> <span class="o">+=</span> <span class="n">paragraph_space</span>
-            <span class="n">total_size</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_length_of_wrapped_text</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Text&#39;</span><span class="p">],</span>
-                                                              <span class="mi">78</span><span class="p">,</span>
-                                                              <span class="mi">10</span><span class="p">)</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;d6 left total_size : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_size</span><span class="p">))</span>
-        <span class="k">if</span> <span class="n">total_size</span> <span class="o">&gt;</span> <span class="n">content_min_size</span><span class="p">:</span>
+        <span class="n">total_size</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">blank_space_above_d6</span> <span class="o">=</span> <span class="mi">26</span>
+        <span class="n">total_size</span> <span class="o">+=</span> <span class="n">blank_space_above_d6</span>
+
+        <span class="c1"># General Information (1 title, multiple items)</span>
+        <span class="n">general_information_title_height</span> <span class="o">=</span> <span class="mi">8</span>  <span class="c1"># general_info_and_disclaimer.jrxml</span>
+        <span class="n">general_information_item_line_heigth</span> <span class="o">=</span> <span class="mi">8</span>  <span class="c1"># general_info_and_disclaimer.jrxml</span>
+        <span class="n">total_size</span> <span class="o">+=</span> <span class="n">general_information_title_height</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;GeneralInformation&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="n">total_size</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_length_of_wrapped_text</span><span class="p">(</span>
+                <span class="n">i</span><span class="p">[</span><span class="s2">&quot;Info&quot;</span><span class="p">],</span> <span class="mi">73</span><span class="p">,</span> <span class="n">general_information_item_line_heigth</span>
+            <span class="p">)</span>
+
+        <span class="n">space_between_info_and_disclaimer</span> <span class="o">=</span> <span class="mi">6</span>  <span class="c1"># general_info_and_disclaimer.jrxml</span>
+        <span class="n">total_size</span> <span class="o">+=</span> <span class="n">space_between_info_and_disclaimer</span>
+
+        <span class="c1"># LandRegister-Disclaimer (1 title, 1 item)</span>
+        <span class="n">land_register_disclaimer_title_line_height</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="mi">8</span>  <span class="c1"># general_info_and_disclaimer.jrxml</span>
+        <span class="p">)</span>
+        <span class="n">land_register_disclaimer_item_line_height</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="mi">8</span>  <span class="c1"># general_info_and_disclaimer.jrxml</span>
+        <span class="p">)</span>
+
+        <span class="n">total_size</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_length_of_wrapped_text</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">extract</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;DisclaimerLandRegister_Title&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+            <span class="mi">65</span><span class="p">,</span>
+            <span class="n">land_register_disclaimer_title_line_height</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">total_size</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_length_of_wrapped_text</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">extract</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;DisclaimerLandRegister_Content&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+            <span class="mi">73</span><span class="p">,</span>
+            <span class="n">land_register_disclaimer_item_line_height</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">total_size</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">d6_left_height</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;d6 left total_size: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_size</span><span class="p">))</span>
             <span class="k">return</span> <span class="n">total_size</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">content_min_size</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;d6 left total_size: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d6_left_height</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">d6_left_height</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">compute_length_of_wrapped_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">nb_char</span><span class="p">,</span> <span class="n">font_size</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_length_of_wrapped_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">nb_char</span><span class="p">,</span> <span class="n">line_height</span><span class="p">):</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">nb_char</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">font_size</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">line_height</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">compute_d6_right</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># variables taken from template disclaimer.jrxml</span>
-        <span class="n">space_above</span> <span class="o">=</span> <span class="mi">4</span>
-        <span class="n">space_title_content</span> <span class="o">=</span> <span class="mi">2</span>
-        <span class="n">content_min_size</span> <span class="o">=</span> <span class="mi">23</span>
         <span class="n">total_size</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Disclaimer&#39;</span><span class="p">,</span> <span class="p">[]):</span>
-            <span class="n">total_size</span> <span class="o">+=</span> <span class="n">space_above</span>
-            <span class="n">total_size</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_length_of_wrapped_text</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;Title&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Text&#39;</span><span class="p">],</span>
-                                                              <span class="mi">65</span><span class="p">,</span>
-                                                              <span class="mi">14</span><span class="p">)</span>
-            <span class="n">total_size</span> <span class="o">+=</span> <span class="n">space_title_content</span>
-            <span class="n">total_size</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_length_of_wrapped_text</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;Content&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;Text&#39;</span><span class="p">],</span>
-                                                              <span class="mi">78</span><span class="p">,</span>
-                                                              <span class="mi">10</span><span class="p">)</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;d6 ritght total_size : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_size</span><span class="p">))</span>
-        <span class="k">if</span> <span class="n">total_size</span> <span class="o">&gt;</span> <span class="n">content_min_size</span><span class="p">:</span>
+
+        <span class="n">blank_space_above_d6</span> <span class="o">=</span> <span class="mi">26</span>
+        <span class="n">total_size</span> <span class="o">+=</span> <span class="n">blank_space_above_d6</span>
+
+        <span class="n">blank_space_below_disclaimers</span> <span class="o">=</span> <span class="mi">6</span>  <span class="c1"># disclaimer_and_qrcode.jrxml</span>
+        <span class="n">disclaimer_title_line_height</span> <span class="o">=</span> <span class="mi">8</span>  <span class="c1"># disclaimer_and_qrcode.jrxml</span>
+        <span class="n">disclaimer_item_line_height</span> <span class="o">=</span> <span class="mi">8</span>  <span class="c1"># disclaimer_and_qrcode.jrxml</span>
+        <span class="n">blank_space_above_qrcode</span> <span class="o">=</span> <span class="mi">13</span>  <span class="c1"># disclaimer_and_qrcode.jrxml</span>
+        <span class="n">qr_code_size</span> <span class="o">=</span> <span class="mi">56</span>  <span class="c1"># disclaimer_and_qrcode.jrxml</span>
+
+        <span class="c1"># Disclaimers (multiple items)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Disclaimer&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="n">total_size</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_length_of_wrapped_text</span><span class="p">(</span>
+                <span class="n">i</span><span class="p">[</span><span class="s2">&quot;Title&quot;</span><span class="p">],</span> <span class="mi">65</span><span class="p">,</span> <span class="n">disclaimer_title_line_height</span>
+            <span class="p">)</span>
+            <span class="n">total_size</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_length_of_wrapped_text</span><span class="p">(</span>
+                <span class="n">i</span><span class="p">[</span><span class="s2">&quot;Content&quot;</span><span class="p">],</span> <span class="mi">73</span><span class="p">,</span> <span class="n">disclaimer_item_line_height</span>
+            <span class="p">)</span>
+            <span class="n">total_size</span> <span class="o">+=</span> <span class="n">blank_space_below_disclaimers</span>
+
+        <span class="c1"># QR-Code (optional)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_qrcode</span><span class="p">:</span>
+            <span class="n">total_size</span> <span class="o">+=</span> <span class="n">blank_space_above_qrcode</span> <span class="o">+</span> <span class="n">qr_code_size</span>
+
+        <span class="k">if</span> <span class="n">total_size</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">d6_right_height</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;d6 right total_size: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_size</span><span class="p">))</span>
             <span class="k">return</span> <span class="n">total_size</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">content_min_size</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;d6 right total_size: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d6_right_height</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">d6_right_height</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">compute_d6</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">compute_d6_left</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_d6_right</span><span class="p">())</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">d6_stuff_y_location</span>
-        <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">d6_height</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">x</span>
+        <span class="n">total_size</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">compute_d6_left</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_d6_right</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">total_size</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">d6_height</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;d6 total_size: </span><span class="si">{</span><span class="n">total_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">total_size</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;d6 total_size: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">d6_height</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">d6_height</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">compute_total_lenght</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_d1</span><span class="p">()</span> <span class="o">+</span> \
-            <span class="bp">self</span><span class="o">.</span><span class="n">compute_d2</span><span class="p">()</span> <span class="o">+</span> \
-            <span class="bp">self</span><span class="o">.</span><span class="n">compute_d3</span><span class="p">()</span> <span class="o">+</span> \
-            <span class="bp">self</span><span class="o">.</span><span class="n">compute_d4</span><span class="p">()</span> <span class="o">+</span> \
-            <span class="bp">self</span><span class="o">.</span><span class="n">compute_d5</span><span class="p">()</span> <span class="o">+</span> \
-            <span class="bp">self</span><span class="o">.</span><span class="n">compute_d6</span><span class="p">()</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;TOC total page length : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_total_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">compute_d1</span><span class="p">()</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_d2</span><span class="p">()</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_d3</span><span class="p">()</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_d4</span><span class="p">()</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_d5</span><span class="p">()</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_d6</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;TOC total page length : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;disposable height: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">disposable_height</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">x</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">getNbPages</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="o">-</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">total_length</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">disposable_height</span><span class="p">)</span>  <span class="c1"># ceil number of pages needed</span></div>
+        <span class="n">number_of_pages</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span>
+            <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">total_length</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">disposable_height</span>
+        <span class="p">)</span>  <span class="c1"># ceil number of pages needed</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;number of pages: </span><span class="si">{</span><span class="n">number_of_pages</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">number_of_pages</span></div>
 
 </pre></div>
 
