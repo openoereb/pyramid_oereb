@@ -136,7 +136,6 @@ class DatabaseOEREBlexSource(DatabaseSource):
         # adding a local cache depending on the request identifier
         self._queried_geolinks[params.identifier] = {}
         # calling the original logic
-        result = super(DatabaseOEREBlexSource, self).read(params, real_estate, bbox)
+        super(DatabaseOEREBlexSource, self).read(params, real_estate, bbox)
         # removing the cache after work is done
         del self._queried_geolinks[params.identifier]
-        return result
