@@ -4,6 +4,7 @@ engines:
       - "doc/source/conf.py"
 
 exclude_paths:
+  - 'pyramid_oereb/__init__.py'
   - 'tests/**'
   - 'sample_data/**.json'
   - 'Dockerfile'
