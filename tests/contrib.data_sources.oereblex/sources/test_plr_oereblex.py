@@ -22,7 +22,6 @@ from pyramid_oereb.core.records.office import OfficeRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.view_service import LegendEntryRecord, ViewServiceRecord
 from pyramid_oereb.core.views.webservice import Parameter
-from tests.core.readers.test_extract import real_estate
 
 
 @pytest.fixture
@@ -93,6 +92,7 @@ def real_estate(wkb_multipolygon):
 @pytest.fixture
 def bbox():
     yield box(0, 0, 1, 1)
+
 
 @pytest.fixture
 def plr_source_params(db_connection):
