@@ -4,6 +4,7 @@ import pytest
 from unittest.mock import patch
 
 from geoalchemy2 import WKTElement
+from shapely.creation import box
 from shapely.geometry import Polygon, Point, LineString
 from shapely.wkt import loads
 from sqlalchemy import String
@@ -50,6 +51,47 @@ def real_estate_wkt():
 @pytest.fixture
 def real_estate_shapely_geom(real_estate_wkt):
     yield loads(real_estate_wkt)
+
+
+@pytest.fixture
+def wkb_multipolygon():
+    yield WKTElement(
+        "SRID=2056;MULTIPOLYGON((("
+        "2609229.759 1263666.789,"
+        "2609231.206 1263670.558,"
+        "2609229.561 1263672.672,"
+        "2609229.472 1263675.47,"
+        "2609251.865 1263727.506,"
+        "2609275.847 1263783.29,"
+        "2609229.759 1263666.789"
+        ")))",
+        extended=True
+    )
+
+
+@pytest.fixture
+def real_estate(wkb_multipolygon):
+    from pyramid_oereb.contrib.data_sources.standard.models.main import RealEstate
+    yield RealEstate(**{
+            "id": 1,
+            "fosnr": 2771,
+            "limit": wkb_multipolygon,
+            "type": "Liegenschaft",
+            "canton": "BL",
+            "identdn": "BL0200002771",
+            "municipality": "Oberwil (BL)",
+            "number": "70",
+            "egrid": "CH113928077734",
+            "land_registry_area": 35121,
+            "subunit_of_land_register": "TEST",
+            "subunit_of_land_register_designation": "TEST",
+            "metadata_of_geographical_base_data": "https://testmetadata.url"
+        })
+
+
+@pytest.fixture
+def bbox():
+    yield box(0, 0, 1, 1)
 
 
 @pytest.fixture
@@ -710,9 +752,24 @@ def test_document_records_from_oereblex(plr_source_params, document_records, par
         from pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex import DatabaseOEREBlexSource
 
         source = DatabaseOEREBlexSource(**plr_source_params)
+        # since we patch the original read method out of the way, we need to mimikri the logic encapsulated
+        # there
+        source._queried_geolinks[params.identifier] = {}
         assert source.document_records_from_oereblex(
             params,
             1,
             law_status_records[0],
             "oereb_id=5"
         ) == document_records
+
+
+def test_oereblex_source_read(plr_source_params, params, real_estate, bbox):
+    with patch(
+            'pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.read',
+            return_value=None
+    ):
+        from pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex import DatabaseOEREBlexSource
+
+        source = DatabaseOEREBlexSource(**plr_source_params)
+        source.read(params, real_estate, bbox)
+        assert params.identifier not in source._queried_geolinks

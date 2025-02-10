@@ -97,15 +97,15 @@ class DatabaseOEREBlexSource(DatabaseSource):
         log.debug("document_records_from_oereblex() start, GEO-Link {}, law status {}, oereblex_params {}"
                   .format(geolink, law_status.code, oereblex_params))
         identifier = '{}{}{}'.format(geolink, law_status.code, params.language)
-        if identifier in self._queried_geolinks:
+        if identifier in self._queried_geolinks[params.identifier]:
             log.debug('skip querying this geolink "{}" because it was fetched already.'.format(identifier))
             log.debug('use already queried instead')
         else:
             self._oereblex_source.read(params, geolink, law_status, oereblex_params)
             log.debug("document_records_from_oereblex() returning {} records"
                       .format(len(self._oereblex_source.records)))
-            self._queried_geolinks[identifier] = self._oereblex_source.records
-        return self._queried_geolinks[identifier]
+            self._queried_geolinks[params.identifier][identifier] = self._oereblex_source.records
+        return self._queried_geolinks[params.identifier][identifier]
 
     def collect_related_geometries_by_real_estate(self, session, real_estate):
         """
@@ -131,3 +131,11 @@ class DatabaseOEREBlexSource(DatabaseSource):
             selectinload(self.models.Geometry.public_law_restriction)
             .selectinload(self.models.PublicLawRestriction.responsible_office),
         ).all()
+
+    def read(self, params, real_estate, bbox):
+        # adding a local cache depending on the request identifier
+        self._queried_geolinks[params.identifier] = {}
+        # calling the original logic
+        super(DatabaseOEREBlexSource, self).read(params, real_estate, bbox)
+        # removing the cache after work is done
+        del self._queried_geolinks[params.identifier]
