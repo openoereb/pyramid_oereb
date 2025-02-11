@@ -2,6 +2,8 @@
 
 import logging
 
+from pyramid.request import Request
+
 from pyramid_oereb.core.adapter import DatabaseAdapter
 from pyramid_oereb.core.config import Config
 from pyramid.config import Configurator
@@ -34,6 +36,7 @@ def includeme(config):
     Args:
         config (Configurator): The pyramid apps config object
     """
+    from pyramid_oereb.core.processor import create_processor, Processor
 
     global route_prefix
 
@@ -57,6 +60,21 @@ def includeme(config):
     settings.update({
         'pyramid_oereb': Config.get_config()
     })
+    processor = None
+    try:
+        processor = create_processor()
+    except Exception as e:
+        log.error(f'Initialisation of processor failed with an error: {e}')
+        exit(1)
+
+    def get_processor(request: Request) -> Processor:
+        return processor
+
+    config.add_request_method(
+        get_processor,
+        'pyramid_oereb_processor',
+        reify=True
+    )
 
     config.add_renderer('pyramid_oereb_extract_json', 'pyramid_oereb.core.renderer.extract.json_.Renderer')
     config.add_renderer('pyramid_oereb_extract_xml', 'pyramid_oereb.core.renderer.extract.xml_.Renderer')

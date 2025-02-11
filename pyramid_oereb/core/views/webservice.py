@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import logging
+from uuid import uuid4
+
 # import yappi
 import qrcode
 import io
@@ -16,7 +18,6 @@ from pyramid_oereb import route_prefix
 from pyramid_oereb import Config
 from pyreproj import Reprojector
 
-from pyramid_oereb.core.processor import create_processor
 from pyramid_oereb.core.readers.address import AddressReader
 from pyramid_oereb.core.renderer import Base as Renderer
 from timeit import default_timer as timer
@@ -195,7 +196,7 @@ class PlrWebservice(object):
                     Config.get('srid'),
                     self.__parse_gnss__(gnss).wkt
                 )
-            processor = create_processor(real_estate_only=True)
+            processor = self._request.pyramid_oereb_processor
             return processor.real_estate_reader.read(params, **{'geometry': geom_wkt})
         else:
             raise HTTPBadRequest('EN or GNSS must be defined.')
@@ -214,7 +215,7 @@ class PlrWebservice(object):
         identdn = self._params.get('IDENTDN')
         number = self._params.get('NUMBER')
         if identdn and number:
-            processor = create_processor(real_estate_only=True)
+            processor = self._request.pyramid_oereb_processor
             return processor.real_estate_reader.read(
                 params,
                 **{
@@ -251,7 +252,7 @@ class PlrWebservice(object):
                 srid=Config.get('srid'),
                 wkt=addresses[0].geom.wkt
             )
-            processor = create_processor(real_estate_only=True)
+            processor = self._request.pyramid_oereb_processor
             return processor.real_estate_reader.read(params, **{'geometry': geometry})
         else:
             raise HTTPBadRequest('POSTALCODE, LOCALISATION and NUMBER must be defined.')
@@ -267,7 +268,7 @@ class PlrWebservice(object):
         log.debug("get_extract_by_id() start")
         try:
             params = self.__validate_extract_params__()
-            processor = create_processor()
+            processor = self._request.pyramid_oereb_processor
             # read the real estate from configured source by the passed parameters
             real_estate_reader = processor.real_estate_reader
             if params.egrid:
@@ -638,6 +639,8 @@ class Parameter(object):
         self.__topics__ = topics
         self.__extract_url__ = extract_url
         self.__qr_code_ref__ = qr_code_ref
+        # uniquely identifier to reference the original request in the pyramid_oereb system
+        self.identifier = str(uuid4())
 
     def set_identdn(self, identdn):
         """
