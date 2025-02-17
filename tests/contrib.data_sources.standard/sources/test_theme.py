@@ -9,7 +9,8 @@ from pyramid_oereb.core.records.theme import ThemeRecord
 def source_params(db_connection):
     yield {
         "db_connection": db_connection,
-        "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Theme"
+        "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Theme",
+        "record_class": "pyramid_oereb.core.records.theme.ThemeRecord"
     }
 
 
