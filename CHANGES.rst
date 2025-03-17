@@ -12,7 +12,7 @@ Feature and maintenance release:
 * Improvements to the calculation of the number of pages of the table of contents (#2047)
 * New parameter 'page_break_difference' allows customization of calculation of toc length (#2047)
 * Initialization of pyramid_oereb processor at beginning of application start resulting in performance improvements (#2059)
-  Changes to the conifguration (municipalities, themes, etc.) of pyramid_oereb only apply after application restart now.
+  Changes to the configuration (municipalities, themes, etc.) of pyramid_oereb only apply after application restart now.
 
 2.5.5
 -------------
