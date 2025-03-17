@@ -5,6 +5,15 @@ Notes:
 ------
 - This python package specifies the version numbers only of directly imported python packages. This approach may result in a build failure of older versions of the project if incompatibilities arise between imported packages over time. The build process of the master branch is regularly tested in an automatic process.
 
+Version 2.5.6
+-------------
+Feature and maintenance release:
+
+* Improvements to the calculation of the number of pages of the table of contents (#2047)
+* New parameter 'page_break_difference' allows customization of calculation of toc length (#2047)
+* Initialization of pyramid_oereb processor at beginning of application start resulting in performance improvements (#2059)
+  Changes to the conifguration (municipalities, themes, etc.) of pyramid_oereb only apply after application restart now.
+
 2.5.5
 -------------
 - Library upgrades (pillow, pytest, webtest, waitress, codecov/codecov-action, geoalchemy, JamesIves/github-pages-deploy-action, urllib3)
