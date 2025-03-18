@@ -47,6 +47,7 @@
 <li class="toctree-l1"><a class="reference internal" href="makefile.html">Makefile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes/Hints for migration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-2-5-6">Version 2.5.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-5-5">Version 2.5.5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-5-4">Version 2.5.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-5-3">Version 2.5.3</a></li>
@@ -182,6 +183,16 @@
 <span id="changes"></span><h1>Changes/Hints for migration<a class="headerlink" href="#changes-hints-for-migration" title="Link to this heading">¶</a></h1>
 <p>This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.</p>
+<section id="version-2-5-6">
+<h2>Version 2.5.6<a class="headerlink" href="#version-2-5-6" title="Link to this heading">¶</a></h2>
+<p>Feature and maintenance release:</p>
+<ul class="simple">
+<li><p>Improvements to the calculation of the number of pages of the table of contents (#2047)</p></li>
+<li><p>New parameter ‘page_break_difference’ allows customization of calculation of toc length (#2047)</p></li>
+<li><p>Initialization of pyramid_oereb processor at beginning of application start resulting in performance improvements (#2059)
+Changes to the configuration (municipalities, themes, etc.) of pyramid_oereb only apply after application restart now.</p></li>
+</ul>
+</section>
 <section id="version-2-5-5">
 <h2>Version 2.5.5<a class="headerlink" href="#version-2-5-5" title="Link to this heading">¶</a></h2>
 <p>Feature and maintenance release:</p>
