@@ -6,6 +6,16 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+Version 2.5.6
+-------------
+Feature and maintenance release:
+
+* Improvements to the calculation of the number of pages of the table of contents (#2047)
+* New parameter 'page_break_difference' allows customization of calculation of toc length (#2047)
+* Initialization of pyramid_oereb processor at beginning of application start resulting in performance improvements (#2059)
+  Changes to the configuration (municipalities, themes, etc.) of pyramid_oereb only apply after application restart now.
+
+
 Version 2.5.5
 -------------
 Feature and maintenance release:
