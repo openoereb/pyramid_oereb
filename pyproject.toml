@@ -80,7 +80,7 @@ testing = [
     "pytest-ordering==0.6",
     "requests-mock==1.12.1",
     "responses==0.25.3",
-    "webtest==3.0.2",
+    "webtest==3.0.4",
     "pillow==11.1.0"]
 dev = [
     "flake8==7.1.1",
