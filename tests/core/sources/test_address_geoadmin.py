@@ -86,4 +86,4 @@ def test_read(pyramid_oereb_test_config, status_code):
             assert address.street_name == u'Muehlemattstrasse'
             assert isinstance(address.geom, Point)
             assert address.geom.x == 2621857.986995669
-            assert address.geom.y == 1259852.8231037296
+            assert address.geom.y == 1259852.8231037268
