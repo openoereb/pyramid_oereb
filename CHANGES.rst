@@ -5,14 +5,18 @@ Notes:
 ------
 - This python package specifies the version numbers only of directly imported python packages. This approach may result in a build failure of older versions of the project if incompatibilities arise between imported packages over time. The build process of the master branch is regularly tested in an automatic process.
 
-Version 2.5.6
--------------
+2.5.6
+-----
 Feature and maintenance release:
 
+* Library upgrades (lxml, webtest, pyaml-env, geoalchemy2, flake8)
+* Update JamesIves/github-pages-deploy-action action
 * Improvements to the calculation of the number of pages of the table of contents (#2047)
 * New parameter 'page_break_difference' allows customization of calculation of toc length (#2047)
 * Initialization of pyramid_oereb processor at beginning of application start resulting in performance improvements (#2059)
   Changes to the configuration (municipalities, themes, etc.) of pyramid_oereb only apply after application restart now.
+* Add workaround for failing test due to Python-version dependent numpy implementation (#2102)
+* Update license field in pyproject.toml to conform with setuptools standards
 
 2.5.5
 -------------

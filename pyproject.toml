@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pyramid_oereb"
-version = "2.5.5"
+version = "2.5.6"
 description = "pyramid_oereb, extension for pyramid web frame work to provide a basic server part for the oereb project"
 
 classifiers=[
@@ -21,7 +21,7 @@ classifiers=[
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application"
     ]
-license = {file = "LICENSE.txt"}
+license = { file = "LICENSE.txt" }
 authors = [
   {name = "François Voisard", email = "francois.voisard@ne.ch"},
 ]
