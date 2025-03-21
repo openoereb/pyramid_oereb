@@ -16,7 +16,6 @@ Feature and maintenance release:
 * Initialization of pyramid_oereb processor at beginning of application start resulting in performance improvements (#2059)
   Changes to the configuration (municipalities, themes, etc.) of pyramid_oereb only apply after application restart now.
 * Add workaround for failing test due to Python-version dependent numpy implementation (#2102)
-* Update license field in pyproject.toml to conform with setuptools standards
 
 2.5.5
 -------------
