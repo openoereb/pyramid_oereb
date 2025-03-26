@@ -118,7 +118,8 @@ def test_init_logos_error():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.logo.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Logo"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Logo",
+                "record_class": "pyramid_oereb.core.records.logo.LogoRecord"
             }
         }
     }, 0),
@@ -127,7 +128,8 @@ def test_init_logos_error():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.logo.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Logo"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Logo",
+                "record_class": "pyramid_oereb.core.records.logo.LogoRecord"
             }
         }
     }, 1)
@@ -251,7 +253,8 @@ def test_get_theme_config_by_code_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.theme.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Theme"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Theme",
+                "record_class": "pyramid_oereb.core.records.theme.ThemeRecord"
             }
         }
     }, 0),
@@ -260,7 +263,8 @@ def test_get_theme_config_by_code_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.theme.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Theme"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Theme",
+                "record_class": "pyramid_oereb.core.records.theme.ThemeRecord"
             }
         }
     }, 1)
@@ -287,7 +291,8 @@ def test_read_themes_config_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.theme_document.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument",
+                "record_class": "pyramid_oereb.core.records.theme_document.ThemeDocumentRecord"
             }
         }
     }, 0),
@@ -296,7 +301,8 @@ def test_read_themes_config_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.theme_document.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument",
+                "record_class": "pyramid_oereb.core.records.theme_document.ThemeDocumentRecord"
             }
         }
     }, 1)
@@ -446,7 +452,8 @@ def test_get_extract_config_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.general_information.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation",
+                "record_class": "pyramid_oereb.core.records.general_information.GeneralInformationRecord"
             }
         }
     }, 0),
@@ -455,7 +462,8 @@ def test_get_extract_config_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.general_information.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation",
+                "record_class": "pyramid_oereb.core.records.general_information.GeneralInformationRecord"
             }
         }
     }, 1)
@@ -483,7 +491,8 @@ def test_read_general_information_config_none():
             "pyramid_oereb.contrib.data_sources.standard.sources.law_status.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus",
+                "record_class": "pyramid_oereb.core.records.law_status.LawStatusRecord"
             }
         }
     }, 0),
@@ -491,8 +500,9 @@ def test_read_general_information_config_none():
         "source": {
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.law_status.DatabaseSource",
             "params": {
-              "db_connection": "*main_db_connection",
-              "model": "pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus"
+                "db_connection": "*main_db_connection",
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus",
+                "record_class": "pyramid_oereb.core.records.law_status.LawStatusRecord"
             }
         }
     }, 1)
@@ -520,7 +530,8 @@ def test_read_law_status_config_none():
             "pyramid_oereb.contrib.data_sources.standard.sources.document.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Document"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Document",
+                "record_class": "pyramid_oereb.core.records.documents.DocumentRecord"
             }
         }
     }, 0),
@@ -530,7 +541,8 @@ def test_read_law_status_config_none():
             "pyramid_oereb.contrib.data_sources.standard.sources.document.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Document"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Document",
+                "record_class": "pyramid_oereb.core.records.documents.DocumentRecord"
             }
         }
     }, 1)
@@ -557,7 +569,8 @@ def test_read_documents_config_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.office.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Office"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Office",
+                "record_class": "pyramid_oereb.core.records.office.OfficeRecord"
             }
         }
     }, 0),
@@ -566,7 +579,8 @@ def test_read_documents_config_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.office.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Office"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Office",
+                "record_class": "pyramid_oereb.core.records.office.OfficeRecord"
             }
         }
     }, 1),
@@ -593,7 +607,8 @@ def test_read_offices_config_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.availability.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Availability"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Availability",
+                "record_class": "pyramid_oereb.core.records.availability.AvailabilityRecord"
             }
         }
     }, 0),
@@ -602,7 +617,8 @@ def test_read_offices_config_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.availability.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Availability"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Availability",
+                "record_class": "pyramid_oereb.core.records.availability.AvailabilityRecord"
             }
         }
     }, 1)
@@ -629,7 +645,8 @@ def test_read_availabilities_config_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.glossary.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Glossary"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Glossary",
+                "record_class": "pyramid_oereb.core.records.glossary.GlossaryRecord"
             }
         }
     }, 0),
@@ -638,7 +655,8 @@ def test_read_availabilities_config_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.glossary.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Glossary"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Glossary",
+                "record_class": "pyramid_oereb.core.records.glossary.GlossaryRecord"
             }
         }
     }, 1)
@@ -665,7 +683,8 @@ def test_read_glossaries_config_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.disclaimer.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer",
+                "record_class": "pyramid_oereb.core.records.disclaimer.DisclaimerRecord"
             }
         }
     }, 0),
@@ -674,7 +693,8 @@ def test_read_glossaries_config_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.disclaimer.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer",
+                "record_class": "pyramid_oereb.core.records.disclaimer.DisclaimerRecord"
             }
         }
     }, 1),
@@ -701,7 +721,8 @@ def test_read_disclaimers_config_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Municipality"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Municipality",
+                "record_class": "pyramid_oereb.core.records.municipality.MunicipalityRecord"
             }
         }
     }, 0),
@@ -710,7 +731,8 @@ def test_read_disclaimers_config_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.municipality.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Municipality"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Municipality",
+                "record_class": "pyramid_oereb.core.records.municipality.MunicipalityRecord"
             }
         }
     }, 1)
@@ -737,7 +759,8 @@ def test_read_municipalities_config_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.document_types.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText",
+                "record_class": "pyramid_oereb.core.records.document_types.DocumentTypeRecord"
             }
         }
     }, 0),
@@ -746,7 +769,8 @@ def test_read_municipalities_config_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.document_types.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText",
+                "record_class": "pyramid_oereb.core.records.document_types.DocumentTypeRecord"
             }
         }
     }, 1)
@@ -773,7 +797,8 @@ def test_read_document_types_config_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType",
+                "record_class": "pyramid_oereb.core.records.real_estate_type.RealEstateTypeRecord"
             }
         }
     }, 0),
@@ -782,7 +807,8 @@ def test_read_document_types_config_none():
             "class": "pyramid_oereb.contrib.data_sources.standard.sources.real_estate_type.DatabaseSource",
             "params": {
                 "db_connection": "*main_db_connection",
-                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType"
+                "model": "pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType",
+                "record_class": "pyramid_oereb.core.records.real_estate_type.RealEstateTypeRecord"
             }
         }
     }, 1)
@@ -810,7 +836,8 @@ def test_read_real_estate_types_config_none():
                 "class": "pyramid_oereb.contrib.data_sources.standard.sources.map_layering.DatabaseSource",
                 "params": {
                     "db_connection": "*main_db_connection",
-                    "model": "pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering"
+                    "model": "pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering",
+                    "record_class": "pyramid_oereb.core.records.map_layering.MapLayeringRecord"
                 }
             }
         }
@@ -821,7 +848,8 @@ def test_read_real_estate_types_config_none():
                 "class": "pyramid_oereb.contrib.data_sources.standard.sources.map_layering.DatabaseSource",
                 "params": {
                     "db_connection": "*main_db_connection",
-                    "model": "pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering"
+                    "model": "pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering",
+                    "record_class": "pyramid_oereb.core.records.map_layering.MapLayeringRecord"
                 }
             }
         }

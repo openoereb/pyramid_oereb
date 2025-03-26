@@ -11,7 +11,8 @@ from pyramid_oereb.core.records.logo import LogoRecord
 def logo_source_params(db_connection):
     yield {
         "db_connection": db_connection,
-        "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Logo"
+        "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Logo",
+        "record_class": "pyramid_oereb.core.records.logo.LogoRecord"
     }
 
 
