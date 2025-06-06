@@ -5,6 +5,10 @@ Notes:
 ------
 - This python package specifies the version numbers only of directly imported python packages. This approach may result in a build failure of older versions of the project if incompatibilities arise between imported packages over time. The build process of the master branch is regularly tested in an automatic process.
 
+Master
+------
+- Support of Oereblex API version 1.2.6 via geolink-formatter version 2.0.7 (#)
+
 2.5.6
 -----
 Feature and maintenance release:

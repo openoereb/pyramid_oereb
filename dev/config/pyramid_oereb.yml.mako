@@ -184,7 +184,7 @@ pyramid_oereb:
     # OEREBlex host
     host: https://oereblex.sg.ch
     # geoLink schema version
-    version: 1.2.5
+    version: 1.2.6
     # Pass schema version in URL
     pass_version: true
     # Enable/disable XML validation
