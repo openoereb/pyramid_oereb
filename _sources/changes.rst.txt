@@ -6,6 +6,12 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+
+Master
+------
+* Support of Oereblex API version 1.2.6 via geolink-formatter version 2.0.7 added (#). The oereblex schema version that is used to download oereblex xmls can be set in the file pyramid_oereb.yaml.
+
+
 Version 2.5.6
 -------------
 Feature and maintenance release:
