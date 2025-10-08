@@ -79,7 +79,7 @@ testing = [
     "pytest-cov==6.0.0",
     "pytest-ordering==0.6",
     "requests-mock==1.12.1",
-    "responses==0.25.3",
+    "responses==0.25.8",
     "webtest==3.0.4",
     "pillow==11.1.0"]
 dev = [
