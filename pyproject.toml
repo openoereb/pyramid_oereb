@@ -83,7 +83,7 @@ testing = [
     "webtest==3.0.4",
     "pillow==11.1.0"]
 dev = [
-    "flake8==7.1.2",
+    "flake8==7.3.0",
     "Flake8-pyproject==1.2.3",
     "pyflakes==3.4.0",
     "pycodestyle==2.12.1",
