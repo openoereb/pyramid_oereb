@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pyramid_oereb"
-version = "2.5.6"
+version = "2.5.7"
 description = "pyramid_oereb, extension for pyramid web frame work to provide a basic server part for the oereb project"
 
 classifiers=[

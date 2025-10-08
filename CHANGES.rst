@@ -7,19 +7,23 @@ Notes:
 
 Master
 ------
-- Support of Oereblex API version 1.2.6 via geolink-formatter version 2.0.7 (#)
+
+
+2.5.7
+-----
+- Library upgrades (requests, pytest, pypdf, responses, pyflakes, flake8, pycodestyle, webtest, sqlalchemy, actions/checkout)
+- Revert "initialize processor on server boot (#2059)" to fix concurrency issues (#2115)
+- Support of Oereblex API version 1.2.6 via geolink-formatter version 2.0.7 (#2112)
 
 2.5.6
 -----
-Feature and maintenance release:
-
-* Library upgrades (lxml, webtest, pyaml-env, geoalchemy2, flake8)
-* Update JamesIves/github-pages-deploy-action action
-* Improvements to the calculation of the number of pages of the table of contents (#2047)
-* New parameter 'page_break_difference' allows customization of calculation of toc length (#2047)
-* Initialization of pyramid_oereb processor at beginning of application start resulting in performance improvements (#2059)
+- Library upgrades (lxml, webtest, pyaml-env, geoalchemy2, flake8)
+- Update JamesIves/github-pages-deploy-action action
+- Improvements to the calculation of the number of pages of the table of contents (#2047)
+- New parameter 'page_break_difference' allows customization of calculation of toc length (#2047)
+- Initialization of pyramid_oereb processor at beginning of application start resulting in performance improvements (#2059)
   Changes to the configuration (municipalities, themes, etc.) of pyramid_oereb only apply after application restart now.
-* Add workaround for failing test due to Python-version dependent numpy implementation (#2102)
+- Add workaround for failing test due to Python-version dependent numpy implementation (#2102)
 
 2.5.5
 -------------
