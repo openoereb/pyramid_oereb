@@ -86,7 +86,7 @@ dev = [
     "flake8==7.3.0",
     "Flake8-pyproject==1.2.3",
     "pyflakes==3.4.0",
-    "pycodestyle==2.12.1",
+    "pycodestyle==2.14.0",
     "Sphinx==7.4.7",
     "sphinx_rtd_theme==3.0.2",
     "psycopg2==2.9.10",
