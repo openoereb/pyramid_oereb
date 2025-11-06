@@ -17,6 +17,7 @@ classifiers=[
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
         "Framework :: Pyramid",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application"
@@ -42,7 +43,7 @@ recommend = [
     "pyramid-debugtoolbar==4.12.1",
     "qrcode==8.0",
     "image==1.5.33",
-    "shapely==2.0.6",
+    "shapely==2.1.2",
     "SQLAlchemy==2.0.43",
     "pyaml-env==1.2.2",
     "urllib3==2.3.0",
@@ -79,7 +80,7 @@ testing = [
     "requests-mock==1.12.1",
     "responses==0.25.8",
     "webtest==3.0.7",
-    "pillow==11.1.0"]
+    "pillow==12"]
 dev = [
     "flake8==7.3.0",
     "Flake8-pyproject==1.2.3",
