@@ -61,7 +61,7 @@ jobs:
           architecture: x64
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
-      - run: sudo apt-get install libpq-dev
+      - run: sudo apt-get install libpq-dev libxml2-dev libxslt1-dev
       - name: Run tests for Python ${{ matrix.python-version }}
         run: make tests
       - name: Upload coverage to Codecov
