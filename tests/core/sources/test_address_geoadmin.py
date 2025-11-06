@@ -87,15 +87,4 @@ def test_read(pyramid_oereb_test_config, status_code):
             assert address.street_name == u'Muehlemattstrasse'
             assert isinstance(address.geom, Point)
             assert address.geom.x == 2621857.986995669
-
-            # TODO: Remove workaround when Python 3.9 will no longer be supported
-            # This is a workaround needed as long as Python 3.9 is supported due to Numpy v2.2.4 used in
-            # Python 3.10 or higher, which does not support Python versions 3.9 or lower
-            # (where Numpy v2.0.2 or lower is used)
-            # Define the expected y-coordinate value based on Python version
-            if sys.version_info[:2] > (3, 9):
-                expected_geom_y = 1259852.8231037296
-            else:
-                expected_geom_y = 1259852.8231037268
-
-            assert address.geom.y == expected_geom_y
+            assert address.geom.y == 1259852.8231037296
