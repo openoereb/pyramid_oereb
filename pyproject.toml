@@ -41,7 +41,7 @@ recommend = [
     "geoalchemy2==0.17.1",
     "pyramid==2.0.2",
     "pyramid-debugtoolbar==4.12.1",
-    "qrcode==8.0",
+    "qrcode==8.2",
     "image==1.5.33",
     "shapely==2.1.2",
     "SQLAlchemy==2.0.43",
