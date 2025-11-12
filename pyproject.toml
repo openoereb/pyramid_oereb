@@ -13,10 +13,11 @@ description = "pyramid_oereb, extension for pyramid web frame work to provide a 
 classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
         "Framework :: Pyramid",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: WSGI :: Application"
@@ -42,7 +43,7 @@ recommend = [
     "pyramid-debugtoolbar==4.12.1",
     "qrcode==8.0",
     "image==1.5.33",
-    "shapely==2.0.6",
+    "shapely==2.1.2",
     "SQLAlchemy==2.0.43",
     "pyaml-env==1.2.2",
     "urllib3==2.3.0",
@@ -51,7 +52,6 @@ recommend = [
     "mako-render==0.1.0",
     "requests==2.32.5",
     "geolink-formatter==2.0.7",
-    "pyconizer==0.1.4",
     "c2cwsgiutils[standard]==6.0.8"]
 no-version = [
     "pypdf",
@@ -70,7 +70,6 @@ no-version = [
     "mako-render",
     "requests",
     "geolink-formatter",
-    "pyconizer",
     "c2cwsgiutils[standard]"]
 testing = [
     "jsonschema==4.23.0",
@@ -81,7 +80,7 @@ testing = [
     "requests-mock==1.12.1",
     "responses==0.25.8",
     "webtest==3.0.7",
-    "pillow==11.1.0"]
+    "pillow==12"]
 dev = [
     "flake8==7.3.0",
     "Flake8-pyproject==1.2.3",
@@ -105,7 +104,6 @@ create_oereblex_tables = "pyramid_oereb.contrib.data_sources.oereblex.create_tab
 create_main_schema_tables = "pyramid_oereb.contrib.data_sources.create_tables:create_main_schema_tables"
 create_example_yaml = "dev.config.create_yaml:create_yaml"
 create_theme_tables = "pyramid_oereb.contrib.data_sources.create_tables:create_theme_tables"
-create_legend_entries = "pyramid_oereb.contrib.data_sources.standard.load_legend_entries:run"
 create_stats_tables = "pyramid_oereb.contrib.stats.scripts.create_stats_tables:create_stats_tables"
 
 [tool.flake8]

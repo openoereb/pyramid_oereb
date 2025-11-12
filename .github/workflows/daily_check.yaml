@@ -42,15 +42,16 @@ jobs:
     strategy:
       matrix:
         python-version:
-          - python3.9
           - python3.10
           - python3.11
           - python3.12
+          - python3.13
+          - python3.14
     steps:
       - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
-      - run: sudo apt-get install libpq-dev
+      - run: sudo apt-get install libpq-dev libxml2-dev libxslt1-dev
       - name: Run tests for Python ${{ matrix.python-version }}
         env:
           PYTHON_TEST_VERSION: ${{ matrix.python-version }}

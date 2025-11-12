@@ -47,10 +47,11 @@ jobs:
     strategy:
       matrix:
         python-version:
-          - '3.9'
           - '3.10'
           - '3.11'
           - '3.12'
+          - '3.13'
+          - '3.14'
     steps:
       - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
       - name: Set up Python v${{ matrix.python-version }}
@@ -60,7 +61,7 @@ jobs:
           architecture: x64
       - run: sudo rm /etc/apt/sources.list.d/*.list
       - run: sudo apt update
-      - run: sudo apt-get install libpq-dev
+      - run: sudo apt-get install libpq-dev libxml2-dev libxslt1-dev
       - name: Run tests for Python ${{ matrix.python-version }}
         run: make tests
       - name: Upload coverage to Codecov
