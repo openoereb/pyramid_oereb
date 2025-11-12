@@ -75,7 +75,7 @@ testing = [
     "jsonschema==4.23.0",
     "lxml==5.4.0",
     "pytest==8.4.2",
-    "pytest-cov==6.0.0",
+    "pytest-cov==6.3.0",
     "pytest-ordering==0.6",
     "requests-mock==1.12.1",
     "responses==0.25.8",
