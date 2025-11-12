@@ -9,6 +9,14 @@ Master
 ------
 
 
+2.5.8
+-----
+- Library upgrades (sqlalchemy, psycopg2, actions/checkout, urllib3, qrcode, pytest-cov, jsonschema, JamesIves/github-pages-deploy-action, actions/setup-python, c2cwsgiutils)
+- Drop support for Python 3.9 (#2127)
+- Introduce official support for Python 3.13 and 3.14 (#2127)
+- Update the docker base image to python:3.14.0-bookworm (#2127)
+- Drop load_legend_entries.py script and related dependency to pyconizer (#2127)
+
 2.5.7
 -----
 - Library upgrades (requests, pytest, pypdf, responses, pyflakes, flake8, pycodestyle, webtest, sqlalchemy, actions/checkout)
