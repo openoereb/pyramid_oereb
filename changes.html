@@ -47,6 +47,7 @@
 <li class="toctree-l1"><a class="reference internal" href="makefile.html">Makefile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes/Hints for migration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-2-5-8">Version 2.5.8</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-5-7">Version 2.5.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-5-6">Version 2.5.6</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-5-5">Version 2.5.5</a></li>
@@ -184,6 +185,17 @@
 <span id="changes"></span><h1>Changes/Hints for migration<a class="headerlink" href="#changes-hints-for-migration" title="Link to this heading">¶</a></h1>
 <p>This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.</p>
+<section id="version-2-5-8">
+<h2>Version 2.5.8<a class="headerlink" href="#version-2-5-8" title="Link to this heading">¶</a></h2>
+<p>Feature and maintenance release:</p>
+<ul class="simple">
+<li><p>Library upgrades (sqlalchemy, psycopg2, actions/checkout, urllib3, qrcode, pytest-cov, jsonschema, JamesIves/github-pages-deploy-action, actions/setup-python, c2cwsgiutils)</p></li>
+<li><p>Drop support for Python 3.9 (#2127)</p></li>
+<li><p>Introduce official support for Python 3.13 and 3.14 (#2127)</p></li>
+<li><p>Update the docker base image to python:3.14.0-bookworm (#2127)</p></li>
+<li><p>Drop load_legend_entries.py script and related dependency to pyconizer (#2127)</p></li>
+</ul>
+</section>
 <section id="version-2-5-7">
 <h2>Version 2.5.7<a class="headerlink" href="#version-2-5-7" title="Link to this heading">¶</a></h2>
 <p>Feature and maintenance release:</p>
