@@ -5,10 +5,9 @@ from shapely.geometry import Point
 
 from pyramid_oereb import Config
 from pyramid_oereb.core.records.address import AddressRecord
-from pyramid_oereb.core.sources.address import AddressBaseSource
 
 
-class AddressGeoAdminSource(AddressBaseSource):
+class AddressGeoAdminSource():
     """
     An address source that uses the federal GeoAdmin API to return the geo location of a postal address.
     """

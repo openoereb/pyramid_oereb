@@ -12,7 +12,8 @@ from pyramid_oereb.core.views.webservice import Parameter
 def real_estate_source_params(db_connection):
     yield {
         "db_connection": db_connection,
-        "model": "pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate"
+        "model": "pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate",
+        "record_class": "pyramid_oereb.core.records.real_estate.RealEstateRecord"
     }
 
 

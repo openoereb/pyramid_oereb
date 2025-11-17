@@ -9,7 +9,8 @@ from pyramid_oereb.core.records.glossary import GlossaryRecord
 def glossary_source_params(db_connection):
     yield {
         "db_connection": db_connection,
-        "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Glossary"
+        "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Glossary",
+        "record_class": "pyramid_oereb.core.records.glossary.GlossaryRecord"
     }
 
 

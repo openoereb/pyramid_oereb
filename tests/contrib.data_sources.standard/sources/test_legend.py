@@ -22,7 +22,8 @@ def legend_entry_model_class():
 def legend_entry_source_params(legend_entry_model_class, db_connection):
     yield {
         "db_connection": db_connection,
-        "model": legend_entry_model_class
+        "model": legend_entry_model_class,
+        "record_class": "pyramid_oereb.core.records.view_service.LegendEntryRecord"
     }
 
 

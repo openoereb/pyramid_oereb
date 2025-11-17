@@ -103,9 +103,12 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
         """
         config_parser = StandardThemeConfigParser(**kwargs)
         self.models = config_parser.get_models()
+        BaseDatabaseSource.__init__(self, **{**kwargs['source']['params'],
+                                             'model': self.models.PublicLawRestriction})
         bds_kwargs = {
             'model': self.models.Geometry,
-            'db_connection': kwargs.get('source').get('params').get('db_connection')
+            'db_connection': kwargs.get('source').get('params').get('db_connection'),
+            'record_class': self._geometry_record_class,
         }
 
         BaseDatabaseSource.__init__(self, **bds_kwargs)

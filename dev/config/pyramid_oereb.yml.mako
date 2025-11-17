@@ -280,6 +280,7 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the real estate database table.
         model: pyramid_oereb.contrib.data_sources.standard.models.main.RealEstate
+        record_class: pyramid_oereb.core.records.real_estate.RealEstateRecord
 
   # The processor of the oereb project needs access to address data. In the standard configuration, this
   # is assumed to be read from a database. Hint: If you want to read the addresses out of an existing database
@@ -297,6 +298,7 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the address database table.
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Address
+        record_class: pyramid_oereb.core.records.address.AddressRecord
       # Alternatively, you can use the search service of the GeoAdmin API to look up the real estate by
       # address. Replace the configuration above with the following lines:
       # class: pyramid_oereb.contrib.data_sources.swisstopo.address.AddressGeoAdminSource
@@ -326,6 +328,7 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the municipality database table.
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Municipality
+        record_class: pyramid_oereb.core.records.municipality.MunicipalityRecord
 
   # The extract provides logos. Therefor you need to provide the logos from the database
   # or by a path to these logos. Note: This must be a valid absolute system path available
@@ -356,6 +359,7 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the logo images database table.
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Logo
+        record_class: pyramid_oereb.core.records.logo.LogoRecord
     hooks:
       get_logo_ref: pyramid_oereb.core.hook_methods.get_logo_ref
       get_qr_code_ref: pyramid_oereb.core.hook_methods.get_qr_code_ref
@@ -376,6 +380,7 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the document type texts database table.
         model: pyramid_oereb.contrib.data_sources.standard.models.main.DocumentTypeText
+        record_class: pyramid_oereb.core.records.document_types.DocumentTypeRecord
 
   # The processor of the oereb project joins the document type labels. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
@@ -393,6 +398,7 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the document type texts database table.
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Document
+        record_class: pyramid_oereb.core.records.documents.DocumentRecord
 
   # The processor of the oereb project joins the document type labels. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
@@ -410,6 +416,7 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the document type texts database table.
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Office
+        record_class: pyramid_oereb.core.records.office.OfficeRecord
 
   # The processor of the oereb project needs access to theme data. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the themes out of an existing database
@@ -427,6 +434,7 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the theme database table.
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Theme
+        record_class: pyramid_oereb.core.records.theme.ThemeRecord
 
   # The processor of the oereb project needs access to theme document data. In the standard configuration
   # this is assumed to be read from a database. Hint: If you want to read the theme documents out of an existing
@@ -444,6 +452,7 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the theme database table.
         model: pyramid_oereb.contrib.data_sources.standard.models.main.ThemeDocument
+        record_class: pyramid_oereb.core.records.theme_document.ThemeDocumentRecord
 
   # The processor of the oereb project needs access to glossary data. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the glossary out of an existing database
@@ -461,6 +470,7 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the glossary database table.
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Glossary
+        record_class: pyramid_oereb.core.records.glossary.GlossaryRecord
 
   # The processor of the oereb project needs access to disclaimer data. In the standard
   # configuration this is assumed to be read from a database. Hint: If you want to read the disclaimer
@@ -479,6 +489,7 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the disclaimer database table.
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Disclaimer
+        record_class: pyramid_oereb.core.records.disclaimer.DisclaimerRecord
 
   # The processor of the oereb project joins the law status labels. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
@@ -496,6 +507,7 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the document type texts database table.
         model: pyramid_oereb.contrib.data_sources.standard.models.main.LawStatus
+        record_class: pyramid_oereb.core.records.law_status.LawStatusRecord
 
   # The processor of the oereb project joins the real estate type labels. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the values out of an existing database
@@ -532,6 +544,7 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the document type texts database table.
         model: pyramid_oereb.contrib.data_sources.standard.models.main.RealEstateType
+        record_class: pyramid_oereb.core.records.real_estate_type.RealEstateTypeRecord
 
   # The processor of the oereb project needs access to general information data. In the standard
   # configuration this is assumed to be read from a database. Hint: If you want to read the general
@@ -550,6 +563,7 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the general_information database table.
         model: pyramid_oereb.contrib.data_sources.standard.models.main.GeneralInformation
+        record_class: pyramid_oereb.core.records.general_information.GeneralInformationRecord
 
   # The processor of the oereb project needs access to map layering data. In the standard configuration this
   # is assumed to be read from a database. Hint: If you want to read the map layering out of an existing database
@@ -567,6 +581,7 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the map layering database table.
         model: pyramid_oereb.contrib.data_sources.standard.models.main.MapLayering
+        record_class: pyramid_oereb.core.records.map_layering.MapLayeringRecord
 
   # The extract is the entry point which binds everything
   # related to data together.
@@ -600,6 +615,7 @@ pyramid_oereb:
         db_connection: *main_db_connection
         # The model which maps the map layering database table.
         model: pyramid_oereb.contrib.data_sources.standard.models.main.Availability
+        record_class: pyramid_oereb.core.records.availability.AvailabilityRecord
 
   # All PLRs which are provided by this application. This is related to all application behaviour, especially
   # the extract creation process which loops over this list.
@@ -642,6 +658,17 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: land_use_plans
+          record_class: &plr_records
+            documents: pyramid_oereb.core.records.documents.DocumentRecord
+            disclaimer: pyramid_oereb.core.records.disclaimer.DisclaimerRecord
+            geometry: pyramid_oereb.core.records.geometry.GeometryRecord
+            glossary: pyramid_oereb.core.records.glossary.GlossaryRecord
+            legend_entry: pyramid_oereb.core.records.view_service.LegendEntryRecord
+            office: pyramid_oereb.core.records.office.OfficeRecord
+            plr: pyramid_oereb.core.records.plr.PlrRecord
+            view_service: pyramid_oereb.core.records.view_service.ViewServiceRecord
+            law_status: pyramid_oereb.core.records.law_status.LawStatusRecord
+            datasource: pyramid_oereb.core.records.embeddable.DatasourceRecord
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
@@ -689,6 +716,7 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: motorways_project_planning_zones
+          record_class: *plr_records
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
@@ -736,6 +764,7 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: motorways_building_lines
+          record_class: *plr_records
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
@@ -783,6 +812,7 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: railways_project_planning_zones
+          record_class: *plr_records
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
@@ -830,6 +860,7 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: railways_building_lines
+          record_class: *plr_records
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
@@ -877,6 +908,7 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: airports_project_planning_zones
+          record_class: *plr_records
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
@@ -924,6 +956,7 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: airports_building_lines
+          record_class: *plr_records
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
@@ -971,6 +1004,7 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: airports_security_zone_plans
+          record_class: *plr_records
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
@@ -1019,6 +1053,7 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: contaminated_sites
+          record_class: *plr_records
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
@@ -1066,6 +1101,7 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: contaminated_military_sites
+          record_class: *plr_records
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
@@ -1113,6 +1149,7 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.interlis_2_3.models.theme.model_factory_integer_pk
           schema_name: contaminated_civil_aviation_sites
+          record_class: *plr_records
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.interlis_2_3.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
@@ -1160,6 +1197,7 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: contaminated_public_transport_sites
+          record_class: *plr_records
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
@@ -1207,6 +1245,7 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: groundwater_protection_zones
+          record_class: *plr_records
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
@@ -1254,6 +1293,7 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: groundwater_protection_sites
+          record_class: *plr_records
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
@@ -1301,6 +1341,7 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: noise_sensitivity_levels
+          record_class: *plr_records
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
@@ -1351,6 +1392,7 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: forest_perimeters
+          record_class: *plr_records
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref
@@ -1398,6 +1440,7 @@ pyramid_oereb:
           # uncomment line above and comment line below to use integer type for primary keys
           model_factory: pyramid_oereb.contrib.data_sources.standard.models.theme.model_factory_string_pk
           schema_name: forest_distance_lines
+          record_class: *plr_records
       hooks:
         get_symbol: pyramid_oereb.contrib.data_sources.standard.hook_methods.get_symbol
         get_symbol_ref: pyramid_oereb.core.hook_methods.get_symbol_ref

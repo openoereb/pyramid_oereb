@@ -13,7 +13,8 @@ from pyramid_oereb.core.records.address import AddressRecord
 def address_source_params(db_connection):
     yield {
         "db_connection": db_connection,
-        "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Address"
+        "model": "pyramid_oereb.contrib.data_sources.standard.models.main.Address",
+        "record_class": "pyramid_oereb.core.records.address.AddressRecord"
     }
 
 
@@ -28,13 +29,18 @@ def one_address_result_session(session, query, wkb_point):
 
     class Query(query):
 
-        def one(self):
-            return Address(**{
-                'street_name': 'teststreet',
-                'street_number': '99a',
-                'zip_code': 4050,
-                'geom': wkb_point
-            })
+        def limit(self, limit):
+            class LimitedQuery(Query):
+                def all(self):
+                    return [
+                        Address(**{
+                            'street_name': 'teststreet',
+                            'street_number': '99a',
+                            'zip_code': 4050,
+                            'geom': wkb_point
+                        })
+                    ]
+            return LimitedQuery()
 
     class Session(session):
 
@@ -49,8 +55,15 @@ def no_result_session(session, query, wkb_point):
 
     class Query(query):
 
-        def one(self):
-            raise NoResultFound
+        class LimitedQuery(query):
+            def all(self):
+                raise NoResultFound
+
+        def limit(self, limit):
+            return self.LimitedQuery()
+
+        def filter(self, term):
+            return self
 
     class Session(session):
 
