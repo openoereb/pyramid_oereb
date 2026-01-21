@@ -83,7 +83,7 @@ testing = [
     "pillow==12"]
 dev = [
     "flake8==7.3.0",
-    "Flake8-pyproject==1.2.3",
+    "Flake8-pyproject==1.2.4",
     "pyflakes==3.4.0",
     "pycodestyle==2.14.0",
     "Sphinx==7.4.7",
