@@ -36,7 +36,7 @@ Changelog = "https://github.com/openoereb/pyramid_oereb/blob/master/CHANGES.rst"
 [project.optional-dependencies]
 # Dependencies listed in "recommend" must be included in "no-version" without explicit version number
 recommend = [
-    "pypdf==5.9.0",
+    "pypdf==6.6.2",
     "filetype==1.2.0",
     "geoalchemy2==0.17.1",
     "pyramid==2.0.2",
