@@ -128,7 +128,6 @@ def test_db_name(test_db_url):
 
 
 @pytest.fixture(scope='session')
-@pytest.mark.usefixtures('config_path')
 def test_db_url(config_path):
     content = pyaml_env.parse_config(config_path)
     yield make_url(content.get('pyramid_oereb').get('app_schema').get('db_connection'))
@@ -215,7 +214,6 @@ def test_db_engine(base_engine, test_db_name, config_path):
 
 
 @pytest.fixture(scope='session')
-@pytest.mark.usefixtures('config_path')
 def pyramid_oereb_test_config(config_path, dbsession):
     del dbsession
     # Reload the standard test configuration and now initialize it
