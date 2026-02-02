@@ -12,13 +12,11 @@ from tests.mockrequest import MockParameter
 
 
 @pytest.fixture
-@pytest.mark.usefixtures('pyramid_oereb_test_config')
 def plr_cadastre_authority(pyramid_oereb_test_config):
     yield pyramid_oereb_test_config.get_plr_cadastre_authority()
 
 
 @pytest.fixture
-@pytest.mark.usefixtures('pyramid_oereb_test_config')
 def plr_sources(pyramid_oereb_test_config):
     plr_sources = []
     for plr in pyramid_oereb_test_config.get('plrs'):

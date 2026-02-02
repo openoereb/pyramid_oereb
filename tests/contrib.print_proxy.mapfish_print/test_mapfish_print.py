@@ -99,7 +99,6 @@ def expected_printable_extract_multi_wms():
 
 
 @pytest.fixture
-@pytest.mark.usefixtures('coordinates')
 def geometry(coordinates):
     yield {
         'type': 'MultiPolygon',

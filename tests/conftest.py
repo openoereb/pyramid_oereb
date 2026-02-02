@@ -214,7 +214,6 @@ def test_db_engine(base_engine, test_db_name, config_path):
 
 
 @pytest.fixture(scope='session')
-@pytest.mark.usefixtures('config_path')
 def pyramid_oereb_test_config(config_path, dbsession):
     del dbsession
     # Reload the standard test configuration and now initialize it
