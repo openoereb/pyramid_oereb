@@ -1222,7 +1222,8 @@ def test_extract_geometry_collection_db(real_estate_shapely_geom):
     ).text
 
 
-def test_handle_collection(plr_source_params, all_plr_result_session, real_estate_shapely_geom, db_connection):
+def test_handle_collection(plr_source_params, all_plr_result_session, real_estate_shapely_geom,
+                           db_connection):
 
     with patch(
             'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
