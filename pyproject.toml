@@ -44,7 +44,7 @@ recommend = [
     "qrcode==8.2",
     "image==1.5.33",
     "shapely==2.1.2",
-    "SQLAlchemy==2.0.44",
+    "SQLAlchemy==2.0.46",
     "pyaml-env==1.2.2",
     "urllib3==2.5.0",
     "waitress==3.0.2",
