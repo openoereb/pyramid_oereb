@@ -5,12 +5,10 @@ import pytest
 from unittest.mock import patch
 
 from geoalchemy2 import WKTElement
-from geoalchemy2.functions import ST_Intersects
 from shapely.geometry import Polygon, Point, LineString, GeometryCollection
 from shapely.wkt import loads
 from sqlalchemy import String, text, create_engine, orm
 from sqlalchemy.orm import declarative_base
-from sqlalchemy.sql.elements import BooleanClauseList
 
 from pyramid_oereb.core.config import Config
 from pyramid_oereb.core.records.documents import DocumentRecord
@@ -1224,7 +1222,6 @@ def test_extract_geometry_collection_db(real_estate_shapely_geom):
 
 def test_handle_collection(plr_source_params, all_plr_result_session, real_estate_shapely_geom,
                            db_connection):
-
     with patch(
             'pyramid_oereb.core.adapter.DatabaseAdapter.get_session',
             return_value=all_plr_result_session()):
@@ -1235,15 +1232,12 @@ def test_handle_collection(plr_source_params, all_plr_result_session, real_estat
 
         query = source.handle_collection(session, real_estate_shapely_geom)
 
-        # Assert we produced a spatial filter; don't assert full SQL string output.
-        clause = query.received_clause
-        # Depending on SQLAlchemy/geoalchemy2 versions, this may be ST_Intersects or a BooleanClauseList.
-        if isinstance(clause, BooleanClauseList):
-            # For collection handling you’d get multiple clauses; here we’re not in the collection branch,
-            # but keep this flexible in case config changes.
-            assert any('ST_Intersects' in c.text for c in clause.clauses)
-        else:
-            assert type(clause) is ST_Intersects
+        # Assert semantics, not exact SQL rendering.
+        stmt = query.statement
+        compiled = str(stmt.compile(compile_kwargs={"literal_binds": False})).replace("\n", " ")
+
+        assert "FROM land_use_plans.geometry" in compiled
+        assert "ST_Intersects" in compiled
 
 
 def mock_return_value_handle_collection(items_list):
