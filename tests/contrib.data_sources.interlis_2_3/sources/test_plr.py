@@ -281,59 +281,46 @@ def mock_session_object_query_geometries(items_list):
             self.legend_entry_id = legend_entry_id
 
     class GeometryTest():
-        def __init__(self, public_law_restriction: PublicLawRestrictionTest):
-            self.public_law_restriction: PublicLawRestrictionTest = public_law_restriction
+        def __init__(self, public_law_restriction):
+            self.public_law_restriction = public_law_restriction
 
     geometries = []
     for item in items_list:
         geometries.append(GeometryTest(PublicLawRestrictionTest(item[0], item[1])))
 
     class AllTest():
-        def __init__(self, geometries):
-            self.geometries = geometries
-
-        def all(self):
-            return iter(self.geometries)
+        def all():
+            return iter(geometries)
 
     class DistinctTest():
-        def __init__(self, geometries):
-            self.geometries = geometries
+        def __init__(self):
+            pass
 
-        def options(self, arg2):
-            return AllTest(self.geometries)
+        def options(arg2):
+            return AllTest
 
     class FilterTest():
-        def __init__(self, geometries):
-            self.geometries = geometries
+        def __init__(self):
+            pass
 
-        def distinct(self, arg2):
-            return DistinctTest(self.geometries)
+        def distinct(arg2):
+            return DistinctTest
 
     class QueryTest():
-        def __init__(self, geometries):
-            self.geometries = geometries
+        def __init__(self):
+            pass
 
-        def filter(self, arg3):
-            return FilterTest(self.geometries)
+        def filter(arg3):
+            return FilterTest
 
     class SessionTest():
-        def __init__(self, geometries):
-            self.geometries = geometries
-
-        def query(self, arg1):
-            return QueryTest(self.geometries)
-
-    class ModelMock():
         def __init__(self):
-            self.point = self
-            self.line = self
-            self.surface = self
-            self.public_law_restriction_id = 'public_law_restriction_id'
+            pass
 
-        def ST_Intersects(self, arg):
-            return True
+        def query(arg1):
+            return QueryTest
 
-    return SessionTest(geometries), ModelMock()
+    return SessionTest
 
 
 def get_return_vals_of_get_legend_entries_from_db(arg1, arg2, list_of_ids):
@@ -373,22 +360,10 @@ def test_collect_legend_entries_by_bbox(idx, items_list, plr_source_params):
             'get_legend_entries_from_db',
             get_return_vals_of_get_legend_entries_from_db
         ),
-        patch.object(
-            BaseDatabaseSource,
-            '__init__',
-            return_value=None
-        ),
-        patch.object(
-            Config,
-            'get',
-            return_value=2056
-        )
     ):
         source = DatabaseSource(**plr_source_params)
-        session, model = mock_session_object_query_geometries(items_list)
-        source._model_ = model
         result = source.collect_legend_entries_by_bbox(
-            session,
+            mock_session_object_query_geometries(items_list),
             Polygon(((0., 0.), (0., 1.), (1., 1.), (1., 0.), (0., 0.))))
 
     if idx == 0:
