@@ -314,7 +314,6 @@ def create_processor(real_estate_only=False):
     Returns:
         pyramid_oereb.lib.processor.Processor: A processor.
     """
-    global _processor_cache
     cache_key = 're_only' if real_estate_only else 'full'
 
     with _processor_lock:
