@@ -18,11 +18,11 @@ class ExtractReader(object):
     """
     The class which generates *the extract* as a record
     (:ref:`api-pyramid_oereb-core-records-extract-extractrecord`). This is the point where all necessary
-    and extract related components are bound together.
+    and extract-related components are bound together.
 
     Attributes:
         extract (pyramid_oereb.lib.records.extract.ExtractRecord or None): The extract as a record
-            representation. On initialisation this is None. It will be set by calling the read method of the
+            representation. On initialization this is None. It will be set by calling the read method of the
             instance.
     """
 
@@ -34,7 +34,6 @@ class ExtractReader(object):
             plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority responsible
                 for the PLR cadastre.
         """
-        self.extract = None
         self._plr_sources_ = plr_sources
         self._plr_cadastre_authority_ = plr_cadastre_authority
         self.law_status = Config.get_law_status_codes()
@@ -82,9 +81,14 @@ class ExtractReader(object):
 
             for plr_source in self._plr_sources_:
                 if not params.skip_topic(plr_source.info.get('code')):
-                    plr_source.read(params, real_estate, bbox)
-
-                    real_estate.public_law_restrictions.extend(plr_source.records)
+                    records = plr_source.read(params, real_estate, bbox)
+                    for record in records:
+                        if isinstance(record, PlrRecord):
+                            # Copy geometries to avoid shared state across requests if globalized
+                            record.geometries = [g for g in record.geometries]
+                            for g in record.geometries:
+                                g.reset_calculation()
+                        real_estate.public_law_restrictions.append(record)
 
             for plr in real_estate.public_law_restrictions:
 
@@ -130,7 +134,7 @@ class ExtractReader(object):
         municipality_logo = Config.get_municipality_logo(municipality.fosnr)
         qr_code_image = ImageRecord(params.qr_code)
 
-        self.extract = ExtractRecord(
+        extract = ExtractRecord(
             real_estate,
             oereb_logo,
             confederation_logo,
@@ -147,7 +151,7 @@ class ExtractReader(object):
         )
 
         log.debug("read() done")
-        return self.extract
+        return extract
 
     def _sort_plr_law_status(self, plr_element):
         """

@@ -15,8 +15,11 @@ from shapely.geometry import Polygon
 from pyramid_oereb.core.records.real_estate import RealEstateRecord
 from pyramid_oereb.core.records.municipality import MunicipalityRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
+from pyramid_oereb.core.records.plr import PlrRecord
 
 from pyramid_oereb.core.processor import Processor
+from pyramid_oereb.core.sources import BaseDatabaseSource
+from pyramid_oereb import Config
 from pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr import (
     StandardThemeConfigParser
 )
@@ -36,7 +39,7 @@ def interlis_db_engine(base_engine):
         term_stmt = 'SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity ' \
             f'WHERE pg_stat_activity.datname = \'{test_interlis_db_name}\' AND pid <> pg_backend_pid();'
         base_connection.execute(text(term_stmt))
-        # sqlalchemy uses transactions by default, COMMIT end the current transaction and allows
+        # sqlalchemy uses transactions by default, COMMIT ends the current transaction and allows
         # creation and destruction of DB
         base_connection.execute(text('COMMIT'))
         base_connection.execute(text(f"DROP DATABASE if EXISTS {test_interlis_db_name}"))
@@ -225,33 +228,6 @@ def plr_source_params(db_connection):
     }
 
 
-# @pytest.fixture
-# def interlis_real_estate():
-#     theme = ThemeRecord('code', dict(), 100)
-#     geometry_records = [
-#         GeometryRecord(law_status, datetime.date.today(), None, LineString(((1, 0.1), (2, 0.2))))
-#     ]
-#     return PlrRecord(
-#         theme,
-#         LegendEntryRecord(
-#             ImageRecord('1'.encode('utf-8')),
-#             {'en': 'Content'},
-#             'CodeA',
-#             None,
-#             theme,
-#             view_service_id=1
-#         ),
-#         law_status,
-#         date.today() + timedelta(days=0),
-#         date.today() + timedelta(days=2),
-#         OfficeRecord({'en': 'Office'}),
-#         ImageRecord('1'.encode('utf-8')),
-#         ViewServiceRecord({'de': 'http://my.wms.com'}, 1, 1.0, 'de', 2056, None, None),
-#         geometry_records,
-#         documents=[]
-#     )
-
-
 @pytest.fixture
 def processor_data(pyramid_oereb_test_config, main_schema):
     with patch(
@@ -272,12 +248,10 @@ def test_related_geometries(processor_data, pyramid_oereb_test_config, interlis_
     if with_tolerance:
         plr["tolerances"] = {'Point': 0.2, 'LineString': 0.5, 'Polygon': fi.epsilon}
     plr_source_class = DottedNameResolver().maybe_resolve(plr.get('source').get('class'))
-    plr_sources = []
-    plr_sources.append(plr_source_class(**plr))
+    plr_sources = [plr_source_class(**plr)]
 
     from pyramid_oereb.core.views.webservice import Parameter
     request_params = Parameter('json', egrid='TEST')
-    # municipality = pyramid_oereb_test_config.municipality_by_fosnr(oblique_limit_real_estate_record.fosnr)
     municipality = MunicipalityRecord(1234, 'test', True)
 
     from pyramid_oereb.core.readers.extract import ExtractReader
@@ -289,11 +263,6 @@ def test_related_geometries(processor_data, pyramid_oereb_test_config, interlis_
     extract_raw = extract_reader.read(
         request_params, oblique_limit_real_estate_record, municipality
     )
-    # processor = Processor(
-    #     real_estate_reader=real_estate_reader,
-    #     plr_sources=plr_sources,
-    #     extract_reader=extract_reader,
-    # )
     processor = Processor(
         real_estate_reader=None,
         plr_sources=plr_sources,
@@ -301,7 +270,8 @@ def test_related_geometries(processor_data, pyramid_oereb_test_config, interlis_
     )
     assert len(extract_raw.real_estate.public_law_restrictions) == nb_results
     extract = processor.plr_tolerance_check(extract_raw)
-    assert len(extract.real_estate.public_law_restrictions) == nb_results
+    plrs = [plr for plr in extract.real_estate.public_law_restrictions if isinstance(plr, PlrRecord)]
+    assert len(plrs) == nb_results
 
 
 def mock_session_object_query_geometries(items_list):
@@ -311,46 +281,59 @@ def mock_session_object_query_geometries(items_list):
             self.legend_entry_id = legend_entry_id
 
     class GeometryTest():
-        def __init__(self, public_law_restriction):
-            self.public_law_restriction = public_law_restriction
+        def __init__(self, public_law_restriction: PublicLawRestrictionTest):
+            self.public_law_restriction: PublicLawRestrictionTest = public_law_restriction
 
     geometries = []
     for item in items_list:
         geometries.append(GeometryTest(PublicLawRestrictionTest(item[0], item[1])))
 
     class AllTest():
-        def all():
-            return iter(geometries)
+        def __init__(self, geometries):
+            self.geometries = geometries
+
+        def all(self):
+            return iter(self.geometries)
 
     class DistinctTest():
-        def __init__(self):
-            pass
+        def __init__(self, geometries):
+            self.geometries = geometries
 
-        def options(arg2):
-            return AllTest
+        def options(self, arg2):
+            return AllTest(self.geometries)
 
     class FilterTest():
-        def __init__(self):
-            pass
+        def __init__(self, geometries):
+            self.geometries = geometries
 
-        def distinct(arg2):
-            return DistinctTest
+        def distinct(self, arg2):
+            return DistinctTest(self.geometries)
 
     class QueryTest():
-        def __init__(self):
-            pass
+        def __init__(self, geometries):
+            self.geometries = geometries
 
-        def filter(arg3):
-            return FilterTest
+        def filter(self, arg3):
+            return FilterTest(self.geometries)
 
     class SessionTest():
+        def __init__(self, geometries):
+            self.geometries = geometries
+
+        def query(self, arg1):
+            return QueryTest(self.geometries)
+
+    class ModelMock():
         def __init__(self):
-            pass
+            self.point = self
+            self.line = self
+            self.surface = self
+            self.public_law_restriction_id = 'public_law_restriction_id'
 
-        def query(arg1):
-            return QueryTest
+        def ST_Intersects(self, arg):
+            return True
 
-    return SessionTest
+    return SessionTest(geometries), ModelMock()
 
 
 def get_return_vals_of_get_legend_entries_from_db(arg1, arg2, list_of_ids):
@@ -389,11 +372,23 @@ def test_collect_legend_entries_by_bbox(idx, items_list, plr_source_params):
             DatabaseSource,
             'get_legend_entries_from_db',
             get_return_vals_of_get_legend_entries_from_db
+        ),
+        patch.object(
+            BaseDatabaseSource,
+            '__init__',
+            return_value=None
+        ),
+        patch.object(
+            Config,
+            'get',
+            return_value=2056
         )
     ):
         source = DatabaseSource(**plr_source_params)
+        session, model = mock_session_object_query_geometries(items_list)
+        source._model_ = model
         result = source.collect_legend_entries_by_bbox(
-            mock_session_object_query_geometries(items_list),
+            session,
             Polygon(((0., 0.), (0., 1.), (1., 1.), (1., 0.), (0., 0.))))
 
     if idx == 0:

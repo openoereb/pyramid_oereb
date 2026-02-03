@@ -49,9 +49,9 @@ def test_read(pyramid_oereb_test_config, real_estate_data, param):
     from pyramid_oereb.core.records.real_estate import RealEstateRecord
 
     source = DatabaseSource(**pyramid_oereb_test_config.get_real_estate_config().get('source').get('params'))
-    source.read(MockParameter(), **param)
-    assert len(source.records) == len(real_estate_data)
-    record = source.records[0]
+    records = source.read(MockParameter(), **param)
+    assert len(records) == len(real_estate_data)
+    record = records[0]
     assert isinstance(record, RealEstateRecord)
     assert record.fosnr == real_estate_data[0].fosnr
 

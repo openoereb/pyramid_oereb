@@ -84,5 +84,8 @@ class PlrBaseSource(Base):
                 all public law restrictions. This is related to the fact that we need to provide not only the
                 public law restrictions that are related to the real estate but also the ones which are in
                 the visible extent of the map.
+
+        Returns:
+            list of pyramid_oereb.lib.records.plr.PlrRecord: The list of public law restriction records.
         """
-        self.records = list()
+        return list()

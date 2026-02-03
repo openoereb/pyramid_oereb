@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
+import threading
 
 from operator import attrgetter
 
@@ -18,9 +19,9 @@ class Processor(object):
 
     def __init__(self, real_estate_reader, plr_sources, extract_reader):
         """
-        The Processor class is directly bound to the get_extract_by_id service in this application. It's task
-        is to unsnarl the difficult model of the oereb extract and handle all objects inside this extract
-        correctly. In addition it provides an easy to use method interface to access the information.
+        The Processor class is directly bound to the get_extract_by_id service in this application. Its task
+        is to unsnarl the challenging model of the oereb extract and handle all objects inside this extract
+        correctly. In addition, it provides an easy-to-use method interface to access the information.
         It is also used to wrap all accessors in one point to have a processing interface.
 
         Args:
@@ -139,7 +140,7 @@ class Processor(object):
     @staticmethod
     def view_service_handling(real_estate, images, extract_format, language):
         """
-        Handles all view service related stuff. In the moment this is:
+        Handles all view service-related stuff. At the moment this is:
             * construction of the correct url (reference_wms, multilingual) depending on the real estate
             * downloading of the image (if parameter was set) for the requested or default language
 
@@ -148,7 +149,7 @@ class Processor(object):
                 The real estate record to be updated.
             images (bool): Switch whether the images should be downloaded or not.
             extract_format (string): The format currently used. For 'pdf' format,
-                the used map size will be adapted to the pdf format.
+                the used map size will be adapted to the PDF format.
             language (string or None): Which language of the reference WMS should be used
 
         Returns:
@@ -182,10 +183,10 @@ class Processor(object):
     @staticmethod
     def get_legend_entries(inside_plrs, outside_plrs):
         """
-        We need to apply the right legend entries to each plr record which is intersecting the real estate.
+        We need to apply the right legend entries to each plr record that is intersecting the real estate.
         The result will be the "other legend".
         Since we already have a list of legend entries which are in the view bbox from calculated in the
-        plr source, its only necessary to omit the legend entries which are on the real estate from the list
+        plr source, it's only necessary to omit the legend entries that are on the real estate from the list
         of "other legend".
 
         Args:
@@ -265,7 +266,7 @@ class Processor(object):
 
         Args:
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
-                estate reader to obtain the real estates record.
+                estate reader to get the real estates record.
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract
                 request.
             sld_url (str): The URL which provides the sld to style and filter the highlight of the real
@@ -289,8 +290,8 @@ class Processor(object):
                      " no further sorting is applied.")
 
         # the selection of view services is done after the tolerance check. This enables us to take
-        # care about the circumstance that after tolerance check plrs will be dismissed which were
-        # recognized as intersecting before. To avoid this the tolerance check is gathering all plrs
+        # care of the circumstance that after tolerance check plrs will be dismissed which were
+        # recognized as intersecting before. To avoid this, the tolerance check is gathering all plrs
         # intersecting and not intersecting and starts the legend entry sorting after.
         self.view_service_handling(extract.real_estate, params.images, params.format, params.language)
 
@@ -300,39 +301,51 @@ class Processor(object):
         return extract
 
 
+_processor_cache = {}
+_processor_lock = threading.Lock()
+
+
 def create_processor(real_estate_only=False):
     """
     Creates and returns a processor based on the application configuration.
-    You should use one (and only one) processor per request. Otherwise some results can be mixed or
+    You should use one (and only one) processor per request. Otherwise, some results can be mixed or
     missing.
 
     Returns:
         pyramid_oereb.lib.processor.Processor: A processor.
     """
+    global _processor_cache
+    cache_key = 're_only' if real_estate_only else 'full'
 
-    real_estate_config = Config.get_real_estate_config()
-    real_estate_reader = RealEstateReader(
-        real_estate_config.get('source').get('class'),
-        **real_estate_config.get('source').get('params')
-    )
+    with _processor_lock:
+        if cache_key in _processor_cache:
+            return _processor_cache[cache_key]
 
-    plr_sources = None
-    extract_reader = None
-
-    if not real_estate_only:
-        plr_cadastre_authority = Config.get_plr_cadastre_authority()
-        plr_sources = []
-        for plr in Config.get('plrs'):
-            plr_source_class = DottedNameResolver().maybe_resolve(plr.get('source').get('class'))
-            plr_sources.append(plr_source_class(**plr))
-
-        extract_reader = ExtractReader(
-            plr_sources,
-            plr_cadastre_authority
+        real_estate_config = Config.get_real_estate_config()
+        real_estate_reader = RealEstateReader(
+            real_estate_config.get('source').get('class'),
+            **real_estate_config.get('source').get('params')
         )
 
-    return Processor(
-        real_estate_reader=real_estate_reader,
-        plr_sources=plr_sources,
-        extract_reader=extract_reader,
-    )
+        plr_sources = None
+        extract_reader = None
+
+        if not real_estate_only:
+            plr_cadastre_authority = Config.get_plr_cadastre_authority()
+            plr_sources = []
+            for plr in Config.get('plrs'):
+                plr_source_class = DottedNameResolver().maybe_resolve(plr.get('source').get('class'))
+                plr_sources.append(plr_source_class(**plr))
+
+            extract_reader = ExtractReader(
+                plr_sources,
+                plr_cadastre_authority
+            )
+
+        processor = Processor(
+            real_estate_reader=real_estate_reader,
+            plr_sources=plr_sources,
+            extract_reader=extract_reader,
+        )
+        _processor_cache[cache_key] = processor
+        return processor

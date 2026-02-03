@@ -303,7 +303,9 @@ def test_linestring_process_no_tol(real_estate_data, main_schema, land_use_plans
                                    oblique_land_use_plan, oblique_limit_real_estate_record):
     from pyramid_oereb.core.views.webservice import Parameter
     from pyramid_oereb.core.config import Config
+    from pyramid_oereb.core.processor import _processor_cache
 
+    _processor_cache.clear()
     processor = create_processor()
     request_params = Parameter('json', egrid='TEST')
 
@@ -320,10 +322,12 @@ def test_linestring_process_with_tol(real_estate_data, main_schema, land_use_pla
                                      oblique_land_use_plan, oblique_limit_real_estate_record):
     from pyramid_oereb.core.views.webservice import Parameter
     from pyramid_oereb.core.config import Config
+    from pyramid_oereb.core.processor import _processor_cache
 
     for i, plr in enumerate(Config._config["plrs"]):
         Config._config["plrs"][i]["tolerances"] = {'ALL': fi.epsilon}
 
+    _processor_cache.clear()
     processor = create_processor()
     request_params = Parameter('json', egrid='TEST')
 
@@ -331,6 +335,7 @@ def test_linestring_process_with_tol(real_estate_data, main_schema, land_use_pla
     extract_raw = processor._extract_reader_.read(
         request_params, oblique_limit_real_estate_record, municipality
     )
+    # The read results are now returned and added to real_estate.public_law_restrictions inside read()
     extract = processor.plr_tolerance_check(extract_raw)
     plrs = extract.real_estate.public_law_restrictions
     assert len(plrs) == 1
@@ -349,11 +354,13 @@ def test_linestring_collection_process(real_estate_data, main_schema, land_use_p
                                        oblique_land_use_plan, oblique_limit_collection_real_estate_record):
     from pyramid_oereb.core.views.webservice import Parameter
     from pyramid_oereb.core.config import Config
+    from pyramid_oereb.core.processor import _processor_cache
 
     for i, plr in enumerate(Config._config["plrs"]):
         Config._config["plrs"][i]["tolerances"] = {'ALL': fi.epsilon}
         Config._config["plrs"][i]["geometry_type"] = "GEOMETRYCOLLECTION"
 
+    _processor_cache.clear()
     processor = create_processor()
     request_params = Parameter('json', egrid='TEST')
 
@@ -361,6 +368,7 @@ def test_linestring_collection_process(real_estate_data, main_schema, land_use_p
     extract_raw = processor._extract_reader_.read(
         request_params, oblique_limit_collection_real_estate_record, municipality
     )
+    # The read results are now returned and added to real_estate.public_law_restrictions inside read()
     extract = processor.plr_tolerance_check(extract_raw)
     plrs = extract.real_estate.public_law_restrictions
     assert len(plrs) == 1

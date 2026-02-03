@@ -160,14 +160,14 @@ def all_real_estate_filtered_by_nbident_and_number_session(session, query, real_
 def test_read_all(real_estate_source_params, all_real_estate_result_session, wkb_multipolygons):
     source = DatabaseSource(**real_estate_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_real_estate_result_session()):  # noqa: E501
-        source.read(
+        records = source.read(
             Parameter('xml'),
             geometry="SRID=2056;MULTIPOLYGON(2608901.529 1261990.655,2608898.665 1261991.598)"
         )
-        assert len(source.records) == 2
-        assert isinstance(source.records[0], RealEstateRecord)
-        assert isinstance(source.records[1], RealEstateRecord)
-        record = source.records[0]
+        assert len(records) == 2
+        assert isinstance(records[0], RealEstateRecord)
+        assert isinstance(records[1], RealEstateRecord)
+        record = records[0]
         assert record.type == 'Liegenschaft'
         assert record.canton == 'BL'
         assert record.municipality == 'Oberwil (BL)'
@@ -185,15 +185,15 @@ def test_read_all(real_estate_source_params, all_real_estate_result_session, wkb
 def test_read_all_filtered_by_egrid(real_estate_source_params, all_real_estate_filtered_by_egrid_session):
     source = DatabaseSource(**real_estate_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_real_estate_filtered_by_egrid_session()):  # noqa: E501
-        source.read(Parameter('xml'), egrid='CH113928077734')
-        assert len(source.records) == 1
+        records = source.read(Parameter('xml'), egrid='CH113928077734')
+        assert len(records) == 1
 
 
 def test_read_all_filtered_by_nbident_and_number(real_estate_source_params, all_real_estate_filtered_by_nbident_and_number_session):  # noqa: E501
     source = DatabaseSource(**real_estate_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_real_estate_filtered_by_nbident_and_number_session()):  # noqa: E501
-        source.read(Parameter('xml'), nb_ident=1, number='71')
-        assert len(source.records) == 1
+        records = source.read(Parameter('xml'), nb_ident=1, number='71')
+        assert len(records) == 1
 
 
 def test_read_all_missing_param(real_estate_source_params, all_real_estate_result_session):

@@ -38,9 +38,9 @@ class DatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
             else:
                 raise AttributeError('Necessary parameter were missing.')
 
-            self.records = list()
+            records = list()
             for result in results:
-                self.records.append(self._record_class_(
+                records.append(self._record_class_(
                     result.type,
                     result.canton,
                     result.municipality,
@@ -57,3 +57,4 @@ class DatabaseSource(BaseDatabaseSource, RealEstateBaseSource):
 
         finally:
             session.close()
+        return records

@@ -29,5 +29,9 @@ class RealEstateBaseSource(Base):
                 result or must raise an error.
             geometry (str): A geometry as WKT string which is used to obtain intersected real
                 estates. This may deliver several results.
+
+        Returns:
+            list of pyramid_oereb.core.records.real_estate.RealEstateRecord: The list of read real estate
+                records.
         """
         pass  # pragma: no cover
