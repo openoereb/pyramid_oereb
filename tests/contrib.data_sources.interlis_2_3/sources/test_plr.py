@@ -359,7 +359,7 @@ def test_collect_legend_entries_by_bbox(idx, items_list, plr_source_params):
             DatabaseSource,
             'get_legend_entries_from_db',
             get_return_vals_of_get_legend_entries_from_db
-        ),
+        )
     ):
         source = DatabaseSource(**plr_source_params)
         result = source.collect_legend_entries_by_bbox(
