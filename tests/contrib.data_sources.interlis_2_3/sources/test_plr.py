@@ -18,8 +18,6 @@ from pyramid_oereb.core.records.theme import ThemeRecord
 from pyramid_oereb.core.records.plr import PlrRecord
 
 from pyramid_oereb.core.processor import Processor
-from pyramid_oereb.core.sources import BaseDatabaseSource
-from pyramid_oereb import Config
 from pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr import (
     StandardThemeConfigParser
 )
