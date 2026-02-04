@@ -4,6 +4,7 @@ from shapely.geometry.base import BaseGeometry
 
 from pyramid_oereb.core.sources.plr import PlrBaseSource
 
+
 @pytest.fixture
 def real_estate_data():
     from pyramid_oereb.contrib.data_sources.standard.models.main import RealEstate
@@ -23,12 +24,14 @@ def real_estate_data():
     ]
     yield real_estates
 
+
 def test_read(real_estate_data):
     from pyramid_oereb.core.views.webservice import Parameter
     parameter = Parameter(response_format='application/json')
     source = PlrBaseSource()
     geometry = BaseGeometry()
     assert source.read(parameter, real_estate_data, geometry) == []
+
 
 def test_info():
     source = PlrBaseSource(name='test')
