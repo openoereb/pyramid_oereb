@@ -21,8 +21,5 @@ class DocumentBaseSource(Base):
         Args:
             office_records (pyramid_oereb.views.webservice.Parameter): The office records of the exact
                 request.
-
-        Returns:
-            list of pyramid_oereb.core.records.documents.DocumentRecord: The list of document records.
         """
-        return list()
+        pass  # pragma: no cover

@@ -14,9 +14,5 @@ class AvailabilityBaseSource(Base):
         Every availability source has to implement a read method. This method must accept no
         parameters. Because it should deliver all items available.
         If you want to adapt to your own source for availability, this is the point where to hook in.
-
-        Returns:
-            list of pyramid_oereb.core.records.availability.AvailabilityRecord: The list of
-                availability records.
         """
-        return list()
+        pass  # pragma: no cover

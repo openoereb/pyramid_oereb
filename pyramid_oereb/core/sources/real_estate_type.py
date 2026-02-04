@@ -20,9 +20,5 @@ class RealEstateTypeBaseSource(Base):
 
         Args:
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
-
-        Returns:
-            list of pyramid_oereb.core.records.real_estate_type.RealEstateTypeRecord: The list of real estate
-                type records.
         """
-        return list()
+        pass  # pragma: no cover

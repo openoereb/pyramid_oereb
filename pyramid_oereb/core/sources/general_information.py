@@ -19,9 +19,5 @@ class GeneralInformationBaseSource(Base):
         This method must accept no parameters. Because it should deliver all items available.
         If you want adapt to your own source for general information labels, this is the point
         where to hook in.
-
-        Returns:
-            list of pyramid_oereb.core.records.general_information.GeneralInformationRecord: The list of
-                general information records.
         """
-        return list()
+        pass  # pragma: no cover
