@@ -15,11 +15,7 @@ class Base(object):
     """
     The basic source class. This is not meant to be used directly as a source at runtime. But more as a basic
     class for inherit in special designed classes.
-
-    Attributes:
-        records (list): The list which will be filled up with records in the process.
     """
-    records = list()
 
 
 class BaseDatabaseSource(Base):

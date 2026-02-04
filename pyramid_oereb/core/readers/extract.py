@@ -19,11 +19,6 @@ class ExtractReader(object):
     The class which generates *the extract* as a record
     (:ref:`api-pyramid_oereb-core-records-extract-extractrecord`). This is the point where all necessary
     and extract-related components are bound together.
-
-    Attributes:
-        extract (pyramid_oereb.lib.records.extract.ExtractRecord or None): The extract as a record
-            representation. On initialization this is None. It will be set by calling the read method of the
-            instance.
     """
 
     def __init__(self, plr_sources, plr_cadastre_authority):

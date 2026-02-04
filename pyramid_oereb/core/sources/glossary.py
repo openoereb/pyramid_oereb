@@ -6,9 +6,6 @@ from pyramid_oereb.core.records.glossary import GlossaryRecord
 class GlossaryBaseSource(Base):
     """
     Base class for address sources.
-
-    Attributes:
-        records (list of pyramid_oereb.lib.records.glossary.GlossaryRecord): List of glossary records.
     """
     _record_class_ = GlossaryRecord
 

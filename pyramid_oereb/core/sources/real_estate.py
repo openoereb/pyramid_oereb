@@ -6,9 +6,6 @@ from pyramid_oereb.core.records.real_estate import RealEstateRecord
 class RealEstateBaseSource(Base):
     """
     Base class for real estate sources.
-
-    Attributes:
-        records (list of pyramid_oereb.lib.records.real_estate.RealEstateRecord): List of real estate records.
     """
     _record_class_ = RealEstateRecord
 

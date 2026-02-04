@@ -6,10 +6,6 @@ from pyramid_oereb.core.records.municipality import MunicipalityRecord
 class MunicipalityBaseSource(Base):
     """
     Base class for municipality sources.
-
-    Attributes:
-        records (list of pyramid_oereb.lib.records.municipality.MunicipalityRecord): List of municipality
-            records.
     """
     _record_class_ = MunicipalityRecord
 

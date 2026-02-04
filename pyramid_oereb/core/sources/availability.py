@@ -6,10 +6,6 @@ from pyramid_oereb.core.records.availability import AvailabilityRecord
 class AvailabilityBaseSource(Base):
     """
     Base class for availability sources.
-
-    Attributes:
-        records (list of pyramid_oereb.core.records.availability.AvailabilityRecord): List
-            of availability records.
     """
     _record_class_ = AvailabilityRecord
 

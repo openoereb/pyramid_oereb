@@ -5,16 +5,9 @@ class RealEstateRecord(object):
     Basic characteristics and geometry of the property to be analysed.
 
     Attributes:
-        plan_for_land_register (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view service to
-            be used for the land registry map.
-        highlight (pyramid_oereb.lib.records.view_service.ViewServiceRecord): the view service with the wms
-        image of the highlighted real estate.
         areas_ratio (decimal): Ratio of geometrical area and area from land registry.
     """
 
-    plan_for_land_register = None
-    plan_for_land_register_main_page = None
-    highlight = None
     areas_ratio = 1.0
 
     def __init__(self, type, canton, municipality, fosnr, land_registry_area, limit,
@@ -60,6 +53,9 @@ class RealEstateRecord(object):
         self.metadata_of_geographical_base_data = metadata_of_geographical_base_data
         self.land_registry_area = int(round(land_registry_area, 0))
         self.limit = limit
+        self.plan_for_land_register = None
+        self.plan_for_land_register_main_page = None
+        self.highlight = None
         if isinstance(public_law_restrictions, list):
             self.public_law_restrictions = public_law_restrictions
         else:

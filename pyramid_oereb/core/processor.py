@@ -316,7 +316,12 @@ def create_processor(real_estate_only=False):
     """
     cache_key = 're_only' if real_estate_only else 'full'
 
+    # Check cache first without lock (fast path)
+    if cache_key in _processor_cache:
+        return _processor_cache[cache_key]
+
     with _processor_lock:
+        # Double check after acquiring lock
         if cache_key in _processor_cache:
             return _processor_cache[cache_key]
 

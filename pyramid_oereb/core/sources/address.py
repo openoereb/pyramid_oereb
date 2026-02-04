@@ -7,9 +7,6 @@ from pyramid_oereb.core.records.address import AddressRecord
 class AddressBaseSource(Base):
     """
     Base class for address sources.
-
-    Attributes:
-        records (list of pyramid_oereb.lib.records.address.AddressRecord): List of address records.
     """
     _record_class_ = AddressRecord
 

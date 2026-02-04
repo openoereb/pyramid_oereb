@@ -20,8 +20,6 @@ class PlrBaseSource(Base):
     Base class for public law restriction sources.
 
     Attributes:
-        records (list of pyramid_oereb.lib.records.plr.EmptyPlrRecord): List of public law restriction
-            records.
         datasource (list of pyramid_oereb.lib.records.embeddable.DatasourceRecord): List of data source
             records used for the additional data in flavour `embeddable`.
     """

@@ -34,13 +34,6 @@ class ExtractRecord(object):
             extract.
     """
 
-    creation_date = None
-    electronic_signature = None
-    concerned_theme = None
-    not_concerned_theme = None
-    theme_without_data = None
-    extract_identifier = None
-
     def __init__(self, real_estate, logo_plr_cadastre, federal_logo, cantonal_logo, municipality_logo,
                  plr_cadastre_authority, update_date_os, disclaimers=None, glossaries=None,
                  concerned_theme=None, not_concerned_theme=None, theme_without_data=None,
@@ -80,6 +73,7 @@ class ExtractRecord(object):
         self.update_date_os = update_date_os
         self.general_information = general_information
         self.extract_identifier = str(uuid.uuid4())
+        self.electronic_signature = None
         self.real_estate = real_estate
         if concerned_theme:
             self.concerned_theme = concerned_theme
