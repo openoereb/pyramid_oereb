@@ -125,11 +125,11 @@ def mock_config_get_main_law_status_by_data_code(app_config):
 def test_read_all(document_source_params, all_document_result_session, office_records, png_binary, date_today):  # noqa: E501
     source = DatabaseSource(**document_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_document_result_session()):  # noqa: E501
-        source.read(office_records)
-        assert len(source.records) == 2
-        assert isinstance(source.records[0], DocumentRecord)
-        assert isinstance(source.records[1], DocumentRecord)
-        test_document = source.records[0]
+        records = source.read(office_records)
+        assert len(records) == 2
+        assert isinstance(records[0], DocumentRecord)
+        assert isinstance(records[1], DocumentRecord)
+        test_document = records[0]
         assert test_document.identifier == 1
         assert isinstance(test_document.document_type, DocumentTypeRecord)
         assert test_document.index == 1

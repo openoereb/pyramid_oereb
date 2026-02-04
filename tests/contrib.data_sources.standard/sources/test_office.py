@@ -68,11 +68,11 @@ def all_office_result_session(session, query, office_model_class):
 def test_read_all(office_source_params, all_office_result_session):
     source = DatabaseSource(**office_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_office_result_session()):  # noqa: E501
-        source.read()
-        assert len(source.records) == 2
-        assert isinstance(source.records[0], OfficeRecord)
-        assert isinstance(source.records[1], OfficeRecord)
-        office_record = source.records[0]
+        records = source.read()
+        assert len(records) == 2
+        assert isinstance(records[0], OfficeRecord)
+        assert isinstance(records[1], OfficeRecord)
+        office_record = records[0]
         assert office_record.name == {'de': 'Office1'}
         assert office_record.uid == 'abcde'
         assert office_record.line1 == 'entrance 1'

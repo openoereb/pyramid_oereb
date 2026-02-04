@@ -13,12 +13,13 @@ class DatabaseSource(BaseDatabaseSource, MapLayeringBaseSource):
         try:
             results = session.query(self._model_).all()
 
-            self.records = list()
+            records = list()
             for result in results:
-                self.records.append(self._record_class_(
+                records.append(self._record_class_(
                     result.view_service,
                     result.layer_index,
                     result.layer_opacity
                 ))
+            return records
         finally:
             session.close()

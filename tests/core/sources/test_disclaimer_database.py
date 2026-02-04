@@ -52,6 +52,6 @@ def test_read(pyramid_oereb_test_config, disclaimer_data):
     source = DatabaseSource(
         **pyramid_oereb_test_config.get_disclaimer_config().get('source').get('params')
     )
-    source.read()
-    assert len(source.records) == 1
-    assert source.records[0].title['de'] == disclaimer_data[0].title['de']
+    records = source.read()
+    assert len(records) == 1
+    assert records[0].title['de'] == disclaimer_data[0].title['de']

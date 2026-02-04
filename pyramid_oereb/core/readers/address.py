@@ -44,5 +44,4 @@ class AddressReader(object):
             list of pyramid_oereb.core.records.address.AddressRecord:
                 The list of found records filtered by the passed criteria.
         """
-        self._source_.read(params, street_name, zip_code, street_number)
-        return self._source_.records
+        return self._source_.read(params, street_name, zip_code, street_number)

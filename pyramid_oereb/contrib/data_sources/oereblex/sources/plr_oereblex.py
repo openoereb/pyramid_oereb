@@ -101,10 +101,10 @@ class DatabaseOEREBlexSource(DatabaseSource):
             log.debug('skip querying this geolink "{}" because it was fetched already.'.format(identifier))
             log.debug('use already queried instead')
         else:
-            self._oereblex_source.read(params, geolink, law_status, oereblex_params)
+            records = self._oereblex_source.read(params, geolink, law_status, oereblex_params)
             log.debug("document_records_from_oereblex() returning {} records"
-                      .format(len(self._oereblex_source.records)))
-            self._queried_geolinks[identifier] = self._oereblex_source.records
+                      .format(len(records)))
+            self._queried_geolinks[identifier] = records
         return self._queried_geolinks[identifier]
 
     def collect_related_geometries_by_real_estate(self, session, real_estate):

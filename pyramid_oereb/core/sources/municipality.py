@@ -14,5 +14,9 @@ class MunicipalityBaseSource(Base):
         Every municipality source has to implement a read method. This method must accept no parameters.
         Because it should deliver all items available.
         If you want adapt to your own source for municipalities, this is the point where to hook in.
+
+        Returns:
+            list of pyramid_oereb.core.records.municipality.MunicipalityRecord:
+            The list of municipality records.
         """
-        pass  # pragma: no cover
+        return list()

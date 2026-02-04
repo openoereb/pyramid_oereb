@@ -20,5 +20,8 @@ class LawStatusBaseSource(Base):
 
         Args:
             params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
+
+        Returns:
+            list of pyramid_oereb.core.records.law_status.LawStatusRecord: The list of law status records.
         """
-        pass  # pragma: no cover
+        return list()

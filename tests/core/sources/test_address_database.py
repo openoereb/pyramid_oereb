@@ -44,10 +44,11 @@ def test_read(pyramid_oereb_test_config, address_data, param, length):
     from pyramid_oereb.core.records.address import AddressRecord
 
     source = DatabaseSource(**pyramid_oereb_test_config.get_address_config().get('source').get('params'))
-    source.read(MockParameter(), param.get('street_name'), param.get('zip_code'), param.get('street_number'))
-    assert len(source.records) == length
+    records = source.read(MockParameter(), param.get('street_name'), param.get('zip_code'),
+                          param.get('street_number'))
+    assert len(records) == length
     if length == 1:
-        address = source.records[0]
+        address = records[0]
         assert isinstance(address, AddressRecord)
         assert address.zip_code == address_data[0].zip_code
 

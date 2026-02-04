@@ -702,10 +702,7 @@ def test_get_document_records(plr_source_params, document_records, params, plrs_
 def test_document_records_from_oereblex(plr_source_params, document_records, params, law_status_records):
     with patch(
             'pyramid_oereb.contrib.data_sources.oereblex.sources.document.OEREBlexSource.read',
-            return_value=None
-    ), patch(
-        "pyramid_oereb.contrib.data_sources.oereblex.sources.document.OEREBlexSource.records",
-        document_records
+            return_value=document_records
     ):
         from pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex import DatabaseOEREBlexSource
 

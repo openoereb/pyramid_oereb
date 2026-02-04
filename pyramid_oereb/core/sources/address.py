@@ -20,5 +20,8 @@ class AddressBaseSource(Base):
             street_name (unicode): The name of the street for the desired address.
             zip_code (int): The postal zipcode for the desired address.
             street_number (str): The house or so called street number of the desired address.
+
+        Returns:
+            list of pyramid_oereb.core.records.address.AddressRecord: The list of address records.
         """
-        pass  # pragma: no cover
+        return list()

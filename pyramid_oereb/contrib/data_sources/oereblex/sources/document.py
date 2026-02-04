@@ -103,6 +103,9 @@ class OEREBlexSource(Base):
             geolink_id (int): The geoLink ID.
             law_status (pyramid_oereb.core.records.law_status.LawStatusRecord): The restriction's law status.
             oereblex_params (string or None): Any additional parameters to pass to Oereblex
+
+        Returns:
+            list of pyramid_oereb.core.records.documents.DocumentRecord: The list of document records.
         """
         log.debug("read() start for geolink_id {}, oereblex_params {}".format(geolink_id, oereblex_params))
 
@@ -133,10 +136,11 @@ class OEREBlexSource(Base):
         log.debug("read() got documents")
 
         # Convert to records
-        self.records = []
+        records = []
         for document in documents:
-            self.records.extend(self._get_document_records(document, language))
+            records.extend(self._get_document_records(document, language))
         log.debug("read() done.")
+        return records
 
     def _get_document_records(self, document, language):
         """

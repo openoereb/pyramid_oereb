@@ -89,11 +89,11 @@ def all_municipalities_filtered_result_session(session, query, municipalities):
 def test_read_all(municipalities_source_params, all_municipalities_result_session, wkb_multipolygon):
     source = DatabaseSource(**municipalities_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_municipalities_result_session()):  # noqa: E501
-        source.read()
-        assert len(source.records) == 2
-        assert isinstance(source.records[0], MunicipalityRecord)
-        assert isinstance(source.records[1], MunicipalityRecord)
-        assert source.records[0].fosnr == 2771
-        assert source.records[0].geom == to_shape(wkb_multipolygon).wkt
-        assert source.records[0].name == "Oberwil (BL)"
-        assert source.records[0].published
+        records = source.read()
+        assert len(records) == 2
+        assert isinstance(records[0], MunicipalityRecord)
+        assert isinstance(records[1], MunicipalityRecord)
+        assert records[0].fosnr == 2771
+        assert records[0].geom == to_shape(wkb_multipolygon).wkt
+        assert records[0].name == "Oberwil (BL)"
+        assert records[0].published

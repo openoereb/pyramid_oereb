@@ -63,17 +63,17 @@ def no_result_session(session, query, wkb_point):
 def test_read_one(address_source_params, one_address_result_session):
     source = DatabaseSource(**address_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=one_address_result_session()):  # noqa: E501
-        source.read(Parameter('xml'), 'teststreet', 4050, '99a')
-        assert len(source.records) == 1
-        assert isinstance(source.records[0], AddressRecord)
-        assert source.records[0].street_name == 'teststreet'
-        assert source.records[0].street_number == '99a'
-        assert source.records[0].zip_code == 4050
-        assert source.records[0].geom.coords[0] == (1.0, 1.0)
+        records = source.read(Parameter('xml'), 'teststreet', 4050, '99a')
+        assert len(records) == 1
+        assert isinstance(records[0], AddressRecord)
+        assert records[0].street_name == 'teststreet'
+        assert records[0].street_number == '99a'
+        assert records[0].zip_code == 4050
+        assert records[0].geom.coords[0] == (1.0, 1.0)
 
 
 def test_read_none_found(address_source_params, no_result_session):
     source = DatabaseSource(**address_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=no_result_session()):
-        source.read(Parameter('xml'), 'teststreet', 4050, '99a')
-        assert len(source.records) == 0
+        records = source.read(Parameter('xml'), 'teststreet', 4050, '99a')
+        assert len(records) == 0

@@ -49,11 +49,11 @@ def all_glossary_result_session(session, query):
 def test_read_all(glossary_source_params, all_glossary_result_session):
     source = DatabaseSource(**glossary_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_glossary_result_session()):  # noqa: E501
-        source.read()
-        assert len(source.records) == 3
-        assert isinstance(source.records[0], GlossaryRecord)
-        assert isinstance(source.records[1], GlossaryRecord)
-        assert isinstance(source.records[2], GlossaryRecord)
-        assert source.records[0].title == {'de': 'Test1'}
-        assert source.records[1].title == {'de': 'Test2'}
-        assert source.records[2].title == {'de': 'Test3'}
+        records = source.read()
+        assert len(records) == 3
+        assert isinstance(records[0], GlossaryRecord)
+        assert isinstance(records[1], GlossaryRecord)
+        assert isinstance(records[2], GlossaryRecord)
+        assert records[0].title == {'de': 'Test1'}
+        assert records[1].title == {'de': 'Test2'}
+        assert records[2].title == {'de': 'Test3'}

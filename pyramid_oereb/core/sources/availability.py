@@ -15,5 +15,8 @@ class AvailabilityBaseSource(Base):
         parameters. Because it should deliver all items available.
         If you want to adapt to your own source for availability, this is the point where to hook in.
 
+        Returns:
+            list of pyramid_oereb.core.records.availability.AvailabilityRecord: The list of
+                availability records.
         """
-        pass  # pragma: no cover
+        return list()

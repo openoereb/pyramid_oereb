@@ -31,4 +31,4 @@ class RealEstateBaseSource(Base):
             list of pyramid_oereb.core.records.real_estate.RealEstateRecord: The list of read real estate
                 records.
         """
-        pass  # pragma: no cover
+        return list()

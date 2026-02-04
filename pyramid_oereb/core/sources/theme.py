@@ -17,5 +17,8 @@ class ThemeBaseSource(Base):
         Every theme source has to implement a read method. This method must accept no parameters. Because
         it should deliver all items available.
         If you want adapt to your own source for themes, this is the point where to hook in.
+
+        Returns:
+            list of pyramid_oereb.core.records.theme.ThemeRecord: The list of theme records.
         """
-        pass  # pragma: no cover
+        return list()

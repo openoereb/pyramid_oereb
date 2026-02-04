@@ -236,9 +236,9 @@ def test_read(law_status, service, oereblex_test_config):
             code='ch.Waldabstandslinien',
             use_prepubs=True
         )
-        source.read(MockParameter(), 100, law_status)
-        assert len(source.records) == 9
-        document = source.records[0]
+        records = source.read(MockParameter(), 100, law_status)
+        assert len(records) == 9
+        document = records[0]
         assert isinstance(document, DocumentRecord)
         assert isinstance(document.responsible_office, OfficeRecord)
         assert document.responsible_office.name == {'de': 'Bauverwaltung Gemeinde'}
@@ -262,9 +262,9 @@ def test_read_related_decree_as_main(oereblex_test_config):
             related_decree_as_main=True,
             code='ch.Waldabstandslinien',
         )
-        source.read(MockParameter(), 100, LawStatusRecord('inForce', {'de': 'Rechtskräftig'}))
-        assert len(source.records) == 9
-        document = source.records[0]
+        records = source.read(MockParameter(), 100, LawStatusRecord('inForce', {'de': 'Rechtskräftig'}))
+        assert len(records) == 9
+        document = records[0]
         assert isinstance(document, DocumentRecord)
         assert isinstance(document.responsible_office, OfficeRecord)
         assert document.responsible_office.name == {'de': 'Bauverwaltung Gemeinde'}
@@ -288,16 +288,16 @@ def test_read_related_notice_as_main(oereblex_test_config):
             related_notice_as_main=True,
             code='ch.Waldabstandslinien',
         )
-        source.read(MockParameter(), 100, LawStatusRecord('inForce', {'de': 'Rechtskräftig'}))
-        assert len(source.records) == 9
-        document = source.records[8]
+        records = source.read(MockParameter(), 100, LawStatusRecord('inForce', {'de': 'Rechtskräftig'}))
+        assert len(records) == 9
+        document = records[8]
         assert isinstance(document, DocumentRecord)
         assert isinstance(document.document_type, DocumentTypeRecord)
         assert document.document_type.code == 'Hint'
         assert isinstance(document.responsible_office, OfficeRecord)
         assert document.responsible_office.name == {'de': '-'}
         assert document.responsible_office.office_at_web is None
-        assert source.records[0].responsible_office.office_at_web == {
+        assert records[0].responsible_office.office_at_web == {
             'de': "http%3A%2F%2Fwww.zihlschlacht-sitterdorf.ch"
         }
         assert document.published_from == datetime.date(1970, 1, 1)
@@ -318,8 +318,8 @@ def test_read_with_version_in_url(oereblex_test_config):
             pass_version=True,
             code='ch.Waldabstandslinien',
         )
-        source.read(MockParameter(), 100, LawStatusRecord('inForce', {'de': 'Rechtskräftig'}))
-        assert len(source.records) == 9
+        records = source.read(MockParameter(), 100, LawStatusRecord('inForce', {'de': 'Rechtskräftig'}))
+        assert len(records) == 9
 
 
 def test_read_with_specified_version(oereblex_test_config):
@@ -336,8 +336,8 @@ def test_read_with_specified_version(oereblex_test_config):
             pass_version=True,
             code='ch.Waldabstandslinien',
         )
-        source.read(MockParameter(), 100, LawStatusRecord('inForce', {'de': 'Rechtskräftig'}))
-        assert len(source.records) == 9
+        records = source.read(MockParameter(), 100, LawStatusRecord('inForce', {'de': 'Rechtskräftig'}))
+        assert len(records) == 9
 
 
 def test_read_with_specified_language(oereblex_test_config):
@@ -353,9 +353,9 @@ def test_read_with_specified_language(oereblex_test_config):
         )
         params = MockParameter()
         params.set_language('fr')
-        source.read(params, 100, LawStatusRecord('inForce', {'de': 'Rechtskräftig'}))
-        assert len(source.records) == 9
-        document = source.records[0]
+        records = source.read(params, 100, LawStatusRecord('inForce', {'de': 'Rechtskräftig'}))
+        assert len(records) == 9
+        document = records[0]
         assert document.responsible_office.name == {'fr': 'Bauverwaltung Gemeinde'}
         assert document.text_at_web == {
             'fr': 'http://oereblex.example.com/api/attachments/4735'
