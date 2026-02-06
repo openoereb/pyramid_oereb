@@ -105,4 +105,5 @@ def test_address_geo_admin_source_response_bad_request(requests_get_bad_request)
         street_number = 36
 
         agas = AddressGeoAdminSource()
-        agas.read(None, street_name, zip_code, street_number)
+        records = agas.read(None, street_name, zip_code, street_number)
+        assert len(records) == 0

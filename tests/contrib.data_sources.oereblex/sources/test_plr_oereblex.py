@@ -713,3 +713,33 @@ def test_document_records_from_oereblex(plr_source_params, document_records, par
             law_status_records[0],
             "oereb_id=5"
         ) == document_records
+
+
+def test_document_records_from_oereblex_cache(plr_source_params, document_records, params,
+                                              law_status_records):
+    with patch(
+            'pyramid_oereb.contrib.data_sources.oereblex.sources.document.OEREBlexSource.read',
+            return_value=document_records
+    ) as mock_read:
+        from pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex import DatabaseOEREBlexSource
+
+        source = DatabaseOEREBlexSource(**plr_source_params)
+        # First call, should call OEREBlexSource.read
+        result1 = source.document_records_from_oereblex(
+            params,
+            1,
+            law_status_records[0],
+            "oereb_id=5"
+        )
+        assert result1 == document_records
+        assert mock_read.call_count == 1
+
+        # Second call, should use cache (covering lines 104-106)
+        result2 = source.document_records_from_oereblex(
+            params,
+            1,
+            law_status_records[0],
+            "oereb_id=5"
+        )
+        assert result2 == document_records
+        assert mock_read.call_count == 1
