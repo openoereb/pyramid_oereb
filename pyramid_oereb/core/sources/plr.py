@@ -18,10 +18,6 @@ log = logging.getLogger(__name__)
 class PlrBaseSource(Base):
     """
     Base class for public law restriction sources.
-
-    Attributes:
-        datasource (list of pyramid_oereb.lib.records.embeddable.DatasourceRecord): List of data source
-            records used for the additional data in flavour `embeddable`.
     """
     _documents_record_class = DocumentRecord
     _disclaimer_record_class = DisclaimerRecord
@@ -33,8 +29,6 @@ class PlrBaseSource(Base):
     _view_service_record_class = ViewServiceRecord
     _law_status_record_class = LawStatusRecord
     _datasource_record_class = DatasourceRecord
-
-    datasource = list()
 
     def __init__(self, **kwargs):
         """
@@ -55,8 +49,13 @@ class PlrBaseSource(Base):
             law_status (dict of str): The configuration dictionary of the law status. It consists of
                 the code and text which must be a dictionary containing language (as configured)
                 as key and text as value.
+
+        Attributes:
+            datasource (list of pyramid_oereb.lib.records.embeddable.DatasourceRecord): List of data source
+                records used for the additional data in flavour `embeddable`.
         """
         self._plr_info = kwargs
+        self.datasource = list()
 
     @property
     def info(self):

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import threading
 import logging
 
 from pyramid_oereb import Config
@@ -40,6 +41,7 @@ class DatabaseOEREBlexSource(DatabaseSource):
         config["code"] = self._plr_info.get('code')
         self._oereblex_source = OEREBlexSource(**config)
         self._queried_geolinks = {}
+        self._lock = threading.Lock()
 
     @staticmethod
     def get_config_value_for_plr_code(url_param_config, plr_code):
@@ -97,15 +99,17 @@ class DatabaseOEREBlexSource(DatabaseSource):
         log.debug("document_records_from_oereblex() start, GEO-Link {}, law status {}, oereblex_params {}"
                   .format(geolink, law_status.code, oereblex_params))
         identifier = '{}{}{}'.format(geolink, law_status.code, params.language)
-        if identifier in self._queried_geolinks:
-            log.debug('skip querying this geolink "{}" because it was fetched already.'.format(identifier))
-            log.debug('use already queried instead')
-        else:
-            records = self._oereblex_source.read(params, geolink, law_status, oereblex_params)
-            log.debug("document_records_from_oereblex() returning {} records"
-                      .format(len(records)))
-            self._queried_geolinks[identifier] = records
-        return self._queried_geolinks[identifier]
+        with self._lock:
+            if identifier in self._queried_geolinks:
+                log.debug('skip querying this geolink "{}" because it was fetched already.'
+                          .format(identifier))
+                log.debug('use already queried instead')
+            else:
+                records = self._oereblex_source.read(params, geolink, law_status, oereblex_params)
+                log.debug("document_records_from_oereblex() returning {} records"
+                          .format(len(records)))
+                self._queried_geolinks[identifier] = records
+            return self._queried_geolinks[identifier]
 
     def collect_related_geometries_by_real_estate(self, session, real_estate):
         """

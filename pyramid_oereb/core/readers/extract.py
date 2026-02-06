@@ -80,9 +80,9 @@ class ExtractReader(object):
                     for record in records:
                         if isinstance(record, PlrRecord):
                             # Copy geometries to avoid shared state across requests if globalized
-                            record.geometries = [g for g in record.geometries]
-                            for g in record.geometries:
-                                g.reset_calculation()
+                            record.geometries = [
+                                self._copy_geometry(g) for g in record.geometries
+                            ]
                         real_estate.public_law_restrictions.append(record)
 
             for plr in real_estate.public_law_restrictions:
@@ -169,7 +169,6 @@ class ExtractReader(object):
         else:
             return len(self.law_status)
 
-    @staticmethod
     def _sort_plr_theme(plr_element):
         """
         This method generates a sorting key to sort PLRs in to themes and sub-themes.
@@ -192,3 +191,22 @@ class ExtractReader(object):
                 else plr_element.theme.extract_index
             return index
         return 10000
+
+    def _copy_geometry(self, geometry_record):
+        """
+        Creates a fresh copy of the geometry record to avoid shared state across requests.
+
+        Args:
+            geometry_record (pyramid_oereb.core.records.geometry.GeometryRecord): The record to copy.
+
+        Returns:
+            pyramid_oereb.core.records.geometry.GeometryRecord: The fresh copy.
+        """
+        return geometry_record.__class__(
+            geometry_record.law_status,
+            geometry_record.published_from,
+            geometry_record.published_until,
+            geometry_record.geom,
+            geo_metadata=geometry_record.geo_metadata,
+            public_law_restriction=geometry_record.public_law_restriction
+        )
