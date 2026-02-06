@@ -76,8 +76,8 @@ def test_read(pyramid_oereb_test_config, status_code):
                 source.read(MockParameter(), street_name=street_name, zip_code=zip_code,
                             street_number=street_number)
         else:
-            records = source.read(MockParameter(), street_name=street_name, zip_code=zip_code,
-                        street_number=street_number)
+            records = source.read(
+                MockParameter(), street_name=street_name, zip_code=zip_code, street_number=street_number)
             assert len(records) == 1
             address = records[0]
             assert isinstance(address, AddressRecord)
