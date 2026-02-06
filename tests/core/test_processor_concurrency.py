@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import threading
-import pytest
 import datetime
 from shapely.geometry import MultiPolygon, Polygon
 from unittest.mock import MagicMock, patch
@@ -23,6 +22,7 @@ from pyramid_oereb.core.views.webservice import Parameter
 # Use a barrier to synchronize threads
 barrier = threading.Barrier(2)
 
+
 class FakePlrSource(PlrBaseSource):
     """
     A fake PLR source that uses a barrier to ensure concurrent requests overlap
@@ -34,7 +34,7 @@ class FakePlrSource(PlrBaseSource):
     def read(self, params, real_estate, bbox):
         # Synchronize: both threads must reach this point before either proceeds
         barrier.wait()
-        
+
         marker = real_estate.egrid
         theme = ThemeRecord(
             code=u'Theme_' + marker,
@@ -59,7 +59,7 @@ class FakePlrSource(PlrBaseSource):
             office,
             datetime.date(2020, 1, 1)
         )
-        
+
         # ViewServiceRecord expects reference_wms to be a dict
         view_service = ViewServiceRecord(
             {'de': u'http://wms?marker=' + marker},
@@ -70,9 +70,9 @@ class FakePlrSource(PlrBaseSource):
             law_status,
             datetime.date(2020, 1, 1),
             None,
-            Polygon([(0,0), (10,0), (10,10), (0,10)])
+            Polygon([(0, 0), (10, 0), (10, 10), (0, 10)])
         )
-        
+
         plr = PlrRecord(
             theme,
             legend_entry,
@@ -87,29 +87,31 @@ class FakePlrSource(PlrBaseSource):
         )
         return [plr]
 
+
 def test_concurrent_requests_no_mixing():
     """
     Regression test to ensure that concurrent requests do not mix results.
-    
+
     This test runs two concurrent requests (threads) that build extracts for two different
     parcels (identified by EGRID). It uses a threading.Barrier inside the PLR source's
     read method to ensure that both threads are in the "critical section" at the same time.
-    
+
     The test asserts that the resulting extracts are not mixed:
     - Extract for EGRID_A must only contain results with Marker_EGRID_A.
     - Extract for EGRID_B must only contain results with Marker_EGRID_B.
     """
     barrier.reset()
-    
+
     # Mocking Config to avoid external dependencies and complex initialization
     with patch('pyramid_oereb.core.readers.extract.Config') as mock_extract_config, \
          patch('pyramid_oereb.core.processor.Config') as mock_processor_config:
-        
+
         # Configure mocks to return sensible values for various record initializations
         for mock_config in [mock_extract_config, mock_processor_config]:
             mock_config.get_bbox.side_effect = lambda geom: (0, 0, 10, 10)
             mock_config.get_law_status_codes.return_value = [u'inForce']
-            mock_config.get_theme_by_code_sub_code.side_effect = lambda code, sub_code=None: ThemeRecord(code, {'de': code}, 1)
+            mock_config.get_theme_by_code_sub_code.side_effect = \
+                lambda code, sub_code=None: ThemeRecord(code, {'de': code}, 1)
             mock_config.get_oereb_logo.return_value = ImageRecord(b'1')
             mock_config.get_conferderation_logo.return_value = ImageRecord(b'1')
             mock_config.get_canton_logo.return_value = ImageRecord(b'1')
@@ -121,7 +123,9 @@ def test_concurrent_requests_no_mixing():
             # We need to return a dict for various Config keys
             mock_config.get.side_effect = lambda key, default=None: {
                 'default_language': u'de',
-                'extract': {'base_data': {'methods': {'date': 'tests.core.test_processor_concurrency.mock_date'}}},
+                'extract': {
+                    'base_data': {'methods': {'date': 'tests.core.test_processor_concurrency.mock_date'}}
+                },
                 'geometry_types': {
                     'line': {'types': ['LineString', 'MultiLineString']},
                     'point': {'types': ['Point', 'MultiPoint']},
@@ -135,10 +139,10 @@ def test_concurrent_requests_no_mixing():
 
         # Shared source and processor as in production
         shared_source = FakePlrSource(code=u'Theme_Shared')
-        
+
         from pyramid_oereb.core.readers.extract import ExtractReader
         plr_cadastre_authority = OfficeRecord({'de': u'Authority'})
-        
+
         processor = Processor(
             real_estate_reader=MagicMock(),
             plr_sources=[shared_source],
@@ -146,14 +150,14 @@ def test_concurrent_requests_no_mixing():
         )
 
         # Prepare two distinct real estates and parameters
-        re_a = RealEstateRecord(u'Type', u'Canton', u'Muni', 1234, 100, 
-                                MultiPolygon([Polygon([(0,0), (1,0), (1,1), (0,1)])]), egrid=u'EGRID_A')
+        re_a = RealEstateRecord(u'Type', u'Canton', u'Muni', 1234, 100,
+                                MultiPolygon([Polygon([(0, 0), (1, 0), (1, 1), (0, 1)])]), egrid=u'EGRID_A')
         re_a.set_view_service(ViewServiceRecord({'de': u'http://wms'}, 1, 1.0, u'de', 2056))
         re_a.set_main_page_view_service(ViewServiceRecord({'de': u'http://wms'}, 1, 1.0, u'de', 2056))
         params_a = Parameter('json', egrid=u'EGRID_A')
-        
-        re_b = RealEstateRecord(u'Type', u'Canton', u'Muni', 1234, 100, 
-                                MultiPolygon([Polygon([(2,2), (3,2), (3,3), (2,3)])]), egrid=u'EGRID_B')
+
+        re_b = RealEstateRecord(u'Type', u'Canton', u'Muni', 1234, 100,
+                                MultiPolygon([Polygon([(2, 2), (3, 2), (3, 3), (2, 3)])]), egrid=u'EGRID_B')
         re_b.set_view_service(ViewServiceRecord({'de': u'http://wms'}, 1, 1.0, u'de', 2056))
         re_b.set_main_page_view_service(ViewServiceRecord({'de': u'http://wms'}, 1, 1.0, u'de', 2056))
         params_b = Parameter('json', egrid=u'EGRID_B')
@@ -161,6 +165,7 @@ def test_concurrent_requests_no_mixing():
         muni = MunicipalityRecord(1234, u'Muni', True)
 
         results = {}
+
         def run_proc(name, re, params):
             try:
                 # Each thread needs to see the municipality as published
