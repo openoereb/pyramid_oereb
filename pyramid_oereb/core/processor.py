@@ -308,8 +308,7 @@ _processor_lock = threading.Lock()
 def create_processor(real_estate_only=False):
     """
     Creates and returns a processor based on the application configuration.
-    You should use one (and only one) processor per request. Otherwise, some results can be mixed or
-    missing.
+    The processor and its dependencies are stateless and can safely be reused across concurrent requests.
 
     Returns:
         pyramid_oereb.lib.processor.Processor: A processor.
