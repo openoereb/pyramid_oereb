@@ -28,6 +28,9 @@ authors = [
 ]
 keywords = ["pyramid oereb"]
 readme = "README.rst"
+dependencies = [
+    "setuptools >= 69.5.1, <81"
+]
 
 [project.urls]
 Repository = "https://github.com/openoereb/pyramid_oereb"
