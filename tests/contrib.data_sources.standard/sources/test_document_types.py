@@ -46,11 +46,11 @@ def all_document_types_result_session(session, query):
 def test_read_all(document_types_source_params, all_document_types_result_session):
     source = DatabaseSource(**document_types_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_document_types_result_session()):  # noqa: E501
-        source.read()
-        assert len(source.records) == 3
-        assert isinstance(source.records[0], DocumentTypeRecord)
-        assert isinstance(source.records[1], DocumentTypeRecord)
-        assert isinstance(source.records[2], DocumentTypeRecord)
-        assert source.records[0].title == {'de': 'Rechtsvorschrift'}
-        assert source.records[1].title == {'de': 'Gesetzliche Grundlage'}
-        assert source.records[2].title == {'de': 'Hinweis'}
+        records = source.read()
+        assert len(records) == 3
+        assert isinstance(records[0], DocumentTypeRecord)
+        assert isinstance(records[1], DocumentTypeRecord)
+        assert isinstance(records[2], DocumentTypeRecord)
+        assert records[0].title == {'de': 'Rechtsvorschrift'}
+        assert records[1].title == {'de': 'Gesetzliche Grundlage'}
+        assert records[2].title == {'de': 'Hinweis'}

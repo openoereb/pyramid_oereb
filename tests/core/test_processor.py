@@ -2,7 +2,7 @@
 import datetime
 import pytest
 from shapely.geometry import Point
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 from pyramid_oereb.core.processor import Processor, create_processor
 from pyramid_oereb.core.records.extract import ExtractRecord
@@ -21,6 +21,9 @@ from tests.mockrequest import MockRequest
 
 
 import logging
+import threading
+import time
+from pyramid_oereb.core import processor
 log = logging.getLogger(__name__)
 
 request_matchdict = {
@@ -292,3 +295,50 @@ def test_processor_sort_by_law_status(processor_data, real_estate_data,
     assert plrs[0].law_status.code == 'inForce'
     assert plrs[1].theme.code == 'ch.BelasteteStandorte'
     assert plrs[1].law_status.code == 'inForce'
+
+
+def test_create_processor_cache_concurrency():
+    """
+    Test concurrency in create_processor to cover the case where
+     a thread acquires the lock but finds the cache already populated
+     by another thread that was faster
+    """
+    # Reset the cache
+    processor._processor_cache = {}
+
+    # Mock Config and Readers to avoid DB and complex initialization
+    with patch('pyramid_oereb.core.processor.Config') as mock_config, \
+            patch('pyramid_oereb.core.processor.RealEstateReader'), \
+            patch('pyramid_oereb.core.processor.ExtractReader'), \
+            patch('pyramid_oereb.core.processor.DottedNameResolver'):
+
+        mock_config.get_real_estate_config.return_value = {'source': {'class': 'mock', 'params': {}}}
+        mock_config.get_plr_cadastre_authority.return_value = MagicMock()
+        mock_config.get.return_value = []
+
+        def get_proc():
+            # Small delay to increase the chance of collision
+            time.sleep(0.001)
+            return create_processor()
+
+        threads = []
+        results = []
+
+        def thread_target():
+            results.append(get_proc())
+
+        for _ in range(50):  # More threads to increase collision probability
+            t = threading.Thread(target=thread_target)
+            threads.append(t)
+            t.start()
+
+        for t in threads:
+            t.join()
+
+        assert len(results) == 50
+        for res in results:
+            assert res == results[0]
+        assert len(processor._processor_cache) == 1
+
+    # Reset the cache to avoid side effects on other tests
+    processor._processor_cache = {}

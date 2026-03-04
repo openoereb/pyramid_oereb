@@ -60,11 +60,11 @@ def all_result_session(session, query):
 def test_read_all(source_params, all_result_session):
     source = DatabaseSource(**source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_result_session()):
-        source.read()
-        assert len(source.records) == 2
-        assert isinstance(source.records[0], ThemeRecord)
-        assert isinstance(source.records[1], ThemeRecord)
-        record = source.records[0]
+        records = source.read()
+        assert len(records) == 2
+        assert isinstance(records[0], ThemeRecord)
+        assert isinstance(records[1], ThemeRecord)
+        record = records[0]
         assert record.title == {
             "de": "Nutzungsplanung (kantonal/kommunal)",
             "fr": "Plans d’affectation (cantonaux/communaux)",

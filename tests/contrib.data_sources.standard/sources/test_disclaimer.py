@@ -44,9 +44,9 @@ def all_disclaimer_result_session(session, query):
 def test_read_all(disclaimer_source_params, all_disclaimer_result_session):
     source = DatabaseSource(**disclaimer_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_disclaimer_result_session()):  # noqa: E501
-        source.read()
-        assert len(source.records) == 2
-        assert isinstance(source.records[0], DisclaimerRecord)
-        assert isinstance(source.records[1], DisclaimerRecord)
-        assert source.records[0].title == {'de': 'Titel1'}
-        assert source.records[0].content == {'de': 'Inhalt1'}
+        records = source.read()
+        assert len(records) == 2
+        assert isinstance(records[0], DisclaimerRecord)
+        assert isinstance(records[1], DisclaimerRecord)
+        assert records[0].title == {'de': 'Titel1'}
+        assert records[0].content == {'de': 'Inhalt1'}

@@ -44,11 +44,11 @@ def all_result_session(session, query):
 def test_read_all(source_params, all_result_session):
     source = DatabaseSource(**source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_result_session()):
-        source.read()
-        assert len(source.records) == 2
-        assert isinstance(source.records[0], ThemeDocumentRecord)
-        assert isinstance(source.records[1], ThemeDocumentRecord)
-        record = source.records[0]
+        records = source.read()
+        assert len(records) == 2
+        assert isinstance(records[0], ThemeDocumentRecord)
+        assert isinstance(records[1], ThemeDocumentRecord)
+        record = records[0]
         assert record.theme_id == "ch.Nutzungsplanung"
         assert record.document_id == "ch.admin.bk.sr.700"
         assert record.article_numbers is None

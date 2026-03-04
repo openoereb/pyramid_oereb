@@ -47,11 +47,11 @@ def all_law_status_result_session(session, query):
 def test_read_all(law_status_source_params, all_law_status_result_session):
     source = DatabaseSource(**law_status_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_law_status_result_session()):  # noqa: E501
-        source.read(Parameter('xml'))
-        assert len(source.records) == 3
-        assert isinstance(source.records[0], LawStatusRecord)
-        assert isinstance(source.records[1], LawStatusRecord)
-        assert isinstance(source.records[2], LawStatusRecord)
-        assert source.records[0].title == {'de': 'In Kraft'}
-        assert source.records[1].title == {'de': 'Änderung mit Vorwirkung'}
-        assert source.records[2].title == {'de': 'Änderung ohne Vorwirkung'}
+        records = source.read(Parameter('xml'))
+        assert len(records) == 3
+        assert isinstance(records[0], LawStatusRecord)
+        assert isinstance(records[1], LawStatusRecord)
+        assert isinstance(records[2], LawStatusRecord)
+        assert records[0].title == {'de': 'In Kraft'}
+        assert records[1].title == {'de': 'Änderung mit Vorwirkung'}
+        assert records[2].title == {'de': 'Änderung ohne Vorwirkung'}

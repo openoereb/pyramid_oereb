@@ -25,9 +25,9 @@ class DatabaseSource(BaseDatabaseSource, LegendBaseSource):
             else:
                 raise AttributeError('Necessary parameter is missing.')
 
-            self.records = list()
+            records = list()
             for result in results:
-                self.records.append(LegendEntryRecord(
+                records.append(LegendEntryRecord(
                     ImageRecord(result.symbol),
                     result.legend_text,
                     result.type_code,
@@ -36,5 +36,6 @@ class DatabaseSource(BaseDatabaseSource, LegendBaseSource):
                     sub_theme=result.sub_theme,
                     view_service_id=result.view_service_id
                 ))
+            return records
         finally:
             session.close()

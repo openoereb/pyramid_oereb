@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 
 from datetime import date, timedelta
 from sys import float_info as fi
@@ -15,12 +15,15 @@ from shapely.geometry import Polygon
 from pyramid_oereb.core.records.real_estate import RealEstateRecord
 from pyramid_oereb.core.records.municipality import MunicipalityRecord
 from pyramid_oereb.core.records.theme import ThemeRecord
+from pyramid_oereb.core.records.plr import PlrRecord
 
 from pyramid_oereb.core.processor import Processor
 from pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr import (
     StandardThemeConfigParser
 )
 from pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr import DatabaseSource
+from pyramid_oereb.core.records.plr import EmptyPlrRecord
+from pyramid_oereb.core.views.webservice import Parameter
 
 
 @pytest.fixture(scope='session')
@@ -36,7 +39,7 @@ def interlis_db_engine(base_engine):
         term_stmt = 'SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity ' \
             f'WHERE pg_stat_activity.datname = \'{test_interlis_db_name}\' AND pid <> pg_backend_pid();'
         base_connection.execute(text(term_stmt))
-        # sqlalchemy uses transactions by default, COMMIT end the current transaction and allows
+        # sqlalchemy uses transactions by default, COMMIT ends the current transaction and allows
         # creation and destruction of DB
         base_connection.execute(text('COMMIT'))
         base_connection.execute(text(f"DROP DATABASE if EXISTS {test_interlis_db_name}"))
@@ -225,33 +228,6 @@ def plr_source_params(db_connection):
     }
 
 
-# @pytest.fixture
-# def interlis_real_estate():
-#     theme = ThemeRecord('code', dict(), 100)
-#     geometry_records = [
-#         GeometryRecord(law_status, datetime.date.today(), None, LineString(((1, 0.1), (2, 0.2))))
-#     ]
-#     return PlrRecord(
-#         theme,
-#         LegendEntryRecord(
-#             ImageRecord('1'.encode('utf-8')),
-#             {'en': 'Content'},
-#             'CodeA',
-#             None,
-#             theme,
-#             view_service_id=1
-#         ),
-#         law_status,
-#         date.today() + timedelta(days=0),
-#         date.today() + timedelta(days=2),
-#         OfficeRecord({'en': 'Office'}),
-#         ImageRecord('1'.encode('utf-8')),
-#         ViewServiceRecord({'de': 'http://my.wms.com'}, 1, 1.0, 'de', 2056, None, None),
-#         geometry_records,
-#         documents=[]
-#     )
-
-
 @pytest.fixture
 def processor_data(pyramid_oereb_test_config, main_schema):
     with patch(
@@ -272,12 +248,10 @@ def test_related_geometries(processor_data, pyramid_oereb_test_config, interlis_
     if with_tolerance:
         plr["tolerances"] = {'Point': 0.2, 'LineString': 0.5, 'Polygon': fi.epsilon}
     plr_source_class = DottedNameResolver().maybe_resolve(plr.get('source').get('class'))
-    plr_sources = []
-    plr_sources.append(plr_source_class(**plr))
+    plr_sources = [plr_source_class(**plr)]
 
     from pyramid_oereb.core.views.webservice import Parameter
     request_params = Parameter('json', egrid='TEST')
-    # municipality = pyramid_oereb_test_config.municipality_by_fosnr(oblique_limit_real_estate_record.fosnr)
     municipality = MunicipalityRecord(1234, 'test', True)
 
     from pyramid_oereb.core.readers.extract import ExtractReader
@@ -289,11 +263,6 @@ def test_related_geometries(processor_data, pyramid_oereb_test_config, interlis_
     extract_raw = extract_reader.read(
         request_params, oblique_limit_real_estate_record, municipality
     )
-    # processor = Processor(
-    #     real_estate_reader=real_estate_reader,
-    #     plr_sources=plr_sources,
-    #     extract_reader=extract_reader,
-    # )
     processor = Processor(
         real_estate_reader=None,
         plr_sources=plr_sources,
@@ -301,7 +270,8 @@ def test_related_geometries(processor_data, pyramid_oereb_test_config, interlis_
     )
     assert len(extract_raw.real_estate.public_law_restrictions) == nb_results
     extract = processor.plr_tolerance_check(extract_raw)
-    assert len(extract.real_estate.public_law_restrictions) == nb_results
+    plrs = [plr for plr in extract.real_estate.public_law_restrictions if isinstance(plr, PlrRecord)]
+    assert len(plrs) == nb_results
 
 
 def mock_session_object_query_geometries(items_list):
@@ -406,3 +376,177 @@ def test_collect_legend_entries_by_bbox(idx, items_list, plr_source_params):
         assert len(result) == 1
         assert sorted([x[0] for x in result if x[1] == 'inForce'][0]) == \
             [(1, ), (3, ), (4, ), (7, ), (9, )]
+
+
+@pytest.fixture
+def mock_config():
+    with patch('pyramid_oereb.core.config.Config') as mock:
+        mock.get.return_value = 2056
+        mock.availabilities = []
+        mock.extract_module_function.side_effect = lambda x: {
+            'module_path': '.'.join(x.split('.')[:-1]),
+            'function_name': x.split('.')[-1]
+        }
+        yield mock
+
+
+@pytest.fixture
+def mock_adapter():
+    with patch('pyramid_oereb.database_adapter') as mock:
+        yield mock
+
+
+def test_read_not_available(mock_config, mock_adapter):
+    with patch('pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.Config') as mock_plr_config:
+        mock_plr_config.availability_by_theme_code_municipality_fosnr.return_value = False
+        mock_plr_config.extract_module_function.side_effect = lambda x: {
+            'module_path': '.'.join(x.split('.')[:-1]),
+            'function_name': x.split('.')[-1]
+        }
+        source = DatabaseSource(**{
+            'code': 'test_code',
+            'geometry_type': 'Polygon',
+            'source': {
+                'params': {
+                    'db_connection': 'postgresql://user:pass@host:5432/db',
+                    'model_factory':
+                        'pyramid_oereb.contrib.data_sources'
+                        '.interlis_2_3.models.theme.model_factory_integer_pk',
+                    'schema_name': 'schema'
+                }
+            }
+        })
+        real_estate = MagicMock(spec=RealEstateRecord)
+        real_estate.fosnr = 1234
+
+        records = source.read(None, real_estate, None)
+
+    assert len(records) == 1
+    assert isinstance(records[0], EmptyPlrRecord)
+    assert records[0].has_data is False
+
+
+def test_read_empty_db(mock_config, mock_adapter):
+    with patch('pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.Config') as mock_plr_config:
+        mock_plr_config.availability_by_theme_code_municipality_fosnr.return_value = True
+        mock_plr_config.get_theme_by_code_sub_code.return_value = MagicMock()
+        mock_plr_config.extract_module_function.side_effect = lambda x: {
+            'module_path': '.'.join(x.split('.')[:-1]),
+            'function_name': x.split('.')[-1]
+        }
+
+        mock_session = MagicMock()
+        source = DatabaseSource(**{
+            'code': 'test_code',
+            'geometry_type': 'Polygon',
+            'source': {
+                'params': {
+                    'db_connection': 'postgresql://user:pass@host:5432/db',
+                    'model_factory':
+                        'pyramid_oereb.contrib.data_sources'
+                        '.interlis_2_3.models.theme.model_factory_integer_pk',
+                    'schema_name': 'schema'
+                }
+            }
+        })
+        source._adapter_ = MagicMock()
+        source._adapter_.get_session.return_value = mock_session
+        mock_session.query.return_value.count.return_value = 0
+
+        real_estate = MagicMock(spec=RealEstateRecord)
+        real_estate.fosnr = 1234
+
+        records = source.read(None, real_estate, None)
+
+    assert len(records) == 1
+    assert isinstance(records[0], EmptyPlrRecord)
+    mock_session.close.assert_called_once()
+
+
+def test_read_no_related_geometries(mock_config, mock_adapter):
+    with patch('pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.Config') as mock_plr_config:
+        mock_plr_config.availability_by_theme_code_municipality_fosnr.return_value = True
+        mock_plr_config.get_theme_by_code_sub_code.return_value = MagicMock()
+        mock_plr_config.extract_module_function.side_effect = lambda x: {
+            'module_path': '.'.join(x.split('.')[:-1]),
+            'function_name': x.split('.')[-1]
+        }
+
+        mock_session = MagicMock()
+        source = DatabaseSource(**{
+            'code': 'test_code',
+            'geometry_type': 'Polygon',
+            'source': {
+                'params': {
+                    'db_connection': 'postgresql://user:pass@host:5432/db',
+                    'model_factory':
+                        'pyramid_oereb.contrib.data_sources'
+                        '.interlis_2_3.models.theme.model_factory_integer_pk',
+                    'schema_name': 'schema'
+                }
+            }
+        })
+        source._adapter_ = MagicMock()
+        source._adapter_.get_session.return_value = mock_session
+        mock_session.query.return_value.count.return_value = 10  # Not empty
+
+        with patch.object(DatabaseSource, 'collect_related_geometries_by_real_estate', return_value=[]):
+            real_estate = MagicMock(spec=RealEstateRecord)
+            real_estate.fosnr = 1234
+            records = source.read(None, real_estate, None)
+
+    assert len(records) == 1
+    assert isinstance(records[0], EmptyPlrRecord)
+    mock_session.close.assert_called_once()
+
+
+def test_read_with_geometries(mock_config, mock_adapter):
+    with patch('pyramid_oereb.contrib.data_sources.interlis_2_3.sources.plr.Config') as mock_plr_config:
+        mock_plr_config.availability_by_theme_code_municipality_fosnr.return_value = True
+        mock_plr_config.get_theme_by_code_sub_code.return_value = MagicMock()
+        mock_plr_config.extract_module_function.side_effect = lambda x: {
+            'module_path': '.'.join(x.split('.')[:-1]),
+            'function_name': x.split('.')[-1]
+        }
+
+        mock_session = MagicMock()
+        source = DatabaseSource(**{
+            'code': 'test_code',
+            'geometry_type': 'Polygon',
+            'source': {
+                'params': {
+                    'db_connection': 'postgresql://user:pass@host:5432/db',
+                    'model_factory':
+                        'pyramid_oereb.contrib.data_sources'
+                        '.interlis_2_3.models.theme.model_factory_integer_pk',
+                    'schema_name': 'schema'
+                }
+            }
+        })
+        source._adapter_ = MagicMock()
+        source._adapter_.get_session.return_value = mock_session
+        mock_session.query.return_value.count.return_value = 10
+
+        mock_geom_result = MagicMock()
+        mock_geom_result.public_law_restriction.law_status = 'inForce'
+
+        mock_legend_entry = MagicMock()
+        legend_entries_from_db = [[[mock_legend_entry], 'inForce']]
+
+        with patch.object(
+                DatabaseSource, 'collect_related_geometries_by_real_estate', return_value=[mock_geom_result]
+        ):
+            with patch.object(
+                    DatabaseSource, 'collect_legend_entries_by_bbox', return_value=legend_entries_from_db
+            ):
+                with patch.object(
+                        DatabaseSource, 'from_db_to_plr_record', return_value=MagicMock()
+                ) as mock_from_db:
+                    real_estate = MagicMock(spec=RealEstateRecord)
+                    real_estate.fosnr = 1234
+                    params = MagicMock(spec=Parameter)
+                    records = source.read(params, real_estate, MagicMock(spec=Polygon))
+
+                    assert len(records) == 1
+                    mock_from_db.assert_called_once_with(params, mock_geom_result.public_law_restriction,
+                                                         [mock_legend_entry])

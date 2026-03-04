@@ -56,16 +56,16 @@ def legend_entry_all_result_session(session, query, legend_entry_model_class, pn
 def test_read_all(legend_entry_source_params, legend_entry_all_result_session, png_binary):
     source = DatabaseSource(**legend_entry_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=legend_entry_all_result_session()):  # noqa: E501
-        source.read(Parameter('xml'), type_code='testCode')
-        assert len(source.records) == 1
-        assert isinstance(source.records[0], LegendEntryRecord)
-        assert isinstance(source.records[0].symbol, ImageRecord)
-        assert source.records[0].legend_text == {'de': 'testlegende'}
-        assert source.records[0].type_code == 'testCode'
-        assert source.records[0].type_code_list == 'testCode,testCode2,testCode3'
-        assert source.records[0].theme == 'ch.TestThema'
-        assert source.records[0].sub_theme == 'ch.SubTestThema'
-        assert source.records[0].view_service_id == '1'
+        records = source.read(Parameter('xml'), type_code='testCode')
+        assert len(records) == 1
+        assert isinstance(records[0], LegendEntryRecord)
+        assert isinstance(records[0].symbol, ImageRecord)
+        assert records[0].legend_text == {'de': 'testlegende'}
+        assert records[0].type_code == 'testCode'
+        assert records[0].type_code_list == 'testCode,testCode2,testCode3'
+        assert records[0].theme == 'ch.TestThema'
+        assert records[0].sub_theme == 'ch.SubTestThema'
+        assert records[0].view_service_id == '1'
 
 
 def test_read_all_missing_type_code(legend_entry_source_params, legend_entry_all_result_session):

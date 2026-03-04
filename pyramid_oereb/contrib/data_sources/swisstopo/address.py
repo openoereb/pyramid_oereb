@@ -46,6 +46,9 @@ class AddressGeoAdminSource(AddressBaseSource):
             street_name (unicode): The name of the street for the desired address.
             zip_code (int): The postal zipcode for the desired address.
             street_number (unicode): The house or so called street number of the desired address.
+
+        Returns:
+            list of pyramid_oereb.core.records.address.AddressRecord: The list of address records.
         """
         headers = {}
         if self._referer is not None:
@@ -67,18 +70,20 @@ class AddressGeoAdminSource(AddressBaseSource):
         if response.status_code == requests.codes.ok:
             rp = Reprojector()
             srid = Config.get('srid')
-            self.records = list()
+            records = []
             data = response.json()
             if 'results' in data:
                 for item in data.get('results'):
                     attrs = item.get('attrs')
                     if isinstance(attrs, dict) and attrs.get('origin') == 'address':
                         x, y = rp.transform((attrs.get('lat'), attrs.get('lon')), to_srs=srid)
-                        self.records.append(AddressRecord(
+                        records.append(AddressRecord(
                             street_name=street_name,
                             zip_code=zip_code,
                             street_number=street_number,
                             geom=Point(x, y)
                         ))
+            return records
         else:
             response.raise_for_status()
+            return []

@@ -78,9 +78,9 @@ class RealEstateReader(object):
             verify_certificate=Config.get('verify_certificate_wms', True)
         )
 
-        self._source_.read(params, nb_ident=nb_ident, number=number, egrid=egrid, geometry=geometry)
-        for r in self._source_.records:
+        records = self._source_.read(params, nb_ident=nb_ident, number=number, egrid=egrid, geometry=geometry)
+        for r in records:
             if isinstance(r, RealEstateRecord):
                 r.set_view_service(real_estate_view_service)
                 r.set_main_page_view_service(real_estate_main_page_view_service)
-        return self._source_.records
+        return records

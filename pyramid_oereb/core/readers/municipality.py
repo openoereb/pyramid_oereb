@@ -39,5 +39,4 @@ class MunicipalityReader(object):
             The list of all found records. Since these are not filtered by any criteria the list simply
             contains all records delivered by the source.
         """
-        self._source_.read()
-        return self._source_.records
+        return self._source_.read()

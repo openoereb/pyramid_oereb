@@ -12,14 +12,6 @@ from shapely.geometry.multipolygon import MultiPolygon
 from pyramid_oereb.core.records.view_service import ViewServiceRecord
 
 
-def test_class_variables():
-    assert ExtractRecord.electronic_signature is None
-    assert ExtractRecord.concerned_theme is None
-    assert ExtractRecord.not_concerned_theme is None
-    assert ExtractRecord.theme_without_data is None
-    assert ExtractRecord.extract_identifier is None
-
-
 def test_mandatory_fields():
     with pytest.raises(TypeError):
         ExtractRecord()

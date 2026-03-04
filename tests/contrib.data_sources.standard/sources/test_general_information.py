@@ -49,11 +49,11 @@ def general_information_all_result_session(session, query):
 def test_read_all(general_information_source_params, general_information_all_result_session):
     source = DatabaseSource(**general_information_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=general_information_all_result_session()):  # noqa: E501
-        source.read()
-        assert len(source.records) == 3
-        assert isinstance(source.records[0], GeneralInformationRecord)
-        assert isinstance(source.records[1], GeneralInformationRecord)
-        assert isinstance(source.records[2], GeneralInformationRecord)
-        assert source.records[0].title == {'de': 'Test1'}
-        assert source.records[1].title == {'de': 'Test2'}
-        assert source.records[2].title == {'de': 'Test3'}
+        records = source.read()
+        assert len(records) == 3
+        assert isinstance(records[0], GeneralInformationRecord)
+        assert isinstance(records[1], GeneralInformationRecord)
+        assert isinstance(records[2], GeneralInformationRecord)
+        assert records[0].title == {'de': 'Test1'}
+        assert records[1].title == {'de': 'Test2'}
+        assert records[2].title == {'de': 'Test3'}

@@ -13,9 +13,9 @@ class DatabaseSource(BaseDatabaseSource, OfficeBaseSource):
         try:
             results = session.query(self._model_).all()
 
-            self.records = list()
+            records = list()
             for result in results:
-                self.records.append(self._record_class_(
+                records.append(self._record_class_(
                     result.name,
                     result.uid,
                     result.office_at_web,
@@ -27,5 +27,6 @@ class DatabaseSource(BaseDatabaseSource, OfficeBaseSource):
                     result.city,
                     identifier=result.id
                 ))
+            return records
         finally:
             session.close()

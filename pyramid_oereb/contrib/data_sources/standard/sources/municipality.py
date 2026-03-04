@@ -15,18 +15,23 @@ class DatabaseSource(BaseDatabaseSource, MunicipalityBaseSource):
         The read method to access the standard database structure. It uses SQL-Alchemy for querying. It does
         not accept any parameters nor it applies any filter on the database query. It simply loads all
         content from the configured model.
+
+        Returns:
+            list of pyramid_oereb.core.records.municipality.MunicipalityRecord: The list of
+                municipality records.
         """
         session = self._adapter_.get_session(self._key_)
         try:
-            self.records = list()
+            records = list()
             results = session.query(self._model_).all()
             for result in results:
-                self.records.append(self._record_class_(
+                records.append(self._record_class_(
                     result.fosnr,
                     result.name,
                     result.published,
                     geom=to_shape(result.geom).wkt if isinstance(
                         result.geom, _SpatialElement) else None,
                 ))
+            return records
         finally:
             session.close()

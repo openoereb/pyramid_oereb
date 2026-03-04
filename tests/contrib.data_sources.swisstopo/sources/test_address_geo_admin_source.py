@@ -86,14 +86,14 @@ def test_address_geo_admin_source_response(requests_get):
         street_number = 36
 
         agas = AddressGeoAdminSource()
-        agas.read(None, street_name, zip_code, street_number)
+        records = agas.read(None, street_name, zip_code, street_number)
 
-        assert len(agas.records) == 1
-        assert agas.records[0].street_name == street_name
-        assert agas.records[0].zip_code == zip_code
-        assert agas.records[0].street_number == street_number
-        assert abs(agas.records[0].geom.x - 2621861.6883699098) < 0.01
-        assert abs(agas.records[0].geom.y - 1259852.8367522908) < 0.01
+        assert len(records) == 1
+        assert records[0].street_name == street_name
+        assert records[0].zip_code == zip_code
+        assert records[0].street_number == street_number
+        assert abs(records[0].geom.x - 2621861.6883699098) < 0.01
+        assert abs(records[0].geom.y - 1259852.8367522908) < 0.01
 
 
 def test_address_geo_admin_source_response_bad_request(requests_get_bad_request):
@@ -105,4 +105,5 @@ def test_address_geo_admin_source_response_bad_request(requests_get_bad_request)
         street_number = 36
 
         agas = AddressGeoAdminSource()
-        agas.read(None, street_name, zip_code, street_number)
+        records = agas.read(None, street_name, zip_code, street_number)
+        assert len(records) == 0

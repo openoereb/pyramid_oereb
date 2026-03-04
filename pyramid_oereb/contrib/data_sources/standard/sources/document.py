@@ -17,14 +17,14 @@ class DatabaseSource(BaseDatabaseSource, DocumentBaseSource):
         session = self._adapter_.get_session(self._key_)
         try:
             results = session.query(self._model_).all()
-            self.records = list()
+            records = list()
             for result in results:
                 office_record_match = None
                 for office_record in office_records:
                     if office_record.identifier == result.office_id:
                         office_record_match = office_record
                         break
-                self.records.append(
+                records.append(
                     self._record_class_(
                         document_type=Config.get_main_document_type_by_data_code(
                             result.document_type
@@ -46,5 +46,6 @@ class DatabaseSource(BaseDatabaseSource, DocumentBaseSource):
                         identifier=result.id
                     )
                 )
+            return records
         finally:
             session.close()

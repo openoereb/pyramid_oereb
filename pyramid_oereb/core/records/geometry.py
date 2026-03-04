@@ -159,6 +159,13 @@ class GeometryRecord(object):
         line_types = geometry_types.get('line').get('types')
         polygon_types = geometry_types.get('polygon').get('types')
         point_types = geometry_types.get('point').get('types')
+        results = {
+            'area_share': None,
+            'length_share': None,
+            'nr_of_points': None,
+            'units': None,
+            'test_passed': False
+        }
         if self.published:
             if tolerances is None:
                 intersection = self.geom.intersection(real_estate.limit)
@@ -192,25 +199,25 @@ class GeometryRecord(object):
                 elif self.geom.geom_type in point_types:
                     if result.geom_type == point_types[1]:
                         # If it is a multipoint make a list and count the number of elements in the list
-                        self._nr_of_points = len(list(result.geoms))
-                        self._test_passed = True
+                        results['nr_of_points'] = len(list(result.geoms))
+                        results['test_passed'] = True
                     elif result.geom_type == point_types[0]:
                         # If it is a single point the number of points is one
-                        self._nr_of_points = 1
-                        self._test_passed = True
+                        results['nr_of_points'] = 1
+                        results['test_passed'] = True
                 elif self.geom.geom_type in line_types and result.geom_type in line_types:
-                    self._units = length_unit
+                    results['units'] = length_unit
                     length_share = result.length
                     if length_share >= min_length:
-                        self._length_share = length_share
-                        self._test_passed = True
+                        results['length_share'] = length_share
+                        results['test_passed'] = True
                 elif self.geom.geom_type in polygon_types and result.geom_type in polygon_types:
-                    self._units = area_unit
+                    results['units'] = area_unit
                     area_share = result.area
                     compensated_area = area_share / real_estate.areas_ratio
                     if compensated_area >= min_area:
-                        self._area_share = compensated_area
-                        self._test_passed = True
+                        results['area_share'] = compensated_area
+                        results['test_passed'] = True
                 else:
                     # This intersection result should not be used for the OEREB extract:
                     # for example, if two polygons are touching each other, the intersection geometry will be
@@ -222,8 +229,16 @@ class GeometryRecord(object):
                             result.geom_type
                         )
                     )
+        self.apply_results(results)
+        return results['test_passed']
+
+    def apply_results(self, results):
+        self._area_share = results.get('area_share')
+        self._length_share = results.get('length_share')
+        self._nr_of_points = results.get('nr_of_points')
+        self._units = results.get('units')
+        self._test_passed = results.get('test_passed')
         self.calculated = True
-        return self._test_passed
 
     @property
     def area_share(self):

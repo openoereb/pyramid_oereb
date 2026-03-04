@@ -13,12 +13,13 @@ class DatabaseSource(BaseDatabaseSource, ThemeDocumentBaseSource):
         try:
             results = session.query(self._model_).all()
 
-            self.records = list()
+            records = list()
             for result in results:
-                self.records.append(self._record_class_(
+                records.append(self._record_class_(
                     result.theme_id,
                     result.document_id,
                     result.article_numbers
                 ))
+            return records
         finally:
             session.close()

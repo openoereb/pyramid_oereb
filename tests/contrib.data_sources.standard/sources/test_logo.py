@@ -51,14 +51,14 @@ def all_logo_result_session(session, query, png_binary):
 def test_read_all(logo_source_params, all_logo_result_session):
     source = DatabaseSource(**logo_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_logo_result_session()):  # noqa: E501
-        source.read()
-        assert len(source.records) == 3
-        assert isinstance(source.records[0], LogoRecord)
-        assert isinstance(source.records[1], LogoRecord)
-        assert isinstance(source.records[2], LogoRecord)
-        assert isinstance(source.records[0].image_dict['de'], ImageRecord)
-        assert isinstance(source.records[1].image_dict['de'], ImageRecord)
-        assert isinstance(source.records[2].image_dict['de'], ImageRecord)
-        assert source.records[0].code == 'ch'
-        assert source.records[1].code == 'ch.ne'
-        assert source.records[2].code == 'ch.2771'
+        records = source.read()
+        assert len(records) == 3
+        assert isinstance(records[0], LogoRecord)
+        assert isinstance(records[1], LogoRecord)
+        assert isinstance(records[2], LogoRecord)
+        assert isinstance(records[0].image_dict['de'], ImageRecord)
+        assert isinstance(records[1].image_dict['de'], ImageRecord)
+        assert isinstance(records[2].image_dict['de'], ImageRecord)
+        assert records[0].code == 'ch'
+        assert records[1].code == 'ch.ne'
+        assert records[2].code == 'ch.2771'

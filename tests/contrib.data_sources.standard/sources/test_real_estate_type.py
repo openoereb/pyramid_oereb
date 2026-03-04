@@ -101,11 +101,11 @@ def all_real_estate_type_result_session(session, query):
 def test_read_all(real_estate_type_source_params, all_real_estate_type_result_session):
     source = DatabaseSource(**real_estate_type_source_params)
     with patch('pyramid_oereb.core.adapter.DatabaseAdapter.get_session', return_value=all_real_estate_type_result_session()):  # noqa: E501
-        source.read(Parameter('xml'))
-        assert len(source.records) == 6
-        assert isinstance(source.records[0], RealEstateTypeRecord)
-        assert isinstance(source.records[1], RealEstateTypeRecord)
-        record = source.records[0]
+        records = source.read(Parameter('xml'))
+        assert len(records) == 6
+        assert isinstance(records[0], RealEstateTypeRecord)
+        assert isinstance(records[1], RealEstateTypeRecord)
+        record = records[0]
         assert record.title == {
             "de": "Liegenschaft",
             "fr": "Bien-fonds",

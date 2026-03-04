@@ -10,17 +10,22 @@ class DatabaseSource(BaseDatabaseSource, AvailabilityBaseSource):
         The read method to access the standard database structure. It uses SQL-Alchemy for querying. It does
         not accept any parameters nor it applies any filter on the database query. It simply loads all
         content from the configured model.
+
+        Returns:
+            list of pyramid_oereb.core.records.availability.AvailabilityRecord: The list of
+                availability records.
         """
         session = self._adapter_.get_session(self._key_)
         try:
             results = session.query(self._model_).all()
 
-            self.records = list()
+            records = list()
             for result in results:
-                self.records.append(self._record_class_(
+                records.append(self._record_class_(
                     result.municipality_fosnr,
                     result.theme_code,
                     result.available
                 ))
+            return records
         finally:
             session.close()

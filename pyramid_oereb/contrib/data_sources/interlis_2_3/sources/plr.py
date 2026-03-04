@@ -539,15 +539,19 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
             real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real
                 estate in its record representation.
             bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.
-        """
 
+        Returns:
+            list of pyramid_oereb.lib.records.plr.PlrRecord: The list of read public law restriction
+                records.
+        """
+        records = []
         # Check if the plr is marked as available
         if Config.availability_by_theme_code_municipality_fosnr(self._plr_info['code'], real_estate.fosnr):
             session = self._adapter_.get_session(self._key_)
             try:
                 if session.query(self._model_).count() == 0:
                     # We can stop here already because there are no items in the database
-                    self.records = [EmptyPlrRecord(
+                    records = [EmptyPlrRecord(
                             Config.get_theme_by_code_sub_code(self._plr_info['code'])
                         )]
                 else:
@@ -560,7 +564,7 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                     if len(geometry_results) == 0:
                         # We checked if there are spatially related elements in database. But there is none.
                         # So we can stop here.
-                        self.records = [EmptyPlrRecord(
+                        records = [EmptyPlrRecord(
                             Config.get_theme_by_code_sub_code(self._plr_info['code'])
                         )]
                     else:
@@ -570,9 +574,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
                         # get legend_entries per law_status
                         legend_entries_from_db = self.collect_legend_entries_by_bbox(session, bbox)
 
-                        self.records = []
                         for geometry_result in geometry_results:
-                            self.records.append(
+                            records.append(
                                 self.from_db_to_plr_record(
                                     params,
                                     geometry_result.public_law_restriction,
@@ -586,7 +589,8 @@ class DatabaseSource(BaseDatabaseSource, PlrBaseSource):
 
         # Add empty record if topic is not available
         else:
-            self.records = [EmptyPlrRecord(
+            records = [EmptyPlrRecord(
                 Config.get_theme_by_code_sub_code(self._plr_info['code']),
                 has_data=False
             )]
+        return records

@@ -18,12 +18,6 @@ log = logging.getLogger(__name__)
 class PlrBaseSource(Base):
     """
     Base class for public law restriction sources.
-
-    Attributes:
-        records (list of pyramid_oereb.lib.records.plr.EmptyPlrRecord): List of public law restriction
-            records.
-        datasource (list of pyramid_oereb.lib.records.embeddable.DatasourceRecord): List of data source
-            records used for the additional data in flavour `embeddable`.
     """
     _documents_record_class = DocumentRecord
     _disclaimer_record_class = DisclaimerRecord
@@ -35,8 +29,6 @@ class PlrBaseSource(Base):
     _view_service_record_class = ViewServiceRecord
     _law_status_record_class = LawStatusRecord
     _datasource_record_class = DatasourceRecord
-
-    datasource = list()
 
     def __init__(self, **kwargs):
         """
@@ -57,8 +49,13 @@ class PlrBaseSource(Base):
             law_status (dict of str): The configuration dictionary of the law status. It consists of
                 the code and text which must be a dictionary containing language (as configured)
                 as key and text as value.
+
+        Attributes:
+            datasource (list of pyramid_oereb.lib.records.embeddable.DatasourceRecord): List of data source
+                records used for the additional data in flavour `embeddable`.
         """
         self._plr_info = kwargs
+        self.datasource = list()
 
     @property
     def info(self):
@@ -84,5 +81,9 @@ class PlrBaseSource(Base):
                 all public law restrictions. This is related to the fact that we need to provide not only the
                 public law restrictions that are related to the real estate but also the ones which are in
                 the visible extent of the map.
+
+        Returns:
+            list of pyramid_oereb.lib.records.plr.PlrRecord: The list of read public law restriction
+                records.
         """
-        self.records = list()
+        return list()
