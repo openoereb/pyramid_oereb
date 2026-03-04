@@ -133,8 +133,7 @@ sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.address.DatabaseSource.read">
 <span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zip_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/address.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.address.DatabaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>The read method to access the standard database structure. It uses SQL-Alchemy for querying. It tries
-to find the items via passed arguments. If there was no result found it goes on with assigning an
-empty list as records instance attribute.</p>
+to find the items via passed arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -143,6 +142,12 @@ empty list as records instance attribute.</p>
 <li><p><strong>zip_code</strong> (<em>int</em>) – The postal zipcode for the desired address.</p></li>
 <li><p><strong>street_number</strong> (<em>str</em>) – The house or so called street number of the desired address.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The list of address records.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of <a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.address.AddressRecord" title="pyramid_oereb.core.records.address.AddressRecord">pyramid_oereb.core.records.address.AddressRecord</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -177,6 +182,18 @@ sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
 <dd><p>The read method to access the standard database structure. It uses SQL-Alchemy for querying. It does
 not accept any parameters nor it applies any filter on the database query. It simply loads all
 content from the configured model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>The list of</dt><dd><p>availability records.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of <a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.availability.AvailabilityRecord" title="pyramid_oereb.core.records.availability.AvailabilityRecord">pyramid_oereb.core.records.availability.AvailabilityRecord</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -187,7 +204,7 @@ content from the configured model.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.data_integration.DatabaseSource">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.contrib.data_sources.standard.sources.data_integration.</span></span><span class="sig-name descname"><span class="pre">DatabaseSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/data_integration.html#DatabaseSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.data_integration.DatabaseSource" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.data_integration.DataIntegrationRecord" title="pyramid_oereb.core.records.data_integration.DataIntegrationRecord"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataIntegrationRecord</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource" title="pyramid_oereb.core.sources.BaseDatabaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseDatabaseSource</span></code></a>, <a class="reference internal" href="../../../core/sources.html#pyramid_oereb.core.sources.data_integration.DataIntegrationBaseSource" title="pyramid_oereb.core.sources.data_integration.DataIntegrationBaseSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataIntegrationBaseSource</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.data_integration.DatabaseSource.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.data_integration.DatabaseSource.__init__" title="Link to this definition">¶</a></dt>
@@ -209,6 +226,18 @@ sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
 <dd><p>The read method to access the standard database structure. It uses SQL-Alchemy for querying. It does
 not accept any parameters nor it applies any filter on the database query. It simply loads all
 content from the configured model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>The list of</dt><dd><p>data_integration records.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of <a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.data_integration.DataIntegrationRecord" title="pyramid_oereb.core.records.data_integration.DataIntegrationRecord">pyramid_oereb.core.records.data_integration.DataIntegrationRecord</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -241,6 +270,18 @@ sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
 <dd><p>The read method to access the standard database structure. It uses SQL-Alchemy for querying. It does
 not accept any parameters nor it applies any filter on the database query. It simply loads all
 content from the configured model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>The list of disclaimer</dt><dd><p>records.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of <a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.disclaimer.DisclaimerRecord" title="pyramid_oereb.core.records.disclaimer.DisclaimerRecord">pyramid_oereb.core.records.disclaimer.DisclaimerRecord</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -367,6 +408,14 @@ sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.glossary.DatabaseSource.read">
 <span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/glossary.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.glossary.DatabaseSource.read" title="Link to this definition">¶</a></dt>
 <dd><p>Central method to read all glossary entries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The list of glossary records.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of <a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.glossary.GlossaryRecord" title="pyramid_oereb.core.records.glossary.GlossaryRecord">pyramid_oereb.core.records.glossary.GlossaryRecord</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -529,6 +578,18 @@ sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
 <dd><p>The read method to access the standard database structure. It uses SQL-Alchemy for querying. It does
 not accept any parameters nor it applies any filter on the database query. It simply loads all
 content from the configured model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>The list of</dt><dd><p>municipality records.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of <a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.municipality.MunicipalityRecord" title="pyramid_oereb.core.records.municipality.MunicipalityRecord">pyramid_oereb.core.records.municipality.MunicipalityRecord</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -884,6 +945,16 @@ session instance ready for use</p></li>
 estate in its record representation.</p></li>
 <li><p><strong>bbox</strong> (<em>shapely.geometry.base.BaseGeometry</em>) – The bbox to search the records.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The list of read public law restriction</dt><dd><p>records.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of pyramid_oereb.lib.records.plr.PlrRecord</p>
 </dd>
 </dl>
 </dd></dl>

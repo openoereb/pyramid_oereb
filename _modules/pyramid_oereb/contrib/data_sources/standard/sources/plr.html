@@ -808,7 +808,12 @@
 <span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real</span>
 <span class="sd">                estate in its record representation.</span>
 <span class="sd">            bbox (shapely.geometry.base.BaseGeometry): The bbox to search the records.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list of pyramid_oereb.lib.records.plr.PlrRecord: The list of read public law restriction</span>
+<span class="sd">                records.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="c1"># Check if the plr is marked as available</span>
         <span class="k">if</span> <span class="n">Config</span><span class="o">.</span><span class="n">availability_by_theme_code_municipality_fosnr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">],</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">fosnr</span><span class="p">):</span>
             <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_session</span><span class="p">()</span>
@@ -816,7 +821,7 @@
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="c1"># We can stop here already because there are no items in the database</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="p">[</span><span class="n">EmptyPlrRecord</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">]))]</span>
+                    <span class="n">records</span> <span class="o">=</span> <span class="p">[</span><span class="n">EmptyPlrRecord</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">]))]</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="c1"># We need to investigate more in detail</span>
 
@@ -827,7 +832,7 @@
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">geometry_results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                         <span class="c1"># We checked if there are spatially related elements in database. But there is none.</span>
                         <span class="c1"># So we can stop here.</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="p">[</span><span class="n">EmptyPlrRecord</span><span class="p">(</span>
+                        <span class="n">records</span> <span class="o">=</span> <span class="p">[</span><span class="n">EmptyPlrRecord</span><span class="p">(</span>
                             <span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">])</span>
                         <span class="p">)]</span>
                     <span class="k">else</span><span class="p">:</span>
@@ -837,9 +842,8 @@
                         <span class="c1"># get legend_entries per law_status</span>
                         <span class="n">legend_entries_from_db</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">collect_legend_entries_by_bbox</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span>
 
-                        <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
                         <span class="k">for</span> <span class="n">geometry_result</span> <span class="ow">in</span> <span class="n">geometry_results</span><span class="p">:</span>
-                            <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
                                 <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_plr_record</span><span class="p">(</span>
                                     <span class="n">params</span><span class="p">,</span>
                                     <span class="n">geometry_result</span><span class="o">.</span><span class="n">public_law_restriction</span><span class="p">,</span>
@@ -853,10 +857,11 @@
 
         <span class="c1"># Add empty record if topic is not available</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="p">[</span><span class="n">EmptyPlrRecord</span><span class="p">(</span>
+            <span class="n">records</span> <span class="o">=</span> <span class="p">[</span><span class="n">EmptyPlrRecord</span><span class="p">(</span>
                 <span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">]),</span>
                 <span class="n">has_data</span><span class="o">=</span><span class="kc">False</span>
-            <span class="p">)]</span></div>
+            <span class="p">)]</span>
+        <span class="k">return</span> <span class="n">records</span></div>
 </div>
 
 </pre></div>

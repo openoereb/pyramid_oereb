@@ -83,16 +83,9 @@
 <span class="sd">    Basic characteristics and geometry of the property to be analysed.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        plan_for_land_register (pyramid_oereb.lib.records.view_service.ViewServiceRecord): The view service to</span>
-<span class="sd">            be used for the land registry map.</span>
-<span class="sd">        highlight (pyramid_oereb.lib.records.view_service.ViewServiceRecord): the view service with the wms</span>
-<span class="sd">        image of the highlighted real estate.</span>
 <span class="sd">        areas_ratio (decimal): Ratio of geometrical area and area from land registry.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">plan_for_land_register</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">plan_for_land_register_main_page</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">highlight</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">areas_ratio</span> <span class="o">=</span> <span class="mf">1.0</span>
 
 <div class="viewcode-block" id="RealEstateRecord.__init__">
@@ -140,6 +133,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">metadata_of_geographical_base_data</span> <span class="o">=</span> <span class="n">metadata_of_geographical_base_data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">land_registry_area</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">land_registry_area</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">limit</span> <span class="o">=</span> <span class="n">limit</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plan_for_land_register</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plan_for_land_register_main_page</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">highlight</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">public_law_restrictions</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">public_law_restrictions</span> <span class="o">=</span> <span class="n">public_law_restrictions</span>
         <span class="k">else</span><span class="p">:</span>

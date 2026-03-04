@@ -96,12 +96,7 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The class which generates *the extract* as a record</span>
 <span class="sd">    (:ref:`api-pyramid_oereb-core-records-extract-extractrecord`). This is the point where all necessary</span>
-<span class="sd">    and extract related components are bound together.</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">        extract (pyramid_oereb.lib.records.extract.ExtractRecord or None): The extract as a record</span>
-<span class="sd">            representation. On initialisation this is None. It will be set by calling the read method of the</span>
-<span class="sd">            instance.</span>
+<span class="sd">    and extract-related components are bound together.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="ExtractReader.__init__">
@@ -114,7 +109,6 @@
 <span class="sd">            plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority responsible</span>
 <span class="sd">                for the PLR cadastre.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">extract</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span> <span class="o">=</span> <span class="n">plr_sources</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plr_cadastre_authority_</span> <span class="o">=</span> <span class="n">plr_cadastre_authority</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">law_status</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_law_status_codes</span><span class="p">()</span></div>
@@ -165,9 +159,14 @@
 
             <span class="k">for</span> <span class="n">plr_source</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span><span class="p">:</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">params</span><span class="o">.</span><span class="n">skip_topic</span><span class="p">(</span><span class="n">plr_source</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)):</span>
-                    <span class="n">plr_source</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span>
-
-                    <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">plr_source</span><span class="o">.</span><span class="n">records</span><span class="p">)</span>
+                    <span class="n">records</span> <span class="o">=</span> <span class="n">plr_source</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">PlrRecord</span><span class="p">):</span>
+                            <span class="c1"># Copy geometries to avoid shared state across requests if globalized</span>
+                            <span class="n">record</span><span class="o">.</span><span class="n">geometries</span> <span class="o">=</span> <span class="p">[</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_copy_geometry</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">record</span><span class="o">.</span><span class="n">geometries</span>
+                            <span class="p">]</span>
+                        <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">plr</span> <span class="ow">in</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="p">:</span>
 
@@ -213,7 +212,7 @@
         <span class="n">municipality_logo</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_municipality_logo</span><span class="p">(</span><span class="n">municipality</span><span class="o">.</span><span class="n">fosnr</span><span class="p">)</span>
         <span class="n">qr_code_image</span> <span class="o">=</span> <span class="n">ImageRecord</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">qr_code</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">extract</span> <span class="o">=</span> <span class="n">ExtractRecord</span><span class="p">(</span>
+        <span class="n">extract</span> <span class="o">=</span> <span class="n">ExtractRecord</span><span class="p">(</span>
             <span class="n">real_estate</span><span class="p">,</span>
             <span class="n">oereb_logo</span><span class="p">,</span>
             <span class="n">confederation_logo</span><span class="p">,</span>
@@ -230,7 +229,7 @@
         <span class="p">)</span>
 
         <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() done&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">extract</span></div>
+        <span class="k">return</span> <span class="n">extract</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_sort_plr_law_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plr_element</span><span class="p">):</span>
@@ -276,7 +275,26 @@
                 <span class="k">if</span> <span class="p">(</span><span class="n">plr_element</span><span class="o">.</span><span class="n">sub_theme</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> \
                 <span class="k">else</span> <span class="n">plr_element</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">extract_index</span>
             <span class="k">return</span> <span class="n">index</span>
-        <span class="k">return</span> <span class="mi">10000</span></div>
+        <span class="k">return</span> <span class="mi">10000</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_copy_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geometry_record</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a fresh copy of the geometry record to avoid shared state across requests.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            geometry_record (pyramid_oereb.core.records.geometry.GeometryRecord): The record to copy.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pyramid_oereb.core.records.geometry.GeometryRecord: The fresh copy.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">geometry_record</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+            <span class="n">geometry_record</span><span class="o">.</span><span class="n">law_status</span><span class="p">,</span>
+            <span class="n">geometry_record</span><span class="o">.</span><span class="n">published_from</span><span class="p">,</span>
+            <span class="n">geometry_record</span><span class="o">.</span><span class="n">published_until</span><span class="p">,</span>
+            <span class="n">geometry_record</span><span class="o">.</span><span class="n">geom</span><span class="p">,</span>
+            <span class="n">geo_metadata</span><span class="o">=</span><span class="n">geometry_record</span><span class="o">.</span><span class="n">geo_metadata</span><span class="p">,</span>
+            <span class="n">public_law_restriction</span><span class="o">=</span><span class="n">geometry_record</span><span class="o">.</span><span class="n">public_law_restriction</span>
+        <span class="p">)</span></div>
 
 </pre></div>
 

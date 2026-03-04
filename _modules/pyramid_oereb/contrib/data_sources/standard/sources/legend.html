@@ -105,9 +105,9 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;Necessary parameter is missing.&#39;</span><span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="n">records</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">LegendEntryRecord</span><span class="p">(</span>
+                <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">LegendEntryRecord</span><span class="p">(</span>
                     <span class="n">ImageRecord</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">symbol</span><span class="p">),</span>
                     <span class="n">result</span><span class="o">.</span><span class="n">legend_text</span><span class="p">,</span>
                     <span class="n">result</span><span class="o">.</span><span class="n">type_code</span><span class="p">,</span>
@@ -116,6 +116,7 @@
                     <span class="n">sub_theme</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">sub_theme</span><span class="p">,</span>
                     <span class="n">view_service_id</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">view_service_id</span>
                 <span class="p">))</span>
+            <span class="k">return</span> <span class="n">records</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 </div>

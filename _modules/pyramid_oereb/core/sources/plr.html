@@ -97,12 +97,6 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">PlrBaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for public law restriction sources.</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">        records (list of pyramid_oereb.lib.records.plr.EmptyPlrRecord): List of public law restriction</span>
-<span class="sd">            records.</span>
-<span class="sd">        datasource (list of pyramid_oereb.lib.records.embeddable.DatasourceRecord): List of data source</span>
-<span class="sd">            records used for the additional data in flavour `embeddable`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_documents_record_class</span> <span class="o">=</span> <span class="n">DocumentRecord</span>
     <span class="n">_disclaimer_record_class</span> <span class="o">=</span> <span class="n">DisclaimerRecord</span>
@@ -114,8 +108,6 @@
     <span class="n">_view_service_record_class</span> <span class="o">=</span> <span class="n">ViewServiceRecord</span>
     <span class="n">_law_status_record_class</span> <span class="o">=</span> <span class="n">LawStatusRecord</span>
     <span class="n">_datasource_record_class</span> <span class="o">=</span> <span class="n">DatasourceRecord</span>
-
-    <span class="n">datasource</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 
 <div class="viewcode-block" id="PlrBaseSource.__init__">
 <a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.core.sources.plr.PlrBaseSource.__init__">[docs]</a>
@@ -138,8 +130,13 @@
 <span class="sd">            law_status (dict of str): The configuration dictionary of the law status. It consists of</span>
 <span class="sd">                the code and text which must be a dictionary containing language (as configured)</span>
 <span class="sd">                as key and text as value.</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">            datasource (list of pyramid_oereb.lib.records.embeddable.DatasourceRecord): List of data source</span>
+<span class="sd">                records used for the additional data in flavour `embeddable`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span> <span class="o">=</span> <span class="n">kwargs</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datasource</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span></div>
 
 
     <span class="nd">@property</span>
@@ -168,8 +165,12 @@
 <span class="sd">                all public law restrictions. This is related to the fact that we need to provide not only the</span>
 <span class="sd">                public law restrictions that are related to the real estate but also the ones which are in</span>
 <span class="sd">                the visible extent of the map.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list of pyramid_oereb.lib.records.plr.PlrRecord: The list of read public law restriction</span>
+<span class="sd">                records.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">()</span></div>
 </div>
 
 </pre></div>

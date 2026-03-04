@@ -76,12 +76,12 @@
   <h1>Source code for pyramid_oereb.contrib.data_sources.standard.sources.data_integration</h1><div class="highlight"><pre>
 <span></span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseDatabaseSource</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.sources.data_integration</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataIntegrationRecord</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.sources.data_integration</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataIntegrationBaseSource</span>
 
 
 <div class="viewcode-block" id="DatabaseSource">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.data_integration.DatabaseSource">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">DatabaseSource</span><span class="p">(</span><span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">DataIntegrationRecord</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DatabaseSource</span><span class="p">(</span><span class="n">BaseDatabaseSource</span><span class="p">,</span> <span class="n">DataIntegrationBaseSource</span><span class="p">):</span>
 
 <div class="viewcode-block" id="DatabaseSource.read">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.data_integration.DatabaseSource.read">[docs]</a>
@@ -90,18 +90,24 @@
 <span class="sd">        The read method to access the standard database structure. It uses SQL-Alchemy for querying. It does</span>
 <span class="sd">        not accept any parameters nor it applies any filter on the database query. It simply loads all</span>
 <span class="sd">        content from the configured model.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list of pyramid_oereb.core.records.data_integration.DataIntegrationRecord: The list of</span>
+<span class="sd">                data_integration records.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">results</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">records</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+            <span class="n">records</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_record_class_</span><span class="p">(</span>
+                <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_record_class_</span><span class="p">(</span>
                     <span class="n">result</span><span class="o">.</span><span class="n">date</span><span class="p">,</span>
-                    <span class="n">result</span><span class="o">.</span><span class="n">checksum</span><span class="p">,</span>
-                    <span class="n">result</span><span class="o">.</span><span class="n">available</span>
+                    <span class="n">checksum</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">checksum</span><span class="p">,</span>
+                    <span class="n">theme_identifier</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">theme_code</span><span class="p">,</span>
+                    <span class="n">office_identifier</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">office_id</span>
                 <span class="p">))</span>
+            <span class="k">return</span> <span class="n">records</span>
         <span class="k">finally</span><span class="p">:</span>
             <span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 </div>
