@@ -42,7 +42,7 @@ recommend = [
     "pypdf==6.6.2",
     "filetype==1.2.0",
     "geoalchemy2==0.18.1",
-    "pyramid==2.0.2",
+    "pyramid==2.1",
     "pyramid-debugtoolbar==4.12.1",
     "qrcode==8.2",
     "image==1.5.33",
