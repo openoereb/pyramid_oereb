@@ -41,7 +41,7 @@ Changelog = "https://github.com/openoereb/pyramid_oereb/blob/master/CHANGES.rst"
 recommend = [
     "pypdf==6.6.2",
     "filetype==1.2.0",
-    "geoalchemy2==0.18.1",
+    "geoalchemy2==0.18.4",
     "pyramid==2.0.2",
     "pyramid-debugtoolbar==4.12.1",
     "qrcode==8.2",
