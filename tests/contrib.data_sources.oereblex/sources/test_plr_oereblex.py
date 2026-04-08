@@ -652,7 +652,6 @@ def test_init(plr_source_params):
     from pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex import DatabaseOEREBlexSource
     from pyramid_oereb.contrib.data_sources.oereblex.sources.document import OEREBlexSource
     source = DatabaseOEREBlexSource(**plr_source_params)
-    assert source._queried_geolinks == {}
     assert isinstance(source._oereblex_source, OEREBlexSource)
 
 
@@ -734,7 +733,12 @@ def test_document_records_from_oereblex_cache(plr_source_params, document_record
         assert result1 == document_records
         assert mock_read.call_count == 1
 
-        # Second call, should use cache (covering lines 104-106)
+        # geolink should be cached in request-scoped cache
+        assert hasattr(params, '_oereblex_cache')
+        identifier: str = f"1{law_status_records[0].code}"
+        assert params._oereblex_cache[identifier] == document_records
+
+        # Second call, should use cache (covering line 111)
         result2 = source.document_records_from_oereblex(
             params,
             1,
@@ -742,4 +746,46 @@ def test_document_records_from_oereblex_cache(plr_source_params, document_record
             "oereb_id=5"
         )
         assert result2 == document_records
+        assert mock_read.call_count == 1
+
+        # Cache should still contain the geolink for the same identifier
+        assert hasattr(params, '_oereblex_cache')
+        assert params._oereblex_cache[identifier] == document_records
+
+
+def test_document_records_from_oereblex_request_isolation(plr_source_params, document_records, law_status_records):
+    from pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex import DatabaseOEREBlexSource
+    from pyramid_oereb.core.views.webservice import Parameter
+
+    with patch('pyramid_oereb.contrib.data_sources.oereblex.sources.document.OEREBlexSource.read',
+               return_value=document_records) as mock_read:
+        source = DatabaseOEREBlexSource(**plr_source_params)
+
+        # First request
+        params1 = Parameter('xml', language='de')
+        source.document_records_from_oereblex(params1, 1, law_status_records[0], "oereb_id=5")
+        assert mock_read.call_count == 1
+
+        # Second request must call OEREBlexSource.read again
+        params2 = Parameter('xml', language='de')
+        source.document_records_from_oereblex(params2, 1, law_status_records[0], "oereb_id=5")
+
+        assert mock_read.call_count == 2
+
+
+def test_document_records_from_oereblex_internal_consistency(plr_source_params, document_records, law_status_records):
+    from pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex import DatabaseOEREBlexSource
+    from pyramid_oereb.core.views.webservice import Parameter
+
+    with patch('pyramid_oereb.contrib.data_sources.oereblex.sources.document.OEREBlexSource.read',
+               return_value=document_records) as mock_read:
+        source = DatabaseOEREBlexSource(**plr_source_params)
+        params = Parameter('xml', language='de')
+
+        # Call with params
+        source.document_records_from_oereblex(params, 1, law_status_records[0], "oereb_id=5")
+        # Call with same params object
+        source.document_records_from_oereblex(params, 1, law_status_records[0], "oereb_id=5")
+
+        # Should only be called once within the same params object
         assert mock_read.call_count == 1

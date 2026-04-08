@@ -40,8 +40,6 @@ class DatabaseOEREBlexSource(DatabaseSource):
         config = Config.get_oereblex_config()
         config["code"] = self._plr_info.get('code')
         self._oereblex_source = OEREBlexSource(**config)
-        self._queried_geolinks = {}
-        self._lock = threading.Lock()
 
     @staticmethod
     def get_config_value_for_plr_code(url_param_config, plr_code):
