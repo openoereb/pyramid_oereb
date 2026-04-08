@@ -753,7 +753,9 @@ def test_document_records_from_oereblex_cache(plr_source_params, document_record
         assert params._oereblex_cache[identifier] == document_records
 
 
-def test_document_records_from_oereblex_request_isolation(plr_source_params, document_records, law_status_records):
+def test_document_records_from_oereblex_request_isolation(
+        plr_source_params, document_records, law_status_records
+):
     from pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex import DatabaseOEREBlexSource
     from pyramid_oereb.core.views.webservice import Parameter
 
@@ -773,7 +775,9 @@ def test_document_records_from_oereblex_request_isolation(plr_source_params, doc
         assert mock_read.call_count == 2
 
 
-def test_document_records_from_oereblex_internal_consistency(plr_source_params, document_records, law_status_records):
+def test_document_records_from_oereblex_internal_consistency(
+        plr_source_params, document_records, law_status_records
+):
     from pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex import DatabaseOEREBlexSource
     from pyramid_oereb.core.views.webservice import Parameter
 
