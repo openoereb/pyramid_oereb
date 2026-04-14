@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
+import weakref
 
 from pyramid_oereb import Config
 from pyramid_oereb.contrib.data_sources.oereblex.sources.document import OEREBlexSource
@@ -39,6 +40,7 @@ class DatabaseOEREBlexSource(DatabaseSource):
         config = Config.get_oereblex_config()
         config["code"] = self._plr_info.get('code')
         self._oereblex_source = OEREBlexSource(**config)
+        self._oereblex_cache = weakref.WeakKeyDictionary()
 
     @staticmethod
     def get_config_value_for_plr_code(url_param_config, plr_code):
@@ -97,19 +99,20 @@ class DatabaseOEREBlexSource(DatabaseSource):
                   .format(geolink, law_status.code, oereblex_params))
 
         # Initialize request-scoped cache if not already done
-        if not hasattr(params, '_oereblex_cache'):
-            params._oereblex_cache = {}
+        if params not in self._oereblex_cache:
+            self._oereblex_cache[params] = {}
+        request_cache = self._oereblex_cache[params]
 
         identifier = '{}{}'.format(geolink, law_status.code)
-        if identifier not in params._oereblex_cache:
+        if identifier not in request_cache:
             log.debug('Fetching and caching geolink {} from OEREBlex for current request'.format(geolink))
-            params._oereblex_cache[identifier] = self._oereblex_source.read(
+            request_cache[identifier] = self._oereblex_source.read(
                 params, geolink, law_status, oereblex_params
             )
         else:
             log.debug('Using cached geolink for current request {}'.format(identifier))
 
-        return params._oereblex_cache[identifier]
+        return request_cache[identifier]
 
     def collect_related_geometries_by_real_estate(self, session, real_estate):
         """
