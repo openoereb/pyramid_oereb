@@ -29,7 +29,7 @@ authors = [
 keywords = ["pyramid oereb"]
 readme = "README.rst"
 dependencies = [
-    "setuptools >= 69.5.1, <81"
+    "setuptools >=82.0.1, <83"
 ]
 
 [project.urls]
