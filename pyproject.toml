@@ -76,7 +76,7 @@ no-version = [
     "c2cwsgiutils[standard]"]
 testing = [
     "jsonschema==4.26.0",
-    "lxml==6.0.2",
+    "lxml==6.1.0",
     "pytest==9.0.3",
     "pytest-cov==7.0.0",
     "pytest-ordering==0.6",
