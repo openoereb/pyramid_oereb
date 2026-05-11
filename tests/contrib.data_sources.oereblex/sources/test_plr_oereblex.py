@@ -652,7 +652,6 @@ def test_init(plr_source_params):
     from pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex import DatabaseOEREBlexSource
     from pyramid_oereb.contrib.data_sources.oereblex.sources.document import OEREBlexSource
     source = DatabaseOEREBlexSource(**plr_source_params)
-    assert source._queried_geolinks == {}
     assert isinstance(source._oereblex_source, OEREBlexSource)
 
 
@@ -724,7 +723,6 @@ def test_document_records_from_oereblex_cache(plr_source_params, document_record
         from pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex import DatabaseOEREBlexSource
 
         source = DatabaseOEREBlexSource(**plr_source_params)
-        # First call, should call OEREBlexSource.read
         result1 = source.document_records_from_oereblex(
             params,
             1,
@@ -734,12 +732,50 @@ def test_document_records_from_oereblex_cache(plr_source_params, document_record
         assert result1 == document_records
         assert mock_read.call_count == 1
 
-        # Second call, should use cache (covering lines 104-106)
+        # Second call with same params should use cache
         result2 = source.document_records_from_oereblex(
             params,
             1,
             law_status_records[0],
             "oereb_id=5"
         )
-        assert result2 == document_records
+        assert result2 == result1
         assert mock_read.call_count == 1
+
+        # Verify params object is in WeakKeyDictionary
+        assert params in source._oereblex_cache
+
+
+def test_document_records_from_oereblex_request_isolation(
+        plr_source_params, document_records, law_status_records
+):
+    from pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex import DatabaseOEREBlexSource
+    from pyramid_oereb.core.views.webservice import Parameter
+
+    with patch('pyramid_oereb.contrib.data_sources.oereblex.sources.document.OEREBlexSource.read',
+               return_value=document_records) as mock_read:
+        source = DatabaseOEREBlexSource(**plr_source_params)
+
+        params1 = Parameter('xml', language='de')
+        source.document_records_from_oereblex(params1, 1, law_status_records[0], "oereb_id=5")
+        assert mock_read.call_count == 1
+
+        # Second request must call OEREBlexSource.read again
+        params2 = Parameter('xml', language='de')
+        source.document_records_from_oereblex(params2, 1, law_status_records[0], "oereb_id=5")
+
+        assert mock_read.call_count == 2
+
+
+def test_weakref_cache_cleanup(plr_source_params):
+    from pyramid_oereb.contrib.data_sources.oereblex.sources.plr_oereblex import DatabaseOEREBlexSource
+
+    source = DatabaseOEREBlexSource(**plr_source_params)
+    local_params = Parameter('xml', language='de')
+
+    source._oereblex_cache[local_params] = {"some": "data"}
+    assert local_params in source._oereblex_cache
+
+    del local_params
+
+    assert len(source._oereblex_cache) == 0

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import threading
 import logging
+import weakref
 
 from pyramid_oereb import Config
 from pyramid_oereb.contrib.data_sources.oereblex.sources.document import OEREBlexSource
@@ -40,8 +40,7 @@ class DatabaseOEREBlexSource(DatabaseSource):
         config = Config.get_oereblex_config()
         config["code"] = self._plr_info.get('code')
         self._oereblex_source = OEREBlexSource(**config)
-        self._queried_geolinks = {}
-        self._lock = threading.Lock()
+        self._oereblex_cache = weakref.WeakKeyDictionary()
 
     @staticmethod
     def get_config_value_for_plr_code(url_param_config, plr_code):
@@ -87,7 +86,7 @@ class DatabaseOEREBlexSource(DatabaseSource):
         them to the current public law restriction.
 
         Args:
-            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
+            params (pyramid_oereb.core.views.webservice.Parameter): The parameters of the extract request.
             geolink (int): The ID of the GEO-Link to request the documents for.
             law_status (pyramid_oereb.core.records.lawstatus.LawStatusRecord): The restriction's law status.
             oereblex_params (string): URL parameter to add to the models request
@@ -98,18 +97,22 @@ class DatabaseOEREBlexSource(DatabaseSource):
         """
         log.debug("document_records_from_oereblex() start, GEO-Link {}, law status {}, oereblex_params {}"
                   .format(geolink, law_status.code, oereblex_params))
-        identifier = '{}{}{}'.format(geolink, law_status.code, params.language)
-        with self._lock:
-            if identifier in self._queried_geolinks:
-                log.debug('skip querying this geolink "{}" because it was fetched already.'
-                          .format(identifier))
-                log.debug('use already queried instead')
-            else:
-                records = self._oereblex_source.read(params, geolink, law_status, oereblex_params)
-                log.debug("document_records_from_oereblex() returning {} records"
-                          .format(len(records)))
-                self._queried_geolinks[identifier] = records
-            return self._queried_geolinks[identifier]
+
+        # Initialize request-scoped cache if not already done
+        if params not in self._oereblex_cache:
+            self._oereblex_cache[params] = {}
+        request_cache = self._oereblex_cache[params]
+
+        identifier = '{}{}'.format(geolink, law_status.code)
+        if identifier not in request_cache:
+            log.debug('Fetching and caching geolink {} from OEREBlex for current request'.format(geolink))
+            request_cache[identifier] = self._oereblex_source.read(
+                params, geolink, law_status, oereblex_params
+            )
+        else:
+            log.debug('Using cached geolink for current request {}'.format(identifier))
+
+        return request_cache[identifier]
 
     def collect_related_geometries_by_real_estate(self, session, real_estate):
         """
