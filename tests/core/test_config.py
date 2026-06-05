@@ -6,7 +6,6 @@ from unittest.mock import patch
 
 from pyramid.config import ConfigurationError
 
-# from pyramid_oereb.core.adapter import FileAdapter
 from pyramid_oereb.core.config import Config
 from pyramid_oereb.core.records.office import OfficeRecord
 from pyramid_oereb.core.readers.theme import ThemeReader
@@ -23,6 +22,7 @@ from pyramid_oereb.core.readers.logo import LogoReader
 from pyramid_oereb.core.readers.document_types import DocumentTypeReader
 from pyramid_oereb.core.readers.real_estate_type import RealEstateTypeReader
 from pyramid_oereb.core.readers.map_layering import MapLayeringReader
+from pyramid_oereb.core.records.map_layering import MapLayeringRecord
 from pyramid_oereb.core.records.availability import AvailabilityRecord
 from pyramid_oereb.core.records.municipality import MunicipalityRecord
 
@@ -1419,3 +1419,35 @@ def test_get_law_status_lookup_by_data_code(test_value):
         assert Config.get_law_status_lookup_by_data_code(
             "theme_code",
             "data_code") == test_value
+
+
+def test_get_index_and_opacity_of_view_service():
+    view_service = {
+        'en': 'https://wms.example.com/en',
+        'fr': 'https://wms.example.com/fr'
+    }
+    record = MapLayeringRecord(view_service, 10, 0.5)
+
+    Config.map_layering = [record]
+
+    reference_wms = {'en': 'https://wms.example.com/en'}
+    index, opacity = Config.get_index_and_opacity_of_view_service(reference_wms)
+    assert index == 10
+    assert opacity == 0.5
+
+    reference_wms_none = {'en': 'https://wms.example.com/other'}
+    index, opacity = Config.get_index_and_opacity_of_view_service(reference_wms_none)
+    assert index == 1
+    assert opacity == 0.75
+
+
+def test_get_index_and_opacity_of_view_service_not_initialized():
+    Config.map_layering = None
+    with pytest.raises(ConfigurationError, match="Map layering has not been initialized"):
+        Config.get_index_and_opacity_of_view_service({})
+
+
+@pytest.fixture
+def reset_map_layering():
+    yield
+    Config.map_layering = None

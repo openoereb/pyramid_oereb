@@ -986,8 +986,8 @@ class Config(object):
             return default_index, default_opacity
         for map_layering_result in Config.map_layering:
             for lang1 in list(reference_wms.keys()):
-                for lang2 in list(map_layering_result.keys()):
-                    if reference_wms[lang1] == map_layering_result[lang2]:
+                for lang2 in list(map_layering_result.view_service.keys()):
+                    if reference_wms[lang1] == map_layering_result.view_service[lang2]:
                         return map_layering_result.layer_index, map_layering_result.layer_opacity
         return default_index, default_opacity
 
