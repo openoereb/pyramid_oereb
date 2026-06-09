@@ -47,6 +47,7 @@
 <li class="toctree-l1"><a class="reference internal" href="makefile.html">Makefile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes/Hints for migration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-2-5-9">Version 2.5.9</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-5-8">Version 2.5.8</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-5-7">Version 2.5.7</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-5-6">Version 2.5.6</a></li>
@@ -185,6 +186,20 @@
 <span id="changes"></span><h1>Changes/Hints for migration<a class="headerlink" href="#changes-hints-for-migration" title="Link to this heading">¶</a></h1>
 <p>This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.</p>
+<section id="version-2-5-9">
+<h2>Version 2.5.9<a class="headerlink" href="#version-2-5-9" title="Link to this heading">¶</a></h2>
+<p>Feature and maintenance release:</p>
+<ul class="simple">
+<li><p>Library upgrades (pyramid, sqlalchemy, responses, pillow, pypdf, actions/checkout, geoalchemy2, pytest, requests, codecov/codecov-action, pytest-cov, psycopg2, lxml)</p></li>
+<li><p>Update the docker base image to python:3.14.5-bookworm (#2178)</p></li>
+<li><p>Prevent duplicate instructions in DB init script (#2142)</p></li>
+<li><p>Remove unused &#64;pytest.mark.usefixtures decorator from test_db_url (#2145)</p></li>
+<li><p>Refactor test_handle_collection to assert spatial filter presence instead of full SQL string output (#2148)</p></li>
+<li><p>Performance improvement (#2152)</p></li>
+<li><p>Caching of geolinks (#2165)</p></li>
+<li><p>Fix bug in get_index_and_opacity_of_view_service (#2184)</p></li>
+</ul>
+</section>
 <section id="version-2-5-8">
 <h2>Version 2.5.8<a class="headerlink" href="#version-2-5-8" title="Link to this heading">¶</a></h2>
 <p>Feature and maintenance release:</p>
