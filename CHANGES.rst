@@ -11,13 +11,14 @@ Master
 
 2.5.9
 -----
-- Library upgrades (pyramid, sqlalchemy, responses, pillow, pypdf, actions/checkout, geoalchemy2, pytest, , requests, codecov/codecov-action, pytest-cov, psycopg2, lxml)
-- Update the docker base image to python:3.14.4-bookworm (#2154)
+- Library upgrades (pyramid, sqlalchemy, responses, pillow, pypdf, actions/checkout, geoalchemy2, pytest, requests, codecov/codecov-action, pytest-cov, psycopg2, lxml)
+- Update the docker base image to python:3.14.5-bookworm (#2178)
 - Prevent duplicate instructions in DB init script (#2142)
 - Remove unused @pytest.mark.usefixtures decorator from test_db_url (#2145)
 - Refactor test_handle_collection to assert spatial filter presence instead of full SQL string output (#2148)
 - Performance improvement (#2152)
 - Caching of geolinks (#2165)
+- Fix bug in get_index_and_opacity_of_view_service (#2184)
 
 2.5.8
 -----
