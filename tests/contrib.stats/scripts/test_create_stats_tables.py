@@ -26,7 +26,7 @@ def test_create_views_sanitization():
 
         _create_views('mock_config.ini')
 
-        args, kwargs = mock_template_instance.render.call_args
+        _, kwargs = mock_template_instance.render.call_args
         assert kwargs['schema_name'] == "stats_schemaDROPSCHEMAmain_schema"
         assert kwargs['tablename'] == "main_tableDROPTABLEsecrets"
 
