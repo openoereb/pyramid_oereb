@@ -51,7 +51,7 @@ def _create_views(config_file,
                   config_sql_args='args'):
     config = configparser.ConfigParser(Config.get_db_vars_from_env())
     config.read(config_file)
-    sql_args = ast.literal_eval(config[config_section][config_sql_args][0])
+    sql_args = ast.literal_eval(config[config_section][config_sql_args])[0]
     schema_name = sql_args['tableargs']['schema']
     tablename = sql_args['tablename']
 
