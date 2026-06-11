@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import re
 from sqlalchemy.schema import CreateTable
 from sqlalchemy.dialects import postgresql
 
@@ -16,6 +17,8 @@ def create_schema_sql(schema_name):
     Returns:
         str: query string to create the schema
     """
+    if not re.fullmatch(r'[A-Za-z_][A-Za-z0-9_]*', schema_name):
+        raise ValueError(f'Invalid schema name: {schema_name!r}')
     return 'CREATE SCHEMA IF NOT EXISTS {0};'.format(schema_name)
 
 
