@@ -34,7 +34,7 @@ def test_create_schema_sql():
     assert sql == 'CREATE SCHEMA IF NOT EXISTS test;'
 
 
-def test_create_schema_sql_raise_error():
+def test_create_schema_sql_raises_error():
     with pytest.raises(ValueError) as ex_info:
         create_schema_sql('DROP SCHEMA main_schema;')
 
