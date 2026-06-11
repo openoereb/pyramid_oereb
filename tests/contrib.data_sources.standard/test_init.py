@@ -34,6 +34,13 @@ def test_create_schema_sql():
     assert sql == 'CREATE SCHEMA IF NOT EXISTS test;'
 
 
+def test_create_schema_sql_raise_error():
+    with pytest.raises(ValueError) as ex_info:
+        create_schema_sql('!!;')
+
+    assert ex_info.value.args[0] == "Invalid schema name: '!!;'"
+
+
 def test_create_tables_sql(simple_table_base):
     sql = create_tables_sql(tables(simple_table_base[0]))
     expected_sql = 'CREATE TABLE test.test_table (test_column VARCHAR NOT NULL, PRIMARY KEY (test_column));'  # noqa: E501
