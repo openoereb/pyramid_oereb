@@ -1,14 +1,11 @@
-import pytest
 from unittest.mock import MagicMock, patch
 from pyramid_oereb.contrib.stats.scripts.create_stats_tables import _create_views
 
 def test_create_views_sanitization():
-    with patch('pyramid_oereb.contrib.stats.scripts.create_stats_tables.Config.get_db_vars_from_env') as mock_get_env, \
-            patch(
-                'pyramid_oereb.contrib.stats.scripts.create_stats_tables.configparser.ConfigParser'
-            ) as mock_config_parser, \
+    with (patch('pyramid_oereb.contrib.stats.scripts.create_stats_tables.configparser.ConfigParser')
+          as mock_config_parser, \
             patch('pyramid_oereb.contrib.stats.scripts.create_stats_tables.SQLAlchemyHandler') as mock_handler, \
-            patch('pyramid_oereb.contrib.stats.scripts.create_stats_tables.Template') as mock_template:
+            patch('pyramid_oereb.contrib.stats.scripts.create_stats_tables.Template') as mock_template):
         malicious_schema = "stats_schema; DROP SCHEMA main_schema;"
         malicious_table = "main_schema.main_table; DROP TABLE secrets;--"
 
