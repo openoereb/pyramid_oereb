@@ -27,7 +27,3 @@ def test_create_views_sanitization():
         args, kwargs = mock_template_instance.render.call_args
         assert kwargs['schema_name'] == "stats_schemaDROPSCHEMAmain_schema"
         assert kwargs['tablename'] == "main_schema.main_tableDROPTABLEsecrets"
-
-        assert "<script>" not in kwargs['schema_name']
-        assert ";" not in kwargs['tablename']
-        assert "--" not in kwargs['tablename']
