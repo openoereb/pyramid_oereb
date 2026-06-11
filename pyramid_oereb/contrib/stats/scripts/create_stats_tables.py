@@ -51,8 +51,9 @@ def _create_views(config_file,
                   config_sql_args='args'):
     config = configparser.ConfigParser(Config.get_db_vars_from_env())
     config.read(config_file)
-    schema_name = ast.literal_eval(config[config_section][config_sql_args])[0]['tableargs']['schema']
-    tablename = ast.literal_eval(config[config_section][config_sql_args])[0]['tablename']
+    sql_args = ast.literal_eval(config[config_section][config_sql_args])
+    schema_name = sql_args[0]['tableargs']['schema']
+    tablename = sql_args[0]['tablename']
 
     sanitized_schema_name = re.sub(r'[^a-zA-Z0-9_]', '', schema_name)
     sanitized_tablename = re.sub(r'[^a-zA-Z0-9_]', '', tablename)
@@ -63,7 +64,7 @@ def _create_views(config_file,
     if not re.fullmatch(valid_chars_regex, sanitized_tablename):
         raise ValueError(f'Invalid table name after sanitization: {tablename!r}')
 
-    fake_handler = SQLAlchemyHandler(ast.literal_eval(config[config_section][config_sql_args])[0])
+    fake_handler = SQLAlchemyHandler(sql_args[0])
     fake_handler.create_db()
     create_view_sql = Template(filename='{}/templates/views.sql.mako'.format(SCRIPT_FOLDER))
     fake_handler.session.execute(text(
