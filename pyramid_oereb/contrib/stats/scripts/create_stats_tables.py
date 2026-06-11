@@ -60,5 +60,7 @@ def _create_views(config_file,
     fake_handler = SQLAlchemyHandler(ast.literal_eval(config[config_section][config_sql_args])[0])
     fake_handler.create_db()
     create_view_sql = Template(filename='{}/templates/views.sql.mako'.format(SCRIPT_FOLDER))
-    fake_handler.session.execute(text(create_view_sql.render(schema_name=sanitized_schema_name, tablename=sanitized_tablename)))
+    fake_handler.session.execute(text(
+        create_view_sql.render(schema_name=sanitized_schema_name, tablename=sanitized_tablename)
+    ))
     fake_handler.session.commit()
