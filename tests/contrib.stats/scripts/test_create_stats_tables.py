@@ -8,8 +8,7 @@ from pyramid_oereb.contrib.stats.scripts.create_stats_tables import _create_view
 def test_create_views_sanitization():
     with (patch('pyramid_oereb.contrib.stats.scripts.create_stats_tables.configparser.ConfigParser')
             as mock_config_parser,
-            patch('pyramid_oereb.contrib.stats.scripts.create_stats_tables.SQLAlchemyHandler')
-            as mock_handler,
+            patch('pyramid_oereb.contrib.stats.scripts.create_stats_tables.SQLAlchemyHandler'),
             patch('pyramid_oereb.contrib.stats.scripts.create_stats_tables.Template') as mock_template):
         malicious_schema = "stats_schema; DROP SCHEMA main_schema;"
         malicious_table = "main_table; DROP TABLE secrets;--"
@@ -35,8 +34,7 @@ def test_create_views_sanitization():
 def test_invalid_schema_name_raises_error():
     with (patch('pyramid_oereb.contrib.stats.scripts.create_stats_tables.configparser.ConfigParser')
             as mock_config_parser,
-            patch('pyramid_oereb.contrib.stats.scripts.create_stats_tables.SQLAlchemyHandler')
-            as mock_handler,
+            patch('pyramid_oereb.contrib.stats.scripts.create_stats_tables.SQLAlchemyHandler'),
             patch('pyramid_oereb.contrib.stats.scripts.create_stats_tables.Template') as mock_template):
         mock_config = MagicMock()
         mock_config.__getitem__.return_value = {
@@ -57,8 +55,7 @@ def test_invalid_schema_name_raises_error():
 def test_invalid_table_name_raises_error():
     with (patch('pyramid_oereb.contrib.stats.scripts.create_stats_tables.configparser.ConfigParser')
             as mock_config_parser,
-            patch('pyramid_oereb.contrib.stats.scripts.create_stats_tables.SQLAlchemyHandler')
-            as mock_handler,
+            patch('pyramid_oereb.contrib.stats.scripts.create_stats_tables.SQLAlchemyHandler'),
             patch('pyramid_oereb.contrib.stats.scripts.create_stats_tables.Template') as mock_template):
         mock_config = MagicMock()
         mock_config.__getitem__.return_value = {
