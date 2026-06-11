@@ -36,9 +36,9 @@ def test_create_schema_sql():
 
 def test_create_schema_sql_raise_error():
     with pytest.raises(ValueError) as ex_info:
-        create_schema_sql('!!;')
+        create_schema_sql('DROP SCHEMA main_schema;')
 
-    assert ex_info.value.args[0] == "Invalid schema name: '!!;'"
+    assert ex_info.value.args[0] == "Invalid schema name: 'DROP SCHEMA main_schema;'"
 
 
 def test_create_tables_sql(simple_table_base):

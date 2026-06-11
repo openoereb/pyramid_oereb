@@ -55,23 +55,16 @@ def _create_views(config_file,
     schema_name = sql_args['tableargs']['schema']
     tablename = sql_args['tablename']
 
-    sanitized_schema_name = re.sub(r'[^a-zA-Z0-9_]', '', schema_name)
-    sanitized_tablename = re.sub(r'[^a-zA-Z0-9_]', '', tablename)
-
     valid_chars_regex = r'[A-Za-z_][A-Za-z0-9_]*'
-    if not re.fullmatch(valid_chars_regex, sanitized_schema_name):
-        raise ValueError(
-            f'Invalid schema name after sanitization: {schema_name!r} -> {sanitized_schema_name!r}'
-        )
-    if not re.fullmatch(valid_chars_regex, sanitized_tablename):
-        raise ValueError(f'Invalid table name after sanitization: {tablename!r} -> {sanitized_tablename!r}')
+    if not re.fullmatch(valid_chars_regex, schema_name):
+        raise ValueError(f'Invalid schema name: {schema_name!r}')
+    if not re.fullmatch(valid_chars_regex, tablename):
+        raise ValueError(f'Invalid table name: {tablename!r}')
 
-    sql_args['tableargs']['schema'] = sanitized_schema_name
-    sql_args['tablename'] = sanitized_tablename
     fake_handler = SQLAlchemyHandler(sql_args)
     fake_handler.create_db()
     create_view_sql = Template(filename='{}/templates/views.sql.mako'.format(SCRIPT_FOLDER))
     fake_handler.session.execute(text(
-        create_view_sql.render(schema_name=sanitized_schema_name, tablename=sanitized_tablename)
+        create_view_sql.render(schema_name=schema_name, tablename=tablename)
     ))
     fake_handler.session.commit()
