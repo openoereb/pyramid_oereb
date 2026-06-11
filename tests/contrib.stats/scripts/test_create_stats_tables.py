@@ -49,7 +49,7 @@ def test_invalid_schema_name_raises_error():
         with pytest.raises(ValueError) as ex_info:
             _create_views('mock_config.ini')
 
-        assert ex_info.value.args[0] == "Invalid schema name after sanitization: '!!;'"
+        assert ex_info.value.args[0] == "Invalid schema name after sanitization: '!!;' -> ''"
 
 
 def test_invalid_table_name_raises_error():
@@ -70,4 +70,4 @@ def test_invalid_table_name_raises_error():
         with pytest.raises(ValueError) as ex_info:
             _create_views('mock_config.ini')
 
-        assert ex_info.value.args[0] == "Invalid table name after sanitization: '!!;'"
+        assert ex_info.value.args[0] == "Invalid table name after sanitization: '!!;' -> ''"

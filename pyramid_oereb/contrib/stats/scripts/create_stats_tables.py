@@ -60,9 +60,9 @@ def _create_views(config_file,
 
     valid_chars_regex = r'[A-Za-z_][A-Za-z0-9_]*'
     if not re.fullmatch(valid_chars_regex, sanitized_schema_name):
-        raise ValueError(f'Invalid schema name after sanitization: {sanitized_schema_name!r}')
+        raise ValueError(f'Invalid schema name after sanitization: {schema_name!r} -> {sanitized_schema_name!r}')
     if not re.fullmatch(valid_chars_regex, sanitized_tablename):
-        raise ValueError(f'Invalid table name after sanitization: {sanitized_tablename!r}')
+        raise ValueError(f'Invalid table name after sanitization: {tablename!r} -> {sanitized_tablename!r}')
 
     sql_args['tableargs']['schema'] = sanitized_schema_name
     sql_args['tablename'] = sanitized_tablename
