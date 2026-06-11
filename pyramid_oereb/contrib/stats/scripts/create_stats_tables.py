@@ -3,6 +3,7 @@ from c2cwsgiutils.sqlalchemylogger.handlers import SQLAlchemyHandler
 from pyramid_oereb.core.config import Config
 import configparser
 import ast
+import re
 from mako.template import Template
 import os
 import optparse
@@ -52,8 +53,12 @@ def _create_views(config_file,
     config.read(config_file)
     schema_name = ast.literal_eval(config[config_section][config_sql_args])[0]['tableargs']['schema']
     tablename = ast.literal_eval(config[config_section][config_sql_args])[0]['tablename']
+
+    sanitized_schema_name = re.sub(r'[^a-zA-Z0-9_]', '', schema_name)
+    sanitized_tablename = re.sub(r'[^a-zA-Z0-9_]', '', tablename)
+
     fake_handler = SQLAlchemyHandler(ast.literal_eval(config[config_section][config_sql_args])[0])
     fake_handler.create_db()
     create_view_sql = Template(filename='{}/templates/views.sql.mako'.format(SCRIPT_FOLDER))
-    fake_handler.session.execute(text(create_view_sql.render(schema_name=schema_name, tablename=tablename)))
+    fake_handler.session.execute(text(create_view_sql.render(schema_name=sanitized_schema_name, tablename=sanitized_tablename)))
     fake_handler.session.commit()

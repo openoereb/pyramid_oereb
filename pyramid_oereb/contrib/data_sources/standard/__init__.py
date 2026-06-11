@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import re
 from sqlalchemy.schema import CreateTable
 from sqlalchemy.dialects import postgresql
 
@@ -16,7 +17,8 @@ def create_schema_sql(schema_name):
     Returns:
         str: query string to create the schema
     """
-    return 'CREATE SCHEMA IF NOT EXISTS {0};'.format(schema_name)
+    sanitized_schema_name = re.sub(r'[^a-zA-Z0-9_]', '', schema_name)
+    return 'CREATE SCHEMA IF NOT EXISTS {0};'.format(sanitized_schema_name)
 
 
 def create_tables_sql(tables_to_create, if_not_exists=False):
