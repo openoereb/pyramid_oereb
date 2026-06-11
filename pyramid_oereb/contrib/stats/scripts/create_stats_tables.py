@@ -55,7 +55,13 @@ def _create_views(config_file,
     tablename = ast.literal_eval(config[config_section][config_sql_args])[0]['tablename']
 
     sanitized_schema_name = re.sub(r'[^a-zA-Z0-9_]', '', schema_name)
-    sanitized_tablename = re.sub(r'[^a-zA-Z0-9_.]', '', tablename)
+    sanitized_tablename = re.sub(r'[^a-zA-Z0-9_]', '', tablename)
+
+    valid_chars_regex = r'[A-Za-z_][A-Za-z0-9_]*'
+    if not re.fullmatch(valid_chars_regex, sanitized_schema_name):
+        raise ValueError(f'Invalid schema name after sanitization: {schema_name!r}')
+    if not re.fullmatch(valid_chars_regex, sanitized_tablename):
+        raise ValueError(f'Invalid table name after sanitization: {tablename!r}')
 
     fake_handler = SQLAlchemyHandler(ast.literal_eval(config[config_section][config_sql_args])[0])
     fake_handler.create_db()

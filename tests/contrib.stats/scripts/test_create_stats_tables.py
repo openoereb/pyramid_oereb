@@ -9,7 +9,7 @@ def test_create_views_sanitization():
             as mock_handler,
             patch('pyramid_oereb.contrib.stats.scripts.create_stats_tables.Template') as mock_template):
         malicious_schema = "stats_schema; DROP SCHEMA main_schema;"
-        malicious_table = "main_schema.main_table; DROP TABLE secrets;--"
+        malicious_table = "main_table; DROP TABLE secrets;--"
 
         mock_config = MagicMock()
         mock_config.__getitem__.return_value = {
@@ -26,4 +26,4 @@ def test_create_views_sanitization():
 
         args, kwargs = mock_template_instance.render.call_args
         assert kwargs['schema_name'] == "stats_schemaDROPSCHEMAmain_schema"
-        assert kwargs['tablename'] == "main_schema.main_tableDROPTABLEsecrets"
+        assert kwargs['tablename'] == "main_tableDROPTABLEsecrets"
