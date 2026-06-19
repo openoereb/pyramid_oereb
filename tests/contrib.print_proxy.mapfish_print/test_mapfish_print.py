@@ -951,3 +951,59 @@ def test_mfp_service(mock_responses, pyramid_test_config,
     service = PlrWebservice(request)
     response = service.get_extract_by_id()
     assert response.status_code == 200
+
+
+def test_single_restriction_multiple_layers(geometry, DummyRenderInfo):
+    renderer = Renderer(DummyRenderInfo())
+
+    extract = {
+        'CreationDate': '2026-06-10T00:00:00',
+        'ExtractIdentifier': 'test-uuid',
+        'UpdateDateCS': '2026-06-11T00:00:00',
+        'PLRCadastreAuthority': {
+            'Name': [{'Language': 'de', 'Text': 'Amt'}],
+        },
+        'RealEstate': {
+            'Type': {'Code': 'RealEstate', 'Text': [{'Language': 'de', 'Text': 'L'}]},
+            'PlanForLandRegister': {
+                'ReferenceWMS': [{'Language': 'de', 'Text': 'http://wms.com?LAYERS=basemap'}]
+            },
+            'PlanForLandRegisterMainPage': {
+                'ReferenceWMS': [{'Language': 'de', 'Text': 'http://wms.com?LAYERS=basemap'}]
+            }
+        },
+        'ConcernedTheme': [{'Code': 'Theme1', 'Text': [{'Language': 'de', 'Text': 'Theme 1'}]}],
+        'NotConcernedTheme': [],
+        'ThemeWithoutData': [],
+        'RealEstate_RestrictionOnLandownership': [
+            {
+                'Theme': {'Code': 'Theme1', 'Text': [{'Language': 'de', 'Text': 'Theme 1'}]},
+                'Lawstatus': {'Code': 'code', 'Text': [{'Language': 'de', 'Text': 'R'}]},
+                'ResponsibleOffice': {
+                    'Name': [{'Language': 'de', 'Text': 'Office'}],
+                },
+                'LegendText': [{'Language': 'de', 'Text': 'Legend'}],
+                'SymbolRef': u'SymbolRef',
+                'Map': {
+                    'ReferenceWMS': [
+                        {
+                            'Language': 'de',
+                            'Text': 'https://wms.ch/oereb?SERVICE=WMS&LAYERS=layer1,layer2&FORMAT=image/png'
+                        }
+                    ]
+                }
+            }
+        ],
+        'RealEstate_LandRegistryArea': 20
+    }
+
+    renderer.convert_to_printable_extract(extract, geometry)
+
+    processed_restrictions = extract['RealEstate_RestrictionOnLandownership']
+
+    theme_plr = next(plr for plr in processed_restrictions if plr['Theme_Code'] == 'Theme1')
+
+    layers = theme_plr['baseLayers']['layers'][0]['layers']
+    assert 'layer1' in layers
+    assert 'layer2' in layers
+    assert len(layers) == 2
