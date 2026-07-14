@@ -187,6 +187,30 @@ def test_getegrid_address_no_localisation(pyramid_oereb_test_config, schema_json
     })
     request.params.update({
         'POSTALCODE': u'4410',
+        'LOCALISATION': u'test',
+        'NUMBER': u'100000'
+    })
+    webservice = PlrWebservice(request)
+    response = webservice.get_egrid()
+
+    assert isinstance(response, HTTPNoContent)
+
+
+def test_getegrid_address_no_content(pyramid_oereb_test_config, schema_json_extract, real_estate_data,
+                                     address, real_estate_types_test_data):
+    del pyramid_oereb_test_config
+
+    request = MockRequest(
+        current_route_url='http://example.com/oereb/getegrid/json/4410/test/10'
+    )
+
+    # Add params to matchdict as the view will do it for
+    # /getegrid/{format}/{postalcode}/{localisation}/{number}
+    request.matchdict.update({
+        'format': u'json'
+    })
+    request.params.update({
+        'POSTALCODE': u'4410',
         'NUMBER': u'10'
     })
     webservice = PlrWebservice(request)
