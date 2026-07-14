@@ -172,6 +172,63 @@ def test_getegrid_address(pyramid_oereb_test_config, schema_json_extract, real_e
     assert response.get('GetEGRIDResponse')[0].get('identDN') == u'BLTEST'
 
 
+def test_getegrid_address_no_localisation(pyramid_oereb_test_config, schema_json_extract, real_estate_data, address,
+                          real_estate_types_test_data):
+    del pyramid_oereb_test_config
+
+    request = MockRequest(
+        current_route_url='http://example.com/oereb/getegrid/json/4410/test/10'
+    )
+
+    # Add params to matchdict as the view will do it for
+    # /getegrid/{format}/{postalcode}/{localisation}/{number}
+    request.matchdict.update({
+        'format': u'json'
+    })
+    request.params.update({
+        'POSTALCODE': u'4410',
+        'NUMBER': u'10'
+    })
+    webservice = PlrWebservice(request)
+    response = webservice.get_egrid()
+
+    assert isinstance(response, HTTPBadRequest)
+    assert response.detail == (
+        'Invalid parameters. You need one of the following combinations: '
+        'EN or GNSS or IDENTDN and NUMBER or POSTALCODE and LOCALISATION.'
+    )
+
+
+def test_getegrid_address_without_number(pyramid_oereb_test_config, schema_json_extract, real_estate_data,
+                                         address, real_estate_types_test_data):
+    del pyramid_oereb_test_config
+
+    request = MockRequest(
+        current_route_url='http://example.com/oereb/getegrid/json/4410/test'
+    )
+
+    # Add params to matchdict as the view will do it for
+    # /getegrid/{format}/{postalcode}/{localisation}
+    request.matchdict.update({
+        'format': u'json'
+    })
+    request.params.update({
+        'POSTALCODE': u'4410',
+        'LOCALISATION': u'test'
+    })
+
+    webservice = PlrWebservice(request)
+    response = webservice.get_egrid().json
+    Draft4Validator.check_schema(schema_json_extract)
+    validator = Draft4Validator(schema_json_extract)
+    validator.validate(response)
+    assert isinstance(response, dict)
+    assert response.get('GetEGRIDResponse') is not None
+    assert response.get('GetEGRIDResponse')[0].get('egrid') == u'TEST'
+    assert response.get('GetEGRIDResponse')[0].get('number') == u'1000'
+    assert response.get('GetEGRIDResponse')[0].get('identDN') == u'BLTEST'
+
+
 def test_get_egrid_response(pyramid_test_config, real_estate_types_test_data):
     del pyramid_test_config
 

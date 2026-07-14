@@ -239,7 +239,7 @@ class PlrWebservice(object):
         """
         postalcode: str = str(self._params.get('POSTALCODE'))
         localisation: str = str(self._params.get('LOCALISATION'))
-        number: str | None = str(self._params.get('NUMBER'))
+        number: str | None = self._params.get('NUMBER')
         if not (postalcode and localisation):
             raise HTTPBadRequest(
                 'Both the POSTALCODE and the LOCALISATION must be provided for querying EGRIDs by address.'
