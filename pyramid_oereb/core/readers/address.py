@@ -3,8 +3,6 @@ from pyramid.path import DottedNameResolver
 
 from pyramid_oereb.core.records.address import AddressRecord
 from pyramid_oereb.core.sources.address import AddressBaseSource
-from pyramid_oereb.core.views.webservice import Parameter
-
 
 class AddressReader(object):
     """
@@ -29,7 +27,7 @@ class AddressReader(object):
         source_class = DottedNameResolver().maybe_resolve(dotted_source_class_path)
         self._source_ = source_class(**params)
 
-    def read(self, params: Parameter, street_name: str, zip_code: int, street_number: str | None = None) \
+    def read(self, params, street_name: str, zip_code: int, street_number: str | None = None) \
             -> list[AddressRecord]:
         """
         Reads addresses from the configured source matching the supplied criteria.

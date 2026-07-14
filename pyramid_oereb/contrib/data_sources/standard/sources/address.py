@@ -7,12 +7,10 @@ from sqlalchemy.orm.exc import NoResultFound
 from pyramid_oereb.core.records.address import AddressRecord
 from pyramid_oereb.core.sources import BaseDatabaseSource
 from pyramid_oereb.core.sources.address import AddressBaseSource
-from pyramid_oereb.core.views.webservice import Parameter
-
 
 class DatabaseSource(BaseDatabaseSource, AddressBaseSource):
 
-    def read(self, params: Parameter, street_name: str, zip_code: int, street_number: str | None = None) \
+    def read(self, params, street_name: str, zip_code: int, street_number: str | None = None) \
             -> list[AddressRecord]:
         """
         The read method for accessing the standard database schema.
@@ -44,7 +42,7 @@ class DatabaseSource(BaseDatabaseSource, AddressBaseSource):
             if street_number is not None:
                 query = query.filter(self._model_.street_number == street_number)
 
-            results: list = query.all()
+            results: list = [query.one()]
 
             records: list[AddressRecord] = []
             for result in results:
