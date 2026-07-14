@@ -172,8 +172,8 @@ def test_getegrid_address(pyramid_oereb_test_config, schema_json_extract, real_e
     assert response.get('GetEGRIDResponse')[0].get('identDN') == u'BLTEST'
 
 
-def test_getegrid_address_no_localisation(pyramid_oereb_test_config, schema_json_extract, real_estate_data, address,
-                          real_estate_types_test_data):
+def test_getegrid_address_no_localisation(pyramid_oereb_test_config, schema_json_extract, real_estate_data,
+                                          address, real_estate_types_test_data):
     del pyramid_oereb_test_config
 
     request = MockRequest(
