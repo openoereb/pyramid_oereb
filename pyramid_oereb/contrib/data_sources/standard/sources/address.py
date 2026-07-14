@@ -8,6 +8,7 @@ from pyramid_oereb.core.records.address import AddressRecord
 from pyramid_oereb.core.sources import BaseDatabaseSource
 from pyramid_oereb.core.sources.address import AddressBaseSource
 
+
 class DatabaseSource(BaseDatabaseSource, AddressBaseSource):
 
     def read(self, params, street_name: str, zip_code: int, street_number: str | None = None) \

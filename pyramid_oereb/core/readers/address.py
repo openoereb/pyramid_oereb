@@ -4,6 +4,7 @@ from pyramid.path import DottedNameResolver
 from pyramid_oereb.core.records.address import AddressRecord
 from pyramid_oereb.core.sources.address import AddressBaseSource
 
+
 class AddressReader(object):
     """
     The central access point for reading addresses. It delegates all operations to a source

@@ -8,6 +8,7 @@ from pyramid_oereb import Config
 from pyramid_oereb.core.records.address import AddressRecord
 from pyramid_oereb.core.sources.address import AddressBaseSource
 
+
 class AddressGeoAdminSource(AddressBaseSource):
     """
     An address source that uses the federal GeoAdmin API to return the geo location of a postal address.
@@ -38,7 +39,7 @@ class AddressGeoAdminSource(AddressBaseSource):
         else:
             self._origins = 'address'
 
-    def read(self, params, street_name: str, zip_code:int, street_number: str | None = None) \
+    def read(self, params, street_name: str, zip_code: int, street_number: str | None = None) \
             -> list[AddressRecord]:
         """
         Queries an address using the federal GeoAdmin API location search.
