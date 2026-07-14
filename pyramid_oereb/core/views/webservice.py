@@ -225,7 +225,7 @@ class PlrWebservice(object):
         else:
             raise HTTPBadRequest('IDENTDN and NUMBER must be defined.')
 
-    def _get_egrid_address(self, params: Parameter) -> list[RealEstateRecord]:
+    def _get_egrid_address(self, params) -> list[RealEstateRecord]:
         """
         Searches EGRIDs by querying the data source with the given postal address.
 
