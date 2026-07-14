@@ -1,40 +1,52 @@
 # -*- coding: utf-8 -*-
 from geoalchemy2.elements import _SpatialElement
 from geoalchemy2.shape import to_shape
+from sqlalchemy.orm import Query, Session
 from sqlalchemy.orm.exc import NoResultFound
 
+from pyramid_oereb.core.records.address import AddressRecord
 from pyramid_oereb.core.sources import BaseDatabaseSource
 from pyramid_oereb.core.sources.address import AddressBaseSource
+from pyramid_oereb.core.views.webservice import Parameter
 
 
 class DatabaseSource(BaseDatabaseSource, AddressBaseSource):
 
-    def read(self, params, street_name, zip_code, street_number):
+    def read(self, params: Parameter, street_name: str, zip_code: int, street_number: str | None = None) \
+            -> list[AddressRecord]:
         """
-        The read method to access the standard database structure. It uses SQL-Alchemy for querying. It tries
-        to find the items via passed arguments.
+        The read method for accessing the standard database schema.
+        It uses SQLAlchemy to query the database for records matching the supplied arguments.
 
         Args:
-            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
-            street_name (unicode): The name of the street for the desired address.
-            zip_code (int): The postal zipcode for the desired address.
-            street_number (str): The house or so called street number of the desired address.
+            params (pyramid_oereb.core.views.webservice.Parameter):
+                The parameters of the extract request
+            street_name (str):
+                The name of the street
+            zip_code (int):
+                The postal code
+            street_number (str | None):
+                The house or street number
 
         Returns:
-            list of pyramid_oereb.core.records.address.AddressRecord: The list of address records.
+            list[pyramid_oereb.core.records.address.AddressRecord]:
+                A list of address records matching the supplied search criteria.
         """
-        session = self._adapter_.get_session(self._key_)
+        session: Session = self._adapter_.get_session(self._key_)
         try:
-            query = session.query(self._model_)
-            results = [query.filter(
+            query: Query = session.query(self._model_)
+            query = query.filter(
                 self._model_.street_name == street_name
             ).filter(
                 self._model_.zip_code == zip_code
-            ).filter(
-                self._model_.street_number == street_number
-            ).one()]
+            )
 
-            records = []
+            if street_number is not None:
+                query = query.filter(self._model_.street_number == street_number)
+
+            results: list = query.all()
+
+            records: list[AddressRecord] = []
             for result in results:
                 records.append(self._record_class_(
                     result.street_name,
