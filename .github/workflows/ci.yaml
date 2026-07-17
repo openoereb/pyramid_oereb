@@ -1,6 +1,9 @@
 name: CI
 on: [push]
 
+permissions:
+  contents: read
+
 jobs:
 
   lint:
@@ -27,6 +30,9 @@ jobs:
 
   test-py:
     name: Test Python
+    permissions:
+      packages: write
+      pull-requests: write
     runs-on: ubuntu-24.04
     services:
       # Label used to access the service container
@@ -111,6 +117,8 @@ jobs:
 
   build-and-publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI
+    permissions:
+      packages: write
     runs-on: ubuntu-24.04
     needs: [lint, gitattributes]
     steps:

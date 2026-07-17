@@ -1,4 +1,6 @@
 name: daily check
+permissions:
+  contents: read
 on:
   schedule:
     - cron: "30 04 * * *"
