@@ -101,6 +101,8 @@ jobs:
     name: Make and deploy documentation
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
       - name: Make documentation
