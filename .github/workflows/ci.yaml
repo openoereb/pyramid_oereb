@@ -5,6 +5,8 @@ jobs:
 
   lint:
     name: Check style (lint)
+    permissions:
+      contents: read
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
@@ -16,6 +18,8 @@ jobs:
 
   gitattributes:
     name: Check style (git-attributes)
+    permissions:
+      contents: read
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
@@ -27,6 +31,10 @@ jobs:
 
   test-py:
     name: Test Python
+    permissions:
+      contents: read
+      packages: write
+      pull-requests: write
     runs-on: ubuntu-24.04
     services:
       # Label used to access the service container
@@ -77,6 +85,8 @@ jobs:
 
   test-fed-data:
     name: Check federal data definitions
+    permissions:
+      contents: read
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
@@ -93,6 +103,8 @@ jobs:
 
   doc:
     name: Make and deploy documentation
+    permissions:
+      contents: read
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-24.04
     steps:
@@ -111,6 +123,9 @@ jobs:
 
   build-and-publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI
+    permissions:
+      contents: read
+      packages: write
     runs-on: ubuntu-24.04
     needs: [lint, gitattributes]
     steps:
