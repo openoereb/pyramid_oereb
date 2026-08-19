@@ -43,7 +43,7 @@ class DatabaseSource(BaseDatabaseSource, AddressBaseSource):
             if street_number is not None:
                 query = query.filter(self._model_.street_number == street_number)
 
-            results: list = [query.one()]
+            results: list = query.all()
 
             records: list[AddressRecord] = []
             for result in results:
