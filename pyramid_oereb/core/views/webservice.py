@@ -258,7 +258,10 @@ class PlrWebservice(object):
                 srid=Config.get('srid'),
                 wkt=address.geom.wkt
             )
-            real_estate_records.extend(processor.real_estate_reader.read(params, **{'geometry': wkt_geometry}))
+            real_estate_records.extend(processor.real_estate_reader.read(
+                params,
+                **{'geometry': wkt_geometry})
+            )
 
         return real_estate_records
 
