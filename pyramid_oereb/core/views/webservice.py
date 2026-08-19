@@ -251,12 +251,16 @@ class PlrWebservice(object):
         addresses: list[AddressRecord] = address_reader.read(params, localisation, int(postalcode), number)
         if not addresses:
             raise HTTPNoContent()
-        wkt_geometry: str = 'SRID={srid};{wkt}'.format(
-            srid=Config.get('srid'),
-            wkt=addresses[0].geom.wkt
-        )
         processor: Processor = create_processor(real_estate_only=True)
-        return processor.real_estate_reader.read(params, **{'geometry': wkt_geometry})
+        real_estate_records = []
+        for address in addresses:
+            wkt_geometry: str = 'SRID={srid};{wkt}'.format(
+                srid=Config.get('srid'),
+                wkt=address.geom.wkt
+            )
+            real_estate_records.extend(processor.real_estate_reader.read(params, **{'geometry': wkt_geometry}))
+
+        return real_estate_records
 
     def get_extract_by_id(self):
         """
