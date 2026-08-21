@@ -252,7 +252,7 @@ class PlrWebservice(object):
         if not addresses:
             raise HTTPNoContent()
         processor: Processor = create_processor(real_estate_only=True)
-        real_estate_records = []
+        real_estate_records: list[RealEstateRecord] = []
         for address in addresses:
             wkt_geometry: str = 'SRID={srid};{wkt}'.format(
                 srid=Config.get('srid'),
