@@ -28,13 +28,13 @@ def one_address_result_session(session, query, wkb_point):
 
     class Query(query):
 
-        def one(self):
-            return Address(**{
+        def all(self):
+            return [Address(**{
                 'street_name': 'teststreet',
                 'street_number': '99a',
                 'zip_code': 4050,
                 'geom': wkb_point
-            })
+            })]
 
     class Session(session):
 
@@ -49,7 +49,7 @@ def no_result_session(session, query, wkb_point):
 
     class Query(query):
 
-        def one(self):
+        def all(self):
             raise NoResultFound
 
     class Session(session):
