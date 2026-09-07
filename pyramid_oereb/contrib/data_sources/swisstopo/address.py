@@ -79,18 +79,22 @@ class AddressGeoAdminSource(AddressBaseSource):
             rp: Reprojector = Reprojector()
             srid: int = Config.get('srid')
             records: list[AddressRecord] = []
-            data = response.json()
-            if 'results' in data:
-                for item in data.get('results'):
-                    attrs = item.get('attrs')
-                    if isinstance(attrs, dict) and attrs.get('origin') == 'address':
-                        x, y = rp.transform((attrs.get('lat'), attrs.get('lon')), to_srs=srid)
-                        records.append(AddressRecord(
-                            street_name=street_name,
-                            zip_code=zip_code,
-                            street_number=street_number,
-                            geom=Point(x, y)
-                        ))
+            response_data: dict[str, object] = response.json()
+            api_result_records: list[dict[str, object]] | None = response_data.get('results')
+            if api_result_records is None or len(api_result_records) == 0:
+                return records
+            for api_record in api_result_records:
+                record_attributes: dict[str, object] | None = api_record.get('attrs')
+                if record_attributes and record_attributes.get('origin') == 'address':
+                    x, y = rp.transform((record_attributes.get('lat'), record_attributes.get('lon')), to_srs=srid)
+                    records.append(AddressRecord(
+                        street_name=street_name,
+                        zip_code=zip_code,
+                        street_number=street_number,
+                        geom=Point(x, y)
+                    ))
+                    if street_number:
+                        return records
             return records
         else:
             response.raise_for_status()
