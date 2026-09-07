@@ -126,6 +126,7 @@ def test_address_geo_admin_source_response_bad_request(requests_get_bad_request)
         records = agas.read(None, street_name, zip_code, street_number)
         assert len(records) == 0
 
+
 def test_address_geo_admin_source_response_no_results(requests_get_no_results):
 
     with patch('pyramid_oereb.core.config.Config._config', new={"srid": 2056}):
