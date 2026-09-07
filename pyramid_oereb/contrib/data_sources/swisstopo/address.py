@@ -86,7 +86,10 @@ class AddressGeoAdminSource(AddressBaseSource):
             for api_record in api_result_records:
                 record_attributes: dict[str, object] | None = api_record.get('attrs')
                 if record_attributes and record_attributes.get('origin') == 'address':
-                    x, y = rp.transform((record_attributes.get('lat'), record_attributes.get('lon')), to_srs=srid)
+                    x, y = rp.transform(
+                        (record_attributes.get('lat'), record_attributes.get('lon')),
+                        to_srs=srid
+                    )
                     records.append(AddressRecord(
                         street_name=street_name,
                         zip_code=zip_code,
