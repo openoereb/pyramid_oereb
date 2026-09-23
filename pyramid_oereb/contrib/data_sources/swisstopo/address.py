@@ -68,7 +68,7 @@ class AddressGeoAdminSource(AddressBaseSource):
             'origins': self._origins,
             'searchText': (
                 f'{zip_code} {street_name}'
-                f'{' ' + str(street_number) if street_number is not None else ''}'
+                f'{" " + str(street_number) if street_number is not None else ""}'
             ).strip()
 
         }
