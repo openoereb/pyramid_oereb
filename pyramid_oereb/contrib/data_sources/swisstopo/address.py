@@ -66,7 +66,11 @@ class AddressGeoAdminSource(AddressBaseSource):
         request_params: dict[str, str | None] = {
             'type': self._type,
             'origins': self._origins,
-            'searchText': f'{zip_code} {street_name} {street_number}'
+            'searchText': (
+                f'{zip_code} {street_name}'
+                f'{' ' + str(street_number) if street_number is not None else ''}'
+            ).strip()
+
         }
         response: Response = requests.get(
             self._geoadmin_url,
