@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import requests
 from pyreproj import Reprojector
+from requests import Response
 from shapely.geometry import Point
 
 from pyramid_oereb import Config
@@ -26,9 +27,10 @@ class AddressGeoAdminSource(AddressBaseSource):
         super(AddressGeoAdminSource, self).__init__()
         self._geoadmin_url = kwargs.get('geoadmin_search_api',
                                         'https://api3.geo.admin.ch/rest/services/api/SearchServer')
-        self._type = 'locations'
+        self._type: str = 'locations'
         self._proxies = kwargs.get('proxies')
         self._referer = kwargs.get('referer', None)
+        self._origins: str | None = None
         if 'origins' in kwargs:
             origins = kwargs.get('origins')
             if isinstance(origins, list):
@@ -37,30 +39,40 @@ class AddressGeoAdminSource(AddressBaseSource):
         else:
             self._origins = 'address'
 
-    def read(self, params, street_name, zip_code, street_number):
+    def read(self, params, street_name: str, zip_code: int, street_number: str | None = None) \
+            -> list[AddressRecord]:
         """
         Queries an address using the federal GeoAdmin API location search.
 
         Args:
-            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
-            street_name (unicode): The name of the street for the desired address.
-            zip_code (int): The postal zipcode for the desired address.
-            street_number (unicode): The house or so called street number of the desired address.
+            params (pyramid_oereb.core.views.webservice.Parameter):
+                The parameters of the extract request
+            street_name (str):
+                The name of the street
+            zip_code (int):
+                The postal code
+            street_number (str | None):
+                The house or street number
 
         Returns:
-            list of pyramid_oereb.core.records.address.AddressRecord: The list of address records.
+            list[pyramid_oereb.core.records.address.AddressRecord]:
+                A list of address records matching the supplied search criteria.
         """
-        headers = {}
+        headers: dict[str, str | None] = {}
         if self._referer is not None:
             headers.update({
                 'Referer': self._referer
             })
-        request_params = {
+        request_params: dict[str, str | None] = {
             'type': self._type,
             'origins': self._origins,
-            'searchText': u'{0} {1} {2}'.format(zip_code, street_name, street_number)
+            'searchText': (
+                f'{zip_code} {street_name}'
+                f'{" " + str(street_number) if street_number is not None else ""}'
+            ).strip()
+
         }
-        response = requests.get(
+        response: Response = requests.get(
             self._geoadmin_url,
             params=request_params,
             proxies=self._proxies,
@@ -68,21 +80,28 @@ class AddressGeoAdminSource(AddressBaseSource):
             timeout=4
         )
         if response.status_code == requests.codes.ok:
-            rp = Reprojector()
-            srid = Config.get('srid')
-            records = []
-            data = response.json()
-            if 'results' in data:
-                for item in data.get('results'):
-                    attrs = item.get('attrs')
-                    if isinstance(attrs, dict) and attrs.get('origin') == 'address':
-                        x, y = rp.transform((attrs.get('lat'), attrs.get('lon')), to_srs=srid)
-                        records.append(AddressRecord(
-                            street_name=street_name,
-                            zip_code=zip_code,
-                            street_number=street_number,
-                            geom=Point(x, y)
-                        ))
+            rp: Reprojector = Reprojector()
+            srid: int = Config.get('srid')
+            records: list[AddressRecord] = []
+            response_data: dict[str, object] = response.json()
+            api_result_records: list[dict[str, object]] | None = response_data.get('results')
+            if api_result_records is None or len(api_result_records) == 0:
+                return records
+            for api_record in api_result_records:
+                record_attributes: dict[str, object] | None = api_record.get('attrs')
+                if record_attributes and record_attributes.get('origin') == 'address':
+                    x, y = rp.transform(
+                        (record_attributes.get('lat'), record_attributes.get('lon')),
+                        to_srs=srid
+                    )
+                    records.append(AddressRecord(
+                        street_name=street_name,
+                        zip_code=zip_code,
+                        street_number=street_number,
+                        geom=Point(x, y)
+                    ))
+                    if street_number:
+                        return records
             return records
         else:
             response.raise_for_status()

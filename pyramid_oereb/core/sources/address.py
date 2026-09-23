@@ -10,15 +10,21 @@ class AddressBaseSource(Base):
     """
     _record_class_ = AddressRecord
 
-    def read(self, params, street_name, zip_code, street_number):
+    def read(self, params, street_name: str, zip_code: int, street_number: str | None = None):
         """
-        Every address source has to implement a read method. This method must accept the three parameters. If
-        you want adapt to your own source for addresses, this is the point where to hook in.
+        Every address source must implement a read method with the same signature.
+        To integrate a custom address source, implement this method in your source class.
+
+        The method reads addresses from the configured source matching the supplied criteria.
 
         Args:
-            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.
-            street_name (unicode): The name of the street for the desired address.
-            zip_code (int): The postal zipcode for the desired address.
-            street_number (str): The house or so called street number of the desired address.
+            params (pyramid_oereb.core.views.webservice.Parameter):
+                The parameters of the extract request
+            street_name (str):
+                The name of the street
+            zip_code (int):
+                The postal code
+            street_number (str | None):
+                The house or street number
         """
         pass  # pragma: no cover
