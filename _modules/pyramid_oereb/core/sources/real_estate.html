@@ -83,15 +83,15 @@
 <div class="viewcode-block" id="RealEstateBaseSource">
 <a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.core.sources.real_estate.RealEstateBaseSource">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">RealEstateBaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Base class for real estate sources.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">_record_class_</span> <span class="o">=</span> <span class="n">RealEstateRecord</span>
 
 <div class="viewcode-block" id="RealEstateBaseSource.read">
 <a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.core.sources.real_estate.RealEstateBaseSource.read">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">nb_ident</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">egrid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Every real estate source has to implement a read method. This method must accept the four key word</span>
 <span class="sd">        parameters. If you want adapt to your own source for real estates, this is the point where to hook in.</span>
 
@@ -107,7 +107,7 @@
 <span class="sd">                result or must raise an error.</span>
 <span class="sd">            geometry (str): A geometry as WKT string which is used to obtain intersected real</span>
 <span class="sd">                estates. This may deliver several results.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">pass</span>  <span class="c1"># pragma: no cover</span></div>
 </div>
 

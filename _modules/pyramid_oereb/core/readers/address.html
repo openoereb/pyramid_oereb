@@ -77,56 +77,67 @@
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyramid.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">DottedNameResolver</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.records.address</span><span class="w"> </span><span class="kn">import</span> <span class="n">AddressRecord</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.sources.address</span><span class="w"> </span><span class="kn">import</span> <span class="n">AddressBaseSource</span>
+
 
 <div class="viewcode-block" id="AddressReader">
 <a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.address.AddressReader">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">AddressReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The central reader accessor for addresses. It is directly bound to a so called source which is defined by</span>
-<span class="sd">    a pythonic dotted string to the class definition of this source. An instance of the passed source will be</span>
-<span class="sd">    created on instantiation of this reader class by passing through the parameter kwargs.</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    The central access point for reading addresses. It delegates all operations to a source</span>
+<span class="sd">    implementation defined by a Python dotted import path. When this reader is instantiated,</span>
+<span class="sd">    an instance of the defined source class is created as well, with all</span>
+<span class="sd">    `**kwargs` passed to its constructor.</span>
 
-<span class="sd">    The address is here the real combination of a street name, a zip code and a street number.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    The address is a combination of a street name, a zip code, and optionally a street number.</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="AddressReader.__init__">
 <a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.address.AddressReader.__init__">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dotted_source_class_path</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dotted_source_class_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">AddressBaseSource</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Args:</span>
-<span class="sd">            dotted_source_class_path (str or pyramid_oereb.lib.sources.address.AddressBaseSource):</span>
-<span class="sd">                The path to the class which represents the source used by this reader. This</span>
-<span class="sd">                class must exist and it must implement basic source behaviour of the</span>
-<span class="sd">                :ref:`api-pyramid_oereb-core-sources-address-addressbasesource`.</span>
-<span class="sd">            (kwargs): kwargs, which are necessary as configuration parameter for the above by</span>
-<span class="sd">                dotted name defined class.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">            dotted_source_class_path (str or pyramid_oereb.core.readers.address.AddressBaseSource):</span>
+<span class="sd">                The path to the class representing the source used by this reader. The</span>
+<span class="sd">                class must exist and implement the basic source behavior of the</span>
+<span class="sd">                `pyramid_oereb.core.readers.address.AddressBaseSource`.</span>
+<span class="sd">            params:</span>
+<span class="sd">                kwrgs forwarded to the constructor of the configured source class.</span>
+<span class="sd">        """</span>
         <span class="n">source_class</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">maybe_resolve</span><span class="p">(</span><span class="n">dotted_source_class_path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span> <span class="o">=</span> <span class="n">source_class</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="AddressReader.read">
 <a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.address.AddressReader.read">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        The read method of this reader. There we invoke the read method of the bound source.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">street_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">street_number</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">AddressRecord</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Reads addresses from the configured source matching the supplied criteria.</span>
+
+<span class="sd">        The method delegates the lookup of the addresses to the configured source implementation.</span>
 
 <span class="sd">        Note:</span>
-<span class="sd">            If you subclass this class your implementation needs to offer this method in the same</span>
-<span class="sd">            signature. Means the parameters must be the same and the return must be a list of</span>
-<span class="sd">            :ref:`api-pyramid_oereb-core-records-address-addressrecord`. Otherwise the API like way the server</span>
-<span class="sd">            works would be broken.</span>
+<span class="sd">            Subclasses must implement this method with the same signature and return</span>
+<span class="sd">            a list of `pyramid_oereb.core.records.address.AddressRecord` objects.</span>
+<span class="sd">            Changing the signature or return type breaks the public API contract.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.</span>
-<span class="sd">            street_name (unicode): The name of the street for the desired address.</span>
-<span class="sd">            zip_code (int): The postal zipcode for the desired address.</span>
-<span class="sd">            street_number (str): The house or so called street number of the desired address.</span>
+<span class="sd">            params (pyramid_oereb.core.views.webservice.Parameter):</span>
+<span class="sd">                The parameters of the extract request</span>
+<span class="sd">            street_name (str):</span>
+<span class="sd">                The name of the street</span>
+<span class="sd">            zip_code (int):</span>
+<span class="sd">                The postal code</span>
+<span class="sd">            street_number (str | None):</span>
+<span class="sd">                The house or street number. If omitted, all addresses matching the street name</span>
+<span class="sd">                and postal code are returned.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            list of pyramid_oereb.core.records.address.AddressRecord:</span>
-<span class="sd">                The list of found records filtered by the passed criteria.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">            list[pyramid_oereb.core.records.address.AddressRecord]:</span>
+<span class="sd">                A list of address records matching the supplied search criteria.</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">)</span></div>
 </div>
 

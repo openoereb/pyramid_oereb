@@ -108,15 +108,15 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">model_factory_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;model_factory&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'source'</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'params'</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'model_factory'</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">schema_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;schema_name&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'source'</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'params'</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'schema_name'</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">geometry_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;geometry_type&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'geometry_type'</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">srid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -124,15 +124,15 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">db_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'source'</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'params'</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'db_connection'</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get_model_factory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">module_elements</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">extract_module_function</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">model_factory_path</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span>
-            <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">module_elements</span><span class="p">[</span><span class="s1">&#39;module_path&#39;</span><span class="p">]),</span>
-            <span class="n">module_elements</span><span class="p">[</span><span class="s1">&#39;function_name&#39;</span><span class="p">]</span>
+            <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">module_elements</span><span class="p">[</span><span class="s1">'module_path'</span><span class="p">]),</span>
+            <span class="n">module_elements</span><span class="p">[</span><span class="s1">'function_name'</span><span class="p">]</span>
         <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">get_models</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -147,18 +147,18 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">parse_multiple_standard_themes</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Args:</span>
 <span class="sd">        config (pyramid_oereb.standard.config.Config): The config object of the application.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        dict containing the factory_model for every plr code.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">plrs</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;plrs&#39;</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="n">plrs</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'plrs'</span><span class="p">)</span>
     <span class="n">themes</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">plr</span> <span class="ow">in</span> <span class="n">plrs</span><span class="p">:</span>
         <span class="n">config_parser</span> <span class="o">=</span> <span class="n">StandardThemeConfigParser</span><span class="p">(</span><span class="o">**</span><span class="n">plr</span><span class="p">)</span>
-        <span class="n">themes</span><span class="p">[</span><span class="n">plr</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">config_parser</span><span class="o">.</span><span class="n">get_models</span><span class="p">()</span>
+        <span class="n">themes</span><span class="p">[</span><span class="n">plr</span><span class="p">[</span><span class="s1">'code'</span><span class="p">]]</span> <span class="o">=</span> <span class="n">config_parser</span><span class="o">.</span><span class="n">get_models</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">themes</span>
 
 
@@ -168,7 +168,7 @@
 <div class="viewcode-block" id="DatabaseSource.__init__">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Keyword Arguments:</span>
 <span class="sd">            name (str): The name. You are free to choose one.</span>
 <span class="sd">            code (str): The official code. Regarding to the federal specifications.</span>
@@ -186,12 +186,12 @@
 <span class="sd">            law_status (dict of str): The configuration dictionary of the law status. It consists of</span>
 <span class="sd">                the code and text which must be a dictionary containing language (as configured)</span>
 <span class="sd">                as key and text as value.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">config_parser</span> <span class="o">=</span> <span class="n">StandardThemeConfigParser</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">models</span> <span class="o">=</span> <span class="n">config_parser</span><span class="o">.</span><span class="n">get_models</span><span class="p">()</span>
         <span class="n">bds_kwargs</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;model&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Geometry</span><span class="p">,</span>
-            <span class="s1">&#39;db_connection&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;source&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;params&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">)</span>
+            <span class="s1">'model'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Geometry</span><span class="p">,</span>
+            <span class="s1">'db_connection'</span><span class="p">:</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'source'</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'params'</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'db_connection'</span><span class="p">)</span>
         <span class="p">}</span>
 
         <span class="n">BaseDatabaseSource</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">bds_kwargs</span><span class="p">)</span>
@@ -199,10 +199,10 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">legend_entry_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">LegendEntry</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_tolerances</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tolerances&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tolerances</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tolerance&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tolerances</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'tolerances'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tolerances</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'tolerance'</span><span class="p">):</span>
             <span class="c1"># use backup value tolerance for retro compatibility</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_tolerances</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ALL&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tolerance&#39;</span><span class="p">)}</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_tolerances</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'ALL'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'tolerance'</span><span class="p">)}</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">from_db_to_legend_entry_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">legend_entry_from_db</span><span class="p">):</span>
@@ -246,11 +246,11 @@
             <span class="n">view_service_from_db</span><span class="o">.</span><span class="n">reference_wms</span><span class="p">,</span>
             <span class="n">view_service_from_db</span><span class="o">.</span><span class="n">layer_index</span><span class="p">,</span>
             <span class="n">view_service_from_db</span><span class="o">.</span><span class="n">layer_opacity</span><span class="p">,</span>
-            <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;default_language&#39;</span><span class="p">),</span>
-            <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">),</span>
-            <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;proxies&#39;</span><span class="p">),</span>
+            <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'default_language'</span><span class="p">),</span>
+            <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'srid'</span><span class="p">),</span>
+            <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'proxies'</span><span class="p">),</span>
             <span class="n">legends</span><span class="o">=</span><span class="n">legend_entry_records</span><span class="p">,</span>
-            <span class="n">verify_certificate</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;verify_certificate_wms&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="n">verify_certificate</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'verify_certificate_wms'</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">view_service_record</span>
 
@@ -258,7 +258,7 @@
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.unwrap_multi_geometry_">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">unwrap_multi_geometry_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">published_until</span><span class="p">,</span>
                                <span class="n">multi_geom</span><span class="p">,</span> <span class="n">geo_metadata</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Produces an array of geometry records representing simple shapely geometries POINT,</span>
 <span class="sd">        LINE, POLYGON out of a passed shapely multi geometry and assigns all attributes to them.</span>
 
@@ -276,7 +276,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            list of pyramid_oereb.core.records.geometry.GeometryRecord: The list of unwrapped basic geometry</span>
 <span class="sd">                records. Each record has the same attribute values as the original one.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">unwrapped</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">multi_geom</span><span class="o">.</span><span class="n">geoms</span><span class="p">:</span>
             <span class="n">unwrapped</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
@@ -295,7 +295,7 @@
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.unwrap_geometry_collection_">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">unwrap_geometry_collection_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">published_until</span><span class="p">,</span>
                                     <span class="n">collection</span><span class="p">,</span> <span class="n">geo_metadata</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Produces an array of geometry records representing simple shapely geometries POINT,</span>
 <span class="sd">        LINE, POLYGON out of a passed shapely collection geometry and assigns all attributes to them.</span>
 
@@ -309,11 +309,11 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            list of pyramid_oereb.core.records.geometry.GeometryRecord: The list of unwrapped basic geometry</span>
 <span class="sd">                records. Each record has the same attribute values as the original one.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">unwrapped</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">collection</span><span class="o">.</span><span class="n">geoms</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;There was more than one element in the GeometryCollection. &#39;</span>
-                                 <span class="sa">u</span><span class="s1">&#39;This is not supported!&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">u</span><span class="s1">'There was more than one element in the GeometryCollection. '</span>
+                                 <span class="sa">u</span><span class="s1">'This is not supported!'</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">geom</span> <span class="ow">in</span> <span class="n">collection</span><span class="o">.</span><span class="n">geoms</span><span class="p">:</span>
             <span class="n">unwrapped</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">create_geometry_records_</span><span class="p">(</span>
@@ -331,7 +331,7 @@
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.create_geometry_records_">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">create_geometry_records_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">law_status</span><span class="p">,</span> <span class="n">published_from</span><span class="p">,</span> <span class="n">published_until</span><span class="p">,</span>
                                  <span class="n">geom</span><span class="p">,</span> <span class="n">geo_metadata</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Produces an array of pyramid_oereb geometry records representing simple shapely geometries POINT,</span>
 <span class="sd">        LINE, POLYGON out of a passed shapely (multi)point, (multi)line, (multi)polygon or collection geometry</span>
 <span class="sd">        and assigns all attributes to them.</span>
@@ -346,7 +346,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            list of pyramid_oereb.core.records.geometry.GeometryRecord: The list of unwrapped basic geometry</span>
 <span class="sd">                records. Each record has the same attribute values as the original one.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">geometry_records</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="c1"># Process single geometries</span>
@@ -382,7 +382,7 @@
             <span class="p">))</span>
 
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Received geometry with unsupported type: </span><span class="si">{0}</span><span class="s1">. Skipped geometry.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">'Received geometry with unsupported type: </span><span class="si">{0}</span><span class="s1">. Skipped geometry.'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">geom</span><span class="o">.</span><span class="n">type</span>
             <span class="p">))</span>
             <span class="k">raise</span> <span class="ne">TypeError</span>
@@ -393,7 +393,7 @@
 <div class="viewcode-block" id="DatabaseSource.from_db_to_geometry_records">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_geometry_records">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_db_to_geometry_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geometries_from_db</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Translates a geometry element read from database (SQLAlchemy) into the internal record format.</span>
 
 <span class="sd">        Args:</span>
@@ -404,12 +404,12 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            pyramid_oereb.core.records.geometry.GeometryRecord: The geometry record utilizing all attributes</span>
 <span class="sd">                read from db entity.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">geometry_records</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">geometry_from_db</span> <span class="ow">in</span> <span class="n">geometries_from_db</span><span class="p">:</span>
             <span class="c1"># Create law status record</span>
             <span class="n">law_status</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_law_status_by_data_code</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'code'</span><span class="p">),</span>
                     <span class="n">geometry_from_db</span><span class="o">.</span><span class="n">law_status</span>
                 <span class="p">)</span>
 
@@ -428,7 +428,7 @@
 <div class="viewcode-block" id="DatabaseSource.from_db_to_office_record">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_office_record">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_db_to_office_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">office_from_db</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Translates an office element read from database (SQLAlchemy) into the internal record format.</span>
 
 <span class="sd">        Args:</span>
@@ -438,7 +438,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            pyramid_oereb.core.records.office.OfficeRecord: The office record utilizing all attributes</span>
 <span class="sd">                read from db entity.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">office_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_office_record_class</span><span class="p">(</span>
             <span class="n">office_from_db</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
             <span class="n">office_from_db</span><span class="o">.</span><span class="n">uid</span><span class="p">,</span>
@@ -457,7 +457,7 @@
 <div class="viewcode-block" id="DatabaseSource.from_db_to_document_records">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_document_records">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_db_to_document_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documents_from_db</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            documents_from_db</span>
@@ -467,18 +467,18 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            pyramid_oereb.core.records.document.DocumentRecord: The document record utilizing all attributes</span>
 <span class="sd">                read from db entity.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="n">document_records</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">document</span> <span class="ow">in</span> <span class="n">documents_from_db</span><span class="p">:</span>
             <span class="n">office_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_office_record</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">responsible_office</span><span class="p">)</span>
             <span class="n">law_status</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_law_status_by_data_code</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'code'</span><span class="p">),</span>
                 <span class="n">document</span><span class="o">.</span><span class="n">law_status</span>
             <span class="p">)</span>
             <span class="n">document_records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_documents_record_class</span><span class="p">(</span>
                 <span class="n">document_type</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get_document_type_by_data_code</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'code'</span><span class="p">),</span>
                     <span class="n">document</span><span class="o">.</span><span class="n">document_type</span>
                 <span class="p">),</span>
                 <span class="n">index</span><span class="o">=</span><span class="n">document</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
@@ -491,7 +491,7 @@
                 <span class="n">abbreviation</span><span class="o">=</span><span class="n">document</span><span class="o">.</span><span class="n">abbreviation</span><span class="p">,</span>
                 <span class="n">official_number</span><span class="o">=</span><span class="n">document</span><span class="o">.</span><span class="n">official_number</span><span class="p">,</span>
                 <span class="n">only_in_municipality</span><span class="o">=</span><span class="n">document</span><span class="o">.</span><span class="n">only_in_municipality</span><span class="p">,</span>
-                <span class="c1"># Documents in themes can&#39;t have article numbers (fed spec model)</span>
+                <span class="c1"># Documents in themes can't have article numbers (fed spec model)</span>
                 <span class="n">article_numbers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                 <span class="n">file</span><span class="o">=</span><span class="n">document</span><span class="o">.</span><span class="n">file</span>
             <span class="p">))</span>
@@ -501,7 +501,7 @@
 <div class="viewcode-block" id="DatabaseSource.from_db_to_plr_record">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.from_db_to_plr_record">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_db_to_plr_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">public_law_restriction_from_db</span><span class="p">,</span> <span class="n">legend_entries_from_db</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Produces out of the passed DB elements a PublicLawRestriction record. It heavily utilizes the</span>
 <span class="sd">        instance methods to extract the nested information.</span>
 
@@ -517,17 +517,17 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            pyramid_oereb.core.records.plr.PlrRecord: The public law restriction record utilizing all</span>
 <span class="sd">                attributes read from db entity and its relations.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">thresholds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;thresholds&#39;</span><span class="p">)</span>
-        <span class="n">min_length</span> <span class="o">=</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;length&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;limit&#39;</span><span class="p">)</span>
-        <span class="n">length_unit</span> <span class="o">=</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;length&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;unit&#39;</span><span class="p">)</span>
-        <span class="n">min_area</span> <span class="o">=</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;area&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;limit&#39;</span><span class="p">)</span>
-        <span class="n">area_unit</span> <span class="o">=</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;area&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;unit&#39;</span><span class="p">)</span>
+<span class="sd">        """</span>
+        <span class="n">thresholds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'thresholds'</span><span class="p">)</span>
+        <span class="n">min_length</span> <span class="o">=</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'length'</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'limit'</span><span class="p">)</span>
+        <span class="n">length_unit</span> <span class="o">=</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'length'</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'unit'</span><span class="p">)</span>
+        <span class="n">min_area</span> <span class="o">=</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'area'</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'limit'</span><span class="p">)</span>
+        <span class="n">area_unit</span> <span class="o">=</span> <span class="n">thresholds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'area'</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'unit'</span><span class="p">)</span>
         <span class="n">legend_entry_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_legend_entry_record</span><span class="p">(</span>
             <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">legend_entry</span>
         <span class="p">)</span>
         <span class="c1"># this list holds all records which are belonging to the dedicated</span>
-        <span class="c1"># PLR (it is decided by the PLR&#39;s theme and sub_theme).</span>
+        <span class="c1"># PLR (it is decided by the PLR's theme and sub_theme).</span>
         <span class="n">legend_entry_records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_legend_entry_records</span><span class="p">(</span>
             <span class="n">legend_entries_from_db</span><span class="p">,</span>
             <span class="n">legend_entry_record</span>
@@ -543,7 +543,7 @@
         <span class="p">)</span>
         <span class="n">geometry_records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_db_to_geometry_records</span><span class="p">(</span><span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">geometries</span><span class="p">)</span>
         <span class="n">law_status</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_law_status_by_data_code</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'code'</span><span class="p">),</span>
             <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="n">law_status</span>
         <span class="p">)</span>
         <span class="n">plr_record</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_record_class</span><span class="p">(</span>
@@ -574,7 +574,7 @@
 <div class="viewcode-block" id="DatabaseSource.get_document_records">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.get_document_records">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_document_records</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">public_law_restriction_from_db</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Here the M:N relation between Document and PLR through the relation table</span>
 <span class="sd">        pyramid_oereb.contrib.data_sources.standard.models.get_public_law_restriction_document.&lt;locals&gt;.PublicLawRestrictionDocument</span>
 <span class="sd">        is resolved to real document records.</span>
@@ -588,14 +588,14 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            list of pyramid_oereb.core.records.documents.DocumentRecord: The document records related to</span>
 <span class="sd">                the passed PLR.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">documents_from_db</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">public_law_restriction_from_db</span><span class="p">,</span> <span class="s1">&#39;legal_provisions&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">public_law_restriction_from_db</span><span class="p">,</span> <span class="s1">'legal_provisions'</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
-                <span class="s1">&#39;The public_law_restriction implementation of type </span><span class="si">{}</span><span class="s1"> has no &#39;</span>
-                <span class="s1">&#39;legal_provisions attribute. Check the model implementation. Theme: </span><span class="si">{}</span><span class="s1">, ID: </span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">&#39;</span> <span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="s1">'The public_law_restriction implementation of type </span><span class="si">{}</span><span class="s1"> has no '</span>
+                <span class="s1">'legal_provisions attribute. Check the model implementation. Theme: </span><span class="si">{}</span><span class="s1">, ID: </span><span class="si">{}</span><span class="s1">, </span><span class="si">{}</span><span class="s1">'</span> <span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="nb">type</span><span class="p">(</span><span class="n">public_law_restriction_from_db</span><span class="p">),</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'code'</span><span class="p">),</span>
                     <span class="n">public_law_restriction_from_db</span><span class="o">.</span><span class="vm">__weakref__</span><span class="p">,</span>
                     <span class="nb">dir</span><span class="p">(</span><span class="n">public_law_restriction_from_db</span><span class="p">)</span>
                 <span class="p">)</span>
@@ -610,10 +610,10 @@
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.extract_geometry_collection_db">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">extract_geometry_collection_db</span><span class="p">(</span><span class="n">db_path</span><span class="p">,</span> <span class="n">real_estate_geometry</span><span class="p">,</span> <span class="n">tolerances</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Decides the geometry collection cases of geometric filter operations when the database contains multi</span>
 <span class="sd">        geometries but the passed geometry does not.</span>
-<span class="sd">        The multi geometry will be extracted to it&#39;s sub parts for operation.</span>
+<span class="sd">        The multi geometry will be extracted to it's sub parts for operation.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            db_path (str): The point separated string of schema_name.table_name.column_name from</span>
@@ -626,19 +626,19 @@
 
 <span class="sd">        Raises:</span>
 <span class="sd">            HTTPBadRequest</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">srid</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">)</span>
-        <span class="n">extract_point</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;ST_CollectionExtract(</span><span class="si">{</span><span class="n">db_path</span><span class="si">}</span><span class="s2">, 1)&quot;</span>
-        <span class="n">extract_line</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;ST_CollectionExtract(</span><span class="si">{</span><span class="n">db_path</span><span class="si">}</span><span class="s2">, 2)&quot;</span>
-        <span class="n">extract_polygon</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;ST_CollectionExtract(</span><span class="si">{</span><span class="n">db_path</span><span class="si">}</span><span class="s2">, 3)&quot;</span>
-        <span class="n">geometry_string</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;ST_GeomFromText(</span><span class="se">\&#39;</span><span class="si">{</span><span class="n">real_estate_geometry</span><span class="o">.</span><span class="n">wkt</span><span class="si">}</span><span class="se">\&#39;</span><span class="s1">, </span><span class="si">{</span><span class="n">srid</span><span class="si">}</span><span class="s1">)&#39;</span>
+<span class="sd">        """</span>
+        <span class="n">srid</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'srid'</span><span class="p">)</span>
+        <span class="n">extract_point</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"ST_CollectionExtract(</span><span class="si">{</span><span class="n">db_path</span><span class="si">}</span><span class="s2">, 1)"</span>
+        <span class="n">extract_line</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"ST_CollectionExtract(</span><span class="si">{</span><span class="n">db_path</span><span class="si">}</span><span class="s2">, 2)"</span>
+        <span class="n">extract_polygon</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"ST_CollectionExtract(</span><span class="si">{</span><span class="n">db_path</span><span class="si">}</span><span class="s2">, 3)"</span>
+        <span class="n">geometry_string</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'ST_GeomFromText(</span><span class="se">\'</span><span class="si">{</span><span class="n">real_estate_geometry</span><span class="o">.</span><span class="n">wkt</span><span class="si">}</span><span class="se">\'</span><span class="s1">, </span><span class="si">{</span><span class="n">srid</span><span class="si">}</span><span class="s1">)'</span>
         <span class="n">tolerance_extracts</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">tolerances</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ALL&#39;</span><span class="p">,</span> <span class="n">tolerances</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">geom_type</span><span class="p">))</span> <span class="k">if</span> <span class="n">tolerances</span> <span class="k">else</span> <span class="kc">None</span>
-            <span class="k">for</span> <span class="n">geom_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Point&#39;</span><span class="p">,</span> <span class="s1">&#39;LineString&#39;</span><span class="p">,</span> <span class="s1">&#39;Polygon&#39;</span><span class="p">]</span>
+            <span class="n">tolerances</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'ALL'</span><span class="p">,</span> <span class="n">tolerances</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">geom_type</span><span class="p">))</span> <span class="k">if</span> <span class="n">tolerances</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="k">for</span> <span class="n">geom_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'Point'</span><span class="p">,</span> <span class="s1">'LineString'</span><span class="p">,</span> <span class="s1">'Polygon'</span><span class="p">]</span>
         <span class="p">]</span>
         <span class="n">clause_blocks</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">text</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ST_Intersects(</span><span class="si">{</span><span class="n">extract</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">geometry_string</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">tolerance</span> <span class="ow">is</span> <span class="kc">None</span>
-            <span class="k">else</span> <span class="n">text</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ST_DWithin(</span><span class="si">{</span><span class="n">extract</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">geometry_string</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">tolerance</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span><span class="sa">f</span><span class="s1">'ST_Intersects(</span><span class="si">{</span><span class="n">extract</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">geometry_string</span><span class="si">}</span><span class="s1">)'</span><span class="p">)</span> <span class="k">if</span> <span class="n">tolerance</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">text</span><span class="p">(</span><span class="sa">f</span><span class="s1">'ST_DWithin(</span><span class="si">{</span><span class="n">extract</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">geometry_string</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">tolerance</span><span class="si">}</span><span class="s1">)'</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">extract</span><span class="p">,</span> <span class="n">tolerance</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="n">extract_point</span><span class="p">,</span> <span class="n">extract_line</span><span class="p">,</span> <span class="n">extract_polygon</span><span class="p">],</span> <span class="n">tolerance_extracts</span><span class="p">)</span>
         <span class="p">]</span>
         <span class="k">return</span> <span class="n">or_</span><span class="p">(</span><span class="o">*</span><span class="n">clause_blocks</span><span class="p">)</span></div>
@@ -647,7 +647,7 @@
 <div class="viewcode-block" id="DatabaseSource.handle_collection">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.handle_collection">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">handle_collection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">geometry_to_check</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Handles geometry collection in the geometry query if needed.</span>
 
 <span class="sd">        Args:</span>
@@ -657,16 +657,16 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            sqlalchemy.orm.Query : the query based on the geometry_to_check</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">geometry_types</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;geometry_types&#39;</span><span class="p">)</span>
-        <span class="n">collection_types</span> <span class="o">=</span> <span class="n">geometry_types</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;collection&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;types&#39;</span><span class="p">)</span>
-        <span class="c1"># Check for Geometry type, cause we can&#39;t handle geometry collections the same as specific geometries</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;geometry_type&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">collection_types</span><span class="p">]:</span>
+<span class="sd">        """</span>
+        <span class="n">geometry_types</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'geometry_types'</span><span class="p">)</span>
+        <span class="n">collection_types</span> <span class="o">=</span> <span class="n">geometry_types</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'collection'</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'types'</span><span class="p">)</span>
+        <span class="c1"># Check for Geometry type, cause we can't handle geometry collections the same as specific geometries</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'geometry_type'</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">collection_types</span><span class="p">]:</span>
 
             <span class="c1"># The PLR is defined as a collection type. We need to do a special handling</span>
             <span class="n">query</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">extract_geometry_collection_db</span><span class="p">(</span>
-                    <span class="s1">&#39;</span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1">.geom&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="s1">'</span><span class="si">{schema}</span><span class="s1">.</span><span class="si">{table}</span><span class="s1">.geom'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">schema</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">schema</span><span class="p">,</span>
                         <span class="n">table</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">__table__</span><span class="o">.</span><span class="n">name</span>
                     <span class="p">),</span>
@@ -677,19 +677,19 @@
 
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># The PLR is not problematic at all cause we do not have a collection type here</span>
-            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tolerances</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="s1">&#39;ALL&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tolerances</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tolerances</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="s1">'ALL'</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tolerances</span><span class="p">):</span>
                 <span class="n">query</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
                     <span class="n">ST_DWithin</span><span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">geom</span><span class="p">,</span>
-                        <span class="n">from_shape</span><span class="p">(</span><span class="n">geometry_to_check</span><span class="p">,</span> <span class="n">srid</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">)),</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">_tolerances</span><span class="p">[</span><span class="s1">&#39;ALL&#39;</span><span class="p">]</span>
+                        <span class="n">from_shape</span><span class="p">(</span><span class="n">geometry_to_check</span><span class="p">,</span> <span class="n">srid</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'srid'</span><span class="p">)),</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_tolerances</span><span class="p">[</span><span class="s1">'ALL'</span><span class="p">]</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
             <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tolerances</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">geometry_to_check</span><span class="o">.</span><span class="n">geom_type</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tolerances</span><span class="p">):</span>
                 <span class="n">query</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
                     <span class="n">ST_DWithin</span><span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">geom</span><span class="p">,</span>
-                        <span class="n">from_shape</span><span class="p">(</span><span class="n">geometry_to_check</span><span class="p">,</span> <span class="n">srid</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">)),</span>
+                        <span class="n">from_shape</span><span class="p">(</span><span class="n">geometry_to_check</span><span class="p">,</span> <span class="n">srid</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'srid'</span><span class="p">)),</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_tolerances</span><span class="p">[</span><span class="n">geometry_to_check</span><span class="o">.</span><span class="n">geom_type</span><span class="p">]</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
@@ -697,7 +697,7 @@
                 <span class="n">query</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
                     <span class="n">ST_Intersects</span><span class="p">(</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">geom</span><span class="p">,</span>
-                        <span class="n">from_shape</span><span class="p">(</span><span class="n">geometry_to_check</span><span class="p">,</span> <span class="n">srid</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">))</span>
+                        <span class="n">from_shape</span><span class="p">(</span><span class="n">geometry_to_check</span><span class="p">,</span> <span class="n">srid</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'srid'</span><span class="p">))</span>
                     <span class="p">)</span>
                 <span class="p">)</span>
         <span class="k">return</span> <span class="n">query</span></div>
@@ -706,7 +706,7 @@
 <div class="viewcode-block" id="DatabaseSource.collect_related_geometries_by_real_estate">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.collect_related_geometries_by_real_estate">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">collect_related_geometries_by_real_estate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Extracts all geometries in the topic which have spatial relation with the passed real estate</span>
 
 <span class="sd">        Args:</span>
@@ -716,7 +716,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            list: The result of the related geometries unique by the public law restriction id</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_collection</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">public_law_restriction_id</span>
         <span class="p">)</span><span class="o">.</span><span class="n">options</span><span class="p">(</span>
@@ -737,7 +737,7 @@
 <div class="viewcode-block" id="DatabaseSource.get_legend_entries_from_db">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.get_legend_entries_from_db">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_legend_entries_from_db</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">legend_entry_ids</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieves the legend entries for a list of id-values.</span>
 
 <span class="sd">        Args:</span>
@@ -746,7 +746,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            list: the query result represented as a list.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">legend_entry_model</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">legend_entry_model</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">in_</span><span class="p">(</span><span class="n">legend_entry_ids</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></div>
@@ -755,7 +755,7 @@
 <div class="viewcode-block" id="DatabaseSource.collect_legend_entries_by_bbox">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.collect_legend_entries_by_bbox">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">collect_legend_entries_by_bbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Extracts all legend entries in the topic which have spatial relation with the passed bounding box of</span>
 <span class="sd">        visible extent.</span>
 
@@ -765,7 +765,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            list: The result of the related geometries unique by the public law restriction id and law status</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="c1"># Select the legend entries of all plr within bbox</span>
         <span class="n">geometries</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_collection</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span><span class="o">.</span><span class="n">options</span><span class="p">(</span>
@@ -800,7 +800,7 @@
 <div class="viewcode-block" id="DatabaseSource.read">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.plr.DatabaseSource.read">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>  <span class="c1"># pylint: disable=W:0221</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        The read point which creates an extract, depending on a passed real estate.</span>
 
 <span class="sd">        Args:</span>
@@ -812,16 +812,16 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            list of pyramid_oereb.lib.records.plr.PlrRecord: The list of read public law restriction</span>
 <span class="sd">                records.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="c1"># Check if the plr is marked as available</span>
-        <span class="k">if</span> <span class="n">Config</span><span class="o">.</span><span class="n">availability_by_theme_code_municipality_fosnr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">],</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">fosnr</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">Config</span><span class="o">.</span><span class="n">availability_by_theme_code_municipality_fosnr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="p">[</span><span class="s1">'code'</span><span class="p">],</span> <span class="n">real_estate</span><span class="o">.</span><span class="n">fosnr</span><span class="p">):</span>
             <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_session</span><span class="p">()</span>
 
             <span class="k">try</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="c1"># We can stop here already because there are no items in the database</span>
-                    <span class="n">records</span> <span class="o">=</span> <span class="p">[</span><span class="n">EmptyPlrRecord</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">]))]</span>
+                    <span class="n">records</span> <span class="o">=</span> <span class="p">[</span><span class="n">EmptyPlrRecord</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="p">[</span><span class="s1">'code'</span><span class="p">]))]</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="c1"># We need to investigate more in detail</span>
 
@@ -833,7 +833,7 @@
                         <span class="c1"># We checked if there are spatially related elements in database. But there is none.</span>
                         <span class="c1"># So we can stop here.</span>
                         <span class="n">records</span> <span class="o">=</span> <span class="p">[</span><span class="n">EmptyPlrRecord</span><span class="p">(</span>
-                            <span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">])</span>
+                            <span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="p">[</span><span class="s1">'code'</span><span class="p">])</span>
                         <span class="p">)]</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="c1"># We found spatially related elements. This means we need to extract the actual plr</span>
@@ -858,7 +858,7 @@
         <span class="c1"># Add empty record if topic is not available</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">records</span> <span class="o">=</span> <span class="p">[</span><span class="n">EmptyPlrRecord</span><span class="p">(</span>
-                <span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">]),</span>
+                <span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span><span class="p">[</span><span class="s1">'code'</span><span class="p">]),</span>
                 <span class="n">has_data</span><span class="o">=</span><span class="kc">False</span>
             <span class="p">)]</span>
         <span class="k">return</span> <span class="n">records</span></div>

@@ -85,57 +85,57 @@
 <div class="viewcode-block" id="ImageRecord">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.image.ImageRecord">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ImageRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Attributes:</span>
 <span class="sd">        VALID_FILE_TYPES (list of str): list with valid image file type.</span>
 <span class="sd">        SVG_PATTERN (re): regex pattern for svg image file types.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">VALID_FILE_TYPES</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;png&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;svg&#39;</span>
+        <span class="s1">'png'</span><span class="p">,</span>
+        <span class="s1">'svg'</span>
     <span class="p">]</span>
 
-    <span class="n">SVG_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&lt;svg(.|\n)+&lt;\/svg&gt;&#39;</span><span class="p">)</span>  <span class="c1"># type: re</span>
+    <span class="n">SVG_PATTERN</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">'&lt;svg(.|\n)+&lt;\/svg&gt;'</span><span class="p">)</span>  <span class="c1"># type: re</span>
 
 <div class="viewcode-block" id="ImageRecord.__init__">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.image.ImageRecord.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        The record to hold the binary information of a image.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            content (binary): The binary information of this image as binary string.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">content</span></div>
 
 
 <div class="viewcode-block" id="ImageRecord.encode">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.image.ImageRecord.encode">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            str: The encoded image as a base64 encoded string..</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="n">b64</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">)</span></div>
 
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_validate_filetype</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Checks for valid file type and returns extension and mime type.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            obj (str, bytes, bytearray or readable): Path to the file, a readable object or the file&#39;s content</span>
+<span class="sd">            obj (str, bytes, bytearray or readable): Path to the file, a readable object or the file's content</span>
 <span class="sd">                as str, bytes or bytearray. See filetype documentation:</span>
 <span class="sd">                https://h2non.github.io/filetype.py/v1.0.0/filetype.m.html</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            tuple: The file&#39;s extension and mime type.</span>
+<span class="sd">            tuple: The file's extension and mime type.</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            TypeError: Raised if type is invalid or could not be recognized.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">ft</span> <span class="o">=</span> <span class="n">filetype</span><span class="o">.</span><span class="n">guess</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
@@ -159,20 +159,20 @@
 
             <span class="c1"># Convert to string</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="nb">bytearray</span><span class="p">):</span>
-                <span class="n">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+                <span class="n">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">)</span>
 
             <span class="c1"># Check for SVG content</span>
             <span class="k">if</span> <span class="n">ImageRecord</span><span class="o">.</span><span class="n">SVG_PATTERN</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">content</span><span class="p">):</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">,</span> <span class="s1">&#39;image/svg+xml&#39;</span><span class="p">)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'svg'</span><span class="p">,</span> <span class="s1">'image/svg+xml'</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Unrecognized file type&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'Unrecognized file type'</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">ft</span><span class="o">.</span><span class="n">extension</span><span class="p">,</span> <span class="n">ft</span><span class="o">.</span><span class="n">mime</span><span class="p">)</span>
 
         <span class="c1"># Check for extension in valid file types</span>
         <span class="k">if</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ImageRecord</span><span class="o">.</span><span class="n">VALID_FILE_TYPES</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Invalid file type: </span><span class="si">{invalid}</span><span class="s1">. Valid types are: </span><span class="si">{valid}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'Invalid file type: </span><span class="si">{invalid}</span><span class="s1">. Valid types are: </span><span class="si">{valid}</span><span class="s1">.'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">invalid</span><span class="o">=</span><span class="n">ft</span><span class="o">.</span><span class="n">extension</span><span class="p">,</span>
                 <span class="n">valid</span><span class="o">=</span><span class="n">ImageRecord</span><span class="o">.</span><span class="n">VALID_FILE_TYPES</span>
             <span class="p">))</span>
@@ -183,17 +183,17 @@
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.image.ImageRecord.get_extension">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_extension</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Checks for valid file type and returns its extension.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            obj (str, bytes, bytearray or readable): Path to the file, a readable object or the file&#39;s content</span>
+<span class="sd">            obj (str, bytes, bytearray or readable): Path to the file, a readable object or the file's content</span>
 <span class="sd">                as str, bytes or bytearray. See filetype documentation:</span>
 <span class="sd">                https://h2non.github.io/filetype.py/v1.0.0/filetype.m.html</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            str: The file&#39;s extension.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">            str: The file's extension.</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="n">ImageRecord</span><span class="o">.</span><span class="n">_validate_filetype</span><span class="p">(</span><span class="n">obj</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
 
@@ -201,38 +201,38 @@
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.image.ImageRecord.get_mimetype">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_mimetype</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Checks for valid file type and returns its mime type.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            obj (str, bytes, bytearray or readable): Path to the file, a readable object or the file&#39;s content</span>
+<span class="sd">            obj (str, bytes, bytearray or readable): Path to the file, a readable object or the file's content</span>
 <span class="sd">                as str, bytes or bytearray. See filetype documentation:</span>
 <span class="sd">                https://h2non.github.io/filetype.py/v1.0.0/filetype.m.html</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            str: The file&#39;s mime type.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">            str: The file's mime type.</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="n">ImageRecord</span><span class="o">.</span><span class="n">_validate_filetype</span><span class="p">(</span><span class="n">obj</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span></div>
 
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">mimetype</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Checks for valid file type and returns its extension.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            str: The file&#39;s extension.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">            str: The file's extension.</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="n">ImageRecord</span><span class="o">.</span><span class="n">get_mimetype</span><span class="p">(</span><span class="nb">bytearray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">))</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">extension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Checks for valid file type and returns its mime type.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            str: The file&#39;s mime type.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">            str: The file's mime type.</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="n">ImageRecord</span><span class="o">.</span><span class="n">get_extension</span><span class="p">(</span><span class="nb">bytearray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">))</span></div>
 
 </pre></div>

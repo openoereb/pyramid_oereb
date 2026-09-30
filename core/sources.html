@@ -233,16 +233,17 @@ sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.sources.address.AddressBaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zip_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/address.html#AddressBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.address.AddressBaseSource.read" title="Link to this definition">¶</a></dt>
-<dd><p>Every address source has to implement a read method. This method must accept the three parameters. If
-you want adapt to your own source for addresses, this is the point where to hook in.</p>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zip_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/sources/address.html#AddressBaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.sources.address.AddressBaseSource.read" title="Link to this definition">¶</a></dt>
+<dd><p>Every address source must implement a read method with the same signature.
+To integrate a custom address source, implement this method in your source class.</p>
+<p>The method reads addresses from the configured source matching the supplied criteria.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) – The parameters of the extract request.</p></li>
-<li><p><strong>street_name</strong> (<em>unicode</em>) – The name of the street for the desired address.</p></li>
-<li><p><strong>zip_code</strong> (<em>int</em>) – The postal zipcode for the desired address.</p></li>
-<li><p><strong>street_number</strong> (<em>str</em>) – The house or so called street number of the desired address.</p></li>
+<li><p><strong>params</strong> (<em>pyramid_oereb.core.views.webservice.Parameter</em>) – The parameters of the extract request</p></li>
+<li><p><strong>street_name</strong> (<em>str</em>) – The name of the street</p></li>
+<li><p><strong>zip_code</strong> (<em>int</em>) – The postal code</p></li>
+<li><p><strong>street_number</strong> (<em>str</em><em> | </em><em>None</em>) – The house or street number</p></li>
 </ul>
 </dd>
 </dl>

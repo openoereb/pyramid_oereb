@@ -85,7 +85,7 @@
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.data_integration.DataIntegrationRecord.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">checksum</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">office</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">theme_identifier</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">office_identifier</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        The record to check if data is available for municipality.</span>
 
 <span class="sd">        Args:</span>
@@ -100,11 +100,11 @@
 <span class="sd">                corresponding theme.</span>
 <span class="sd">            office_identifier (str|int|None): The identifier which can be used to match the</span>
 <span class="sd">                corresponding office.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="n">theme</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">theme_identifier</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;Either theme or theme_identifier has to be defined!&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">'Either theme or theme_identifier has to be defined!'</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">office</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">office_identifier</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">&#39;Either office or  office_identifier has to be defined!&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s1">'Either office or  office_identifier has to be defined!'</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">date</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="n">theme</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">office</span> <span class="o">=</span> <span class="n">office</span>

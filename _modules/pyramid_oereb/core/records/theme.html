@@ -81,31 +81,31 @@
 <div class="viewcode-block" id="ThemeRecord">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.theme.ThemeRecord">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ThemeRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates a new theme record.</span>
+<span class="w">    </span><span class="sd">"""Creates a new theme record.</span>
 <span class="sd">    Attributes:</span>
-<span class="sd">        code (unicode): The theme&#39;s code.</span>
+<span class="sd">        code (unicode): The theme's code.</span>
 <span class="sd">        title (dict of unicode): The multilingual description.</span>
 <span class="sd">        extract_index (int): Index to sort themes in the extract.</span>
 <span class="sd">        sub_code (unicode): The code of the sub_theme. Is none for themes.</span>
 <span class="sd">        document_records (list of str): Documents that relates to this theme</span>
 <span class="sd">        identifier (str): The identifier of the theme which might be used for linking to other elements.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="ThemeRecord.__init__">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.theme.ThemeRecord.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">extract_index</span><span class="p">,</span> <span class="n">sub_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">document_records</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">identifier</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Args:</span>
-<span class="sd">            code (unicode): The theme&#39;s code.</span>
+<span class="sd">            code (unicode): The theme's code.</span>
 <span class="sd">            title (dict of unicode): The multilingual description.</span>
 <span class="sd">            extract_index (int): Index to sort themes in the extract.</span>
 <span class="sd">            sub_code (unicode): The code of the sub_theme. Is none for themes.</span>
 <span class="sd">            document_records (list of str): Documents that relates to this theme</span>
 <span class="sd">            identifier (str): The identifier of the theme which might be used for linking to other elements.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;title&quot; should be &quot;dict&quot;&#39;</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">'Type of "title" should be "dict"'</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">code</span> <span class="o">=</span> <span class="n">code</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sub_code</span> <span class="o">=</span> <span class="n">sub_code</span>
@@ -116,7 +116,7 @@
 
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">{}</span><span class="s1"> -- code: </span><span class="si">{}</span><span class="s1"> sub code: </span><span class="si">{}</span><span class="s1"> title: </span><span class="si">{}</span><span class="s1"> extract index: </span><span class="si">{}</span><span class="s1"> document records: </span><span class="si">{}</span><span class="s1">&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="k">return</span> <span class="s1">'&lt;</span><span class="si">{}</span><span class="s1"> -- code: </span><span class="si">{}</span><span class="s1"> sub code: </span><span class="si">{}</span><span class="s1"> title: </span><span class="si">{}</span><span class="s1"> extract index: </span><span class="si">{}</span><span class="s1"> document records: </span><span class="si">{}</span><span class="s1">&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">extract_index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">document_records</span><span class="p">)</span></div>
 

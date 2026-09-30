@@ -297,7 +297,7 @@ matching release.</p>
 your application’s main method.
 Open the <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> of your main module and add the following statement
 in the main method somewhere before <code class="docutils literal notranslate"><span class="pre">config.scan()</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s1">&#39;pyramid_oereb&#39;</span><span class="p">,</span> <span class="n">route_prefix</span><span class="o">=</span><span class="s1">&#39;oereb&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">include</span><span class="p">(</span><span class="s1">'pyramid_oereb'</span><span class="p">,</span> <span class="n">route_prefix</span><span class="o">=</span><span class="s1">'oereb'</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>You can specify a different <a class="reference external" href="https://docs.pylonsproject.org/projects/pyramid/en/stable/narr/urldispatch.html#using-a-route-prefix-to-compose-applications">route prefix</a> or omit it, if you are running a dedicated

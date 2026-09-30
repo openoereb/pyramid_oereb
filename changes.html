@@ -975,7 +975,7 @@ your database you can map it the known way:</p>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">Availability</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    A simple bucket for achieving a switch per municipality. Here you can configure via the imported data if</span>
 <span class="sd">    a public law restriction is available or not. You need to fill it with the data you provided in the</span>
 <span class="sd">    app schemas municipality table (fosnr).</span>
@@ -984,20 +984,20 @@ your database you can map it the known way:</p>
 <span class="sd">        available (bool): The switch field to configure if this plr is available for the</span>
 <span class="sd">            municipality or not.  This field has direct influence on the applications</span>
 <span class="sd">            behaviour. See documentation for more info.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;land_use_plans&#39;</span><span class="p">}</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;availability&#39;</span>
+<span class="sd">    """</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'schema'</span><span class="p">:</span> <span class="s1">'land_use_plans'</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">'availability'</span>
     <span class="n">fosnr</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">available</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Boolean</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">Office</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    The bucket to fill in all the offices you need to reference from public law restriction, document,</span>
 <span class="sd">    geometry.</span>
 <span class="sd">    Attributes:</span>
 <span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
-<span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">            you  don't like it - don't care about.</span>
 <span class="sd">        name (dict): The multilingual name of the office.</span>
 <span class="sd">        office_at_web (str): A web accessible url to a presentation of this office.</span>
 <span class="sd">        uid (str): The uid of this office from https</span>
@@ -1007,9 +1007,9 @@ your database you can map it the known way:</p>
 <span class="sd">        number (str): The number on street.</span>
 <span class="sd">        postal_code (int): The ZIP-code.</span>
 <span class="sd">        city (str): The name of the city.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;land_use_plans&#39;</span><span class="p">}</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;office&#39;</span>
+<span class="sd">    """</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'schema'</span><span class="p">:</span> <span class="s1">'land_use_plans'</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">'office'</span>
     <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">autoincrement</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">office_at_web</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1023,19 +1023,19 @@ your database you can map it the known way:</p>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">DataIntegration</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    The bucket to fill in the date when this whole schema was updated. It has a relation to the office to be</span>
 <span class="sd">    able to find out who was the delivering instance.</span>
 <span class="sd">    Attributes:</span>
 <span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
-<span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">            you  don't like it - don't care about.</span>
 <span class="sd">        date (datetime.date): The date when this data set was delivered.</span>
 <span class="sd">        office_id (int): A foreign key which points to the actual office instance.</span>
 <span class="sd">        office (oereb_server.models.land_use_plans.Office):</span>
 <span class="sd">            The actual office instance which the id points to.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;land_use_plans&#39;</span><span class="p">}</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;data_integration&#39;</span>
+<span class="sd">    """</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'schema'</span><span class="p">:</span> <span class="s1">'land_use_plans'</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">'data_integration'</span>
     <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">autoincrement</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">date</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">DateTime</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">office_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Office</span><span class="o">.</span><span class="n">id</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -1043,28 +1043,28 @@ your database you can map it the known way:</p>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">ViewService</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    A view service aka WM(T)S which can deliver a cartographic representation via web.</span>
 <span class="sd">    Attributes:</span>
 <span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
-<span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">            you  don't like it - don't care about.</span>
 <span class="sd">        reference_wms (str): The actual url which leads to the desired cartographic representation.</span>
 <span class="sd">        legend_at_web (str): A link leading to a wms describing document (png).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;land_use_plans&#39;</span><span class="p">}</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;view_service&#39;</span>
+<span class="sd">    """</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'schema'</span><span class="p">:</span> <span class="s1">'land_use_plans'</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">'view_service'</span>
     <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">autoincrement</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">reference_wms</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">legend_at_web</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">LegendEntry</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    A class based legend system which is directly related to</span>
 <span class="sd">    :meth:`oereb_server.models.land_use_plans.ViewService`.</span>
 <span class="sd">    Attributes:</span>
 <span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
-<span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">            you  don't like it - don't care about.</span>
 <span class="sd">        symbol (str): An image with represents the legend entry. This can be png or svg. It is string</span>
 <span class="sd">            but BaseCode64  encoded.</span>
 <span class="sd">        legend_text (str): Multilingual text to describe this legend entry.</span>
@@ -1077,14 +1077,14 @@ your database you can map it the known way:</p>
 <span class="sd">        sub_theme (str): Description for sub topics this legend entry might belonging to.</span>
 <span class="sd">        other_theme (str): A link to additional topics. It must be like the following patterns</span>
 <span class="sd">            * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as</span>
-<span class="sd">            the official two letters short version (e.g.&#39;BE&#39;) {topic} as the name of the</span>
+<span class="sd">            the official two letters short version (e.g.'BE') {topic} as the name of the</span>
 <span class="sd">            topic and {bfsnr} as the municipality id of the federal office of statistics.</span>
 <span class="sd">        view_service_id (int): The foreign key to the view service this legend entry is related to.</span>
 <span class="sd">        view_service (oereb_server.models.land_use_plans.ViewService):</span>
 <span class="sd">            The dedicated relation to the view service instance from database.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;land_use_plans&#39;</span><span class="p">}</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;legend_entry&#39;</span>
+<span class="sd">    """</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'schema'</span><span class="p">:</span> <span class="s1">'land_use_plans'</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">'legend_entry'</span>
     <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">autoincrement</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">symbol</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">legend_text</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -1098,21 +1098,21 @@ your database you can map it the known way:</p>
         <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">ViewService</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
         <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">)</span>
-    <span class="n">view_service</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="n">ViewService</span><span class="p">,</span> <span class="n">backref</span><span class="o">=</span><span class="s1">&#39;legends&#39;</span><span class="p">)</span>
+    <span class="n">view_service</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span><span class="n">ViewService</span><span class="p">,</span> <span class="n">backref</span><span class="o">=</span><span class="s1">'legends'</span><span class="p">)</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">PublicLawRestriction</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    The container where you can fill in all your public law restrictions to the topic.</span>
 <span class="sd">    Attributes:</span>
 <span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
-<span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">            you  don't like it - don't care about.</span>
 <span class="sd">        information (dict): The multilingual textual representation of the public law restriction.</span>
 <span class="sd">        topic (str): Category for this public law restriction (name of the topic).</span>
 <span class="sd">        sub_theme (str): Textual explanation to subtype the topic attribute.</span>
 <span class="sd">        other_theme (str): A link to additional topics. It must be like the following patterns</span>
 <span class="sd">            * ch.{canton}.{topic}  * fl.{topic}  * ch.{bfsnr}.{topic}  This with {canton} as</span>
-<span class="sd">            the official two letters short version (e.g.&#39;BE&#39;) {topic} as the name of the</span>
+<span class="sd">            the official two letters short version (e.g.'BE') {topic} as the name of the</span>
 <span class="sd">            topic and {bfsnr} as the municipality id of the federal office of statistics.</span>
 <span class="sd">        type_code (str): Type code of the public law restriction machine readable based on the</span>
 <span class="sd">            original data  model of this public law restriction.</span>
@@ -1137,9 +1137,9 @@ your database you can map it the known way:</p>
 <span class="sd">            restriction.</span>
 <span class="sd">        responsible_office (oereb_server.models.land_use_plans.Office):</span>
 <span class="sd">            The dedicated relation to the office instance from database.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;land_use_plans&#39;</span><span class="p">}</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;public_law_restriction&#39;</span>
+<span class="sd">    """</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'schema'</span><span class="p">:</span> <span class="s1">'land_use_plans'</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">'public_law_restriction'</span>
     <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">information</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">topic</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -1157,7 +1157,7 @@ your database you can map it the known way:</p>
     <span class="p">)</span>
     <span class="n">view_service</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
         <span class="n">ViewService</span><span class="p">,</span>
-        <span class="n">backref</span><span class="o">=</span><span class="s1">&#39;public_law_restrictions&#39;</span>
+        <span class="n">backref</span><span class="o">=</span><span class="s1">'public_law_restrictions'</span>
     <span class="p">)</span>
     <span class="n">office_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
         <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
@@ -1168,11 +1168,11 @@ your database you can map it the known way:</p>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">Geometry</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    The dedicated model for all geometries in relation to their public law restriction.</span>
 <span class="sd">    Attributes:</span>
 <span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
-<span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">            you  don't like it - don't care about.</span>
 <span class="sd">        law_status (str): The status switch if the document is legally approved or not.</span>
 <span class="sd">        published_from (datetime.date): The date when the document should be available for</span>
 <span class="sd">            publishing on extracts. This  directly affects the behaviour of extract</span>
@@ -1188,18 +1188,18 @@ your database you can map it the known way:</p>
 <span class="sd">            restriction.</span>
 <span class="sd">        responsible_office (pyramid_oereb.standard.models.land_use_plans.Office):</span>
 <span class="sd">            The dedicated relation to the office instance from database.</span>
-<span class="sd">        geom (geoalchemy2.types.Geometry): The geometry it&#39;s self. For type information see</span>
+<span class="sd">        geom (geoalchemy2.types.Geometry): The geometry it's self. For type information see</span>
 <span class="sd">            geoalchemy2_.  .. _geoalchemy2:</span>
 <span class="sd">            https://geoalchemy-2.readthedocs.io/en/0.2.4/types.html  docs dependent on the</span>
 <span class="sd">            configured type.  This concrete one is POLYGON</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;land_use_plans&#39;</span><span class="p">}</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;geometry&#39;</span>
+<span class="sd">    """</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'schema'</span><span class="p">:</span> <span class="s1">'land_use_plans'</span><span class="p">}</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">'geometry'</span>
     <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">autoincrement</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">law_status</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">published_from</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Date</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">geo_metadata</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">String</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">geom</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">GeoAlchemyGeometry</span><span class="p">(</span><span class="s1">&#39;POLYGON&#39;</span><span class="p">,</span> <span class="n">srid</span><span class="o">=</span><span class="n">srid</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">geom</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">GeoAlchemyGeometry</span><span class="p">(</span><span class="s1">'POLYGON'</span><span class="p">,</span> <span class="n">srid</span><span class="o">=</span><span class="n">srid</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">public_law_restriction_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
         <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
         <span class="n">sa</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">PublicLawRestriction</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
@@ -1207,7 +1207,7 @@ your database you can map it the known way:</p>
     <span class="p">)</span>
     <span class="n">public_law_restriction</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
         <span class="n">PublicLawRestriction</span><span class="p">,</span>
-        <span class="n">backref</span><span class="o">=</span><span class="s1">&#39;geometries&#39;</span>
+        <span class="n">backref</span><span class="o">=</span><span class="s1">'geometries'</span>
     <span class="p">)</span>
     <span class="n">office_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
         <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
@@ -1218,12 +1218,12 @@ your database you can map it the known way:</p>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">PublicLawRestrictionBase</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Meta bucket (join table) for public law restrictions which acts as a base for other public law</span>
 <span class="sd">    restrictions.</span>
 <span class="sd">    Attributes:</span>
 <span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
-<span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">            you  don't like it - don't care about.</span>
 <span class="sd">        public_law_restriction_id (int): The foreign key to the public law restriction which bases</span>
 <span class="sd">            on another  public law restriction.</span>
 <span class="sd">        public_law_restriction_base_id (int): The foreign key to the public law restriction which is</span>
@@ -1232,9 +1232,9 @@ your database you can map it the known way:</p>
 <span class="sd">            The dedicated relation to the public law restriction (which bases on) instance from  database.</span>
 <span class="sd">        base (pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction):</span>
 <span class="sd">            The dedicated relation to the public law restriction (which is the base) instance from database.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;public_law_restriction_base&#39;</span>
-    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;land_use_plans&#39;</span><span class="p">}</span>
+<span class="sd">    """</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">'public_law_restriction_base'</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'schema'</span><span class="p">:</span> <span class="s1">'land_use_plans'</span><span class="p">}</span>
     <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">autoincrement</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">public_law_restriction_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
         <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
@@ -1248,7 +1248,7 @@ your database you can map it the known way:</p>
     <span class="p">)</span>
     <span class="n">plr</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
         <span class="n">PublicLawRestriction</span><span class="p">,</span>
-        <span class="n">backref</span><span class="o">=</span><span class="s1">&#39;basis&#39;</span><span class="p">,</span>
+        <span class="n">backref</span><span class="o">=</span><span class="s1">'basis'</span><span class="p">,</span>
         <span class="n">foreign_keys</span><span class="o">=</span><span class="p">[</span><span class="n">public_law_restriction_id</span><span class="p">]</span>
     <span class="p">)</span>
     <span class="n">base</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
@@ -1258,12 +1258,12 @@ your database you can map it the known way:</p>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">PublicLawRestrictionRefinement</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Meta bucket (join table) for public law restrictions which acts as a refinement for other public law</span>
 <span class="sd">    restrictions.</span>
 <span class="sd">    Attributes:</span>
 <span class="sd">        id (int): The identifier. This is used in the database only and must not be set manually. If</span>
-<span class="sd">            you  don&#39;t like it - don&#39;t care about.</span>
+<span class="sd">            you  don't like it - don't care about.</span>
 <span class="sd">        public_law_restriction_id (int): The foreign key to the public law restriction which is</span>
 <span class="sd">            refined by  another public law restriction.</span>
 <span class="sd">        public_law_restriction_refinement_id (int): The foreign key to the public law restriction</span>
@@ -1272,9 +1272,9 @@ your database you can map it the known way:</p>
 <span class="sd">            The dedicated relation to the public law restriction (which refines) instance from  database.</span>
 <span class="sd">        base (pyramid_oereb.standard.models.land_use_plans.PublicLawRestriction):</span>
 <span class="sd">            The dedicated relation to the public law restriction (which is refined) instance from database.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">&#39;public_law_restriction_refinement&#39;</span>
-    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;schema&#39;</span><span class="p">:</span> <span class="s1">&#39;land_use_plans&#39;</span><span class="p">}</span>
+<span class="sd">    """</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s1">'public_law_restriction_refinement'</span>
+    <span class="n">__table_args__</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'schema'</span><span class="p">:</span> <span class="s1">'land_use_plans'</span><span class="p">}</span>
     <span class="nb">id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">autoincrement</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">public_law_restriction_id</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span>
         <span class="n">sa</span><span class="o">.</span><span class="n">Integer</span><span class="p">,</span>
@@ -1288,7 +1288,7 @@ your database you can map it the known way:</p>
     <span class="p">)</span>
     <span class="n">plr</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
         <span class="n">PublicLawRestriction</span><span class="p">,</span>
-        <span class="n">backref</span><span class="o">=</span><span class="s1">&#39;refinements&#39;</span><span class="p">,</span>
+        <span class="n">backref</span><span class="o">=</span><span class="s1">'refinements'</span><span class="p">,</span>
         <span class="n">foreign_keys</span><span class="o">=</span><span class="p">[</span><span class="n">public_law_restriction_id</span><span class="p">]</span>
     <span class="p">)</span>
     <span class="n">refinement</span> <span class="o">=</span> <span class="n">relationship</span><span class="p">(</span>
@@ -1354,12 +1354,12 @@ this package.</p>
 <span class="w">  </span><span class="nt">length</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
 <span class="w">    </span><span class="c1"># Unit used internally only until now!</span>
-<span class="w">    </span><span class="nt">unit</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;m&#39;</span>
+<span class="w">    </span><span class="nt">unit</span><span class="p">:</span><span class="w"> </span><span class="s">'m'</span>
 <span class="w">    </span><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
 <span class="w">  </span><span class="nt">area</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
 <span class="w">    </span><span class="c1"># Unit used internally only until now!</span>
-<span class="w">    </span><span class="nt">unit</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;m²&#39;</span>
+<span class="w">    </span><span class="nt">unit</span><span class="p">:</span><span class="w"> </span><span class="s">'m²'</span>
 <span class="w">    </span><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
 <span class="w">  </span><span class="nt">percentage</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">precision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
@@ -1402,7 +1402,7 @@ chapter <a class="reference internal" href="#changes-oereb-lex"><span class="std
 <span class="w">  </span><span class="c1">#   official_number: number</span>
 <span class="w">  </span><span class="c1">#   abbreviation: abbreviation</span>
 <span class="w">  </span><span class="c1"># Handle related decree also as main document</span>
-<span class="w">  </span><span class="c1"># By default a related decree will be added as reference of the type &quot;legal provision&quot; to the main</span>
+<span class="w">  </span><span class="c1"># By default a related decree will be added as reference of the type "legal provision" to the main</span>
 <span class="w">  </span><span class="c1"># document. Set this flag to true, if you want the related decree to be added as additional legal</span>
 <span class="w">  </span><span class="c1"># provision directly to the public law restriction. This might have an impact on client side rendering.</span>
 <span class="w">  </span><span class="nt">related_decree_as_main</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -1426,8 +1426,8 @@ and why please have a detailed look at the documentation of the used package
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plr73</span>
 <span class="w">  </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ch.Nutzungsplanung</span>
 <span class="w">  </span><span class="nt">geometry_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GEOMETRYCOLLECTION</span>
-<span class="w">  </span><span class="c1"># Define the minmal area and length for public law restrictions that should be considered as &#39;true&#39; restrictions</span>
-<span class="w">  </span><span class="c1"># and not as calculation errors (false true&#39;s) due to topological imperfections</span>
+<span class="w">  </span><span class="c1"># Define the minmal area and length for public law restrictions that should be considered as 'true' restrictions</span>
+<span class="w">  </span><span class="c1"># and not as calculation errors (false true's) due to topological imperfections</span>
 <span class="w">  </span><span class="nt">thresholds</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">length</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>

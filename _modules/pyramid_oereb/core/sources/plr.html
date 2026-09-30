@@ -95,9 +95,9 @@
 <div class="viewcode-block" id="PlrBaseSource">
 <a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.core.sources.plr.PlrBaseSource">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">PlrBaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Base class for public law restriction sources.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">_documents_record_class</span> <span class="o">=</span> <span class="n">DocumentRecord</span>
     <span class="n">_disclaimer_record_class</span> <span class="o">=</span> <span class="n">DisclaimerRecord</span>
     <span class="n">_geometry_record_class</span> <span class="o">=</span> <span class="n">GeometryRecord</span>
@@ -112,7 +112,7 @@
 <div class="viewcode-block" id="PlrBaseSource.__init__">
 <a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.core.sources.plr.PlrBaseSource.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Keyword Arguments:</span>
 <span class="sd">            name (str): The name. You are free to choose one.</span>
 <span class="sd">            code (str): The official code. Regarding to the federal specifications.</span>
@@ -134,25 +134,25 @@
 <span class="sd">        Attributes:</span>
 <span class="sd">            datasource (list of pyramid_oereb.lib.records.embeddable.DatasourceRecord): List of data source</span>
 <span class="sd">                records used for the additional data in flavour `embeddable`.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span> <span class="o">=</span> <span class="n">kwargs</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">datasource</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span></div>
 
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return the info dictionary.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            dict: The info dictionary.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_info</span>
 
 <div class="viewcode-block" id="PlrBaseSource.read">
 <a class="viewcode-back" href="../../../../core/sources.html#pyramid_oereb.core.sources.plr.PlrBaseSource.read">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">bbox</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Every public law restriction source has to implement a read method. This method must accept the two</span>
 <span class="sd">        key word parameters. If you want adapt to your own source for real estates, this is the point where</span>
 <span class="sd">        to hook in.</span>
@@ -169,7 +169,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            list of pyramid_oereb.lib.records.plr.PlrRecord: The list of read public law restriction</span>
 <span class="sd">                records.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">()</span></div>
 </div>
 

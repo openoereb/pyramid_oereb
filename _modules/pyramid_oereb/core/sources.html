@@ -75,9 +75,9 @@
              
   <h1>Source code for pyramid_oereb.core.sources</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="sd">This is package provides the minimum requirements on the classes which can be used as a source.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyramid.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigurationError</span>
@@ -90,50 +90,50 @@
 <div class="viewcode-block" id="Base">
 <a class="viewcode-back" href="../../../core/sources.html#pyramid_oereb.core.sources.Base">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    The basic source class. This is not meant to be used directly as a source at runtime. But more as a basic</span>
 <span class="sd">    class for inherit in special designed classes.</span>
-<span class="sd">    &quot;&quot;&quot;</span></div>
+<span class="sd">    """</span></div>
 
 
 
 <div class="viewcode-block" id="BaseDatabaseSource">
 <a class="viewcode-back" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BaseDatabaseSource</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    The plug for addresses which uses a database as source.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        TIMEOUT (int): Seconds to wait until database should be ready</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">TIMEOUT</span> <span class="o">=</span> <span class="mi">60</span>
 
 <div class="viewcode-block" id="BaseDatabaseSource.__init__">
 <a class="viewcode-back" href="../../../core/sources.html#pyramid_oereb.core.sources.BaseDatabaseSource.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Keyword Args:</span>
 <span class="sd">            db_connection (str): A rfc1738 conform database connection string in the form of:</span>
 <span class="sd">                ``&lt;driver_name&gt;://&lt;username&gt;:&lt;password&gt;@&lt;database_host&gt;:&lt;port&gt;/&lt;database_name&gt;``</span>
 <span class="sd">            model (str): A valid dotted name string which leads to an importable representation of</span>
 <span class="sd">                sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb</span><span class="w"> </span><span class="kn">import</span> <span class="n">database_adapter</span>
 
         <span class="k">if</span> <span class="n">database_adapter</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span> <span class="o">=</span> <span class="n">database_adapter</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;Adapter for database must be defined if you use database sources.&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_key_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;db_connection&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">'Adapter for database must be defined if you use database sources.'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'db_connection'</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_key_</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'db_connection'</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;&quot;db_connection&quot; for source has to be defined in used yaml &#39;</span>
-                                     <span class="s1">&#39;configuration file&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model_</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">maybe_resolve</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;model&#39;</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">'"db_connection" for source has to be defined in used yaml '</span>
+                                     <span class="s1">'configuration file'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'model'</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model_</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">maybe_resolve</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'model'</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;&quot;model&quot; for source has to be defined in used yaml configuration file&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">'"model" for source has to be defined in used yaml configuration file'</span><span class="p">)</span>
         <span class="c1"># check if database is available and wait until it might be or raise error</span>
         <span class="n">timeout_target</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">TIMEOUT</span>
         <span class="n">db_healthy</span> <span class="o">=</span> <span class="kc">False</span>
@@ -144,7 +144,7 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="n">db_healthy</span><span class="p">:</span>
                 <span class="n">current_wait_position</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sleep_period</span><span class="p">)</span>
                 <span class="c1"># 1.0 sets it to a second</span>
-                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Waiting for the database </span><span class="si">{}</span><span class="s1"> more seconds (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Waiting for the database </span><span class="si">{}</span><span class="s1"> more seconds (</span><span class="si">{}</span><span class="s1">)'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">TIMEOUT</span> <span class="o">-</span> <span class="n">current_wait_position</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_key_</span>
                 <span class="p">))</span>
@@ -152,7 +152,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">break</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">db_healthy</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">&#39;Database was not reached until timeout of </span><span class="si">{}</span><span class="s1"> seconds (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="k">raise</span> <span class="n">ConfigurationError</span><span class="p">(</span><span class="s1">'Database was not reached until timeout of </span><span class="si">{}</span><span class="s1"> seconds (</span><span class="si">{}</span><span class="s1">)'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">TIMEOUT</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_key_</span>
             <span class="p">))</span></div>
@@ -164,7 +164,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">health_check</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;SELECT 1&#39;</span><span class="p">))</span>
+            <span class="n">session</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">text</span><span class="p">(</span><span class="s1">'SELECT 1'</span><span class="p">))</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span></div>

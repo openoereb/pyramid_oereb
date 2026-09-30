@@ -80,7 +80,7 @@
 <div class="viewcode-block" id="EmbeddableRecord">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.embeddable.EmbeddableRecord">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">EmbeddableRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">        Attributes:</span>
 <span class="sd">            cadaster_state (datetime.datetime): Actuality of the oereb cadaster.</span>
 <span class="sd">            cadaster_organisation (pyramid_oereb.lib.records.office.OfficeRecord): The information about the</span>
@@ -91,12 +91,12 @@
 <span class="sd">                used for this extract.</span>
 <span class="sd">            datasources (list of pyramid_oereb.lib.records.embeddable.DatasourceRecord): All the datasource</span>
 <span class="sd">                information on the extract.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 <div class="viewcode-block" id="EmbeddableRecord.__init__">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.embeddable.EmbeddableRecord.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cadaster_state</span><span class="p">,</span> <span class="n">cadaster_organisation</span><span class="p">,</span> <span class="n">data_owner_cadastral_surveying</span><span class="p">,</span>
                  <span class="n">transfer_from_source_cadastral_surveying</span><span class="p">,</span> <span class="n">datasources</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        The record for handling the address entity inside the application.</span>
 
 <span class="sd">        Args:</span>
@@ -109,9 +109,9 @@
 <span class="sd">                used for this extract.</span>
 <span class="sd">            datasources (list of pyramid_oereb.lib.records.embeddable.DatasourceRecord): All the datasource</span>
 <span class="sd">                information on the extract.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
-        <span class="c1"># Filling out the &#39;pdf&#39; attribute with pdf content is currently not supported by pyramid_oereb</span>
+        <span class="c1"># Filling out the 'pdf' attribute with pdf content is currently not supported by pyramid_oereb</span>
         <span class="c1"># More details in PR https://github.com/openoereb/pyramid_oereb/pull/601</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cadaster_state</span> <span class="o">=</span> <span class="n">cadaster_state</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cadaster_organisation</span> <span class="o">=</span> <span class="n">cadaster_organisation</span>
@@ -129,7 +129,7 @@
 <div class="viewcode-block" id="DatasourceRecord.__init__">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.embeddable.DatasourceRecord.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">owner</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        The record for handling the datasource entity for the embeddable flavour.</span>
 
 <span class="sd">        Args:</span>
@@ -137,7 +137,7 @@
 <span class="sd">            date (datetime.datetime): Actuality of the topic.</span>
 <span class="sd">            owner (pyramid_oereb.lib.records.office.OfficeRecord): The information about the organisation</span>
 <span class="sd">                which is responsible for the topic.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="n">theme</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">date</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">owner</span> <span class="o">=</span> <span class="n">owner</span></div>

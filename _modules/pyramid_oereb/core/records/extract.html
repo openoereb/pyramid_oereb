@@ -83,7 +83,7 @@
 <div class="viewcode-block" id="ExtractRecord">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.extract.ExtractRecord">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ExtractRecord</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    The extract base class.</span>
 <span class="sd">    Attributes:</span>
 <span class="sd">        creation_date (datetime.datetime): The date and time of the extract creation.</span>
@@ -110,7 +110,7 @@
 <span class="sd">            pyramid_oereb.core.records.disclaimer.DisclaimerRecord or None): Disclaimers for the extract.</span>
 <span class="sd">        glossaries (list of pyramid_oereb.lib.records.glossary.GlossaryRecord): Glossaries for the</span>
 <span class="sd">            extract.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="ExtractRecord.__init__">
 <a class="viewcode-back" href="../../../../core/records.html#pyramid_oereb.core.records.extract.ExtractRecord.__init__">[docs]</a>
@@ -118,7 +118,7 @@
                  <span class="n">plr_cadastre_authority</span><span class="p">,</span> <span class="n">update_date_os</span><span class="p">,</span> <span class="n">disclaimers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">glossaries</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">concerned_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">not_concerned_theme</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">theme_without_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">general_information</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qr_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">qr_code_ref</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Args:</span>
 <span class="sd">            real_estate (pyramid_oereb.lib.records.real_estate.RealEstateRecord): The real estate in its</span>
 <span class="sd">                record representation.</span>
@@ -144,11 +144,11 @@
 <span class="sd">            qr_code (pyramid_oereb.lib.records.image.ImageRecord or None): QR code for the extract</span>
 <span class="sd">                as ImageRecord.</span>
 <span class="sd">            qr_code_ref (str or None): The URL to retrieve the QR code.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">update_date_os</span><span class="p">,</span> <span class="n">datetime</span><span class="p">):</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;update_date_os&quot; should be &quot;datetime.datetime&quot;&#39;</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">'Type of "update_date_os" should be "datetime.datetime"'</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">general_information</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">general_information</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Type of &quot;general_information&quot; should be &quot;list&quot;&#39;</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">'Type of "general_information" should be "list"'</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">update_date_os</span> <span class="o">=</span> <span class="n">update_date_os</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">general_information</span> <span class="o">=</span> <span class="n">general_information</span>

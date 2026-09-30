@@ -131,23 +131,23 @@ sqlalchemy.ext.declarative.DeclarativeMeta or the real class itself.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.contrib.data_sources.standard.sources.address.DatabaseSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zip_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/address.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.address.DatabaseSource.read" title="Link to this definition">¶</a></dt>
-<dd><p>The read method to access the standard database structure. It uses SQL-Alchemy for querying. It tries
-to find the items via passed arguments.</p>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zip_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.address.AddressRecord" title="pyramid_oereb.core.records.address.AddressRecord"><span class="pre">AddressRecord</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/pyramid_oereb/contrib/data_sources/standard/sources/address.html#DatabaseSource.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.contrib.data_sources.standard.sources.address.DatabaseSource.read" title="Link to this definition">¶</a></dt>
+<dd><p>The read method for accessing the standard database schema.
+It uses SQLAlchemy to query the database for records matching the supplied arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) – The parameters of the extract request.</p></li>
-<li><p><strong>street_name</strong> (<em>unicode</em>) – The name of the street for the desired address.</p></li>
-<li><p><strong>zip_code</strong> (<em>int</em>) – The postal zipcode for the desired address.</p></li>
-<li><p><strong>street_number</strong> (<em>str</em>) – The house or so called street number of the desired address.</p></li>
+<li><p><strong>params</strong> (<em>pyramid_oereb.core.views.webservice.Parameter</em>) – The parameters of the extract request</p></li>
+<li><p><strong>street_name</strong> (<em>str</em>) – The name of the street</p></li>
+<li><p><strong>zip_code</strong> (<em>int</em>) – The postal code</p></li>
+<li><p><strong>street_number</strong> (<em>str</em><em> | </em><em>None</em>) – The house or street number</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The list of address records.</p>
+<dd class="field-even"><p>A list of address records matching the supplied search criteria.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list of <a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.address.AddressRecord" title="pyramid_oereb.core.records.address.AddressRecord">pyramid_oereb.core.records.address.AddressRecord</a></p>
+<dd class="field-odd"><p>list[<a class="reference internal" href="../../../core/records.html#pyramid_oereb.core.records.address.AddressRecord" title="pyramid_oereb.core.records.address.AddressRecord">pyramid_oereb.core.records.address.AddressRecord</a>]</p>
 </dd>
 </dl>
 </dd></dl>

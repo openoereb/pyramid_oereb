@@ -114,7 +114,7 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">model_factory</span><span class="p">(</span><span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">,</span> <span class="n">geometry_type</span><span class="p">,</span> <span class="n">srid</span><span class="p">,</span> <span class="n">db_connection</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Factory to produce a set of standard models.</span>
 
 <span class="sd">    Args:</span>
@@ -128,7 +128,7 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Models: the produced set of standard models</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">()</span>
 
     <span class="n">Office</span> <span class="o">=</span> <span class="n">get_office</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">,</span> <span class="n">pk_type</span><span class="p">)</span>
@@ -149,7 +149,7 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">model_factory_string_pk</span><span class="p">(</span><span class="n">schema_name</span><span class="p">,</span> <span class="n">geometry_type</span><span class="p">,</span> <span class="n">srid</span><span class="p">,</span> <span class="n">db_connection</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Args:</span>
 <span class="sd">        schema_name (str): The name of the database schema where this models belong to.</span>
 <span class="sd">        geometry_type (str): The geoalchemy geometry type defined as well known string.</span>
@@ -158,12 +158,12 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Models: the produced set of standard models</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">model_factory</span><span class="p">(</span><span class="n">schema_name</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">geometry_type</span><span class="p">,</span> <span class="n">srid</span><span class="p">,</span> <span class="n">db_connection</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">model_factory_integer_pk</span><span class="p">(</span><span class="n">schema_name</span><span class="p">,</span> <span class="n">geometry_type</span><span class="p">,</span> <span class="n">srid</span><span class="p">,</span> <span class="n">db_connection</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Args:</span>
 <span class="sd">        schema_name (str): The name of the database schema where this models belong to.</span>
 <span class="sd">        geometry_type (str): The geoalchemy geometry type defined as well known string.</span>
@@ -172,7 +172,7 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Models: the produced set of standard models</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">model_factory</span><span class="p">(</span><span class="n">schema_name</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">geometry_type</span><span class="p">,</span> <span class="n">srid</span><span class="p">,</span> <span class="n">db_connection</span><span class="p">)</span>
 </pre></div>
 

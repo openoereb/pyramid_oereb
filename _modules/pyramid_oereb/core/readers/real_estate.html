@@ -86,17 +86,17 @@
 <div class="viewcode-block" id="RealEstateReader">
 <a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.real_estate.RealEstateReader">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">RealEstateReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    The central reader for real estates. It is directly bound to a so called source</span>
 <span class="sd">    which is defined by a pythonic dotted string to the class definition of this source.</span>
 <span class="sd">    An instance of the passed source will be created on instantiation of this reader class by passing through</span>
 <span class="sd">    the parameter kwargs.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="RealEstateReader.__init__">
 <a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.real_estate.RealEstateReader.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dotted_source_class_path</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Args:</span>
 <span class="sd">            dotted_source_class_path (str or pyramid_oereb.lib.sources.real_estate.RealEstateBaseSource): The</span>
 <span class="sd">                path to the class which represents the source used by this reader. This class must exist and</span>
@@ -104,7 +104,7 @@
 <span class="sd">                :ref:`api-pyramid_oereb-core-sources-real_estate-realestatebasesource`.</span>
 <span class="sd">            (kwargs): kwargs, which are necessary as configuration parameter for the above by</span>
 <span class="sd">                dotted name defined class.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">source_class</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">dotted_source_class_path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span> <span class="o">=</span> <span class="n">source_class</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
 
@@ -112,7 +112,7 @@
 <div class="viewcode-block" id="RealEstateReader.read">
 <a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.real_estate.RealEstateReader.read">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">nb_ident</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">egrid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        The central read accessor method to get all desired records from configured source.</span>
 
 <span class="sd">        Note:</span>
@@ -137,28 +137,28 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            list of pyramid_oereb.core.records.real_estate.RealEstateRecord:</span>
 <span class="sd">                The list of all found records filtered by the passed criteria.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">plan_for_land_register_config</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_plan_for_land_register_config</span><span class="p">()</span>
 
         <span class="n">real_estate_view_service</span> <span class="o">=</span> <span class="n">ViewServiceRecord</span><span class="p">(</span>
-            <span class="n">plan_for_land_register_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;reference_wms&#39;</span><span class="p">),</span>
-            <span class="n">plan_for_land_register_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;layer_index&#39;</span><span class="p">),</span>
-            <span class="n">plan_for_land_register_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;layer_opacity&#39;</span><span class="p">),</span>
-            <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;default_language&#39;</span><span class="p">),</span>
-            <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">),</span>
-            <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;proxies&#39;</span><span class="p">),</span>
-            <span class="n">verify_certificate</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;verify_certificate_wms&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="n">plan_for_land_register_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'reference_wms'</span><span class="p">),</span>
+            <span class="n">plan_for_land_register_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'layer_index'</span><span class="p">),</span>
+            <span class="n">plan_for_land_register_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'layer_opacity'</span><span class="p">),</span>
+            <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'default_language'</span><span class="p">),</span>
+            <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'srid'</span><span class="p">),</span>
+            <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'proxies'</span><span class="p">),</span>
+            <span class="n">verify_certificate</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'verify_certificate_wms'</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="p">)</span>
 
         <span class="n">plan_for_land_register_main_page_config</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_plan_for_land_register_main_page_config</span><span class="p">()</span>
         <span class="n">real_estate_main_page_view_service</span> <span class="o">=</span> <span class="n">ViewServiceRecord</span><span class="p">(</span>
-            <span class="n">plan_for_land_register_main_page_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;reference_wms&#39;</span><span class="p">),</span>
-            <span class="n">plan_for_land_register_main_page_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;layer_index&#39;</span><span class="p">),</span>
-            <span class="n">plan_for_land_register_main_page_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;layer_opacity&#39;</span><span class="p">),</span>
-            <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;default_language&#39;</span><span class="p">),</span>
-            <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;srid&#39;</span><span class="p">),</span>
-            <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;proxies&#39;</span><span class="p">),</span>
-            <span class="n">verify_certificate</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;verify_certificate_wms&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="n">plan_for_land_register_main_page_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'reference_wms'</span><span class="p">),</span>
+            <span class="n">plan_for_land_register_main_page_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'layer_index'</span><span class="p">),</span>
+            <span class="n">plan_for_land_register_main_page_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'layer_opacity'</span><span class="p">),</span>
+            <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'default_language'</span><span class="p">),</span>
+            <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'srid'</span><span class="p">),</span>
+            <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'proxies'</span><span class="p">),</span>
+            <span class="n">verify_certificate</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'verify_certificate_wms'</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="p">)</span>
 
         <span class="n">records</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source_</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">nb_ident</span><span class="o">=</span><span class="n">nb_ident</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="n">number</span><span class="p">,</span> <span class="n">egrid</span><span class="o">=</span><span class="n">egrid</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="n">geometry</span><span class="p">)</span>

@@ -93,22 +93,22 @@
 <div class="viewcode-block" id="ExtractReader">
 <a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.extract.ExtractReader">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ExtractReader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    The class which generates *the extract* as a record</span>
 <span class="sd">    (:ref:`api-pyramid_oereb-core-records-extract-extractrecord`). This is the point where all necessary</span>
 <span class="sd">    and extract-related components are bound together.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="ExtractReader.__init__">
 <a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.extract.ExtractReader.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plr_sources</span><span class="p">,</span> <span class="n">plr_cadastre_authority</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Args:</span>
 <span class="sd">            plr_sources (list of pyramid_oereb.lib.sources.plr.PlrBaseSource): The list of PLR source</span>
 <span class="sd">                instances which the achieved extract should be about.</span>
 <span class="sd">            plr_cadastre_authority (pyramid_oereb.lib.records.office.OfficeRecord): The authority responsible</span>
 <span class="sd">                for the PLR cadastre.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span> <span class="o">=</span> <span class="n">plr_sources</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plr_cadastre_authority_</span> <span class="o">=</span> <span class="n">plr_cadastre_authority</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">law_status</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_law_status_codes</span><span class="p">()</span></div>
@@ -116,17 +116,17 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">plr_cadastre_authority</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            pyramid_oereb.lib.records.office.OfficeRecord: The authority responsible for the PLR</span>
 <span class="sd">            cadastre.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_cadastre_authority_</span>
 
 <div class="viewcode-block" id="ExtractReader.read">
 <a class="viewcode-back" href="../../../../core/readers.html#pyramid_oereb.core.readers.extract.ExtractReader.read">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">municipality</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        This method finally creates the extract.</span>
 
 <span class="sd">        Note:</span>
@@ -145,8 +145,8 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            pyramid_oereb.lib.records.extract.ExtractRecord:</span>
 <span class="sd">                The extract record containing all gathered data.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() start&quot;</span><span class="p">)</span>
+<span class="sd">        """</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"read() start"</span><span class="p">)</span>
 
         <span class="n">bbox</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_bbox</span><span class="p">(</span><span class="n">real_estate</span><span class="o">.</span><span class="n">limit</span><span class="p">)</span>
         <span class="n">bbox</span> <span class="o">=</span> <span class="n">box</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
@@ -158,7 +158,7 @@
         <span class="k">if</span> <span class="n">municipality</span><span class="o">.</span><span class="n">published</span><span class="p">:</span>
 
             <span class="k">for</span> <span class="n">plr_source</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">params</span><span class="o">.</span><span class="n">skip_topic</span><span class="p">(</span><span class="n">plr_source</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">params</span><span class="o">.</span><span class="n">skip_topic</span><span class="p">(</span><span class="n">plr_source</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'code'</span><span class="p">)):</span>
                     <span class="n">records</span> <span class="o">=</span> <span class="n">plr_source</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">real_estate</span><span class="p">,</span> <span class="n">bbox</span><span class="p">)</span>
                     <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
                         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">PlrRecord</span><span class="p">):</span>
@@ -183,25 +183,25 @@
 
         <span class="k">else</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">plr_source</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plr_sources_</span><span class="p">:</span>
-                <span class="n">themes_without_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span><span class="n">plr_source</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)))</span>
+                <span class="n">themes_without_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">get_theme_by_code_sub_code</span><span class="p">(</span><span class="n">plr_source</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'code'</span><span class="p">)))</span>
 
         <span class="c1"># sort theme lists</span>
-        <span class="n">concerned_themes</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">attrgetter</span><span class="p">(</span><span class="s1">&#39;extract_index&#39;</span><span class="p">))</span>
-        <span class="n">not_concerned_themes</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">attrgetter</span><span class="p">(</span><span class="s1">&#39;extract_index&#39;</span><span class="p">))</span>
-        <span class="n">themes_without_data</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">attrgetter</span><span class="p">(</span><span class="s1">&#39;extract_index&#39;</span><span class="p">))</span>
+        <span class="n">concerned_themes</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">attrgetter</span><span class="p">(</span><span class="s1">'extract_index'</span><span class="p">))</span>
+        <span class="n">not_concerned_themes</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">attrgetter</span><span class="p">(</span><span class="s1">'extract_index'</span><span class="p">))</span>
+        <span class="n">themes_without_data</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">attrgetter</span><span class="p">(</span><span class="s1">'extract_index'</span><span class="p">))</span>
 
         <span class="c1"># sort plr according to theme, sub-theme and law-status</span>
         <span class="n">start_time</span> <span class="o">=</span> <span class="n">timer</span><span class="p">()</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;sort plrs by theme and law status start&quot;</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"sort plrs by theme and law status start"</span><span class="p">)</span>
         <span class="n">real_estate</span><span class="o">.</span><span class="n">public_law_restrictions</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">element</span><span class="p">:</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_sort_plr_theme</span><span class="p">(</span><span class="n">element</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sort_plr_law_status</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
         <span class="p">))</span>
         <span class="n">end_time</span> <span class="o">=</span> <span class="n">timer</span><span class="p">()</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DONE with sort plrs by theme and law status, time spent: </span><span class="si">{</span><span class="n">end_time</span><span class="o">-</span><span class="n">start_time</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"DONE with sort plrs by theme and law status, time spent: </span><span class="si">{</span><span class="n">end_time</span><span class="o">-</span><span class="n">start_time</span><span class="si">}</span><span class="s2"> seconds"</span><span class="p">)</span>
 
         <span class="c1"># Load base data form configuration</span>
         <span class="n">resolver</span> <span class="o">=</span> <span class="n">DottedNameResolver</span><span class="p">()</span>
-        <span class="n">date_method_string</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;extract&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;base_data&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;methods&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
+        <span class="n">date_method_string</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'extract'</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'base_data'</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'methods'</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'date'</span><span class="p">)</span>
         <span class="n">date_method</span> <span class="o">=</span> <span class="n">resolver</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">date_method_string</span><span class="p">)</span>
         <span class="n">update_date_os</span> <span class="o">=</span> <span class="n">date_method</span><span class="p">(</span><span class="n">real_estate</span><span class="p">)</span>
         <span class="n">general_information</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">get_general_information</span><span class="p">()</span>
@@ -228,12 +228,12 @@
             <span class="n">qr_code_ref</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">qr_code_ref</span>
         <span class="p">)</span>
 
-        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;read() done&quot;</span><span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"read() done"</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">extract</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_sort_plr_law_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plr_element</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        This method generates the sorting key for plr_elements according to their law_status code.</span>
 <span class="sd">        The value is generated from the index the plr_element.law_status.code has in the law_status</span>
 <span class="sd">        list. The law_status list corresponds to the law status taken from the DB</span>
@@ -247,7 +247,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            int: Value which can be used to sort the record depending on its law_status.code.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">plr_element</span><span class="p">,</span> <span class="n">PlrRecord</span><span class="p">)</span> <span class="ow">and</span> <span class="n">plr_element</span><span class="o">.</span><span class="n">law_status</span><span class="o">.</span><span class="n">code</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">law_status</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">law_status</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">plr_element</span><span class="o">.</span><span class="n">law_status</span><span class="o">.</span><span class="n">code</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -255,7 +255,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_sort_plr_theme</span><span class="p">(</span><span class="n">plr_element</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        This method generates a sorting key to sort PLRs in to themes and sub-themes.</span>
 <span class="sd">        The value is generated using the extract_index given for each theme.</span>
 <span class="sd">        Currently it is assumed that the extract_index for a sub-theme is in accord to</span>
@@ -269,7 +269,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            int: Value which can be used to sort the record depending on its theme/sub-theme.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">plr_element</span><span class="p">,</span> <span class="n">PlrRecord</span><span class="p">)):</span>
             <span class="n">index</span> <span class="o">=</span> <span class="n">plr_element</span><span class="o">.</span><span class="n">sub_theme</span><span class="o">.</span><span class="n">extract_index</span> \
                 <span class="k">if</span> <span class="p">(</span><span class="n">plr_element</span><span class="o">.</span><span class="n">sub_theme</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> \
@@ -278,7 +278,7 @@
         <span class="k">return</span> <span class="mi">10000</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_copy_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geometry_record</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Creates a fresh copy of the geometry record to avoid shared state across requests.</span>
 
 <span class="sd">        Args:</span>
@@ -286,7 +286,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            pyramid_oereb.core.records.geometry.GeometryRecord: The fresh copy.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="n">geometry_record</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
             <span class="n">geometry_record</span><span class="o">.</span><span class="n">law_status</span><span class="p">,</span>
             <span class="n">geometry_record</span><span class="o">.</span><span class="n">published_from</span><span class="p">,</span>

@@ -77,8 +77,10 @@
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">geoalchemy2.elements</span><span class="w"> </span><span class="kn">import</span> <span class="n">_SpatialElement</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">geoalchemy2.shape</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_shape</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.orm</span><span class="w"> </span><span class="kn">import</span> <span class="n">Query</span><span class="p">,</span> <span class="n">Session</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.orm.exc</span><span class="w"> </span><span class="kn">import</span> <span class="n">NoResultFound</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.records.address</span><span class="w"> </span><span class="kn">import</span> <span class="n">AddressRecord</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.sources</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseDatabaseSource</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pyramid_oereb.core.sources.address</span><span class="w"> </span><span class="kn">import</span> <span class="n">AddressBaseSource</span>
 
@@ -89,32 +91,41 @@
 
 <div class="viewcode-block" id="DatabaseSource.read">
 <a class="viewcode-back" href="../../../../../../contrib/data_sources/standard/sources.html#pyramid_oereb.contrib.data_sources.standard.sources.address.DatabaseSource.read">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">street_name</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">,</span> <span class="n">street_number</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        The read method to access the standard database structure. It uses SQL-Alchemy for querying. It tries</span>
-<span class="sd">        to find the items via passed arguments.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">street_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">zip_code</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">street_number</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">AddressRecord</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        The read method for accessing the standard database schema.</span>
+<span class="sd">        It uses SQLAlchemy to query the database for records matching the supplied arguments.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            params (pyramid_oereb.views.webservice.Parameter): The parameters of the extract request.</span>
-<span class="sd">            street_name (unicode): The name of the street for the desired address.</span>
-<span class="sd">            zip_code (int): The postal zipcode for the desired address.</span>
-<span class="sd">            street_number (str): The house or so called street number of the desired address.</span>
+<span class="sd">            params (pyramid_oereb.core.views.webservice.Parameter):</span>
+<span class="sd">                The parameters of the extract request</span>
+<span class="sd">            street_name (str):</span>
+<span class="sd">                The name of the street</span>
+<span class="sd">            zip_code (int):</span>
+<span class="sd">                The postal code</span>
+<span class="sd">            street_number (str | None):</span>
+<span class="sd">                The house or street number</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            list of pyramid_oereb.core.records.address.AddressRecord: The list of address records.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
+<span class="sd">            list[pyramid_oereb.core.records.address.AddressRecord]:</span>
+<span class="sd">                A list of address records matching the supplied search criteria.</span>
+<span class="sd">        """</span>
+        <span class="n">session</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter_</span><span class="o">.</span><span class="n">get_session</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_key_</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">query</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span>
-            <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="n">query</span><span class="p">:</span> <span class="n">Query</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="p">)</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">street_name</span> <span class="o">==</span> <span class="n">street_name</span>
             <span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">zip_code</span> <span class="o">==</span> <span class="n">zip_code</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">street_number</span> <span class="o">==</span> <span class="n">street_number</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">one</span><span class="p">()]</span>
+            <span class="p">)</span>
 
-            <span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">street_number</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_</span><span class="o">.</span><span class="n">street_number</span> <span class="o">==</span> <span class="n">street_number</span><span class="p">)</span>
+
+            <span class="n">results</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+            <span class="n">records</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">AddressRecord</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
                 <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_record_class_</span><span class="p">(</span>
                     <span class="n">result</span><span class="o">.</span><span class="n">street_name</span><span class="p">,</span>

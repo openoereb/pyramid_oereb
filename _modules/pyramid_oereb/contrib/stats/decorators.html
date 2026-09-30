@@ -77,7 +77,7 @@
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 
-<span class="n">LOG</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;JSON&#39;</span><span class="p">)</span>
+<span class="n">LOG</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'JSON'</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">log_response</span><span class="p">(</span><span class="n">wrapped</span><span class="p">):</span>
@@ -92,30 +92,30 @@
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_serialize_response</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">x</span><span class="p">[</span><span class="s1">&#39;status_code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span>
-    <span class="n">x</span><span class="p">[</span><span class="s1">&#39;headers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
-    <span class="n">x</span><span class="p">[</span><span class="s1">&#39;extras&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">extras</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s1">&#39;extras&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;response&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">}</span>
+    <span class="n">x</span><span class="p">[</span><span class="s1">'status_code'</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span>
+    <span class="n">x</span><span class="p">[</span><span class="s1">'headers'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">[</span><span class="s1">'extras'</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">extras</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s1">'extras'</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">'response'</span><span class="p">:</span> <span class="n">x</span><span class="p">}</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_serialize_request</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">x</span><span class="p">[</span><span class="s1">&#39;headers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
-    <span class="n">x</span><span class="p">[</span><span class="s1">&#39;traversed&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">traversed</span><span class="p">)</span>
-    <span class="n">x</span><span class="p">[</span><span class="s1">&#39;parameters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">)</span>
-    <span class="n">x</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
-    <span class="n">x</span><span class="p">[</span><span class="s1">&#39;view_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">view_name</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;request&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">}</span>
+    <span class="n">x</span><span class="p">[</span><span class="s1">'headers'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">[</span><span class="s1">'traversed'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">traversed</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">[</span><span class="s1">'parameters'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">[</span><span class="s1">'path'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">[</span><span class="s1">'view_name'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">view_name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">'request'</span><span class="p">:</span> <span class="n">x</span><span class="p">}</span>
 
 
 <div class="viewcode-block" id="OerebStats">
 <a class="viewcode-back" href="../../../../contrib/stats.html#pyramid_oereb.contrib.stats.decorators.OerebStats">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">OerebStats</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    class OerebStats(dict)</span>
 <span class="sd">    this class is used to provide a serializable object that can be</span>
 <span class="sd">    used to provide insight of application usage in the logs.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 <div class="viewcode-block" id="OerebStats.__init__">
 <a class="viewcode-back" href="../../../../contrib/stats.html#pyramid_oereb.contrib.stats.decorators.OerebStats.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>

@@ -168,23 +168,23 @@ call the user configured sources and read all the necessary records from them. T
 <span id="api-pyramid-oereb-core-readers-address-addressreader"></span><span id="module-pyramid_oereb.core.readers.address"></span><span id="api-pyramid-oereb-core-readers-address"></span><h2><em>AddressReader</em><a class="headerlink" href="#addressreader" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.address.AddressReader">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.address.</span></span><span class="sig-name descname"><span class="pre">AddressReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/address.html#AddressReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.address.AddressReader" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyramid_oereb.core.readers.address.</span></span><span class="sig-name descname"><span class="pre">AddressReader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="sources.html#pyramid_oereb.core.sources.address.AddressBaseSource" title="pyramid_oereb.core.sources.address.AddressBaseSource"><span class="pre">AddressBaseSource</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/address.html#AddressReader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.address.AddressReader" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The central reader accessor for addresses. It is directly bound to a so called source which is defined by
-a pythonic dotted string to the class definition of this source. An instance of the passed source will be
-created on instantiation of this reader class by passing through the parameter kwargs.</p>
-<p>The address is here the real combination of a street name, a zip code and a street number.</p>
+<p>The central access point for reading addresses. It delegates all operations to a source
+implementation defined by a Python dotted import path. When this reader is instantiated,
+an instance of the defined source class is created as well, with all
+<cite>**kwargs</cite> passed to its constructor.</p>
+<p>The address is a combination of a street name, a zip code, and optionally a street number.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.address.AddressReader.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/address.html#AddressReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.address.AddressReader.__init__" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dotted_source_class_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="sources.html#pyramid_oereb.core.sources.address.AddressBaseSource" title="pyramid_oereb.core.sources.address.AddressBaseSource"><span class="pre">AddressBaseSource</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/address.html#AddressReader.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.address.AddressReader.__init__" title="Link to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dotted_source_class_path</strong> (<em>str</em><em> or </em><em>pyramid_oereb.lib.sources.address.AddressBaseSource</em>) – The path to the class which represents the source used by this reader. This
-class must exist and it must implement basic source behaviour of the
-<a class="reference internal" href="sources.html#api-pyramid-oereb-core-sources-address-addressbasesource"><span class="std std-ref">AddressBaseSource</span></a>.</p></li>
-<li><p><strong>(</strong><strong>kwargs</strong><strong>)</strong> – kwargs, which are necessary as configuration parameter for the above by
-dotted name defined class.</p></li>
+<li><p><strong>dotted_source_class_path</strong> (<em>str</em><em> or </em><em>pyramid_oereb.core.readers.address.AddressBaseSource</em>) – The path to the class representing the source used by this reader. The
+class must exist and implement the basic source behavior of the
+<cite>pyramid_oereb.core.readers.address.AddressBaseSource</cite>.</p></li>
+<li><p><strong>params</strong> – kwrgs forwarded to the constructor of the configured source class.</p></li>
 </ul>
 </dd>
 </dl>
@@ -192,29 +192,30 @@ dotted name defined class.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyramid_oereb.core.readers.address.AddressReader.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zip_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_number</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/address.html#AddressReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.address.AddressReader.read" title="Link to this definition">¶</a></dt>
-<dd><p>The read method of this reader. There we invoke the read method of the bound source.</p>
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zip_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">street_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="records.html#pyramid_oereb.core.records.address.AddressRecord" title="pyramid_oereb.core.records.address.AddressRecord"><span class="pre">AddressRecord</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pyramid_oereb/core/readers/address.html#AddressReader.read"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyramid_oereb.core.readers.address.AddressReader.read" title="Link to this definition">¶</a></dt>
+<dd><p>Reads addresses from the configured source matching the supplied criteria.</p>
+<p>The method delegates the lookup of the addresses to the configured source implementation.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you subclass this class your implementation needs to offer this method in the same
-signature. Means the parameters must be the same and the return must be a list of
-<a class="reference internal" href="records.html#api-pyramid-oereb-core-records-address-addressrecord"><span class="std std-ref">AddressRecord</span></a>. Otherwise the API like way the server
-works would be broken.</p>
+<p>Subclasses must implement this method with the same signature and return
+a list of <cite>pyramid_oereb.core.records.address.AddressRecord</cite> objects.
+Changing the signature or return type breaks the public API contract.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>params</strong> (<em>pyramid_oereb.views.webservice.Parameter</em>) – The parameters of the extract request.</p></li>
-<li><p><strong>street_name</strong> (<em>unicode</em>) – The name of the street for the desired address.</p></li>
-<li><p><strong>zip_code</strong> (<em>int</em>) – The postal zipcode for the desired address.</p></li>
-<li><p><strong>street_number</strong> (<em>str</em>) – The house or so called street number of the desired address.</p></li>
+<li><p><strong>params</strong> (<em>pyramid_oereb.core.views.webservice.Parameter</em>) – The parameters of the extract request</p></li>
+<li><p><strong>street_name</strong> (<em>str</em>) – The name of the street</p></li>
+<li><p><strong>zip_code</strong> (<em>int</em>) – The postal code</p></li>
+<li><p><strong>street_number</strong> (<em>str</em><em> | </em><em>None</em>) – The house or street number. If omitted, all addresses matching the street name
+and postal code are returned.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The list of found records filtered by the passed criteria.</p>
+<dd class="field-even"><p>A list of address records matching the supplied search criteria.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>list of <a class="reference internal" href="records.html#pyramid_oereb.core.records.address.AddressRecord" title="pyramid_oereb.core.records.address.AddressRecord">pyramid_oereb.core.records.address.AddressRecord</a></p>
+<dd class="field-odd"><p>list[<a class="reference internal" href="records.html#pyramid_oereb.core.records.address.AddressRecord" title="pyramid_oereb.core.records.address.AddressRecord">pyramid_oereb.core.records.address.AddressRecord</a>]</p>
 </dd>
 </dl>
 </dd></dl>
