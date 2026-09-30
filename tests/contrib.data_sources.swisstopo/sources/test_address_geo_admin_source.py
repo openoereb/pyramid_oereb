@@ -68,6 +68,24 @@ def requests_get_bad_request():
         yield Response
 
 
+@pytest.fixture
+def requests_get_no_results():
+    with patch('requests.get') as mocked_function:
+
+        class Response():
+            def __init__(self):
+                self.status_code = 200
+
+            def json(self):
+                return {
+                    "results": []
+                }
+
+        mocked_function.return_value = Response()
+
+        yield Response
+
+
 def test_address_geo_admin_source_origin_in_kwarg():
     A = AddressGeoAdminSource(**{"origins": "address2"})
     assert A._origins == "address2"
@@ -106,4 +124,12 @@ def test_address_geo_admin_source_response_bad_request(requests_get_bad_request)
 
         agas = AddressGeoAdminSource()
         records = agas.read(None, street_name, zip_code, street_number)
+        assert len(records) == 0
+
+
+def test_address_geo_admin_source_response_no_results(requests_get_no_results):
+
+    with patch('pyramid_oereb.core.config.Config._config', new={"srid": 2056}):
+        agas = AddressGeoAdminSource()
+        records = agas.read(None, 'Mühlemattstrasse', 4410, str(3633))
         assert len(records) == 0
