@@ -6,6 +6,17 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+Version 2.6.0
+-------------
+Feature and maintenance release:
+
+* Library upgrades (psycopg2, lxml, responses, pypdf, github-pages-deploy-action, pillow, actions/setup-python, urllib3, c2c-template, actions/checkout, pytest)
+* Fix bug in convert_to_printable_extract to pick up all layers in a multi-layer WMS url (`#2187 <https://github.com/openoereb/pyramid_oereb/pull/2187>`__)
+* Sanitize schema and table names to prevent invalid characters in SQL operations (`#2189 <https://github.com/openoereb/pyramid_oereb/pull/2189>`__)
+* Make `street_number` an optional parameter in GetEGRID() api request (`#2196 <https://github.com/openoereb/pyramid_oereb/pull/2196>`__)
+* Add explicit permissions to GitHub Actions workflows (`#2197 <https://github.com/openoereb/pyramid_oereb/pull/2197>`__)
+* Add `contents: write` permission to gh-pages deployment job in CI workflow (`#2199 <https://github.com/openoereb/pyramid_oereb/pull/2199>`__)
+
 Version 2.5.9
 -------------
 Feature and maintenance release:
@@ -55,7 +66,7 @@ Feature and maintenance release:
 
 * Library upgrades (pillow, pytest, webtest, waitress, codecov/codecov-action, geoalchemy, JamesIves/github-pages-deploy-action, urllib3)
 * Reset Python Docker Tag to 3.12.5
-* Support of Oereblex API version 1.2.5 via geolink-formatter 2.0.6 added (#2081). The oereblex schema version that is used to download oereblex xmls can be set in the file pyramid_oereb.yaml.
+* Support of Oereblex API version 1.2.5 via geolink-formatter 2.0.6 added (`#2081 <https://github.com/openoereb/pyramid_oereb/pull/2081>`__). The oereblex schema version that is used to download oereblex xmls can be set in the file pyramid_oereb.yaml.
 
 
 Version 2.5.4

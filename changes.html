@@ -47,6 +47,7 @@
 <li class="toctree-l1"><a class="reference internal" href="makefile.html">Makefile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changes/Hints for migration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-2-6-0">Version 2.6.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-5-9">Version 2.5.9</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-5-8">Version 2.5.8</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version-2-5-7">Version 2.5.7</a></li>
@@ -186,6 +187,18 @@
 <span id="changes"></span><h1>Changes/Hints for migration<a class="headerlink" href="#changes-hints-for-migration" title="Link to this heading">¶</a></h1>
 <p>This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.</p>
+<section id="version-2-6-0">
+<h2>Version 2.6.0<a class="headerlink" href="#version-2-6-0" title="Link to this heading">¶</a></h2>
+<p>Feature and maintenance release:</p>
+<ul class="simple">
+<li><p>Library upgrades (psycopg2, lxml, responses, pypdf, github-pages-deploy-action, pillow, actions/setup-python, urllib3, c2c-template, actions/checkout, pytest)</p></li>
+<li><p>Fix bug in convert_to_printable_extract to pick up all layers in a multi-layer WMS url (<a class="reference external" href="https://github.com/openoereb/pyramid_oereb/pull/2187">#2187</a>)</p></li>
+<li><p>Sanitize schema and table names to prevent invalid characters in SQL operations (<a class="reference external" href="https://github.com/openoereb/pyramid_oereb/pull/2189">#2189</a>)</p></li>
+<li><p>Make <cite>street_number</cite> an optional parameter in GetEGRID() api request (<a class="reference external" href="https://github.com/openoereb/pyramid_oereb/pull/2196">#2196</a>)</p></li>
+<li><p>Add explicit permissions to GitHub Actions workflows (<a class="reference external" href="https://github.com/openoereb/pyramid_oereb/pull/2197">#2197</a>)</p></li>
+<li><p>Add <cite>contents: write</cite> permission to gh-pages deployment job in CI workflow (<a class="reference external" href="https://github.com/openoereb/pyramid_oereb/pull/2199">#2199</a>)</p></li>
+</ul>
+</section>
 <section id="version-2-5-9">
 <h2>Version 2.5.9<a class="headerlink" href="#version-2-5-9" title="Link to this heading">¶</a></h2>
 <p>Feature and maintenance release:</p>
@@ -239,7 +252,7 @@ Changes to the configuration (municipalities, themes, etc.) of pyramid_oereb onl
 <ul class="simple">
 <li><p>Library upgrades (pillow, pytest, webtest, waitress, codecov/codecov-action, geoalchemy, JamesIves/github-pages-deploy-action, urllib3)</p></li>
 <li><p>Reset Python Docker Tag to 3.12.5</p></li>
-<li><p>Support of Oereblex API version 1.2.5 via geolink-formatter 2.0.6 added (#2081). The oereblex schema version that is used to download oereblex xmls can be set in the file pyramid_oereb.yaml.</p></li>
+<li><p>Support of Oereblex API version 1.2.5 via geolink-formatter 2.0.6 added (<a class="reference external" href="https://github.com/openoereb/pyramid_oereb/pull/2081">#2081</a>). The oereblex schema version that is used to download oereblex xmls can be set in the file pyramid_oereb.yaml.</p></li>
 </ul>
 </section>
 <section id="version-2-5-4">
