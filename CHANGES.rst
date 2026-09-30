@@ -5,9 +5,14 @@ Notes:
 ------
 - This python package specifies the version numbers only of directly imported python packages. This approach may result in a build failure of older versions of the project if incompatibilities arise between imported packages over time. The build process of the master branch is regularly tested in an automatic process.
 
-Master
-------
-
+2.6.0
+-----
+- Library upgrades (psycopg2, lxml, responses, pypdf, github-pages-deploy-action, pillow, actions/setup-python, urllib3, c2c-template, actions/checkout, pytest)
+- Fix bug in convert_to_printable_extract to pick up all layers in a multi-layer WMS url (`#2187 <https://github.com/openoereb/pyramid_oereb/pull/2187>`__)
+- Sanitize schema and table names to prevent invalid characters in SQL operations (`#2189 <https://github.com/openoereb/pyramid_oereb/pull/2189>`__)
+- Make `street_number` an optional parameter in GetEGRID() api request (`#2196 <https://github.com/openoereb/pyramid_oereb/pull/2196>`__)
+- Add explicit permissions to GitHub Actions workflows (`#2197 <https://github.com/openoereb/pyramid_oereb/pull/2197>`__)
+- Add contents: write permission to gh-pages deployment job in CI workflow (`#2199 <https://github.com/openoereb/pyramid_oereb/pull/2199>`__)
 
 2.5.9
 -----
