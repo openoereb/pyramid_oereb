@@ -8,6 +8,8 @@ import pytest
 
 from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
 
+from unittest.mock import patch
+
 from pyramid_oereb.core.records.real_estate import RealEstateRecord
 from pyramid_oereb.core.records.view_service import ViewServiceRecord
 from tests.mockrequest import MockRequest
@@ -348,3 +350,102 @@ def test_parse_invalid_coordinates():
         PlrWebservice(MockRequest()).__parse_gnss__('7.72866')
     with pytest.raises(HTTPBadRequest):
         PlrWebservice(MockRequest()).__parse_en__('2621857.856;1259856.578')
+
+
+@pytest.mark.parametrize('format_param', ['json', 'xml'])
+def test_getegrid_address_duplicate_prevention(pyramid_oereb_test_config, schema_json_extract,
+                                               real_estate_data, multiple_addresses,
+                                               real_estate_types_test_data, format_param):
+    del pyramid_oereb_test_config
+
+    request = MockRequest(
+        current_route_url='http://example.com/oereb/getegrid/{0}/4410/test'.format(format_param)
+    )
+    request.matchdict.update({
+        'format': format_param
+    })
+    request.params.update({
+        'POSTALCODE': u'4410',
+        'LOCALISATION': u'test'
+    })
+
+    webservice = PlrWebservice(request)
+    response = webservice.get_egrid()
+
+    if format_param == 'json':
+        json_data = response.json
+        Draft4Validator.check_schema(schema_json_extract)
+        validator = Draft4Validator(schema_json_extract)
+        validator.validate(json_data)
+        assert isinstance(json_data, dict)
+        real_estates = json_data.get('GetEGRIDResponse')
+        assert isinstance(real_estates, list)
+        assert len(real_estates) == 2
+        assert real_estates[0].get('egrid') == u'TEST'
+        assert real_estates[0].get('number') == u'1000'
+        assert real_estates[0].get('identDN') == u'BLTEST'
+        assert real_estates[1].get('egrid') == u'TEST2'
+        assert real_estates[1].get('number') == u'9999'
+        assert real_estates[1].get('identDN') == u'BLTEST'
+    else:
+        assert response.content_type in ['application/xml', 'text/xml']
+        body = response.body.decode('utf-8')
+        assert body.count('<extract:egrid>TEST</extract:egrid>') == 1
+        assert body.count('<extract:egrid>TEST2</extract:egrid>') == 1
+
+
+def test_get_egrid_response_deduplication(pyramid_test_config, real_estate_types_test_data):
+    del pyramid_test_config
+
+    request = MockRequest(current_route_url='http://example.com/oereb/getegrid/json/')
+    request.matchdict.update({
+        'format': u'json'
+    })
+
+    view_service = ViewServiceRecord(
+        {'de': 'test'},
+        1,
+        1.0,
+        'de',
+        2056,
+        None,
+        None
+    )
+    record1 = RealEstateRecord(
+        'Liegenschaft', 'BL', 'test', 1, 100,
+        MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]), view_service,
+        number='1000', identdn='BLTEST', egrid='TEST1'
+    )
+    record1_dup = RealEstateRecord(
+        'Liegenschaft', 'BL', 'test', 1, 100,
+        MultiPolygon([Polygon([(0, 0), (1, 1), (1, 0)])]), view_service,
+        number='1000', identdn='BLTEST', egrid='TEST1'
+    )
+    record2 = RealEstateRecord(
+        'Liegenschaft', 'BL', 'test', 1, 100,
+        MultiPolygon([Polygon([(2, 0), (3, 1), (3, 0)])]), view_service,
+        number='2000', identdn='BLTEST', egrid='TEST2'
+    )
+    record3_no_egrid = RealEstateRecord(
+        'Liegenschaft', 'BL', 'test', 1, 100,
+        MultiPolygon([Polygon([(4, 0), (5, 1), (5, 0)])]), view_service,
+        number='3000', identdn='BLTEST', egrid=None
+    )
+    record3_no_egrid_dup = RealEstateRecord(
+        'Liegenschaft', 'BL', 'test', 1, 100,
+        MultiPolygon([Polygon([(4, 0), (5, 1), (5, 0)])]), view_service,
+        number='3000', identdn='BLTEST', egrid=None
+    )
+
+    params = Parameter('json')
+    response = PlrWebservice(request).__get_egrid_response__(
+        [record1, record1_dup, record2, record3_no_egrid, record3_no_egrid_dup],
+        params
+    ).json
+
+    real_estates = response.get('GetEGRIDResponse')
+    assert len(real_estates) == 3
+    assert real_estates[0]['egrid'] == 'TEST1'
+    assert real_estates[1]['egrid'] == 'TEST2'
+    assert real_estates[2]['egrid'] is None
+    assert real_estates[2]['number'] == '3000'
