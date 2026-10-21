@@ -8,8 +8,6 @@ import pytest
 
 from pyramid.httpexceptions import HTTPBadRequest, HTTPNoContent
 
-from unittest.mock import patch
-
 from pyramid_oereb.core.records.real_estate import RealEstateRecord
 from pyramid_oereb.core.records.view_service import ViewServiceRecord
 from tests.mockrequest import MockRequest
