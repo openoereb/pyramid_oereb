@@ -253,15 +253,25 @@ class PlrWebservice(object):
             raise HTTPNoContent()
         processor: Processor = create_processor(real_estate_only=True)
         real_estate_records: list[RealEstateRecord] = []
+        unique_records: set[tuple] = set()
         for address in addresses:
             wkt_geometry: str = 'SRID={srid};{wkt}'.format(
                 srid=Config.get('srid'),
                 wkt=address.geom.wkt
             )
-            real_estate_records.extend(processor.real_estate_reader.read(
+            records_for_address: list[RealEstateRecord] = processor.real_estate_reader.read(
                 params,
-                **{'geometry': wkt_geometry})
+                **{'geometry': wkt_geometry}
             )
+            for record in records_for_address:
+                record_key: tuple = (
+                    ('egrid', record.egrid)
+                    if record.egrid
+                    else ('ident', record.identdn, record.number)
+                )
+                if record_key not in unique_records:
+                    unique_records.add(record_key)
+                    real_estate_records.append(record)
 
         return real_estate_records
 
@@ -490,9 +500,20 @@ class PlrWebservice(object):
             return HTTPNoContent()
         output_format = self.__validate_format_param__(self._DEFAULT_FORMATS)
         real_estates = list()
+        unique_records = set()
         supported_languages = Config.get_language()
-        for r in records:
-            real_estate_type = Config.get_real_estate_type_by_data_code(getattr(r, 'type'))
+        for record in records:
+            record_key = (
+                ('egrid', getattr(record, 'egrid'))
+                if getattr(record, 'egrid')
+                else ('ident', getattr(record, 'identdn'), getattr(record, 'number'))
+            )
+            log.info('Processing record with key: {}'.format(record_key))
+            if record_key in unique_records:
+                log.info('Skipping duplicate record with key: {}'.format(record_key))
+                continue
+            unique_records.add(record_key)
+            real_estate_type = Config.get_real_estate_type_by_data_code(getattr(record, 'type'))
             text = []
             for lang in real_estate_type.title:
                 if lang in supported_languages:
@@ -501,9 +522,9 @@ class PlrWebservice(object):
                         'Text': real_estate_type.title[lang]
                     })
             real_estate = {
-                'egrid': getattr(r, 'egrid'),
-                'number': getattr(r, 'number'),
-                'identDN': getattr(r, 'identdn'),
+                'egrid': getattr(record, 'egrid'),
+                'number': getattr(record, 'number'),
+                'identDN': getattr(record, 'identdn'),
                 'type': {
                     'Code': real_estate_type.code,
                     'Text': text
@@ -511,11 +532,11 @@ class PlrWebservice(object):
             }
             if params.with_geometry and output_format == 'json':
                 real_estate.update({
-                    'limit': Renderer.from_shapely(getattr(r, 'limit'))
+                    'limit': Renderer.from_shapely(getattr(record, 'limit'))
                 })
             elif params.with_geometry and output_format == 'xml':
                 real_estate.update({
-                    'limit': getattr(r, 'limit')
+                    'limit': getattr(record, 'limit')
                 })
             elif params.with_geometry and output_format not in ['json', 'xml']:
                 raise HTTPInternalServerError('Format for GetEgrid not correct: {}'.format(output_format))
