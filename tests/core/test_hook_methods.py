@@ -20,6 +20,7 @@ from pyramid_oereb.core.hook_methods import compare, get_symbol, get_symbol_ref,
     get_logo_ref, get_qr_code_ref, get_surveying_data_update_date, \
     plr_sort_within_themes
 from pyramid_oereb.contrib.data_sources.standard.sources.plr import StandardThemeConfigParser
+from pyramid_oereb.contrib.data_sources import plr_sort_within_themes_by_type_code
 import pyramid_oereb.contrib.data_sources.standard.hook_methods
 from tests.core.records.test_extract import create_dummy_extract
 from tests.core.records.test_plr import create_dummy_plr
@@ -157,3 +158,112 @@ def test_compare():
 
     plr1.law_status = LawStatusRecord('inKraft', {})
     assert compare(plr1, plr2) == 0
+
+
+def test_plr_sort_preserves_theme_order_when_sorting_law_status():
+    extract = create_dummy_extract()
+
+    # Theme 100: Nutzungsplanung
+    planning = create_dummy_plr()
+    planning.theme = ThemeRecord(
+        'ch.Nutzungsplanung',
+        {'de': 'Nutzungsplanung'},
+        100
+    )
+    planning.sub_theme = ''
+    planning.law_status = LawStatusRecord(
+        'AenderungOhneVorwirkung', {}
+    )
+
+    # Theme 610: Laermempfindlichkeitsstufen
+    noise_change = create_dummy_plr()
+    noise_change.theme = ThemeRecord(
+        'ch.Laermempfindlichkeitsstufen',
+        {'de': 'Lärmempfindlichkeitsstufen'},
+        610
+    )
+    noise_change.sub_theme = ''
+    noise_change.law_status = LawStatusRecord(
+        'AenderungOhneVorwirkung', {}
+    )
+
+    noise_in_force = create_dummy_plr()
+    noise_in_force.theme = ThemeRecord(
+        'ch.Laermempfindlichkeitsstufen',
+        {'de': 'Lärmempfindlichkeitsstufen'},
+        610
+    )
+    noise_in_force.sub_theme = ''
+    noise_in_force.law_status = LawStatusRecord(
+        'inKraft', {}
+    )
+
+    # Correct theme order, incorrect order within theme 610.
+    extract.real_estate.public_law_restrictions = [
+        planning,
+        noise_change,
+        noise_in_force,
+    ]
+
+    result = plr_sort_within_themes(extract)
+
+    # The planning restriction must remain first.
+    # Within theme 610, inKraft must precede
+    # AenderungOhneVorwirkung.
+    assert result.real_estate.public_law_restrictions == [
+        planning,
+        noise_in_force,
+        noise_change,
+    ]
+
+
+def test_plr_sort_preserves_theme_order_when_sorting_type_code():
+    """
+    Regression test for PLR sorting by type code.
+
+    Preserve the extract_index theme order while sorting
+    type codes within each theme.
+    """
+    extract = create_dummy_extract()
+
+    planning = create_dummy_plr()
+    planning.theme = ThemeRecord(
+        'ch.Nutzungsplanung',
+        {'de': 'Nutzungsplanung'},
+        100
+    )
+    planning.sub_theme = ''
+    planning.type_code = 'B'
+
+    noise_b = create_dummy_plr()
+    noise_b.theme = ThemeRecord(
+        'ch.Laermempfindlichkeitsstufen',
+        {'de': 'Lärmempfindlichkeitsstufen'},
+        610
+    )
+    noise_b.sub_theme = ''
+    noise_b.type_code = 'B'
+
+    noise_a = create_dummy_plr()
+    noise_a.theme = ThemeRecord(
+        'ch.Laermempfindlichkeitsstufen',
+        {'de': 'Lärmempfindlichkeitsstufen'},
+        610
+    )
+    noise_a.sub_theme = ''
+    noise_a.type_code = 'A'
+
+    # Correct theme order, incorrect type-code order.
+    extract.real_estate.public_law_restrictions = [
+        planning,
+        noise_b,
+        noise_a,
+    ]
+
+    result = plr_sort_within_themes_by_type_code(extract)
+
+    assert result.real_estate.public_law_restrictions == [
+        planning,
+        noise_a,
+        noise_b,
+    ]
