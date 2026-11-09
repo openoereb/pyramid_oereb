@@ -161,13 +161,6 @@ def test_compare():
 
 
 def test_plr_sort_preserves_theme_order_when_sorting_law_status():
-    """
-    Regression test for the Basel-Landschaft PLR ordering issue.
-
-    The input is already ordered by theme extract_index.
-    Sorting law statuses within a theme must not move a PLR
-    ahead of a theme with a lower extract_index.
-    """
     extract = create_dummy_extract()
 
     # Theme 100: Nutzungsplanung
