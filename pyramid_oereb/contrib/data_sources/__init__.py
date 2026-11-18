@@ -4,6 +4,7 @@ useful in general.
 """
 from functools import cmp_to_key
 import logging
+from itertools import groupby
 
 log = logging.getLogger(__name__)
 
@@ -43,7 +44,16 @@ def plr_sort_within_themes_by_type_code(extract):
             ret = 0
         return ret
 
-    real_estate.public_law_restrictions = sorted(real_estate.public_law_restrictions, key=cmp_to_key(cmp))
+    sorted_plrs = []
+    for _, group in groupby(
+            real_estate.public_law_restrictions,
+            key=lambda plr: plr.theme.code
+    ):
+        sorted_plrs.extend(
+            sorted(group, key=cmp_to_key(cmp))
+        )
+
+    real_estate.public_law_restrictions = sorted_plrs
 
     if log.isEnabledFor(logging.DEBUG):
         for public_law_restriction in real_estate.public_law_restrictions:
