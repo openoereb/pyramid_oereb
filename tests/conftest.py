@@ -40,6 +40,16 @@ def config_path():
 def pyramid_test_config():
     with testConfig() as pyramid_config:
         with patch.object(pyramid_oereb, 'route_prefix', 'oereb'):
+            pyramid_config.add_renderer('pyramid_oereb_extract_json',
+                                        'pyramid_oereb.core.renderer.extract.json_.Renderer')
+            pyramid_config.add_renderer('pyramid_oereb_extract_xml',
+                                        'pyramid_oereb.core.renderer.extract.xml_.Renderer')
+            pyramid_config.add_renderer('pyramid_oereb_versions_xml',
+                                        'pyramid_oereb.core.renderer.versions.xml_.Renderer')
+            pyramid_config.add_renderer('pyramid_oereb_capabilities_xml',
+                                        'pyramid_oereb.core.renderer.capabilities.xml_.Renderer')
+            pyramid_config.add_renderer('pyramid_oereb_getegrid_xml',
+                                        'pyramid_oereb.core.renderer.getegrid.xml_.Renderer')
             pyramid_config.include('pyramid_oereb.core.routes')
             yield pyramid_config
 
@@ -214,8 +224,9 @@ def test_db_engine(base_engine, test_db_name, config_path):
 
 
 @pytest.fixture(scope='session')
-def pyramid_oereb_test_config(config_path, dbsession):
+def pyramid_oereb_test_config(config_path, dbsession, pyramid_test_config):
     del dbsession
+    del pyramid_test_config
     # Reload the standard test configuration and now initialize it
     Config._config = None  # needed to force reload due to internal assertion
     Config.init(config_path, configsection='pyramid_oereb', init_data=True)

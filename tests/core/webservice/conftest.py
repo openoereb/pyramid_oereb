@@ -47,6 +47,41 @@ def address(pyramid_oereb_test_config, dbsession, transact):
 
 
 @pytest.fixture
+def multiple_addresses(pyramid_oereb_test_config, dbsession, transact):
+    del transact
+
+    from pyramid_oereb.contrib.data_sources.standard.models import main
+
+    addresses = [
+        main.Address(**{
+            'street_name': u'test',
+            'street_number': u'10',
+            'zip_code': 4410,
+            'geom': 'SRID=2056;POINT(1 1)'
+        }),
+        main.Address(**{
+            'street_name': u'test',
+            'street_number': u'12',
+            'zip_code': 4410,
+            'geom': 'SRID=2056;POINT(1 1)'
+        }),
+        main.Address(**{
+            'street_name': u'test',
+            'street_number': u'14',
+            'zip_code': 4410,
+            'geom': 'SRID=2056;POINT(0.5 0.5)'
+        }),
+        main.Address(**{
+            'street_name': u'test',
+            'street_number': u'20',
+            'zip_code': 4410,
+            'geom': 'SRID=2056;POINT(3 1)'
+        })
+    ]
+    dbsession.add_all(addresses)
+
+
+@pytest.fixture
 def real_estate_types_test_data(pyramid_oereb_test_config):
     with patch.object(Config, 'real_estate_types', [RealEstateTypeRecord(
             'Liegenschaft',
