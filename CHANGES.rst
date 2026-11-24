@@ -5,6 +5,14 @@ Notes:
 ------
 - This python package specifies the version numbers only of directly imported python packages. This approach may result in a build failure of older versions of the project if incompatibilities arise between imported packages over time. The build process of the master branch is regularly tested in an automatic process.
 
+2.6.1
+-----
+- Library upgrades (c2c-template, pillow, pytest, flake8, pyflakes, pypdf, urllib3, geolink-formatter)
+- Drop support for Python 3.10 (`#2236 <https://github.com/openoereb/pyramid_oereb/pull/2236>`__)
+- Preserve theme order when sorting PLRs within themes (`#2231 <https://github.com/openoereb/pyramid_oereb/pull/2231>`__)
+- Update fed definitions (`#2234 <https://github.com/openoereb/pyramid_oereb/pull/2234>`__)
+- Prevent duplicate real estate records in GetEGRID responses (`#2223 <https://github.com/openoereb/pyramid_oereb/pull/2223>`__)
+
 2.6.0
 -----
 - Library upgrades (psycopg2, lxml, responses, pypdf, github-pages-deploy-action, pillow, actions/setup-python, urllib3, c2c-template, actions/checkout, pytest)
