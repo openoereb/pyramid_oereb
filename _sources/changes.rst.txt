@@ -6,6 +6,16 @@ Changes/Hints for migration
 This chapter will give you hints on how to handle version migration, in particular regarding what you may need
 to adapt in your project configuration, database etc. when upgrading to a new version.
 
+Version 2.6.1
+-------------
+Feature and maintenance release:
+
+* Library upgrades (c2c-template, pillow, pytest, flake8, pyflakes, pypdf, urllib3, geolink-formatter)
+* Drop support for Python 3.10 (`#2236 <https://github.com/openoereb/pyramid_oereb/pull/2236>`__)
+* Preserve theme order when sorting PLRs within themes (`#2231 <https://github.com/openoereb/pyramid_oereb/pull/2231>`__)
+* Update fed definitions (`#2234 <https://github.com/openoereb/pyramid_oereb/pull/2234>`__)
+* Prevent duplicate real estate records in GetEGRID responses (`#2223 <https://github.com/openoereb/pyramid_oereb/pull/2223>`__)
+
 Version 2.6.0
 -------------
 Feature and maintenance release:
