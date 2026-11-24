@@ -3,6 +3,7 @@ import re
 from mako.template import Template
 from pyramid.path import AssetResolver
 from functools import cmp_to_key
+from itertools import groupby
 
 from pyramid_oereb import route_prefix
 from pyramid_oereb.core import get_multilingual_element
@@ -209,11 +210,23 @@ def plr_sort_within_themes(extract):
         extract (pyramid_oereb.lib.records.extract.ExtractRecord): The unsorted extract
 
     Returns:
-        pyramid_oereb.lib.records.extract.ExtractRecord: Returns the updated extract
+        pyramid_oereb.lib.records.extract.ExtractRecord: Returns the sorted extract
     """
 
     real_estate = extract.real_estate
 
-    real_estate.public_law_restrictions = sorted(real_estate.public_law_restrictions, key=cmp_to_key(compare))
+    def group_key(plr):
+        return plr.theme.code, plr.sub_theme
+
+    sorted_plrs = []
+    for _, group in groupby(
+            real_estate.public_law_restrictions,
+            key=group_key
+    ):
+        sorted_plrs.extend(
+            sorted(group, key=cmp_to_key(compare))
+        )
+
+    real_estate.public_law_restrictions = sorted_plrs
 
     return extract
